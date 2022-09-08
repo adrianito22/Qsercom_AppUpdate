@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Qsercom_App</string>
+
+
+    <string-array name="zonaOpciones">
+        <item>Ninguna</item>
+        <item>Sur</item>
+        <item>Norte</item>
+        <item>Centro</item>
+
+    </string-array>
+
+
+    <string-array name="condicionde_balanza">
+        <item>ACEPTABLE</item>
+        <item>BUENA</item>
+        <item>MALA</item>
+        <item>REGULAR</item>
+
+    </string-array>
+
+
+
+
+
+    <string-array name="tipoCaja">
+        <item>22xu</item>
+        <item>DISPLAY</item>
+        <item>BANAVAC13KG</item>
+        <item>9.5KG</item>
+        <item>9.5KG</item>
+        <item>208.0</item>
+    </string-array>
+
+    <string-array name="tipodePlastico">
+        <item>POLITUBO</item>
+        <item>POLIPACK</item>
+        <item>BANAVAC</item>
+        <item>BAG</item>
+
+    </string-array>
+
+
+    <string-array name="tipodeBlanza">
+        <item>BASCULA</item>
+        <item>DIGITAL</item>
+        <item>BANAVAC</item>
+        <item>BAG</item>
+
+    </string-array>
+
+
+
+    <string-array name="tipodeBlanzaRepeso">
+        <item>BASCULA</item>
+        <item>DIGITAL</item>
+
+    </string-array>
+
+
+
+
+
+
+    <string-array name="ubicacionBalanza">
+        <item>FUERA DE RODILLO</item>
+        <item>FINAL DE RODILLO</item>
+        <item>MITAD DE RODILLO</item>
+
+
+    </string-array>
+
+
+
+
+
+
+</resources>
