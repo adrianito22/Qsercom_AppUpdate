@@ -1452,9 +1452,48 @@ void checkDataFields(){ //
 //PROXIMO
 
     //chekeando al menos un producto postcosecha
+     //si todos estan vacios...
+
+    //si no estan vacios todos...
+
+    if(ediPPC01.getText().toString().isEmpty() && ediPPC02.getText().toString().isEmpty()&& ediPPC03.getText().toString().isEmpty()
+            && ediPPC04.getText().toString().isEmpty()&& ediPPC05.getText().toString().isEmpty()&& ediPPC06.getText().toString().isEmpty()
+            && ediPPC07.getText().toString().isEmpty()&& ediPPC08.getText().toString().isEmpty() && ediPPC09.getText().toString().isEmpty()
+            && ediPPC010.getText().toString().isEmpty() && ediPPC011.getText().toString().isEmpty() && ediPPC012.getText().toString().isEmpty()
+            && ediPPC013.getText().toString().isEmpty() && ediPPC014.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty()
+            && ediPPC016.getText().toString().isEmpty()
+    ){ //chekamos que no este vacia
+        ediPPC01.requestFocus();
+        ediPPC07.setError("Inserte al menos un producto");
+        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+
+        return;
+
+    }
 
 
-  ///CHEKEAMOS DATA CONTENEDOR
+
+    if(! ediPPC015.getText().toString().isEmpty() && ediPPC016.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        ediPPC016.requestFocus();
+        ediPPC016.setError("Inserte cantidad");
+
+        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+        return;
+
+    }
+
+
+    if(! ediPPC016.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        ediPPC015.requestFocus();
+        ediPPC015.setError("inserte nombre producto");
+
+        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+        return;
+
+    }
+
+
+    ///CHEKEAMOS DATA seccion CONTENEDOR
 
     if(ediDestino.getText().toString().isEmpty()){ //chekamos que no este vacia
         ediDestino.requestFocus();
