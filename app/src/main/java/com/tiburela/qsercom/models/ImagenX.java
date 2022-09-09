@@ -5,11 +5,16 @@ import static com.google.gson.internal.bind.TypeAdapters.UUID;
 import android.net.Uri;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class ImagenX {
     
     public static ArrayList<ImagenX> listImagesData;
+
+   public static  HashMap<String, ImagenX> hashMapImagesData = new HashMap<String, ImagenX>();
+
+
 
     public String getUniqueId() {
         return UniqueId;

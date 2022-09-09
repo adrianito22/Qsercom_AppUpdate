@@ -69,7 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                String textOftextImputEditext = holder.textImputEditext.getText().toString();
+               // String textOftextImputEditext = holder.textImputEditext.getText().toString();
 
               //  imagenX.listImagesData.get(position).setDescripcionImagen(textOftextImputEditext);
 

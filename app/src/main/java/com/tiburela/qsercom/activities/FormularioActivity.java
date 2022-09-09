@@ -57,12 +57,15 @@ import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenX;
 import com.tiburela.qsercom.storageHelper.StorageData;
 import com.tiburela.qsercom.utils.Permisionx;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+
 import com.tiburela.qsercom.R;
 
 
@@ -116,7 +119,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     TextInputEditText  ediHoraSalida;
     TextInputEditText  ediFotosHerex;
     TextInputEditText  editPhotos;
-
+   TextInputEditText ediFotoContenedor;
 
 
 
@@ -190,7 +193,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         findViewsIds();
         configCertainSomeViewsAliniciar();
         listViewsClickedUser=new ArrayList<>();
-        ImagenX.listImagesData=new ArrayList<>();
 
         addClickListeners();
         resultatachImages();
@@ -365,7 +367,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
         ediTipoContenedor=findViewById(R.id.ediTipoContenedor);
 
-
+        ediFotoContenedor=findViewById(R.id.ediFotoContenedor);
 
         progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
@@ -414,33 +416,11 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         linLayoutHeader6.setOnClickListener(this);
         linLayoutHeader7.setOnClickListener(this);
 
+        ediFecha.setOnClickListener(this);
+        ediHoraInicio.setOnClickListener(this);
+        ediHoraTermino.setOnClickListener(this);
 
 
-
-        ediFecha.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onClick(View view) {
-                selecionaFecha();
-            }
-        });
-
-
-
-        ediHoraInicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showingTimePicker(view);
-            }
-        });
-
-
-        ediHoraTermino.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showingTimePicker(view);
-            }
-        });
 
 
 
@@ -461,6 +441,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
 
@@ -480,7 +461,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                    oucultaLinearLayout(layoutContainerSeccion1);
                }
                break; //
-
 
 
 
@@ -561,6 +541,31 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                break; //
 
 
+           case R.id.ediFecha:
+              // Utils.closeKeyboard(FormularioActivity.this);
+
+               selecionaFecha();
+
+               break; //
+
+
+
+           case R.id.ediHoraInicio:
+              // Utils.closeKeyboard(FormularioActivity.this);
+
+               showingTimePicker(view);
+
+               break; //
+
+           case R.id.ediHoraTermino:
+             // Utils.closeKeyboard(FormularioActivity.this);
+               showingTimePicker(view);
+
+               break; //
+
+
+
+
 
 
            case R.id.imbAtach:
@@ -624,8 +629,9 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
            case R.id.imbAtachDatosContenedor:
                currentTypeImage=Variables.FOTO_CONTENEDOR;
                Log.i("miclickimg","es foto es type Variables.FOTO_CONTENEDOR");
-
                activityResultLauncher.launch("image/*");
+
+
                break;
 
 
@@ -707,9 +713,10 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                             ImagenX obcjImagenX=new ImagenX("",cam_uri,currentTypeImage);
 
                             //agregamos este objeto a la lista
-                            ImagenX.listImagesData.add(obcjImagenX);
+                            ImagenX.hashMapImagesData.put(obcjImagenX.getUniqueId(),obcjImagenX);
 
-                            showImagesPicShotOrSelect();
+
+                            showImagesPicShotOrSelectUpdateView(false);
 
                         }
                     }
@@ -1017,7 +1024,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                 public void onActivityResult(List<Uri> result) {
                     if (result != null) {
 
-
                         //creamos un objeto
 
                         for(int indice=0; indice<result.size(); indice++){
@@ -1025,16 +1031,15 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                             ImagenX imagenXObjc=new ImagenX("",result.get(indice),currentTypeImage);
 
 
-                            ImagenX.listImagesData.add(imagenXObjc);
 
-
+                            ImagenX.hashMapImagesData.put(imagenXObjc.getUniqueId(),imagenXObjc);
 
 
                         }
 
 
 
-                        showImagesPicShotOrSelect();
+                        showImagesPicShotOrSelectUpdateView(false);
 
 
 
@@ -1144,31 +1149,37 @@ private void listennerSpinner() {
 }
 
 
-private void showImagesPicShotOrSelect(){
-   //cremoas el recicler view \
+private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
-    //tenemos al menos un objeto..
+        //si es eliminar comprobar aqui
+    if(isDeleteImg){
+
+        currentTypeImage=Variables.typeoFdeleteImg;
+    }
+
+
      ArrayList<ImagenX> filterListImagesData=new ArrayList<ImagenX>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
 
     RecyclerView recyclerView= findViewById(R.id.recyclerView);
 
 
+    for (Map.Entry<String, ImagenX> set : ImagenX.hashMapImagesData.entrySet()) {
 
-  //  RecyclerView recyclerViewDatosContenedor= findViewById(R.id.recyclerViewDatosContenedor);
-   // RecyclerView recyclerViewSellosLlegada= findViewById(R.id.recyclerViewSellosLlegada);
+        String key = set.getKey();
 
+        ImagenX value = set.getValue();
 
+        if(value.getTipoImagenCategory()==currentTypeImage){
 
-    //buscamos este
-    for (int i=0; i<ImagenX.listImagesData.size(); i++) {
-        int imagenTipo =ImagenX.listImagesData.get(i).getTipoImagenCategory();
+            filterListImagesData.add(ImagenX.hashMapImagesData.get(key));
 
-         if(imagenTipo==currentTypeImage){ //currentTypeImage es el actual tipo de imagen que tiene esta imagen o imagenes
-             filterListImagesData.add(ImagenX.listImagesData.get(i));
         }
+
+
     }
 
 
+    //buscamos este
 
 
 
@@ -1189,6 +1200,19 @@ private void showImagesPicShotOrSelect(){
 
     }
 
+    else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
+        recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
+    }
+
+
+    else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
+        recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+
+    }
+
+
+
+
 
     RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
     GridLayoutManager layoutManager=new GridLayoutManager(this,2);
@@ -1197,7 +1221,7 @@ private void showImagesPicShotOrSelect(){
     // at last set adapter to recycler view.
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(adapter);
-    eventoBtnclicklistener(adapter);
+    eventoBtnclicklistenerDelete(adapter);
 
 
 
@@ -1215,9 +1239,9 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         @Override
         public void onClick(View view) {
 
-            generatePDFandImport();
+           // generatePDFandImport();
 
-           // checkDataFields();
+            checkDataFields();
 
            // storageTest();
 
@@ -1240,6 +1264,7 @@ void checkDataFields(){ //
     LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
     LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
 
+    int minimoFotos=1;
 
 
     if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
@@ -1403,30 +1428,39 @@ void checkDataFields(){ //
     }
 
 
-    //
-    if((ImagenX.listImagesData.size() == 0)){ //chekamos que al menos tenga una foto uri..
+
+
+
+    if( ! existminiumImage(minimoFotos,Variables.FOTO_LLEGADA)){
         ediFotosLlegada.requestFocus();
-        ediFotosLlegada.setError("Inserte al menos 1 foto");
 
         layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-
-Log.i("samanta","listimagenes data ==0");
-
+        ediFotosLlegada.setError("Agregue al menos "+minimoFotos+" foto");
         return;
+    }else{
+
+        ediFotosLlegada.clearFocus();
+        ediFotosLlegada.setError(null);
 
     }
 
+    //
+
+
 
     //falta chekear al menos un producto de postcosehca y si utilizo otros neceistamos que especifique
+//PROXIMO
+
+    //chekeando al menos un producto postcosecha
+
 
   ///CHEKEAMOS DATA CONTENEDOR
-
 
     if(ediDestino.getText().toString().isEmpty()){ //chekamos que no este vacia
         ediDestino.requestFocus();
         ediDestino.setError("Este espacio es obligatorio");
 
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
         return;
 
     }
@@ -1436,7 +1470,7 @@ Log.i("samanta","listimagenes data ==0");
         ediNViaje.requestFocus();
         ediNViaje.setError("Este espacio es obligatorio");
 
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
         return;
 
     }
@@ -1446,7 +1480,7 @@ Log.i("samanta","listimagenes data ==0");
         ediVapor.requestFocus();
         ediVapor.setError("Este espacio es obligatorio");
 
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
         return;
 
     }
@@ -1457,7 +1491,7 @@ Log.i("samanta","listimagenes data ==0");
         ediTipoContenedor.requestFocus();
         ediTipoContenedor.setError("Este espacio es obligatorio");
 
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
         return;
 
     }
@@ -1467,7 +1501,7 @@ Log.i("samanta","listimagenes data ==0");
         ediHOraLllegada.requestFocus();
         ediHOraLllegada.setError("Este espacio es obligatorio");
 
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
         return;
 
     }
@@ -1477,14 +1511,27 @@ Log.i("samanta","listimagenes data ==0");
         ediHoraSalida.requestFocus();
         ediHoraSalida.setError("Este espacio es obligatorio");
 
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
         return;
 
     }
 
 
+    //chekamos que al menos exista una imagen...
 
-    //CHEKEAMOS FOTOS AQUI DE CONTENEDOR DATA
+
+    if( ! existminiumImage(minimoFotos,Variables.FOTO_CONTENEDOR)){
+        ediFotoContenedor.requestFocus();
+
+        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
+        ediFotoContenedor.setError("Agregue al menos "+minimoFotos+" foto");
+        return;
+    }else{
+
+        ediFotoContenedor.clearFocus();
+        ediFotoContenedor.setError(null);
+
+    }
 
 
 
@@ -1518,19 +1565,33 @@ Log.i("samanta","listimagenes data ==0");
 
 }
 
-    private void eventoBtnclicklistener(RecyclerViewAdapter adapter) {
+    private void eventoBtnclicklistenerDelete(RecyclerViewAdapter adapter) {
 
         adapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
 
 
             @Override
-            public void onItemClick(int position, View v) {
+            public void onItemClick(int position, View v) {  //este para eminar
                 //  Variables.currentCuponObjectGlob =listGiftCards.get(position);
 
                 Log.i("midaclick","el click es here, posicion es "+position);
 
-                ImagenX.listImagesData.remove(position); //BUSCA ESTE OBJET QU TIENE THIS ID
-                showImagesPicShotOrSelect();
+               ///elimnar el hasmap
+               //vamos a ver el tipo del objeto removivo
+               Variables.typeoFdeleteImg=  ImagenX.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+
+                Log.i("camisax","el size antes de eliminar es "+ ImagenX.hashMapImagesData.size());
+
+
+                ImagenX.hashMapImagesData.remove(v.getTag().toString());
+
+                Log.i("camisax","el size despues de eliminar es "+ ImagenX.hashMapImagesData.size());
+
+                showImagesPicShotOrSelectUpdateView(true);
+
+
+
+
 
                 //   Log.i("dtaas","switch a" + "ctivate is "+Variables.currentCuponObjectGlob.isEsActivateCupon());
                 //  Log.i("dtaas","switch destacado  is "+Variables.currentCuponObjectGlob.isEsDestacadoCupon());
@@ -1554,7 +1615,9 @@ Log.i("samanta","listimagenes data ==0");
         }
 
         //    public static void uploadImage(Context context, ArrayList<ImagenX> listImagesData) {
-     StorageData.uploadImage(FormularioActivity.this, ImagenX.listImagesData);
+
+        //aqui subimos
+       // StorageData.uploadImage(FormularioActivity.this, ImagenX.listImagesData);
 
     }
 
@@ -1724,6 +1787,52 @@ Log.i("samanta","listimagenes data ==0");
 
 
         return true;
+
+    }
+
+
+
+    ///vamos a cehekar que exista al menos una imagen en cada categoria...
+    //comprbar que exista un objeto imagen.....
+
+    //primero chekeamos el el uri exista...
+
+
+    private boolean existminiumImage(int numImagenNMinimo, int categoriaImagenToSearch){
+
+        int numImagesEcontradas=0;
+
+
+        for (Map.Entry<String, ImagenX> set : ImagenX.hashMapImagesData.entrySet()) { //revismao en todo el map
+
+         //   String key = set.getKey();
+
+            ImagenX value = set.getValue();
+
+            if(value.getTipoImagenCategory()==categoriaImagenToSearch){
+
+                numImagesEcontradas++;
+
+                if(numImagesEcontradas >=numImagenNMinimo){
+                    break;
+
+                }
+
+            }
+
+
+        }
+
+
+       if(numImagesEcontradas>=numImagenNMinimo){
+           return true;
+       }else{
+           return false;
+
+
+       }
+
+
 
     }
 
