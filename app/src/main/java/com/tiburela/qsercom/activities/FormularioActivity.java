@@ -57,7 +57,6 @@ import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenX;
 import com.tiburela.qsercom.storageHelper.StorageData;
 import com.tiburela.qsercom.utils.Permisionx;
-import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.IOException;
@@ -73,6 +72,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     private static final int PERMISSION_REQUEST_CODE=100;
 
     private int currentTypeImage=0;
+    ProgressBar progressBarFormulario;
 
     TextInputEditText ediSemana;
     TextInputEditText ediFecha;
@@ -84,48 +84,86 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     TextInputEditText ediZona;
     TextInputEditText ediHoraInicio;
     TextInputEditText ediHoraTermino;
+    TextInputEditText ediHoraLLegadaContenedor;
+    TextInputEditText ediHoraSalidaContenedor;
     TextInputEditText ediNguiaRemision;
     TextInputEditText edi_nguia_transporte;
     TextInputEditText ediNtargetaEmbarque;
     TextInputEditText ediNhojaEvaluacion;
     TextInputEditText ediObservacion;
     TextInputEditText ediEmpacadora;
-
     TextInputEditText ediFotosLlegada;
-
     TextInputEditText ediContenedor;
-    TextInputEditText  ediPPC01;
-    TextInputEditText        ediPPC02;
-    TextInputEditText        ediPPC03;
-    TextInputEditText        ediPPC04;
-    TextInputEditText        ediPPC05;
-    TextInputEditText        ediPPC06;
-    TextInputEditText        ediPPC07;
-    TextInputEditText        ediPPC08;
-    TextInputEditText        ediPPC09;
-    TextInputEditText        ediPPC010;
-    TextInputEditText        ediPPC011;
-    TextInputEditText       ediPPC012;
-    TextInputEditText     ediPPC013;
-    TextInputEditText     ediPPC014;
-    TextInputEditText      ediPPC015;
-    TextInputEditText      ediPPC016;
-
-    TextInputEditText  ediDestino;
-    TextInputEditText  ediNViaje;
-    TextInputEditText  ediTipoContenedor;
-    TextInputEditText  ediVapor;
-    TextInputEditText  ediHOraLllegada;
-    TextInputEditText  ediHoraSalida;
-    TextInputEditText  ediFotosHerex;
-    TextInputEditText  editPhotos;
-   TextInputEditText ediFotoContenedor;
+    TextInputEditText ediPPC01;
+    TextInputEditText ediPPC02;
+    TextInputEditText ediPPC03;
+    TextInputEditText ediPPC04;
+    TextInputEditText ediPPC05;
+    TextInputEditText ediPPC06;
+    TextInputEditText ediPPC07;
+    TextInputEditText ediPPC08;
+    TextInputEditText ediPPC09;
+    TextInputEditText ediPPC010;
+    TextInputEditText ediPPC011;
+    TextInputEditText ediPPC012;
+    TextInputEditText ediPPC013;
+    TextInputEditText ediPPC014;
+    TextInputEditText ediPPC015;
+    TextInputEditText ediPPC016;
+    TextInputEditText ediDestino;
+    TextInputEditText ediNViaje;
+    TextInputEditText ediTipoContenedor;
+    TextInputEditText ediVapor;
+    TextInputEditText ediFotoContenedor;
+    TextInputEditText ediFotosPposcosecha;
 
 
+    TextInputEditText ediCompaniaTransporte;
+    TextInputEditText ediNombreChofer;
+    TextInputEditText ediCedula;
+    TextInputEditText ediCelular;
+    TextInputEditText ediPLaca;
+    TextInputEditText ediMarcaCabezal;
+    TextInputEditText ediColorCabezal;
+    TextInputEditText ediFotosLlegadaTransport;
+
+    TextInputEditText ediTare;
+    TextInputEditText ediBooking;
+    TextInputEditText ediMaxGross;
+    TextInputEditText ediNumSerieFunda;
+    TextInputEditText stikVentolerExterna;
+    TextInputEditText ediCableRastreoLlegada;
+    TextInputEditText ediSelloPlasticoNaviera;
+    TextInputEditText ediOtroSellosLlegada;
+    TextInputEditText ediFotosSellosLLegada;
 
 
+    TextInputEditText ediCondicionBalanza;
+    TextInputEditText ediTipodeCaja;
+    TextInputEditText ediTipoPlastico;
+    TextInputEditText ediTipoBalanza;
+    TextInputEditText editipbalanzaRepeso;
+    TextInputEditText ediUbicacionBalanza;
 
-    ProgressBar progressBarFormulario;
+    TextInputEditText ediTermofrafo1;
+    TextInputEditText ediHoraEncendido1;
+    TextInputEditText ediUbicacion1;
+    TextInputEditText ediRuma1;
+    TextInputEditText ediTermofrafo2;
+    TextInputEditText ediHoraEncendido2;
+    TextInputEditText ediUbicacion2;
+    TextInputEditText ediRuma2;
+    TextInputEditText ediCandadoqsercon;
+    TextInputEditText ediSelloNaviera;
+    TextInputEditText ediCableNaviera;
+    TextInputEditText ediSelloPlastico;
+    TextInputEditText ediCandadoBotella;
+    TextInputEditText ediCableExportadora;
+    TextInputEditText ediSelloAdesivoexpor;
+    TextInputEditText esiSelloAdhNaviera;
+    TextInputEditText ediOtherSellos;
+
+
 
 
 
@@ -140,6 +178,13 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
 
     Spinner spinnerSelectZona;
+    Spinner spinnerCondicionBalanza;
+    Spinner spinnertipoCaja;
+    Spinner spinnertipodePlastico;
+    Spinner spinnertipodeBlanza ;
+    Spinner spinnertipodeBlanzaRepeso ;
+    Spinner spinnerubicacionBalanza ;
+
 
     Switch switchContenedor;
 
@@ -196,7 +241,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
         addClickListeners();
         resultatachImages();
-        listennerSpinner();
+        listennersSpinners();
 
         EstateFieldView.adddataList();
         addOnTouchaMayoriaDeViews();
@@ -226,8 +271,27 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                             ediHoraInicio.setText(sHour + ":" + sMinute);
 
 
-                        }else if (vista.getId()== R.id.ediHoraTermino) {
+                        }
+
+
+                        else if (vista.getId()== R.id.ediHoraTermino) {
                             ediHoraTermino.setText(sHour + ":" + sMinute);
+
+
+                        }
+
+
+
+                        else if (vista.getId()== R.id.ediHoraLLegadaContenedor) {
+                            ediHoraLLegadaContenedor.setText(sHour + ":" + sMinute);
+
+
+                        }
+
+
+
+                        else if (vista.getId()== R.id.ediHoraSalidaContenedor) {
+                            ediHoraSalidaContenedor.setText(sHour + ":" + sMinute);
 
 
                         }
@@ -291,6 +355,11 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         disableEditText(ediFecha);
         disableEditText(ediHoraInicio);
         disableEditText(ediHoraTermino);
+
+        disableEditText(ediHoraLLegadaContenedor);//here
+        disableEditText(ediHoraSalidaContenedor);
+
+
         disableEditText(ediContenedor);
         disableEditText(ediFotosLlegada);
 
@@ -319,8 +388,20 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
          ediNhojaEvaluacion=findViewById(R.id.ediNhojaEvaluacion);
         spinnerSelectZona = findViewById(R.id.spinnerZona);
         ediObservacion = findViewById(R.id.ediObservacion);
-
         ediFotosLlegada=findViewById(R.id.ediFotosLlegada);
+
+
+
+
+        ediTare=findViewById(R.id.ediTare);
+        ediBooking=findViewById(R.id.ediBooking);
+        ediMaxGross=findViewById(R.id.ediMaxGross);
+        ediNumSerieFunda=findViewById(R.id.ediNumSerieFunda);
+        stikVentolerExterna=findViewById(R.id.stikVentolerExterna);
+        ediCableRastreoLlegada=findViewById(R.id.ediCableRastreoLlegada);
+        ediSelloPlasticoNaviera=findViewById(R.id.ediSelloPlasticoNaviera);
+        ediOtroSellosLlegada=findViewById(R.id.ediOtroSellosLlegada);
+        ediFotosSellosLLegada=findViewById(R.id.ediFotosSellosLLegada);
 
 
         linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
@@ -362,8 +443,13 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
           ediDestino=findViewById(R.id.ediDestino);
           ediNViaje=findViewById(R.id.ediNViaje);
           ediVapor=findViewById(R.id.ediVapor);
-          ediHOraLllegada=findViewById(R.id.ediHOraLllegada);
-          ediHoraSalida=findViewById(R.id.ediHoraSalida);
+
+         // ediHOraLllegada=findViewById(R.id.ediHoraLLegadaContenedor);
+          //ediHoraSalida=findViewById(R.id.ediHoraSalida);
+
+        ediHoraLLegadaContenedor=findViewById(R.id.ediHoraLLegadaContenedor);
+        ediHoraSalidaContenedor=findViewById(R.id.ediHoraSalidaContenedor);
+
 
         ediTipoContenedor=findViewById(R.id.ediTipoContenedor);
 
@@ -371,6 +457,35 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
         progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
+        ediFotosPposcosecha=findViewById(R.id.ediFotosPposcosecha);
+
+        ediCondicionBalanza=findViewById(R.id.ediCondicionBalanza);
+        ediTipodeCaja=findViewById(R.id.ediTipodeCaja);
+        ediTipoPlastico=findViewById(R.id.ediTipoPlastico);
+        ediTipoBalanza=findViewById(R.id.ediTipoBalanza);
+        editipbalanzaRepeso=findViewById(R.id.editipbalanzaRepeso);
+        ediUbicacionBalanza=findViewById(R.id.ediUbicacionBalanza);
+
+
+
+        ediTermofrafo1=findViewById(R.id.ediTermofrafo1);
+        ediHoraEncendido1=findViewById(R.id.ediHoraEncendido1);
+        ediUbicacion1=findViewById(R.id.ediUbicacion1);
+        ediRuma1=findViewById(R.id.ediRuma1);
+        ediTermofrafo2=findViewById(R.id.ediTermofrafo2);
+        ediHoraEncendido2=findViewById(R.id.ediHoraEncendido2);
+        ediUbicacion2=findViewById(R.id.ediUbicacion2);
+        ediRuma2=findViewById(R.id.ediRuma2);
+        ediCandadoqsercon=findViewById(R.id.ediCandadoqsercon);
+
+        ediSelloNaviera=findViewById(R.id.ediSelloNaviera);
+        ediCableNaviera=findViewById(R.id.ediCableNaviera);
+        ediSelloPlastico=findViewById(R.id.ediSelloPlastico);
+        ediCandadoBotella=findViewById(R.id.ediCandadoBotella);
+        ediCableExportadora=findViewById(R.id.ediCableExportadora);
+        ediSelloAdesivoexpor=findViewById(R.id.ediSelloAdesivoexpor);
+        esiSelloAdhNaviera=findViewById(R.id.esiSelloAdhNaviera);
+        ediOtherSellos=findViewById(R.id.ediOtherSellos);
 
 
         //las pics
@@ -383,6 +498,20 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
          imbAtachPrPostcosecha=findViewById(R.id.imbAtachPrPostcosecha);
          imbTakePicPrPostcosecha=findViewById(R.id.imbTakePicPrPostcosecha);
         imbTakePicDatosContenedor=findViewById(R.id.imbTakePicDatosContenedor);
+
+
+         spinnerCondicionBalanza=  findViewById(R.id.spinnerCondicionBalanza);
+         spinnertipoCaja =  findViewById(R.id.spinnertipoCaja);
+         spinnertipodePlastico = findViewById(R.id.spinnertipodePlastico);
+         spinnertipodeBlanza =  findViewById(R.id.spinnertipodeBlanza);
+         spinnertipodeBlanzaRepeso =  findViewById(R.id.spinnertipodeBlanzaRepeso);
+         spinnerubicacionBalanza =  findViewById(R.id.spinnerubicacionBalanza);
+
+
+
+
+
+
 
     }
 
@@ -420,7 +549,8 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         ediHoraInicio.setOnClickListener(this);
         ediHoraTermino.setOnClickListener(this);
 
-
+        ediHoraLLegadaContenedor.setOnClickListener(this);
+        ediHoraSalidaContenedor.setOnClickListener(this);
 
 
 
@@ -562,10 +692,18 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                showingTimePicker(view);
 
                break; //
+           case R.id.ediHoraSalidaContenedor:
+               // Utils.closeKeyboard(FormularioActivity.this);
+               showingTimePicker(view);
+
+               break; //
 
 
+           case R.id.ediHoraLLegadaContenedor:
+               // Utils.closeKeyboard(FormularioActivity.this);
+               showingTimePicker(view);
 
-
+               break; //
 
 
            case R.id.imbAtach:
@@ -766,7 +904,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         ediCodigo.setOnTouchListener(this);
         ediInscirpMagap.setOnTouchListener(this);
         ediPemarque.setOnTouchListener(this);
-       // ediZona.setOnTouchListener(this);
         ediHoraInicio.setOnTouchListener(this);
         ediHoraTermino.setOnTouchListener(this);
         ediNguiaRemision.setOnTouchListener(this);
@@ -774,6 +911,19 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         ediNtargetaEmbarque.setOnTouchListener(this);
         ediNhojaEvaluacion.setOnTouchListener(this);
         spinnerSelectZona.setOnTouchListener(this);
+
+         spinnerCondicionBalanza.setOnTouchListener(this);
+         spinnertipoCaja.setOnTouchListener(this);
+         spinnertipodePlastico.setOnTouchListener(this);
+         spinnertipodeBlanza.setOnTouchListener(this);
+         spinnertipodeBlanzaRepeso .setOnTouchListener(this);
+         spinnerubicacionBalanza.setOnTouchListener(this);
+
+
+
+
+
+
         switchContenedor.setOnTouchListener(this);
         ediEmpacadora.setOnTouchListener(this);
           imBatach.setOnTouchListener(this);
@@ -891,7 +1041,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
              //COMPORBAQMOS SI EXISTE AL ME4NOS UN IMAGEN URI LIST..
 
-            if(ImagenX.listImagesData.size()> 0 ) {
+            if(ImagenX.hashMapImagesData.size()> 0 ) {
                 actualizaListStateView("imbAtach/imbTakePic",true) ;
 
                Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
@@ -1091,41 +1241,168 @@ void showImageByUri(Uri uri )  {
 }
 
 
-private void listennerSpinner() {
+private void listennersSpinners() {
+
         spinnerSelectZona .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 String zonaEelejida= spinnerSelectZona.getSelectedItem().toString();
-
                 ediZona.setText("Zona "+zonaEelejida+" ");
-
-
                 if(zonaEelejida.equals("Ninguna")){
                     //actualizamos
-
                     Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-
                     ediZona.setText("");
                     actualizaListStateView("spinnerZona",false) ;
-
-
                 }else {
-
                     actualizaListStateView("spinnerZona",true) ;
-
                 }
 
-
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
 
+
+
+    spinnerCondicionBalanza .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String condicion= spinnerCondicionBalanza.getSelectedItem().toString();
+            ediCondicionBalanza.setText(condicion);
+            if(condicion.equals("Ninguna")){
+                //actualizamos
+                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
+                ediZona.setText("");
+                actualizaListStateView("addetiquetaaqui",false) ;
+            }else {
+                actualizaListStateView("addetiquetaaqui",true) ;
+            }
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    });
+
+
+
+
+
+    spinnertipoCaja .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String zonaEelejida= spinnertipoCaja.getSelectedItem().toString();
+            ediTipodeCaja.setText(zonaEelejida);
+            if(zonaEelejida.equals("Ninguna")){
+                //actualizamos
+                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
+                ediTipodeCaja.setText("");
+                actualizaListStateView("addetiquetaaqui",false) ;
+            }else {
+                actualizaListStateView("addetiquetaaqui",true) ;
+            }
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    });
+
+
+
+    spinnertipodePlastico .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String zonaEelejida= spinnertipodePlastico.getSelectedItem().toString();
+            ediTipoPlastico.setText(zonaEelejida);
+            if(zonaEelejida.equals("Ninguna")){
+                //actualizamos
+                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
+                ediTipoPlastico.setText("");
+                actualizaListStateView("addetiquetaaqui",false) ;
+            }else {
+                actualizaListStateView("addetiquetaaqui",true) ;
+            }
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    });
+
+    spinnertipodeBlanza .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String zonaEelejida= spinnertipodeBlanza.getSelectedItem().toString();
+            ediTipoBalanza.setText(zonaEelejida);
+
+            if(zonaEelejida.equals("Ninguna")){
+                //actualizamos
+                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
+                ediTipoBalanza.setText("");
+                actualizaListStateView("addetiquetaaqui",false) ;
+            }else {
+                actualizaListStateView("addetiquetaaqui",true) ;
+            }
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    });
+
+
+    spinnertipodeBlanzaRepeso .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String zonaEelejida= spinnertipodeBlanzaRepeso.getSelectedItem().toString();
+            editipbalanzaRepeso.setText(" "+zonaEelejida+" ");
+            if(zonaEelejida.equals("Ninguna")){
+                //actualizamos
+                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
+                editipbalanzaRepeso.setText("");
+                actualizaListStateView("addetiquetaaqui",false) ;
+            }else {
+                actualizaListStateView("addetiquetaaqui",true) ;
+            }
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    });
+
+
+
+    spinnerubicacionBalanza .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String zonaEelejida= spinnerubicacionBalanza.getSelectedItem().toString();
+
+            ediUbicacionBalanza.setText(zonaEelejida);
+
+            if(zonaEelejida.equals("Ninguna")){
+                //actualizamos
+                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
+                ediUbicacionBalanza.setText("");
+                actualizaListStateView("addetiquetaaqui",false) ;
+            }else {
+                actualizaListStateView("addetiquetaaqui",true) ;
+            }
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    });
 
 
     switchContenedor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -1241,7 +1518,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
            // generatePDFandImport();
 
-            checkDataFields();
+            callcheckDataFields();
 
            // storageTest();
 
@@ -1256,350 +1533,109 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 }
 
-void checkDataFields(){ //
+void callcheckDataFields(){ //
 
-    LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
-    LinearLayout layoutContainerSeccion2=findViewById(R.id.layoutContainerSeccion2);
-    LinearLayout layoutContainerSeccion3=findViewById(R.id.layoutContainerSeccion3);
-    LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
-    LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
+  //  checkDatosGeneralesIsLleno();
 
-    int minimoFotos=1;
+    if(! checkDatosGeneralesIsLleno()){
 
-
-    if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediSemana.requestFocus();
-        ediSemana.setError("Este espacio es obligatorio");
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+        Log.i("datafiled","no esta lleno  checkDatosGeneralesIsLleno");
         return;
-        //obtiene el padre del padre
+    }
+    else{
+        Log.i("datafiled","si esta lleno checkDatosGeneralesIsLleno ");
 
     }
 
-    if(ediFecha.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediFecha.requestFocus();
-        ediFecha.setError("Debe selecionar una fecha");
+    if(! checkcantidadPostcosechaIsLleno()){
 
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+        Log.i("datafiled","no esta lleno  checkcantidadPostcosechaIsLleno");
         return;
+    }else{
+        Log.i("datafiled","si esta lleno checkcantidadPostcosechaIsLleno ");
 
     }
 
 
+    if(! checkDatosContenedorIsLleno()){
+        Log.i("datafiled","no esta lleno  checkDatosContenedorIsLleno");
 
-
-
-
-
-    if(ediProductor.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediProductor.requestFocus();
-        ediProductor.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-
-
-    if(ediHacienda.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediHacienda.requestFocus();
-        ediHacienda.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-
-
-
-
-    if(ediCodigo.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediCodigo.requestFocus();
-        ediCodigo.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediInscirpMagap.requestFocus();
-        ediInscirpMagap.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-    if(ediPemarque.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediPemarque.requestFocus();
-        ediPemarque.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediZona.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediZona.requestFocus();
-        ediZona.setError("Debe selecionar una zona");
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediHoraInicio.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediHoraInicio.requestFocus();
-        ediHoraInicio.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediHoraTermino.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediHoraTermino.requestFocus();
-        ediHoraTermino.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-
-    if(ediNguiaRemision.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediNguiaRemision.requestFocus();
-        ediNguiaRemision.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-    if(edi_nguia_transporte.getText().toString().isEmpty()){ //chekamos que no este vacia
-        edi_nguia_transporte.requestFocus();
-        edi_nguia_transporte.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediNtargetaEmbarque.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediNtargetaEmbarque.requestFocus();
-        ediNtargetaEmbarque.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-
-
-    if(ediNhojaEvaluacion.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediNhojaEvaluacion.requestFocus();
-        ediNhojaEvaluacion.setError("Este espacio es obligatorio");
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-         return;
-        //obtiene el padre del padre
-
-    }
-
-
-
-    if(ediEmpacadora.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediEmpacadora.requestFocus();
-        ediEmpacadora.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-
-
-
-    if( ! existminiumImage(minimoFotos,Variables.FOTO_LLEGADA)){
-        ediFotosLlegada.requestFocus();
-
-        layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-        ediFotosLlegada.setError("Agregue al menos "+minimoFotos+" foto");
         return;
     }else{
 
-        ediFotosLlegada.clearFocus();
-        ediFotosLlegada.setError(null);
-
-    }
-
-    //
-
-
-
-    //falta chekear al menos un producto de postcosehca y si utilizo otros neceistamos que especifique
-//PROXIMO
-
-    //chekeando al menos un producto postcosecha
-     //si todos estan vacios...
-
-    //si no estan vacios todos...
-
-    if(ediPPC01.getText().toString().isEmpty() && ediPPC02.getText().toString().isEmpty()&& ediPPC03.getText().toString().isEmpty()
-            && ediPPC04.getText().toString().isEmpty()&& ediPPC05.getText().toString().isEmpty()&& ediPPC06.getText().toString().isEmpty()
-            && ediPPC07.getText().toString().isEmpty()&& ediPPC08.getText().toString().isEmpty() && ediPPC09.getText().toString().isEmpty()
-            && ediPPC010.getText().toString().isEmpty() && ediPPC011.getText().toString().isEmpty() && ediPPC012.getText().toString().isEmpty()
-            && ediPPC013.getText().toString().isEmpty() && ediPPC014.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty()
-            && ediPPC016.getText().toString().isEmpty()
-    ){ //chekamos que no este vacia
-        ediPPC01.requestFocus();
-        ediPPC07.setError("Inserte al menos un producto");
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
-
-        return;
-
+        Log.i("datafiled","si  esta lleno  checkDatosContenedorIsLleno");
     }
 
 
+    if(! checkDataSellosLlegadaIsLleno()){
+        Log.i("datafiled","no esta lleno  checkDataSellosLlegadaIsLleno");
 
-    if(! ediPPC015.getText().toString().isEmpty() && ediPPC016.getText().toString().isEmpty() ){ //chekamos que no este vacia
-        ediPPC016.requestFocus();
-        ediPPC016.setError("Inserte cantidad");
-
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(! ediPPC016.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty() ){ //chekamos que no este vacia
-        ediPPC015.requestFocus();
-        ediPPC015.setError("inserte nombre producto");
-
-        layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    ///CHEKEAMOS DATA seccion CONTENEDOR
-
-    if(ediDestino.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediDestino.requestFocus();
-        ediDestino.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediNViaje.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediNViaje.requestFocus();
-        ediNViaje.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediVapor.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediVapor.requestFocus();
-        ediVapor.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-
-    if(ediTipoContenedor.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediTipoContenedor.requestFocus();
-        ediTipoContenedor.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediHOraLllegada.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediHOraLllegada.requestFocus();
-        ediHOraLllegada.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    if(ediHoraSalida.getText().toString().isEmpty()){ //chekamos que no este vacia
-        ediHoraSalida.requestFocus();
-        ediHoraSalida.setError("Este espacio es obligatorio");
-
-        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-        return;
-
-    }
-
-
-    //chekamos que al menos exista una imagen...
-
-
-    if( ! existminiumImage(minimoFotos,Variables.FOTO_CONTENEDOR)){
-        ediFotoContenedor.requestFocus();
-
-        layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-        ediFotoContenedor.setError("Agregue al menos "+minimoFotos+" foto");
         return;
     }else{
 
-        ediFotoContenedor.clearFocus();
-        ediFotoContenedor.setError(null);
+        Log.i("datafiled","si  esta lleno  checkDataSellosLlegadaIsLleno");
+
+
+    }
+
+
+    if(! checkSellosInstaladosIsLleno()){
+        Log.i("datafiled","no esta lleno  checkSellosInstaladosIsLleno");
+
+        return;
+    }else{
+
+        Log.i("datafiled","si  esta lleno  checkSellosInstaladosIsLleno");
+
+
+    }
+
+
+    if(! checkDatosTransportistaIsLleno()){
+        Log.i("datafiled","no esta lleno  checkDatosTransportistaIsLleno");
+
+        return;
+    }else{
+
+        Log.i("datafiled","si  esta lleno  checkDatosTransportistaIsLleno");
+
+
+    }
+
+
+    if(! checkDatosProcesoIsLleno()){
+        Log.i("datafiled","no esta lleno  checkDatosProcesoIsLleno");
+
+        return;
+    }else{
+
+        Log.i("datafiled","si  esta lleno  checkDatosProcesoIsLleno");
+
 
     }
 
 
 
+    // callAdNewInformDataBASE();
 
 
 
+}
 
 
-    //si toda la data esta lista
-
-    //LA SUBIMOS...
-
+private void callAdNewInformDataBASE(){
+    //Agregamos un nuevo informe
     RealtimeDB.initDatabaseReference(); //inicilizamos la base de datos
+    RealtimeDB.addNewInforme(FormularioActivity.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
+            ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
+            ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
+            ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
+            ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
+            ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString()
 
-    //(Context context, String codeInforme, int ediNhojaEvaluacion, String zona, String productor, String codigo,
-    // String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte, String ntargetaEmbarque,
-    // String inscirpMagap, String horaInicio, String horaTermino, String semana, String empacadora, String contenedor, String cbservacion) {
-
-        RealtimeDB.addNewInforme(FormularioActivity.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
-                ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
-                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString()
-
-                ); //agregamos
+    ); //agregamos
 
 
-//chekemoa s que tenga al m,noe sun producto....y y sselciono otro
 
 
 }
@@ -1819,8 +1855,8 @@ void checkDataFields(){ //
         TextInputEditText  ediDestino=findViewById(R.id.ediDestino);
         TextInputEditText  ediNViaje=findViewById(R.id.ediNViaje);
         TextInputEditText  ediVapor=findViewById(R.id.ediVapor);
-        TextInputEditText  ediHOraLllegada=findViewById(R.id.ediHOraLllegada);
-        TextInputEditText  ediHoraSalida=findViewById(R.id.ediHoraSalida);
+        TextInputEditText  ediHOraLllegada=findViewById(R.id.ediHoraLLegadaContenedor);
+       // TextInputEditText  ediHoraSalida=findViewById(R.id.ediHoraSalida);
 
 
 
@@ -1874,5 +1910,796 @@ void checkDataFields(){ //
 
 
     }
+
+
+
+    private boolean checkDatosGeneralesIsLleno(){
+
+        LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
+
+        if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediSemana.requestFocus();
+            ediSemana.setError("Este espacio es obligatorio");
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+        else if (ediFecha.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediFecha.requestFocus();
+            ediFecha.setError("Debe selecionar una fecha");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+
+
+
+       else  if(ediProductor.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediProductor.requestFocus();
+            ediProductor.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+       else  if(ediHacienda.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediHacienda.requestFocus();
+            ediHacienda.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+
+
+       else  if(ediCodigo.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCodigo.requestFocus();
+            ediCodigo.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+      else  if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediInscirpMagap.requestFocus();
+            ediInscirpMagap.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+       else if(ediPemarque.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediPemarque.requestFocus();
+            ediPemarque.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+      else  if(ediZona.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediZona.requestFocus();
+            ediZona.setError("Debe selecionar una zona");
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+       else if(ediHoraInicio.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediHoraInicio.requestFocus();
+            ediHoraInicio.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+       else if(ediHoraTermino.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediHoraTermino.requestFocus();
+            ediHoraTermino.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        else if(ediNguiaRemision.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediNguiaRemision.requestFocus();
+            ediNguiaRemision.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        else if(edi_nguia_transporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+            edi_nguia_transporte.requestFocus();
+            edi_nguia_transporte.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+       else  if(ediNtargetaEmbarque.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediNtargetaEmbarque.requestFocus();
+            ediNtargetaEmbarque.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+      else     if(ediNhojaEvaluacion.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediNhojaEvaluacion.requestFocus();
+            ediNhojaEvaluacion.setError("Este espacio es obligatorio");
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+
+
+      else  if(ediEmpacadora.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediEmpacadora.requestFocus();
+            ediEmpacadora.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+
+       else if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
+            ediFotosLlegada.requestFocus();
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            ediFotosLlegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            return false;
+        }else{
+
+            ediFotosLlegada.clearFocus();
+            ediFotosLlegada.setError(null);
+
+        }
+
+        //
+
+
+        return true;
+    }
+
+
+
+    private boolean  checkcantidadPostcosechaIsLleno(){
+        LinearLayout layoutContainerSeccion2=findViewById(R.id.layoutContainerSeccion2);
+        Log.i("camisad" ,"se llamo este ");
+
+        if(ediPPC01.getText().toString().isEmpty() && ediPPC02.getText().toString().isEmpty()&& ediPPC03.getText().toString().isEmpty()
+                && ediPPC04.getText().toString().isEmpty()&& ediPPC05.getText().toString().isEmpty()&& ediPPC06.getText().toString().isEmpty()
+                && ediPPC07.getText().toString().isEmpty()&& ediPPC08.getText().toString().isEmpty() && ediPPC09.getText().toString().isEmpty()
+                && ediPPC010.getText().toString().isEmpty() && ediPPC011.getText().toString().isEmpty() && ediPPC012.getText().toString().isEmpty()
+                && ediPPC013.getText().toString().isEmpty() && ediPPC014.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty()
+                && ediPPC016.getText().toString().isEmpty()
+        ){ //chekamos que no este vacia
+            ediPPC01.requestFocus();
+            ediPPC01.setError("Inserte al menos 1 producto");
+            layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+
+            Log.i("camisad" ,"se eejcuto este");
+
+            return false;
+
+        }
+
+
+
+        if(! ediPPC015.getText().toString().isEmpty() && ediPPC016.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediPPC016.requestFocus();
+            ediPPC016.setError("Inserte cantidad");
+
+            layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+            return false ;
+
+        }
+
+
+        if(! ediPPC016.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediPPC015.requestFocus();
+            ediPPC015.setError("inserte nombre producto");
+
+            layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        ///y chekeamos al menos una imagen del pridcutp
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PROD_POSTCOSECHA)){
+            ediFotosPposcosecha.requestFocus();
+
+            layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
+            ediFotosPposcosecha.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            return false;
+
+        }else{
+
+            ediFotosPposcosecha.clearFocus();
+            ediFotosPposcosecha.setError(null);
+
+        }
+
+
+return  true;
+
+    }
+
+
+
+    private boolean checkDatosContenedorIsLleno(){
+
+        LinearLayout layoutContainerSeccion3=findViewById(R.id.layoutContainerSeccion3);
+
+
+        ///CHEKEAMOS DATA seccion CONTENEDOR
+
+        if(ediDestino.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediDestino.requestFocus();
+            ediDestino.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediNViaje.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediNViaje.requestFocus();
+            ediNViaje.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediVapor.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediVapor.requestFocus();
+            ediVapor.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediTipoContenedor.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipoContenedor.requestFocus();
+            ediTipoContenedor.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediHoraLLegadaContenedor.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediHoraLLegadaContenedor.requestFocus();
+            ediHoraLLegadaContenedor.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediHoraSalidaContenedor.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediHoraSalidaContenedor.requestFocus();
+            ediHoraSalidaContenedor.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        //chekamos que al menos exista una imagen...
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CONTENEDOR)){
+            ediFotoContenedor.requestFocus();
+
+            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
+            ediFotoContenedor.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            return false;
+        }else{
+
+            ediFotoContenedor.clearFocus();
+            ediFotoContenedor.setError(null);
+
+        }
+
+
+
+
+return  true;
+
+    }
+
+
+
+
+    private boolean checkDataSellosLlegadaIsLleno(){
+        LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
+
+
+        if(ediTare.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTare.requestFocus();
+            ediTare.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        ///CHEKEAMOS DATA seccion CONTENEDOR
+
+        if(ediBooking.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediBooking.requestFocus();
+            ediBooking.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediMaxGross.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediMaxGross.requestFocus();
+            ediMaxGross.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediNumSerieFunda.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediNumSerieFunda.requestFocus();
+            ediNumSerieFunda.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(stikVentolerExterna.getText().toString().isEmpty()){ //chekamos que no este vacia
+            stikVentolerExterna.requestFocus();
+            stikVentolerExterna.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediCableRastreoLlegada.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCableRastreoLlegada.requestFocus();
+            ediCableRastreoLlegada.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediSelloPlasticoNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediSelloPlasticoNaviera.requestFocus();
+            ediSelloPlasticoNaviera.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediOtroSellosLlegada.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediOtroSellosLlegada.requestFocus();
+            ediOtroSellosLlegada.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediFotosSellosLLegada.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediFotosSellosLLegada.requestFocus();
+            ediFotosSellosLLegada.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+        //este sigue vamos adrianito..
+return true;
+
+
+    }
+
+
+    private boolean checkSellosInstaladosIsLleno(){
+
+        LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
+
+
+        if(ediTermofrafo1.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTermofrafo1.requestFocus();
+            ediTermofrafo1.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+        if(ediHoraEncendido1.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediHoraEncendido1.requestFocus();
+            ediHoraEncendido1.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediUbicacion1.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediUbicacion1.requestFocus();
+            ediUbicacion1.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+        if(ediRuma1.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediRuma1.requestFocus();
+            ediRuma1.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediTermofrafo2.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTermofrafo2.requestFocus();
+            ediTermofrafo2.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediHoraEncendido2.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediHoraEncendido2.requestFocus();
+            ediHoraEncendido2.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediUbicacion2.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediUbicacion2.requestFocus();
+            ediUbicacion2.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediRuma2.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediRuma2.requestFocus();
+            ediRuma2.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediCandadoqsercon.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCandadoqsercon.requestFocus();
+            ediCandadoqsercon.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediSelloNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediSelloNaviera.requestFocus();
+            ediSelloNaviera.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+        if(ediCableNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCableNaviera.requestFocus();
+            ediCableNaviera.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediSelloPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediSelloPlastico.requestFocus();
+            ediSelloPlastico.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediCandadoBotella.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCandadoBotella.requestFocus();
+            ediCandadoBotella.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+        if(ediCableExportadora.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCableExportadora.requestFocus();
+            ediCableExportadora.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+        if(ediSelloAdesivoexpor.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediSelloAdesivoexpor.requestFocus();
+            ediSelloAdesivoexpor.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(esiSelloAdhNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+            esiSelloAdhNaviera.requestFocus();
+            esiSelloAdhNaviera.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediOtherSellos.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediOtherSellos.requestFocus();
+            ediOtherSellos.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+return true;
+    }
+
+
+
+    private boolean checkDatosTransportistaIsLleno(){
+
+        LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
+        ///CHEKEAMOS DATA seccion CONTENEDOR
+
+        if(ediCompaniaTransporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCompaniaTransporte.requestFocus();
+            ediCompaniaTransporte.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediNombreChofer.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediNombreChofer.requestFocus();
+            ediNombreChofer.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediCedula.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCedula.requestFocus();
+            ediCedula.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediCelular.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCelular.requestFocus();
+            ediCelular.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediPLaca.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediPLaca.requestFocus();
+            ediPLaca.setError("Este espacio es obligatorio");
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediMarcaCabezal.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediMarcaCabezal.requestFocus();
+            ediMarcaCabezal.setError("Este espacio es obligatorio");
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediColorCabezal.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediColorCabezal.requestFocus();
+            ediColorCabezal.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        else if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_TRANSPORTISTA)){
+            ediFotosLlegadaTransport.requestFocus();
+
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
+            ediFotosLlegadaTransport.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            return false;
+        }else{
+
+            ediFotosLlegadaTransport.clearFocus();
+            ediFotosLlegadaTransport.setError(null);
+
+        }
+
+
+
+      return true;
+
+    }
+
+
+
+
+
+    private boolean checkDatosProcesoIsLleno(){
+        LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
+        ///CHEKEAMOS DATA seccion CONTENEDOR
+
+        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCondicionBalanza.requestFocus();
+            ediCondicionBalanza.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediTipodeCaja.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipodeCaja.requestFocus();
+            ediTipodeCaja.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCondicionBalanza.requestFocus();
+            ediCondicionBalanza.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediTipoPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipoPlastico.requestFocus();
+            ediTipoPlastico.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediTipoBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipoBalanza.requestFocus();
+            ediTipoBalanza.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //chekamos que no este vacia
+            editipbalanzaRepeso.requestFocus();
+            editipbalanzaRepeso.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediUbicacionBalanza.requestFocus();
+            ediUbicacionBalanza.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+return true;
+
+    }
+
+
+
+
+
 
 }

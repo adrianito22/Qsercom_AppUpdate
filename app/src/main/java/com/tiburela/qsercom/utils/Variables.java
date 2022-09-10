@@ -13,6 +13,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int   FOTO_CONTENEDOR=58;
 
     public static int typeoFdeleteImg=0;
+    public static final  int   MINIMO_FOTOS_ALL_CATEGORY=1;
 
 
 

@@ -12,6 +12,7 @@
 
 
     <string-array name="condicionde_balanza">
+        <item>Ninguna</item>
         <item>ACEPTABLE</item>
         <item>BUENA</item>
         <item>MALA</item>
@@ -21,10 +22,9 @@
 
 
 
-
-
     <string-array name="tipoCaja">
-        <item>22xu</item>
+        <item>Ninguna</item>
+        <item>22XU</item>
         <item>DISPLAY</item>
         <item>BANAVAC13KG</item>
         <item>9.5KG</item>
@@ -33,6 +33,7 @@
     </string-array>
 
     <string-array name="tipodePlastico">
+        <item>Ninguna</item>
         <item>POLITUBO</item>
         <item>POLIPACK</item>
         <item>BANAVAC</item>
@@ -42,6 +43,7 @@
 
 
     <string-array name="tipodeBlanza">
+        <item>Ninguna</item>
         <item>BASCULA</item>
         <item>DIGITAL</item>
         <item>BANAVAC</item>
@@ -52,6 +54,7 @@
 
 
     <string-array name="tipodeBlanzaRepeso">
+        <item>Ninguna</item>
         <item>BASCULA</item>
         <item>DIGITAL</item>
 
@@ -63,6 +66,7 @@
 
 
     <string-array name="ubicacionBalanza">
+        <item>Ninguna</item>
         <item>FUERA DE RODILLO</item>
         <item>FINAL DE RODILLO</item>
         <item>MITAD DE RODILLO</item>
