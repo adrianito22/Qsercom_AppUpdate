@@ -1,16 +1,15 @@
-package com.tiburela.qsercom;
+package com.tiburela.qsercom.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.tiburela.qsercom.R;
 
-public class MainActivity extends AppCompatActivity {
+public class PieChartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pie_chart);
     }
 }

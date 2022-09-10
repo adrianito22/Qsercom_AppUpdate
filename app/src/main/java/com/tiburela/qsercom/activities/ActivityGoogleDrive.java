@@ -34,7 +34,7 @@ import java.util.Collections;
 import com.tiburela.qsercom.R;
 
 
-public class MainActivity3 extends AppCompatActivity {
+public class ActivityGoogleDrive extends AppCompatActivity {
     Drive  googleDriveService;
     private static final int REQUEST_CODE_SIGN_IN = 100;
     private GoogleSignInClient mGoogleSignInClient;
@@ -171,25 +171,31 @@ public class MainActivity3 extends AppCompatActivity {
         });
 
         createFolder.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
                 if (mDriveServiceHelper == null) {
+                    Log.i("sailo", " mDriveServiceHelper es nulo");
+
                     return;
                 }
                 // you can provide  folder id in case you want to save this file inside some folder.
                 // if folder id is null, it will save file to the root
-                mDriveServiceHelper.createFolder("02/02/222", "17HlKDu56sNqs3KqPcycVqZC7uVxOHBoY")
+                //foldername= nombre carpeta que crearemos //folder id es la caperpta donde crearemos la carpe
+
+                mDriveServiceHelper.createFolder("02/02/adrianito", "17HlKDu56sNqs3KqPcycVqZC7uVxOHBoY")
                         .addOnSuccessListener(new OnSuccessListener<GoogleDriveFileHolder>() {
                             @Override
                             public void onSuccess(GoogleDriveFileHolder googleDriveFileHolder) {
                                 Gson gson = new Gson();
-                                Log.d(TAG, "onSuccess: " + gson.toJson(googleDriveFileHolder));
+                                Log.i("sailo", "onSuccess: " + gson.toJson(googleDriveFileHolder));
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "onFailure: " + e.getMessage());
+                                Log.i("sailo", "onFailure: " + e.getMessage());
 
                             }
                         });
@@ -352,18 +358,18 @@ public class MainActivity3 extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<GoogleSignInAccount>() {
                     @Override
                     public void onSuccess(GoogleSignInAccount googleSignInAccount) {
-                        Log.d(TAG, "Signed in as " + googleSignInAccount.getEmail());
+                        Log.i("sailo", "Signed in as " + googleSignInAccount.getEmail());
                         email.setText(googleSignInAccount.getEmail());
 
                       //  mDriveServiceHelper = new DriveServiceHelper(getGoogleDriveService(getApplicationContext(), googleSignInAccount, "appName"));
                         driveSetUp();
-                        Log.d(TAG, "handleSignInResult: " + mDriveServiceHelper);
+                        Log.i("sailo", "handleSignInResult: " + mDriveServiceHelper);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Unable to sign in.", e);
+                        Log.i("sailo", "Unable to sign in.", e);
                     }
                 });
     }
@@ -384,7 +390,7 @@ public class MainActivity3 extends AppCompatActivity {
 
     private void driveSetUp() {
 
-        GoogleSignInAccount mAccount = GoogleSignIn.getLastSignedInAccount(MainActivity3.this);
+        GoogleSignInAccount mAccount = GoogleSignIn.getLastSignedInAccount(ActivityGoogleDrive.this);
 
         GoogleAccountCredential credential =
                 GoogleAccountCredential.usingOAuth2(
@@ -414,7 +420,7 @@ public class MainActivity3 extends AppCompatActivity {
                 ACCESS_DRIVE_SCOPE,
                 SCOPE_EMAIL)) {
             GoogleSignIn.requestPermissions(
-                    MainActivity3.this, REQUEST_CODE_SIGN_IN,
+                    ActivityGoogleDrive.this, REQUEST_CODE_SIGN_IN,
                     GoogleSignIn.getLastSignedInAccount(getApplicationContext()),
                     ACCESS_DRIVE_SCOPE,
                     SCOPE_EMAIL);

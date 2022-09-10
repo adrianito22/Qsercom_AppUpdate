@@ -21,7 +21,6 @@
     </string-array>
 
 
-
     <string-array name="tipoCaja">
         <item>Ninguna</item>
         <item>22XU</item>
@@ -52,17 +51,12 @@
     </string-array>
 
 
-
     <string-array name="tipodeBlanzaRepeso">
         <item>Ninguna</item>
         <item>BASCULA</item>
         <item>DIGITAL</item>
 
     </string-array>
-
-
-
-
 
 
     <string-array name="ubicacionBalanza">
@@ -73,10 +67,6 @@
 
 
     </string-array>
-
-
-
-
 
 
 </resources>

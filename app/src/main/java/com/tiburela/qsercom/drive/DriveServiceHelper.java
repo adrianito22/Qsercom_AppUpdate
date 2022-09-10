@@ -171,10 +171,10 @@ public class DriveServiceHelper {
 
             GoogleDriveFileHolder googleDriveFileHolder = new GoogleDriveFileHolder();
 
-            List<String> root;
+            List<String> root; //el root es la ubicacion de google drive
             if (folderId == null) {
 
-                root = Collections.singletonList("root"); //si folder id es nulo.. el root sera la raiz de drive
+                root = Collections.singletonList("root"); //si folder id es nulo.. el root o path sera la raiz de drive
 
             } else {
 

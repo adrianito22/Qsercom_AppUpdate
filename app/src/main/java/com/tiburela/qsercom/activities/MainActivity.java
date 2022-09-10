@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(MainActivity.this, MainActivity3.class));
+                startActivity(new Intent(MainActivity.this, ActivityGoogleDrive.class));
 
             }
         });
