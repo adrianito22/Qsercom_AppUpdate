@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tiburela.qsercom.activities.ActivityMenu;
 import com.tiburela.qsercom.activities.FormularioActivity;
 
 import com.tiburela.qsercom.R;
@@ -37,7 +38,7 @@ public class SplashScreen extends AppCompatActivity {
 
             // Intent intent=new Intent (SplashScreen.this, Home_Tab.class);
 
-           Intent intento=new Intent (SplashScreen.this, FormularioActivity.class);
+           Intent intento=new Intent (SplashScreen.this, ActivityMenu.class);
            startActivity(intento);
 
         //    chekea();
