@@ -184,7 +184,7 @@ public class ActivityGoogleDrive extends AppCompatActivity {
                 // if folder id is null, it will save file to the root
                 //foldername= nombre carpeta que crearemos //folder id es la caperpta donde crearemos la carpe
 
-                mDriveServiceHelper.createFolder("02/02/adrianito", "17HlKDu56sNqs3KqPcycVqZC7uVxOHBoY")
+                mDriveServiceHelper.createFolder("02/02/adrianito", null)
                         .addOnSuccessListener(new OnSuccessListener<GoogleDriveFileHolder>() {
                             @Override
                             public void onSuccess(GoogleDriveFileHolder googleDriveFileHolder) {
@@ -196,6 +196,8 @@ public class ActivityGoogleDrive extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.i("sailo", "onFailure: " + e.getMessage());
+
+
 
                             }
                         });

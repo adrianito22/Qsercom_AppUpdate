@@ -49,12 +49,12 @@ public class Auth {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInAnonymously:success");
+                            Log.i("autifi", "signInAnonymously:success");
                              firebaseUser = mAuth.getCurrentUser();
                           //  updateUI(user);  ///si la autentificacion sali bien....
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInAnonymously:failure", task.getException());
+                            Log.i("autifi", "signInAnonymously:failure", task.getException());
                          //   Toast.makeText(AnonymousAuthActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                           //  updateUI(null);
                         }

@@ -1722,7 +1722,6 @@ private void callAdNewInformDataBASE(){
 
 
 
-        PdfMaker. generatePdfReport1(FormularioActivity.this);
 
 
       //  startActivity(new Intent(FormularioActivity.this,PdfPreviewActivity.class));

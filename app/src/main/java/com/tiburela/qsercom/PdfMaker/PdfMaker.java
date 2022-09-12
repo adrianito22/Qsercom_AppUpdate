@@ -1,31 +1,37 @@
 package com.tiburela.qsercom.PdfMaker;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
-
-import com.tiburela.qsercom.activities.MainActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.UUID;
+import java.util.ArrayList;
 
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.models.DataToPDF;
+import com.tiburela.qsercom.models.InformEmbarque;
 
 public class PdfMaker {
+
+    static ArrayList<DataToPDF>data;
+
+
+   public static  int currentPosicionLastYcanvasElement = 0;
+
 
     public static void generatePdfReport1(Context context, String codeInforme, int ediNhojaEvaluacion, String zona, String productor, String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte, String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana, String empacadora, String contenedor, String cbservacion) {
         // creating an object variable
@@ -96,7 +102,7 @@ public class PdfMaker {
         pdfDocument.finishPage(myPage);
 
 
-        exportPd(pdfDocument,context);
+        exportPdxFZ(pdfDocument,context);
 
 
 
@@ -106,9 +112,21 @@ public class PdfMaker {
 
 
 
-    public static void generatePdfReport1(Context context) {
+    public static void generatePdfReport1(Context context, InformEmbarque informe) {
         // creating an object variable
         // for our PDF document.
+
+        Bitmap bmpGlobal, bitMapScaledHeader, bitmapScaledFooter;
+        bmpGlobal = BitmapFactory.decodeResource(context.getResources(), R.drawable.headerpdf);
+        bitMapScaledHeader = Bitmap.createScaledBitmap(bmpGlobal, 595, 200, false);
+
+
+        //generamos un bitmap scaled footer
+        bmpGlobal = BitmapFactory.decodeResource(context.getResources(), R.drawable.footer_pdf);
+        bitmapScaledFooter=Bitmap.createScaledBitmap(bmpGlobal, 595, 290, false);
+
+
+
         PdfDocument pdfDocument = new PdfDocument();
 
         // two variables for paint "paint" is used
@@ -118,7 +136,7 @@ public class PdfMaker {
         Paint miPaint = new Paint(); //paint es un pincel propiedad,, y contiene todo lo que contiene un pincel(color,ancho..tipo,etc.)
 
         /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth y pgae number que ahora es 1 */
-        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(400, 600, 1).create();
+        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
 
         // below line is used for setting
         // start page for our PDF file.
@@ -128,6 +146,7 @@ public class PdfMaker {
         /*** creating a variable for canvas */
         // from our page of PDF.
         Canvas canvas = myPage.getCanvas();
+       // canvas.setDensity(500);
 
         // below line is used to draw our image on our PDF file.
         // the first parameter of our drawbitmap method is
@@ -141,6 +160,37 @@ public class PdfMaker {
         // our text which we will be adding in our PDF file.
 
         //Configur5amos el paintobjeto
+        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
+
+        //        bitmapScaledFooter=Bitmap.createScaledBitmap(bmpGlobal, 595, 290, false);
+        int sizePTwidthg=300;
+        int sizeheigth=290;
+
+       // RectF dst = new RectF(50, 500, 50 + 500, 50 + 125);
+
+       // canvas.drawBitmap(bmpGlobal, null,dst, miPaint);
+
+        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
+
+
+
+       // bmpGlobal = scaleDown(headerBmp,2048,true);
+
+
+//        bitmapScaledFooter=Bitmap.createScaledBitmap(bmpGlobal, 595, 290, false);
+        canvas.drawBitmap( resize(bmpGlobal,505,280), 0, 535, miPaint);
+
+
+        ////ñg
+
+
+
+//        /
+
+
+
+
+
 
         miPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
@@ -170,13 +220,23 @@ public class PdfMaker {
         miPaint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText("This is sample document which we have created.", 396, 560, miPaint);
 
+
+
+        //cremoa sun objketo
+     InformEmbarque   informeObjct = new InformEmbarque("aaad01",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
+
+
+        createTable(canvas,mypageInfo.getPageWidth()-10,informeObjct);
+
         // after adding all attributes to our
         // PDF file we will be finishing our page.
         pdfDocument.finishPage(myPage);
 
        // exportPd(pdfDocument,context);
 
-        saveFile("adriniato",pdfDocument);
+        exportPdxFZ(pdfDocument,context);
+
+        //saveFile("mipdf01",pdfDocument);
 
         //   exportPd(pdfDocument,context);
 
@@ -185,13 +245,76 @@ public class PdfMaker {
 
 
         }
+    public static Bitmap resize(Bitmap imaged, int maxWidth, int maxHeight) {
+        Bitmap image = imaged;
+
+        if (maxHeight > 0 && maxWidth > 0) {
+            int width = image.getWidth();
+            int height = image.getHeight();
+            float ratioBitmap = (float) width / (float) height;
+            float ratioMax = (float) maxWidth / (float) maxHeight;
+            int finalWidth = maxWidth;
+            int finalHeight = maxHeight;
+            if (ratioMax > 1) {
+                finalWidth = Math.round(((float) maxHeight * ratioBitmap));
+            } else {
+                finalHeight = Math.round(((float) maxWidth / ratioBitmap));
+            }
+            return image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, false);
+        }
+        return image;
+    }
+
+public static  void createpdfhiwRSOLUT(Context context)  {
+
+    Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.footer_pdf);
+
+//boolean img1_SetImage - used to check Img1 is available or not
+//img1_Uri - Uri of Img1
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inScaled = false;
+       // Bitmap bmp = BitmapFactory.decodeFile(img1_Uri.getPath(), opt);
+
+        PdfDocument.PageInfo myPageInfo2 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+
+  //  PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+    PdfDocument myPDFDoc = new PdfDocument();
+
+
+    PdfDocument.Page myPage2 = myPDFDoc.startPage(myPageInfo2);
+
+    Canvas myCanvas2 = myPage2.getCanvas();
+
+// Work out scaleFactor to get all the image on the page
+        float wScale, hScale, scaleFactor;
+        wScale = (float) 595 / bmp.getWidth(); // If you don't cast Int/Int = Int so you loose any decimal places.
+        hScale = (float) 842 / bmp.getHeight();  // Alternative is to define the size as float e.g. 842.0f
+        if (wScale >= hScale) {
+            scaleFactor = hScale;
+        } else {
+            scaleFactor = wScale;
+        }
 
 
 
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        myCanvas2.scale(scaleFactor, scaleFactor);
+        myCanvas2.drawBitmap(bmp,20,880,paint);
+
+
+    myPDFDoc.finishPage(myPage2);
+
+
+    exportPdxFZ(myPDFDoc,context);
 
 
 
-    public static void exportPd(PdfDocument pdfDocument , Context context){
+}
+
+
+
+    public static void exportPdxFZ(PdfDocument pdfDocument , Context context){
 
         // below line is used to set the name of
         // our PDF file and its path.
@@ -205,15 +328,16 @@ public class PdfMaker {
 
        // String fullPath =cw.getExternal(Environment.DIRECTORY_DOWNLOADS).toString();
 ///
-        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
       //  File directory = cw.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
       //  File file = new File(Environment.getExternalStorageDirectory(), "/holhga.pdf");
 
 
-        File file = new File(directory, UUID.randomUUID().toString() +".pdf");
+      //  File file = new File(directory, UUID.randomUUID().toString() +".pdf");
 
 
+        File file = new File(directory, "Informe Qsercom" +".pdf");
 
 
         try {
@@ -254,7 +378,7 @@ public class PdfMaker {
 
 
         // write the document content
-        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/mypdf/";
+        String directory_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/mypdf/";
 
         File file = new File(directory_path);
         if (!file.exists()) {
@@ -344,4 +468,162 @@ public class PdfMaker {
 
         }
     }
+
+
+    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize, boolean filter) {
+        float ratio = Math.min( maxImageSize / realImage.getWidth(), maxImageSize / realImage.getHeight());
+        if (ratio >= 1.0) {
+            return realImage;
+        }
+
+        int height = Math.round(ratio * realImage.getHeight());
+
+        return Bitmap.createScaledBitmap(realImage, 595, height, filter);
+    }
+
+
+
+
+    private static void createTable(Canvas canvas , int endXposicion,InformEmbarque informeObjct ) { //en el primer hay 43
+        //creando el primer tabla semana son 14 espacios...
+
+        Paint mipaintLines = new Paint();
+        mipaintLines.setTextAlign(Paint.Align.LEFT);
+        // mipaintLines.setTextAlign(Paint.Align.CENTE);
+
+        mipaintLines.setColor(Color.parseColor("#3A3A3A"));
+        //
+        int startXposicion = 10;
+        int initStartYposicion = 240;
+        int startXposicionTextLeft = 20;
+
+
+        /**la posicion en y es 240*/
+
+        canvas.drawLine(startXposicion, initStartYposicion, endXposicion, initStartYposicion, mipaintLines);
+
+        /**la posicion en y es 240*/
+
+
+        canvas.drawText("REPORTE DE CALIDAD DE CONTENEDORES", startXposicionTextLeft, 260, mipaintLines);
+
+        canvas.drawText("EXPORTADORA SOLICITANTE  " + informeObjct.getHacienda(), startXposicionTextLeft, 280, mipaintLines);
+
+        canvas.drawText("EXPORTADORA PROCESADA " + informeObjct.getEmpacadora(), startXposicionTextLeft, 300, mipaintLines);
+
+        canvas.drawLine(startXposicion, 318, endXposicion, 318, mipaintLines);
+
+
+
+
+
+        int starYposicion = 330;
+        int starxPosiciontextInrigth = 280;
+
+        addDataList(1);
+
+          for(int i = 0; i <data.size(); i++)  { //fecha DATA
+
+              //creamos primera linea horizontal
+              canvas.drawLine(startXposicion,starYposicion+10,endXposicion,starYposicion+10,mipaintLines);
+
+
+              //primer texto a la izquiera
+              canvas.drawText(data.get(i).dataFieldName, startXposicionTextLeft, starYposicion+5, mipaintLines);
+
+              //segundo texto a la derecha
+              canvas.drawText(data.get(i).dataContent ,starxPosiciontextInrigth+10 , starYposicion+5, mipaintLines);
+
+
+              //creamos otra linea horizontal
+              canvas.drawLine(startXposicion,starYposicion+10,endXposicion,starYposicion+10,mipaintLines);
+
+              starYposicion= starYposicion+20;
+
+          }
+
+
+
+        //linea vertical al empezar la izquiera
+        canvas.drawLine(startXposicion,320,startXposicion,starYposicion-10 ,mipaintLines);
+
+
+            //linea vertical en la mita de la tabla
+        canvas.drawLine(278,320,278,starYposicion-10 ,mipaintLines);
+
+
+        //linea vertical al finalizar la derecha
+        canvas.drawLine(endXposicion,320,endXposicion,starYposicion-10 ,mipaintLines);
+
+
+          //
+
+        //13 .....
+
+
+    }
+
+
+
+    private int getLastPosicionElementY(int ultimaPosicionY){
+
+
+        return   currentPosicionLastYcanvasElement+ultimaPosicionY;
+    }
+
+
+    private static void  addDataList(int Seccion){
+        InformEmbarque   informeObjct = new InformEmbarque("aaad01",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
+
+        data=new ArrayList<>();
+
+     switch(Seccion){
+
+         case 1:
+             data.add(new DataToPDF(informeObjct.getSemana(),"Semana"));
+             data.add(new DataToPDF(informeObjct.getProductor(),"Productor"));
+             data.add(new DataToPDF(informeObjct.getHacienda(),"Hacienda"));
+             data.add(new DataToPDF(informeObjct.getCodeInforme(),"Codigo informe"));
+             data.add(new DataToPDF(informeObjct.getZona(),"Zona"));
+             data.add(new DataToPDF(informeObjct.getHoraInicio(),"Hora Inicio"));
+             data.add(new DataToPDF(informeObjct.getHoraInicio(),"Hora inicio2"));
+             data.add(new DataToPDF(informeObjct.getHoraInicio(),"Hora inicio3" ));
+             data.add(new DataToPDF(informeObjct.getHoraInicio(),"Hora inicio4"));
+
+
+
+
+             break;
+
+
+         case 2:
+             break;
+
+
+         case 3:
+             break;
+
+
+         case 4:
+             break;
+
+
+         case 5:
+             break;
+
+
+         case 6:
+             break;
+
+
+
+
+     }
+
+
+    }
+
+
+
+
 }
