@@ -190,6 +190,12 @@ public class PdfMaker {
 
 
 
+        //crear una especifica poara datos de proceso...
+        //agragr data a otra pagina ,,probablemente necesitenemos un parametro donde pasemos la pagina..
+          //para imagenes comprobar si la imagen es orizontal o vertical.....
+
+
+
           //ahora agregamos mas data en otra pagina
         //agregamos otra pagina
         //creamos primera linea horizontal
