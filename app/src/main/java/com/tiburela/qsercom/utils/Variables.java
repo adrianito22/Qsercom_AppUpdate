@@ -16,5 +16,9 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final  int   MINIMO_FOTOS_ALL_CATEGORY=1;
 
 
+    public static final int   FIRST_HEADER_OF_TABLE=5018;
+    public static final int   TABLE_PRODUCTOS_POSTCOSECHA=5019;
+
+
 
 }
