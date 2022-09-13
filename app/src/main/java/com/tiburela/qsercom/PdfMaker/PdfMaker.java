@@ -20,12 +20,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.DataToPDF;
 import com.tiburela.qsercom.models.InformEmbarque;
 
 public class PdfMaker {
+    
+   private static final int START_X_POSICION=20;
+    private  static final int END_X_POSICION= 575;
+    private static  final int START_X_POSICION_TEXT_RIGTH= 280;
+    private static final int START_X_POSICION_TEXT_LEFT=30;
+
+
 
     static ArrayList<DataToPDF>data;
 
@@ -95,7 +103,7 @@ public class PdfMaker {
         // below line is used for setting
         // our text to center of PDF.
         miPaint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("This is sample document which we have created.", 396, 560, miPaint);
+      //  canvas.drawText("This is sample document which we have created.", 396, 560, miPaint);
 
         // after adding all attributes to our
         // PDF file we will be finishing our page.
@@ -218,7 +226,7 @@ public class PdfMaker {
         // below line is used for setting
         // our text to center of PDF.
         miPaint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("This is sample document which we have created.", 396, 560, miPaint);
+      //  canvas.drawText("This is sample document which we have created.", 396, 560, miPaint);
 
 
 
@@ -226,7 +234,12 @@ public class PdfMaker {
      InformEmbarque   informeObjct = new InformEmbarque("aaad01",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
 
 
-        createTable(canvas,mypageInfo.getPageWidth()-10,informeObjct);
+        createTable(canvas,mypageInfo.getPageWidth()-20,informeObjct);
+
+        int value=mypageInfo.getPageWidth()-20;
+
+        Log.i("searcladatas","misdataes "+value);
+
 
         // after adding all attributes to our
         // PDF file we will be finishing our page.
@@ -337,7 +350,7 @@ public static  void createpdfhiwRSOLUT(Context context)  {
       //  File file = new File(directory, UUID.randomUUID().toString() +".pdf");
 
 
-        File file = new File(directory, "Informe Qsercom" +".pdf");
+        File file = new File(directory, UUID.randomUUID().toString() +".pdf");
 
 
         try {
@@ -486,54 +499,53 @@ public static  void createpdfhiwRSOLUT(Context context)  {
 
     private static void createTable(Canvas canvas , int endXposicion,InformEmbarque informeObjct ) { //en el primer hay 43
         //creando el primer tabla semana son 14 espacios...
-
         Paint mipaintLines = new Paint();
         mipaintLines.setTextAlign(Paint.Align.LEFT);
-        // mipaintLines.setTextAlign(Paint.Align.CENTE);
 
+        Paint mipaintHeader = new Paint();
+        mipaintHeader.setTextAlign(Paint.Align.CENTER);
+        mipaintHeader.setColor(Color.parseColor("#4CAF50"));
+
+
+        // mipaintLines.setTextAlign(Paint.Align.CENTE);
         mipaintLines.setColor(Color.parseColor("#3A3A3A"));
-        //
+
         int startXposicion = 10;
         int initStartYposicion = 240;
-        int startXposicionTextLeft = 20;
-
-
-        /**la posicion en y es 240*/
 
         canvas.drawLine(startXposicion, initStartYposicion, endXposicion, initStartYposicion, mipaintLines);
 
-        /**la posicion en y es 240*/
+        canvas.drawText("REPORTE DE CALIDAD DE CONTENEDORES", Math.round(595/2), 260, mipaintHeader);
 
+        canvas.drawText("EXPORTADORA SOLICITANTE  " + informeObjct.getHacienda(), Math.round(595/2), 280, mipaintHeader);
 
-        canvas.drawText("REPORTE DE CALIDAD DE CONTENEDORES", startXposicionTextLeft, 260, mipaintLines);
+        canvas.drawText("EXPORTADORA PROCESADA " + informeObjct.getEmpacadora(), Math.round(595/2), 300, mipaintHeader);
 
-        canvas.drawText("EXPORTADORA SOLICITANTE  " + informeObjct.getHacienda(), startXposicionTextLeft, 280, mipaintLines);
-
-        canvas.drawText("EXPORTADORA PROCESADA " + informeObjct.getEmpacadora(), startXposicionTextLeft, 300, mipaintLines);
-
-        canvas.drawLine(startXposicion, 318, endXposicion, 318, mipaintLines);
-
-
-
+        canvas.drawLine(10, 310, endXposicion, 310, mipaintLines);
 
 
         int starYposicion = 330;
-        int starxPosiciontextInrigth = 280;
 
         addDataList(1);
 
+        //creamos primera linea horizontal
+          canvas.drawLine(startXposicion,320,endXposicion,320,mipaintLines);
+
+        Paint paintx= new Paint();
+        // paint.setStyle(Paint.Color.);
+        paintx.setColor(Color.parseColor("#4CAF50"));
+
+        /***Creamos el background del PRIMER DATO , usando un drawrect*/
+        canvas.drawRect(startXposicion, 320, endXposicion, starYposicion+10, paintx);
+
+
           for(int i = 0; i <data.size(); i++)  { //fecha DATA
 
-              //creamos primera linea horizontal
-              canvas.drawLine(startXposicion,starYposicion+10,endXposicion,starYposicion+10,mipaintLines);
-
-
               //primer texto a la izquiera
-              canvas.drawText(data.get(i).dataFieldName, startXposicionTextLeft, starYposicion+5, mipaintLines);
+              canvas.drawText(data.get(i).dataFieldName, START_X_POSICION_TEXT_LEFT, starYposicion+5, mipaintLines);
 
               //segundo texto a la derecha
-              canvas.drawText(data.get(i).dataContent ,starxPosiciontextInrigth+10 , starYposicion+5, mipaintLines);
-
+              canvas.drawText(data.get(i).dataContent ,START_X_POSICION_TEXT_RIGTH+10 , starYposicion+5, mipaintLines);
 
               //creamos otra linea horizontal
               canvas.drawLine(startXposicion,starYposicion+10,endXposicion,starYposicion+10,mipaintLines);
@@ -542,28 +554,81 @@ public static  void createpdfhiwRSOLUT(Context context)  {
 
           }
 
-
-
         //linea vertical al empezar la izquiera
         canvas.drawLine(startXposicion,320,startXposicion,starYposicion-10 ,mipaintLines);
 
-
             //linea vertical en la mita de la tabla
         canvas.drawLine(278,320,278,starYposicion-10 ,mipaintLines);
-
 
         //linea vertical al finalizar la derecha
         canvas.drawLine(endXposicion,320,endXposicion,starYposicion-10 ,mipaintLines);
 
 
-          //
 
-        //13 .....
+        /****productos poscosecha utilizados  */
+        addDataList(2);
+
+        addNewTable( canvas,  starYposicion+10,mipaintLines,"PRODUCTOS POST-COSECHA UTILIZADOS");
+
+            //creamos primera linea horizontal
+      //  canvas.drawLine(startXposicion,320,endXposicion,320,mipaintLines);
+
 
 
     }
 
 
+    private static void addNewTable(Canvas canvas, int starYposicion, Paint mipaintLines, String textHEader) {
+        int starYposicionDelPrincipio=starYposicion;
+      //creamos el header de la tabla
+
+         Paint paintx= new Paint();
+       // paint.setStyle(Paint.Color.);
+        paintx.setColor(Color.parseColor("#FFBDD6EE"));
+
+        /***Creamos el background del header usando un drawrect*/
+        canvas.drawRect(START_X_POSICION, starYposicion-10, END_X_POSICION, starYposicion+10, paintx);
+
+
+        /***Creamos la primera LINEA DEL HEADER*/
+        canvas.drawLine(START_X_POSICION,starYposicion-10,END_X_POSICION,starYposicion-10,mipaintLines);
+
+
+        /***Creamos el texto y lo posicinamos en el centro*/
+        canvas.drawText(textHEader, 100, starYposicion+5, mipaintLines);
+
+
+        /***Creamos la segunda linea del header*/
+        canvas.drawLine(START_X_POSICION,starYposicion+10,END_X_POSICION,starYposicion+10,mipaintLines);
+
+
+        starYposicion= starYposicion+20;
+
+
+        for(int i = 0; i <data.size(); i++)  {
+
+            canvas.drawText(data.get(i).dataFieldName, START_X_POSICION_TEXT_LEFT, starYposicion+5, mipaintLines);
+
+            //segundo texto a la derecha
+            canvas.drawText(data.get(i).dataContent ,START_X_POSICION_TEXT_RIGTH+10 , starYposicion+5, mipaintLines);
+
+            //creamos otra linea horizontal
+            canvas.drawLine(START_X_POSICION,starYposicion+10,END_X_POSICION,starYposicion+10,mipaintLines);
+            starYposicion= starYposicion+20;
+
+        }
+
+        //linea vertical al empezar la izquiera starYposicionDelPrincipio+10 despue sprobamos  //porbar starYposicion-20
+        canvas.drawLine(START_X_POSICION,starYposicionDelPrincipio-10,START_X_POSICION,starYposicion-10 ,mipaintLines);
+
+        //linea vertical en la mita de la tabla
+        canvas.drawLine(278,starYposicionDelPrincipio+10,278,starYposicion-10 ,mipaintLines);
+
+        //linea vertical al finalizar la derecha
+        canvas.drawLine(END_X_POSICION,starYposicionDelPrincipio-10,END_X_POSICION,starYposicion-10 ,mipaintLines);
+
+    }
+    
 
     private int getLastPosicionElementY(int ultimaPosicionY){
 
@@ -578,7 +643,7 @@ public static  void createpdfhiwRSOLUT(Context context)  {
         data=new ArrayList<>();
 
      switch(Seccion){
-
+                       //el data field es el nombre del dato
          case 1:
              data.add(new DataToPDF(informeObjct.getSemana(),"Semana"));
              data.add(new DataToPDF(informeObjct.getProductor(),"Productor"));
@@ -597,8 +662,18 @@ public static  void createpdfhiwRSOLUT(Context context)  {
 
 
          case 2:
-             break;
 
+             //PRODUCTOS POSTCOSECHA UTILIZADFOS
+             //si el producto postosecha...  obtenemops los productos postosecha a partir del objeto
+
+             //EL PRODUCTO Y SU CANTIDADD
+             data.add(new DataToPDF("BSC100","4500CC"));
+             data.add(new DataToPDF("ZXD","45MM"));
+             data.add(new DataToPDF("SOLFER","1L"));
+             data.add(new DataToPDF("samero1","4MM"));
+             data.add(new DataToPDF("Acido citrico","56MM"));
+
+             break;
 
          case 3:
              break;
