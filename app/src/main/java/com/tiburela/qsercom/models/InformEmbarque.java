@@ -1,13 +1,17 @@
 package com.tiburela.qsercom.models;
 
+import static com.google.gson.internal.bind.TypeAdapters.UUID;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class InformEmbarque {
 
+    public static HashMap<String, String> prodcutsPostCosecha;
 
     /***Propiedades del informe*/
 
@@ -18,7 +22,29 @@ public class InformEmbarque {
     private long fechaCreacionInf;
 
 
-    public InformEmbarque(String codeInforme, int ediNhojaEvaluacion, String zona, String productor, String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte, String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana, String empacadora, String contenedor, String cbservacion) {
+
+    private String uniqueIDinforme;
+
+
+    public InformEmbarque(String  uniqueIDinforme ,String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
+                          String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
+                          String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
+                          String empacadora, String contenedor, String cbservacion, String horaLlegadaContenedor,
+                          String horaSalidadContenedor,
+                          String destinoContenedor,
+                          String numeroViajeContenedor,
+                          String vapor,
+                          String tipoContenedor,
+                          String tare,
+                          String booking,
+                          String maxGross,
+                          String nSerieFunda,
+                          String stickerVentoExtern,
+                          String cableRastreoLlegada,
+                          String selloPlasticoNaviera,
+                          String otroSelloLlegadaEspec) {
+
+        this.uniqueIDinforme=uniqueIDinforme;
         this.codeInforme = codeInforme;
         esVisually = true;
         esEditableNow = true;
@@ -40,6 +66,21 @@ public class InformEmbarque {
         this.empacadora = empacadora;
         this.contenedor = contenedor;
         this.cbservacion = cbservacion;
+        this.horaLlegadaContenedor = horaLlegadaContenedor;
+        this.horaSalidadContenedor = horaSalidadContenedor;
+        this.destinoContenedor = destinoContenedor;
+        this.numeroViajeContenedor = numeroViajeContenedor;
+        this.vapor = vapor;
+        this.tipoContenedor = tipoContenedor;
+        this.tare = tare;
+        this.booking = booking;
+        this.maxGross = maxGross;
+        this.nSerieFunda = nSerieFunda;
+        this.stickerVentoExtern = stickerVentoExtern;
+        this.cableRastreoLlegada = cableRastreoLlegada;
+        this.selloPlasticoNaviera = selloPlasticoNaviera;
+        this.otroSelloLlegadaEspec = otroSelloLlegadaEspec;
+
     }
 
     /***Datos formulario */
@@ -62,6 +103,27 @@ public class InformEmbarque {
     private String contenedor;
     private String cbservacion;
 
+
+    //DATOS DEL CONTENEDOR
+    private String horaLlegadaContenedor;
+    private String horaSalidadContenedor;
+    private String destinoContenedor;
+    private String numeroViajeContenedor;
+    private String vapor;
+    private String tipoContenedor;
+
+
+    //SELLOS DE LLEGADA
+    private String tare;
+    private String booking;
+    private String maxGross;
+    private String nSerieFunda;
+    private String stickerVentoExtern;
+    private String cableRastreoLlegada;
+    private String selloPlasticoNaviera;
+    private String otroSelloLlegadaEspec;
+
+//
 
 
     public String getCodeInforme() {
@@ -245,6 +307,7 @@ public class InformEmbarque {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("uniqueIDinforme", uniqueIDinforme);
         result.put("codeInforme", codeInforme);
         result.put("esVisually", esVisually);
         result.put("esEditableNow", esEditableNow);
@@ -267,15 +330,62 @@ public class InformEmbarque {
         result.put("contenedor", contenedor);
         result.put("cbservacion", cbservacion);
 
+        result.put("horaLlegadaContenedor", horaLlegadaContenedor);
+        result.put("horaSalidadContenedor", horaSalidadContenedor);
+        result.put("destinoContenedor", destinoContenedor);
+        result.put("numeroViajeContenedor", numeroViajeContenedor);
+        result.put("vapor", vapor);
+        result.put("tipoContenedor", tipoContenedor);
+
+        result.put("tare", tare);
+        result.put("booking", booking);
+        result.put("maxGross", maxGross);
+        result.put("nSerieFunda", nSerieFunda);
+        result.put("stickerVentoExtern", stickerVentoExtern);
+        result.put("cableRastreoLlegada", cableRastreoLlegada);
+        result.put("selloPlasticoNaviera", selloPlasticoNaviera);
+        result.put("otroSelloLlegadaEspec", otroSelloLlegadaEspec);
+
 
         return result;
-
-
 
 
     }
 
 
 
+    public String getUniqueIDinforme() {
+        return uniqueIDinforme;
+    }
 
+public static  HashMap generateerateMapProductsPoscosecha(){
+
+    prodcutsPostCosecha = new HashMap<String, String>();
+    prodcutsPostCosecha.put("BROMORUX", "");
+    prodcutsPostCosecha.put("RYZUC", "");
+    prodcutsPostCosecha.put("XTRATA", "");
+    prodcutsPostCosecha.put("NLARGE", "");
+    prodcutsPostCosecha.put("MERTEC", "");
+    prodcutsPostCosecha.put("SASTIFAR", "");
+    prodcutsPostCosecha.put("Alumbre", "");
+    prodcutsPostCosecha.put("BC100", "");
+    prodcutsPostCosecha.put("ECLIPSE", "");
+    prodcutsPostCosecha.put("GIB-BEX", "");
+    prodcutsPostCosecha.put("BIOTTOL", "");
+    prodcutsPostCosecha.put("ACIDO CITRICO", "");
+    prodcutsPostCosecha.put("Otro  (especifique)", ""); //aqui haremos una exp[ecion mora etse ultimo..
+    prodcutsPostCosecha.put("Cantidad otro", ""); //aqui haremos una exp[ecion mora etse ultimo..
+
+
+return prodcutsPostCosecha;
+
+
+
+}
+
+
+/**TODO LO QUE ES OPCIONAL MEJOR LOP GUARDAMOS EN UN HASHMAP*/
+
+
+//
 }

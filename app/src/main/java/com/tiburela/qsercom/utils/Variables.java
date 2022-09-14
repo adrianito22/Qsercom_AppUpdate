@@ -18,6 +18,10 @@ public static String  paqueteName="com.tiburela.qsercom";
 
     public static final int   FIRST_HEADER_OF_TABLE=5018;
     public static final int   TABLE_PRODUCTOS_POSTCOSECHA=5019;
+    public static final int   TABLE_DATOS_PROCESO=5020;
+    public static final int   TABLE_DATOS_TRANSPORTISTA=5021;
+
+    public static final int   TABLE_DATOS_XXX=5021;
 
 
 

@@ -3,10 +3,9 @@ package com.tiburela.qsercom.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.models.ImagenX;
+import com.tiburela.qsercom.models.ImagenReport;
 
 import java.util.HashMap;
 
@@ -17,7 +16,7 @@ public class PdfPreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_preview);
 
-        HashMap<String, ImagenX> hash_map = new HashMap<String, ImagenX>();
+        HashMap<String, ImagenReport> hash_map = new HashMap<String, ImagenReport>();
           //parace que el primer datos es la clave y el segundo es valor
 
 /*

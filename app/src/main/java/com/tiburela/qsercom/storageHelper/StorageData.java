@@ -14,9 +14,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.tiburela.qsercom.models.ImagenX;
+import com.tiburela.qsercom.databaseHelper.RealtimeDB;
+import com.tiburela.qsercom.models.ImagenReport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class StorageData {
@@ -28,6 +31,8 @@ public class StorageData {
 
 private static int counTbucle=0;
 
+
+
     public static void initStorageReference()  {
 
         FirebaseStorage rootFirebaseStorage = FirebaseStorage.getInstance();
@@ -37,8 +42,7 @@ private static int counTbucle=0;
 
     }
 
-    public static void uploadImage(Context context, ArrayList<ImagenX> listImagesData) {
-
+    public static void uploadImage(Context context,  HashMap<String, ImagenReport> hasmapImagenData) {
 
         // Code for showing progressDialog while uploading
         ProgressDialog progressDialog
@@ -46,28 +50,26 @@ private static int counTbucle=0;
         progressDialog.setTitle("Subiendo...");
         progressDialog.show();
 
-         //creamos una lista de nombre
-        ArrayList  <String> listaNamesImages=new ArrayList<>();
 
 
+             //iteramos el mapa
+        for (Map.Entry<String, ImagenReport> entry : hasmapImagenData.entrySet()) {
+            ImagenReport value = entry.getValue();
+            String uriFilePath =value.geturiImage();
 
-        for (int i = 0; i < listImagesData.size(); i++) {
+             Uri myUri = Uri.parse(uriFilePath);
+
 
             counTbucle++;
 
-            String picNameofStorage= UUID.randomUUID().toString();
-            listaNamesImages.add(picNameofStorage);
-            Uri uriFilePath =listImagesData.get(i).geturiImage();
-
-
             // Defining the child of storageReference
-                stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+picNameofStorage);
+                stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+value.getUniqueId());
 
 
                 // adding listeners on upload
                 // or failure of image
 
-                stoRefToUpload.putFile(uriFilePath)
+                stoRefToUpload.putFile(myUri)
                         .addOnSuccessListener(
                                 new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
@@ -75,19 +77,23 @@ private static int counTbucle=0;
                                     public void onSuccess(
                                             UploadTask.TaskSnapshot taskSnapshot) {
 
-                                        // Image uploaded successfully
-                                        // Dismiss dialog
-                                        //aqui subimos.....
+                                              //subimos el registro
 
-                                            //ahora sibimos a la base de datos.... la lista de nombres
+                                        Log.i("comoer","info "+counTbucle+" = "+hasmapImagenData.size());
+                                        RealtimeDB.addNewSetPicsInforme(context,value);
 
-
-                                        if(counTbucle ==listImagesData.size()) {
+                                        if(counTbucle ==hasmapImagenData.size()) {
 
                                             progressDialog.dismiss();
-                                 Log.i("diald","se ejecuto este if ");
+                                 Log.i("comoer","se ejecuto este if ");
 
                                             Toast.makeText(context, "Se subio corectamente", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
                                         }
 
 
@@ -134,12 +140,12 @@ private static int counTbucle=0;
 
 
 
-        }
+
 
 
     }
 
-
+    }
 
 
 }

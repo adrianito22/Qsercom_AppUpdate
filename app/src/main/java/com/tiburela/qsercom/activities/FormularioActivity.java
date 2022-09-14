@@ -49,12 +49,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.BuildConfig;
-import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.databaseHelper.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
-import com.tiburela.qsercom.models.ImagenX;
+import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformEmbarque;
 import com.tiburela.qsercom.storageHelper.StorageData;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Variables;
@@ -62,14 +62,18 @@ import com.tiburela.qsercom.utils.Variables;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.tiburela.qsercom.R;
 
 
 public class FormularioActivity extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
+    private String UNIQUE_ID_iNFORME;
+
 
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
@@ -226,6 +230,8 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
+        UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
 
       // FirebaseApp.initializeApp(this);
       //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
@@ -847,11 +853,11 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
                            // showImageByUri(cam_uri);
 
-                            //creamos un nuevo objet de tipo ImagenX
-                            ImagenX obcjImagenX=new ImagenX("",cam_uri,currentTypeImage);
+                            //creamos un nuevo objet de tipo ImagenReport
+                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME);
 
                             //agregamos este objeto a la lista
-                            ImagenX.hashMapImagesData.put(obcjImagenX.getUniqueId(),obcjImagenX);
+                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueId(), obcjImagenReport);
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1041,7 +1047,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
              //COMPORBAQMOS SI EXISTE AL ME4NOS UN IMAGEN URI LIST..
 
-            if(ImagenX.hashMapImagesData.size()> 0 ) {
+            if(ImagenReport.hashMapImagesData.size()> 0 ) {
                 actualizaListStateView("imbAtach/imbTakePic",true) ;
 
                Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
@@ -1178,11 +1184,11 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
                         for(int indice=0; indice<result.size(); indice++){
 
-                            ImagenX imagenXObjc=new ImagenX("",result.get(indice),currentTypeImage);
+                            ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME);
 
 
 
-                            ImagenX.hashMapImagesData.put(imagenXObjc.getUniqueId(),imagenXObjc);
+                            ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueId(), imagenReportObjc);
 
 
                         }
@@ -1435,20 +1441,20 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     }
 
 
-     ArrayList<ImagenX> filterListImagesData=new ArrayList<ImagenX>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
+     ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
 
     RecyclerView recyclerView= findViewById(R.id.recyclerView);
 
 
-    for (Map.Entry<String, ImagenX> set : ImagenX.hashMapImagesData.entrySet()) {
+    for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
 
         String key = set.getKey();
 
-        ImagenX value = set.getValue();
+        ImagenReport value = set.getValue();
 
         if(value.getTipoImagenCategory()==currentTypeImage){
 
-            filterListImagesData.add(ImagenX.hashMapImagesData.get(key));
+            filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
 
         }
 
@@ -1520,7 +1526,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
             callcheckDataFields();
 
-           // storageTest();
+           storageTest();
 
 
 
@@ -1623,10 +1629,28 @@ void callcheckDataFields(){ //
 }
 
 
-private void callAdNewInformDataBASE(){
+private void createObjcInforme(){
+
+//aplicamos la logica PARA CREAR UN NUEVO INFORME
+//SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
+
+    InformEmbarque informe = new InformEmbarque(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
+            ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
+            ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
+            ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
+            ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
+            ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString(),"","",""
+            ,"","","","","","","","","",""
+    ,"");
+
     //Agregamos un nuevo informe
     RealtimeDB.initDatabaseReference(); //inicilizamos la base de datos
-    RealtimeDB.addNewInforme(FormularioActivity.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
+
+    RealtimeDB. addNewInforme(FormularioActivity.this,informe);
+
+
+    /*
+    RealtimeDB.addNewInforme(FormularioActivity.this,UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
             ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
             ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
             ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
@@ -1635,7 +1659,7 @@ private void callAdNewInformDataBASE(){
 
     ); //agregamos
 
-
+*/
 
 
 }
@@ -1653,14 +1677,14 @@ private void callAdNewInformDataBASE(){
 
                ///elimnar el hasmap
                //vamos a ver el tipo del objeto removivo
-               Variables.typeoFdeleteImg=  ImagenX.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+               Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
 
-                Log.i("camisax","el size antes de eliminar es "+ ImagenX.hashMapImagesData.size());
+                Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
 
-                ImagenX.hashMapImagesData.remove(v.getTag().toString());
+                ImagenReport.hashMapImagesData.remove(v.getTag().toString());
 
-                Log.i("camisax","el size despues de eliminar es "+ ImagenX.hashMapImagesData.size());
+                Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
                 showImagesPicShotOrSelectUpdateView(true);
 
@@ -1683,16 +1707,16 @@ private void callAdNewInformDataBASE(){
    //una lista de Uris
 
 
-        if(ImagenX.listImagesData.size() ==0 ){
+        if(ImagenReport.hashMapImagesData.size() ==0 ){
 
             Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
              return;
         }
 
-        //    public static void uploadImage(Context context, ArrayList<ImagenX> listImagesData) {
+        //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
 
         //aqui subimos
-       // StorageData.uploadImage(FormularioActivity.this, ImagenX.listImagesData);
+       StorageData.uploadImage(FormularioActivity.this, ImagenReport.hashMapImagesData);
 
     }
 
@@ -1877,11 +1901,11 @@ private void callAdNewInformDataBASE(){
         int numImagesEcontradas=0;
 
 
-        for (Map.Entry<String, ImagenX> set : ImagenX.hashMapImagesData.entrySet()) { //revismao en todo el map
+        for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) { //revismao en todo el map
 
          //   String key = set.getKey();
 
-            ImagenX value = set.getValue();
+            ImagenReport value = set.getValue();
 
             if(value.getTipoImagenCategory()==categoriaImagenToSearch){
 
@@ -1979,7 +2003,7 @@ private void callAdNewInformDataBASE(){
       else  if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediInscirpMagap.requestFocus();
             ediInscirpMagap.setError("Este espacio es obligatorio");
-
+            ediInscirpMagap.setText("_");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
@@ -2696,6 +2720,49 @@ return true;
 
     }
 
+
+private void  addDataToHasmapProdcutsPostCosecha(){
+       HashMap<String,String> dataToHasmapProdcuts ;
+
+    dataToHasmapProdcuts  = InformEmbarque.generateerateMapProductsPoscosecha();
+
+    //creamos un array de editext
+
+    EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
+            ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+
+
+    for (int indice =0; indice<editextArray.length; indice++) {
+
+        EditText currentEditext=editextArray[indice];
+
+
+        if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
+
+            if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
+                 {
+                     String keyOFHint  = currentEditext.getHint().toString();
+
+                     dataToHasmapProdcuts.put(keyOFHint, currentEditext.getText().toString()); //asi lo actualizamos
+
+                     //editamos el hashmap
+
+
+            }
+
+
+        }
+
+        //si el editext tiene data lo corregimos usando la propiedad hint
+
+
+    }
+
+
+}
+
+
+//upload data...
 
 
 

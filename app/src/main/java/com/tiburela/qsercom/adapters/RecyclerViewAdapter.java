@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.tiburela.qsercom.models.ImagenX;
+import com.tiburela.qsercom.models.ImagenReport;
 
 import java.util.ArrayList;
 
@@ -27,11 +28,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static ClickListener clickListener;
 
 
-    private ArrayList<ImagenX> listImagenData;
+    private ArrayList<ImagenReport> listImagenData;
     private Context mcontext;
 
-    public RecyclerViewAdapter(ArrayList<ImagenX> imagenXArrayList, Context mcontext) {
-        this.listImagenData = imagenXArrayList;
+    public RecyclerViewAdapter(ArrayList<ImagenReport> imagenReportArrayList, Context mcontext) {
+        this.listImagenData = imagenReportArrayList;
         this.mcontext = mcontext;
     }
 
@@ -48,14 +49,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, @SuppressLint("RecyclerView") int position) {
         // Set the data to textview and imageview.
-        ImagenX imagenX = listImagenData.get(position);
-        holder.textImputEditext.setText(imagenX.getDescripcionImagen());
+        ImagenReport imagenReport = listImagenData.get(position);
+        holder.textImputEditext.setText(imagenReport.getDescripcionImagen());
 
-        holder.imageview.setImageURI(listImagenData.get(position).geturiImage());
-        holder.imvClose.setTag(imagenX.getUniqueId());
+         Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
+
+        holder.imageview.setImageURI(myUri);
+        holder.imvClose.setTag(imagenReport.getUniqueId());
 
 
-      //  holder.imageview.setImageResource(imagenX.geturiImage());
+      //  holder.imageview.setImageResource(imagenReport.geturiImage());
         holder.textImputEditext.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
@@ -71,7 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                // String textOftextImputEditext = holder.textImputEditext.getText().toString();
 
-              //  imagenX.listImagesData.get(position).setDescripcionImagen(textOftextImputEditext);
+              //  imagenReport.listImagesData.get(position).setDescripcionImagen(textOftextImputEditext);
 
                 /***en edicion arreglar que remplzamos el correcto*/
 

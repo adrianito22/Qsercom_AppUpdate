@@ -36,11 +36,14 @@ public class PdfMaker {
     static    Paint mipaintLines;
 
     static  Paint paintBacdkground;
+    static  Paint paintBacdkgroundDurazno;
 
-   private static final int START_X_POSICION=20;
-    private  static final int END_X_POSICION= 575;
-    private static  final int START_X_POSICION_TEXT_RIGTH= 280;
-    private static final int START_X_POSICION_TEXT_LEFT=30;
+
+
+   private static final int START_X_POSICION=40;
+    private  static final int END_X_POSICION= 555;
+    private static  final int START_X_POSICION_TEXT_RIGTH= 200;
+    private static final int START_X_POSICION_TEXT_LEFT=40;
 
 
 
@@ -145,32 +148,26 @@ public class PdfMaker {
         Paint miPaint = new Paint(); //paint es un pincel propiedad,, y contiene todo lo que contiene un pincel(color,ancho..tipo,etc.)
 
         /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth y pgae number que ahora es 1 */
-        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.PageInfo mypageInfo1 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
 
         // below line is used for setting
         // start page for our PDF file.
         /***creamos e iniclizamos un objeto   PdfDocument.Page  Y le gramos la confirguracion o el objeto  mypageInfo */
-        PdfDocument.Page myPage = pdfDocument.startPage(mypageInfo);
+        PdfDocument.Page myPage1 = pdfDocument.startPage(mypageInfo1);
 
         /*** creating a variable for canvas */
-        Canvas canvas = myPage.getCanvas();
+        Canvas canvas = myPage1.getCanvas();
+
+        addImageHeaderFootterPDF(  bitMapScaledHeader, bmpGlobal,  canvas, miPaint);
 
 
-        //Cagregmoa el header bitmap
-        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
-        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
-        canvas.drawBitmap( resize(bmpGlobal,505,280), 0, 535, miPaint);
 
         //cremoa sun objketo
-     InformEmbarque   informeObjct = new InformEmbarque("aaad01",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
+     InformEmbarque   informeObjct = new InformEmbarque("aaad01","test",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan","","dfg" ,
+             "","","","","","","","",""
+             ,"","","");
        //iniiclizamoas paints
         initPaintObject();
-
-
-
-
-
-     //creamos el header
 
 
 
@@ -186,42 +183,54 @@ public class PdfMaker {
         addNewTable( canvas,  currentPosicionLastYcanvasElement+10,mipaintLines,"Datos del contenedor",Variables.TABLE_PRODUCTOS_POSTCOSECHA,informeObjct);
         addNewTable( canvas,  currentPosicionLastYcanvasElement+10,mipaintLines,"SEllOS LLEGADA",Variables.TABLE_PRODUCTOS_POSTCOSECHA,informeObjct);
         addNewTableSellosINtalados( canvas,  currentPosicionLastYcanvasElement+10,mipaintLines,"SEllOS instalados");
-        addNewTable( canvas,  currentPosicionLastYcanvasElement+10,mipaintLines,"SEllOS LLEGADA",Variables.TABLE_PRODUCTOS_POSTCOSECHA,informeObjct);
+        pdfDocument.finishPage(myPage1); //finalziamos la  pagina 1
 
 
 
-        //crear una especifica poara datos de proceso...
-        //agragr data a otra pagina ,,probablemente necesitenemos un parametro donde pasemos la pagina..
-          //para imagenes comprobar si la imagen es orizontal o vertical.....
+        /**SEGUNDA HOJA DEL PDF*/
+        //cremaosd la pagina 2 del pdf
+        PdfDocument.PageInfo mypageInfo2 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.Page myPage2 = pdfDocument.startPage(mypageInfo2);
+        Canvas canvas2 = myPage2.getCanvas();
+
+        //agregamos las imagen de header y la de footer
+        addImageHeaderFootterPDF(  bitMapScaledHeader, bmpGlobal,  canvas2, miPaint);
+
+
+         //agregamos data
+        addNewTable( canvas2,  posicionYdondeStartDibujamos,mipaintLines,"DATOS TRANSPORTISTA",Variables.TABLE_PRODUCTOS_POSTCOSECHA,informeObjct);
+
+
+        //y agregamos la de mas info
+
+        int posicionYdeDataosProcesotabla=currentPosicionLastYcanvasElement+10;
+        addNewTable( canvas2,  currentPosicionLastYcanvasElement+10,mipaintLines,"DATOS DEl PROCESO",Variables.TABLE_PRODUCTOS_POSTCOSECHA,informeObjct);
+
+
+        /**en esta ultima tabla agregamos demas columnas y contenido usando el siguioente metodo*/
+        addMoreDataDatosProceso(posicionYdeDataosProcesotabla,canvas2);
+
+
+        addNewTable( canvas2,  currentPosicionLastYcanvasElement,mipaintLines,"DATOS HACIENDA",Variables.TABLE_PRODUCTOS_POSTCOSECHA,informeObjct);
 
 
 
-          //ahora agregamos mas data en otra pagina
-        //agregamos otra pagina
-        //creamos primera linea horizontal
-        //  canvas.drawLine(startXposicion,320,endXposicion,320,mipaintLines);
+        addNewTable( canvas2,  currentPosicionLastYcanvasElement,mipaintLines,"CONTROL DE GANCHO",Variables.TABLE_PRODUCTOS_POSTCOSECHA,informeObjct);
 
 
 
-        int value=mypageInfo.getPageWidth()-20;
-
-        Log.i("searcladatas","misdataes "+value);
+        addTableCalibracionFrutaCaleEnfunde(canvas2,  currentPosicionLastYcanvasElement,mipaintLines,"CALIBRACION DE FRUTA (CALENDARIO DE ENFUNDE)",Variables.TABLE_PRODUCTOS_POSTCOSECHA,informeObjct);
 
 
-        // after adding all attributes to our
-        // PDF file we will be finishing our page.
-        pdfDocument.finishPage(myPage);
 
-       // exportPd(pdfDocument,context);
+
+
+        pdfDocument.finishPage(myPage2); //finalziamos la  pagina 2
+
 
         exportPdxFZ(pdfDocument,context);
 
-        //saveFile("mipdf01",pdfDocument);
 
-        //   exportPd(pdfDocument,context);
-
-//    private static void createPdfFromView(Context context, String fileName, int pageWidth, int pageHeight, int pageNumber,PdfDocument pdfDocument) {
-    //   createPdfFromView( context,"cawaike", 400,600  ,  1,pdfDocument);
 
 
         }
@@ -428,6 +437,22 @@ public static  void createpdfhiwRSOLUT(Context context)  {
 
     }
 
+
+
+    public static  void addImageHeaderFootterPDF( Bitmap bitMapScaledHeader,Bitmap bmpGlobal, Canvas canvas,Paint miPaint ) {
+        // bmpGlobal creo que es footer
+
+        //Cagregmoa el header bitmap
+        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
+        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
+        canvas.drawBitmap( resize(bmpGlobal,505,280), 0, 535, miPaint);
+
+    }
+
+
+
+
+
     public static  void saveFile( String fileName, PdfDocument document) {
 
         try {
@@ -527,11 +552,7 @@ public static  void createpdfhiwRSOLUT(Context context)  {
 
 
     private static void addNewTable(Canvas canvas, int starYposicion, Paint mipaintLines, String textHEader,int tipoIdTabla,InformEmbarque informeObjct) {
-
         addDataList(tipoIdTabla);
-
-
-
 
         int starYposicionDelPrincipio=starYposicion;
 
@@ -598,16 +619,122 @@ public static  void createpdfhiwRSOLUT(Context context)  {
         canvas.drawLine(START_X_POSICION,starYposicionDelPrincipio-10,START_X_POSICION,starYposicion ,mipaintLines);
 
         //linea vertical en la mita de la tabla
-        canvas.drawLine(278,starYposicionDelPrincipio+10,278,starYposicion ,mipaintLines);
+        canvas.drawLine(200,starYposicionDelPrincipio+10,200,starYposicion ,mipaintLines);
 
         //linea vertical al finalizar la derecha
         canvas.drawLine(END_X_POSICION,starYposicionDelPrincipio-10,END_X_POSICION,starYposicion ,mipaintLines);
 
 
+        ///SI ES TABLE QUEREMPOS QUE SE EJECUTE ESTO...
+
         currentPosicionLastYcanvasElement=starYposicion;
 
 
     }
+
+
+    private static void addTableCalibracionFrutaCaleEnfunde(Canvas canvas, int starYposicion, Paint mipaintLines, String textHEader,int tipoIdTabla,InformEmbarque informeObjct) {
+
+        addDataList(tipoIdTabla);
+
+        int starYposicionDelPrincipio=starYposicion;
+
+            canvas.drawRect(START_X_POSICION, starYposicion, END_X_POSICION, starYposicion+25, paintBacdkground);
+            //paintBacdkgroundDurazno
+            canvas.drawRect(START_X_POSICION, starYposicion+15, END_X_POSICION, starYposicion+25, paintBacdkgroundDurazno);
+
+             //EL TITULO O HEADER
+              canvas.drawText(textHEader,  Math.round(595/2), starYposicion+11, mipaintHeader);// ESTABA EN 12
+
+
+        // canvas.drawLine(startXposicion, initStartYposicion, endXposicion, initStartYposicion, mipaintLines);
+            canvas.drawText("SEMANA", START_X_POSICION+55, starYposicion+23, paintContentText);
+            canvas.drawText("COLOR  " , START_X_POSICION+155, starYposicion+23, paintContentText);
+            canvas.drawText("NUMERACION DE RACIMOS " , START_X_POSICION+250, starYposicion+23, paintContentText);
+            canvas.drawText("PORCENTAJE" , START_X_POSICION+410, starYposicion+23, paintContentText);
+
+            starYposicion= starYposicion+27; //actualizamos la posicion de donde termina el la posicino y del ultimo elemento
+
+
+
+
+        for(int i = 0; i <data.size(); i++)  { //ITERAMOS LAS SEMANAS....
+
+            //CENTRAR ESE TEXTO...
+            canvas.drawText(data.get(i).dataFieldName.toUpperCase(Locale.ROOT), START_X_POSICION_TEXT_LEFT+10, starYposicion+8, paintContentText);
+
+            //creamos otra linea horizontal
+            canvas.drawLine(START_X_POSICION,starYposicion+10,END_X_POSICION,starYposicion+10,mipaintLines);
+            starYposicion= starYposicion+10;
+
+        }
+
+        //linea vertical al empezar la izquiera starYposicionDelPrincipio+10 despue sprobamos  //porbar starYposicion-20
+        canvas.drawLine(START_X_POSICION,starYposicionDelPrincipio-10,START_X_POSICION,starYposicion ,mipaintLines);
+
+        //SEGUNDA LINEA VERTICAL
+        canvas.drawLine(160,starYposicionDelPrincipio+10,160,starYposicion ,mipaintLines);
+
+        //3RA LINEA VERTICAL
+        canvas.drawLine(270,starYposicionDelPrincipio+10,270,starYposicion ,mipaintLines);
+
+        //4TA LINEA VERTICAL
+        canvas.drawLine(420,starYposicionDelPrincipio+10,420,starYposicion ,mipaintLines);
+
+
+        //linea vertical al finalizar la derecha
+        canvas.drawLine(END_X_POSICION,starYposicionDelPrincipio-10,END_X_POSICION,starYposicion ,mipaintLines);
+
+
+        ///SI ES TABLE QUEREMPOS QUE SE EJECUTE ESTO...
+
+        currentPosicionLastYcanvasElement=starYposicion;
+
+
+    }
+
+    // imagens....
+
+    private static void addMoreDataDatosProceso(int posicionYstart,Canvas canvas) {
+      //le agregamos 3 lineas mas... vertcales
+
+        //segundo texto a la derecha
+       /// canvas.drawText(data.get(i).dataContent.toUpperCase(Locale.ROOT) ,START_X_POSICION_TEXT_RIGTH+10 , starYposicion+8, paintContentText);
+
+        //creamos la 3 linea vertical
+        //3era linea
+        canvas.drawLine(307,posicionYstart+10,307,currentPosicionLastYcanvasElement ,mipaintLines);
+
+        //4arta linea
+        canvas.drawLine(382,posicionYstart+10,382,currentPosicionLastYcanvasElement ,mipaintLines);
+
+        //5era linea
+        canvas.drawLine(457,posicionYstart+10,457,currentPosicionLastYcanvasElement ,mipaintLines);
+
+
+    }
+
+
+    private static void addMoreDataDatosHacienda(int posicionYstart,Canvas canvas) {
+        //le agregamos 3 lineas mas... vertcales
+
+        //segundo texto a la derecha
+        /// canvas.drawText(data.get(i).dataContent.toUpperCase(Locale.ROOT) ,START_X_POSICION_TEXT_RIGTH+10 , starYposicion+8, paintContentText);
+
+        //creamos la 3 linea vertical
+        //3era linea
+        canvas.drawLine(307,posicionYstart+10,307,currentPosicionLastYcanvasElement ,mipaintLines);
+
+        //4arta linea
+        canvas.drawLine(382,posicionYstart+10,382,currentPosicionLastYcanvasElement ,mipaintLines);
+
+        //5era linea
+        canvas.drawLine(457,posicionYstart+10,457,currentPosicionLastYcanvasElement ,mipaintLines);
+
+
+    }
+
+
 
 
     private static void addNewTableSellosINtalados(Canvas canvas, int starYposicion, Paint paintContentText, String textHEader) {
@@ -719,7 +846,11 @@ public static  void createpdfhiwRSOLUT(Context context)  {
 
 
     private static void  addDataList(int Seccion){
-        InformEmbarque   informeObjct = new InformEmbarque("aaad01",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
+        //cremoa sun objketo
+        InformEmbarque   informeObjct = new InformEmbarque("aaad01","test",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan","","dfg" ,
+                "","","","","","","","",""
+                ,"","","");
+
 
         data=new ArrayList<>();
 
@@ -785,6 +916,11 @@ public static  void createpdfhiwRSOLUT(Context context)  {
         mipaintHeader= new Paint();
          mipaintLines = new Paint();
         paintBacdkground=new Paint();
+        paintBacdkgroundDurazno =new Paint();
+
+
+        paintBacdkgroundDurazno.setColor(Color.parseColor("#FFA865"));
+
         paintContentText=new Paint();
 
         mipaintHeader.setTextAlign(Paint.Align.CENTER);

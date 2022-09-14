@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformEmbarque;
 
 import java.util.Map;
@@ -17,7 +18,7 @@ public class RealtimeDB {
 
  static   DatabaseReference rootDatabaseReference ;
 
-
+static   DatabaseReference mibasedataPathImages;
 
 
 
@@ -30,10 +31,19 @@ public class RealtimeDB {
 
         rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
 
+        mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImgsPhatStorage");
 
 
     }
 
+    public static  void initDatabaseReferenceImgsPhatStorage(){
+
+        rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
+         mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImgsPhatStorage");
+
+
+
+    }
 
     private void editInform(){
 
@@ -43,10 +53,11 @@ public class RealtimeDB {
 
 
 
-    public static void addNewInforme(Context context, String codeInforme, int ediNhojaEvaluacion, String zona, String productor, String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte, String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana, String empacadora, String contenedor, String cbservacion) {
+    public static void addNewInforme(Context context,InformEmbarque informeObjct) {
+
+
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
 
-        InformEmbarque  informeObjct= new InformEmbarque( codeInforme, ediNhojaEvaluacion ,  zona,  productor,  codigo,  pemarque,  nguiaRemision,  hacienda,  _nguia_transporte,  ntargetaEmbarque,  inscirpMagap,  horaInicio,  horaTermino,  semana,  empacadora,  contenedor,  cbservacion) ;
 
             Map<String, Object> mapValues = informeObjct.toMap();
 
@@ -59,6 +70,36 @@ public class RealtimeDB {
 
 
                     Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+    public static void addNewSetPicsInforme(Context context, ImagenReport objecImageReport ) {
+
+       if(mibasedataPathImages==null ) {
+           initDatabaseReferenceImgsPhatStorage();
+
+       }
+
+
+        Map<String, Object> mapValues = objecImageReport.toMap();
+
+        //SUBE MAPA
+        mibasedataPathImages.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    Toast.makeText(context, "Se subioron Las IMAGENES", Toast.LENGTH_SHORT).show();
 
                 }else  {
 
