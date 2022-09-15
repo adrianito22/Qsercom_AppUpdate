@@ -54,8 +54,10 @@ import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.databaseHelper.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.models.InformEmbarque;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storageHelper.StorageData;
+import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -191,6 +193,9 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
 
     Switch switchContenedor;
+    Switch switchHaybalanza;
+    Switch switchHayEnsunchado;
+    Switch switchBalanzaRep;
 
     ArrayList<View> listViewsClickedUser;
 
@@ -513,9 +518,9 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
          spinnertipodeBlanzaRepeso =  findViewById(R.id.spinnertipodeBlanzaRepeso);
          spinnerubicacionBalanza =  findViewById(R.id.spinnerubicacionBalanza);
 
-
-
-
+         switchHaybalanza=findViewById(R.id.switchHaybalanza);
+         switchHayEnsunchado=findViewById(R.id.switchHayEnsunchado);
+         switchBalanzaRep=findViewById(R.id.switchBalanzaRep);
 
 
 
@@ -1524,9 +1529,8 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
            // generatePDFandImport();
 
-            callcheckDataFields();
+            checkDataFields();
 
-           storageTest();
 
 
 
@@ -1539,127 +1543,148 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 }
 
-void callcheckDataFields(){ //
+void checkDataFields(){ //
 
   //  checkDatosGeneralesIsLleno();
 
     if(! checkDatosGeneralesIsLleno()){
 
-        Log.i("datafiled","no esta lleno  checkDatosGeneralesIsLleno");
+        Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
         return;
     }
+
+
     else{
-        Log.i("datafiled","si esta lleno checkDatosGeneralesIsLleno ");
+        Log.i("test001","si esta lleno checkDatosGeneralesIsLleno ");
 
     }
+
+
 
     if(! checkcantidadPostcosechaIsLleno()){
 
-        Log.i("datafiled","no esta lleno  checkcantidadPostcosechaIsLleno");
+        Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
         return;
     }else{
-        Log.i("datafiled","si esta lleno checkcantidadPostcosechaIsLleno ");
+        Log.i("test001","si esta lleno checkcantidadPostcosechaIsLleno ");
 
     }
 
 
     if(! checkDatosContenedorIsLleno()){
-        Log.i("datafiled","no esta lleno  checkDatosContenedorIsLleno");
+        Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
 
         return;
     }else{
 
-        Log.i("datafiled","si  esta lleno  checkDatosContenedorIsLleno");
+        Log.i("test001","si  esta lleno  checkDatosContenedorIsLleno");
     }
 
 
     if(! checkDataSellosLlegadaIsLleno()){
-        Log.i("datafiled","no esta lleno  checkDataSellosLlegadaIsLleno");
+        Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
 
         return;
     }else{
 
-        Log.i("datafiled","si  esta lleno  checkDataSellosLlegadaIsLleno");
+        Log.i("test001","si  esta lleno  checkDataSellosLlegadaIsLleno");
 
 
     }
 
 
     if(! checkSellosInstaladosIsLleno()){
-        Log.i("datafiled","no esta lleno  checkSellosInstaladosIsLleno");
+        Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
 
         return;
     }else{
 
-        Log.i("datafiled","si  esta lleno  checkSellosInstaladosIsLleno");
+        Log.i("test001","si  esta lleno  checkSellosInstaladosIsLleno");
 
 
     }
 
 
     if(! checkDatosTransportistaIsLleno()){
-        Log.i("datafiled","no esta lleno  checkDatosTransportistaIsLleno");
+        Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
 
         return;
     }else{
 
-        Log.i("datafiled","si  esta lleno  checkDatosTransportistaIsLleno");
+        Log.i("test001","si  esta lleno  checkDatosTransportistaIsLleno");
 
 
     }
 
 
     if(! checkDatosProcesoIsLleno()){
-        Log.i("datafiled","no esta lleno  checkDatosProcesoIsLleno");
+        Log.i("test001","no esta lleno  checkDatosProcesoIsLleno");
 
         return;
     }else{
 
-        Log.i("datafiled","si  esta lleno  checkDatosProcesoIsLleno");
+        Log.i("test001","si  esta lleno  checkDatosProcesoIsLleno");
 
 
     }
 
+    Log.i("test001","toda la data esta completa HUrra ");
+
+    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+    createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
 
-    // callAdNewInformDataBASE();
 
 
 
 }
 
 
-private void createObjcInforme(){
+private void createObjcInformeAndUpload(){
+
+
 
 //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
 
-    InformEmbarque informe = new InformEmbarque(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
-            ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
+    SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
+            Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
+            ,ediProductor.getText().toString(),ediCodigo.getText().toString()
             ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
             ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
             ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-            ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString(),"","",""
-            ,"","","","","","","","","",""
-    ,"");
+            ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
+            FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
+            ,ediDestino.getText().toString(),ediVapor.getText().toString(),ediTipoContenedor.getText().toString()
+            ,ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),ediNumSerieFunda.getText().toString(),
+            stikVentolerExterna.getText().toString(),ediCableRastreoLlegada.getText().toString()
+            ,ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
+
+
+    SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
+            ,ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString(),
+            ediUbicacion1.getText().toString(),ediUbicacion2.getText().toString(),ediRuma1.getText().toString(),ediRuma2.getText().toString()
+            ,ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),
+            ediSelloPlasticoNaviera.getText().toString(),ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),
+            ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString(),FieldOpcional.otrosSellosInstalaEsp,
+            ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(),ediCedula.getText().toString(),
+            ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
+            ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
+            ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
+            switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString());
 
     //Agregamos un nuevo informe
     RealtimeDB.initDatabaseReference(); //inicilizamos la base de datos
 
-    RealtimeDB. addNewInforme(FormularioActivity.this,informe);
+    //agr5egamos la data finalemente
 
+    RealtimeDB.addNewInforme(FormularioActivity.this,informe);
 
-    /*
-    RealtimeDB.addNewInforme(FormularioActivity.this,UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
-            ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
-            ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-            ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-            ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-            ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString()
+    RealtimeDB.addNewInforme(FormularioActivity.this,informe2);
 
-    ); //agregamos
+    addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
 
-*/
 
 
 }
@@ -1703,7 +1728,7 @@ private void createObjcInforme(){
 
 
 
-    void storageTest() {
+    void uploadImagesInStorageAndInfoPICS() {
    //una lista de Uris
 
 
@@ -1855,22 +1880,6 @@ private void createObjcInforme(){
 
 
 
-    private void findSpinnersAndAddData() {
-
-        Spinner spinnerCondicionBalanza=  findViewById(R.id.spinnerCondicionBalanza);
-        Spinner spinnertipoCaja =  findViewById(R.id.spinnertipoCaja);
-        Spinner spinnertipodePlastico = findViewById(R.id.spinnertipodePlastico);
-        Spinner spinnertipodeBlanza =  findViewById(R.id.spinnertipodeBlanza);
-        Spinner spinnertipodeBlanzaRepeso =  findViewById(R.id.spinnertipodeBlanzaRepeso);
-        Spinner spinnerubicacionBalanza =  findViewById(R.id.spinnerubicacionBalanza);
-
-
-
-
-        //setlisttoview spinner
-
-
-    }
 
 
     private boolean chekIsLLenoDataContenedor() {
@@ -1949,7 +1958,7 @@ private void createObjcInforme(){
 
         }
 
-        else if (ediFecha.getText().toString().isEmpty()){ //chekamos que no este vacia
+         if (ediFecha.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediFecha.requestFocus();
             ediFecha.setError("Debe selecionar una fecha");
 
@@ -1964,7 +1973,7 @@ private void createObjcInforme(){
 
 
 
-       else  if(ediProductor.getText().toString().isEmpty()){ //chekamos que no este vacia
+         if(ediProductor.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediProductor.requestFocus();
             ediProductor.setError("Este espacio es obligatorio");
 
@@ -1976,7 +1985,7 @@ private void createObjcInforme(){
 
 
 
-       else  if(ediHacienda.getText().toString().isEmpty()){ //chekamos que no este vacia
+         if(ediHacienda.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediHacienda.requestFocus();
             ediHacienda.setError("Este espacio es obligatorio");
 
@@ -1990,7 +1999,7 @@ private void createObjcInforme(){
 
 
 
-       else  if(ediCodigo.getText().toString().isEmpty()){ //chekamos que no este vacia
+         if(ediCodigo.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCodigo.requestFocus();
             ediCodigo.setError("Este espacio es obligatorio");
 
@@ -2000,7 +2009,7 @@ private void createObjcInforme(){
         }
 
 
-      else  if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediInscirpMagap.requestFocus();
             ediInscirpMagap.setError("Este espacio es obligatorio");
             ediInscirpMagap.setText("_");
@@ -2009,7 +2018,7 @@ private void createObjcInforme(){
 
         }
 
-       else if(ediPemarque.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediPemarque.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediPemarque.requestFocus();
             ediPemarque.setError("Este espacio es obligatorio");
 
@@ -2019,7 +2028,7 @@ private void createObjcInforme(){
         }
 
 
-      else  if(ediZona.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediZona.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediZona.requestFocus();
             ediZona.setError("Debe selecionar una zona");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
@@ -2028,7 +2037,7 @@ private void createObjcInforme(){
         }
 
 
-       else if(ediHoraInicio.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediHoraInicio.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediHoraInicio.requestFocus();
             ediHoraInicio.setError("Este espacio es obligatorio");
 
@@ -2038,7 +2047,7 @@ private void createObjcInforme(){
         }
 
 
-       else if(ediHoraTermino.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediHoraTermino.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediHoraTermino.requestFocus();
             ediHoraTermino.setError("Este espacio es obligatorio");
 
@@ -2049,7 +2058,7 @@ private void createObjcInforme(){
 
 
 
-        else if(ediNguiaRemision.getText().toString().isEmpty()){ //chekamos que no este vacia
+         if(ediNguiaRemision.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediNguiaRemision.requestFocus();
             ediNguiaRemision.setError("Este espacio es obligatorio");
 
@@ -2058,7 +2067,7 @@ private void createObjcInforme(){
 
         }
 
-        else if(edi_nguia_transporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+         if(edi_nguia_transporte.getText().toString().isEmpty()){ //chekamos que no este vacia
             edi_nguia_transporte.requestFocus();
             edi_nguia_transporte.setError("Este espacio es obligatorio");
 
@@ -2068,7 +2077,7 @@ private void createObjcInforme(){
         }
 
 
-       else  if(ediNtargetaEmbarque.getText().toString().isEmpty()){ //chekamos que no este vacia
+         if(ediNtargetaEmbarque.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediNtargetaEmbarque.requestFocus();
             ediNtargetaEmbarque.setError("Este espacio es obligatorio");
 
@@ -2080,7 +2089,7 @@ private void createObjcInforme(){
 
 
 
-      else     if(ediNhojaEvaluacion.getText().toString().isEmpty()){ //chekamos que no este vacia
+           if(ediNhojaEvaluacion.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediNhojaEvaluacion.requestFocus();
             ediNhojaEvaluacion.setError("Este espacio es obligatorio");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
@@ -2091,7 +2100,7 @@ private void createObjcInforme(){
 
 
 
-      else  if(ediEmpacadora.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediEmpacadora.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediEmpacadora.requestFocus();
             ediEmpacadora.setError("Este espacio es obligatorio");
 
@@ -2101,10 +2110,14 @@ private void createObjcInforme(){
         }
 
 
+          if(!ediObservacion.getText().toString().isEmpty()){ //si esta lleno
+
+              FieldOpcional.observacionOpcional=ediObservacion.getText().toString();
+
+        }
 
 
-
-       else if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
             ediFotosLlegada.requestFocus();
 
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
@@ -2356,14 +2369,11 @@ return  true;
         }
 
 
-        if(ediOtroSellosLlegada.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediOtroSellosLlegada.requestFocus();
-            ediOtroSellosLlegada.setError("Este espacio es obligatorio");
+        if(!ediOtroSellosLlegada.getText().toString().isEmpty()){ //este es opcional... si esta vacio
 
-            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
+            FieldOpcional.otrosSellosLLegaEspecif =ediOtroSellosLlegada.getText().toString();
         }
+
 
         if(ediFotosSellosLLegada.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediFotosSellosLLegada.requestFocus();
@@ -2373,8 +2383,8 @@ return  true;
             return false;
 
         }
-        //este sigue vamos adrianito..
-return true;
+
+        return true;
 
 
     }
@@ -2526,12 +2536,9 @@ return true;
         }
 
 
-        if(ediOtherSellos.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediOtherSellos.requestFocus();
-            ediOtherSellos.setError("Este espacio es obligatorio");
+        if(! ediOtherSellos.getText().toString().isEmpty()){ //si esta lleno
+        FieldOpcional.otrosSellosInstalaEsp =ediOtherSellos.getText().toString();
 
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
 
         }
 
@@ -2721,10 +2728,12 @@ return true;
     }
 
 
-private void  addDataToHasmapProdcutsPostCosecha(){
+private void  addProdcutsPostCosechaAndUpload(){
+
+
        HashMap<String,String> dataToHasmapProdcuts ;
 
-    dataToHasmapProdcuts  = InformEmbarque.generateerateMapProductsPoscosecha();
+    dataToHasmapProdcuts  = SetInformEmbarque1.generateerateMapProductsPoscosecha();
 
     //creamos un array de editext
 
@@ -2757,6 +2766,11 @@ private void  addDataToHasmapProdcutsPostCosecha(){
 
 
     }
+
+
+    //aqui subimos esta data
+
+    RealtimeDB.UploadProductosPostCosecha(FormularioActivity.this,dataToHasmapProdcuts);
 
 
 }

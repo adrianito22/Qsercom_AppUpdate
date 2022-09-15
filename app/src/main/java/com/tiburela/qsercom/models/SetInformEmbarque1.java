@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class InformEmbarque {
+public class SetInformEmbarque1 {
 
     public static HashMap<String, String> prodcutsPostCosecha;
 
@@ -26,23 +26,23 @@ public class InformEmbarque {
     private String uniqueIDinforme;
 
 
-    public InformEmbarque(String  uniqueIDinforme ,String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
-                          String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
-                          String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
-                          String empacadora, String contenedor, String cbservacion, String horaLlegadaContenedor,
-                          String horaSalidadContenedor,
-                          String destinoContenedor,
-                          String numeroViajeContenedor,
-                          String vapor,
-                          String tipoContenedor,
-                          String tare,
-                          String booking,
-                          String maxGross,
-                          String nSerieFunda,
-                          String stickerVentoExtern,
-                          String cableRastreoLlegada,
-                          String selloPlasticoNaviera,
-                          String otroSelloLlegadaEspec) {
+    public SetInformEmbarque1(String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
+                              String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
+                              String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
+                              String empacadora, String contenedor, String cbservacion, String horaLlegadaContenedor,
+                              String horaSalidadContenedor,
+                              String destinoContenedor,
+                              String numeroViajeContenedor,
+                              String vapor,
+                              String tipoContenedor,
+                              String tare,
+                              String booking,
+                              String maxGross,
+                              String nSerieFunda,
+                              String stickerVentoExtern,
+                              String cableRastreoLlegada,
+                              String selloPlasticoNaviera,
+                              String otroSelloLlegadaEspec) {
 
         this.uniqueIDinforme=uniqueIDinforme;
         this.codeInforme = codeInforme;

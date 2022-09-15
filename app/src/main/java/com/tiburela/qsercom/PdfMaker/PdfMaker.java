@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.DataToPDF;
-import com.tiburela.qsercom.models.InformEmbarque;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.utils.Variables;
 
 public class PdfMaker {
@@ -132,7 +132,7 @@ public class PdfMaker {
 
 
 
-    public static void generatePdfReport1(Context context, InformEmbarque informe) {
+    public static void generatePdfReport1(Context context, SetInformEmbarque1 informe) {
         // creating an object variable
         // for our PDF document.
         Bitmap bmpGlobal, bitMapScaledHeader, bitmapScaledFooter;
@@ -163,7 +163,7 @@ public class PdfMaker {
 
 
         //cremoa sun objketo
-     InformEmbarque   informeObjct = new InformEmbarque("aaad01","test",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan","","dfg" ,
+     SetInformEmbarque1 informeObjct = new SetInformEmbarque1("aaad01","test",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan","","dfg" ,
              "","","","","","","","",""
              ,"","","");
        //iniiclizamoas paints
@@ -489,7 +489,7 @@ public static  void createpdfhiwRSOLUT(Context context)  {
 
 
 
-    private static void createFIRSTTable(Canvas canvas , int endXposicion, InformEmbarque informeObjct ) { //en el primer hay 43
+    private static void createFIRSTTable(Canvas canvas , int endXposicion, SetInformEmbarque1 informeObjct ) { //en el primer hay 43
 
         int startXposicion = 10;
         int initStartYposicion = 205;
@@ -551,7 +551,7 @@ public static  void createpdfhiwRSOLUT(Context context)  {
     }
 
 
-    private static void addNewTable(Canvas canvas, int starYposicion, Paint mipaintLines, String textHEader,int tipoIdTabla,InformEmbarque informeObjct) {
+    private static void addNewTable(Canvas canvas, int starYposicion, Paint mipaintLines, String textHEader, int tipoIdTabla, SetInformEmbarque1 informeObjct) {
         addDataList(tipoIdTabla);
 
         int starYposicionDelPrincipio=starYposicion;
@@ -633,7 +633,7 @@ public static  void createpdfhiwRSOLUT(Context context)  {
     }
 
 
-    private static void addTableCalibracionFrutaCaleEnfunde(Canvas canvas, int starYposicion, Paint mipaintLines, String textHEader,int tipoIdTabla,InformEmbarque informeObjct) {
+    private static void addTableCalibracionFrutaCaleEnfunde(Canvas canvas, int starYposicion, Paint mipaintLines, String textHEader, int tipoIdTabla, SetInformEmbarque1 informeObjct) {
 
         addDataList(tipoIdTabla);
 
@@ -847,7 +847,7 @@ public static  void createpdfhiwRSOLUT(Context context)  {
 
     private static void  addDataList(int Seccion){
         //cremoa sun objketo
-        InformEmbarque   informeObjct = new InformEmbarque("aaad01","test",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan","","dfg" ,
+        SetInformEmbarque1 informeObjct = new SetInformEmbarque1("aaad01","test",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan","","dfg" ,
                 "","","","","","","","",""
                 ,"","","");
 

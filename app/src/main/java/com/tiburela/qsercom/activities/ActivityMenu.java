@@ -19,11 +19,11 @@ import android.widget.ImageView;
 
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.models.InformEmbarque;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
 
 public class ActivityMenu extends AppCompatActivity {
 ImageView imgContenedores;
-InformEmbarque informeObjct;
+SetInformEmbarque1 informeObjct;
 Button btnTest01;
     private static final int PERMISSION_REQUEST_CODE=100;
 
@@ -78,8 +78,8 @@ Button btnTest01;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void generateObjc(){
-        //    public InformEmbarque(String codeInforme, int ediNhojaEvaluacion, String zona, String productor, String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte, String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana, String empacadora, String contenedor, String cbservacion) {
-       // informeObjct = new InformEmbarque("aaad01","testxz",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
+        //    public SetInformEmbarque1(String codeInforme, int ediNhojaEvaluacion, String zona, String productor, String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte, String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana, String empacadora, String contenedor, String cbservacion) {
+       // informeObjct = new SetInformEmbarque1("aaad01","testxz",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
 
         if(!checkPermission()){
 

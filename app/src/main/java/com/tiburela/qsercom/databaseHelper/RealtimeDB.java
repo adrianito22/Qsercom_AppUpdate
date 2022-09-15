@@ -10,8 +10,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.models.InformEmbarque;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.SetInformEmbarque2;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class RealtimeDB {
@@ -53,14 +55,9 @@ static   DatabaseReference mibasedataPathImages;
 
 
 
-    public static void addNewInforme(Context context,InformEmbarque informeObjct) {
-
-
+    public static void addNewInforme(Context context, SetInformEmbarque1 informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
-
-
             Map<String, Object> mapValues = informeObjct.toMap();
-
 
         //SUBE MAPA
         mibasedata.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -69,7 +66,30 @@ static   DatabaseReference mibasedataPathImages;
                 if (task.isSuccessful()) {
 
 
-                    Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+    public static void addNewInforme(Context context, SetInformEmbarque2 informeObjct) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
+        Map<String, Object> mapValues = informeObjct.toMap();
+
+        //SUBE MAPA
+        mibasedata.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
 
@@ -110,6 +130,34 @@ static   DatabaseReference mibasedataPathImages;
 
 
     }
+
+
+
+    public static void UploadProductosPostCosecha(Context context, HashMap<String,String> dataToHasmapProdcuts) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listProductosPostCosecha");
+       // Map<String, Object> mapValues = informeObjct.toMap();
+
+        //SUBE MAPA
+        mibasedata.push().setValue(dataToHasmapProdcuts).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
 
 
 }
