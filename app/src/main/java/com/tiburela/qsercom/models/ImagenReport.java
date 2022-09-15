@@ -74,6 +74,7 @@ public class ImagenReport {
         result.put("uriImageString", uriImageString);
         result.put("tipoImagenCategory", tipoImagenCategory);
         result.put("UniqueId", UniqueId);
+        result.put("idReportePerteence", idReportePerteence);
 
         return result;
 

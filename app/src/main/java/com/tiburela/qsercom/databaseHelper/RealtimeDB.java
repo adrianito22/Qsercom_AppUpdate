@@ -29,23 +29,16 @@ static   DatabaseReference mibasedataPathImages;
     //ESTA VCLASED VA A ENCRAGARSE DE CREAR MODIFICAR ,BORRAR DATOS DE LA BASE DE DATOS REALTIME
 
 
-    public static  void initDatabaseReference(){
+    public static  void initDatabasesReference(){
 
         rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
 
-        mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImgsPhatStorage");
+        mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImagesData");
 
 
     }
 
-    public static  void initDatabaseReferenceImgsPhatStorage(){
 
-        rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
-         mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImgsPhatStorage");
-
-
-
-    }
 
     private void editInform(){
 
@@ -105,7 +98,7 @@ static   DatabaseReference mibasedataPathImages;
     public static void addNewSetPicsInforme(Context context, ImagenReport objecImageReport ) {
 
        if(mibasedataPathImages==null ) {
-           initDatabaseReferenceImgsPhatStorage();
+           initDatabasesReference();
 
        }
 

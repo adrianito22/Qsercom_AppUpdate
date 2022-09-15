@@ -306,7 +306,10 @@ public class SetInformEmbarque2 {
         return uniqueIDinforme;
     }
 
+    public SetInformEmbarque2() {
 
+
+    }
 
     public SetInformEmbarque2(String uniqueIDinforme ,String termografo1, String termografo2, String termografo1HoraEncendido, String termografo2HoraEncendido, String ubicacionPalletN1, String ubicacionPalletN2, String rumaPalletN1, String rumaPalletN2, String candadoQsercom, String selloNaviera, String cableNaviera, String selloPlastico, String candadoBotella, String cableExportadora, String selloAdhesivoExportadora, String selloAdhesivoNaviera, String otrosSellosEspecif, String companiaTranporte, String nombreChofer, String cedulaChofer, String celularChofer, String placaChofer, String marcaCaebzalChofer, String colorCAbezal, String condicionBalanza, String tipoCaja, boolean hayBalanza, boolean hayExcelnsuchado, String tipoPlastico, boolean hayBalanzaRepeso, String ubicacionBalanza) {
         this.uniqueIDinforme = uniqueIDinforme;
@@ -348,9 +351,7 @@ public class SetInformEmbarque2 {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-
-
-
+        result.put("uniqueIDinforme", uniqueIDinforme);
         result.put("termografo1", termografo1);
         result.put("termografo2", termografo2);
         result.put("termografo1HoraEncendido", termografo1HoraEncendido);

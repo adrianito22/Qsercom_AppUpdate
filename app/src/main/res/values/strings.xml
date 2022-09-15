@@ -64,9 +64,15 @@
         <item>FUERA DE RODILLO</item>
         <item>FINAL DE RODILLO</item>
         <item>MITAD DE RODILLO</item>
-
-
     </string-array>
+
+
+    <string-array name="dateOpcionesArray">
+        <item>HOY</item>
+        <item>AYER</item>
+        <item>ANTEAYER </item>
+    </string-array>
+
 
 
 </resources>

@@ -1,5 +1,8 @@
 package com.tiburela.qsercom.utils;
 
+import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.SetInformEmbarque2;
+
 public class Variables {
 
 public static String  paqueteName="com.tiburela.qsercom";
@@ -22,6 +25,16 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int   TABLE_DATOS_TRANSPORTISTA=5021;
 
     public static final int   TABLE_DATOS_XXX=5021;
+
+
+    public static final int   HOY=600;
+    public static final int   AYER=601;
+    public static final int   ANTEAYER=602;
+    public static final int   ESPECIFIC_DATE=603;
+
+    public static SetInformEmbarque1 CurrenReportPart1;
+
+    public static SetInformEmbarque2 CurrenReportPart2;
 
 
 

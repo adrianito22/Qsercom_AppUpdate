@@ -4,6 +4,8 @@ import static com.google.gson.internal.bind.TypeAdapters.UUID;
 
 import com.google.firebase.database.Exclude;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +18,7 @@ public class SetInformEmbarque1 {
     /***Propiedades del informe*/
 
     private String codeInforme;
+    private String simpleDataFormat;
     private boolean esVisually; //si aun se puede visualizar
     private boolean esEditableNow; //si aun se puede editar
     private int  stateInformacion; //si es borrador
@@ -24,6 +27,11 @@ public class SetInformEmbarque1 {
 
 
     private String uniqueIDinforme;
+
+    public SetInformEmbarque1() {
+
+
+    }
 
 
     public SetInformEmbarque1(String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
@@ -50,6 +58,11 @@ public class SetInformEmbarque1 {
         esEditableNow = true;
         stateInformacion = 1;
         fechaCreacionInf = new Date().getTime();
+
+
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        simpleDataFormat = formatter.format(fechaCreacionInf);
+
         this.ediNhojaEvaluacion = ediNhojaEvaluacion;
         this.zona = zona;
         this.productor = productor;
@@ -103,6 +116,138 @@ public class SetInformEmbarque1 {
     private String contenedor;
     private String cbservacion;
 
+
+    public static HashMap<String, String> getProdcutsPostCosecha() {
+        return prodcutsPostCosecha;
+    }
+
+    public static void setProdcutsPostCosecha(HashMap<String, String> prodcutsPostCosecha) {
+        SetInformEmbarque1.prodcutsPostCosecha = prodcutsPostCosecha;
+    }
+
+    public String getSimpleDataFormat() {
+        return simpleDataFormat;
+    }
+
+    public void setSimpleDataFormat(String simpleDataFormat) {
+        this.simpleDataFormat = simpleDataFormat;
+    }
+
+    public void setUniqueIDinforme(String uniqueIDinforme) {
+        this.uniqueIDinforme = uniqueIDinforme;
+    }
+
+    public String getHoraLlegadaContenedor() {
+        return horaLlegadaContenedor;
+    }
+
+    public void setHoraLlegadaContenedor(String horaLlegadaContenedor) {
+        this.horaLlegadaContenedor = horaLlegadaContenedor;
+    }
+
+    public String getHoraSalidadContenedor() {
+        return horaSalidadContenedor;
+    }
+
+    public void setHoraSalidadContenedor(String horaSalidadContenedor) {
+        this.horaSalidadContenedor = horaSalidadContenedor;
+    }
+
+    public String getDestinoContenedor() {
+        return destinoContenedor;
+    }
+
+    public void setDestinoContenedor(String destinoContenedor) {
+        this.destinoContenedor = destinoContenedor;
+    }
+
+    public String getNumeroViajeContenedor() {
+        return numeroViajeContenedor;
+    }
+
+    public void setNumeroViajeContenedor(String numeroViajeContenedor) {
+        this.numeroViajeContenedor = numeroViajeContenedor;
+    }
+
+    public String getVapor() {
+        return vapor;
+    }
+
+    public void setVapor(String vapor) {
+        this.vapor = vapor;
+    }
+
+    public String getTipoContenedor() {
+        return tipoContenedor;
+    }
+
+    public void setTipoContenedor(String tipoContenedor) {
+        this.tipoContenedor = tipoContenedor;
+    }
+
+    public String getTare() {
+        return tare;
+    }
+
+    public void setTare(String tare) {
+        this.tare = tare;
+    }
+
+    public String getBooking() {
+        return booking;
+    }
+
+    public void setBooking(String booking) {
+        this.booking = booking;
+    }
+
+    public String getMaxGross() {
+        return maxGross;
+    }
+
+    public void setMaxGross(String maxGross) {
+        this.maxGross = maxGross;
+    }
+
+    public String getnSerieFunda() {
+        return nSerieFunda;
+    }
+
+    public void setnSerieFunda(String nSerieFunda) {
+        this.nSerieFunda = nSerieFunda;
+    }
+
+    public String getStickerVentoExtern() {
+        return stickerVentoExtern;
+    }
+
+    public void setStickerVentoExtern(String stickerVentoExtern) {
+        this.stickerVentoExtern = stickerVentoExtern;
+    }
+
+    public String getCableRastreoLlegada() {
+        return cableRastreoLlegada;
+    }
+
+    public void setCableRastreoLlegada(String cableRastreoLlegada) {
+        this.cableRastreoLlegada = cableRastreoLlegada;
+    }
+
+    public String getSelloPlasticoNaviera() {
+        return selloPlasticoNaviera;
+    }
+
+    public void setSelloPlasticoNaviera(String selloPlasticoNaviera) {
+        this.selloPlasticoNaviera = selloPlasticoNaviera;
+    }
+
+    public String getOtroSelloLlegadaEspec() {
+        return otroSelloLlegadaEspec;
+    }
+
+    public void setOtroSelloLlegadaEspec(String otroSelloLlegadaEspec) {
+        this.otroSelloLlegadaEspec = otroSelloLlegadaEspec;
+    }
 
     //DATOS DEL CONTENEDOR
     private String horaLlegadaContenedor;
@@ -307,6 +452,8 @@ public class SetInformEmbarque1 {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+
+        result.put("simpleDataFormat", simpleDataFormat);
         result.put("uniqueIDinforme", uniqueIDinforme);
         result.put("codeInforme", codeInforme);
         result.put("esVisually", esVisually);

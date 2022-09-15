@@ -24,6 +24,13 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="s">
         <activity
+            android:name=".activities.ActivitySeeReports"
+            android:exported="true" />
+        <activity
+            android:name=".activities.PreviewActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".activities.ActivityMenu"
             android:exported="true" />
         <activity
@@ -62,9 +69,6 @@
             android:exported="true"
             android:screenOrientation="portrait" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCN2EojDJOOvXvEwJVMBjEuL7QTUEnq_30" />
     </application>
 
 </manifest>
