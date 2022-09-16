@@ -18,7 +18,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,18 +46,19 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.util.Util;
 import com.google.android.material.textfield.TextInputEditText;
-import com.tiburela.qsercom.BuildConfig;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.databaseHelper.RealtimeDB;
+import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.storageHelper.StorageData;
+import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.Permisionx;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.IOException;
@@ -873,10 +873,10 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                            // showImageByUri(cam_uri);
 
                             //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME);
+                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(FormularioActivity.this,cam_uri)));
 
                             //agregamos este objeto a la lista
-                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueId(), obcjImagenReport);
+                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1203,11 +1203,13 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
                         for(int indice=0; indice<result.size(); indice++){
 
-                            ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME);
 
+//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(FormularioActivity.this,cam_uri)));
+                            ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(FormularioActivity.this,result.get(indice))));
 
+                          Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
 
-                            ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueId(), imagenReportObjc);
+                            ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
 
                         }
@@ -1217,12 +1219,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                         showImagesPicShotOrSelectUpdateView(false);
 
 
-
-                       // creaFotos(result);
-
-
-                        //Do What you Want Here ................
-                        //Do What you Want Here ................
 
                     }
                 }
@@ -1686,7 +1682,7 @@ private void createObjcInformeAndUpload(){
             ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
             ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
             ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
-            switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString());
+            switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
     //Agregamos un nuevo informe
     RealtimeDB.initDatabasesReference(); //inicilizamos la base de datos
@@ -1777,8 +1773,8 @@ private void createObjcInformeAndUpload(){
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
-           startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
+           // Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+          // startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
         }
 
 

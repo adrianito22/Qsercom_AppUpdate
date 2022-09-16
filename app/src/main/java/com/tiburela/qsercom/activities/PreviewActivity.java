@@ -18,7 +18,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,17 +47,22 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.databaseHelper.RealtimeDB;
+import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.storageHelper.StorageData;
+import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.Permisionx;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.IOException;
@@ -73,6 +77,7 @@ import java.util.UUID;
 public class PreviewActivity extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
+     private boolean isModEdicionFields=false;
 
 
     private int currentTypeImage=0;
@@ -227,6 +232,10 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+        findViewsIds();
+
+        checkModeVisualitY();
+
 
         UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
 
@@ -238,7 +247,6 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         StorageData. initStorageReference();
 
 
-        findViewsIds();
         configCertainSomeViewsAliniciar();
         listViewsClickedUser=new ArrayList<>();
 
@@ -863,10 +871,10 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
                            // showImageByUri(cam_uri);
 
                             //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME);
+                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(PreviewActivity.this,cam_uri));
 
                             //agregamos este objeto a la lista
-                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueId(), obcjImagenReport);
+                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1182,42 +1190,43 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-      private void resultatachImages() {
+    private void resultatachImages() {
         activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
-                @Override
-                public void onActivityResult(List<Uri> result) {
-                    if (result != null) {
+                new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
+                    @Override
+                    public void onActivityResult(List<Uri> result) {
+                        if (result != null) {
 
-                        //creamos un objeto
+                            //creamos un objeto
 
-                        for(int indice=0; indice<result.size(); indice++){
+                            for(int indice=0; indice<result.size(); indice++){
 
-                            ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME);
+                                ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(PreviewActivity.this,result.get(indice)));
 
 
 
-                            ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueId(), imagenReportObjc);
+                                ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
+
+                            }
+
+
+
+                            showImagesPicShotOrSelectUpdateView(false);
+
+
+
+                            // creaFotos(result);
+
+
+                            //Do What you Want Here ................
+                            //Do What you Want Here ................
 
                         }
-
-
-
-                        showImagesPicShotOrSelectUpdateView(false);
-
-
-
-                       // creaFotos(result);
-
-
-                        //Do What you Want Here ................
-                        //Do What you Want Here ................
-
                     }
-                }
-                  });
-      }
+                });
+
+}
 
 void showImageByUri(Uri uri )  {
    try {
@@ -1703,9 +1712,18 @@ private void createObjcInformeAndUpload(){
                 //  Variables.currentCuponObjectGlob =listGiftCards.get(position);
 
                 Log.i("midaclick","el click es here, posicion es "+position);
+                Log.i("midaclick","el size del mapa es "+ImagenReport.hashMapImagesData.size());
 
                ///elimnar el hasmap
                //vamos a ver el tipo del objeto removivo
+
+                if(v.getTag().toString().length()>0){
+                    Log.i("midaclick","hay tag y es  "+v.getTag().toString());
+
+                    return;
+                }
+
+
                Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
 
                 Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
@@ -2985,7 +3003,7 @@ private void  addProdcutsPostCosechaAndUpload(){
 
     }
 
-    private void ActivateModeEdit() {
+    private void activateModeEdit() {
         activateViewsByType(    ediSemana);
         activateViewsByType(    ediFecha);
         activateViewsByType(    ediProductor);
@@ -3114,8 +3132,10 @@ private void  addProdcutsPostCosechaAndUpload(){
     private  void addDataEnFields(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object)  {
         //usamos los 2 objetos para establecer esta data..
 
+        Log.i("jamisama","la semana es "+info1Object.getSemana());
+
         ediSemana.setText(info1Object.getSemana());
-                ediFecha.setText((int) info1Object.getFechaCreacionInf());
+             //   ediFecha.setText((int) info1Object.getFechaCreacionInf());
         ediProductor.setText(info1Object.getProductor());
                 ediHacienda.setText(info1Object.getHacienda());
         ediCodigo.setText(info1Object.getCodigo());
@@ -3131,7 +3151,7 @@ private void  addProdcutsPostCosechaAndUpload(){
         ediNguiaRemision.setText(info1Object.getNguiaRemision());
                 edi_nguia_transporte.setText(info1Object.get_nguia_transporte());
         ediNtargetaEmbarque.setText(info1Object.getNtargetaEmbarque());
-                ediNhojaEvaluacion.setText(info1Object.getEdiNhojaEvaluacion());
+                ediNhojaEvaluacion.setText(String.valueOf(info1Object.getEdiNhojaEvaluacion()));
         ediObservacion.setText(info1Object.getObservacion());
                 ediEmpacadora.setText(info1Object.getEmpacadora());
                 ediContenedor.setText(info1Object.getContenedor());
@@ -3146,8 +3166,8 @@ private void  addProdcutsPostCosechaAndUpload(){
 
         ediCompaniaTransporte.setText(info2Object.getCompaniaTranporte());
         ediNombreChofer.setText(info2Object.getNombreChofer());
-        ediCedula.setText(info2Object.getCedulaChofer());
-        ediCelular.setText(info2Object.getCelularChofer());
+        ediCedula.setText(String.valueOf(info2Object.getCedulaChofer()));
+        ediCelular.setText(String.valueOf(info2Object.getCelularChofer()));
         ediPLaca.setText(info2Object.getPlacaChofer());
         ediMarcaCabezal.setText(info2Object.getMarcaCaebzalChofer());
         ediColorCabezal.setText(info2Object.getColorCAbezal());
@@ -3189,6 +3209,197 @@ private void  addProdcutsPostCosechaAndUpload(){
     }
 
 
+private void checkModeVisualitY(){
 
+    Bundle extras = getIntent().getExtras();
+    if (extras != null) {
+        isModEdicionFields = extras.getBoolean(Variables.KEYEXTRAPREVIEW);
+        //The key argument here must match that used in the other activity
+    }
+
+
+    if(isModEdicionFields){
+        activateModePreview();
+    }else{
+        activateModeEdit();
+    }
+
+
+
+    //AGREGMOS LA DATA EN LOS FILEDS
+    addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+
+
+     Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
+
+    //inicializamos STORAGE..
+    StorageData.initStorageReference();
+    dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinforme());
+
+
+
+}
+
+
+//descargamos las imagenes path....
+
+
+
+    //descargamos prodcutos postcosecha...
+
+    void createlistsForReciclerviewsImages(ArrayList<ImagenReport>listImagenReports){
+
+
+
+
+
+        ArrayList<ImagenReport>lisFiltrada;
+
+        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_PROD_POSTCOSECHA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
+
+      for(int indice=0; indice<arrayTiposImagenes.length; indice++){
+
+          lisFiltrada=new ArrayList<>();
+
+          for(int indice2=0; indice2<listImagenReports.size(); indice2++){
+
+                  if(listImagenReports.get(indice2).getTipoImagenCategory()==arrayTiposImagenes[indice]){ //entonces usamos este
+
+                      lisFiltrada.add(listImagenReports.get(indice2));
+
+
+                  }
+
+          }
+
+          currentTypeImage=arrayTiposImagenes[indice];
+          //lalamos el recicler que
+          addImagesInRecyclerviews(lisFiltrada);
+
+
+      }
+
+
+
+    }
+
+
+    void addInfotomap(ArrayList<ImagenReport>listImagenReports){
+        ImagenReport.hashMapImagesData=new HashMap<>();
+
+
+
+        //agregamos adata al mapusnado un bucle
+
+        for(int indice2=0; indice2<listImagenReports.size(); indice2++){
+
+          ImagenReport currentImareportObj=listImagenReports.get(indice2);
+
+          ImagenReport.hashMapImagesData.put(currentImareportObj.getUniqueIdNamePic(),currentImareportObj);
+
+        }
+
+
+    }
+
+    void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
+
+            //agregamos data al map
+        if(listImagenReports.size()>0){
+
+            addInfotomap(listImagenReports);
+        }
+
+
+          RecyclerView recyclerView= findViewById(R.id.recyclerView);
+
+           //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
+           if(currentTypeImage== Variables.FOTO_LLEGADA)  {
+               recyclerView= findViewById(R.id.recyclerView);
+
+
+           }
+           else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
+               recyclerView= findViewById(R.id.recyclerViewPostcosecha);
+               // at last set adapter to recycler view.
+
+           }
+
+           else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
+               recyclerView = findViewById(R.id.recyclerVieDatsTransport);
+
+           }
+
+           else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
+               recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
+           }
+
+
+           else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
+               recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+
+           }
+
+
+
+
+
+           RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
+           GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
+
+           // at last set adapter to recycler view.
+           recyclerView.setLayoutManager(layoutManager);
+           recyclerView.setAdapter(adapter);
+           eventoBtnclicklistenerDelete(adapter);
+
+
+    }
+
+
+
+    void addProdcutosPostcosecha(){
+
+
+
+    }
+
+
+    void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH){ //DESCRAGAMOS EL SEGUNDO
+        RealtimeDB.initDatabasesReference();
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("idReportePerteence").equalTo(reportUNIQUEidtoSEARCH);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<ImagenReport>listImagenData=new ArrayList<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ImagenReport imagenReport=ds.getValue(ImagenReport.class);
+                    listImagenData.add(imagenReport);
+
+                }
+
+                Log.i("ladtastor","el size de ka lista es "+listImagenData.size());
+
+              //despues que descragamos todo llamaoammo a un metodo
+
+                createlistsForReciclerviewsImages(listImagenData);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
 
 }

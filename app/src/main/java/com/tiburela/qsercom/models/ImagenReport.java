@@ -1,10 +1,8 @@
 package com.tiburela.qsercom.models;
 
-import android.net.Uri;
-
 import com.google.firebase.database.Exclude;
+import com.tiburela.qsercom.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,10 +14,10 @@ public class ImagenReport {
 
 
 
-    public String getUniqueId() {
-        return UniqueId;
+    public String getUniqueIdNamePic() {
+        return uniqueIdNamePic;
     }
-    private String UniqueId;
+    private String uniqueIdNamePic;
     private String descripcionImagen;
     private String uriImageString;
     private int tipoImagenCategory;
@@ -56,16 +54,21 @@ public class ImagenReport {
         this.uriImage = uriImage;
     }
 */
-    public ImagenReport(String title, String uriImage, int tipoImagenCategory,String idReportePerteence ) {
+    public ImagenReport(String title, String uriImage, int tipoImagenCategory,String idReportePerteence,String uniqueIdNamePic ) {
         this.descripcionImagen = title;
         this.uriImageString = uriImage;
         this.tipoImagenCategory=tipoImagenCategory;
         this.idReportePerteence=idReportePerteence;
-        UniqueId= java.util.UUID.randomUUID().toString();
+        this.uniqueIdNamePic = uniqueIdNamePic;
+
 
     }
 
 
+public ImagenReport(){
+
+
+    }
 
     @Exclude
     public Map<String, Object> toMap() {
@@ -73,11 +76,14 @@ public class ImagenReport {
         result.put("descripcionImagen", descripcionImagen);
         result.put("uriImageString", uriImageString);
         result.put("tipoImagenCategory", tipoImagenCategory);
-        result.put("UniqueId", UniqueId);
+        result.put("uniqueIdNamePic", uniqueIdNamePic);
         result.put("idReportePerteence", idReportePerteence);
 
         return result;
 
     }
+
+
+
 
 }

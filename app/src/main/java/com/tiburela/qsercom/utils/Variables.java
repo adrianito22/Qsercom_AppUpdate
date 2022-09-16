@@ -37,5 +37,13 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static SetInformEmbarque2 CurrenReportPart2;
 
 
+    public static String KEYEXTRAPREVIEW= "estacontent";
+
+
+
+    public static final int  DOWLOAD_IMAGES= 1500 ;
+    public static final int  SELEC_AND_TAKE_iMAGES= 1500 ;
+
+    public static  int  modoRecicler=0 ;
 
 }

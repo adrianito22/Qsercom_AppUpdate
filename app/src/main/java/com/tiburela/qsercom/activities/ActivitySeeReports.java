@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +40,7 @@ Spinner  spinnerDatesSelector;
     DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
 
+    public static Context context;
 
 
     @Override
@@ -46,6 +49,7 @@ Spinner  spinnerDatesSelector;
         setContentView(R.layout.activity_see_reports);
 
         //Auth.initAuth(this);
+        context = getApplicationContext();
 
         findViewsIDs();
         listenenrSpinner();
@@ -181,7 +185,7 @@ Spinner  spinnerDatesSelector;
         recyclerVReports.setAdapter(adapter);
 
 
-        eventoBtnclicklistenerDelete(adapter);
+        eventoBtnclicklistener(adapter);
 
 
 
@@ -189,7 +193,7 @@ Spinner  spinnerDatesSelector;
 
 
 
-    private void eventoBtnclicklistenerDelete(RecyclerVAdapterReportsList adapter) {
+    private void eventoBtnclicklistener(RecyclerVAdapterReportsList adapter) {
 
         adapter.setOnItemClickListener(new RecyclerVAdapterReportsList.ClickListener() {
             @Override
@@ -275,6 +279,12 @@ return fecha;
                       Variables.CurrenReportPart2=informEmbarque2;
                       Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinforme());
                 }
+
+
+                Intent intencion= new Intent(ActivitySeeReports.this, PreviewActivity.class);
+                intencion.putExtra(Variables.KEYEXTRAPREVIEW,false);
+                //si queremos deciion le ponemos true;
+                 startActivity(intencion);
 
                 //debemos tener data en el report chekemaos
                    //VAmos al activity preview...

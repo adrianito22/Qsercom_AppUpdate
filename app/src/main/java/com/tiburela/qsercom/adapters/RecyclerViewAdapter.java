@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,20 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.storage.StorageReference;
+import com.tiburela.qsercom.activities.ActivitySeeReports;
 import com.tiburela.qsercom.models.ImagenReport;
 
 import java.util.ArrayList;
 
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.utils.Variables;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>  implements   View.OnClickListener  {
 
@@ -52,10 +61,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImagenReport imagenReport = listImagenData.get(position);
         holder.textImputEditext.setText(imagenReport.getDescripcionImagen());
 
-         Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
+        holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
 
-        holder.imageview.setImageURI(myUri);
-        holder.imvClose.setTag(imagenReport.getUniqueId());
+
+
+          if(Variables.modoRecicler==Variables.DOWLOAD_IMAGES){
+//    private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
+              dowloadImagesAndaddTag(imagenReport.getUniqueIdNamePic(), holder,imagenReport.getUniqueIdNamePic());
+
+
+
+              holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
+
+              Log.i("ladtastor","el size de ka lista es "+imagenReport.getUniqueIdNamePic());
+
+
+          }else {  //es el modo de selecionar imagenes y tomar fotos con la camara
+
+              Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
+              holder.imageview.setImageURI(myUri);
+
+
+          }
+
+
+
 
 
       //  holder.imageview.setImageResource(imagenReport.geturiImage());
@@ -152,5 +182,60 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     }
+
+
+
+
+
+    private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
+
+        StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+imgPath);
+
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Log.i("ladtastor","el id es succes");
+
+                Glide.with(ActivitySeeReports.context)
+                        .load(uri)
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)         //ALL or NONE as your requirement
+                        //.thumbnail(Glide.with(OfertsAdminActivity.context).load(R.drawable.enviado_icon))
+                       // .error(R.drawable.)
+                        .into(holder.imageview);
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Log.i("ladtastor","es un fallo y es "+exception.getMessage());
+
+                try{
+
+                 //   Glide.with(ActivitySeeReports.context)
+                            //.load(R.drawable.acea2)
+                           // .fitCenter()
+                           // .into(holder.imgViewLogoGIFTc);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        });
+
+
+
+
+
+
+    }
+
 
 }

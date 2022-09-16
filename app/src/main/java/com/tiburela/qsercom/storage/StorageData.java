@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.storageHelper;
+package com.tiburela.qsercom.storage;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,13 +14,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.tiburela.qsercom.databaseHelper.RealtimeDB;
+import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ImagenReport;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class StorageData {
 
@@ -28,6 +26,7 @@ public class StorageData {
    public static  StorageReference rootStorageReference;
 
  public static    StorageReference stoRefToUpload ;
+
 
 private static int counTbucle=0;
 
@@ -63,7 +62,7 @@ private static int counTbucle=0;
             counTbucle++;
 
             // Defining the child of storageReference
-                stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+value.getUniqueId());
+                stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+value.getUniqueIdNamePic());
 
 
                 // adding listeners on upload

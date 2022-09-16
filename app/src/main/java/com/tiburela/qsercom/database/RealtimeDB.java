@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.databaseHelper;
+package com.tiburela.qsercom.database;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -18,9 +18,9 @@ import java.util.Map;
 
 public class RealtimeDB {
 
- static   DatabaseReference rootDatabaseReference ;
+ static  public DatabaseReference rootDatabaseReference ;
 
-static   DatabaseReference mibasedataPathImages;
+static  public  DatabaseReference mibasedataPathImages;
 
 
 
