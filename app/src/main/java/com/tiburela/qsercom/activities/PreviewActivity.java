@@ -48,7 +48,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.tiburela.qsercom.BuildConfig;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -1677,7 +1676,7 @@ private void createObjcInformeAndUpload(){
             ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
             ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
             ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
-            switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString());
+            switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
     //Agregamos un nuevo informe
     RealtimeDB.initDatabasesReference(); //inicilizamos la base de datos
@@ -1768,8 +1767,8 @@ private void createObjcInformeAndUpload(){
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
-           startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
+         //   Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+         //  startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
         }
 
 
@@ -2702,7 +2701,10 @@ return true;
 
 
 
-        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //si no esta vacia
+
+          // FieldOpcional.tipoDeBalanzaRepesoOpcnal AQUI GAURDAMOS EL VALOR DEL EDITEXT
+
             editipbalanzaRepeso.requestFocus();
             editipbalanzaRepeso.setError("Este espacio es obligatorio");
 
@@ -3130,7 +3132,7 @@ private void  addProdcutsPostCosechaAndUpload(){
                 edi_nguia_transporte.setText(info1Object.get_nguia_transporte());
         ediNtargetaEmbarque.setText(info1Object.getNtargetaEmbarque());
                 ediNhojaEvaluacion.setText(info1Object.getEdiNhojaEvaluacion());
-        ediObservacion.setText(info1Object.getO);
+        ediObservacion.setText(info1Object.getObservacion());
                 ediEmpacadora.setText(info1Object.getEmpacadora());
                 ediContenedor.setText(info1Object.getContenedor());
 
@@ -3145,42 +3147,40 @@ private void  addProdcutsPostCosechaAndUpload(){
         ediCompaniaTransporte.setText(info2Object.getCompaniaTranporte());
         ediNombreChofer.setText(info2Object.getNombreChofer());
         ediCedula.setText(info2Object.getCedulaChofer());
-        ediCelular.setText(info2Object.getSemana());
-        ediPLaca.setText(info2Object.getSemana());
-        ediMarcaCabezal.setText(info2Object.getSemana());
-        ediColorCabezal.setText(info2Object.getSemana());
-        ediFotosLlegadaTransport.setText(info2Object.getSemana());
-        ediTare.setText(info2Object.getSemana());
-        ediBooking.setText(info2Object.getSemana());
-        ediMaxGross.setText(info2Object.getSemana());
-        ediNumSerieFunda.setText(info2Object.getSemana());
-        stikVentolerExterna.setText(info2Object.getSemana());
-        ediCableRastreoLlegada.setText(info2Object.getSemana());
-        ediSelloPlasticoNaviera.setText(info2Object.getSemana());
-        ediFotosSellosLLegada.setText(info2Object.getSemana());
-        ediCondicionBalanza.setText(info2Object.getSemana());
-        ediTipodeCaja.setText(info2Object.getSemana());
-        ediTipoPlastico.setText(info2Object.getSemana());
-        ediTipoBalanza.setText(info2Object.getSemana());
-        editipbalanzaRepeso.setText(info2Object.getSemana());
-        ediUbicacionBalanza.setText(info2Object.getSemana());
-        ediTermofrafo1.setText(info2Object.getSemana());
-        ediHoraEncendido1.setText(info2Object.getSemana());
-        ediUbicacion1.setText(info2Object.getSemana());
-        ediRuma1.setText(info2Object.getSemana());
-        ediTermofrafo2.setText(info2Object.getSemana());
-        ediHoraEncendido2.setText(info2Object.getSemana());
-        ediUbicacion2.setText(info2Object.getSemana());
-        ediRuma2.setText(info2Object.getSemana());
-        ediCandadoqsercon.setText(info2Object.getSemana());
-        ediSelloNaviera.setText(info2Object.getSemana());
-        ediCableNaviera.setText(info2Object.getSemana());
-        ediSelloPlastico.setText(info2Object.getSemana());
-        ediCandadoBotella.setText(info2Object.getSemana());
-        ediCableExportadora.setText(info2Object.getSemana());
-        ediSelloAdesivoexpor.setText(info2Object.getSemana());
-        esiSelloAdhNaviera.setText(info2Object.getSemana());
-        ediOtherSellos.setText(info2Object.getSemana());
+        ediCelular.setText(info2Object.getCelularChofer());
+        ediPLaca.setText(info2Object.getPlacaChofer());
+        ediMarcaCabezal.setText(info2Object.getMarcaCaebzalChofer());
+        ediColorCabezal.setText(info2Object.getColorCAbezal());
+        ediTare.setText(info1Object.getTare());
+        ediBooking.setText(info1Object.getBooking());
+        ediMaxGross.setText(info1Object.getMaxGross());
+        ediNumSerieFunda.setText(info1Object.getnSerieFunda());
+        stikVentolerExterna.setText(info1Object.getStickerVentoExtern());
+        ediCableRastreoLlegada.setText(info1Object.getCableRastreoLlegada());
+        ediSelloPlasticoNaviera.setText(info1Object.getSelloPlasticoNaviera());
+        ediCondicionBalanza.setText(info2Object.getCondicionBalanza());
+        ediTipodeCaja.setText(info2Object.getTipoCaja());
+        ediTipoPlastico.setText(info2Object.getTipoPlastico());
+        ediTipoBalanza.setText(info2Object.getTipoDeBalanza());
+        editipbalanzaRepeso.setText(info2Object.getTipoDeBalanzaRepeso());
+        ediUbicacionBalanza.setText(info2Object.getUbicacionBalanza());
+        ediTermofrafo1.setText(info2Object.getTermografo1());
+        ediHoraEncendido1.setText(info2Object.getTermografo1HoraEncendido());
+        ediUbicacion1.setText(info2Object.getUbicacionPalletN1());
+        ediRuma1.setText(info2Object.getRumaPalletN1());
+        ediTermofrafo2.setText(info2Object.getRumaPalletN2());
+        ediHoraEncendido2.setText(info2Object.getTermografo2HoraEncendido());
+        ediUbicacion2.setText(info2Object.getUbicacionPalletN2());
+        ediRuma2.setText(info2Object.getRumaPalletN2());
+        ediCandadoqsercon.setText(info2Object.getCandadoQsercom());
+        ediSelloNaviera.setText(info2Object.getSelloNaviera());
+        ediCableNaviera.setText(info2Object.getCableNaviera());
+        ediSelloPlastico.setText(info2Object.getSelloPlastico());
+        ediCandadoBotella.setText(info2Object.getCandadoBotella());
+        ediCableExportadora.setText(info2Object.getCableExportadora());
+        ediSelloAdesivoexpor.setText(info2Object.getSelloAdhesivoExportadora());
+        esiSelloAdhNaviera.setText(info2Object.getSelloNaviera());
+        ediOtherSellos.setText(info2Object.getOtrosSellosEspecif());
 
 
 

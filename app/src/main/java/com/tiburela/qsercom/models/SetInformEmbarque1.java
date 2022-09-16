@@ -1,7 +1,5 @@
 package com.tiburela.qsercom.models;
 
-import static com.google.gson.internal.bind.TypeAdapters.UUID;
-
 import com.google.firebase.database.Exclude;
 
 import java.text.Format;
@@ -9,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class SetInformEmbarque1 {
 
@@ -37,7 +34,7 @@ public class SetInformEmbarque1 {
     public SetInformEmbarque1(String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
                               String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
                               String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
-                              String empacadora, String contenedor, String cbservacion, String horaLlegadaContenedor,
+                              String empacadora, String contenedor, String observacion, String horaLlegadaContenedor,
                               String horaSalidadContenedor,
                               String destinoContenedor,
                               String numeroViajeContenedor,
@@ -78,7 +75,7 @@ public class SetInformEmbarque1 {
         this.semana = semana;
         this.empacadora = empacadora;
         this.contenedor = contenedor;
-        this.cbservacion = cbservacion;
+        this.observacion = observacion;
         this.horaLlegadaContenedor = horaLlegadaContenedor;
         this.horaSalidadContenedor = horaSalidadContenedor;
         this.destinoContenedor = destinoContenedor;
@@ -114,7 +111,7 @@ public class SetInformEmbarque1 {
     private String semana;
     private String empacadora;
     private String contenedor;
-    private String cbservacion;
+    private String observacion;
 
 
     public static HashMap<String, String> getProdcutsPostCosecha() {
@@ -431,12 +428,12 @@ public class SetInformEmbarque1 {
         this.contenedor = contenedor;
     }
 
-    public String getCbservacion() {
-        return cbservacion;
+    public String getObservacion() {
+        return observacion;
     }
 
-    public void setCbservacion(String cbservacion) {
-        this.cbservacion = cbservacion;
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
 
@@ -475,7 +472,7 @@ public class SetInformEmbarque1 {
         result.put("semana", semana);
         result.put("empacadora", empacadora);
         result.put("contenedor", contenedor);
-        result.put("cbservacion", cbservacion);
+        result.put("observacion", observacion);
 
         result.put("horaLlegadaContenedor", horaLlegadaContenedor);
         result.put("horaSalidadContenedor", horaSalidadContenedor);

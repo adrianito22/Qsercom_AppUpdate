@@ -9,27 +9,15 @@ public class Utils {
 
 
     public static void closeKeyboard( Activity activity)
+    {//Aahora nos toca mostrar las imagenes....en los recicler views...
+        //necesitamos ,,, call recicler metodo...
+        //Le pasamos los 4 recicler views de imagenes....y la data de las imagenes
 
 
-    {
-        // this will give us the view
-        // which is currently focus
-        // in this layout
-        View view = activity.getCurrentFocus();
 
-        // if nothing is currently
-        // focus then this will protect
-        // the app from crash
-        if (view != null) {
 
-            // now assign the system
-            // service to InputMethodManager
-            InputMethodManager manager
-                    = (InputMethodManager) activity.getSystemService(
-                            Context.INPUT_METHOD_SERVICE);
-            manager
-                    .hideSoftInputFromWindow(
-                            view.getWindowToken(), 0);
-        }
     }
+
+
+
 }

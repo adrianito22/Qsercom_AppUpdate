@@ -46,6 +46,27 @@ public class SetInformEmbarque2 {
     private boolean hayBalanza;
     private boolean hayExcelnsuchado;
     private String tipoPlastico;
+    private String tipoDeBalanza;
+    private String tipoDeBalanzaRepeso;
+
+
+    public String getTipoDeBalanza() {
+        return tipoDeBalanza;
+    }
+
+    public void setTipoDeBalanza(String tipoDeBalanza) {
+        this.tipoDeBalanza = tipoDeBalanza;
+    }
+
+    public String getTipoDeBalanzaRepeso() {
+        return tipoDeBalanzaRepeso;
+    }
+
+    public void setTipoDeBalanzaRepeso(String tipoDeBalanzaRepeso) {
+        this.tipoDeBalanzaRepeso = tipoDeBalanzaRepeso;
+    }
+
+
     private boolean hayBalanzaRepeso;
     private String ubicacionBalanza;
 
@@ -311,7 +332,18 @@ public class SetInformEmbarque2 {
 
     }
 
-    public SetInformEmbarque2(String uniqueIDinforme ,String termografo1, String termografo2, String termografo1HoraEncendido, String termografo2HoraEncendido, String ubicacionPalletN1, String ubicacionPalletN2, String rumaPalletN1, String rumaPalletN2, String candadoQsercom, String selloNaviera, String cableNaviera, String selloPlastico, String candadoBotella, String cableExportadora, String selloAdhesivoExportadora, String selloAdhesivoNaviera, String otrosSellosEspecif, String companiaTranporte, String nombreChofer, String cedulaChofer, String celularChofer, String placaChofer, String marcaCaebzalChofer, String colorCAbezal, String condicionBalanza, String tipoCaja, boolean hayBalanza, boolean hayExcelnsuchado, String tipoPlastico, boolean hayBalanzaRepeso, String ubicacionBalanza) {
+    public SetInformEmbarque2(String uniqueIDinforme ,String termografo1, String termografo2, String termografo1HoraEncendido,
+                              String termografo2HoraEncendido, String ubicacionPalletN1,
+                              String ubicacionPalletN2, String rumaPalletN1, String rumaPalletN2,
+                              String candadoQsercom, String selloNaviera, String cableNaviera,
+                              String selloPlastico, String candadoBotella, String cableExportadora,
+                              String selloAdhesivoExportadora, String selloAdhesivoNaviera, String otrosSellosEspecif,
+                              String companiaTranporte, String nombreChofer, String cedulaChofer, String celularChofer,
+                              String placaChofer, String marcaCaebzalChofer, String colorCAbezal, String condicionBalanza,
+                              String tipoCaja, boolean hayBalanza, boolean hayExcelnsuchado, String tipoPlastico,
+                              boolean hayBalanzaRepeso, String ubicacionBalanza,String tipoDeBalanza,String tipoDeBalanzaRepeso) {
+
+
         this.uniqueIDinforme = uniqueIDinforme;
         this.termografo1 = termografo1;
         this.termografo2 = termografo2;
@@ -344,6 +376,9 @@ public class SetInformEmbarque2 {
         this.tipoPlastico = tipoPlastico;
         this.hayBalanzaRepeso = hayBalanzaRepeso;
         this.ubicacionBalanza = ubicacionBalanza;
+        this.tipoDeBalanza = tipoDeBalanza;
+        this.tipoDeBalanzaRepeso = tipoDeBalanzaRepeso;
+
     }
 
 
@@ -388,10 +423,8 @@ public class SetInformEmbarque2 {
         result.put("hayBalanzaRepeso", hayBalanzaRepeso);
         result.put("ubicacionBalanza", ubicacionBalanza);
 
-
-
-
-
+        result.put("tipoDeBalanza", tipoDeBalanza);
+        result.put("tipoDeBalanzaRepeso", tipoDeBalanzaRepeso);
 
 
         return result;
