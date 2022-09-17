@@ -23,6 +23,8 @@ public class ProductPostCosecha {
     public String xtrata;
     public String idpertenece;
 
+    public String keyFirebase;
+
     public ProductPostCosecha() {
 
 
@@ -47,6 +49,7 @@ public class ProductPostCosecha {
         xtrata="";
         sb100="";
         cloro="";
+        keyFirebase="";
 
     }
 

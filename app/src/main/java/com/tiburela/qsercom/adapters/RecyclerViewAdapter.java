@@ -153,6 +153,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View v) {
 
+                    if(!Variables.isClickable)
+                        return;
+
                     clickListener.onItemClick(getAdapterPosition(), v);
 
                 }

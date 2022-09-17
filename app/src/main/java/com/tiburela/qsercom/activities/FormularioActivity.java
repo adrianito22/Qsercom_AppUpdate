@@ -122,7 +122,8 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     TextInputEditText ediVapor;
     TextInputEditText ediFotoContenedor;
     TextInputEditText ediFotosPposcosecha;
-
+    TextInputEditText ediEnsunchado;
+    TextInputEditText ediBalanzaRepeso;
 
 
 
@@ -310,7 +311,19 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                         }
 
 
+                        else if (vista.getId()== R.id.ediHoraEncendido1) {
+                            ediHoraEncendido1.setText(sHour + ":" + sMinute);
 
+
+                        }
+
+
+
+                        else if (vista.getId()== R.id.ediHoraEncendido2) {
+                            ediHoraEncendido2.setText(sHour + ":" + sMinute);
+
+
+                        }
 
 
 
@@ -377,6 +390,11 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         disableEditText(ediFotosLlegada);
 
         disableEditText(ediZona);
+        disableEditText(ediEnsunchado);
+        disableEditText(ediBalanzaRepeso);
+
+        disableEditText(ediHoraEncendido1);
+        disableEditText(ediHoraEncendido2);
 
 
     }
@@ -415,6 +433,9 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         ediSelloPlasticoNaviera=findViewById(R.id.ediSelloPlasticoNaviera);
         ediOtroSellosLlegada=findViewById(R.id.ediOtroSellosLlegada);
         ediFotosSellosLLegada=findViewById(R.id.ediFotosSellosLLegada);
+
+        ediEnsunchado=findViewById(R.id.ediEnsunchado);
+        ediBalanzaRepeso=findViewById(R.id.ediBalanzaRepeso);
 
 
         linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
@@ -558,7 +579,8 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
          imbAtachPrPostcosecha.setOnClickListener(this);
          imbTakePicPrPostcosecha.setOnClickListener(this);
 
-
+        ediHoraEncendido1.setOnClickListener(this);
+        ediHoraEncendido2.setOnClickListener(this);
 
 
 
@@ -730,6 +752,17 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
                break; //
 
+           case R.id.ediHoraEncendido1:
+               // Utils.closeKeyboard(FormularioActivity.this);
+               showingTimePicker(view);
+
+               break; //
+
+           case R.id.ediHoraEncendido2:
+               // Utils.closeKeyboard(FormularioActivity.this);
+               showingTimePicker(view);
+
+               break; //
 
            case R.id.imbAtach:
 
@@ -1268,7 +1301,7 @@ private void listennersSpinners() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String zonaEelejida= spinnerSelectZona.getSelectedItem().toString();
-                ediZona.setText("Zona "+zonaEelejida+" ");
+                ediZona.setText(zonaEelejida);
                 if(zonaEelejida.equals("Ninguna")){
                     //actualizamos
                     Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
@@ -1664,10 +1697,10 @@ private void createObjcInformeAndUpload(){
             ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
             ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
             FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-            ,ediDestino.getText().toString(),ediVapor.getText().toString(),ediTipoContenedor.getText().toString()
-            ,ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),ediNumSerieFunda.getText().toString(),
-            stikVentolerExterna.getText().toString(),ediCableRastreoLlegada.getText().toString()
-            ,ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
+            ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediVapor.getText().toString(),
+            ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
+            ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
+            ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
 
 
     SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
@@ -2843,7 +2876,7 @@ private void  addProdcutsPostCosechaAndUpload(){
 
 
 
-    RealtimeDB.UploadProductosPostCosecha(FormularioActivity.this,producto);
+    RealtimeDB.UploadProductosPostCosecha(producto);
 
 
 }

@@ -55,7 +55,7 @@
                     android:id="@+id/ediBooking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -72,7 +72,7 @@
                     android:id="@+id/ediMaxGross"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -119,7 +119,7 @@
                     android:id="@+id/stikVentolerExterna"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -145,7 +145,7 @@
                     android:id="@+id/ediCableRastreoLlegada"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -169,7 +169,7 @@
                     android:id="@+id/ediSelloPlasticoNaviera"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -195,7 +195,7 @@
                     android:id="@+id/ediOtroSellosLlegada"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

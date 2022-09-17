@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class ActivitySeeReports extends AppCompatActivity {
 RecyclerView recyclerVReports;
 Spinner  spinnerDatesSelector;
     ArrayList<SetInformEmbarque1> reportsListPart1;
-
+    ProgressDialog pd;
     DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
 
@@ -59,6 +60,25 @@ Spinner  spinnerDatesSelector;
         rootDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        try {
+            if(Variables.VienedePreview) {
+                 pd.dismiss();
+                Variables.VienedePreview =false;
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -200,7 +220,8 @@ Spinner  spinnerDatesSelector;
         adapter.setOnItemClickListener(new RecyclerVAdapterReportsList.ClickListener() {
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
-              Variables.CurrenReportPart1=  reportsListPart1.get(position);
+
+                Variables.CurrenReportPart1=  reportsListPart1.get(position);
 
                 showBottomSheetDialog();
 
@@ -268,6 +289,14 @@ return fecha;
 
 
     void dowloadSecondPART_ReportAndGetActivity(String reportUNIQUEidtoSEARCH,int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
+         pd = new ProgressDialog(ActivitySeeReports.this);
+        pd.setMessage("Obteniendo Data");
+        pd.show();
+
+
+
+
+
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinforme").equalTo(reportUNIQUEidtoSEARCH);
 
@@ -292,14 +321,25 @@ return fecha;
 
                     intencion.putExtra(Variables.KEYEXTRAPREVIEW,true);
                     //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
                     startActivity(intencion);
 
+                    //pd.dismiss();
+
+                    //finish();
                 }else{
 
 
                     intencion.putExtra(Variables.KEYEXTRAPREVIEW,false);
                     //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
                     startActivity(intencion);
+                   // pd.dismiss();
+                   // finish();
+
+
 
                 }
 

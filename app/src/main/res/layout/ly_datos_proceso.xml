@@ -145,7 +145,7 @@
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediPPC7501"
+                        android:id="@+id/ediEnsunchado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -253,7 +253,7 @@
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edi6PPC01"
+                        android:id="@+id/ediBalanzaRepeso"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"

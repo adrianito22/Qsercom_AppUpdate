@@ -1,7 +1,10 @@
 package com.tiburela.qsercom.utils;
 
+import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+
+import java.util.ArrayList;
 
 public class Variables {
 
@@ -48,5 +51,14 @@ public static String  paqueteName="com.tiburela.qsercom";
 
     public static final int MODO_EDICION=414 ;
     public static final int MODO_VISUALIZACION=415 ;
+
+    public static boolean isClickable = true;
+
+    public static boolean VienedePreview = false;
+
+    public static ArrayList<ImagenReport> listImagenData;
+
+
+
 
 }

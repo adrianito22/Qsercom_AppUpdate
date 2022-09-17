@@ -52,10 +52,20 @@ static  public  DatabaseReference mibasedataPathImages;
 
     public static void addNewInforme(Context context, SetInformEmbarque1 informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
+
+           //agregamos la propiedad keyFirebase a al objeto
+        String PuskEY = mibasedata.push().getKey();
+
+        informeObjct.setKeyFirebase(PuskEY);
             Map<String, Object> mapValues = informeObjct.toMap();
 
-        //SUBE MAPA
-        mibasedata.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+        mibasedata.child(PuskEY).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            String key_ID = mibasedata.getKey();
+
+
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -73,12 +83,69 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
+    public static void actualizaInformePart1( SetInformEmbarque1 informeObjct) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child(informeObjct.getKeyFirebase());
+
+        Map<String, Object> mapValues = informeObjct.toMap(); //lo convertimos en maP
+
+        mibasedata.setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+    public static void actualizaInformePart2( SetInformEmbarque2 informeObjc2) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child(informeObjc2.getKeyFirebase());
+
+        Map<String, Object> mapValues = informeObjc2.toMap(); //lo convertimos en maP
+
+        mibasedata.setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+
+
     public static void addNewInforme(Context context, SetInformEmbarque2 informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
+
+        //agregamos la propiedad keyFirebase a al objeto
+        String PuskEY = mibasedata.push().getKey();
+
+        informeObjct.setKeyFirebase(PuskEY);
+
         Map<String, Object> mapValues = informeObjct.toMap();
 
         //SUBE MAPA
-        mibasedata.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mibasedata.child(PuskEY).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -128,13 +195,39 @@ static  public  DatabaseReference mibasedataPathImages;
 
 
 
-    public static void UploadProductosPostCosecha(Context context, ProductPostCosecha producto) {
+    public static void UploadProductosPostCosecha( ProductPostCosecha producto) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listProductosPostCosecha");
        // Map<String, Object> mapValues = informeObjct.toMap();
+        String PuskEY = mibasedata.push().getKey();
+
+        producto.keyFirebase=PuskEY;
+        //SUBE MAPA
+        mibasedata.child(PuskEY).setValue(producto).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+    public static void UpdateProductosPostCosecha( ProductPostCosecha productosObject) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listProductosPostCosecha").child(productosObject.keyFirebase);
+        // Map<String, Object> mapValues = informeObjct.toMap();
+
 
         //SUBE MAPA
-        mibasedata.push().setValue(producto).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mibasedata.setValue(productosObject).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

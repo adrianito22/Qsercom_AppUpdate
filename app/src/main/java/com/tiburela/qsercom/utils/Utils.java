@@ -13,6 +13,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.tiburela.qsercom.models.ImagenReport;
+
+import java.util.ArrayList;
 
 public class Utils {
 
@@ -54,6 +57,44 @@ public class Utils {
         return finallyz;
     }
 
+
+
+    public boolean  sonIgualesImgsSet(  ArrayList<ImagenReport> listImagenDataDowload,ArrayList<ImagenReport> listImagenDataUris) {
+
+        if ( listImagenDataDowload.equals(listImagenDataUris)) {
+            return true;
+        }else{
+
+            return false;
+        }
+
+    }
+
+
+
+    public static ArrayList<ImagenReport> listImagenDataDowload (ArrayList<String> listImagenDataDowload) {
+        //solo sube los que son nuevos....
+
+        //iteramos la lista que obvtenemos parametros...
+
+        for(int indice = 0; indice < listImagenDataDowload.size(); indice++) {
+            //chekemaos que ese datos no lo contenga
+
+
+
+        }
+
+        //entonces comparamos una
+
+        ///asi que suben los uris
+        String finallyz;
+
+        finallyz=    ImageName.substring(ImageName.lastIndexOf(".")); // Extension with dot .jpg, .png
+
+        return finallyz;
+
+
+    }
 
 
 }

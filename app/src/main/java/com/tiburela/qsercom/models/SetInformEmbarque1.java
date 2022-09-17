@@ -25,6 +25,16 @@ public class SetInformEmbarque1 {
 
     private String uniqueIDinforme;
 
+    public String getKeyFirebase() {
+        return keyFirebase;
+    }
+
+    public void setKeyFirebase(String keyFirebase) {
+        this.keyFirebase = keyFirebase;
+    }
+
+    private String keyFirebase;
+
     public SetInformEmbarque1() {
 
 
@@ -90,6 +100,8 @@ public class SetInformEmbarque1 {
         this.cableRastreoLlegada = cableRastreoLlegada;
         this.selloPlasticoNaviera = selloPlasticoNaviera;
         this.otroSelloLlegadaEspec = otroSelloLlegadaEspec;
+
+        keyFirebase="";
 
     }
 
@@ -489,6 +501,8 @@ public class SetInformEmbarque1 {
         result.put("cableRastreoLlegada", cableRastreoLlegada);
         result.put("selloPlasticoNaviera", selloPlasticoNaviera);
         result.put("otroSelloLlegadaEspec", otroSelloLlegadaEspec);
+
+        result.put("keyFirebase", keyFirebase);
 
 
         return result;

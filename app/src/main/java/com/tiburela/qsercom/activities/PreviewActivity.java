@@ -7,6 +7,7 @@ import static android.os.Build.VERSION.SDK_INT;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -31,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -46,10 +48,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
@@ -59,7 +61,6 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
-import com.tiburela.qsercom.models.ProductoPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
@@ -69,6 +70,8 @@ import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.IOException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -82,9 +85,12 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     private String UNIQUE_ID_iNFORME;
      private boolean isModEdicionFields=false;
 
-
+ProgressDialog progressDialog;
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
+
+
+    FloatingActionButton fab ;
 
     TextInputEditText ediSemana;
     TextInputEditText ediFecha;
@@ -168,6 +174,8 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     TextInputEditText ediSelloAdesivoexpor;
     TextInputEditText esiSelloAdhNaviera;
     TextInputEditText ediOtherSellos;
+    TextInputEditText ediEnsunchado;
+    TextInputEditText ediBalanzaRepeso;
 
 
 
@@ -221,6 +229,8 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     protected void onStart() {
         super.onStart();
 
+        Variables.VienedePreview=true;
+
         Auth.initAuth(PreviewActivity.this);
         Auth.signInAnonymously(PreviewActivity.this);
 
@@ -234,15 +244,13 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
+       // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
         findViewsIds();
 
 
 
-        UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
+        UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinforme();
 
       // FirebaseApp.initializeApp(this);
       //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
@@ -262,8 +270,10 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         addOnTouchaMayoriaDeViews();
         eventCheckdata();
         //creaFotos();
-        configCertainSomeViewsAliniciar();
+        listennersSpinners();
         checkModeVisualitY();
+
+        configCertainSomeViewsAliniciar();
 
 
 
@@ -311,6 +321,21 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
                         else if (vista.getId()== R.id.ediHoraSalidaContenedor) {
                             ediHoraSalidaContenedor.setText(sHour + ":" + sMinute);
+
+
+                        }
+
+
+                        else if (vista.getId()== R.id.ediHoraEncendido1) {
+                            ediHoraEncendido1.setText(sHour + ":" + sMinute);
+
+
+                        }
+
+
+
+                        else if (vista.getId()== R.id.ediHoraEncendido2) {
+                            ediHoraEncendido2.setText(sHour + ":" + sMinute);
 
 
                         }
@@ -381,13 +406,19 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
         disableEditText(ediContenedor);
         disableEditText(ediFotosLlegada);
-
         disableEditText(ediZona);
+        disableEditText(ediEnsunchado);
+        disableEditText(ediBalanzaRepeso);
+
+        disableEditText(ediHoraEncendido1);
+        disableEditText(ediHoraEncendido2);
 
 
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+         fab = (FloatingActionButton) findViewById(R.id.fab);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
 
          ediSemana=findViewById(R.id.ediSemana);
@@ -421,6 +452,10 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         ediSelloPlasticoNaviera=findViewById(R.id.ediSelloPlasticoNaviera);
         ediOtroSellosLlegada=findViewById(R.id.ediOtroSellosLlegada);
         ediFotosSellosLLegada=findViewById(R.id.ediFotosSellosLLegada);
+
+        ediEnsunchado=findViewById(R.id.ediEnsunchado);
+        ediBalanzaRepeso=findViewById(R.id.ediBalanzaRepeso);
+
 
 
         linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
@@ -552,6 +587,10 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         /**todos add a todos clicklistener de la implemntacion*/
 
 
+
+
+        fab.setOnClickListener(this);
+
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
 
@@ -564,7 +603,8 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
          imbAtachPrPostcosecha.setOnClickListener(this);
          imbTakePicPrPostcosecha.setOnClickListener(this);
 
-
+        ediHoraEncendido1.setOnClickListener(this);
+        ediHoraEncendido2.setOnClickListener(this);
 
 
 
@@ -610,6 +650,40 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
 
        switch (view.getId()) {
+
+
+           case R.id.fab: //si pulas en btn chekear en que modo esta ...si el modo cambia...
+               TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
+
+                if(isModEdicionFields){ //si es modo edicion..
+                    fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
+
+                    txtModeAdviser.setText("Modo Visualizacion ");
+
+
+
+                    //cambiamos al modo visualizacion
+                    isModEdicionFields=false;
+                    activateModePreview();
+
+
+                }else{ //SI NO ES MODO VISUZALIZACION
+                    fab.setImageResource(R.drawable.ic_baseline_preview_24jhj);
+                    txtModeAdviser.setText("Modo Edicion ");
+
+                    isModEdicionFields=true;
+                    activateModeEdit();
+
+
+                  //CAMABIAMOS EL MODO
+
+                }
+
+
+
+               break; //
+
+
 
            case R.id.linLayoutHeader1:
                LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
@@ -736,6 +810,17 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
                break; //
 
+           case R.id.ediHoraEncendido1:
+               // Utils.closeKeyboard(FormularioActivity.this);
+               showingTimePicker(view);
+
+               break; //
+
+           case R.id.ediHoraEncendido2:
+               // Utils.closeKeyboard(FormularioActivity.this);
+               showingTimePicker(view);
+
+               break;
 
            case R.id.imbAtach:
 
@@ -1279,7 +1364,11 @@ private void listennersSpinners() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String zonaEelejida= spinnerSelectZona.getSelectedItem().toString();
-                ediZona.setText("Zona "+zonaEelejida+" ");
+                ediZona.setText(zonaEelejida);
+
+
+                Log.i("mizona","la zona aen listenner spinner es"+zonaEelejida);
+
                 if(zonaEelejida.equals("Ninguna")){
                     //actualizamos
                     Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
@@ -1671,9 +1760,7 @@ void checkDataFields(){ //
 
 private void createObjcInformeAndUpload(){
 
-
-
-//aplicamos la logica PARA CREAR UN NUEVO INFORME
+        //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
 
     SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
@@ -1684,10 +1771,10 @@ private void createObjcInformeAndUpload(){
             ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
             ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
             FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-            ,ediDestino.getText().toString(),ediVapor.getText().toString(),ediTipoContenedor.getText().toString()
-            ,ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),ediNumSerieFunda.getText().toString(),
-            stikVentolerExterna.getText().toString(),ediCableRastreoLlegada.getText().toString()
-            ,ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
+            ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediVapor.getText().toString(),
+            ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
+            ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
+            ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
 
 
     SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
@@ -1707,12 +1794,12 @@ private void createObjcInformeAndUpload(){
 
     //agr5egamos la data finalemente
 
-    RealtimeDB.addNewInforme(PreviewActivity.this,informe);
 
-    RealtimeDB.addNewInforme(PreviewActivity.this,informe2);
+    RealtimeDB.actualizaInformePart1(informe);
+    RealtimeDB.actualizaInformePart2(informe2);
+
 
     addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
-
 
 
 }
@@ -2834,7 +2921,7 @@ return true;
 
 
 
-        RealtimeDB.UploadProductosPostCosecha(PreviewActivity.this,producto);
+        RealtimeDB.UpdateProductosPostCosecha(producto);
 
 
     }
@@ -2844,13 +2931,13 @@ return true;
 
     private void diseableViewsByTipe(View view) {
 
-        if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
+        if (view instanceof TextInputEditText ) { //asi es un editex compobamos si esta lleno
 
-            EditText editText = (EditText) view; //asi lo convertimos
+            TextInputEditText editText = (TextInputEditText) view; //asi lo convertimos
 
-             editText.setFocusable(false);
+            // editText.setFocusable(false);
              editText.setEnabled(false);
-            editText.setCursorVisible(false);
+           // editText.setCursorVisible(false);
            // editText.setKeyListener(null);
             //  editText.setBackgroundColor(Color.TRANSPARENT);
 
@@ -2890,15 +2977,25 @@ return true;
     }
 
 
-    private void activateViewsByType(View view) {
+    private void activateViewsByTypeView(View view) {
 
-        if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
+        // ediProductor.setCursorVisible(true);
 
-            EditText editText = (EditText) view; //asi lo convertimos
+        //ediProductor.setFocusable(true);
+        ediProductor.setEnabled(true);
 
-            editText.setFocusable(true);
+        if (view instanceof TextInputEditText) { //asi es un editex compobamos si esta lleno
+
+           TextInputEditText editText = (TextInputEditText) view; //asi lo convertimos
+
             editText.setEnabled(true);
-            editText.setCursorVisible(true);
+
+
+            //  editText.requestFocus();
+
+           // editText.setFocusable(true);
+          //  editText.setEnabled(true);
+           // editText.setCursorVisible(true);
            // editText.setKeyListener(false);
             //  editText.setBackgroundColor(Color.TRANSPARENT);
 
@@ -3021,6 +3118,11 @@ return true;
         diseableViewsByTipe(    ediSelloAdesivoexpor);
         diseableViewsByTipe(    esiSelloAdhNaviera);
         diseableViewsByTipe(    ediOtherSellos);
+        diseableViewsByTipe(ediEnsunchado);
+        diseableViewsByTipe(    ediBalanzaRepeso);
+
+
+
 
         //SPINNERS
         diseableViewsByTipe(  spinnerSelectZona);
@@ -3059,122 +3161,122 @@ return true;
     }
 
     private void activateModeEdit() {
-        activateViewsByType(    ediSemana);
-        activateViewsByType(    ediFecha);
-        activateViewsByType(    ediProductor);
-        activateViewsByType(    ediHacienda);
-        activateViewsByType(    ediCodigo);
-        activateViewsByType(    ediInscirpMagap);
-        activateViewsByType(    ediPemarque);
-        activateViewsByType(    ediZona);
-        activateViewsByType(    ediHoraInicio);
-        activateViewsByType(    ediHoraTermino);
-        activateViewsByType(    ediHoraLLegadaContenedor);
-        activateViewsByType(    ediHoraSalidaContenedor);
-        activateViewsByType(    ediNguiaRemision);
-        activateViewsByType(    edi_nguia_transporte);
-        activateViewsByType(    ediNtargetaEmbarque);
-        activateViewsByType(    ediNhojaEvaluacion);
-        activateViewsByType(    ediObservacion);
-        activateViewsByType(    ediEmpacadora);
-        activateViewsByType(    ediFotosLlegada);
-        activateViewsByType(    ediContenedor);
-        activateViewsByType(    ediPPC01);
-        activateViewsByType(    ediPPC02);
-        activateViewsByType(    ediPPC03);
-        activateViewsByType(    ediPPC04);
-        activateViewsByType(    ediPPC05);
-        activateViewsByType(    ediPPC06);
-        activateViewsByType(    ediPPC07);
-        activateViewsByType(    ediPPC08);
-        activateViewsByType(    ediPPC09);
-        activateViewsByType(    ediPPC010);
-        activateViewsByType(    ediPPC011);
-        activateViewsByType(    ediPPC012);
-        activateViewsByType(    ediPPC013);
-        activateViewsByType(    ediPPC014);
-        activateViewsByType(    ediPPC015);
-        activateViewsByType(    ediPPC016);
-        activateViewsByType(    ediDestino);
-        activateViewsByType(    ediNViaje);
-        activateViewsByType(    ediTipoContenedor);
-        activateViewsByType(    ediVapor);
-        activateViewsByType(    ediFotoContenedor);
-        activateViewsByType(    ediFotosPposcosecha);
-        activateViewsByType(    ediCompaniaTransporte);
-        activateViewsByType(    ediNombreChofer);
-        activateViewsByType(    ediCedula);
-        activateViewsByType(    ediCelular);
-        activateViewsByType(    ediPLaca);
-        activateViewsByType(    ediMarcaCabezal);
-        activateViewsByType(    ediColorCabezal);
-        activateViewsByType(    ediFotosLlegadaTransport);
-        activateViewsByType(    ediTare);
-        activateViewsByType(    ediBooking);
-        activateViewsByType(    ediMaxGross);
-        activateViewsByType(    ediNumSerieFunda);
-        activateViewsByType(    stikVentolerExterna);
-        activateViewsByType(    ediCableRastreoLlegada);
-        activateViewsByType(    ediSelloPlasticoNaviera);
-        activateViewsByType(    ediOtroSellosLlegada);
-        activateViewsByType(    ediFotosSellosLLegada);
-        activateViewsByType(    ediCondicionBalanza);
-        activateViewsByType(    ediTipodeCaja);
-        activateViewsByType(    ediTipoPlastico);
-        activateViewsByType(    ediTipoBalanza);
-        activateViewsByType(    editipbalanzaRepeso);
-        activateViewsByType(    ediUbicacionBalanza);
-        activateViewsByType(    ediTermofrafo1);
-        activateViewsByType(    ediHoraEncendido1);
-        activateViewsByType(    ediUbicacion1);
-        activateViewsByType(    ediRuma1);
-        activateViewsByType(    ediTermofrafo2);
-        activateViewsByType(    ediHoraEncendido2);
-        activateViewsByType(    ediUbicacion2);
-        activateViewsByType(    ediRuma2);
-        activateViewsByType(    ediCandadoqsercon);
-        activateViewsByType(    ediSelloNaviera);
-        activateViewsByType(    ediCableNaviera);
-        activateViewsByType(    ediSelloPlastico);
-        activateViewsByType(    ediCandadoBotella);
-        activateViewsByType(    ediCableExportadora);
-        activateViewsByType(    ediSelloAdesivoexpor);
-        activateViewsByType(    esiSelloAdhNaviera);
-        activateViewsByType(    ediOtherSellos);
+        activateViewsByTypeView(    ediSemana);
+        activateViewsByTypeView(    ediFecha);
+        activateViewsByTypeView(    ediProductor);
+        activateViewsByTypeView(    ediHacienda);
+        activateViewsByTypeView(    ediCodigo);
+        activateViewsByTypeView(    ediInscirpMagap);
+        activateViewsByTypeView(    ediPemarque);
+        activateViewsByTypeView(    ediZona);
+        activateViewsByTypeView(    ediHoraInicio);
+        activateViewsByTypeView(    ediHoraTermino);
+        activateViewsByTypeView(    ediHoraLLegadaContenedor);
+        activateViewsByTypeView(    ediHoraSalidaContenedor);
+        activateViewsByTypeView(    ediNguiaRemision);
+        activateViewsByTypeView(    edi_nguia_transporte);
+        activateViewsByTypeView(    ediNtargetaEmbarque);
+        activateViewsByTypeView(    ediNhojaEvaluacion);
+        activateViewsByTypeView(    ediObservacion);
+        activateViewsByTypeView(    ediEmpacadora);
+        activateViewsByTypeView(    ediFotosLlegada);
+        activateViewsByTypeView(    ediContenedor);
+        activateViewsByTypeView(    ediPPC01);
+        activateViewsByTypeView(    ediPPC02);
+        activateViewsByTypeView(    ediPPC03);
+        activateViewsByTypeView(    ediPPC04);
+        activateViewsByTypeView(    ediPPC05);
+        activateViewsByTypeView(    ediPPC06);
+        activateViewsByTypeView(    ediPPC07);
+        activateViewsByTypeView(    ediPPC08);
+        activateViewsByTypeView(    ediPPC09);
+        activateViewsByTypeView(    ediPPC010);
+        activateViewsByTypeView(    ediPPC011);
+        activateViewsByTypeView(    ediPPC012);
+        activateViewsByTypeView(    ediPPC013);
+        activateViewsByTypeView(    ediPPC014);
+        activateViewsByTypeView(    ediPPC015);
+        activateViewsByTypeView(    ediPPC016);
+        activateViewsByTypeView(    ediDestino);
+        activateViewsByTypeView(    ediNViaje);
+        activateViewsByTypeView(    ediTipoContenedor);
+        activateViewsByTypeView(    ediVapor);
+        activateViewsByTypeView(    ediFotoContenedor);
+        activateViewsByTypeView(    ediFotosPposcosecha);
+        activateViewsByTypeView(    ediCompaniaTransporte);
+        activateViewsByTypeView(    ediNombreChofer);
+        activateViewsByTypeView(    ediCedula);
+        activateViewsByTypeView(    ediCelular);
+        activateViewsByTypeView(    ediPLaca);
+        activateViewsByTypeView(    ediMarcaCabezal);
+        activateViewsByTypeView(    ediColorCabezal);
+        activateViewsByTypeView(    ediFotosLlegadaTransport);
+        activateViewsByTypeView(    ediTare);
+        activateViewsByTypeView(    ediBooking);
+        activateViewsByTypeView(    ediMaxGross);
+        activateViewsByTypeView(    ediNumSerieFunda);
+        activateViewsByTypeView(    stikVentolerExterna);
+        activateViewsByTypeView(    ediCableRastreoLlegada);
+        activateViewsByTypeView(    ediSelloPlasticoNaviera);
+        activateViewsByTypeView(    ediOtroSellosLlegada);
+        activateViewsByTypeView(    ediFotosSellosLLegada);
+        activateViewsByTypeView(    ediCondicionBalanza);
+        activateViewsByTypeView(    ediTipodeCaja);
+        activateViewsByTypeView(    ediTipoPlastico);
+        activateViewsByTypeView(    ediTipoBalanza);
+        activateViewsByTypeView(    editipbalanzaRepeso);
+        activateViewsByTypeView(    ediUbicacionBalanza);
+        activateViewsByTypeView(    ediTermofrafo1);
+        activateViewsByTypeView(    ediHoraEncendido1);
+        activateViewsByTypeView(    ediUbicacion1);
+        activateViewsByTypeView(    ediRuma1);
+        activateViewsByTypeView(    ediTermofrafo2);
+        activateViewsByTypeView(    ediHoraEncendido2);
+        activateViewsByTypeView(    ediUbicacion2);
+        activateViewsByTypeView(    ediRuma2);
+        activateViewsByTypeView(    ediCandadoqsercon);
+        activateViewsByTypeView(    ediSelloNaviera);
+        activateViewsByTypeView(    ediCableNaviera);
+        activateViewsByTypeView(    ediSelloPlastico);
+        activateViewsByTypeView(    ediCandadoBotella);
+        activateViewsByTypeView(    ediCableExportadora);
+        activateViewsByTypeView(    ediSelloAdesivoexpor);
+        activateViewsByTypeView(    esiSelloAdhNaviera);
+        activateViewsByTypeView(    ediOtherSellos);
 
 
         //SPINNERS
-        activateViewsByType(  spinnerSelectZona);
-        activateViewsByType(  spinnerCondicionBalanza);
-        activateViewsByType( spinnertipoCaja);
-        activateViewsByType(  spinnertipodePlastico);
-        activateViewsByType( spinnertipodeBlanza) ;
-        activateViewsByType( spinnertipodeBlanzaRepeso) ;
-        activateViewsByType( spinnerubicacionBalanza) ;
+        activateViewsByTypeView(  spinnerSelectZona);
+        activateViewsByTypeView(  spinnerCondicionBalanza);
+        activateViewsByTypeView( spinnertipoCaja);
+        activateViewsByTypeView(  spinnertipodePlastico);
+        activateViewsByTypeView( spinnertipodeBlanza) ;
+        activateViewsByTypeView( spinnertipodeBlanzaRepeso) ;
+        activateViewsByTypeView( spinnerubicacionBalanza) ;
 
         //SWITCHSÇ
-        activateViewsByType( switchContenedor);
-        activateViewsByType( switchHaybalanza);
-        activateViewsByType( switchHayEnsunchado);
-        activateViewsByType( switchBalanzaRep);
+        activateViewsByTypeView( switchContenedor);
+        activateViewsByTypeView( switchHaybalanza);
+        activateViewsByTypeView( switchHayEnsunchado);
+        activateViewsByTypeView( switchBalanzaRep);
 
 
 //iMAGEVIEWS
-        activateViewsByType( imBtakePic);
-        activateViewsByType( imBatach);
-        activateViewsByType( imbAtach_transportista);
-        activateViewsByType( imbTakePicTransportista);
-        activateViewsByType( imbAtachSellosLlegada);
-        activateViewsByType( imbTakePicSellosLLegada);
-        activateViewsByType( imbAtachDatosContenedor);
-        activateViewsByType( imbTakePicDatosContenedor);
-        activateViewsByType( imbAtachPrPostcosecha);
-        activateViewsByType( imbTakePicPrPostcosecha);
+        activateViewsByTypeView( imBtakePic);
+        activateViewsByTypeView( imBatach);
+        activateViewsByTypeView( imbAtach_transportista);
+        activateViewsByTypeView( imbTakePicTransportista);
+        activateViewsByTypeView( imbAtachSellosLlegada);
+        activateViewsByTypeView( imbTakePicSellosLLegada);
+        activateViewsByTypeView( imbAtachDatosContenedor);
+        activateViewsByTypeView( imbTakePicDatosContenedor);
+        activateViewsByTypeView( imbAtachPrPostcosecha);
+        activateViewsByTypeView( imbTakePicPrPostcosecha);
 
 
         //Buttons
         Button  btnCheck=findViewById(R.id.btnCheck);
-        activateViewsByType( btnCheck);
+        activateViewsByTypeView( btnCheck);
 
     }
 
@@ -3183,7 +3285,11 @@ return true;
     private  void addDataENfiledsoTHERviews(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object) {
 
 
+
+        Log.i("mizona","la zona obtenida en addDataENfiledsoTHERviews (data descargada ) es  "+info1Object.getZona());
+
         selectValue(spinnerSelectZona,info1Object.getZona()) ;
+
         selectValue(spinnerCondicionBalanza,info2Object.getCondicionBalanza()) ;
         selectValue(spinnertipoCaja,info2Object.getTipoCaja()) ;
         selectValue(spinnertipodePlastico,info2Object.getTipoPlastico()) ;
@@ -3214,17 +3320,31 @@ return true;
         for (int i = 0; i < spinner.getCount(); i++) {
             if (spinner.getItemAtPosition(i).equals(value)) {
                 spinner.setSelection(i);
+                Log.i("mizona","existe hurra"+value);
                 break;
+
+            }else
+
+            {
+
+                Log.i("mizona","no exiwste "+value);
+
             }
         }
+
     }
+
+
     private  void addDataEnFields(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object)  {
         //usamos los 2 objetos para establecer esta data..
 
         Log.i("jamisama","la semana es "+info1Object.getSemana());
 
         ediSemana.setText(info1Object.getSemana());
-             //   ediFecha.setText((int) info1Object.getFechaCreacionInf());
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaString = formatter.format(info1Object.getFechaCreacionInf());
+        ediFecha.setText(fechaString);
+
         ediProductor.setText(info1Object.getProductor());
                 ediHacienda.setText(info1Object.getHacienda());
         ediCodigo.setText(info1Object.getCodigo());
@@ -3311,9 +3431,12 @@ private void checkModeVisualitY(){
 
     if(isModEdicionFields){
         activateModeEdit();
+        TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
+        txtModeAdviser.setText("Modo Edicion ");
 
     }else{
-
+        fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
+        Variables.isClickable=false;
         activateModePreview();
 
     }
@@ -3551,6 +3674,9 @@ private void checkModeVisualitY(){
                     listImagenData.add(imagenReport);
 
                 }
+
+
+                     Variables.listImagenData=listImagenData;
 
                 createlistsForReciclerviewsImages(listImagenData);
 

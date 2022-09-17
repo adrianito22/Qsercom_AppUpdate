@@ -49,6 +49,16 @@ public class SetInformEmbarque2 {
     private String tipoDeBalanza;
     private String tipoDeBalanzaRepeso;
 
+    public String getKeyFirebase() {
+        return keyFirebase;
+    }
+
+    public void setKeyFirebase(String keyFirebase) {
+        this.keyFirebase = keyFirebase;
+    }
+
+    private String  keyFirebase;
+
 
     public String getTipoDeBalanza() {
         return tipoDeBalanza;
@@ -378,7 +388,7 @@ public class SetInformEmbarque2 {
         this.ubicacionBalanza = ubicacionBalanza;
         this.tipoDeBalanza = tipoDeBalanza;
         this.tipoDeBalanzaRepeso = tipoDeBalanzaRepeso;
-
+        keyFirebase="";
     }
 
 
@@ -425,6 +435,7 @@ public class SetInformEmbarque2 {
 
         result.put("tipoDeBalanza", tipoDeBalanza);
         result.put("tipoDeBalanzaRepeso", tipoDeBalanzaRepeso);
+        result.put("keyFirebase", keyFirebase);
 
 
         return result;
