@@ -505,20 +505,21 @@ public class SetInformEmbarque1 {
 public static  HashMap generateerateMapProductsPoscosecha(){
 
     prodcutsPostCosecha = new HashMap<String, String>();
-    prodcutsPostCosecha.put("BROMORUX", "");
-    prodcutsPostCosecha.put("RYZUC", "");
-    prodcutsPostCosecha.put("XTRATA", "");
-    prodcutsPostCosecha.put("NLARGE", "");
-    prodcutsPostCosecha.put("MERTEC", "");
-    prodcutsPostCosecha.put("SASTIFAR", "");
-    prodcutsPostCosecha.put("Alumbre", "");
-    prodcutsPostCosecha.put("BC100", "");
-    prodcutsPostCosecha.put("ECLIPSE", "");
-    prodcutsPostCosecha.put("GIB-BEX", "");
-    prodcutsPostCosecha.put("BIOTTOL", "");
-    prodcutsPostCosecha.put("ACIDO CITRICO", "");
-    prodcutsPostCosecha.put("Otro  (especifique)", ""); //aqui haremos una exp[ecion mora etse ultimo..
+    prodcutsPostCosecha.put("BROMORUX", " ");
+    prodcutsPostCosecha.put("RYZUC", " ");
+    prodcutsPostCosecha.put("XTRATA", " ");
+    prodcutsPostCosecha.put("NLARGE", " ");
+    prodcutsPostCosecha.put("MERTEC", " ");
+    prodcutsPostCosecha.put("SASTIFAR", " ");
+    prodcutsPostCosecha.put("Alumbre", " ");
+    prodcutsPostCosecha.put("BC100", " ");
+    prodcutsPostCosecha.put("ECLIPSE", " ");
+    prodcutsPostCosecha.put("GIB-BEX", " ");
+    prodcutsPostCosecha.put("BIOTTOL", " ");
+    prodcutsPostCosecha.put("ACIDO CITRICO", " ");
+    prodcutsPostCosecha.put("Otro  (especifique)", " "); //aqui haremos una exp[ecion mora etse ultimo..
     prodcutsPostCosecha.put("Cantidad otro", ""); //aqui haremos una exp[ecion mora etse ultimo..
+    prodcutsPostCosecha.put("IformePertenece", ""); //aqui haremos una exp[ecion mora etse ultimo..
 
 
 return prodcutsPostCosecha;

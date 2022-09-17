@@ -46,13 +46,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.util.Util;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
@@ -1555,8 +1555,6 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 void checkDataFields(){ //
 
-  //  checkDatosGeneralesIsLleno();
-
     if(! checkDatosGeneralesIsLleno()){
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
@@ -2750,11 +2748,7 @@ return true;
 
 private void  addProdcutsPostCosechaAndUpload(){
 
-
-       HashMap<String,String> dataToHasmapProdcuts ;
-
-    dataToHasmapProdcuts  = SetInformEmbarque1.generateerateMapProductsPoscosecha();
-
+    ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
     //creamos un array de editext
 
     EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
@@ -2762,20 +2756,80 @@ private void  addProdcutsPostCosechaAndUpload(){
 
 
     for (int indice =0; indice<editextArray.length; indice++) {
-
         EditText currentEditext=editextArray[indice];
-
-
         if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
-
             if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
                  {
-                     String keyOFHint  = currentEditext.getHint().toString();
 
-                     dataToHasmapProdcuts.put(keyOFHint, currentEditext.getText().toString()); //asi lo actualizamos
+                    switch (currentEditext.getId()){
 
-                     //editamos el hashmap
+                        case R.id.ediPPC01:
+                            producto.alumbre=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC02:
+                            producto.bc100=currentEditext.getText().toString();
+                            break;
 
+                        case R.id.ediPPC03:
+                            producto.sb100=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC04:
+                            producto.eclipse=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC05:
+                            producto.acido_citrico=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC06:
+                            producto.biottol=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC07:
+                            producto.bromorux=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC08:
+                            producto.ryzuc=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC09:
+                            producto.mertec=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC010:
+                            producto.sastifar=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC011:
+                            producto.xtrata=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC012:
+                            producto.nlarge=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC013:
+                            producto.gib_bex=currentEditext.getText().toString();
+                            break;
+
+
+
+                        case R.id.ediPPC014:
+                            producto.cloro=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC015:
+                            producto.otro_especifique=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC016:
+                            producto.cantidadOtro=currentEditext.getText().toString();
+                            break;
+
+
+                    }
 
             }
 
@@ -2788,9 +2842,8 @@ private void  addProdcutsPostCosechaAndUpload(){
     }
 
 
-    //aqui subimos esta data
 
-    RealtimeDB.UploadProductosPostCosecha(FormularioActivity.this,dataToHasmapProdcuts);
+    RealtimeDB.UploadProductosPostCosecha(FormularioActivity.this,producto);
 
 
 }

@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -200,8 +202,8 @@ Spinner  spinnerDatesSelector;
             public void onItemClick(int position, View v) {  //este para eminar
               Variables.CurrenReportPart1=  reportsListPart1.get(position);
 
+                showBottomSheetDialog();
 
-                dowloadSecondPART_Report(Variables.CurrenReportPart1.getUniqueIDinforme());//y despues vamos a a la activity preview
 
                 Log.i("midaclick","el click es here, posicion es "+position);
 
@@ -265,7 +267,7 @@ return fecha;
 
 
 
-    void dowloadSecondPART_Report(String reportUNIQUEidtoSEARCH){ //DESCRAGAMOS EL SEGUNDO REPORTE
+    void dowloadSecondPART_ReportAndGetActivity(String reportUNIQUEidtoSEARCH,int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinforme").equalTo(reportUNIQUEidtoSEARCH);
 
@@ -281,10 +283,28 @@ return fecha;
                 }
 
 
+
+
                 Intent intencion= new Intent(ActivitySeeReports.this, PreviewActivity.class);
-                intencion.putExtra(Variables.KEYEXTRAPREVIEW,false);
-                //si queremos deciion le ponemos true;
-                 startActivity(intencion);
+
+
+                if(modo==Variables.MODO_EDICION ){
+
+                    intencion.putExtra(Variables.KEYEXTRAPREVIEW,true);
+                    //si queremos deciion le ponemos true;
+                    startActivity(intencion);
+
+                }else{
+
+
+                    intencion.putExtra(Variables.KEYEXTRAPREVIEW,false);
+                    //si queremos deciion le ponemos true;
+                    startActivity(intencion);
+
+                }
+
+
+
 
                 //debemos tener data en el report chekemaos
                    //VAmos al activity preview...
@@ -302,6 +322,59 @@ return fecha;
         });
 
 
+    }
+    private void showBottomSheetDialog() {
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivitySeeReports.this);
+
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_edit_cpn);
+
+
+        LinearLayout lyRevisar = bottomSheetDialog.findViewById(R.id.lyRevisar);
+        LinearLayout lyEditar = bottomSheetDialog.findViewById(R.id.lyEditar);
+        LinearLayout layOtherOpcion = bottomSheetDialog.findViewById(R.id.layOtherOpcion);
+
+
+
+
+        lyRevisar.setOnClickListener(new View.OnClickListener() { //editar
+            @Override
+            public void onClick(View v) {
+
+                dowloadSecondPART_ReportAndGetActivity(Variables.CurrenReportPart1.getUniqueIDinforme(),Variables.MODO_VISUALIZACION);//y despues vamos a a la activity preview
+
+                bottomSheetDialog.dismiss();
+
+
+            }
+        });
+
+
+
+        lyEditar.setOnClickListener(new View.OnClickListener() {  //activar switch
+            @Override
+            public void onClick(View v) {
+                //  Toast.makeText(getActivity(), "Share is Clicked", Toast.LENGTH_LONG).show();
+
+                dowloadSecondPART_ReportAndGetActivity(Variables.CurrenReportPart1.getUniqueIDinforme(),Variables.MODO_EDICION);//y despues vamos a a la activity preview
+
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+
+
+        layOtherOpcion.setOnClickListener(new View.OnClickListener() { //editar
+            @Override
+            public void onClick(View v) {
+
+                bottomSheetDialog.dismiss();
+
+
+            }
+        });
+
+        bottomSheetDialog.show();
     }
 
 }

@@ -46,4 +46,7 @@ public static String  paqueteName="com.tiburela.qsercom";
 
     public static  int  modoRecicler=0 ;
 
+    public static final int MODO_EDICION=414 ;
+    public static final int MODO_VISUALIZACION=415 ;
+
 }

@@ -49,6 +49,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
@@ -57,6 +58,8 @@ import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.ProductoPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
@@ -231,10 +234,12 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario);
+
+
+
+        setContentView(R.layout.activity_preview);
         findViewsIds();
 
-        checkModeVisualitY();
 
 
         UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
@@ -247,7 +252,6 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         StorageData. initStorageReference();
 
 
-        configCertainSomeViewsAliniciar();
         listViewsClickedUser=new ArrayList<>();
 
         addClickListeners();
@@ -258,6 +262,10 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         addOnTouchaMayoriaDeViews();
         eventCheckdata();
         //creaFotos();
+        configCertainSomeViewsAliniciar();
+        checkModeVisualitY();
+
+
 
 
     }
@@ -1560,6 +1568,12 @@ void checkDataFields(){ //
 
   //  checkDatosGeneralesIsLleno();
 
+
+    //ES ETEST
+
+
+
+
     if(! checkDatosGeneralesIsLleno()){
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
@@ -1575,6 +1589,7 @@ void checkDataFields(){ //
 
 
     if(! checkcantidadPostcosechaIsLleno()){
+
 
         Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
         return;
@@ -1709,38 +1724,14 @@ private void createObjcInformeAndUpload(){
 
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
-                //  Variables.currentCuponObjectGlob =listGiftCards.get(position);
 
-                Log.i("midaclick","el click es here, posicion es "+position);
-                Log.i("midaclick","el size del mapa es "+ImagenReport.hashMapImagesData.size());
-
-               ///elimnar el hasmap
-               //vamos a ver el tipo del objeto removivo
-
-                if(v.getTag().toString().length()>0){
-                    Log.i("midaclick","hay tag y es  "+v.getTag().toString());
-
-                    return;
-                }
-
-
-               Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
-
+                Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
                 Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
-
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
                 showImagesPicShotOrSelectUpdateView(true);
-
-
-
-
-
-                //   Log.i("dtaas","switch a" + "ctivate is "+Variables.currentCuponObjectGlob.isEsActivateCupon());
-                //  Log.i("dtaas","switch destacado  is "+Variables.currentCuponObjectGlob.isEsDestacadoCupon());
 
 
             }
@@ -2747,52 +2738,106 @@ return true;
     }
 
 
-private void  addProdcutsPostCosechaAndUpload(){
+    private void  addProdcutsPostCosechaAndUpload(){
+        ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
+        //creamos un array de editext
+
+        EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
+                ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
 
 
-       HashMap<String,String> dataToHasmapProdcuts ;
+        for (int indice =0; indice<editextArray.length; indice++) {
+            EditText currentEditext=editextArray[indice];
+            if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
+                if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
+                {
 
-    dataToHasmapProdcuts  = SetInformEmbarque1.generateerateMapProductsPoscosecha();
+                    switch (currentEditext.getId()){
 
-    //creamos un array de editext
+                        case R.id.ediPPC01:
+                            producto.alumbre=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC02:
+                            producto.bc100=currentEditext.getText().toString();
+                            break;
 
-    EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
-            ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+                        case R.id.ediPPC03:
+                            producto.sb100=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC04:
+                            producto.eclipse=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC05:
+                            producto.acido_citrico=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC06:
+                            producto.biottol=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC07:
+                            producto.bromorux=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC08:
+                            producto.ryzuc=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC09:
+                            producto.mertec=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC010:
+                            producto.sastifar=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC011:
+                            producto.xtrata=currentEditext.getText().toString();
+                            break;
 
 
-    for (int indice =0; indice<editextArray.length; indice++) {
+                        case R.id.ediPPC012:
+                            producto.nlarge=currentEditext.getText().toString();
+                            break;
 
-        EditText currentEditext=editextArray[indice];
+
+                        case R.id.ediPPC013:
+                            producto.gib_bex=currentEditext.getText().toString();
+                            break;
 
 
-        if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
 
-            if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
-                 {
-                     String keyOFHint  = currentEditext.getHint().toString();
+                        case R.id.ediPPC014:
+                            producto.cloro=currentEditext.getText().toString();
+                            break;
 
-                     dataToHasmapProdcuts.put(keyOFHint, currentEditext.getText().toString()); //asi lo actualizamos
 
-                     //editamos el hashmap
+                        case R.id.ediPPC015:
+                            producto.otro_especifique=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC016:
+                            producto.cantidadOtro=currentEditext.getText().toString();
+                            break;
+
+
+                    }
+
+                }
 
 
             }
 
+            //si el editext tiene data lo corregimos usando la propiedad hint
+
 
         }
 
-        //si el editext tiene data lo corregimos usando la propiedad hint
+
+
+        RealtimeDB.UploadProductosPostCosecha(PreviewActivity.this,producto);
 
 
     }
-
-
-    //aqui subimos esta data
-
-    RealtimeDB.UploadProductosPostCosecha(PreviewActivity.this,dataToHasmapProdcuts);
-
-
-}
 
 
 //upload data...
@@ -2824,6 +2869,13 @@ private void  addProdcutsPostCosechaAndUpload(){
             @SuppressLint("UseSwitchCompatOrMaterialCode") Switch swichtView = (Switch) view; //asi lo convertimos
             swichtView.setEnabled(false);
             swichtView.setClickable(false);
+
+        }
+        else if(view instanceof ImageView) {
+            ImageView imagev = (ImageView) view; //asi lo convertimos
+            imagev.setEnabled(false);
+            imagev.setClickable(false);
+
 
         }
         else if(view instanceof Button) {
@@ -2883,6 +2935,9 @@ private void  addProdcutsPostCosechaAndUpload(){
 
 
     private void activateModePreview( ) {
+
+        Log.i("extra","se llamo activateModePreview descativamos ");
+
 
         diseableViewsByTipe(    ediSemana);
         diseableViewsByTipe(    ediFecha);
@@ -3125,10 +3180,44 @@ private void  addProdcutsPostCosechaAndUpload(){
 
 
 
+    private  void addDataENfiledsoTHERviews(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object) {
 
 
+        selectValue(spinnerSelectZona,info1Object.getZona()) ;
+        selectValue(spinnerCondicionBalanza,info2Object.getCondicionBalanza()) ;
+        selectValue(spinnertipoCaja,info2Object.getTipoCaja()) ;
+        selectValue(spinnertipodePlastico,info2Object.getTipoPlastico()) ;
+        selectValue(spinnertipodeBlanza,info2Object.getTipoDeBalanza()) ;
+        selectValue(spinnertipodeBlanzaRepeso,info2Object.getTipoDeBalanzaRepeso()) ;
+        selectValue(spinnerubicacionBalanza,info2Object.getUbicacionBalanza()) ;
 
 
+        if(info1Object.getContenedor().equals(" SI ")) {
+
+            switchContenedor.setChecked(true);
+
+
+        }else{
+            switchContenedor.setChecked(false);
+
+
+        }
+
+         switchHaybalanza.setChecked(info2Object.isHayBalanza());
+         switchHayEnsunchado.setChecked(info2Object.isHayExcelnsuchado());
+         switchBalanzaRep.setChecked(info2Object.getHayBalanzaRepeso());
+
+    }
+
+
+    private void selectValue(Spinner spinner, String value) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(value)) {
+                spinner.setSelection(i);
+                break;
+            }
+        }
+    }
     private  void addDataEnFields(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object)  {
         //usamos los 2 objetos para establecer esta data..
 
@@ -3214,14 +3303,19 @@ private void checkModeVisualitY(){
     Bundle extras = getIntent().getExtras();
     if (extras != null) {
         isModEdicionFields = extras.getBoolean(Variables.KEYEXTRAPREVIEW);
+
+        Log.i("extra","el modo es "+isModEdicionFields);
         //The key argument here must match that used in the other activity
     }
 
 
     if(isModEdicionFields){
-        activateModePreview();
-    }else{
         activateModeEdit();
+
+    }else{
+
+        activateModePreview();
+
     }
 
 
@@ -3229,12 +3323,17 @@ private void checkModeVisualitY(){
     //AGREGMOS LA DATA EN LOS FILEDS
     addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
 
+    addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+
+
 
      Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
 
     //inicializamos STORAGE..
     StorageData.initStorageReference();
     dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinforme());
+
+    dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinforme());
 
 
 
@@ -3248,9 +3347,6 @@ private void checkModeVisualitY(){
     //descargamos prodcutos postcosecha...
 
     void createlistsForReciclerviewsImages(ArrayList<ImagenReport>listImagenReports){
-
-
-
 
 
         ArrayList<ImagenReport>lisFiltrada;
@@ -3280,14 +3376,14 @@ private void checkModeVisualitY(){
       }
 
 
+            addInfotomap(listImagenReports);
+
 
     }
 
 
     void addInfotomap(ArrayList<ImagenReport>listImagenReports){
-        ImagenReport.hashMapImagesData=new HashMap<>();
-
-
+        ImagenReport.hashMapImagesData= new HashMap<>();
 
         //agregamos adata al mapusnado un bucle
 
@@ -3305,10 +3401,6 @@ private void checkModeVisualitY(){
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
 
             //agregamos data al map
-        if(listImagenReports.size()>0){
-
-            addInfotomap(listImagenReports);
-        }
 
 
           RecyclerView recyclerView= findViewById(R.id.recyclerView);
@@ -3358,11 +3450,88 @@ private void checkModeVisualitY(){
 
 
 
-    void addProdcutosPostcosecha(){
 
+
+    void dowLoadProducsPostC(String idAlquePERTENECE){
+
+        RealtimeDB.initDatabasesReference();
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").
+                child("listProductosPostCosecha").
+                orderByChild("idpertenece").equalTo(idAlquePERTENECE);
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               // Map<String, Object> map = null;
+              //  Map<String, String> map = dataSnapshot.getValue(Map.class);
+              //  Log.i("sliexsa","el size de map es "+map.size());
+                ProductPostCosecha product=null;
+
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    product=ds.getValue(ProductPostCosecha.class);
+                }
+
+                Log.i("sliexsa","existe"+product.cantidadOtro);
+
+
+                         if(product!=null){
+                             setProductosPostcosecha(product);
+
+                         }
+
+
+               // createlistsForReciclerviewsImages(listImagenData);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
 
 
     }
+
+
+
+ void setProductosPostcosecha( ProductPostCosecha objProducto) {
+
+     TextInputEditText [] editextArray = {  ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
+             ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+
+     ediPPC01.setText(objProducto.alumbre);
+     ediPPC02.setText(objProducto.bc100);
+     ediPPC03.setText(objProducto.sb100);
+     ediPPC04.setText(objProducto.eclipse);
+     ediPPC05.setText(objProducto.acido_citrico);
+     ediPPC06.setText(objProducto.biottol);
+     ediPPC07.setText(objProducto.bromorux);
+     ediPPC08.setText(objProducto.ryzuc);
+     ediPPC09.setText(objProducto.mertec);
+     ediPPC010.setText(objProducto.sastifar);
+     ediPPC011.setText(objProducto.xtrata);
+     ediPPC012.setText(objProducto.nlarge);
+     ediPPC013.setText(objProducto.gib_bex);
+     ediPPC014.setText(objProducto.cloro);
+     ediPPC015.setText(objProducto.otro_especifique);
+     ediPPC016.setText(objProducto.cantidadOtro);
+
+
+
+
+
+ }
+
+
+
+
+
 
 
     void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH){ //DESCRAGAMOS EL SEGUNDO
@@ -3383,10 +3552,6 @@ private void checkModeVisualitY(){
 
                 }
 
-                Log.i("ladtastor","el size de ka lista es "+listImagenData.size());
-
-              //despues que descragamos todo llamaoammo a un metodo
-
                 createlistsForReciclerviewsImages(listImagenData);
 
             }
@@ -3401,5 +3566,8 @@ private void checkModeVisualitY(){
 
 
     }
+
+
+
 
 }

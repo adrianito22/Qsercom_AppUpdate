@@ -10,6 +10,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.ProductoPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 
@@ -126,13 +128,13 @@ static  public  DatabaseReference mibasedataPathImages;
 
 
 
-    public static void UploadProductosPostCosecha(Context context, HashMap<String,String> dataToHasmapProdcuts) {
+    public static void UploadProductosPostCosecha(Context context, ProductPostCosecha producto) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listProductosPostCosecha");
        // Map<String, Object> mapValues = informeObjct.toMap();
 
         //SUBE MAPA
-        mibasedata.push().setValue(dataToHasmapProdcuts).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mibasedata.push().setValue(producto).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
