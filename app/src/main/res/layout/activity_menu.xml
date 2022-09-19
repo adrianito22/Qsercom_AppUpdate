@@ -190,7 +190,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Tareas pendientes:  0"
+        android:text="Informes por Revisar : 1"
         android:textColor="#434343"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +203,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Empieza Ahora"
+        android:text="Tienes Tarea"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
@@ -211,13 +211,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <Button
-        android:id="@+id/btnTest01"
+        android:id="@+id/btnIformesRevisar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn4"
         android:fontFamily="sans-serif-medium"
-        android:text="Revisar Ahora"
+        android:text="Revisar Informes"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

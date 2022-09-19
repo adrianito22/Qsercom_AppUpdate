@@ -5,17 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.Switch;
-import android.widget.TextView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tiburela.qsercom.models.ImagenReport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Utils {
 
@@ -59,40 +54,47 @@ public class Utils {
 
 
 
-    public boolean  sonIgualesImgsSet(  ArrayList<ImagenReport> listImagenDataDowload,ArrayList<ImagenReport> listImagenDataUris) {
 
-        if ( listImagenDataDowload.equals(listImagenDataUris)) {
-            return true;
-        }else{
 
-            return false;
+
+
+    public static  HashMap<String, ImagenReport> creaHahmapNoDuplicado ( ) {  //le pasmaos un hashmap
+
+        ArrayList<ImagenReport> miListaUno=new ArrayList<>();
+
+        for (Map.Entry<String, ImagenReport> entry : Variables.hashMapImagesStart.entrySet()) { //creamos una lista
+            //  String key = entry.getKey();
+            ImagenReport imageRoBject = entry.getValue();
+            miListaUno.add(imageRoBject);
         }
 
-    }
+
+        ArrayList<ImagenReport> miListaDos=new ArrayList<>(); //lista2
+
+        for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) { //creamos otra lista
+            //  String key = entry.getKey();
+            ImagenReport imageRoBject = entry.getValue();
+            miListaDos.add(imageRoBject);
+        }
 
 
 
-    public static ArrayList<ImagenReport> listImagenDataDowload (ArrayList<String> listImagenDataDowload) {
-        //solo sube los que son nuevos....
-
-        //iteramos la lista que obvtenemos parametros...
-
-        for(int indice = 0; indice < listImagenDataDowload.size(); indice++) {
-            //chekemaos que ese datos no lo contenga
 
 
+        HashMap<String, ImagenReport> hashMapImagesDataFilter= new HashMap<>(); //creamos el hasmap donde vamos a devolver los items no duplicados
+
+        for (int indice=0; indice<miListaDos.size(); indice++) { //la ultima lista sera
+          //  String key = entry.getKey();
+            ImagenReport imageRoBject=miListaDos.get(indice);
+
+
+            if(!miListaUno.contains(imageRoBject)){
+                hashMapImagesDataFilter.put(imageRoBject.getUniqueIdNamePic(),imageRoBject);
+            }
 
         }
 
-        //entonces comparamos una
-
-        ///asi que suben los uris
-        String finallyz;
-
-        finallyz=    ImageName.substring(ImageName.lastIndexOf(".")); // Extension with dot .jpg, .png
-
-        return finallyz;
-
+        return hashMapImagesDataFilter;
 
     }
 

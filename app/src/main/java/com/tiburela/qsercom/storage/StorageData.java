@@ -43,11 +43,7 @@ private static int counTbucle=0;
 
     public static void uploadImage(Context context,  HashMap<String, ImagenReport> hasmapImagenData) {
 
-        // Code for showing progressDialog while uploading
-        ProgressDialog progressDialog
-                = new ProgressDialog(context);
-        progressDialog.setTitle("Subiendo...");
-        progressDialog.show();
+
 
 
 
@@ -81,19 +77,7 @@ private static int counTbucle=0;
                                         Log.i("comoer","info "+counTbucle+" = "+hasmapImagenData.size());
                                         RealtimeDB.addNewSetPicsInforme(context,value);
 
-                                        if(counTbucle ==hasmapImagenData.size()) {
 
-                                            progressDialog.dismiss();
-                                 Log.i("comoer","se ejecuto este if ");
-
-                                            Toast.makeText(context, "Se subio corectamente", Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-                                        }
 
 
                                         //    startActivity(new Intent(AddNewOfertCupon.this,OfertsAdminActivity.class)) ;
@@ -110,7 +94,6 @@ private static int counTbucle=0;
                                 Log.i("simoa","la data es "+e.getMessage());
 
                                 // Error, Image not uploaded
-                                progressDialog.dismiss();
                                 Toast
                                         .makeText(context,
                                                 "Error " + e.getMessage(),
@@ -127,13 +110,7 @@ private static int counTbucle=0;
                                     public void onProgress(
                                             UploadTask.TaskSnapshot taskSnapshot)
                                     {
-                                        double progress
-                                                = (100.0
-                                                * taskSnapshot.getBytesTransferred()
-                                                / taskSnapshot.getTotalByteCount());
-                                        progressDialog.setMessage(
-                                                "Subido "
-                                                        + (int)progress + "%");
+
                                     }
                                 });
 

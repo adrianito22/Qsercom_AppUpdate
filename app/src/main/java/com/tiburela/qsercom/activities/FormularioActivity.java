@@ -1416,7 +1416,7 @@ private void listennersSpinners() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String zonaEelejida= spinnertipodeBlanzaRepeso.getSelectedItem().toString();
-            editipbalanzaRepeso.setText(" "+zonaEelejida+" ");
+            editipbalanzaRepeso.setText(zonaEelejida);
             if(zonaEelejida.equals("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");

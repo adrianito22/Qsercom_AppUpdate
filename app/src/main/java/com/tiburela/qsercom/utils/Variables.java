@@ -5,6 +5,7 @@ import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Variables {
 
@@ -59,6 +60,6 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static ArrayList<ImagenReport> listImagenData;
 
 
-
+   public static  HashMap<String, ImagenReport> hashMapImagesStart;
 
 }

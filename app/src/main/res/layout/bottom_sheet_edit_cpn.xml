@@ -4,18 +4,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
+        android:id="@+id/lyRevisar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/lyRevisar"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp">
+        android:orientation="horizontal"
+        android:padding="7dp">
 
         <ImageView
             android:id="@+id/image1"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
             android:layout_margin="8dp"
             android:src="@drawable/ic_baseline_preview_24jhj" />
 
@@ -24,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:text="Revisar" />
+            android:text="Revisar"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -33,12 +35,12 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="7dp">
 
         <ImageView
             android:id="@+id/edit"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
             android:layout_margin="8dp"
             android:src="@drawable/ic_baseline_edit_24aa" />
 
@@ -48,8 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:padding="8dp"
-            android:text="Editar" />
+            android:padding="7dp"
+            android:text="Editar"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -59,21 +62,22 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
-        android:padding="8dp"
-        android:visibility="invisible">
+        android:padding="7dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/imgdes"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
             android:layout_margin="8dp"
-            android:src="@drawable/ic_baseline_attach_file_24" />
+            android:src="@drawable/ic_baseline_arrow_circle_down_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:text="Otra opcion" />
+            android:padding="7dp"
+            android:text="Descargar Pdf"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

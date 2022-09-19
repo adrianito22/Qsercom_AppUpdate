@@ -77,13 +77,15 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 
 public class PreviewActivity extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
-     private boolean isModEdicionFields=false;
+    ProductPostCosecha productxGlobal=null;
+    ProgressDialog pd;
+
+    private boolean isModEdicionFields=false;
 
 ProgressDialog progressDialog;
     private int currentTypeImage=0;
@@ -251,6 +253,7 @@ ProgressDialog progressDialog;
 
 
         UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinforme();
+
 
       // FirebaseApp.initializeApp(this);
       //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
@@ -1747,8 +1750,12 @@ void checkDataFields(){ //
 
     Log.i("test001","toda la data esta completa HUrra ");
 
-    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
+    pd = new ProgressDialog(PreviewActivity.this);
+    pd.setMessage("Actualizando data ");
+    pd.show();
+
+    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
     createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
 
@@ -1777,6 +1784,16 @@ private void createObjcInformeAndUpload(){
             ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
 
 
+    informe.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+
+
+
+
+
+
+
     SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
             ,ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString(),
             ediUbicacion1.getText().toString(),ediUbicacion2.getText().toString(),ediRuma1.getText().toString(),ediRuma2.getText().toString()
@@ -1789,6 +1806,9 @@ private void createObjcInformeAndUpload(){
             ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
             switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
+    informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
     //Agregamos un nuevo informe
     RealtimeDB.initDatabasesReference(); //inicilizamos la base de datos
 
@@ -1796,7 +1816,9 @@ private void createObjcInformeAndUpload(){
 
 
     RealtimeDB.actualizaInformePart1(informe);
-    RealtimeDB.actualizaInformePart2(informe2);
+
+
+  RealtimeDB.actualizaInformePart2(informe2);
 
 
     addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
@@ -1811,7 +1833,6 @@ private void createObjcInformeAndUpload(){
 
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
-
                 Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
                 Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
@@ -1834,14 +1855,22 @@ private void createObjcInformeAndUpload(){
 
         if(ImagenReport.hashMapImagesData.size() ==0 ){
 
-            Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
              return;
         }
 
-        //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
 
-        //aqui subimos
-       StorageData.uploadImage(PreviewActivity.this, ImagenReport.hashMapImagesData);
+        if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
+
+            StorageData.uploadImage(PreviewActivity.this, Utils.creaHahmapNoDuplicado());
+            Log.i("debugasd","alguno o toos son diferentes images");
+
+
+        }else{
+
+           Log.i("debugasd","son iguales las imagenes");
+
+        }
+
 
     }
 
@@ -2828,6 +2857,7 @@ return true;
     private void  addProdcutsPostCosechaAndUpload(){
         ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
         //creamos un array de editext
+        producto.keyFirebase=productxGlobal.keyFirebase;
 
         EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
                 ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
@@ -2922,6 +2952,12 @@ return true;
 
 
         RealtimeDB.UpdateProductosPostCosecha(producto);
+
+
+        pd.dismiss();
+
+        Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+        finish();
 
 
     }
@@ -3262,16 +3298,16 @@ return true;
 
 
 //iMAGEVIEWS
-        activateViewsByTypeView( imBtakePic);
-        activateViewsByTypeView( imBatach);
-        activateViewsByTypeView( imbAtach_transportista);
-        activateViewsByTypeView( imbTakePicTransportista);
-        activateViewsByTypeView( imbAtachSellosLlegada);
-        activateViewsByTypeView( imbTakePicSellosLLegada);
-        activateViewsByTypeView( imbAtachDatosContenedor);
-        activateViewsByTypeView( imbTakePicDatosContenedor);
-        activateViewsByTypeView( imbAtachPrPostcosecha);
-        activateViewsByTypeView( imbTakePicPrPostcosecha);
+     //   activateViewsByTypeView( imBtakePic);
+      //  activateViewsByTypeView( imBatach);
+      //  activateViewsByTypeView( imbAtach_transportista);
+      //  activateViewsByTypeView( imbTakePicTransportista);
+      //  activateViewsByTypeView( imbAtachSellosLlegada);
+     //   activateViewsByTypeView( imbTakePicSellosLLegada);
+      //  activateViewsByTypeView( imbAtachDatosContenedor);
+     //   activateViewsByTypeView( imbTakePicDatosContenedor);
+      //  activateViewsByTypeView( imbAtachPrPostcosecha);
+     //   activateViewsByTypeView( imbTakePicPrPostcosecha);
 
 
         //Buttons
@@ -3433,6 +3469,7 @@ private void checkModeVisualitY(){
         activateModeEdit();
         TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
         txtModeAdviser.setText("Modo Edicion ");
+        Variables.isClickable=false;
 
     }else{
         fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
@@ -3519,6 +3556,8 @@ private void checkModeVisualitY(){
         }
 
 
+        Variables.hashMapImagesStart =ImagenReport.hashMapImagesData;
+
     }
 
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
@@ -3590,18 +3629,18 @@ private void checkModeVisualitY(){
                // Map<String, Object> map = null;
               //  Map<String, String> map = dataSnapshot.getValue(Map.class);
               //  Log.i("sliexsa","el size de map es "+map.size());
-                ProductPostCosecha product=null;
+
 
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    product=ds.getValue(ProductPostCosecha.class);
+                    productxGlobal=ds.getValue(ProductPostCosecha.class);
                 }
 
-                Log.i("sliexsa","existe"+product.cantidadOtro);
+              //  Log.i("sliexsa","existe"+product.cantidadOtro);
 
 
-                         if(product!=null){
-                             setProductosPostcosecha(product);
+                         if(productxGlobal!=null){
+                             setProductosPostcosecha(productxGlobal);
 
                          }
 

@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.database;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -63,7 +64,6 @@ static  public  DatabaseReference mibasedataPathImages;
 
         mibasedata.child(PuskEY).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
 
-            String key_ID = mibasedata.getKey();
 
 
             @Override
@@ -84,11 +84,15 @@ static  public  DatabaseReference mibasedataPathImages;
     }
 
     public static void actualizaInformePart1( SetInformEmbarque1 informeObjct) {
-        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child(informeObjct.getKeyFirebase());
+
+        ///"-NCHQnVUUyMat8l_SSwh"
+        Log.i("elides","el key o child al que perteence este objeto es "+informeObjct.getKeyFirebase());
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child("-NCHQnVUUyMat8l_SSwh");
 
         Map<String, Object> mapValues = informeObjct.toMap(); //lo convertimos en maP
 
-        mibasedata.setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mibasedata.updateChildren(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
 
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -112,7 +116,7 @@ static  public  DatabaseReference mibasedataPathImages;
 
         Map<String, Object> mapValues = informeObjc2.toMap(); //lo convertimos en maP
 
-        mibasedata.setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mibasedata.updateChildren(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
 
             @Override
             public void onComplete(@NonNull Task<Void> task) {

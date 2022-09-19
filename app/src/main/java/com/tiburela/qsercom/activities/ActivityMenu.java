@@ -24,7 +24,7 @@ import com.tiburela.qsercom.models.SetInformEmbarque1;
 public class ActivityMenu extends AppCompatActivity {
 ImageView imgContenedores;
 SetInformEmbarque1 informeObjct;
-Button btnTest01;
+Button btnInformesRevisar;
     private static final int PERMISSION_REQUEST_CODE=100;
 
 
@@ -32,7 +32,7 @@ Button btnTest01;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        btnTest01=findViewById(R.id.btnTest01);
+        btnInformesRevisar =findViewById(R.id.btnIformesRevisar);
 
         imgContenedores=findViewById(R.id.imgContenedores);
          imgContenedores.setOnClickListener(new View.OnClickListener() {
@@ -49,12 +49,13 @@ Button btnTest01;
          });
 
 
-         btnTest01.setOnClickListener(new View.OnClickListener() {
+         btnInformesRevisar.setOnClickListener(new View.OnClickListener() {
              @RequiresApi(api = Build.VERSION_CODES.M)
              @Override
              public void onClick(View view) {
+                 startActivity(new Intent(ActivityMenu.this, ActivitySeeReports.class));
 
-                 callgeneratePdf();
+                // callgeneratePdf();
 
              }
          });
