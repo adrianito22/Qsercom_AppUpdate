@@ -183,6 +183,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     LinearLayout linLayoutHeader5;
     LinearLayout linLayoutHeader6;
     LinearLayout linLayoutHeader7;
+    LinearLayout linLayoutHeader8;
 
 
 
@@ -446,6 +447,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         linLayoutHeader6 =findViewById(R.id.linLayoutHeader6);
         linLayoutHeader7 =findViewById(R.id.linLayoutHeader7);
 
+        linLayoutHeader8 =findViewById(R.id.linLayoutHeader8);
 
 
 
@@ -591,6 +593,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         linLayoutHeader5.setOnClickListener(this);
         linLayoutHeader6.setOnClickListener(this);
         linLayoutHeader7.setOnClickListener(this);
+        linLayoutHeader8.setOnClickListener(this);
 
         ediFecha.setOnClickListener(this);
         ediHoraInicio.setOnClickListener(this);
@@ -716,7 +719,17 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                    oucultaLinearLayout(layoutContainerSeccion7);
                }
                break; //
+           case R.id.linLayoutHeader8:
+               LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
 
+               if(layoutContainerSeccion8.getVisibility() == View.GONE) {
+                   muestraLinearLayout(layoutContainerSeccion8);
+               }
+               else{
+
+                   oucultaLinearLayout(layoutContainerSeccion8);
+               }
+               break; //
 
            case R.id.ediFecha:
               // Utils.closeKeyboard(FormularioActivity.this);

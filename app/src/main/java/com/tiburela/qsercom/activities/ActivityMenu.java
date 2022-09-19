@@ -72,7 +72,7 @@ Button btnInformesRevisar;
         generateObjc();
 
 
-        PdfMaker.generatePdfReport1(ActivityMenu.this,informeObjct);
+       // PdfMaker.generatePdfReport1(ActivityMenu.this,informeObjct);
 
     }
 

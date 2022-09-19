@@ -54,6 +54,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -91,7 +92,7 @@ ProgressDialog progressDialog;
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
 
-
+   Button btnDowlPdf;
     FloatingActionButton fab ;
 
     TextInputEditText ediSemana;
@@ -423,6 +424,8 @@ ProgressDialog progressDialog;
 
          fab = (FloatingActionButton) findViewById(R.id.fab);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
+        btnDowlPdf=findViewById(R.id.btnDowlPdf);
+
 
          ediSemana=findViewById(R.id.ediSemana);
          ediFecha=findViewById(R.id.ediFecha);
@@ -590,7 +593,7 @@ ProgressDialog progressDialog;
         /**todos add a todos clicklistener de la implemntacion*/
 
 
-
+        btnDowlPdf.setOnClickListener(this);
 
         fab.setOnClickListener(this);
 
@@ -653,6 +656,11 @@ ProgressDialog progressDialog;
 
 
        switch (view.getId()) {
+           case R.id.btnDowlPdf:
+
+               createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
+
+               break;
 
 
            case R.id.fab: //si pulas en btn chekear en que modo esta ...si el modo cambia...
@@ -929,6 +937,21 @@ ProgressDialog progressDialog;
 
 
     }
+
+
+    private void generateAnDowloadPdf(SetInformEmbarque1 objPrimeraParte, SetInformEmbarque2 objSegundaParte, ProductPostCosecha productPost) {
+        //generamos el pdf usnado el objeto 1 y 2
+
+        PdfMaker.generatePdfReport1(PreviewActivity.this,objPrimeraParte,objSegundaParte,productPost);
+
+
+
+
+    }
+
+
+
+
 
     private void takepickNow() {
 
@@ -1825,6 +1848,62 @@ private void createObjcInformeAndUpload(){
 
 
 }
+
+    private void createObjWhitCurrentDataFieldsAndCALLdOWLOAD(){
+
+        //aplicamos la logica PARA CREAR UN NUEVO INFORME
+//SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
+
+        SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
+                Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
+                ,ediProductor.getText().toString(),ediCodigo.getText().toString()
+                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
+                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
+                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
+                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
+                FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
+                ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediVapor.getText().toString(),
+                ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
+                ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
+                ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
+
+
+        informe.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+
+
+
+
+
+
+
+        SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
+                ,ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString(),
+                ediUbicacion1.getText().toString(),ediUbicacion2.getText().toString(),ediRuma1.getText().toString(),ediRuma2.getText().toString()
+                ,ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),
+                ediSelloPlasticoNaviera.getText().toString(),ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),
+                ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString(),FieldOpcional.otrosSellosInstalaEsp,
+                ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(),ediCedula.getText().toString(),
+                ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
+                ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
+                ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
+                switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
+
+        informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+        //Agregamos un nuevo informe
+
+        //agr5egamos la data finalemente
+
+
+         ProductPostCosecha products= onlYCreatrePrudcPostCosecha();
+         generateAnDowloadPdf(informe,informe2,products);
+
+    }
+
+
 
     private void eventoBtnclicklistenerDelete(RecyclerViewAdapter adapter) {
 
@@ -2957,11 +3036,111 @@ return true;
         pd.dismiss();
 
         Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
-        finish();
 
+
+        startActivity(new Intent(PreviewActivity.this,ActivitySeeReports.class));
 
     }
 
+    private ProductPostCosecha  onlYCreatrePrudcPostCosecha(){
+        ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
+        //creamos un array de editext
+        producto.keyFirebase=productxGlobal.keyFirebase;
+
+        EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
+                ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+
+
+        for (int indice =0; indice<editextArray.length; indice++) {
+            EditText currentEditext=editextArray[indice];
+            if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
+                if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
+                {
+
+                    switch (currentEditext.getId()){
+
+                        case R.id.ediPPC01:
+                            producto.alumbre=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC02:
+                            producto.bc100=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC03:
+                            producto.sb100=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC04:
+                            producto.eclipse=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC05:
+                            producto.acido_citrico=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC06:
+                            producto.biottol=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC07:
+                            producto.bromorux=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC08:
+                            producto.ryzuc=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC09:
+                            producto.mertec=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC010:
+                            producto.sastifar=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC011:
+                            producto.xtrata=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC012:
+                            producto.nlarge=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC013:
+                            producto.gib_bex=currentEditext.getText().toString();
+                            break;
+
+
+
+                        case R.id.ediPPC014:
+                            producto.cloro=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC015:
+                            producto.otro_especifique=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC016:
+                            producto.cantidadOtro=currentEditext.getText().toString();
+                            break;
+
+
+                    }
+
+                }
+
+
+            }
+
+            //si el editext tiene data lo corregimos usando la propiedad hint
+
+
+        }
+
+
+       return producto;
+
+    }
 
 //upload data...
 

@@ -27,8 +27,11 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int   TABLE_PRODUCTOS_POSTCOSECHA=5019;
     public static final int   TABLE_DATOS_PROCESO=5020;
     public static final int   TABLE_DATOS_TRANSPORTISTA=5021;
-
-    public static final int   TABLE_DATOS_XXX=5021;
+    public static final int   TABLE_SELLOS_LLEGADA=5022;
+    public static final int   DATOS_DEL_CONTENEDOR=5023;
+    public static final int   TABLE_CALIB_FRUTS_CLD_ENFUN=5024;
+    public static final int   TABLE_CONTROL_DE_GANCHO=5025;
+    public static final int   TABLE_DATOS_HACIENDA=5026;
 
 
     public static final int   HOY=600;

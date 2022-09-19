@@ -24,6 +24,9 @@ public class ProductPostCosecha {
     public String idpertenece;
 
     public String keyFirebase;
+    public String otroCantidad;
+
+
 
     public ProductPostCosecha() {
 
@@ -50,6 +53,7 @@ public class ProductPostCosecha {
         sb100="";
         cloro="";
         keyFirebase="";
+        otroCantidad="";
 
     }
 

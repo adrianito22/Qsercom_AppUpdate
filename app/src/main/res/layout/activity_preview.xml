@@ -326,9 +326,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="25dp"
                     android:background="@drawable/btn"
                     android:text="Guardar Cambios" />
+
+                <Button
+                    android:id="@+id/btnDowlPdf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/btn"
+                    android:text="Descargar Pdf " />
+
+                <Button
+                    android:id="@+id/btnGeneratePdfCliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/btn"
+                    android:text="Subir pdf A Drive" />
 
                 <Space
                     android:layout_width="match_parent"

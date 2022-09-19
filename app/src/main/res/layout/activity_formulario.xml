@@ -285,10 +285,48 @@
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:src="@android:drawable/arrow_down_float" />
+
             </LinearLayout>
 
             <include
                 layout="@layout/ly_datos_proceso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:id="@+id/linLayoutHeader8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#151C47"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:padding="5dp"
+                    android:text="Datos de Hacienda"
+                    android:textAllCaps="true"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/imvOcultaLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/arrow_down_float" />
+
+            </LinearLayout>
+
+            <include
+                layout="@layout/ly_datos_de_hacienda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -305,7 +343,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="25dp"
                     android:background="@drawable/btn"
-                    android:text="Guardar Cambios" />
+                    android:text="Guardar Formulario" />
 
                 <Space
                     android:layout_width="match_parent"
