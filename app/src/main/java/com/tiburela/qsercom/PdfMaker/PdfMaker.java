@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
@@ -132,14 +133,48 @@ public class PdfMaker {
 
       //  addTableCalibracionFrutaCaleEnfunde(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "CALIBRACION DE FRUTA (CALENDARIO DE ENFUNDE)", Variables.TABLE_CALIB_FRUTS_CLD_ENFUN, informe1, informe2, productPostC);
 
-
         pdfDocument.finishPage(myPage2); //finalziamos la  pagina 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /***Agregamos tercera hoja al ducmento DEMO*/
+
+        /**3ra  HOJA DEL PDF*/
+        //cremaosd la pagina 2 del pdf
+        PdfDocument.PageInfo mypageInfo3 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.Page myPage3 = pdfDocument.startPage(mypageInfo3);
+        Canvas canvas3 = myPage3.getCanvas();
+
+        //agregamos las imagen de header y la de footer
+        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas3, miPaint);
+
+        //ahora agregamos las imagenes en esa hoja
+
+       Bitmap bmpGlobalx = BitmapFactory.decodeResource(context.getResources(), R.drawable.imagen_horizontal);
+
+        addImagenInPDF(bmpGlobalx,bmpGlobalx,canvas3);
+
+
+        pdfDocument.finishPage(myPage3); //finalziamos la  pagina 2
 
 
         exportPdxFZ(pdfDocument, context);
 
 
     }
+
+
 
     public static Bitmap resize(Bitmap imaged, int maxWidth, int maxHeight) {
         Bitmap image = imaged;
@@ -218,6 +253,31 @@ public class PdfMaker {
 
         //    private static void createPdfFromView(Context context, String fileName,PdfDocument pdfDocument) {
 
+
+    }
+    public static void addImagenInPDF( Bitmap imagen,Bitmap imagen2, Canvas canvas) {
+
+        //por  ahora vamos a descargar las imagenes y ponerlas en el pdf.,,,
+
+        //Nombre de seccion.......
+
+        //chekear la horintacion del contenido //de la imagen..
+        //conocer si es horientacion...general de la imagen.....
+
+        //checkear cuantas imagenes hay y si hay una secuencia...patron..
+        //cuantas imagenes uso para el informe? minimo y maximo...
+        //chekear si hay dos imagenes horizontales con contenido si las hay ..agregalas juntas...
+        //si uno poner una imagen horizontal y otra vertical..
+        //si no dos verticales...siempre que halla par
+
+        RectF dst = new RectF(50, 225, 50 + 500, 50 + 350);
+        canvas.drawBitmap(imagen, null, dst, null);
+
+
+
+
+        RectF dstx = new RectF(50, 450, 50 + 500, 50 + 600);
+        canvas.drawBitmap(imagen2, null, dstx, null);
 
     }
 
