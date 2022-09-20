@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -19,7 +19,7 @@
             android:hint="FUENTE DE AGUA">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediSemana"
+                android:id="@+id/ediFuenteAgua"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -34,7 +34,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediFecha"
+                android:id="@+id/ediAguaCorrida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -48,7 +48,7 @@
             android:hint="LAVADO DE RACIMOS">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediProductor"
+                android:id="@+id/ediLavadoRacimos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -62,7 +62,7 @@
             android:hint="FUMIGACION DE CORONA LINEA 1">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediHacienda"
+                android:id="@+id/ediFumigacionClin1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -77,7 +77,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edsiCodigo"
+                android:id="@+id/ediTipoBoquilla"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -110,7 +110,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediC2358odigo"
+                android:id="@+id/ediCajasProcDesp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -126,7 +126,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediCodwkaigo"
+                android:id="@+id/ediRacimosCosech"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -141,7 +141,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediCod978ygfigo"
+                android:id="@+id/ediRacimosRecha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -156,7 +156,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edirrCodigo"
+                android:id="@+id/ediRacimProces"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -307,7 +307,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCsdfoadigo"
+                        android:id="@+id/ediColortSem14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -322,7 +322,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodaigo"
+                        android:id="@+id/ediColortSem13"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -337,7 +337,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ed875iCodigo"
+                        android:id="@+id/ediColortSem12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -352,7 +352,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodaaigo"
+                        android:id="@+id/ediColortSem11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -367,7 +367,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodisgo"
+                        android:id="@+id/ediColortSem10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -398,7 +398,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/eklhdiCodigo"
+                        android:id="@+id/ediNumRcim14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -413,7 +413,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCawodigo"
+                        android:id="@+id/ediNumRcim13"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -428,7 +428,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCaodigo"
+                        android:id="@+id/ediNumRcim12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -443,7 +443,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediaCaodigo"
+                        android:id="@+id/ediNumRcim11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -458,7 +458,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCiutrodigo"
+                        android:id="@+id/ediNumRcim10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -491,7 +491,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCorcfdigo"
+                        android:id="@+id/ediPorc14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -507,7 +507,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCosgdddigo"
+                        android:id="@+id/ediPorc13"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -523,7 +523,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCedodigo"
+                        android:id="@+id/ediPorc12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -539,7 +539,7 @@
                     app:endIconMode="none">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediaCodigo"
+                        android:id="@+id/ediPorc11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -555,7 +555,7 @@
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCoahdigo"
+                        android:id="@+id/ediPorc10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"

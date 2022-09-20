@@ -1682,6 +1682,21 @@ void checkDataFields(){ //
 
     }
 
+/*
+
+    if(! checkDatosHaciendaIsLleno()){
+        Log.i("test001","no esta lleno  checkDatosHaciendaIsLleno");
+
+        return;
+    }else{
+
+        Log.i("test001","si  esta lleno  checkDatosHaciendaIsLleno");
+
+
+    }
+*/
+
+
     Log.i("test001","toda la data esta completa HUrra ");
 
     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
@@ -2711,6 +2726,94 @@ return true;
 
 
 
+    private boolean checkDatosHaciendaIsLleno(){
+        LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
+        ///CHEKEAMOS DATA seccion CONTENEDOR
+
+
+        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCondicionBalanza.requestFocus();
+            ediCondicionBalanza.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediTipodeCaja.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipodeCaja.requestFocus();
+            ediTipodeCaja.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCondicionBalanza.requestFocus();
+            ediCondicionBalanza.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediTipoPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipoPlastico.requestFocus();
+            ediTipoPlastico.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediTipoBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipoBalanza.requestFocus();
+            ediTipoBalanza.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //chekamos que no este vacia
+            editipbalanzaRepeso.requestFocus();
+            editipbalanzaRepeso.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+        else
+
+        {
+
+            FieldOpcional.tipoDeBalanzaRepesoOpcnal =editipbalanzaRepeso.getText().toString();
+
+        }
+
+
+        if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediUbicacionBalanza.requestFocus();
+            ediUbicacionBalanza.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        return true;
+
+    }
 
     private boolean checkDatosProcesoIsLleno(){
         LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);

@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -281,7 +281,7 @@
                     android:layout_width="225dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:hint="TIPO DE BALAQNZA DE REPESO"
+                    android:hint="TIPO DE BALANZA DE REPESO"
                     android:visibility="visible"
                     app:endIconMode="clear_text">
 

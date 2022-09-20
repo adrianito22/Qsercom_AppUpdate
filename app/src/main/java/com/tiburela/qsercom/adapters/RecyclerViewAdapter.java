@@ -20,8 +20,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.activities.ActivitySeeReports;
+import com.tiburela.qsercom.activities.PreviewActivity;
 import com.tiburela.qsercom.models.ImagenReport;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.tiburela.qsercom.R;
@@ -62,29 +64,50 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textImputEditext.setText(imagenReport.getDescripcionImagen());
 
         holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
+                  //si uri existe
+              Uri uri=null;
+
+
+        boolean existFileInPhone = false;
+
+
+            try {
+                 uri=Uri.parse(imagenReport.geturiImage());
+
+                InputStream inputStream = PreviewActivity.context.getContentResolver().openInputStream(uri);
+                inputStream.close();
+                existFileInPhone = true;
+
+            }
+
+            catch (Exception e) {
+             //   Log.i("miuris", "File corresponding to the uri does not exist " + uri.toString());
+
+
+            }
 
 
 
-          if(Variables.modoRecicler==Variables.DOWLOAD_IMAGES){
+
+          if(existFileInPhone){
 //    private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
-              dowloadImagesAndaddTag(imagenReport.getUniqueIdNamePic(), holder,imagenReport.getUniqueIdNamePic());
 
+            //  Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
+              holder.imageview.setImageURI(uri);
 
-
-              holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
-
-              Log.i("ladtastor","el size de ka lista es "+imagenReport.getUniqueIdNamePic());
-
-
-          }else {  //es el modo de selecionar imagenes y tomar fotos con la camara
-
-              Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
-              holder.imageview.setImageURI(myUri);
-
+            //  holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
+              Log.i("ladtastor","existe "+imagenReport.getUniqueIdNamePic());
 
           }
 
+          else
 
+          {  //es el modo de selecionar imagenes y tomar fotos con la camara
+              Log.i("ladtastor","lo descragamos  "+imagenReport.getUniqueIdNamePic());
+
+              dowloadImagesAndaddTag(imagenReport.getUniqueIdNamePic(), holder,imagenReport.getUniqueIdNamePic());
+
+          }
 
 
 

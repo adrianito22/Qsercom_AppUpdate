@@ -44,8 +44,11 @@ private static int counTbucle=0;
     public static void uploadImage(Context context,  HashMap<String, ImagenReport> hasmapImagenData) {
 
 
+        if(hasmapImagenData.size() ==0) {
+            Log.i("debugasd","es 0");
 
-
+            return;
+        }
 
              //iteramos el mapa
         for (Map.Entry<String, ImagenReport> entry : hasmapImagenData.entrySet()) {
@@ -127,6 +130,9 @@ private static int counTbucle=0;
     public static void actualizaImagenes(Context context,  HashMap<String, ImagenReport> hasmapImagenData) {
           //chekeamos que ya existan estas imagenes...
 
+
+
+
         // Code for showing progressDialog while uploading
         ProgressDialog progressDialog
                 = new ProgressDialog(context);
@@ -170,7 +176,7 @@ private static int counTbucle=0;
                                         progressDialog.dismiss();
                                         Log.i("comoer","se ejecuto este if ");
 
-                                        Toast.makeText(context, "Se subio corectamente", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Se subio correctamente", Toast.LENGTH_SHORT).show();
 
 
 

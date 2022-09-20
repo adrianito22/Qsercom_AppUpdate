@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import android.util.Log;
 
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -89,11 +90,15 @@ public class Utils {
             ImagenReport imageRoBject=miListaDos.get(indice);
 
 
-            if(!miListaUno.contains(imageRoBject)){
+            if(!miListaUno.contains(imageRoBject) && imageRoBject.geturiImage()!=null ){
+                Log.i("elfile","el file uri es "+imageRoBject.geturiImage());
+
                 hashMapImagesDataFilter.put(imageRoBject.getUniqueIdNamePic(),imageRoBject);
             }
 
         }
+
+        Log.i("elfile","retornamos un size de "+hashMapImagesDataFilter.size());
 
         return hashMapImagesDataFilter;
 

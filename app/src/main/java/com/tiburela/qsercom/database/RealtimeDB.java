@@ -183,7 +183,7 @@ static  public  DatabaseReference mibasedataPathImages;
                 if (task.isSuccessful()) {
 
 
-                    Toast.makeText(context, "Se subioron Las IMAGENES", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "HECHO", Toast.LENGTH_SHORT).show();
 
                 }else  {
 

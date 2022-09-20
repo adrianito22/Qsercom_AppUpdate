@@ -1,16 +1,21 @@
 package com.tiburela.qsercom.PdfMaker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -151,6 +156,7 @@ public class PdfMaker {
         /***Agregamos tercera hoja al ducmento DEMO*/
 
         /**3ra  HOJA DEL PDF*/
+        //
         //cremaosd la pagina 2 del pdf
         PdfDocument.PageInfo mypageInfo3 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
         PdfDocument.Page myPage3 = pdfDocument.startPage(mypageInfo3);
@@ -257,6 +263,24 @@ public class PdfMaker {
     }
     public static void addImagenInPDF( Bitmap imagen,Bitmap imagen2, Canvas canvas) {
 
+        //colncer si hay un patron un numero de imagenes por seccion
+        //si las primera y ultimas imagenes deben ir horizontales o verticales...
+        ///////
+
+        //ahagamos de cuenta quer subimos todas las iamgens por seccion..
+
+        //entonces hacer un calculo de cuentas pahginas necesitaremos para poner estas imagenes en esta seccion....
+        // y creamos esed numero de paginas...
+
+         //crear una funcion para rotar las imagenes u}y mostralas tal y como se presentaran en el informe....
+         // o una funcion que pregunte si esa imagen se visualiza bien en orizontal o vertical no.. selecione como se vizualiza m,ejor... y ...
+
+
+         /**Dos filas y usaremos el siguiente patron*/
+
+        /**chekear si estas tre imagenes puiede ir juntas en una fila si hay como ponlas*/
+
+
         //por  ahora vamos a descargar las imagenes y ponerlas en el pdf.,,,
 
         //Nombre de seccion.......
@@ -265,15 +289,18 @@ public class PdfMaker {
         //conocer si es horientacion...general de la imagen.....
 
         //checkear cuantas imagenes hay y si hay una secuencia...patron..
-        //cuantas imagenes uso para el informe? minimo y maximo...
+        //cuantas imagenes uso para el informe? minimo y maximo...todas por ahora
         //chekear si hay dos imagenes horizontales con contenido si las hay ..agregalas juntas...
         //si uno poner una imagen horizontal y otra vertical..
+        //tambien podemos poner dos imagenes horzontales juntas...
+        //
         //si no dos verticales...siempre que halla par
+
+        //dosimagnes pequenas verticales en el centro..
+        //hay dos filas
 
         RectF dst = new RectF(50, 225, 50 + 500, 50 + 350);
         canvas.drawBitmap(imagen, null, dst, null);
-
-
 
 
         RectF dstx = new RectF(50, 450, 50 + 500, 50 + 600);
@@ -292,6 +319,23 @@ public class PdfMaker {
 
     }
 
+
+
+
+    @SuppressLint("Range")
+    private static void checOrientation(Context context, Uri imageUri){
+
+        String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
+        Cursor cur =context.getContentResolver().query(imageUri, orientationColumn, null, null, null);
+        int orientation = -1;
+        if (cur != null && cur.moveToFirst()) {
+            orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
+        }
+        Matrix matrix = new Matrix();
+        matrix.postRotate(orientation);
+
+
+    }
 
 
 

@@ -10,6 +10,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -48,10 +49,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
@@ -85,6 +89,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     private String UNIQUE_ID_iNFORME;
     ProductPostCosecha productxGlobal=null;
     ProgressDialog pd;
+    public static Context context;
 
     private boolean isModEdicionFields=false;
 
@@ -251,6 +256,7 @@ ProgressDialog progressDialog;
         setContentView(R.layout.activity_preview);
         findViewsIds();
 
+        context = getApplicationContext();
 
 
         UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinforme();
@@ -652,14 +658,12 @@ ProgressDialog progressDialog;
     @Override
     public void onClick(View view) {
 
-
-
+         Log.i("darterlo","is selñecieo,ages");
 
        switch (view.getId()) {
+
            case R.id.btnDowlPdf:
-
                createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
-
                break;
 
 
@@ -957,14 +961,17 @@ ProgressDialog progressDialog;
 
         Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, PreviewActivity.this);
 
+
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
             ContentValues values = new ContentValues();
             values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
             values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
+
              cam_uri = PreviewActivity.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
+
 
             //startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE); // OLD WAY
             startCamera.launch(cameraIntent);                // VERY NEW WAY
@@ -985,7 +992,8 @@ ProgressDialog progressDialog;
                         if (result.getResultCode() == RESULT_OK) {
                             // There are no request codes
 
-                          //  mImageView.setImageURI(cam_uri);
+
+                            //  mImageView.setImageURI(cam_uri);
 
                            // showImageByUri(cam_uri);
 
@@ -1327,8 +1335,8 @@ ProgressDialog progressDialog;
                                 ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
 
-                            }
 
+                            }
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1509,7 +1517,7 @@ private void listennersSpinners() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String zonaEelejida= spinnertipodeBlanzaRepeso.getSelectedItem().toString();
-            editipbalanzaRepeso.setText(" "+zonaEelejida+" ");
+            editipbalanzaRepeso.setText(zonaEelejida);
             if(zonaEelejida.equals("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
@@ -1779,6 +1787,8 @@ void checkDataFields(){ //
     pd.show();
 
     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+
     createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
 
@@ -1914,9 +1924,12 @@ private void createObjcInformeAndUpload(){
             public void onItemClick(int position, View v) {  //este para eminar
                 Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
                 Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                geTidAndDelete(v.getTag().toString());
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
+
+
 
                 showImagesPicShotOrSelectUpdateView(true);
 
@@ -1938,15 +1951,23 @@ private void createObjcInformeAndUpload(){
         }
 
 
+
+
+          //boorara desee aqui
         if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
+            Log.i("elfile","alguno o toos son diferentes images llamaos metodo filtra");
+
             StorageData.uploadImage(PreviewActivity.this, Utils.creaHahmapNoDuplicado());
-            Log.i("debugasd","alguno o toos son diferentes images");
+
+
 
 
         }else{
+            Log.i("debugasd","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
 
-           Log.i("debugasd","son iguales las imagenes");
+
+           Log.i("elfile","son iguales las imagenes");
 
         }
 
@@ -2917,6 +2938,12 @@ return true;
 
         }
 
+        else {
+
+            FieldOpcional.tipoDeBalanzaRepesoOpcnal =editipbalanzaRepeso.getText().toString();
+
+        }
+
 
         if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediUbicacionBalanza.requestFocus();
@@ -3241,7 +3268,13 @@ return true;
 
         }
 
+        else if(view instanceof ImageView) {
+            ImageView btn = (ImageView) view; //asi lo convertimos
+            btn.setEnabled(true);
+            btn.setClickable(true);
 
+
+        }
 
     }
 
@@ -3249,7 +3282,7 @@ return true;
     private void activateModePreview( ) {
 
         Log.i("extra","se llamo activateModePreview descativamos ");
-
+          Variables.isClickable=false;
 
         diseableViewsByTipe(    ediSemana);
         diseableViewsByTipe(    ediFecha);
@@ -3376,6 +3409,8 @@ return true;
     }
 
     private void activateModeEdit() {
+        Variables.isClickable=true;
+
         activateViewsByTypeView(    ediSemana);
         activateViewsByTypeView(    ediFecha);
         activateViewsByTypeView(    ediProductor);
@@ -3477,16 +3512,16 @@ return true;
 
 
 //iMAGEVIEWS
-     //   activateViewsByTypeView( imBtakePic);
-      //  activateViewsByTypeView( imBatach);
-      //  activateViewsByTypeView( imbAtach_transportista);
-      //  activateViewsByTypeView( imbTakePicTransportista);
-      //  activateViewsByTypeView( imbAtachSellosLlegada);
-     //   activateViewsByTypeView( imbTakePicSellosLLegada);
-      //  activateViewsByTypeView( imbAtachDatosContenedor);
-     //   activateViewsByTypeView( imbTakePicDatosContenedor);
-      //  activateViewsByTypeView( imbAtachPrPostcosecha);
-     //   activateViewsByTypeView( imbTakePicPrPostcosecha);
+        activateViewsByTypeView( imBtakePic);
+        activateViewsByTypeView( imBatach);
+        activateViewsByTypeView( imbAtach_transportista);
+        activateViewsByTypeView( imbTakePicTransportista);
+        activateViewsByTypeView( imbAtachSellosLlegada);
+        activateViewsByTypeView( imbTakePicSellosLLegada);
+        activateViewsByTypeView( imbAtachDatosContenedor);
+        activateViewsByTypeView( imbTakePicDatosContenedor);
+        activateViewsByTypeView( imbAtachPrPostcosecha);
+        activateViewsByTypeView( imbTakePicPrPostcosecha);
 
 
         //Buttons
@@ -3645,20 +3680,21 @@ private void checkModeVisualitY(){
 
 
     if(isModEdicionFields){
-        activateModeEdit();
         TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
+        activateModeEdit();
         txtModeAdviser.setText("Modo Edicion ");
-        Variables.isClickable=false;
+
+        Log.i("isclkiel","es clickeable es "+ Variables.isClickable);
 
     }else{
         fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
-        Variables.isClickable=false;
         activateModePreview();
+        Log.i("isclkiel","es clickeable es "+ Variables.isClickable);
 
     }
 
 
-
+     Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
     //AGREGMOS LA DATA EN LOS FILEDS
     addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
 
@@ -3666,7 +3702,6 @@ private void checkModeVisualitY(){
 
 
 
-     Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
 
     //inicializamos STORAGE..
     StorageData.initStorageReference();
@@ -3686,6 +3721,8 @@ private void checkModeVisualitY(){
     //descargamos prodcutos postcosecha...
 
     void createlistsForReciclerviewsImages(ArrayList<ImagenReport>listImagenReports){
+
+               //  addInfotomap(listImagenReports);
 
 
         ArrayList<ImagenReport>lisFiltrada;
@@ -3715,7 +3752,9 @@ private void checkModeVisualitY(){
       }
 
 
-            addInfotomap(listImagenReports);
+      Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
+
+          //  addInfotomap(listImagenReports);
 
 
     }
@@ -3735,7 +3774,30 @@ private void checkModeVisualitY(){
         }
 
 
-        Variables.hashMapImagesStart =ImagenReport.hashMapImagesData;
+
+        if(!Variables.copiamosData) {
+           // Variables.hashMapImagesStart =ImagenReport.hashMapImagesData;
+
+            //CREAMOS UNA COPIA USANDO UN BUCLE
+
+            Variables.hashMapImagesStart=new HashMap<String, ImagenReport>();
+
+
+            for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) {
+                String key = entry.getKey();
+                ImagenReport value = entry.getValue();
+
+                Variables.hashMapImagesStart.put(key,value);
+                // ...
+            }
+
+            Variables.copiamosData =true;
+
+
+
+
+        }
+
 
     }
 
@@ -3865,7 +3927,7 @@ private void checkModeVisualitY(){
 
 
 
-
+    // Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
 
  }
 
@@ -3896,6 +3958,8 @@ private void checkModeVisualitY(){
 
                      Variables.listImagenData=listImagenData;
 
+
+                addInfotomap( Variables.listImagenData);
                 createlistsForReciclerviewsImages(listImagenData);
 
             }
@@ -3912,6 +3976,48 @@ private void checkModeVisualitY(){
     }
 
 
+
+    //nevcesitamos un metodo para eliminar un nodo en imagenes y borrarlo de storage..
+    //por ahora solo con borrarlo de rtdabase
+    private void geTidAndDelete( String idUniqueToDelete){ //busca el que tenga esa propieda y obtiene el id node child
+
+               Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
+
+        DatabaseReference usersdRef= RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
+      //  Query query = usersdRef.orderByChild("uniqueIdNamePic").equalTo(Variables.currentCuponObjectGlob.getUniqueIdCupòn());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                String key = nodeShot.getKey();
+                //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
+
+
+                usersdRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            //Toast.makeText(OfertsAdminActivity.this, "Se elimino correctamente", Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+
+                    }
+                });
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
 
 }

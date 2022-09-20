@@ -49,7 +49,7 @@ public static String  paqueteName="com.tiburela.qsercom";
 
 
     public static final int  DOWLOAD_IMAGES= 1500 ;
-    public static final int  SELEC_AND_TAKE_iMAGES= 1500 ;
+    public static final int  SELEC_AND_TAKE_iMAGES= 1501 ;
 
     public static  int  modoRecicler=0 ;
 
@@ -59,6 +59,8 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static boolean isClickable = true;
 
     public static boolean VienedePreview = false;
+    public static boolean copiamosData = false;
+
 
     public static ArrayList<ImagenReport> listImagenData;
 
