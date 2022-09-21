@@ -39,7 +39,7 @@ public class EstateFieldView {
     }
 
 
-    public static void adddataList() { //asi iniciara todo en vacio//
+    public static void adddataListsStateFields() { //asi iniciara todo en vacio//
         listEstateViewField=new ArrayList<>();
         listEstateViewField.add(new EstateFieldView("ediNhojaEvaluacion",false));
         listEstateViewField.add(new EstateFieldView("ediFecha",false));
@@ -61,8 +61,93 @@ public class EstateFieldView {
         listEstateViewField.add(new EstateFieldView("imbAtach/imbTakePic",false));
         listEstateViewField.add(new EstateFieldView("ediPPC/someProductPostCosecha",false));
 
-        // this.idOfView = idOfView;
-        // estaLleno = false;
+
+        listEstateViewField.add(new EstateFieldView("ediHoraLLegadaContenedor",false));
+        listEstateViewField.add(new EstateFieldView("ediHoraSalidaContenedor",false));
+        listEstateViewField.add(new EstateFieldView("ediDestino",false));
+        listEstateViewField.add(new EstateFieldView("ediNViaje",false));
+
+        listEstateViewField.add(new EstateFieldView("ediVapor",false));
+        listEstateViewField.add(new EstateFieldView("ediTipoContenedor",false));
+
+        //HAST AQUI
+        listEstateViewField.add(new EstateFieldView("ediTare",false));
+        listEstateViewField.add(new EstateFieldView("ediBooking",false));
+        listEstateViewField.add(new EstateFieldView("ediMaxGross",false));
+
+        listEstateViewField.add(new EstateFieldView("ediNumSerieFunda",false));
+        listEstateViewField.add(new EstateFieldView("stikVentolerExterna",false));
+        listEstateViewField.add(new EstateFieldView("ediCableRastreoLlegada",false));
+
+        listEstateViewField.add(new EstateFieldView("ediSelloPlasticoNaviera",false));
+        listEstateViewField.add(new EstateFieldView("ediOtroSellosLlegada",false));
+
+        listEstateViewField.add(new EstateFieldView("ediTermofrafo1",false));
+
+        listEstateViewField.add(new EstateFieldView("ediHoraEncendido1",false));
+        listEstateViewField.add(new EstateFieldView("ediUbicacion1",false));
+        listEstateViewField.add(new EstateFieldView("ediRuma1",false));
+        listEstateViewField.add(new EstateFieldView("ediTermofrafo2",false));
+        listEstateViewField.add(new EstateFieldView("ediHoraEncendido2",false));
+        listEstateViewField.add(new EstateFieldView("ediUbicacion2",false));
+        listEstateViewField.add(new EstateFieldView("ediRuma2",false));
+
+
+        listEstateViewField.add(new EstateFieldView("ediCandadoqsercon",false));
+        listEstateViewField.add(new EstateFieldView("ediSelloNaviera",false));
+        listEstateViewField.add(new EstateFieldView("ediCableNaviera",false));
+
+        listEstateViewField.add(new EstateFieldView("ediSelloPlastico",false));
+        listEstateViewField.add(new EstateFieldView("ediCandadoBotella",false));
+        listEstateViewField.add(new EstateFieldView("ediCableExportadora",false));
+        listEstateViewField.add(new EstateFieldView("ediSelloAdesivoexpor",false));
+        listEstateViewField.add(new EstateFieldView("esiSelloAdhNaviera",false));
+
+
+
+        listEstateViewField.add(new EstateFieldView("ediCompaniaTransporte",false));
+        listEstateViewField.add(new EstateFieldView("ediNombreChofer",false));
+        listEstateViewField.add(new EstateFieldView("ediCedula",false));
+        listEstateViewField.add(new EstateFieldView("ediCelular",false));
+
+        listEstateViewField.add(new EstateFieldView("ediPLaca",false));
+        listEstateViewField.add(new EstateFieldView("ediMarcaCabezal",false));
+        listEstateViewField.add(new EstateFieldView("ediColorCabezal",false));
+
+        listEstateViewField.add(new EstateFieldView("ediUbicacionBalanza",false));
+
+
+        listEstateViewField.add(new EstateFieldView("ediCondicionBalanza",false));
+        listEstateViewField.add(new EstateFieldView("ediTipodeCaja",false));
+        listEstateViewField.add(new EstateFieldView("ediBalanza",false));
+        listEstateViewField.add(new EstateFieldView("ediEnsunchado",false));
+
+
+        listEstateViewField.add(new EstateFieldView("ediTipoPlastico",false));
+        listEstateViewField.add(new EstateFieldView("ediTipoBalanza",false));
+
+        listEstateViewField.add(new EstateFieldView("ediFuenteAgua",false));
+        listEstateViewField.add(new EstateFieldView("ediAguaCorrida",false));
+        listEstateViewField.add(new EstateFieldView("ediLavadoRacimos",false));
+        listEstateViewField.add(new EstateFieldView("ediFumigacionClin1",false));
+
+        listEstateViewField.add(new EstateFieldView("ediTipoBoquilla",false));
+        listEstateViewField.add(new EstateFieldView("ediCajasProcDesp",false));
+        listEstateViewField.add(new EstateFieldView("ediRacimosCosech",false));
+
+
+        listEstateViewField.add(new EstateFieldView("ediRacimosRecha",false));
+        listEstateViewField.add(new EstateFieldView("ediRacimProces",false));
+
+
+
+
+
+
+
+
+
+
 
 
     }

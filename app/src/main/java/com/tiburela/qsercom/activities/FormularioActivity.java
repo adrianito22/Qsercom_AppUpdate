@@ -76,6 +76,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
 
+    boolean hayUnformularioIcompleto ;
 
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
@@ -126,6 +127,17 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     TextInputEditText ediBalanzaRepeso;
 
 
+    TextInputEditText ediBalanza;
+    TextInputEditText ediFuenteAgua;
+    TextInputEditText ediAguaCorrida;
+    TextInputEditText ediLavadoRacimos;
+    TextInputEditText ediFumigacionClin1;
+    TextInputEditText ediTipoBoquilla;
+    TextInputEditText ediCajasProcDesp;
+    TextInputEditText ediRacimosCosech;
+    TextInputEditText ediRacimosRecha;
+    TextInputEditText ediRacimProces;
+
 
     TextInputEditText ediCompaniaTransporte;
     TextInputEditText ediNombreChofer;
@@ -145,7 +157,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     TextInputEditText ediSelloPlasticoNaviera;
     TextInputEditText ediOtroSellosLlegada;
     TextInputEditText ediFotosSellosLLegada;
-
 
     TextInputEditText ediCondicionBalanza;
     TextInputEditText ediTipodeCaja;
@@ -171,8 +182,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     TextInputEditText ediSelloAdesivoexpor;
     TextInputEditText esiSelloAdhNaviera;
     TextInputEditText ediOtherSellos;
-
-
 
 
 
@@ -229,16 +238,57 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         Auth.signInAnonymously(FormularioActivity.this);
 
 
+        if(hayUnformularioIcompleto){
+
+             TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
+
+            Utils.addDataOfPrefrencesInView(arrayEditex);
+
+            Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(FormularioActivity.this);
+
+
+            ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
+
+
+              //if el formulario no es nulo
+
+            if(listImagesToSaVE!=null ) {
+
+                addInfotomap(listImagesToSaVE);
+                createlistsForReciclerviewsImages(listImagesToSaVE);
+
+            }
+
+
+
+
+
+        }
+
+
+
         // Check if user is signed in (non-null) and update UI accordingly.
        // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
       //  updateUI(currentUs bver)
 
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+
+            hayUnformularioIcompleto = extras.getBoolean("ActivitymenuKey");
+
+            //The key argument here must match that used in the other activity
+        }
+
+
+
 
         UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
 
@@ -258,7 +308,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         resultatachImages();
         listennersSpinners();
 
-        EstateFieldView.adddataList();
         addOnTouchaMayoriaDeViews();
         eventCheckdata();
         //creaFotos();
@@ -437,6 +486,19 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
         ediEnsunchado=findViewById(R.id.ediEnsunchado);
         ediBalanzaRepeso=findViewById(R.id.ediBalanzaRepeso);
+
+
+        ediBalanza=findViewById(R.id.ediBalanza);
+        ediFuenteAgua=findViewById(R.id.ediFuenteAgua);
+        ediAguaCorrida=findViewById(R.id.ediAguaCorrida);
+        ediLavadoRacimos=findViewById(R.id.ediLavadoRacimos);
+        ediFumigacionClin1=findViewById(R.id.ediFumigacionClin1);
+        ediTipoBoquilla=findViewById(R.id.ediTipoBoquilla);
+        ediCajasProcDesp=findViewById(R.id.ediCajasProcDesp);
+        ediRacimosCosech=findViewById(R.id.ediRacimosCosech);
+
+        ediRacimosRecha=findViewById(R.id.ediRacimosRecha);
+        ediRacimProces=findViewById(R.id.ediRacimProces);
 
 
         linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
@@ -924,6 +986,8 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
+                            Utils.saveMapImagesData(ImagenReport.hashMapImagesData,FormularioActivity.this);
+
 
                             showImagesPicShotOrSelectUpdateView(false);
 
@@ -1022,6 +1086,88 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         ediPPC016.setOnTouchListener(this);
 
 
+        ediHoraLLegadaContenedor.setOnTouchListener(this);
+        ediHoraSalidaContenedor.setOnTouchListener(this);
+        ediDestino.setOnTouchListener(this);
+        ediNViaje.setOnTouchListener(this);
+
+        ediVapor.setOnTouchListener(this);
+        ediTipoContenedor.setOnTouchListener(this);
+
+        //HAST AQUI.setOnTouchListener(this);
+        ediTare.setOnTouchListener(this);
+        ediBooking.setOnTouchListener(this);
+        ediMaxGross.setOnTouchListener(this);
+
+        ediNumSerieFunda.setOnTouchListener(this);
+        stikVentolerExterna.setOnTouchListener(this);
+        ediCableRastreoLlegada.setOnTouchListener(this);
+
+        ediSelloPlasticoNaviera.setOnTouchListener(this);
+        ediOtroSellosLlegada.setOnTouchListener(this);
+
+        ediTermofrafo1.setOnTouchListener(this);
+
+        ediHoraEncendido1.setOnTouchListener(this);
+        ediUbicacion1.setOnTouchListener(this);
+        ediRuma1.setOnTouchListener(this);
+        ediTermofrafo2.setOnTouchListener(this);
+        ediHoraEncendido2.setOnTouchListener(this);
+        ediUbicacion2.setOnTouchListener(this);
+        ediRuma2.setOnTouchListener(this);
+
+
+        ediCandadoqsercon.setOnTouchListener(this);
+        ediSelloNaviera.setOnTouchListener(this);
+        ediCableNaviera.setOnTouchListener(this);
+
+        ediSelloPlastico.setOnTouchListener(this);
+        ediCandadoBotella.setOnTouchListener(this);
+        ediCableExportadora.setOnTouchListener(this);
+        ediSelloAdesivoexpor.setOnTouchListener(this);
+        esiSelloAdhNaviera.setOnTouchListener(this);
+
+
+
+        ediCompaniaTransporte.setOnTouchListener(this);
+        ediNombreChofer.setOnTouchListener(this);
+        ediCedula.setOnTouchListener(this);
+        ediCelular.setOnTouchListener(this);
+
+        ediPLaca.setOnTouchListener(this);
+        ediMarcaCabezal.setOnTouchListener(this);
+        ediColorCabezal.setOnTouchListener(this);
+
+
+
+        ediCondicionBalanza.setOnTouchListener(this);
+        ediTipodeCaja.setOnTouchListener(this);
+        ediBalanza.setOnTouchListener(this);
+        ediEnsunchado.setOnTouchListener(this);
+
+
+        ediTipoPlastico.setOnTouchListener(this);
+        ediTipoBalanza.setOnTouchListener(this);
+
+
+        ediFuenteAgua.setOnTouchListener(this);
+        ediAguaCorrida.setOnTouchListener(this);
+        ediLavadoRacimos.setOnTouchListener(this);
+        ediFumigacionClin1.setOnTouchListener(this);
+
+        ediTipoBoquilla.setOnTouchListener(this);
+        ediCajasProcDesp.setOnTouchListener(this);
+        ediRacimosCosech.setOnTouchListener(this);
+
+
+        ediRacimosRecha.setOnTouchListener(this);
+        ediRacimProces.setOnTouchListener(this);
+
+
+
+
+
+
     }
 
 
@@ -1066,7 +1212,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
 
                             actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-
+                             Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",FormularioActivity.this);
 
 
                         }
@@ -1097,6 +1243,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
                     actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
 
+                    Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",FormularioActivity.this);
 
 
                 }
@@ -1257,6 +1404,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
                             ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
+                            Utils.saveMapImagesData(ImagenReport.hashMapImagesData,FormularioActivity.this);
 
                         }
 
@@ -1341,10 +1489,10 @@ private void listennersSpinners() {
             if(condicion.equals("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                ediZona.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
+                ediCondicionBalanza.setText("");
+                actualizaListStateView("ediCondicionBalanza",false) ;
             }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
+                actualizaListStateView("ediCondicionBalanza",true) ;
             }
 
         }
@@ -1367,9 +1515,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipodeCaja.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
+                actualizaListStateView("ediTipodeCaja",false) ;
             }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
+                actualizaListStateView("ediTipodeCaja",true) ;
             }
 
         }
@@ -1390,9 +1538,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoPlastico.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
+                actualizaListStateView("ediTipoPlastico",false) ;
             }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
+                actualizaListStateView("ediTipoPlastico",true) ;
             }
 
         }
@@ -1412,9 +1560,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoBalanza.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
+                actualizaListStateView("ediTipoBalanza",false) ;
             }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
+                actualizaListStateView("ediTipoBalanza",true) ;
             }
 
         }
@@ -1434,9 +1582,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 editipbalanzaRepeso.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
+               // actualizaListStateView("addetiquetaaqui",false) ;
             }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
+              //  actualizaListStateView("addetiquetaaqui",true) ;
             }
 
         }
@@ -1459,9 +1607,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediUbicacionBalanza.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
+                actualizaListStateView("ediUbicacionBalanza",false) ;
             }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
+                actualizaListStateView("ediUbicacionBalanza",true) ;
             }
 
         }
@@ -1777,6 +1925,8 @@ private void createObjcInformeAndUpload(){
 
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
+                Utils.saveMapImagesData(ImagenReport.hashMapImagesData,FormularioActivity.this);
+
 
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
@@ -3000,8 +3150,231 @@ private void  addProdcutsPostCosechaAndUpload(){
 
 //upload data...
 
+//descragamos el ultimo
+//Si hay un formulario ... que no se envio aun.....estado subido..
+//si hay un formulario obtenerlo..
+    //una propiedad que diga si ya lo subio...
+    ///el primer valor del map conttendra esa propiedad...
+private TextInputEditText[] creaArryOfTextInputEditText() {
+
+    TextInputEditText [] arrayEditex = {
+
+            ediSemana,
+            ediFecha,
+            ediProductor,
+            ediHacienda,
+            ediCodigo,
+            ediInscirpMagap,
+            ediPemarque,
+            ediZona,
+            ediHoraInicio,
+            ediHoraTermino,
+            ediHoraLLegadaContenedor,
+            ediHoraSalidaContenedor,
+            ediNguiaRemision,
+            edi_nguia_transporte,
+            ediNtargetaEmbarque,
+            ediNhojaEvaluacion,
+            ediObservacion,
+            ediEmpacadora,
+            ediFotosLlegada,
+            ediContenedor,
+            ediPPC01,
+            ediPPC02,
+            ediPPC03,
+            ediPPC04,
+            ediPPC05,
+            ediPPC06,
+            ediPPC07,
+            ediPPC08,
+            ediPPC09,
+            ediPPC010,
+            ediPPC011,
+            ediPPC012,
+            ediPPC013,
+            ediPPC014,
+            ediPPC015,
+            ediPPC016,
+            ediDestino,
+            ediNViaje,
+            ediTipoContenedor,
+            ediVapor,
+            ediFotoContenedor,
+            ediFotosPposcosecha,
+            ediEnsunchado,
+            ediBalanzaRepeso,
 
 
+            ediBalanza,
+            ediFuenteAgua,
+            ediAguaCorrida,
+            ediLavadoRacimos,
+            ediFumigacionClin1,
+            ediTipoBoquilla,
+            ediCajasProcDesp,
+            ediRacimosCosech,
+            ediRacimosRecha,
+            ediRacimProces,
+
+
+            ediCompaniaTransporte,
+            ediNombreChofer,
+            ediCedula,
+            ediCelular,
+            ediPLaca,
+            ediMarcaCabezal,
+            ediColorCabezal,
+            ediFotosLlegadaTransport,
+
+            ediTare,
+            ediBooking,
+            ediMaxGross,
+            ediNumSerieFunda,
+            stikVentolerExterna,
+            ediCableRastreoLlegada,
+            ediSelloPlasticoNaviera,
+            ediOtroSellosLlegada,
+            ediFotosSellosLLegada,
+
+            ediCondicionBalanza,
+            ediTipodeCaja,
+            ediTipoPlastico,
+            ediTipoBalanza,
+            editipbalanzaRepeso,
+            ediUbicacionBalanza,
+
+            ediTermofrafo1,
+            ediHoraEncendido1,
+            ediUbicacion1,
+            ediRuma1,
+            ediTermofrafo2,
+            ediHoraEncendido2,
+            ediUbicacion2,
+            ediRuma2,
+            ediCandadoqsercon,
+            ediSelloNaviera,
+            ediCableNaviera,
+            ediSelloPlastico,
+            ediCandadoBotella,
+            ediCableExportadora,
+            ediSelloAdesivoexpor,
+            esiSelloAdhNaviera,
+            ediOtherSellos,
+
+
+
+
+    } ;
+
+
+    return arrayEditex;
+}
+
+
+    void addInfotomap(ArrayList<ImagenReport>listImagenReports){
+        ImagenReport.hashMapImagesData= new HashMap<>();
+
+        //agregamos adata al mapusnado un bucle
+
+        for(int indice2=0; indice2<listImagenReports.size(); indice2++){
+
+            ImagenReport currentImareportObj=listImagenReports.get(indice2);
+
+            ImagenReport.hashMapImagesData.put(currentImareportObj.getUniqueIdNamePic(),currentImareportObj);
+
+        }
+
+
+    }
+
+    void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
+
+        //agregamos data al map
+
+
+        RecyclerView recyclerView= findViewById(R.id.recyclerView);
+
+        //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
+        if(currentTypeImage== Variables.FOTO_LLEGADA)  {
+            recyclerView= findViewById(R.id.recyclerView);
+
+
+        }
+        else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
+            recyclerView= findViewById(R.id.recyclerViewPostcosecha);
+            // at last set adapter to recycler view.
+
+        }
+
+        else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
+            recyclerView = findViewById(R.id.recyclerVieDatsTransport);
+
+        }
+
+        else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
+            recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
+        }
+
+
+        else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
+            recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+
+        }
+
+
+
+
+
+        RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
+
+        // at last set adapter to recycler view.
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        eventoBtnclicklistenerDelete(adapter);
+
+
+    }
+
+    void createlistsForReciclerviewsImages(ArrayList<ImagenReport>listImagenReports){
+
+        //  addInfotomap(listImagenReports);
+
+
+        ArrayList<ImagenReport>lisFiltrada;
+
+        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_PROD_POSTCOSECHA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
+
+        for(int indice=0; indice<arrayTiposImagenes.length; indice++){
+
+            lisFiltrada=new ArrayList<>();
+
+            for(int indice2=0; indice2<listImagenReports.size(); indice2++){
+
+                if(listImagenReports.get(indice2).getTipoImagenCategory()==arrayTiposImagenes[indice]){ //entonces usamos este
+
+                    lisFiltrada.add(listImagenReports.get(indice2));
+
+
+                }
+
+            }
+
+            currentTypeImage=arrayTiposImagenes[indice];
+            //lalamos el recicler que
+            addImagesInRecyclerviews(lisFiltrada);
+
+
+        }
+
+
+        Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
+
+        //  addInfotomap(listImagenReports);
+
+
+    }
 
 
 }

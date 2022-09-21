@@ -276,7 +276,7 @@ ProgressDialog progressDialog;
         resultatachImages();
         listennersSpinners();
 
-        EstateFieldView.adddataList();
+        EstateFieldView.adddataListsStateFields();
         addOnTouchaMayoriaDeViews();
         eventCheckdata();
         //creaFotos();
@@ -1695,8 +1695,6 @@ void checkDataFields(){ //
     //ES ETEST
 
 
-
-
     if(! checkDatosGeneralesIsLleno()){
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
@@ -1791,6 +1789,16 @@ void checkDataFields(){ //
 
     createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
+
+
+    for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
+
+        geTidAndDelete(Variables.listImagesToDelete.get(i));
+
+
+    }
+
+    //aliminamos cambios
 
 
 
@@ -1924,12 +1932,11 @@ private void createObjcInformeAndUpload(){
             public void onItemClick(int position, View v) {  //este para eminar
                 Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
                 Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
-                geTidAndDelete(v.getTag().toString());
+
+                Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
-
-
 
                 showImagesPicShotOrSelectUpdateView(true);
 

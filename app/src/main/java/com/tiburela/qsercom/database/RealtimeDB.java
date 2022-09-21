@@ -14,6 +14,7 @@ import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.utils.Utils;
 
 import java.util.Map;
 
@@ -151,6 +152,16 @@ static  public  DatabaseReference mibasedataPathImages;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+
+                    //lo borramos...
+
+                    try {
+                       Utils.deleteMap(context);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();

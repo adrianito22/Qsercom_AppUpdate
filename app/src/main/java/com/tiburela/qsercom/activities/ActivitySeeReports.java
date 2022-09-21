@@ -57,6 +57,8 @@ Spinner  spinnerDatesSelector;
         findViewsIDs();
         listenenrSpinner();
 
+        Variables.listImagesToDelete=new ArrayList<String>();
+
         rootDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
 

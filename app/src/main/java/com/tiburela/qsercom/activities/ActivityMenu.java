@@ -16,31 +16,49 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.utils.Utils;
+import com.tiburela.qsercom.utils.Variables;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class ActivityMenu extends AppCompatActivity {
 ImageView imgContenedores;
 SetInformEmbarque1 informeObjct;
-Button btnInformesRevisar;
+Button btnInInformes;
+TextView txtAdviser,txtAdviser2;
     private static final int PERMISSION_REQUEST_CODE=100;
-
+     private boolean hayUnformulariAmediasPorSubir =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        btnInformesRevisar =findViewById(R.id.btnIformesRevisar);
 
+        Utils.dataFieldsPreferencias=new HashMap<String,String>();
+        Utils.listImagesToSaVE=new ArrayList<>();
+
+
+        EstateFieldView.adddataListsStateFields();
+        txtAdviser=findViewById(R.id.txtAdviser);
+        txtAdviser2=findViewById(R.id.txtAdviser2);
+
+        btnInInformes =findViewById(R.id.btnIformesRevisar);
         imgContenedores=findViewById(R.id.imgContenedores);
-         imgContenedores.setOnClickListener(new View.OnClickListener() {
 
+         imgContenedores.setOnClickListener(new View.OnClickListener() {
 
 
              @Override
              public void onClick(View view) {
+
+
 
                  startActivity(new Intent(ActivityMenu.this,FormularioActivity.class ));
 
@@ -49,13 +67,28 @@ Button btnInformesRevisar;
          });
 
 
-         btnInformesRevisar.setOnClickListener(new View.OnClickListener() {
+         btnInInformes.setOnClickListener(new View.OnClickListener() {
              @RequiresApi(api = Build.VERSION_CODES.M)
              @Override
              public void onClick(View view) {
-                 startActivity(new Intent(ActivityMenu.this, ActivitySeeReports.class));
 
-                // callgeneratePdf();
+
+                 if(Variables.tipOuSER ==Variables.CALIFICADOR_OFICINA) {
+
+                      startActivity(new Intent(ActivityMenu.this, ActivitySeeReports.class));
+
+
+
+                 }else {  //si es inspector de campo
+
+                     Intent intencion = new Intent(ActivityMenu.this,FormularioActivity.class);
+
+                     intencion.putExtra("ActivitymenuKey",hayUnformulariAmediasPorSubir);
+                      startActivity(intencion);
+
+                 }
+
+
 
              }
          });
@@ -137,4 +170,78 @@ Button btnInformesRevisar;
 
     }
 
+
+    private void showDataByMode() {
+
+        if(Variables.tipOuSER == Variables.CALIFICADOR_CAMPO) {  //chekeamos si tiene algun informe incloncluso...
+            Utils.dataFieldsPreferencias= (HashMap<String, String>) Utils.loadMap(ActivityMenu.this);
+
+            //*CHEKEAMOS SI TIENE DATA
+            if( Utils.dataFieldsPreferencias!=null) {
+
+                //*CHEKEAMOS SI TIENE DATA
+                if( Utils.dataFieldsPreferencias.size()>0) {
+                   //verificamos si ya lo lleno, si no lo lleno ,quiere decir que introduciremos data en los fileds usando el mapa y un array de editexts...
+
+                    if(Utils.dataFieldsPreferencias.get("estaSubido").equals("no")) {
+                        hayUnformulariAmediasPorSubir=true;
+
+                         //SACTUALIZAMOS VIEWS
+                        btnInInformes.setText("Completa el Informe");
+                        txtAdviser.setText("Tienes 1 formulario Incompleto");
+                        txtAdviser2.setText("Tienes Tarea");
+                    //mostramos data...Hay un formulario a medias....
+                    }else{
+                        btnInInformes.setText("Nuevo informe");
+                        txtAdviser.setText("Agrega un nuevo informe");
+                        txtAdviser2.setText("Hola");
+                        hayUnformulariAmediasPorSubir=false;
+
+                    }
+
+                }else {
+                    btnInInformes.setText("Nuevo informe");
+                    txtAdviser.setText("Agrega un nuevo Informe");
+                    txtAdviser2.setText("Hola");
+
+                    hayUnformulariAmediasPorSubir=false;
+
+                }
+            }else{
+                //SACTUALIZAMOS VIEWS
+                btnInInformes.setText("Nuevo informe");
+                txtAdviser.setText("Agrega un nuevo Informe");
+                txtAdviser2.setText("Hola");
+                hayUnformulariAmediasPorSubir=false;
+
+
+            }
+
+            //le decimos que tiene
+
+        }
+
+        else if(Variables.tipOuSER==Variables.CALIFICADOR_OFICINA) {
+
+            btnInInformes.setText("Revisar Informes");
+            txtAdviser.setText("Informes por Revisar : 1");
+            txtAdviser2.setText("Tienes Tarea");
+
+            //chekjemos sio tiene informes que revisar
+
+
+        }
+        //obtenemos laspreferencias
+
+
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+
+        showDataByMode();
+
+    }
 }

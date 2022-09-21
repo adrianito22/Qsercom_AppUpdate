@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Hora DE llegada">
+                android:hint="HORA DE LLEGADA">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediHoraLLegadaContenedor"
@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="hora de salida">
+                android:hint="HORA DE SALIDA">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediHoraSalidaContenedor"
@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Destino"
+                android:hint="DESTINO"
                 android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -80,7 +80,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="#de viaje">
+                android:hint="N. º DE VIAJE">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediNViaje"
@@ -103,7 +103,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Vapor">
+                android:hint="VAPOR">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediVapor"
@@ -119,7 +119,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Tipo Contenedor">
+                android:hint="TIPO DE CONTENEDOR">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediTipoContenedor"

@@ -67,4 +67,12 @@ public static String  paqueteName="com.tiburela.qsercom";
 
    public static  HashMap<String, ImagenReport> hashMapImagesStart;
 
+
+    public static ArrayList<String> listImagesToDelete; //alamcenar los unicques id para elimnarlos
+
+
+    public static final int  CALIFICADOR_CAMPO= 1700 ;
+    public static final int  CALIFICADOR_OFICINA= 1701 ;
+    public static  int  tipOuSER =CALIFICADOR_CAMPO ;
+
 }
