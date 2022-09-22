@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Environment;
@@ -19,10 +18,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +29,7 @@ import java.util.UUID;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.DataToPDF;
+import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -48,8 +45,9 @@ public class PdfMaker {
     static Paint paintIzquierda ;
     static Paint paintBacdkground;
     static Paint paintBacdkgroundDurazno;
+ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
 
-
+    int poscUltImgColoc=100; //vamos a empezar aqui
     private static final int START_X_POSICION = 40;
     private static final int END_X_POSICION = 555;
     private static final int START_X_POSICION_TEXT_RIGTH = 200;
@@ -201,6 +199,9 @@ public class PdfMaker {
         }
         return image;
     }
+
+
+
 
 
     public static void exportPdxFZ(PdfDocument pdfDocument, Context context) {
@@ -755,6 +756,7 @@ public class PdfMaker {
              }
 
 
+
              break;
 
 
@@ -904,6 +906,235 @@ public class PdfMaker {
 
 
 
+    private void addPagesDinamicals(){
+        //cremaosd la pagina 2 del \\
+        PdfDocument pdfDocument = new PdfDocument();
 
+        for(int indice=0; indice<5; indice++){
+
+            PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+            PdfDocument.Page myPage = pdfDocument.startPage(mypageInfo);
+            Canvas canvas3 = myPage.getCanvas();
+            pagesPdfDocuments.add(myPage);
+
+        }
+
+
+
+    }
+
+
+    private void calculaCuantasPaginasCrearByImages(ArrayList<ImagesToPdf>listImagesSeccion){
+         //tenemos una lista de objetos imagen...
+
+
+        while(!allImagesISUsed(listImagesSeccion)){ //si no todas las imagenes fueron usadas
+
+
+            //
+
+            //crea una pahina pdf y cavnas y todo
+
+            //creamos una lista de verticales
+            ArrayList<ImagesToPdf> li3sverticales=devuleveList3verticalesSIhay(listImagesSeccion,"vertical");
+
+
+            //busca 3 imagenes verticales
+            if( li3sverticales.size()==3){ // si hay al menos 3 imahes si usar ,pon las primer 3 imagenes......
+
+               ///le decimos el modo ....
+
+            }
+
+            else if(){///si no comprobamos que exista una imagen vertical y otra horizontal ...
+
+                //le decimos el modo .....
+
+
+            }
+
+            else if(){///si no vemos que halla solo dos imagenes verticales  en el centro
+
+                   //le decimos el modo .....
+
+
+            }
+
+            else if(){///si no vemos que halla dos horizontales
+
+
+
+
+            }
+
+
+
+
+
+
+            //y aqui lo llamamos
+
+
+        }
+
+
+
+
+        //Vmos a tener una lista
+
+        /*** vamos a poner las 3 primeras en vertical  */
+
+
+
+        //en una fila habran los siguientes casos...
+        //3 imagenes en vertical...
+        //caso dos una imagen
+
+
+        //toma la orientacion de esta imagen ,,,si es vertical,,, busca 2 mas ....y ponlas en el siguiente orden............
+        //si solo encuentra 1 en esta horintacion...entonces pon dos en el centro.........
+        //si solo encuentra 1 ... pon esa en el centro  y si hay espacio
+
+
+
+        //si la imagen anterior es vertical  y esta en esta posicion
+
+        //un list donde primero ,tome las imagenes verticales.....
+        //y cuando las use las elimine....
+
+        //despues toma las horizontales .......
+
+
+        //si hay una imagen vertical y existe otra horizontal ponlas juntas...
+        //si solo quedan 2 imagenes y ambas son verticales ponlas en el centro...
+        //si queda 2 imagenes horizontales ponlas juntas....
+
+
+        //si tenemos 5 imagenes..
+        //toma las primeras 3
+        //en dos filas ,poner 3 imagenes por fila....siempre y cuando sean imagenes verticales...
+        //por cada seccion vamos a llamar este metodo  y el anterior....
+        //si hay una vertical y dos orizontales ...
+        ///
+        //toma las imagenes verticales y ponlas en asi ....
+
+
+
+
+    }
+private ArrayList<ImagesToPdf> devuleveList3verticalesSIhay(ArrayList<ImagesToPdf>lisT, String propiedad){
+int encontradosPropiedad=0;
+
+    ArrayList<ImagesToPdf>lisTx=new ArrayList<>();
+
+    for(int indice=0; indice<lisT.size(); indice++){
+
+if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).estaENPdf ){
+    encontradosPropiedad++;
+    lisTx.add(lisT.get(indice));
+
+    if(lisTx.size()==3){
+        break;
+
+    }
+}
+
+        ///agrega
+
+
+        // si existen al menos 3 para usar
+
+        //crea una lista de estos 3...y ponlos....
+
+
+        //primero si podemos poner las 3 primeras imagenes....
+        //comprobamos que existan al menos 3 imagenes
+
+
+    }
+      return  lisTx;
+}
+
+    private boolean allImagesISUsed(ArrayList<ImagesToPdf>list){
+        int contadorIMagesUsadas=0;
+
+
+        for(int indice=0; indice<list.size(); indice++){
+
+              if(list.get(indice).estaENPdf){
+
+                  contadorIMagesUsadas++;
+
+
+              }else{
+
+                  break;
+              }
+
+            //primero si podemos poner las 3 primeras imagenes....
+            //comprobamos que existan al menos 3 imagenes
+
+
+        }
+
+
+
+        if(contadorIMagesUsadas== list.size()){
+
+            return true;
+        }else{
+            return false;
+
+        }
+    }
+
+
+    private void addImagenSet(int posicionUltimaImagenColoacadaY,ArrayList <ImagesToPdf>list){
+
+        //comprobar en que linea ... comprobar la posicion de la ultima
+
+        if(){ //modo 3 imagenes en una linea...
+
+            //LE SUMAMOS MAS 10 A LA POSICION  posicionUltimaImagenColoacadaY
+            posicionUltimaImagenColoacadaY= posicionUltimaImagenColoacadaY+10;
+            //**colocamos las 3 imagenes en una linea....
+            // ad imagen set i pdf....
+
+            //AQUI USAMOS EL RECTS Y GENERAMOS EL BITMAP PARA AGREGARLO AL CANVAS O PDF PAGE QUE RECIMOS POR PARAEMTRO....
+
+            ///1ERA imagen
+
+            //2DA imagen
+
+            //3ERA IMAGEN
+
+
+
+            posicionUltimaImagenColoacadaY=    posicionUltimaImagenColoacadaY+500 ; //+EL VALOR QUE OCUPA LA FILA IMAGENES  EN VERTICALMENTE
+            //EL SIZE DEL REC PUEDE SER 500 LA VARIABLE
+            //ASI EN LA SIGUIENTE SOLO LE SUMAMOS +10
+
+
+            //agregamos en la linea 2...
+
+
+        }
+
+        else if(){ //1 vertical y otro horizontal en la misma linea
+
+
+
+        }
+
+
+        else if(){ //2 imagenes verticales en una linea
+
+
+
+        }
+
+
+
+    }
 
 }

@@ -75,4 +75,8 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int  CALIFICADOR_OFICINA= 1701 ;
     public static  int  tipOuSER =CALIFICADOR_CAMPO ;
 
+    public static  final int VERTICAL =1200 ;
+    public static  final int HORIZONTAL =12001 ;
+    public static   int orientacionImagen ;
+
 }
