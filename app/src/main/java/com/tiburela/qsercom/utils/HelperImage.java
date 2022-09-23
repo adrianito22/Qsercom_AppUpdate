@@ -354,6 +354,7 @@ public class HelperImage {
 
 
                 if(list.get(i).horientacionImagen.equals("horizontal") && ! list.get(i).estaENPdf ){
+
                     imagesSetToCurrentFila.add(list.get(i));
 
                     contadorImgHorizontal++;
