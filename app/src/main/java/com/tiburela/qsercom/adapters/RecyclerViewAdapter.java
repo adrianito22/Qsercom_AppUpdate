@@ -221,8 +221,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onSuccess(Uri uri) {
 
-                Log.i("ladtastor","el id es succes");
-
                 Glide.with(ActivitySeeReports.context)
                         .load(uri)
                         .fitCenter()

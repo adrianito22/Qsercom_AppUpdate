@@ -70,6 +70,7 @@ import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
+import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -3968,6 +3969,12 @@ private void checkModeVisualitY(){
 
                 addInfotomap( Variables.listImagenData);
                 createlistsForReciclerviewsImages(listImagenData);
+
+                //este metodo lo llamaremos ahora
+                //al objeto imagen report le agregaremos una propiedad llamada bitmap...o crearemos un map de bitmaps que usraemos para cargarlos desde el
+                //el adpater del recicler view y asiu no alteramos el objeto imagereport...solo que ya no descragremos la imagen nuevamente...
+               HelperImage. dowloadAllImages2(Variables.listImagenData);
+
 
             }
 

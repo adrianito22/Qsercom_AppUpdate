@@ -33,10 +33,14 @@ import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 public class PdfMaker {
+
+     static ArrayList<ImagesToPdf> currentListImagesSeccion;
+    static   PdfDocument pdfDocument;
 
     static Paint mipaintHeader;
     static Paint paintContentText;
@@ -45,9 +49,16 @@ public class PdfMaker {
     static Paint paintIzquierda ;
     static Paint paintBacdkground;
     static Paint paintBacdkgroundDurazno;
-ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
 
-    int poscUltImgColoc=100; //vamos a empezar aqui
+    static ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();  //aqui guardamos las pages ya con sus finish...
+    static Canvas currentCanvasObjec;
+    static  PdfDocument.Page  currentPagePdfObjec;
+
+
+    static int poscYUltImgColoc=215; //vamos a empezar aqui
+    static  int posXLefUltImgColoc=30;
+
+
     private static final int START_X_POSICION = 40;
     private static final int END_X_POSICION = 555;
     private static final int START_X_POSICION_TEXT_RIGTH = 200;
@@ -65,6 +76,9 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
     public static void generatePdfReport1(Context context, SetInformEmbarque1 informe1, SetInformEmbarque2 informe2, ProductPostCosecha productPostC) {
         // creating an object variable
         // for our PDF document.
+
+
+
         Bitmap bmpGlobal, bitMapScaledHeader, bitmapScaledFooter;
         bmpGlobal = BitmapFactory.decodeResource(context.getResources(), R.drawable.headerpdf);
         bitMapScaledHeader = Bitmap.createScaledBitmap(bmpGlobal, 595, 200, false);
@@ -73,7 +87,7 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
         bmpGlobal = BitmapFactory.decodeResource(context.getResources(), R.drawable.footer_pdf);
         //  bitmapScaledFooter=Bitmap.createScaledBitmap(bmpGlobal, 595, 290, false);
 
-        PdfDocument pdfDocument = new PdfDocument();
+         pdfDocument = new PdfDocument();
 
         Paint miPaint = new Paint(); //paint es un pincel propiedad,, y contiene todo lo que contiene un pincel(color,ancho..tipo,etc.)
 
@@ -88,7 +102,7 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
         /*** creating a variable for canvas */
         Canvas canvas = myPage1.getCanvas();
 
-        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas, miPaint);
+        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas);
 
 
         initPaintObject();
@@ -115,7 +129,7 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
         Canvas canvas2 = myPage2.getCanvas();
 
         //agregamos las imagen de header y la de footer
-        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas2, miPaint);
+        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas2);
 
 
         //agregamos data
@@ -144,13 +158,6 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
 
 
 
-
-
-
-
-
-
-
         /***Agregamos tercera hoja al ducmento DEMO*/
 
         /**3ra  HOJA DEL PDF*/
@@ -161,7 +168,7 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
         Canvas canvas3 = myPage3.getCanvas();
 
         //agregamos las imagen de header y la de footer
-        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas3, miPaint);
+        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas3);
 
         //ahora agregamos las imagenes en esa hoja
 
@@ -171,6 +178,53 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
 
 
         pdfDocument.finishPage(myPage3); //finalziamos la  pagina 2
+
+
+
+
+        //creamos la primera pgina de aanexos ...
+        PdfDocument.PageInfo mypageInfo4 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+       // PdfDocument.Page myPage4 = pdfDocument.startPage(mypageInfo4);
+      //  Canvas canvas4 = myPage4.getCanvas();
+
+        currentPagePdfObjec= pdfDocument.startPage(mypageInfo4);
+
+        currentCanvasObjec= currentPagePdfObjec.getCanvas();
+
+         //  currentPagePdfObjec=myPage4;
+        //obtenbemos solo una lista que contenga fotos llegada...
+        currentListImagesSeccion= HelperImage.createImagesSet(HelperImage.imAGESpdfSetGlobal,Variables.FOTO_LLEGADA);
+             //agregamos fotos llegada
+        Log.i("contabur","el SIZE DE ESTA SECCION  ES "+currentListImagesSeccion.size());
+
+
+
+       // RectF dstx = new RectF(50, 450, 50 + 500, 50 + 600);
+
+        ///primera IMAGEN
+      //  RectF rectFtObj = new RectF(posXLefUltImgColoc+10, 50,200, 250);
+        // posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL;
+        //  bitMap =currentListImagesSeccion.get(0).miBitmap;
+       // HelperImage.addImagenInPDF(bmpGlobal, currentCanvasObjec,dstx);
+
+
+
+
+
+
+        //add header y footer
+        addImageHeaderFootterPDF(bitMapScaledHeader,bmpGlobal,currentCanvasObjec);
+
+
+
+
+
+
+       // pdfDocument.finishPage(myPage4) ;
+
+        createPages_addImgs(context,"Anexo Fotos LLEGADA",currentCanvasObjec);
+           //public static void addImageHeaderFootterPDF(Bitmap bitMapScaledHeader, Bitmap bmpGlobal, Canvas canvas, Paint miPaint) {
+
 
 
         exportPdxFZ(pdfDocument, context);
@@ -233,6 +287,7 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
         try {
             // after creating a file name we will
             // write our PDF file to that location.
+
             pdfDocument.writeTo(new FileOutputStream(file));
 
             // below line is to print toast message
@@ -264,42 +319,6 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
     }
     public static void addImagenInPDF( Bitmap imagen,Bitmap imagen2, Canvas canvas) {
 
-        //colncer si hay un patron un numero de imagenes por seccion
-        //si las primera y ultimas imagenes deben ir horizontales o verticales...
-        ///////
-
-        //ahagamos de cuenta quer subimos todas las iamgens por seccion..
-
-        //entonces hacer un calculo de cuentas pahginas necesitaremos para poner estas imagenes en esta seccion....
-        // y creamos esed numero de paginas...
-
-         //crear una funcion para rotar las imagenes u}y mostralas tal y como se presentaran en el informe....
-         // o una funcion que pregunte si esa imagen se visualiza bien en orizontal o vertical no.. selecione como se vizualiza m,ejor... y ...
-
-
-         /**Dos filas y usaremos el siguiente patron*/
-
-        /**chekear si estas tre imagenes puiede ir juntas en una fila si hay como ponlas*/
-
-
-        //por  ahora vamos a descargar las imagenes y ponerlas en el pdf.,,,
-
-        //Nombre de seccion.......
-
-        //chekear la horintacion del contenido //de la imagen..
-        //conocer si es horientacion...general de la imagen.....
-
-        //checkear cuantas imagenes hay y si hay una secuencia...patron..
-        //cuantas imagenes uso para el informe? minimo y maximo...todas por ahora
-        //chekear si hay dos imagenes horizontales con contenido si las hay ..agregalas juntas...
-        //si uno poner una imagen horizontal y otra vertical..
-        //tambien podemos poner dos imagenes horzontales juntas...
-        //
-        //si no dos verticales...siempre que halla par
-
-        //dosimagnes pequenas verticales en el centro..
-        //hay dos filas
-
         RectF dst = new RectF(50, 225, 50 + 500, 50 + 350);
         canvas.drawBitmap(imagen, null, dst, null);
 
@@ -310,16 +329,31 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
     }
 
 
-    public static void addImageHeaderFootterPDF(Bitmap bitMapScaledHeader, Bitmap bmpGlobal, Canvas canvas, Paint miPaint) {
+
+
+    public static void addImageHeaderFootterPDF(Bitmap bitMapScaledHeader, Bitmap bmpGlobal, Canvas canvas) {
         // bmpGlobal creo que es footer
 
         //Cagregmoa el header bitmap
-        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
-        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
-        canvas.drawBitmap(resize(bmpGlobal, 505, 280), 0, 535, miPaint);
+        canvas.drawBitmap(bitMapScaledHeader, 0, 0, mipaintLines);
+        canvas.drawBitmap(bitMapScaledHeader, 0, 0, mipaintLines);
+        canvas.drawBitmap(resize(bmpGlobal, 505, 280), 0, 535, mipaintLines);
 
     }
 
+
+    public static void addImageHeaderFootterPDF(Canvas canvas, Paint miPaint,Context context) {
+        // bmpGlobal creo que es footer
+        Bitmap  bitMapScaledHeader, bitmapScaledFooter;
+        bitMapScaledHeader = BitmapFactory.decodeResource(context.getResources(), R.drawable.headerpdf);
+        bitmapScaledFooter = BitmapFactory.decodeResource(context.getResources(), R.drawable.footer_pdf);
+
+
+        //Cagregmoa el header bitmap
+        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
+        canvas.drawBitmap(resize(bitmapScaledFooter, 505, 280), 0, 535, miPaint);
+
+    }
 
 
 
@@ -906,61 +940,48 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
 
 
 
-    private void addPagesDinamicals(){
-        //cremaosd la pagina 2 del \\
-        PdfDocument pdfDocument = new PdfDocument();
 
-        for(int indice=0; indice<5; indice++){
+    private static void createPages_addImgs( Context context, String anexoNombre,Canvas canvasFirst){
 
-            PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-            PdfDocument.Page myPage = pdfDocument.startPage(mypageInfo);
-            Canvas canvas3 = myPage.getCanvas();
-            pagesPdfDocuments.add(myPage);
+        int numeroPaginas=0;
 
-        }
+        while(!allImagesISUsed(currentListImagesSeccion)  && numeroPaginas !=1 ){ //si no todas las imagenes fueron usadas
+            numeroPaginas++; //ahora es
+            Log.i("contabur","se llamo este metodo hererter");
 
 
 
-    }
-
-
-    private void calculaCuantasPaginasCrearByImages(ArrayList<ImagesToPdf>listImagesSeccion){
-         //tenemos una lista de objetos imagen...
-
-
-        while(!allImagesISUsed(listImagesSeccion)){ //si no todas las imagenes fueron usadas
-
-
-            //
-
-            //crea una pahina pdf y cavnas y todo
-
-            //creamos una lista de verticales
-            ArrayList<ImagesToPdf> li3sverticales=devuleveList3verticalesSIhay(listImagesSeccion,"vertical");
-
-
+            ArrayList<ImagesToPdf> li3sverticales=devuleveList3verticalesSIhay(currentListImagesSeccion,"vertical");
             //busca 3 imagenes verticales
             if( li3sverticales.size()==3){ // si hay al menos 3 imahes si usar ,pon las primer 3 imagenes......
 
-               ///le decimos el modo ....
+                //  int poscYUltImgColoc=225; //vamos a empezar aqui
+                //  int posXLefUltImgColoc=50;
+                Log.i("contabur","existen al menos 3 imgs");
+
+                markImgComoUsada(li3sverticales);
+                addImagenSet(poscYUltImgColoc,li3sverticales,Variables.TRES_IMGS_VERTCLES, currentCanvasObjec,context);
+                //ENTONCES ESTOS ENCONTRADOS LOS PONEMOS QUE YA SE USARON.....
 
             }
 
-            else if(){///si no comprobamos que exista una imagen vertical y otra horizontal ...
+
+
+            else if( li3sverticales.size()==300){///si no comprobamos que exista una imagen vertical y otra horizontal ...
 
                 //le decimos el modo .....
 
 
             }
 
-            else if(){///si no vemos que halla solo dos imagenes verticales  en el centro
+            else if(li3sverticales.size()==302){///si no vemos que halla solo dos imagenes verticales  en el centro
 
                    //le decimos el modo .....
 
 
             }
 
-            else if(){///si no vemos que halla dos horizontales
+            else if(li3sverticales.size()==301){///si no vemos que halla dos horizontales
 
 
 
@@ -968,11 +989,6 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
             }
 
 
-
-
-
-
-            //y aqui lo llamamos
 
 
         }
@@ -980,49 +996,34 @@ ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();
 
 
 
-        //Vmos a tener una lista
-
-        /*** vamos a poner las 3 primeras en vertical  */
-
-
-
-        //en una fila habran los siguientes casos...
-        //3 imagenes en vertical...
-        //caso dos una imagen
-
-
-        //toma la orientacion de esta imagen ,,,si es vertical,,, busca 2 mas ....y ponlas en el siguiente orden............
-        //si solo encuentra 1 en esta horintacion...entonces pon dos en el centro.........
-        //si solo encuentra 1 ... pon esa en el centro  y si hay espacio
-
-
-
-        //si la imagen anterior es vertical  y esta en esta posicion
-
-        //un list donde primero ,tome las imagenes verticales.....
-        //y cuando las use las elimine....
-
-        //despues toma las horizontales .......
-
-
-        //si hay una imagen vertical y existe otra horizontal ponlas juntas...
-        //si solo quedan 2 imagenes y ambas son verticales ponlas en el centro...
-        //si queda 2 imagenes horizontales ponlas juntas....
-
-
-        //si tenemos 5 imagenes..
-        //toma las primeras 3
-        //en dos filas ,poner 3 imagenes por fila....siempre y cuando sean imagenes verticales...
-        //por cada seccion vamos a llamar este metodo  y el anterior....
-        //si hay una vertical y dos orizontales ...
-        ///
-        //toma las imagenes verticales y ponlas en asi ....
-
 
 
 
     }
-private ArrayList<ImagesToPdf> devuleveList3verticalesSIhay(ArrayList<ImagesToPdf>lisT, String propiedad){
+
+
+
+
+    private static void CreateNewPageAndFinishAnterior(Context context, PdfDocument.Page myPageAnterior){
+
+        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.Page myPage = pdfDocument.startPage(mypageInfo);
+        Canvas canvas3 = myPage.getCanvas();
+        addImageHeaderFootterPDF(canvas3,mipaintHeader,context);
+
+        currentPagePdfObjec = myPage;
+        currentCanvasObjec =canvas3;
+
+                   //finalizamos el pdf anterior si lo hay
+                pdfDocument.finishPage(myPageAnterior);
+
+
+    }
+
+
+
+
+private static ArrayList<ImagesToPdf> devuleveList3verticalesSIhay(ArrayList<ImagesToPdf> lisT, String propiedad){
 int encontradosPropiedad=0;
 
     ArrayList<ImagesToPdf>lisTx=new ArrayList<>();
@@ -1055,7 +1056,7 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
       return  lisTx;
 }
 
-    private boolean allImagesISUsed(ArrayList<ImagesToPdf>list){
+    private static boolean allImagesISUsed(ArrayList<ImagesToPdf> list){
         int contadorIMagesUsadas=0;
 
 
@@ -1064,6 +1065,7 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
               if(list.get(indice).estaENPdf){
 
                   contadorIMagesUsadas++;
+
 
 
               }else{
@@ -1077,6 +1079,7 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
         }
 
+        Log.i("contabur","hay "+contadorIMagesUsadas +" imagenes usadas");
 
 
         if(contadorIMagesUsadas== list.size()){
@@ -1089,49 +1092,131 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
     }
 
 
-    private void addImagenSet(int posicionUltimaImagenColoacadaY,ArrayList <ImagesToPdf>list){
+
+
+    private static void markImgComoUsada(ArrayList<ImagesToPdf> list){
+
+        //buscamos esos ids,, y marcamos como usado...
+        //vamos atenber dos listas.... una lista que es la litsa del conjunto actual y una lista que dice
+
+
+          for(int i= 0; i<list.size(); i++){ ///
+              String uniqueId=list.get(i).uniQueId;
+
+              for(int indice=0; indice<currentListImagesSeccion.size(); indice++){
+
+                  if(uniqueId.equals(currentListImagesSeccion.get(indice).uniQueId)) {
+                      currentListImagesSeccion.get(indice).estaENPdf=true;
+                      Log.i("contabur","el size de marcads como usadas es   "+currentListImagesSeccion.size());
+
+
+                  }
+
+
+
+              }
+
+          }
+
+
+
+
+    }
+
+
+    private static void addImagenSet(int posicionUltimaImagenColoacadaY, ArrayList<ImagesToPdf> list, int tipoOrdenImgs, Canvas canvas, Context context){
+        Bitmap bitMap ;
 
         //comprobar en que linea ... comprobar la posicion de la ultima
 
-        if(){ //modo 3 imagenes en una linea...
-
-            //LE SUMAMOS MAS 10 A LA POSICION  posicionUltimaImagenColoacadaY
-            posicionUltimaImagenColoacadaY= posicionUltimaImagenColoacadaY+10;
-            //**colocamos las 3 imagenes en una linea....
-            // ad imagen set i pdf....
-
-            //AQUI USAMOS EL RECTS Y GENERAMOS EL BITMAP PARA AGREGARLO AL CANVAS O PDF PAGE QUE RECIMOS POR PARAEMTRO....
-
-            ///1ERA imagen
-
-            //2DA imagen
-
-            //3ERA IMAGEN
+        final  int ANCHO_IMG_VERTICAL =180;
+        final  int LARGO_iMG_VERTICAL_ =220;
 
 
 
-            posicionUltimaImagenColoacadaY=    posicionUltimaImagenColoacadaY+500 ; //+EL VALOR QUE OCUPA LA FILA IMAGENES  EN VERTICALMENTE
-            //EL SIZE DEL REC PUEDE SER 500 LA VARIABLE
-            //ASI EN LA SIGUIENTE SOLO LE SUMAMOS +10
+        if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){ //modo 3 imagenes en una linea...
+
+            Log.i("contabur","hay 3 imagenes verticales hurrazzx");
+              //bitMap = BitmapFactory.decodeResource(context.getResources(), R.drawable.imagen_horizontal);
 
 
-            //agregamos en la linea 2...
+              bitMap =currentListImagesSeccion.get(0).miBitmap;
+            //  RectF rectFtObj2 = new RectF(posXLefUltImgColoc+10, posicionUltimaImagenColoacadaY+10,ANCHO_IMG_VERTICAL, LARGO_iMG_VERTICAL_+posicionUltimaImagenColoacadaY);
+              // HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj2);
+              // posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL; //actualizamos la posicion x izquiera
+
+
+
+             ///PRIMERA
+              RectF rectFtObj3=new RectF(posXLefUltImgColoc+10,poscYUltImgColoc+10,ANCHO_IMG_VERTICAL+10,LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_);
+              bitMap =currentListImagesSeccion.get(0).miBitmap;
+              HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+              posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL;
+
+
+            ///2DA IMAGEN
+            rectFtObj3=new RectF(ANCHO_IMG_VERTICAL+20,poscYUltImgColoc+10,400,LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_);
+            poscYUltImgColoc=poscYUltImgColoc +LARGO_iMG_VERTICAL_;
+            bitMap =currentListImagesSeccion.get(1).miBitmap;
+            HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+            posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL;
+
+
+            ///3ERA IMAGEN
+            rectFtObj3=new RectF(ANCHO_IMG_VERTICAL + ANCHO_IMG_VERTICAL+20,poscYUltImgColoc+10,520+10,LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_);
+            poscYUltImgColoc=poscYUltImgColoc +LARGO_iMG_VERTICAL_;
+            bitMap =currentListImagesSeccion.get(1).miBitmap;
+            HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+            posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL;
+
+                 //chekear si quedan mas imagenes si no solo finalizamos este
+
+               if(allImagesISUsed(currentListImagesSeccion)) { //no queda ninguna en esta seccion
+
+                   pdfDocument.finishPage(currentPagePdfObjec);
+                   Log.i("contabur","ya estan todas listas");
+
+               }else {
+
+
+                   if(poscYUltImgColoc >LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_ ) { // si es mayor a dos veces el largo de la imagen creamos otra pagina..
+
+                       CreateNewPageAndFinishAnterior(context,currentPagePdfObjec);
+                       Log.i("contabur","vamos a crear otra pagina");
+
+
+                   }
+
+
+               } //si quedan mas
+
+
 
 
         }
 
-        else if(){ //1 vertical y otro horizontal en la misma linea
+        else if(tipoOrdenImgs==Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL){ //1 vertical y otro horizontal en la misma linea
 
 
 
         }
 
 
-        else if(){ //2 imagenes verticales en una linea
+        else if(tipoOrdenImgs==Variables.DOS_IMGS_VERTICALES){ //2 imagenes verticales en una linea
 
 
 
         }
+
+
+        else if(tipoOrdenImgs==Variables.DOS_HORIZONTALES){ //2 imagenes verticales en una linea
+
+
+
+        }
+
+        //y oior ultimo si hay una imagen sola....tamnto vertical o horizontal ..no la aghregues ,,es una opcion
+
 
 
 

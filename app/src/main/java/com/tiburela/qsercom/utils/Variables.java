@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.utils;
 
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 
@@ -73,10 +74,20 @@ public static String  paqueteName="com.tiburela.qsercom";
 
     public static final int  CALIFICADOR_CAMPO= 1700 ;
     public static final int  CALIFICADOR_OFICINA= 1701 ;
-    public static  int  tipOuSER =CALIFICADOR_CAMPO ;
+    public static  int tipoDeUser =CALIFICADOR_OFICINA ;
 
     public static  final int VERTICAL =1200 ;
     public static  final int HORIZONTAL =12001 ;
     public static   int orientacionImagen ;
+
+
+
+    //imagenes pdf ubicaciones POR FILAS
+    public static final int  TRES_IMGS_VERTCLES= 2500 ;
+    public static final int  UNAVERTICAL_Y_OTRA_HORIZONTAL= 2501 ;
+    public static final int  DOS_IMGS_VERTICALES= 2502 ;
+    public static final int  DOS_HORIZONTALES= 2503 ;
+
+   public static  ArrayList<ImagesToPdf>listImagesSeccion=new ArrayList<ImagesToPdf>();
 
 }

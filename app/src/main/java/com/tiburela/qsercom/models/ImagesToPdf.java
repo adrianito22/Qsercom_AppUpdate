@@ -1,5 +1,7 @@
 package com.tiburela.qsercom.models;
 
+import android.graphics.Bitmap;
+
 import java.util.UUID;
 
 public class ImagesToPdf {
@@ -24,8 +26,11 @@ public class ImagesToPdf {
     public String uniQueId;
     public  String horientacionImagen ;   ///el width es de 3 ....
     public  int posicionPdImageEnd;
+    public int tipoImagenCategory;
 
-    public ImagesToPdf(String horientacionImagen){
+    public Bitmap miBitmap ;
+
+    public ImagesToPdf(String horientacionImagen,Bitmap miBitmap,int tipoImagenCategory){
         numPaginaAlQUEPertenece=0;
         filaAlaQueSeubica=0;
         WidthQueOcupa=0;
@@ -34,8 +39,9 @@ public class ImagesToPdf {
         estaENPdf=false;
         this. horientacionImagen=horientacionImagen;
         uniQueId= UUID.randomUUID().toString();
+        this.miBitmap=miBitmap;
 
-
+        this.tipoImagenCategory=tipoImagenCategory;
 
 
     }

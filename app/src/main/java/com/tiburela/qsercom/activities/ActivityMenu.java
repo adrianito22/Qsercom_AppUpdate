@@ -73,7 +73,7 @@ TextView txtAdviser,txtAdviser2;
              public void onClick(View view) {
 
 
-                 if(Variables.tipOuSER ==Variables.CALIFICADOR_OFICINA) {
+                 if(Variables.tipoDeUser ==Variables.CALIFICADOR_OFICINA) {
 
                       startActivity(new Intent(ActivityMenu.this, ActivitySeeReports.class));
 
@@ -173,7 +173,7 @@ TextView txtAdviser,txtAdviser2;
 
     private void showDataByMode() {
 
-        if(Variables.tipOuSER == Variables.CALIFICADOR_CAMPO) {  //chekeamos si tiene algun informe incloncluso...
+        if(Variables.tipoDeUser == Variables.CALIFICADOR_CAMPO) {  //chekeamos si tiene algun informe incloncluso...
             Utils.dataFieldsPreferencias= (HashMap<String, String>) Utils.loadMap(ActivityMenu.this);
 
             //*CHEKEAMOS SI TIENE DATA
@@ -221,7 +221,7 @@ TextView txtAdviser,txtAdviser2;
 
         }
 
-        else if(Variables.tipOuSER==Variables.CALIFICADOR_OFICINA) {
+        else if(Variables.tipoDeUser ==Variables.CALIFICADOR_OFICINA) {
 
             btnInInformes.setText("Revisar Informes");
             txtAdviser.setText("Informes por Revisar : 1");
