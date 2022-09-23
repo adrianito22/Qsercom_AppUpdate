@@ -30,10 +30,14 @@ import com.tiburela.qsercom.storage.StorageData;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 public class HelperImage {
    public static  ArrayList<ImagesToPdf> imAGESpdfSetGlobal=new ArrayList<ImagesToPdf>();
+
+
+   public static  ArrayList<ImagesToPdf> imagesSetToCurrentFila;
 
 
     public static void addImagenInPDF(Bitmap imagen2, Canvas canvas,RectF dst) {
@@ -285,5 +289,168 @@ public class HelperImage {
         // canvas.drawBitmap(imagen2, null, dstx, null);
 
     }
+
+
+
+    public static int buscaPosiblePatronParaOrdenar(ArrayList<ImagesToPdf> list){
+
+        imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+
+
+        int contadorImgVertical= 0;
+        int contadorImgHorizontal= 0;
+        int valorDevolver=0;
+          boolean encontramos=false;
+
+          for(int i=0; i<list.size(); i++){ //primero buscamos tres imagenes  verticales....
+
+                  if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
+                      contadorImgVertical++;
+                      imagesSetToCurrentFila.add(list.get(i));
+
+
+
+                      if(contadorImgVertical==3){
+                          valorDevolver= Variables.TRES_IMGS_VERTCLES ;
+                          encontramos=true;
+                          break;
+                      }
+                  }
+
+              }
+
+
+
+        if(!encontramos) {
+            imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+
+            contadorImgVertical= 0;
+            for(int i=0; i<list.size(); i++){ ///si no comprobamos que exista una imagen vertical y otra horizontal ...
+
+                if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
+                    imagesSetToCurrentFila.add(list.get(i));
+
+                    contadorImgVertical++;
+
+                    if(contadorImgVertical==1 &&  contadorImgHorizontal==1  ){
+                           //le cambiamos la ubicacion en caso que lña imagen horizontal este en la posicioon 1
+                          //primero la vertical y depues la horizontal
+                        if(imagesSetToCurrentFila.get(0).horientacionImagen.equals("horizontal")){ ///si la primera imagen es horizontal
+                             //invertir ubicacion
+                            Collections.reverse(imagesSetToCurrentFila);
+
+                        }
+
+
+                        valorDevolver= Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL ;
+                        encontramos=true;
+
+                        break;
+                    }
+                }
+
+
+
+
+
+                if(list.get(i).horientacionImagen.equals("horizontal") && ! list.get(i).estaENPdf ){
+                    imagesSetToCurrentFila.add(list.get(i));
+
+                    contadorImgHorizontal++;
+
+                    if(contadorImgVertical==1 &&  contadorImgHorizontal==1  ){
+
+                        if(imagesSetToCurrentFila.get(0).horientacionImagen.equals("horizontal")){ ///si la primera imagen es horizontal
+                            //invertir ubicacion
+                            Collections.reverse(imagesSetToCurrentFila);
+
+                        }
+
+
+                        valorDevolver=Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL ;
+                        encontramos=true;
+
+                        break;
+
+
+
+                    }
+                }
+
+
+            }
+
+        }
+
+
+        if(!encontramos) {
+            imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+
+            contadorImgVertical= 0;
+
+            for(int i=0; i<list.size(); i++){  ////si no vemos que halla solo dos imagenes verticales  PARA PÓNERFLAS  en el centro
+
+                if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
+                    imagesSetToCurrentFila.add(list.get(i));
+
+                    contadorImgVertical++;
+
+                    if(contadorImgVertical==2 ){
+                        valorDevolver=Variables.DOS_IMGS_VERTICALES ;
+                        encontramos=true;
+
+                        break;
+
+                    }
+                }
+
+
+            }
+
+
+        }
+
+
+
+        if(!encontramos) {
+            imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+
+            contadorImgHorizontal= 0;
+
+            for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
+                if(list.get(i).horientacionImagen.equals("horizontal") && ! list.get(i).estaENPdf ){
+                    imagesSetToCurrentFila.add(list.get(i));
+
+                    contadorImgHorizontal++;
+
+                    if(contadorImgHorizontal==2 ){
+
+                        encontramos=true;
+
+                        valorDevolver= Variables.DOS_HORIZONTALES ;
+
+                        break;
+                    }
+
+
+                }
+
+            }
+
+
+        }
+
+
+        if(!encontramos) { //SI NO ENCONTRA,MOPS NADA LE DAMOS ESTE..
+            imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+
+            valorDevolver =Variables.DEFAULNO_ENCONTRO_NADA;
+        }
+            //si no
+
+
+        return  valorDevolver;
+    }
+
 
 }

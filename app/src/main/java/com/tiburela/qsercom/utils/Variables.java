@@ -87,6 +87,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int  UNAVERTICAL_Y_OTRA_HORIZONTAL= 2501 ;
     public static final int  DOS_IMGS_VERTICALES= 2502 ;
     public static final int  DOS_HORIZONTALES= 2503 ;
+    public static final int  DEFAULNO_ENCONTRO_NADA= 2504 ;
 
    public static  ArrayList<ImagesToPdf>listImagesSeccion=new ArrayList<ImagesToPdf>();
 

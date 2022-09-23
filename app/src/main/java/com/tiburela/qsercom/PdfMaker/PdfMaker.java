@@ -41,7 +41,6 @@ public class PdfMaker {
 
      static ArrayList<ImagesToPdf> currentListImagesSeccion;
     static   PdfDocument pdfDocument;
-
     static Paint mipaintHeader;
     static Paint paintContentText;
     static boolean isAlignmentCenter =false;
@@ -204,7 +203,7 @@ public class PdfMaker {
 
        // pdfDocument.finishPage(myPage4) ;
 
-        createPages_addImgs(context,"Anexo Fotos LLEGADA",currentCanvasObjec);
+        createPages_addImgs(context,"Anexo : FOTOS LLEGADA");
            //public static void addImageHeaderFootterPDF(Bitmap bitMapScaledHeader, Bitmap bmpGlobal, Canvas canvas, Paint miPaint) {
 
 
@@ -932,44 +931,80 @@ public class PdfMaker {
 
 
 
-    private static void createPages_addImgs( Context context, String anexoNombre,Canvas canvasFirst){
-
+    private static void createPages_addImgs( Context context, String anexoNombre){
+         boolean esPrimeraPagina=true;
+        int debuGcONTADOR =0;
+        Log.i("contaburx","el size de la lista es "+currentListImagesSeccion.size());
 
         while(!allImagesISUsed(currentListImagesSeccion)){ //mientras quedan imagenes si usar////
-            Log.i("contabur","se llamo este metodo hererter");
 
-            ArrayList<ImagesToPdf> li3sverticales=devuleveList3verticalesSIhay(currentListImagesSeccion,"vertical");
-            //busca 3 imagenes verticales
-            if( li3sverticales.size()==3){ // si hay al menos 3 imahes si usar ,pon las primer 3 imagenes......
-                Log.i("contabur","existen al menos 3 imgs");
+           if(debuGcONTADOR==0) { ///significa que es la primera pagina
 
+               Paint paintIzquierda2= new Paint();
+               paintIzquierda2.setTextAlign(Paint.Align.LEFT);
+               paintIzquierda2.setColor(Color.parseColor("#4CAF50"));
+               paintIzquierda2.setTextSize(20);
+               //le agregamos el titulo al anexo
+               currentCanvasObjec.drawText(anexoNombre, 210, 170, paintIzquierda2);
+           }
+
+            debuGcONTADOR++;
+               //si es la primera pagina
+
+
+
+            Log.i("contaburx","se ejecuto ESto "+debuGcONTADOR+" veces");
+
+            int patronEncontrado=HelperImage.buscaPosiblePatronParaOrdenar(currentListImagesSeccion);
+
+
+
+            if(patronEncontrado==Variables.TRES_IMGS_VERTCLES){
+
+                Log.i("contaburx","es Variables.TRES_IMGS_VERTCLES");
                 addImagenSet(Variables.TRES_IMGS_VERTCLES,context);
                 //ENTONCES ESTOS ENCONTRADOS LOS PONEMOS QUE YA SE USARON.....
 
-            }
-
-
-
-            else if( li3sverticales.size()==300){///si no comprobamos que exista una imagen vertical y otra horizontal ...
-
-                //le decimos el modo .....
-
 
             }
 
-            else if(li3sverticales.size()==302){///si no vemos que halla solo dos imagenes verticales  en el centro
+            else if(patronEncontrado == Variables.DOS_IMGS_VERTICALES) {
+                Log.i("contaburx","es el DOS_IMGS_VERTICALES ");
 
-                   //le decimos el modo .....
+                addImagenSet(Variables.DOS_IMGS_VERTICALES,context);
 
 
             }
 
-            else if(li3sverticales.size()==301){///si no vemos que halla dos horizontales
+            else if(patronEncontrado == Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL) {
+                Log.i("contaburx","es  UNAVERTICAL_Y_OTRA_HORIZONTAL");
 
-
+                addImagenSet(Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL,context);
 
 
             }
+
+
+            else if(patronEncontrado == Variables.DOS_HORIZONTALES) {
+                Log.i("contaburx","es el DOS_HORIZONTALES ");
+
+                addImagenSet(Variables.DOS_HORIZONTALES,context);
+
+
+            }
+
+
+
+            else if(patronEncontrado == Variables.DEFAULNO_ENCONTRO_NADA) {
+                Log.i("contaburx","es el  DEFAULNO_ENCONTRO_NADA");
+
+                addImagenSet(Variables.DEFAULNO_ENCONTRO_NADA,context);
+
+
+            }
+
+
+
 
 
 
@@ -1108,6 +1143,15 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
     }
 
 
+    private static void addNameAnexo(String nameAnexo){
+
+        //UJSAMOS EL LcurrentCanvasObjec
+
+    }
+
+
+
+
     private static void addImagenSet(int tipoOrdenImgs, Context context){
         Bitmap bitMap ;
 
@@ -1121,61 +1165,54 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
         final int SPACE=10;
 
 
+
         if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){ //modo 3 imagenes en una linea...
             Log.i("contabur","hay 3 imagenes verticales hurrazzx");
 
-            for(int indice=0; indice<3; indice++){
-                      if(indiceDecurrentListImagesSeccion<currentListImagesSeccion.size()){
+            for(int indice=0; indice<HelperImage.imagesSetToCurrentFila.size(); indice++){
+
 
                           RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
-                          bitMap =currentListImagesSeccion.get(indiceDecurrentListImagesSeccion).miBitmap;
+                          bitMap =HelperImage.imagesSetToCurrentFila.get(indice).miBitmap;
                           HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
 
                           lef= lef+ ANCHO_IMG_VERTICAL +SPACE;
 
 
-                        //  markImgComoUsada(li3sverticales); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
-                          currentListImagesSeccion.get(indiceDecurrentListImagesSeccion).estaENPdf=true;
-                          indiceDecurrentListImagesSeccion++;
-
-                      }
-
-
+                          markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
 
             }
 
 
 
             poscYUltImgColoc=poscYUltImgColoc+LARGO_iMG_VERTICAL_+10;
+            checkTopCreateNewPageORfinishCurrent(LARGO_iMG_VERTICAL_,context);
 
 
-               if(allImagesISUsed(currentListImagesSeccion)) { //no queda ninguna en esta seccion o solo queda una imagen
-
-                   pdfDocument.finishPage(currentPagePdfObjec);
-                   Log.i("contabur","ya se usaron todas o solo sobro una ,finalizamos ");
-
-               }else {
-
-
-                   if(poscYUltImgColoc >LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_ ) { // si es mayor a dos veces el largo de la imagen creamos otra pagina..
-                       poscYUltImgColoc=210;                                                        //o si es mayor o igual a un nuemro especifico que es mano o menos la posicion de la segunda fila
-                       CreateNewPageAndFinishAnterior(context,currentPagePdfObjec);
-                       Log.i("contabur","vamos a crear otra pagina ");
-
-
-                   }
-
-
-               } //si quedan mas
-
-
-              //vamos a crear otra pagina ahora....
+            //vamos a crear otra pagina ahora....
 
         }
 
 
         else if(tipoOrdenImgs==Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL){ //1 vertical y otro horizontal en la misma linea
 
+                 RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+                  bitMap =HelperImage.imagesSetToCurrentFila.get(0).miBitmap; //la primera ubicaion debe contener la imagen vertical
+                  HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+                  lef= lef+ ANCHO_IMG_VERTICAL + SPACE+SPACE;
+
+                      //la imagen horizontal
+                     rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL+172,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+                    bitMap =HelperImage.imagesSetToCurrentFila.get(1).miBitmap;
+                    HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+
+
+
+                      markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
+
+
+            poscYUltImgColoc=poscYUltImgColoc+LARGO_iMG_VERTICAL_+10;
+            checkTopCreateNewPageORfinishCurrent(LARGO_iMG_VERTICAL_,context);
 
 
         }
@@ -1183,6 +1220,24 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
         else if(tipoOrdenImgs==Variables.DOS_IMGS_VERTICALES){ //2 imagenes verticales en una linea
 
+                lef =100;
+
+                RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+                bitMap =HelperImage.imagesSetToCurrentFila.get(0).miBitmap;
+                HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+                lef= lef+ ANCHO_IMG_VERTICAL +SPACE+10;
+
+
+               rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+               bitMap =HelperImage.imagesSetToCurrentFila.get(1).miBitmap;
+               HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+
+
+                markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
+
+
+            poscYUltImgColoc=poscYUltImgColoc+LARGO_iMG_VERTICAL_+10;
+            checkTopCreateNewPageORfinishCurrent(LARGO_iMG_VERTICAL_,context);
 
 
         }
@@ -1191,12 +1246,74 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
         else if(tipoOrdenImgs==Variables.DOS_HORIZONTALES){ //2 imagenes verticales en una linea
 
 
+            if(poscYUltImgColoc >210) {
+                Log.i("contabur","se ejecutyo trapita");
+
+                poscYUltImgColoc =poscYUltImgColoc+20;
+
+            }
+
+
+                Log.i("contabur","es el horizontal true");
+
+                RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL+100,poscYUltImgColoc+LARGO_iMG_VERTICAL_-50);
+                bitMap =HelperImage.imagesSetToCurrentFila.get(0).miBitmap;
+                HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+                lef= lef+ ANCHO_IMG_VERTICAL+100 +SPACE;
+
+                rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL+100,poscYUltImgColoc+LARGO_iMG_VERTICAL_-50);
+                bitMap =HelperImage.imagesSetToCurrentFila.get(1).miBitmap;
+                HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+
+                markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
+
+            poscYUltImgColoc=poscYUltImgColoc+LARGO_iMG_VERTICAL_+10;
+
+
+
+            checkTopCreateNewPageORfinishCurrent(LARGO_iMG_VERTICAL_,context);
+
 
         }
+
+
+        else if(tipoOrdenImgs==Variables.DEFAULNO_ENCONTRO_NADA){ //2 imagenes verticales en una linea
+             ///en caso que no ecneuntre nigun patron
+
+        }
+
 
         //y oior ultimo si hay una imagen sola....tamnto vertical o horizontal ..no la aghregues ,,es una opcion
 
 
+
+
+    }
+
+
+    private static  void checkTopCreateNewPageORfinishCurrent(int LARGO_iMG_VERTICAL_,Context context) {
+
+        if(allImagesISUsed(currentListImagesSeccion)) { //no queda ninguna en esta seccion o solo queda una imagen
+
+            pdfDocument.finishPage(currentPagePdfObjec);
+            Log.i("contabur","ya se usaron todas o solo sobro una ,finalizamos ");
+
+        }else {
+
+
+            if(poscYUltImgColoc >LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_ ) { // si es mayor a dos veces el largo de la imagen creamos otra pagina..
+                poscYUltImgColoc=210;                                                        //o si es mayor o igual a un nuemro especifico que es mano o menos la posicion de la segunda fila
+                CreateNewPageAndFinishAnterior(context,currentPagePdfObjec);
+                Log.i("contabur","vamos a crear otra pagina ");
+
+
+            }
+
+
+        } //si quedan mas
+
+
+        //vamos a crear otra pagina ahora....
 
 
     }

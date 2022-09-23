@@ -1274,7 +1274,6 @@ ProgressDialog progressDialog;
 
 
                 }
-
             }
 
         Log.i("idCheck","el NUMERO ITEMScOMPLETADOS ES "+numero_itemsCompletados);
@@ -1283,8 +1282,6 @@ ProgressDialog progressDialog;
             //buscamos el porecntaje
 
         //int porcentajeDeProgreso= numero_itemsCompletados*NUMERO_FIELDS_TOTAL/100;
-
-
 
         int porcentajeDeProgreso= numero_itemsCompletados*100/NUMERO_FIELDS_TOTAL;
 
@@ -1327,28 +1324,20 @@ ProgressDialog progressDialog;
 
                             //creamos un objeto
 
+                            Log.i("mispiggi","el current type es "+currentTypeImage);
+                            Log.i("mispiggi","el size de la imagen es "+result.size());
+
+
                             for(int indice=0; indice<result.size(); indice++){
 
                                 ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(PreviewActivity.this,result.get(indice)));
 
-
-
                                 ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
-
-
 
                             }
 
 
                             showImagesPicShotOrSelectUpdateView(false);
-
-
-
-                            // creaFotos(result);
-
-
-                            //Do What you Want Here ................
-                            //Do What you Want Here ................
 
                         }
                     }
