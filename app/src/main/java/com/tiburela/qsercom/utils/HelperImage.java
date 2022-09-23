@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
+import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.activities.ActivitySeeReports;
 import com.tiburela.qsercom.activities.PreviewActivity;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -267,6 +269,21 @@ public class HelperImage {
 
     }
 
+    public static  RectF creATErec(int left, int top, int right, int bottom,Paint paint) {
+        right = left + right; // width is the distance from left to right
+        bottom = top + bottom; // height is the distance from top to bottom
+       // canvas.drawRect(left, top, right, bottom, paint);
 
+
+        // canvas.drawBitmap(imagen, null, dst, null);
+        RectF dstx = new RectF(left, top, right , bottom);
+
+
+        return  dstx;
+        //  RectF dstx = new RectF(50, 450, 50 + 500, 50 + 600);
+      ///  canvas.drawBitmap(imagen2, null, dst, null);
+        // canvas.drawBitmap(imagen2, null, dstx, null);
+
+    }
 
 }

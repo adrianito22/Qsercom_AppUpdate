@@ -49,15 +49,16 @@ public class PdfMaker {
     static Paint paintIzquierda ;
     static Paint paintBacdkground;
     static Paint paintBacdkgroundDurazno;
+   static  int indiceDecurrentListImagesSeccion=0;
 
     static ArrayList<PdfDocument.Page> pagesPdfDocuments=new ArrayList<>();  //aqui guardamos las pages ya con sus finish...
     static Canvas currentCanvasObjec;
     static  PdfDocument.Page  currentPagePdfObjec;
 
 
-    static int poscYUltImgColoc=215; //vamos a empezar aqui
-    static  int posXLefUltImgColoc=30;
-
+    static int poscYUltImgColoc=210; //vamos a empezar aqui
+    static  int posXRIGTHUltImgColoc =30;
+    static  int posXLefStartNow =50;
 
     private static final int START_X_POSICION = 40;
     private static final int END_X_POSICION = 555;
@@ -102,7 +103,7 @@ public class PdfMaker {
         /*** creating a variable for canvas */
         Canvas canvas = myPage1.getCanvas();
 
-        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas);
+        addImageHeaderFootterPDF( canvas,context);
 
 
         initPaintObject();
@@ -129,8 +130,7 @@ public class PdfMaker {
         Canvas canvas2 = myPage2.getCanvas();
 
         //agregamos las imagen de header y la de footer
-        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas2);
-
+        addImageHeaderFootterPDF( canvas2,context);
 
         //agregamos data
         addNewTable(canvas2, posicionYdondeStartDibujamos, mipaintLines, "DATOS TRANSPORTISTA", Variables.TABLE_DATOS_TRANSPORTISTA, informe1, informe2, productPostC);
@@ -168,7 +168,7 @@ public class PdfMaker {
         Canvas canvas3 = myPage3.getCanvas();
 
         //agregamos las imagen de header y la de footer
-        addImageHeaderFootterPDF(bitMapScaledHeader, bmpGlobal, canvas3);
+        addImageHeaderFootterPDF(canvas3,context);
 
         //ahora agregamos las imagenes en esa hoja
 
@@ -197,26 +197,8 @@ public class PdfMaker {
              //agregamos fotos llegada
         Log.i("contabur","el SIZE DE ESTA SECCION  ES "+currentListImagesSeccion.size());
 
-
-
-       // RectF dstx = new RectF(50, 450, 50 + 500, 50 + 600);
-
-        ///primera IMAGEN
-      //  RectF rectFtObj = new RectF(posXLefUltImgColoc+10, 50,200, 250);
-        // posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL;
-        //  bitMap =currentListImagesSeccion.get(0).miBitmap;
-       // HelperImage.addImagenInPDF(bmpGlobal, currentCanvasObjec,dstx);
-
-
-
-
-
-
         //add header y footer
-        addImageHeaderFootterPDF(bitMapScaledHeader,bmpGlobal,currentCanvasObjec);
-
-
-
+        addImageHeaderFootterPDF(currentCanvasObjec,context);
 
 
 
@@ -330,7 +312,7 @@ public class PdfMaker {
 
 
 
-
+/*
     public static void addImageHeaderFootterPDF(Bitmap bitMapScaledHeader, Bitmap bmpGlobal, Canvas canvas) {
         // bmpGlobal creo que es footer
 
@@ -341,17 +323,26 @@ public class PdfMaker {
 
     }
 
-
-    public static void addImageHeaderFootterPDF(Canvas canvas, Paint miPaint,Context context) {
+*/
+    public static void addImageHeaderFootterPDF(Canvas canvas,Context context) {
         // bmpGlobal creo que es footer
         Bitmap  bitMapScaledHeader, bitmapScaledFooter;
         bitMapScaledHeader = BitmapFactory.decodeResource(context.getResources(), R.drawable.headerpdf);
         bitmapScaledFooter = BitmapFactory.decodeResource(context.getResources(), R.drawable.footer_pdf);
 
+        RectF rectFtObj3=new RectF(0,570, 595,842);
 
         //Cagregmoa el header bitmap
-        canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
-        canvas.drawBitmap(resize(bitmapScaledFooter, 505, 280), 0, 535, miPaint);
+      //  canvas.drawBitmap(bitMapScaledHeader, 0, 0, miPaint);
+       // canvas.drawBitmap(resize(bitmapScaledFooter, 505, 280), 0, 535, miPaint);
+        HelperImage.addImagenInPDF(bitmapScaledFooter, canvas,rectFtObj3);
+
+       /////
+         rectFtObj3=new RectF(0,0, 595,200);
+        HelperImage.addImagenInPDF(bitMapScaledHeader, canvas,rectFtObj3);
+
+
+        //        bitMapScaledHeader = Bitmap.createScaledBitmap(bmpGlobal, 595, 200, false);
 
     }
 
@@ -943,24 +934,16 @@ public class PdfMaker {
 
     private static void createPages_addImgs( Context context, String anexoNombre,Canvas canvasFirst){
 
-        int numeroPaginas=0;
 
-        while(!allImagesISUsed(currentListImagesSeccion)  && numeroPaginas !=1 ){ //si no todas las imagenes fueron usadas
-            numeroPaginas++; //ahora es
+        while(!allImagesISUsed(currentListImagesSeccion)){ //mientras quedan imagenes si usar////
             Log.i("contabur","se llamo este metodo hererter");
-
-
 
             ArrayList<ImagesToPdf> li3sverticales=devuleveList3verticalesSIhay(currentListImagesSeccion,"vertical");
             //busca 3 imagenes verticales
             if( li3sverticales.size()==3){ // si hay al menos 3 imahes si usar ,pon las primer 3 imagenes......
-
-                //  int poscYUltImgColoc=225; //vamos a empezar aqui
-                //  int posXLefUltImgColoc=50;
                 Log.i("contabur","existen al menos 3 imgs");
 
-                markImgComoUsada(li3sverticales);
-                addImagenSet(poscYUltImgColoc,li3sverticales,Variables.TRES_IMGS_VERTCLES, currentCanvasObjec,context);
+                addImagenSet(Variables.TRES_IMGS_VERTCLES,context);
                 //ENTONCES ESTOS ENCONTRADOS LOS PONEMOS QUE YA SE USARON.....
 
             }
@@ -1005,17 +988,18 @@ public class PdfMaker {
 
 
     private static void CreateNewPageAndFinishAnterior(Context context, PdfDocument.Page myPageAnterior){
+        //finalizamos el pdf anterior si lo hay
+        pdfDocument.finishPage(myPageAnterior);
 
         PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
         PdfDocument.Page myPage = pdfDocument.startPage(mypageInfo);
         Canvas canvas3 = myPage.getCanvas();
-        addImageHeaderFootterPDF(canvas3,mipaintHeader,context);
+        addImageHeaderFootterPDF(canvas3,context);
 
         currentPagePdfObjec = myPage;
         currentCanvasObjec =canvas3;
 
-                   //finalizamos el pdf anterior si lo hay
-                pdfDocument.finishPage(myPageAnterior);
+
 
 
     }
@@ -1082,7 +1066,7 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
         Log.i("contabur","hay "+contadorIMagesUsadas +" imagenes usadas");
 
 
-        if(contadorIMagesUsadas== list.size()){
+        if(contadorIMagesUsadas== list.size() || contadorIMagesUsadas== list.size()-1 ){ //o si solo queda 1
 
             return true;
         }else{
@@ -1124,65 +1108,59 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
     }
 
 
-    private static void addImagenSet(int posicionUltimaImagenColoacadaY, ArrayList<ImagesToPdf> list, int tipoOrdenImgs, Canvas canvas, Context context){
+    private static void addImagenSet(int tipoOrdenImgs, Context context){
         Bitmap bitMap ;
 
         //comprobar en que linea ... comprobar la posicion de la ultima
 
         final  int ANCHO_IMG_VERTICAL =180;
-        final  int LARGO_iMG_VERTICAL_ =220;
+        final  int LARGO_iMG_VERTICAL_ =250;
 
+
+        int lef= 12;
+        final int SPACE=10;
 
 
         if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){ //modo 3 imagenes en una linea...
-
             Log.i("contabur","hay 3 imagenes verticales hurrazzx");
-              //bitMap = BitmapFactory.decodeResource(context.getResources(), R.drawable.imagen_horizontal);
+
+            for(int indice=0; indice<3; indice++){
+                      if(indiceDecurrentListImagesSeccion<currentListImagesSeccion.size()){
+
+                          RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+                          bitMap =currentListImagesSeccion.get(indiceDecurrentListImagesSeccion).miBitmap;
+                          HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+
+                          lef= lef+ ANCHO_IMG_VERTICAL +SPACE;
 
 
-              bitMap =currentListImagesSeccion.get(0).miBitmap;
-            //  RectF rectFtObj2 = new RectF(posXLefUltImgColoc+10, posicionUltimaImagenColoacadaY+10,ANCHO_IMG_VERTICAL, LARGO_iMG_VERTICAL_+posicionUltimaImagenColoacadaY);
-              // HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj2);
-              // posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL; //actualizamos la posicion x izquiera
+                        //  markImgComoUsada(li3sverticales); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
+                          currentListImagesSeccion.get(indiceDecurrentListImagesSeccion).estaENPdf=true;
+                          indiceDecurrentListImagesSeccion++;
+
+                      }
 
 
 
-             ///PRIMERA
-              RectF rectFtObj3=new RectF(posXLefUltImgColoc+10,poscYUltImgColoc+10,ANCHO_IMG_VERTICAL+10,LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_);
-              bitMap =currentListImagesSeccion.get(0).miBitmap;
-              HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
-              posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL;
+            }
 
 
-            ///2DA IMAGEN
-            rectFtObj3=new RectF(ANCHO_IMG_VERTICAL+20,poscYUltImgColoc+10,400,LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_);
-            poscYUltImgColoc=poscYUltImgColoc +LARGO_iMG_VERTICAL_;
-            bitMap =currentListImagesSeccion.get(1).miBitmap;
-            HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
-            posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL;
+
+            poscYUltImgColoc=poscYUltImgColoc+LARGO_iMG_VERTICAL_+10;
 
 
-            ///3ERA IMAGEN
-            rectFtObj3=new RectF(ANCHO_IMG_VERTICAL + ANCHO_IMG_VERTICAL+20,poscYUltImgColoc+10,520+10,LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_);
-            poscYUltImgColoc=poscYUltImgColoc +LARGO_iMG_VERTICAL_;
-            bitMap =currentListImagesSeccion.get(1).miBitmap;
-            HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
-            posXLefUltImgColoc=posXLefUltImgColoc+ANCHO_IMG_VERTICAL;
-
-                 //chekear si quedan mas imagenes si no solo finalizamos este
-
-               if(allImagesISUsed(currentListImagesSeccion)) { //no queda ninguna en esta seccion
+               if(allImagesISUsed(currentListImagesSeccion)) { //no queda ninguna en esta seccion o solo queda una imagen
 
                    pdfDocument.finishPage(currentPagePdfObjec);
-                   Log.i("contabur","ya estan todas listas");
+                   Log.i("contabur","ya se usaron todas o solo sobro una ,finalizamos ");
 
                }else {
 
 
                    if(poscYUltImgColoc >LARGO_iMG_VERTICAL_+LARGO_iMG_VERTICAL_ ) { // si es mayor a dos veces el largo de la imagen creamos otra pagina..
-
+                       poscYUltImgColoc=210;                                                        //o si es mayor o igual a un nuemro especifico que es mano o menos la posicion de la segunda fila
                        CreateNewPageAndFinishAnterior(context,currentPagePdfObjec);
-                       Log.i("contabur","vamos a crear otra pagina");
+                       Log.i("contabur","vamos a crear otra pagina ");
 
 
                    }
@@ -1191,9 +1169,10 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
                } //si quedan mas
 
 
-
+              //vamos a crear otra pagina ahora....
 
         }
+
 
         else if(tipoOrdenImgs==Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL){ //1 vertical y otro horizontal en la misma linea
 
