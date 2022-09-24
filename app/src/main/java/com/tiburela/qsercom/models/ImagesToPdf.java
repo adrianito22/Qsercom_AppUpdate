@@ -23,14 +23,14 @@ public class ImagesToPdf {
  public   boolean esFinalDeFila; //si es final signifca que vamos a la linea de abajo...
  public   boolean estaENPdf; //si es final signifca que vamos a la linea de abajo...
 
-    public String uniQueId;
+    public String uniQueIdimgPertenece;
     public  String horientacionImagen ;   ///el width es de 3 ....
     public  int posicionPdImageEnd;
     public int tipoImagenCategory;
 
     public Bitmap miBitmap ;
 
-    public ImagesToPdf(String horientacionImagen,Bitmap miBitmap,int tipoImagenCategory){
+    public ImagesToPdf(String horientacionImagen,Bitmap miBitmap,int tipoImagenCategory,String uniQueIdimgPertenece){
         numPaginaAlQUEPertenece=0;
         filaAlaQueSeubica=0;
         WidthQueOcupa=0;
@@ -38,7 +38,7 @@ public class ImagesToPdf {
         esFinalDeFila=false;
         estaENPdf=false;
         this. horientacionImagen=horientacionImagen;
-        uniQueId= UUID.randomUUID().toString();
+        this.uniQueIdimgPertenece =uniQueIdimgPertenece ;
         this.miBitmap=miBitmap;
 
         this.tipoImagenCategory=tipoImagenCategory;

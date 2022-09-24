@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,6 +51,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -58,6 +61,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -65,6 +70,7 @@ import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -75,6 +81,7 @@ import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -91,11 +98,11 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     ProductPostCosecha productxGlobal=null;
     ProgressDialog pd;
     public static Context context;
-
+    private int contadorIterador;
     private boolean isModEdicionFields=false;
 
 ProgressDialog progressDialog;
-    private int currentTypeImage=0;
+    private static int currentTypeImage=0;
     ProgressBar progressBarFormulario;
 
    Button btnDowlPdf;
@@ -197,10 +204,9 @@ ProgressDialog progressDialog;
     LinearLayout linLayoutHeader5;
     LinearLayout linLayoutHeader6;
     LinearLayout linLayoutHeader7;
+    LinearLayout linLayoutHeader8;
 
-
-
-    Spinner spinnerSelectZona;
+           Spinner spinnerSelectZona;
     Spinner spinnerCondicionBalanza;
     Spinner spinnertipoCaja;
     Spinner spinnertipodePlastico;
@@ -478,7 +484,7 @@ ProgressDialog progressDialog;
         linLayoutHeader5 =findViewById(R.id.linLayoutHeader5);
         linLayoutHeader6 =findViewById(R.id.linLayoutHeader6);
         linLayoutHeader7 =findViewById(R.id.linLayoutHeader7);
-
+        linLayoutHeader8  = findViewById(R.id.linLayoutHeader8) ;
 
 
 
@@ -628,6 +634,8 @@ ProgressDialog progressDialog;
         linLayoutHeader5.setOnClickListener(this);
         linLayoutHeader6.setOnClickListener(this);
         linLayoutHeader7.setOnClickListener(this);
+        linLayoutHeader8.setOnClickListener(this);
+
 
         ediFecha.setOnClickListener(this);
         ediHoraInicio.setOnClickListener(this);
@@ -788,6 +796,18 @@ ProgressDialog progressDialog;
                else{
 
                    oucultaLinearLayout(layoutContainerSeccion7);
+               }
+               break; //
+
+           case R.id.linLayoutHeader8:
+               LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
+
+               if(layoutContainerSeccion8.getVisibility() == View.GONE) {
+                   muestraLinearLayout(layoutContainerSeccion8);
+               }
+               else{
+
+                   oucultaLinearLayout(layoutContainerSeccion8);
                }
                break; //
 
@@ -3717,7 +3737,7 @@ private void checkModeVisualitY(){
 
     //descargamos prodcutos postcosecha...
 
-    void createlistsForReciclerviewsImages(ArrayList<ImagenReport>listImagenReports){
+     void createlistsForReciclerviewsImages(ArrayList<ImagenReport> listImagenReports){
 
                //  addInfotomap(listImagenReports);
 
@@ -3798,7 +3818,7 @@ private void checkModeVisualitY(){
 
     }
 
-    void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
+     void addImagesInRecyclerviews(ArrayList<ImagenReport> listImagenReports){
 
             //agregamos data al map
 
@@ -3945,6 +3965,8 @@ private void checkModeVisualitY(){
 
                 ArrayList<ImagenReport>listImagenData=new ArrayList<>();
 
+
+
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     ImagenReport imagenReport=ds.getValue(ImagenReport.class);
@@ -3955,14 +3977,15 @@ private void checkModeVisualitY(){
 
                      Variables.listImagenData=listImagenData;
 
+                dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
-                addInfotomap( Variables.listImagenData);
-                createlistsForReciclerviewsImages(listImagenData);
+                addInfotomap(Variables.listImagenData);
+
+
 
                 //este metodo lo llamaremos ahora
                 //al objeto imagen report le agregaremos una propiedad llamada bitmap...o crearemos un map de bitmaps que usraemos para cargarlos desde el
                 //el adpater del recicler view y asiu no alteramos el objeto imagereport...solo que ya no descragremos la imagen nuevamente...
-               HelperImage. dowloadAllImages2(Variables.listImagenData);
 
 
             }
@@ -4022,5 +4045,77 @@ private void checkModeVisualitY(){
 
     }
 
+    public   void dowloadAllImages2AddCallRecicler(ArrayList<ImagenReport>miLisAllImages){
+        //lllamos a este metodo unicamente si la lista es 0....si no
+        HelperImage.ImagesToPdfMap=new HashMap<>();
+
+        for(int i = 0; i <miLisAllImages.size() ;i++ ){
+
+            String pathImage =miLisAllImages.get(i).getUniqueIdNamePic();
+            int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
+            String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
+            StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
+
+
+            try {
+                final File localFile = File.createTempFile("Images", "bmp");
+                storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener< FileDownloadTask.TaskSnapshot >() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                        Bitmap  bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                        String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+
+                        ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId);
+                        HelperImage.imAGESpdfSetGlobal.add(imgsObect);
+                        HelperImage.ImagesToPdfMap.put(uniqueId,imgsObect);
+
+                        Log.i("hamiso","el size de la lista de Variables.listImagenData es "+Variables.listImagenData.size());
+                        Log.i("hamiso","el size del map es "+HelperImage.ImagesToPdfMap.size());
+
+                        ///llamamos a este otro metodo .......
+                             contadorIterador++;
+                        Log.i("hamiso","el contador iteradopr "+ contadorIterador);
+
+
+
+
+                        if(contadorIterador == miLisAllImages.size() ) {
+
+                            createlistsForReciclerviewsImages(Variables.listImagenData);
+                                Log.i("hamiso","se llamokkk");
+
+
+                           }
+
+
+
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("hamiso","se produjo un error");
+
+                        // Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+
+
+
+
+
+        }
+
+
+        Log.i("hamiso","llamos a recicler create y el size de map es  "+HelperImage.ImagesToPdfMap.size());
+
+
+
+    }
 
 }

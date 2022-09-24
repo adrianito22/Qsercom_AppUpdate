@@ -1120,11 +1120,11 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
 
           for(int i= 0; i<list.size(); i++){ ///
-              String uniqueId=list.get(i).uniQueId;
+              String uniqueId=list.get(i).uniQueIdimgPertenece;
 
               for(int indice=0; indice<currentListImagesSeccion.size(); indice++){
 
-                  if(uniqueId.equals(currentListImagesSeccion.get(indice).uniQueId)) {
+                  if(uniqueId.equals(currentListImagesSeccion.get(indice).uniQueIdimgPertenece)) {
                       currentListImagesSeccion.get(indice).estaENPdf=true;
                       Log.i("contabur","el size de marcads como usadas es   "+currentListImagesSeccion.size());
 

@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class HelperImage {
@@ -38,6 +39,10 @@ public class HelperImage {
 
 
    public static  ArrayList<ImagesToPdf> imagesSetToCurrentFila;
+
+   public static  HashMap<String, ImagesToPdf> ImagesToPdfMap;
+
+
 
 
     public static void addImagenInPDF(Bitmap imagen2, Canvas canvas,RectF dst) {
@@ -146,7 +151,7 @@ public class HelperImage {
 
 
 
-    private static String  devuelveHorientacionImg(Bitmap bitmap){
+    public static String  devuelveHorientacionImg(Bitmap bitmap){
 
         //comprobar en que linea ... comprobar la posicion de la ultima
 
@@ -186,9 +191,9 @@ public class HelperImage {
                         String horientacionImg=devuelveHorientacionImg(bitmap);
 
 
-                        imAGESpdfSetGlobal.add(new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg));
+                     //   imAGESpdfSetGlobal.add(new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg));
 
-                        Log.i("hamiso","el size de esta lista es "+imAGESpdfSetGlobal.size());
+                      // Log.i("hamiso","el size de esta lista es "+imAGESpdfSetGlobal.size());
 
                           ///llamamos a este otro metodo .......
 
@@ -221,12 +226,13 @@ public class HelperImage {
 
     public static  void dowloadAllImages2(ArrayList<ImagenReport>miLisAllImages){
         //lllamos a este metodo unicamente si la lista es 0....si no
+        ImagesToPdfMap=new HashMap<>();
 
         for(int i = 0; i <miLisAllImages.size() ;i++ ){
 
             String pathImage =miLisAllImages.get(i).getUniqueIdNamePic();
             int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
-
+             String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
             StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
 
 
@@ -236,20 +242,18 @@ public class HelperImage {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-
-
                         Bitmap  bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                         String horientacionImg=devuelveHorientacionImg(bitmap);
 
+                        ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId);
+                        imAGESpdfSetGlobal.add(imgsObect);
+                        ImagesToPdfMap.put(uniqueId,imgsObect);
 
-                        imAGESpdfSetGlobal.add(new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg));
+
 
                         Log.i("hamiso","el size de esta lista es "+imAGESpdfSetGlobal.size());
 
                         ///llamamos a este otro metodo .......
-
-
-
 
 
 

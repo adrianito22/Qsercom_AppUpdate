@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,9 +26,11 @@ import com.tiburela.qsercom.models.ImagenReport;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>  implements   View.OnClickListener  {
@@ -105,7 +108,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
           {  //es el modo de selecionar imagenes y tomar fotos con la camara
               Log.i("ladtastor","lo descragamos  "+imagenReport.getUniqueIdNamePic());
 
-              dowloadImagesAndaddTag(imagenReport.getUniqueIdNamePic(), holder,imagenReport.getUniqueIdNamePic());
+
+
+              if(HelperImage.ImagesToPdfMap.containsKey(imagenReport.getUniqueIdNamePic())) {
+
+                  Bitmap currentBitmP= HelperImage.ImagesToPdfMap.get(imagenReport.getUniqueIdNamePic()).miBitmap;
+
+                  holder.imageview.setImageBitmap(currentBitmP);
+
+
+              }
+
+
+
+            //dowloadImagesAndaddTag(imagenReport.getUniqueIdNamePic(), holder,imagenReport.getUniqueIdNamePic());
 
           }
 
