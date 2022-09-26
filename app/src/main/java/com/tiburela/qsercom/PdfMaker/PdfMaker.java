@@ -43,6 +43,8 @@ public class PdfMaker {
     static   PdfDocument pdfDocument;
     static Paint mipaintHeader;
     static Paint paintContentText;
+    static Paint paintDescripcionImg;
+
     static boolean isAlignmentCenter =false;
     static Paint mipaintLines;
     static Paint paintIzquierda ;
@@ -56,8 +58,7 @@ public class PdfMaker {
 
 
     static int poscYUltImgColoc=210; //vamos a empezar aqui
-    static  int posXRIGTHUltImgColoc =30;
-    static  int posXLefStartNow =50;
+    static   boolean wehaveAddSpaceyIndescrip =false;
 
     private static final int START_X_POSICION = 40;
     private static final int END_X_POSICION = 555;
@@ -74,23 +75,7 @@ public class PdfMaker {
 
 
     public static void generatePdfReport1(Context context, SetInformEmbarque1 informe1, SetInformEmbarque2 informe2, ProductPostCosecha productPostC) {
-        // creating an object variable
-        // for our PDF document.
-
-
-
-        Bitmap bmpGlobal, bitMapScaledHeader, bitmapScaledFooter;
-        bmpGlobal = BitmapFactory.decodeResource(context.getResources(), R.drawable.headerpdf);
-        bitMapScaledHeader = Bitmap.createScaledBitmap(bmpGlobal, 595, 200, false);
-
-        //generamos un bitmap scaled footer
-        bmpGlobal = BitmapFactory.decodeResource(context.getResources(), R.drawable.footer_pdf);
-        //  bitmapScaledFooter=Bitmap.createScaledBitmap(bmpGlobal, 595, 290, false);
-
          pdfDocument = new PdfDocument();
-
-        Paint miPaint = new Paint(); //paint es un pincel propiedad,, y contiene todo lo que contiene un pincel(color,ancho..tipo,etc.)
-
         /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth y pgae number que ahora es 1 */
         PdfDocument.PageInfo mypageInfo1 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
 
@@ -142,68 +127,34 @@ public class PdfMaker {
         /**en esta ultima tabla agregamos demas columnas y contenido usando el siguioente metodo*/
         addMoreDataDatosProceso(posicionYdeDataosProcesotabla, canvas2);
 
+        currentPosicionLastYcanvasElement=currentPosicionLastYcanvasElement+10;
 
-        addNewTable(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "DATOS HACIENDA", Variables.TABLE_DATOS_HACIENDA, informe1, informe2, productPostC);
+       addNewTable(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "DATOS HACIENDA", Variables.TABLE_DATOS_HACIENDA, informe1, informe2, productPostC);
 
-        addNewTable(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "CONTROL DE GANCHO", Variables.TABLE_CONTROL_DE_GANCHO, informe1, informe2, productPostC);
+      //  addNewTable(canvas2, currentPosicionLastYcanvasElemenmt, mipaintLines, "CONTROL DE GANCHO", Variables.TABLE_CONTROL_DE_GANCHO, informe1, informe2, productPostC);
 
       //  addTableCalibracionFrutaCaleEnfunde(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "CALIBRACION DE FRUTA (CALENDARIO DE ENFUNDE)", Variables.TABLE_CALIB_FRUTS_CLD_ENFUN, informe1, informe2, productPostC);
 
         pdfDocument.finishPage(myPage2); //finalziamos la  pagina 2
-
-
-
-
-
-
-
         /***Agregamos tercera hoja al ducmento DEMO*/
-
-        /**3ra  HOJA DEL PDF*/
-        //
-        //cremaosd la pagina 2 del pdf
-        PdfDocument.PageInfo mypageInfo3 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-        PdfDocument.Page myPage3 = pdfDocument.startPage(mypageInfo3);
-        Canvas canvas3 = myPage3.getCanvas();
-
-        //agregamos las imagen de header y la de footer
-        addImageHeaderFootterPDF(canvas3,context);
-
-        //ahora agregamos las imagenes en esa hoja
-
-       Bitmap bmpGlobalx = BitmapFactory.decodeResource(context.getResources(), R.drawable.imagen_horizontal);
-
-        addImagenInPDF(bmpGlobalx,bmpGlobalx,canvas3);
-
-
-        pdfDocument.finishPage(myPage3); //finalziamos la  pagina 2
-
 
 
 
         //creamos la primera pgina de aanexos ...
-        PdfDocument.PageInfo mypageInfo4 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-       // PdfDocument.Page myPage4 = pdfDocument.startPage(mypageInfo4);
-      //  Canvas canvas4 = myPage4.getCanvas();
-
-        currentPagePdfObjec= pdfDocument.startPage(mypageInfo4);
+        PdfDocument.PageInfo mypageInfo3 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        currentPagePdfObjec= pdfDocument.startPage(mypageInfo3);
 
         currentCanvasObjec= currentPagePdfObjec.getCanvas();
-
-         //  currentPagePdfObjec=myPage4;
         //obtenbemos solo una lista que contenga fotos llegada...
         currentListImagesSeccion= HelperImage.createImagesSet(HelperImage.imAGESpdfSetGlobal,Variables.FOTO_LLEGADA);
              //agregamos fotos llegada
         Log.i("contabur","el SIZE DE ESTA SECCION  ES "+currentListImagesSeccion.size());
-
-        //add header y footer
         addImageHeaderFootterPDF(currentCanvasObjec,context);
 
 
+       // pdfDocument.finishPage(currentPagePdfObjec) ;
 
-       // pdfDocument.finishPage(myPage4) ;
-
-        createPages_addImgs(context,"Anexo : FOTOS LLEGADA");
+       createPages_addImgs(context,"Anexo : FOTOS LLEGADA");
            //public static void addImageHeaderFootterPDF(Bitmap bitMapScaledHeader, Bitmap bmpGlobal, Canvas canvas, Paint miPaint) {
 
 
@@ -613,6 +564,8 @@ public class PdfMaker {
         canvas.drawLine(457,posicionYstart+10,457,currentPosicionLastYcanvasElement ,mipaintLines);
 
 
+        currentPosicionLastYcanvasElement=currentPosicionLastYcanvasElement+10;
+
     }
 
 
@@ -854,7 +807,7 @@ public class PdfMaker {
 
              data.add(new DataToPDF(informeObjct2.getCondicionBalanza(),"CONDICION DE BALANZA"));
 
-             data.add(new DataToPDF(informeObjct2.getTipoDeBalanza(),"TIPÓ DE BALANZA"));
+             data.add(new DataToPDF(informeObjct2.getTipoDeBalanza(),"TIPO DE BALANZA"));
 
                  if(informeObjct2.getTipoDeBalanzaRepeso().equals("Ninguna") || informeObjct2.getTipoDeBalanzaRepeso().equals("") ||
                          informeObjct2.getTipoDeBalanzaRepeso().equals(" ") )  {
@@ -912,6 +865,10 @@ public class PdfMaker {
         paintIzquierda.setColor(Color.parseColor("#4CAF50"));
         paintIzquierda.setTextSize(9);
 
+          paintDescripcionImg=new Paint();
+        paintDescripcionImg.setTextAlign(Paint.Align.LEFT);
+        paintDescripcionImg.setColor(Color.parseColor("#2E2E2E"));
+        paintDescripcionImg.setTextSize(7);
 
 
 
@@ -932,7 +889,6 @@ public class PdfMaker {
 
 
     private static void createPages_addImgs( Context context, String anexoNombre){
-         boolean esPrimeraPagina=true;
         int debuGcONTADOR =0;
         Log.i("contaburx","el size de la lista es "+currentListImagesSeccion.size());
 
@@ -960,7 +916,7 @@ public class PdfMaker {
 
 
             if(patronEncontrado==Variables.TRES_IMGS_VERTCLES){
-
+                wehaveAddSpaceyIndescrip =false;
                 Log.i("contaburx","es Variables.TRES_IMGS_VERTCLES");
                 addImagenSet(Variables.TRES_IMGS_VERTCLES,context);
                 //ENTONCES ESTOS ENCONTRADOS LOS PONEMOS QUE YA SE USARON.....
@@ -970,6 +926,7 @@ public class PdfMaker {
 
             else if(patronEncontrado == Variables.DOS_IMGS_VERTICALES) {
                 Log.i("contaburx","es el DOS_IMGS_VERTICALES ");
+                wehaveAddSpaceyIndescrip =false;
 
                 addImagenSet(Variables.DOS_IMGS_VERTICALES,context);
 
@@ -978,6 +935,7 @@ public class PdfMaker {
 
             else if(patronEncontrado == Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL) {
                 Log.i("contaburx","es  UNAVERTICAL_Y_OTRA_HORIZONTAL");
+                wehaveAddSpaceyIndescrip =false;
 
                 addImagenSet(Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL,context);
 
@@ -987,6 +945,7 @@ public class PdfMaker {
 
             else if(patronEncontrado == Variables.DOS_HORIZONTALES) {
                 Log.i("contaburx","es el DOS_HORIZONTALES ");
+                wehaveAddSpaceyIndescrip =false;
 
                 addImagenSet(Variables.DOS_HORIZONTALES,context);
 
@@ -997,6 +956,7 @@ public class PdfMaker {
 
             else if(patronEncontrado == Variables.DEFAULNO_ENCONTRO_NADA) {
                 Log.i("contaburx","es el  DEFAULNO_ENCONTRO_NADA");
+                wehaveAddSpaceyIndescrip =false;
 
                 addImagenSet(Variables.DEFAULNO_ENCONTRO_NADA,context);
 
@@ -1154,14 +1114,14 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
     private static void addImagenSet(int tipoOrdenImgs, Context context){
         Bitmap bitMap ;
-
+          boolean anteriorImgTieneDescrip=false;
         //comprobar en que linea ... comprobar la posicion de la ultima
 
         final  int ANCHO_IMG_VERTICAL =180;
-        final  int LARGO_iMG_VERTICAL_ =250;
+          int LARGO_iMG_VERTICAL_ =250;
 
 
-        int lef= 12;
+        int left= 12;
         final int SPACE=10;
 
 
@@ -1171,12 +1131,13 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
             for(int indice=0; indice<HelperImage.imagesSetToCurrentFila.size(); indice++){
 
+                          addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(indice).descripcionOpcion,left);
 
-                          RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+                          RectF rectFtObj3=new RectF(left,poscYUltImgColoc, left +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
                           bitMap =HelperImage.imagesSetToCurrentFila.get(indice).miBitmap;
                           HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
 
-                          lef= lef+ ANCHO_IMG_VERTICAL +SPACE;
+                          left= left+ ANCHO_IMG_VERTICAL +SPACE;
 
 
                           markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
@@ -1196,13 +1157,18 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
         else if(tipoOrdenImgs==Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL){ //1 vertical y otro horizontal en la misma linea
 
-                 RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+
+                  //primera imagen vertical
+            addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion,left);
+
+            RectF rectFtObj3=new RectF(left,poscYUltImgColoc, left +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
                   bitMap =HelperImage.imagesSetToCurrentFila.get(0).miBitmap; //la primera ubicaion debe contener la imagen vertical
                   HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
-                  lef= lef+ ANCHO_IMG_VERTICAL + SPACE+SPACE;
+                  left= left+ ANCHO_IMG_VERTICAL + SPACE+SPACE;
 
                       //la imagen horizontal
-                     rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL+172,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+            addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion,left);
+            rectFtObj3=new RectF(left,poscYUltImgColoc, left +ANCHO_IMG_VERTICAL+172,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
                     bitMap =HelperImage.imagesSetToCurrentFila.get(1).miBitmap;
                     HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
 
@@ -1220,17 +1186,52 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
         else if(tipoOrdenImgs==Variables.DOS_IMGS_VERTICALES){ //2 imagenes verticales en una linea
 
-                lef =100;
+                left =100;
 
-                RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+
+                if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
+                    addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion,left);
+                    LARGO_iMG_VERTICAL_=LARGO_iMG_VERTICAL_-10;
+                    //b
+                }
+
+
+                RectF rectFtObj3=new RectF(left,poscYUltImgColoc, left +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
                 bitMap =HelperImage.imagesSetToCurrentFila.get(0).miBitmap;
                 HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
-                lef= lef+ ANCHO_IMG_VERTICAL +SPACE+10;
+                left= left+ ANCHO_IMG_VERTICAL +SPACE+10;
+
+                   if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){ //si la anterior contiene un descripcion
+                       poscYUltImgColoc=poscYUltImgColoc-10;
 
 
-               rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
+                   }
+
+
+                   //aqui ponemos el texto
+
+            if(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion.length()>0){  //aqui agregamos la descripcion
+
+                addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion,left);
+
+            }
+
+
+            if(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
+                addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion,left);
+                LARGO_iMG_VERTICAL_=LARGO_iMG_VERTICAL_-10;
+            }
+
+
+            addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion,left);
+            rectFtObj3=new RectF(left,poscYUltImgColoc, left +ANCHO_IMG_VERTICAL,poscYUltImgColoc+LARGO_iMG_VERTICAL_);
                bitMap =HelperImage.imagesSetToCurrentFila.get(1).miBitmap;
                HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
+
+
+
+
+
 
 
                 markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
@@ -1255,13 +1256,14 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
 
                 Log.i("contabur","es el horizontal true");
-
-                RectF rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL+100,poscYUltImgColoc+LARGO_iMG_VERTICAL_-50);
+                 addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion,left);
+                RectF rectFtObj3=new RectF(left,poscYUltImgColoc, left +ANCHO_IMG_VERTICAL+100,poscYUltImgColoc+LARGO_iMG_VERTICAL_-50);
                 bitMap =HelperImage.imagesSetToCurrentFila.get(0).miBitmap;
                 HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
-                lef= lef+ ANCHO_IMG_VERTICAL+100 +SPACE;
+                left= left+ ANCHO_IMG_VERTICAL+100 +SPACE;
 
-                rectFtObj3=new RectF(lef,poscYUltImgColoc, lef +ANCHO_IMG_VERTICAL+100,poscYUltImgColoc+LARGO_iMG_VERTICAL_-50);
+            addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion,left);
+            rectFtObj3=new RectF(left,poscYUltImgColoc, left +ANCHO_IMG_VERTICAL+100,poscYUltImgColoc+LARGO_iMG_VERTICAL_-50);
                 bitMap =HelperImage.imagesSetToCurrentFila.get(1).miBitmap;
                 HelperImage.addImagenInPDF(bitMap, currentCanvasObjec,rectFtObj3);
 
@@ -1314,6 +1316,91 @@ if(lisT.get(indice).horientacionImagen.equals(propiedad) && ! lisT.get(indice).e
 
 
         //vamos a crear otra pagina ahora....
+
+
+    }
+
+
+
+
+    public static void addTexDescripTOiMGSiHay(String textoDescripcion,int lef){
+        if(textoDescripcion.length()>1){
+
+            //agegamos la descripcion de la primer imagen....
+            currentCanvasObjec.drawText(textoDescripcion, lef, poscYUltImgColoc, paintDescripcionImg);
+
+            if(!wehaveAddSpaceyIndescrip){
+                poscYUltImgColoc=poscYUltImgColoc+10; //actualizamos la posicion de la y a mas 10 por ahora
+                wehaveAddSpaceyIndescrip =true;
+            }
+
+        }
+        /*
+        else{
+              if(wehaveAddSpaceyIndescrip){
+                  poscYUltImgColoc=poscYUltImgColoc-10; //actualizamos la posicion de la y a mas 10 por ahora
+                  wehaveAddSpaceyIndescrip =false;
+
+              }
+
+
+        }
+*/
+
+
+    }
+
+
+   private  static boolean thisFilaContainsDescrip(){
+        /*
+        for(int indice=0;){
+
+       }
+
+
+   */
+   return false;
+    }
+
+
+
+
+    public static void addTexDescripTOiMGSiHay(ArrayList<ImagesToPdf>list,int left){
+        boolean hayUnaDescripcionInFila=false;
+        for (int indice=0; indice<list.size(); indice++){
+            if(list.get(indice).descripcionOpcion.length()>1){
+                String textoDescripcion=list.get(indice).descripcionOpcion;
+                currentCanvasObjec.drawText(textoDescripcion, left, poscYUltImgColoc, paintDescripcionImg);
+
+                hayUnaDescripcionInFila=true;
+
+            }
+
+
+
+        }
+
+        if(hayUnaDescripcionInFila){
+
+            //agegamos la descripcion de la primer imagen....
+
+            if(!wehaveAddSpaceyIndescrip){
+                poscYUltImgColoc=poscYUltImgColoc+10; //actualizamos la posicion de la y a mas 10 por ahora
+                wehaveAddSpaceyIndescrip =true;
+            }
+
+        }
+        /*
+        else{
+              if(wehaveAddSpaceyIndescrip){
+                  poscYUltImgColoc=poscYUltImgColoc-10; //actualizamos la posicion de la y a mas 10 por ahora
+                  wehaveAddSpaceyIndescrip =false;
+
+              }
+
+
+        }
+*/
 
 
     }

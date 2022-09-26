@@ -100,8 +100,8 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     public static Context context;
     private int contadorIterador;
     private boolean isModEdicionFields=false;
+    private boolean esFirstCharge=true;
 
-ProgressDialog progressDialog;
     private static int currentTypeImage=0;
     ProgressBar progressBarFormulario;
 
@@ -244,15 +244,61 @@ ProgressDialog progressDialog;
     protected void onStart() {
         super.onStart();
 
+        Log.i("lifeclicel","se llamo metoo onstart ");
+
         Variables.VienedePreview=true;
 
         Auth.initAuth(PreviewActivity.this);
         Auth.signInAnonymously(PreviewActivity.this);
 
 
-        // Check if user is signed in (non-null) and update UI accordingly.
-       // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
-      //  updateUI(currentUs bver)
+
+               if(esFirstCharge){
+                   findViewsIds();
+
+                   context = getApplicationContext();
+
+
+                   UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinforme();
+
+
+                   // FirebaseApp.initializeApp(this);
+                   //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
+
+                   Auth.initAuth(this);
+
+                   StorageData. initStorageReference();
+
+
+                   listViewsClickedUser=new ArrayList<>();
+
+
+                   addClickListeners();
+                   resultatachImages();
+                   listennersSpinners();
+
+                   EstateFieldView.adddataListsStateFields();
+                   addOnTouchaMayoriaDeViews();
+                   eventCheckdata();
+                   //creaFotos();
+                   listennersSpinners();
+                   checkModeVisualitY();
+
+                   configCertainSomeViewsAliniciar();
+
+
+
+
+                   // Check if user is signed in (non-null) and update UI accordingly.
+                   // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
+                    //  updateUI(currentUs bver)
+
+
+
+                   esFirstCharge=false;
+
+               }
+
 
     }
 
@@ -261,6 +307,8 @@ ProgressDialog progressDialog;
         super.onCreate(savedInstanceState);
        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
+
+        /*
         findViewsIds();
 
         context = getApplicationContext();
@@ -279,6 +327,7 @@ ProgressDialog progressDialog;
 
         listViewsClickedUser=new ArrayList<>();
 
+
         addClickListeners();
         resultatachImages();
         listennersSpinners();
@@ -292,7 +341,7 @@ ProgressDialog progressDialog;
 
         configCertainSomeViewsAliniciar();
 
-
+*/
 
 
     }
@@ -1345,7 +1394,8 @@ ProgressDialog progressDialog;
                             //creamos un objeto
 
                             Log.i("mispiggi","el current type es "+currentTypeImage);
-                            Log.i("mispiggi","el size de la imagen es "+result.size());
+                            Log.i("mispiggi","el size de la list uris es "+result.size());
+                            Log.i("mispiggi","el size de la  lista antes del for es  hashMapImagesData es "+ ImagenReport.hashMapImagesData.size());
 
 
                             for(int indice=0; indice<result.size(); indice++){
@@ -1353,11 +1403,16 @@ ProgressDialog progressDialog;
                                 ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(PreviewActivity.this,result.get(indice)));
 
                                 ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
+                                Log.i("mispiggi","el size de la  lists  el key del value es "+imagenReportObjc.getUniqueIdNamePic());
+
 
                             }
 
+                            Log.i("mispiggi","el size de la  lists  hashMapImagesData ahora es  es "+ ImagenReport.hashMapImagesData.size());
 
                             showImagesPicShotOrSelectUpdateView(false);
+
+
 
                         }
                     }
@@ -1596,6 +1651,8 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
         //si es eliminar comprobar aqui
     if(isDeleteImg){
 
+        Log.i("mispiggi","si es delete imgVERGA Y EL SIZE ES  "+ ImagenReport.hashMapImagesData.size());
+
         currentTypeImage=Variables.typeoFdeleteImg;
     }
 
@@ -1603,6 +1660,9 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
      ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
 
     RecyclerView recyclerView= findViewById(R.id.recyclerView);
+
+
+    Log.i("mispiggi","el size de la MAPA AHORAXXC ES  "+ ImagenReport.hashMapImagesData.size());
 
 
     for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
@@ -1623,6 +1683,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
     //buscamos este
 
+    Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE  es  es "+ ImagenReport.hashMapImagesData.size());
 
 
     //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
@@ -1654,6 +1715,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 
 
+    Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE AA  es  es "+ ImagenReport.hashMapImagesData.size());
 
 
     RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
@@ -1663,7 +1725,11 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     // at last set adapter to recycler view.
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(adapter);
+    Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE EE  es  es "+ ImagenReport.hashMapImagesData.size());
+
+
     eventoBtnclicklistenerDelete(adapter);
+    Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE SA  es  es "+ ImagenReport.hashMapImagesData.size());
 
 
 
@@ -1941,12 +2007,12 @@ private void createObjcInformeAndUpload(){
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
                 Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
-                Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                Log.i("mispiggi","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
                 Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                Log.i("mispiggi","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
                 showImagesPicShotOrSelectUpdateView(true);
 
@@ -1967,6 +2033,8 @@ private void createObjcInformeAndUpload(){
              return;
         }
 
+        //si introdujo texto en el recicler actualizar los objetos
+
 
 
 
@@ -1979,7 +2047,6 @@ private void createObjcInformeAndUpload(){
 
 
 
-
         }else{
             Log.i("debugasd","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
 
@@ -1987,6 +2054,19 @@ private void createObjcInformeAndUpload(){
            Log.i("elfile","son iguales las imagenes");
 
         }
+
+
+
+
+            if(Utils.objsIdsDecripcionImgsMOreDescripc.size()>0) {
+
+                RealtimeDB.initDatabasesReference();
+                RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
+
+
+            }
+
+
 
 
     }
@@ -3739,7 +3819,6 @@ private void checkModeVisualitY(){
 
      void createlistsForReciclerviewsImages(ArrayList<ImagenReport> listImagenReports){
 
-               //  addInfotomap(listImagenReports);
 
 
         ArrayList<ImagenReport>lisFiltrada;
@@ -3771,7 +3850,6 @@ private void checkModeVisualitY(){
 
       Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
 
-          //  addInfotomap(listImagenReports);
 
 
     }
@@ -3979,6 +4057,8 @@ private void checkModeVisualitY(){
 
                 dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
+                Log.i("mispiggi","se llamo a: addInfotomap");
+
                 addInfotomap(Variables.listImagenData);
 
 
@@ -4054,6 +4134,7 @@ private void checkModeVisualitY(){
             String pathImage =miLisAllImages.get(i).getUniqueIdNamePic();
             int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
             String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
+            String descripcionImage=miLisAllImages.get(i).getDescripcionImagen();
             StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
 
 
@@ -4066,7 +4147,7 @@ private void checkModeVisualitY(){
                         Bitmap  bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                         String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
-                        ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId);
+                        ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId,descripcionImage);
                         HelperImage.imAGESpdfSetGlobal.add(imgsObect);
                         HelperImage.ImagesToPdfMap.put(uniqueId,imgsObect);
 
@@ -4085,6 +4166,8 @@ private void checkModeVisualitY(){
                             createlistsForReciclerviewsImages(Variables.listImagenData);
                                 Log.i("hamiso","se llamokkk");
 
+
+                                Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
 
                            }
 

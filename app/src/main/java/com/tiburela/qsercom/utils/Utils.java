@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
@@ -300,7 +301,7 @@ public class Utils {
 
     }
 
-    public static void saveMapImagesData(Map<String, ImagenReport> inputMap, Context context) {
+    public static void saveMapImagesDataPreferences(Map<String, ImagenReport> inputMap, Context context) {
         SharedPreferences pSharedPref = context.getSharedPreferences("MIPREFERT",
                 Context.MODE_PRIVATE);
         if (pSharedPref != null) {
@@ -364,5 +365,12 @@ public class Utils {
 return
 
 */
+
+
+    public static  ArrayList<String> objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
+
+
+
+
 
 }

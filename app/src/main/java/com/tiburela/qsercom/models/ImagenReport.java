@@ -7,13 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ImagenReport {
-    
   //  public static ArrayList<ImagenReport> listImagesData;
 
    public static  HashMap<String, ImagenReport> hashMapImagesData = new HashMap<String, ImagenReport>();
-
-
-
     public String getUniqueIdNamePic() {
         return uniqueIdNamePic;
     }
@@ -54,8 +50,8 @@ public class ImagenReport {
         this.uriImage = uriImage;
     }
 */
-    public ImagenReport(String title, String uriImage, int tipoImagenCategory,String idReportePerteence,String uniqueIdNamePic ) {
-        this.descripcionImagen = title;
+    public ImagenReport(String descripcionImagen, String uriImage, int tipoImagenCategory,String idReportePerteence,String uniqueIdNamePic ) {
+        this.descripcionImagen = descripcionImagen;
         this.uriImageString = uriImage;
         this.tipoImagenCategory=tipoImagenCategory;
         this.idReportePerteence=idReportePerteence;

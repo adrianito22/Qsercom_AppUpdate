@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import java.util.UUID;
 
 public class ImagesToPdf {
-    
-    
+
+
     //una propieda de espacion a la derecha...que falta..
     //clacular el espacio que hay desde la poscion de la ultima imagen a la derecha...
     //si no cabe una imagen entonces anda a la siguiente ........
@@ -15,6 +15,7 @@ public class ImagesToPdf {
     
     //fila propiedad
 
+    public  String descripcionOpcion ;   ///el width es de 3 ....
 
     //digamos que contendra 3 espacios
   public int numPaginaAlQUEPertenece;
@@ -30,7 +31,7 @@ public class ImagesToPdf {
 
     public Bitmap miBitmap ;
 
-    public ImagesToPdf(String horientacionImagen,Bitmap miBitmap,int tipoImagenCategory,String uniQueIdimgPertenece){
+    public ImagesToPdf(String horientacionImagen,Bitmap miBitmap,int tipoImagenCategory,String uniQueIdimgPertenece,String descripcionOpcion){
         numPaginaAlQUEPertenece=0;
         filaAlaQueSeubica=0;
         WidthQueOcupa=0;
@@ -42,7 +43,7 @@ public class ImagesToPdf {
         this.miBitmap=miBitmap;
 
         this.tipoImagenCategory=tipoImagenCategory;
-
+         this.descripcionOpcion=descripcionOpcion;
 
     }
 

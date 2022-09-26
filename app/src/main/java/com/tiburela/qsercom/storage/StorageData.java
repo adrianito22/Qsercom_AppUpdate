@@ -80,9 +80,6 @@ private static int counTbucle=0;
                                         Log.i("comoer","info "+counTbucle+" = "+hasmapImagenData.size());
                                         RealtimeDB.addNewSetPicsInforme(context,value);
 
-
-
-
                                         //    startActivity(new Intent(AddNewOfertCupon.this,OfertsAdminActivity.class)) ;
 
 

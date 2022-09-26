@@ -233,6 +233,8 @@ public class HelperImage {
             String pathImage =miLisAllImages.get(i).getUniqueIdNamePic();
             int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
              String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
+            String descripcionImage=miLisAllImages.get(i).getDescripcionImagen();
+
             StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
 
 
@@ -245,13 +247,13 @@ public class HelperImage {
                         Bitmap  bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                         String horientacionImg=devuelveHorientacionImg(bitmap);
 
-                        ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId);
-                        imAGESpdfSetGlobal.add(imgsObect);
-                        ImagesToPdfMap.put(uniqueId,imgsObect);
+                       // ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId);
+                       // imAGESpdfSetGlobal.add(imgsObect);
+                      //  ImagesToPdfMap.put(uniqueId,imgsObect);
 
 
 
-                        Log.i("hamiso","el size de esta lista es "+imAGESpdfSetGlobal.size());
+                     //   Log.i("hamiso","el size de esta lista es "+imAGESpdfSetGlobal.size());
 
                         ///llamamos a este otro metodo .......
 

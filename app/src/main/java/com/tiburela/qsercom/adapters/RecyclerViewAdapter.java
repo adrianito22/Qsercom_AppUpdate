@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,11 +27,12 @@ import com.tiburela.qsercom.models.ImagenReport;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Map;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.HelperImage;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>  implements   View.OnClickListener  {
@@ -64,9 +66,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, @SuppressLint("RecyclerView") int position) {
         // Set the data to textview and imageview.
         ImagenReport imagenReport = listImagenData.get(position);
+
         holder.textImputEditext.setText(imagenReport.getDescripcionImagen());
+        holder.textImputEditext.setTag(imagenReport.getUniqueIdNamePic());
 
         holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
+
+        Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE SARECICLER  es  es "+ ImagenReport.hashMapImagesData.size());
+
+
+
+        //si hay descripcion en las imagenes le agregamos..
+        if(imagenReport.getDescripcionImagen().length()>1){
+            holder.textImputEditext.setText(imagenReport.getDescripcionImagen());
+        }
+
+         Log.i("mispiggi","el tag es "+imagenReport.getUniqueIdNamePic());
+
                   //si uri existe
               Uri uri=null;
 
@@ -127,7 +143,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-      //  holder.imageview.setImageResource(imagenReport.geturiImage());
+        //  holder.imageview.setImageResource(imagenReport.geturiImage());
         holder.textImputEditext.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
@@ -141,13 +157,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-               // String textOftextImputEditext = holder.textImputEditext.getText().toString();
-
-              //  imagenReport.listImagesData.get(position).setDescripcionImagen(textOftextImputEditext);
 
                 /***en edicion arreglar que remplzamos el correcto*/
 
-                // save ans to sharedpreferences or Database
+                String key= holder.textImputEditext.getTag().toString();
+                ImagenReport.hashMapImagesData.get(key).setDescripcionImagen( holder.textImputEditext.getText().toString());
+
+                Log.i("zaaample","el texto del current edi es "+  holder.textImputEditext.getText().toString());
+
+                Log.i("zaaample","el nombre de esta foto o key es "+  ImagenReport.hashMapImagesData.get(key).getUniqueIdNamePic());
+                ///editamos la propiedad descripcion del objeto ImagenRerpot mapa..
+
+
+                if(!holder.textImputEditext.getText().toString().isEmpty()){ //si contiene al menos un caratcer
+
+                    Utils.objsIdsDecripcionImgsMOreDescripc.add(ImagenReport.hashMapImagesData.get(key).getUniqueIdNamePic()+"@"+holder.textImputEditext.getText().toString());
+                }
+
+                //probableent tambien guardar la descripcion en share prefrences...
 
 
             }

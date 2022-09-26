@@ -986,7 +986,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
-                            Utils.saveMapImagesData(ImagenReport.hashMapImagesData,FormularioActivity.this);
+                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,FormularioActivity.this);
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1404,7 +1404,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
                             ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
-                            Utils.saveMapImagesData(ImagenReport.hashMapImagesData,FormularioActivity.this);
+                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,FormularioActivity.this);
 
                         }
 
@@ -1925,7 +1925,7 @@ private void createObjcInformeAndUpload(){
 
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                Utils.saveMapImagesData(ImagenReport.hashMapImagesData,FormularioActivity.this);
+                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,FormularioActivity.this);
 
 
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());

@@ -8,14 +8,21 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.Utils;
+import com.tiburela.qsercom.utils.Variables;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class RealtimeDB {
@@ -258,6 +265,147 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
+
+
+    private static void getKeyOfImagenDataObjecRTD(String NameImageunique,String nuevaDescripcion){
+//        mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImagesData");
+        mibasedataPathImages .child(NameImageunique)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String KeyNodeFatheroFObject = snapshot.getKey(); // will be efg
+
+                         if(KeyNodeFatheroFObject !=null){
+
+                             ///editamos el objeto
+
+                             editValue(KeyNodeFatheroFObject,nuevaDescripcion);
+
+
+
+                         }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+
+                });
+}
+
+
+
+
+
+//un bucle que contendra una lista que recorremos
+
+    public static void actualizaDescripcionIms(ArrayList<String>listKeyTosearch){
+
+      try {
+
+          for(int indice=0; indice<listKeyTosearch.size(); indice++){
+
+              String[] array = listKeyTosearch.get(indice).split("@");
+
+
+              Log.i("samasu","el texto es "+listKeyTosearch.get(indice));
+
+
+              String keyCurrentToEdit=array[0]; //key primero /depsues el content
+              String contentDescripcion=array[1];
+
+            //  getKeyOfImagenDataObjecRTD();
+
+               //si esta key esta esta en la lista copia start
+
+              if(Variables.hashMapImagesStart.containsKey(keyCurrentToEdit)){ ///si esta en esta lista esta en la db
+
+                  getkeyActualizaDescripcion(keyCurrentToEdit,contentDescripcion);
+
+              }
+
+
+
+          }
+
+      } catch (Exception e) {
+          Log.i("samasu","el excepcion es "+e.getMessage().toString());
+
+
+          e.printStackTrace();
+      }
+
+
+
+
+    }
+
+
+    private static void editValue(String keyAtoUpdate, String descripcion ){
+
+        try{
+
+            HashMap<String, Object> update = new HashMap<>(); //CAMBIAMOS LA PROPIEDA TITULO  Y LE GRAGAMOS EL NUEVO TITULO..
+
+            update.put("descripcionImagen", descripcion);//
+
+
+            mibasedataPathImages.child(keyAtoUpdate).updateChildren(update);//
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
+
+
+    private static void getkeyActualizaDescripcion(String NameImageunique, String nuevaDescripcion){
+
+        Query query = mibasedataPathImages.orderByChild("uniqueIdNamePic").equalTo(NameImageunique);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
+                DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                String key = nodeShot.getKey();
+                //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
+
+               // String KeyNodeFatheroFObject = snapshot.getKey(); // will be efg
+
+                if(key !=null){
+
+                    ///editamos el objeto
+
+                    editValue(key,nuevaDescripcion);
+
+
+
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
 
 
