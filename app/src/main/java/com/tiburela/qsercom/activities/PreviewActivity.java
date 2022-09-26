@@ -480,6 +480,10 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         disableEditText(ediHoraEncendido2);
 
 
+        //descativamos este boton
+        btnDowlPdf.setEnabled(false);
+
+
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
@@ -4165,9 +4169,8 @@ private void checkModeVisualitY(){
 
                             createlistsForReciclerviewsImages(Variables.listImagenData);
                                 Log.i("hamiso","se llamokkk");
-
-
                                 Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
+                                btnDowlPdf.setEnabled(true);
 
                            }
 

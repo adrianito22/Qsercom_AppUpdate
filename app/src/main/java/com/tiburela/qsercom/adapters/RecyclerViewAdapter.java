@@ -130,7 +130,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                   Bitmap currentBitmP= HelperImage.ImagesToPdfMap.get(imagenReport.getUniqueIdNamePic()).miBitmap;
 
-                  holder.imageview.setImageBitmap(currentBitmP);
+                  holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
 
 
               }

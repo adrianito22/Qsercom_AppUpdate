@@ -56,7 +56,9 @@ private static int counTbucle=0;
             String uriFilePath =value.geturiImage();
 
              Uri myUri = Uri.parse(uriFilePath);
+              ///
 
+             //por aqui comprimir la imagen para subir
 
             counTbucle++;
 

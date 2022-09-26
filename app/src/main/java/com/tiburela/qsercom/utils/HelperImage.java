@@ -1,5 +1,7 @@
 package com.tiburela.qsercom.utils;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +12,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.helper.widget.MotionEffect;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -29,6 +32,7 @@ import com.tiburela.qsercom.storage.StorageData;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -460,4 +464,84 @@ public class HelperImage {
     }
 
 
+
+
+
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+
+
+
+
+    public  static Bitmap generateBitmapTumbail(Bitmap bitmap ) {
+      //int heigth = bitmap.getWidth();
+      //int width= bitmap.getHeight();
+         bitmap = Bitmap.createScaledBitmap(bitmap,(int)(bitmap.getWidth()*0.2), (int)(bitmap.getHeight()*0.2), true);
+
+
+
+     return      bitmap;
+    }
+
+
+
+
+    public static  ArrayList<ImagesToPdf>   marcaQueNoEstaEnPDF (ArrayList<ImagesToPdf> list){
+        ArrayList<ImagesToPdf> listx=new ArrayList<ImagesToPdf>();
+        //buscamos esos ids,, y marcamos como usado...
+        //vamos atenber dos listas.... una lista que es la litsa del conjunto actual y una lista que dice
+
+
+        for(int i= 0; i<list.size(); i++){ ///
+            listx.add(list.get(i));
+            listx.get(i).estaENPdf=false;
+        }
+
+
+
+       return listx;
+
+    }
+
+/*
+    BitmapFactory.Options Options = new BitmapFactory.Options();
+    Options.inSampleSize = 4;
+    Options.inJustDecodeBounds = false;
+    action_bitmap = BitmapFactory.decodeFile(Glob.savedImage, Options);
+
+
+ */
+
+
+
+    private void comprimeImg(Bitmap bitmap) {
+
+        BitmapFactory.Options Options = new BitmapFactory.Options();
+        Options.inSampleSize = 4;
+        Options.inJustDecodeBounds = false;
+        //   bitmap = BitmapFactory.decodeFile( , Options);
+
+    }
 }

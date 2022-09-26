@@ -34,6 +34,7 @@ import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.HelperImage;
+import com.tiburela.qsercom.utils.PdfMakerHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -56,12 +57,12 @@ public class PdfMaker {
     static Canvas currentCanvasObjec;
     static  PdfDocument.Page  currentPagePdfObjec;
 
-
+      static boolean yaExportamosUnaVez=false;
     static int poscYUltImgColoc=210; //vamos a empezar aqui
     static   boolean wehaveAddSpaceyIndescrip =false;
 
     private static final int START_X_POSICION = 40;
-    private static final int END_X_POSICION = 555;
+    public static final int END_X_POSICION = 555;
     private static final int START_X_POSICION_TEXT_RIGTH = 200;
     private static final int START_X_POSICION_TEXT_LEFT = 40;
 
@@ -76,6 +77,8 @@ public class PdfMaker {
 
     public static void generatePdfReport1(Context context, SetInformEmbarque1 informe1, SetInformEmbarque2 informe2, ProductPostCosecha productPostC) {
          pdfDocument = new PdfDocument();
+        currentPosicionLastYcanvasElement=0;
+
         /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth y pgae number que ahora es 1 */
         PdfDocument.PageInfo mypageInfo1 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
 
@@ -88,7 +91,6 @@ public class PdfMaker {
         Canvas canvas = myPage1.getCanvas();
 
         addImageHeaderFootterPDF( canvas,context);
-
 
         initPaintObject();
 
@@ -159,6 +161,7 @@ public class PdfMaker {
 
 
 
+
         exportPdxFZ(pdfDocument, context);
 
 
@@ -192,29 +195,12 @@ public class PdfMaker {
 
     public static void exportPdxFZ(PdfDocument pdfDocument, Context context) {
 
-        // below line is used to set the name of
-        // our PDF file and its path.
-        //  ContextWrapper cw = new ContextWrapper(context);
-        //   File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-
-        // File file = new File(directory, "UniqueFileName" + ".pdf");
-
-        ContextWrapper cw = new ContextWrapper(context);
+        //doble chekeo si la current canvas object no fue terminada la finalizamos
+       // pdfDocument.finishPage(currentPagePdfObjec) ;
 
 
-        // String fullPath =cw.getExternal(Environment.DIRECTORY_DOWNLOADS).toString();
-///
         File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        //  File directory = cw.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-
-        //  File file = new File(Environment.getExternalStorageDirectory(), "/holhga.pdf");
-
-
-        //  File file = new File(directory, UUID.randomUUID().toString() +".pdf");
-
-
         File file = new File(directory, UUID.randomUUID().toString() + ".pdf");
-
 
         try {
             // after creating a file name we will
@@ -224,11 +210,13 @@ public class PdfMaker {
 
             // below line is to print toast message
             // on completion of PDF generation.
-            Toast.makeText(context, "PDF file generated successfully.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "PDF Generado Exitosamente.", Toast.LENGTH_SHORT).show();
 
             Log.i("holbaba", "pdf generado vacano");
 
-            directory.delete();
+            yaExportamosUnaVez=true;
+
+            ///directory.delete();// si queremos borrarlo
 
 
         } catch (IOException e) {
@@ -553,18 +541,103 @@ public class PdfMaker {
         //segundo texto a la derecha
        /// canvas.drawText(data.get(i).dataContent.toUpperCase(Locale.ROOT) ,START_X_POSICION_TEXT_RIGTH+10 , starYposicion+8, paintContentText);
 
+
+
+        //MINBACKVERDE1 /TERMNINA EN 3ERA LINEAS
+        canvas.drawRect(266,posicionYstart+7,307,posicionYstart+27,paintBacdkground); //40
+
+
+        //MINBACKVERDE2 /TERMINA EN 4RTA LINEA
+        canvas.drawRect(342,posicionYstart+7,382,posicionYstart+27,paintBacdkground);
+
+
+        //MINBACKVERDE3 //TERMINA EN LA QUINTA LINEA
+        canvas.drawRect(417,posicionYstart+7,457,posicionYstart+27,paintBacdkground); // -80
+
+
+        //MINBACKVERDE4 //TERMINA EN LA ULTIMA LINEA VERTICAL DERECHA
+        canvas.drawRect(515,posicionYstart+7,END_X_POSICION,posicionYstart+27,paintBacdkground); // -80
+
+        //Agregamos EL BACKGROUND VERDE PEQUENo en l parte derecha de la columna 2-3-4-5
+
+        //despues background en la columna 3-5 a partir de la tercera fila hasta el top....
+
         //creamos la 3 linea vertical
         //3era linea
-        canvas.drawLine(307,posicionYstart+10,307,currentPosicionLastYcanvasElement ,mipaintLines);
+        canvas.drawLine(307,posicionYstart+7,307,currentPosicionLastYcanvasElement ,mipaintLines);
 
         //4arta linea
-        canvas.drawLine(382,posicionYstart+10,382,currentPosicionLastYcanvasElement ,mipaintLines);
+        canvas.drawLine(382,posicionYstart+7,382,currentPosicionLastYcanvasElement ,mipaintLines);
 
         //5era linea
-        canvas.drawLine(457,posicionYstart+10,457,currentPosicionLastYcanvasElement ,mipaintLines);
+        canvas.drawLine(457,posicionYstart+7,457,currentPosicionLastYcanvasElement ,mipaintLines);
+
+
+
+        /***Creamos la segunda linea del header NUVEAMENTE */
+        canvas.drawLine(START_X_POSICION,posicionYstart+7,END_X_POSICION,posicionYstart+7,mipaintLines);
+
+        /***MINILINEA VERTICALale*/
+        canvas.drawLine(417,posicionYstart+7,417,posicionYstart+27,mipaintLines); //
+        canvas.drawLine(266,posicionYstart+7,266,posicionYstart+27,mipaintLines); //
+        canvas.drawLine(342,posicionYstart+7,342,posicionYstart+27,mipaintLines);
+        canvas.drawLine(515,posicionYstart+7,515,posicionYstart+27,mipaintLines); //
+
+
+
+        /***MINILINEA horizontales*/
+        //MINBACKVERDE1 /TERMNINA EN 3ERA LINEAS
+        canvas.drawLine(266,posicionYstart+7+10,307,posicionYstart+7+10,mipaintLines); //40
+        canvas.drawLine(342,posicionYstart+7+10,382,posicionYstart+7+10,mipaintLines);
+        canvas.drawLine(417,posicionYstart+7+10,457,posicionYstart+7+10,mipaintLines); // -8
+        canvas.drawLine(515,posicionYstart+7+10,END_X_POSICION,posicionYstart+7+10,mipaintLines); // -80
+
+        //vamos a dibujar backgrounds grandes
+
+        canvas.drawRect(307,posicionYstart+27,382,currentPosicionLastYcanvasElement,paintBacdkground); // -80
+        canvas.drawRect(457,posicionYstart+27,END_X_POSICION,currentPosicionLastYcanvasElement,paintBacdkground); // -80
+
+
+        /**redibujamos lineas horizontales*/
+        canvas.drawLine(START_X_POSICION,posicionYstart+27,END_X_POSICION,posicionYstart+27,mipaintLines); //40
+
+        canvas.drawLine(START_X_POSICION,posicionYstart+27+10,END_X_POSICION,posicionYstart+27+10,mipaintLines); //40
+
+        canvas.drawLine(START_X_POSICION,posicionYstart+27+20,END_X_POSICION,posicionYstart+27+20,mipaintLines); //40
+        canvas.drawLine(START_X_POSICION,posicionYstart+27+30,END_X_POSICION,posicionYstart+27+30,mipaintLines); //40
+        canvas.drawLine(START_X_POSICION,posicionYstart+27+40,END_X_POSICION,posicionYstart+27+40,mipaintLines); //40
+        canvas.drawLine(START_X_POSICION,posicionYstart+27+50,END_X_POSICION,posicionYstart+27+50,mipaintLines); //40
+
+
+
+       //AGREGAMOS LOS DEMAS TEXTOS POLO
+          canvas.drawText("POLIPACK",307+3,posicionYstart+7+9,paintContentText);
+          canvas.drawText("DISPLAY",307+3,posicionYstart+7+18,paintContentText);
+
+        canvas.drawText("BANAVAC",382+3,posicionYstart+7+9,paintContentText);
+        canvas.drawText("13 KG",382+3,posicionYstart+7+18,paintContentText); //ESTAS CON LETRAS MAS PEQUENAA
+
+
+        canvas.drawText("NO",382+3,posicionYstart+7+28,paintContentText); //ESTACON LA LETRA NORMAL
+        canvas.drawText("NO",382+3,posicionYstart+7+39,paintContentText); //ESTACON LA LETRA NORMAL
+        canvas.drawText("NO",382+3,posicionYstart+7+48,paintContentText); //ESTACON LA LETRA NORMAL
+        canvas.drawText("DIGITAL",382+3,posicionYstart+7+58,paintContentText); //ESTACON LA LETRA NORMAL
+        canvas.drawText("NO",382+3,posicionYstart+7+68,paintContentText); //ESTACON LA LETRA NORMAL
+        canvas.drawText("DIGITAL",382+3,posicionYstart+7+78,paintContentText); //ESTACON LA LETRA NORMAL
+
+
+        canvas.drawText("BAGS",457+3,posicionYstart+7+9,paintContentText);
+        canvas.drawText("208", 457+3,posicionYstart+7+18,paintContentText);
+
+        PdfMakerHelper.addXINpdf(canvas,paintContentText,Variables.CurrenReportPart1,Variables.CurrenReportPart2,posicionYstart+15) ;
+
 
 
         currentPosicionLastYcanvasElement=currentPosicionLastYcanvasElement+10;
+
+
+        //VAMOS A MARCARA LAS XX
+
 
     }
 
@@ -782,14 +855,14 @@ public class PdfMaker {
          case Variables.TABLE_DATOS_PROCESO :
              isAlignmentCenter=false;
 
-             data.add(new DataToPDF(informeObjct2.getTipoPlastico(),"PLASTICO"));
-             data.add(new DataToPDF(informeObjct2.getTipoCaja(),"TIPO DE CAJA"));
+             data.add(new DataToPDF("POLITUBO","TIPO DE PLASTICO"));
+             data.add(new DataToPDF("22XU","TIPO DE CAJA"));
 
              if(informeObjct2.isHayExcelnsuchado()) {
                  data.add(new DataToPDF("SI","ENSUNCHADO"));
 
              }else{
-                 data.add(new DataToPDF("NO","ENSUNCHADO"));
+                 data.add(new DataToPDF("SI","ENSUNCHADO"));
 
 
              }
@@ -798,7 +871,7 @@ public class PdfMaker {
                  data.add(new DataToPDF("SI","BALANZA"));
 
              }else{
-                 data.add(new DataToPDF("NO","BALANZA"));
+                 data.add(new DataToPDF("SI","BALANZA"));
 
 
              }
@@ -807,11 +880,11 @@ public class PdfMaker {
 
              data.add(new DataToPDF(informeObjct2.getCondicionBalanza(),"CONDICION DE BALANZA"));
 
-             data.add(new DataToPDF(informeObjct2.getTipoDeBalanza(),"TIPO DE BALANZA"));
+             data.add(new DataToPDF("BASCULA","TIPO DE BALANZA"));
 
                  if(informeObjct2.getTipoDeBalanzaRepeso().equals("Ninguna") || informeObjct2.getTipoDeBalanzaRepeso().equals("") ||
                          informeObjct2.getTipoDeBalanzaRepeso().equals(" ") )  {
-                     data.add(new DataToPDF("NO","BALANZA DE REPESA"));
+                     data.add(new DataToPDF("SI","BALANZA DE REPESA"));
 
 
                  }else{
@@ -892,6 +965,11 @@ public class PdfMaker {
         int debuGcONTADOR =0;
         Log.i("contaburx","el size de la lista es "+currentListImagesSeccion.size());
 
+        //nos asegurammos que ninguna este en el pdf aun ,LAS DESMARCAMOS
+        currentListImagesSeccion= HelperImage.marcaQueNoEstaEnPDF(currentListImagesSeccion);
+        Log.i("contaburx","la IMAGEN DE LA 1  POSCION esta en el pdf? "+currentListImagesSeccion.get(0).estaENPdf);
+        Log.i("contaburx","la IMAGEN DE LA 2 POSCION esta en el pdf? "+currentListImagesSeccion.get(1).estaENPdf);
+
         while(!allImagesISUsed(currentListImagesSeccion)){ //mientras quedan imagenes si usar////
 
            if(debuGcONTADOR==0) { ///significa que es la primera pagina
@@ -907,12 +985,8 @@ public class PdfMaker {
             debuGcONTADOR++;
                //si es la primera pagina
 
-
-
             Log.i("contaburx","se ejecuto ESto "+debuGcONTADOR+" veces");
-
             int patronEncontrado=HelperImage.buscaPosiblePatronParaOrdenar(currentListImagesSeccion);
-
 
 
             if(patronEncontrado==Variables.TRES_IMGS_VERTCLES){
