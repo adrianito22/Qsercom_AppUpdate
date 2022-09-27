@@ -44,6 +44,8 @@ public class PdfMaker {
     static   PdfDocument pdfDocument;
     static Paint mipaintHeader;
     static Paint paintContentText;
+    static Paint paintTextMini;
+
     static Paint paintDescripcionImg;
 
     static boolean isAlignmentCenter =false;
@@ -131,11 +133,11 @@ public class PdfMaker {
 
         currentPosicionLastYcanvasElement=currentPosicionLastYcanvasElement+10;
 
-       addNewTable(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "DATOS HACIENDA", Variables.TABLE_DATOS_HACIENDA, informe1, informe2, productPostC);
+      addNewTable(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "DATOS HACIENDA", Variables.TABLE_DATOS_HACIENDA, informe1, informe2, productPostC);
 
-      //  addNewTable(canvas2, currentPosicionLastYcanvasElemenmt, mipaintLines, "CONTROL DE GANCHO", Variables.TABLE_CONTROL_DE_GANCHO, informe1, informe2, productPostC);
+        addNewTable(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "CONTROL DE GANCHO", Variables.TABLE_CONTROL_DE_GANCHO, informe1, informe2, productPostC);
 
-      //  addTableCalibracionFrutaCaleEnfunde(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "CALIBRACION DE FRUTA (CALENDARIO DE ENFUNDE)", Variables.TABLE_CALIB_FRUTS_CLD_ENFUN, informe1, informe2, productPostC);
+        addTableCalibracionFrutaCaleEnfunde(canvas2, currentPosicionLastYcanvasElement, mipaintLines, "CALIBRACION DE FRUTA (CALENDARIO DE ENFUNDE)", Variables.TABLE_CALIB_FRUTS_CLD_ENFUN, informe1, informe2, productPostC);
 
         pdfDocument.finishPage(myPage2); //finalziamos la  pagina 2
         /***Agregamos tercera hoja al ducmento DEMO*/
@@ -437,7 +439,15 @@ public class PdfMaker {
             canvas.drawText(data.get(i).dataFieldName.toUpperCase(Locale.ROOT), START_X_POSICION_TEXT_LEFT+10, starYposicion+8, paintContentText);
 
             //segundo texto a la derecha
-            canvas.drawText(data.get(i).dataContent.toUpperCase(Locale.ROOT) ,START_X_POSICION_TEXT_RIGTH+10 , starYposicion+8, paintContentText);
+            if(data.get(i).dataContent.equalsIgnoreCase("politubo")|| data.get(i).dataContent.equalsIgnoreCase("22xu") ){
+                canvas.drawText(data.get(i).dataContent.toUpperCase(Locale.ROOT) ,START_X_POSICION_TEXT_RIGTH+10 , starYposicion+8, paintTextMini);
+
+
+            }else{
+
+                canvas.drawText(data.get(i).dataContent.toUpperCase(Locale.ROOT) ,START_X_POSICION_TEXT_RIGTH+10 , starYposicion+8, paintContentText);
+
+            }
 
             //creamos otra linea horizontal
             canvas.drawLine(START_X_POSICION,starYposicion+10,END_X_POSICION,starYposicion+10,mipaintLines);
@@ -611,29 +621,43 @@ public class PdfMaker {
 
 
        //AGREGAMOS LOS DEMAS TEXTOS POLO
-          canvas.drawText("POLIPACK",307+3,posicionYstart+7+9,paintContentText);
-          canvas.drawText("DISPLAY",307+3,posicionYstart+7+18,paintContentText);
+          canvas.drawText("POLIPACK",307+3,posicionYstart+7+9,paintTextMini);
+          canvas.drawText("DISPLAY",307+3,posicionYstart+7+18,paintTextMini);
 
-        canvas.drawText("BANAVAC",382+3,posicionYstart+7+9,paintContentText);
-        canvas.drawText("13 KG",382+3,posicionYstart+7+18,paintContentText); //ESTAS CON LETRAS MAS PEQUENAA
+        canvas.drawText("BANAVAC",382+3,posicionYstart+7+9,paintTextMini);
+        canvas.drawText("13 KG",382+3,posicionYstart+7+18,paintTextMini); //ESTAS CON LETRAS MAS PEQUENAA
 
 
         canvas.drawText("NO",382+3,posicionYstart+7+28,paintContentText); //ESTACON LA LETRA NORMAL
         canvas.drawText("NO",382+3,posicionYstart+7+39,paintContentText); //ESTACON LA LETRA NORMAL
-        canvas.drawText("NO",382+3,posicionYstart+7+48,paintContentText); //ESTACON LA LETRA NORMAL
+
+
+
+        if(Variables.CurrenReportPart2.getCondicionBalanza().equals("ACEPTABLE")|| Variables.CurrenReportPart2.getCondicionBalanza().equals("REGULAR")|| Variables.CurrenReportPart2.getCondicionBalanza().equals("MALA") ){ //otra opcion balanza
+            canvas.drawText(Variables.CurrenReportPart2.getCondicionBalanza(),382+3,posicionYstart+7+48,paintContentText); //ESTACON LA LETRA NORMAL
+
+        }else{
+            //signifca que condicion de balanza es buena
+
+            canvas.drawText("MALA",382+3,posicionYstart+7+48,paintContentText); //ESTACON LA LETRA NORMAL
+
+        }
+
+
+
         canvas.drawText("DIGITAL",382+3,posicionYstart+7+58,paintContentText); //ESTACON LA LETRA NORMAL
         canvas.drawText("NO",382+3,posicionYstart+7+68,paintContentText); //ESTACON LA LETRA NORMAL
         canvas.drawText("DIGITAL",382+3,posicionYstart+7+78,paintContentText); //ESTACON LA LETRA NORMAL
 
 
-        canvas.drawText("BAGS",457+3,posicionYstart+7+9,paintContentText);
-        canvas.drawText("208", 457+3,posicionYstart+7+18,paintContentText);
+        canvas.drawText("BAGS",457+3,posicionYstart+7+9,paintTextMini);
+        canvas.drawText("208", 457+3,posicionYstart+7+18,paintTextMini);
 
         PdfMakerHelper.addXINpdf(canvas,paintContentText,Variables.CurrenReportPart1,Variables.CurrenReportPart2,posicionYstart+15) ;
 
 
 
-        currentPosicionLastYcanvasElement=currentPosicionLastYcanvasElement+10;
+      //  currentPosicionLastYcanvasElement=currentPosicionLastYcanvasElement;
 
 
         //VAMOS A MARCARA LAS XX
@@ -857,43 +881,12 @@ public class PdfMaker {
 
              data.add(new DataToPDF("POLITUBO","TIPO DE PLASTICO"));
              data.add(new DataToPDF("22XU","TIPO DE CAJA"));
-
-             if(informeObjct2.isHayExcelnsuchado()) {
-                 data.add(new DataToPDF("SI","ENSUNCHADO"));
-
-             }else{
-                 data.add(new DataToPDF("SI","ENSUNCHADO"));
-
-
-             }
-
-             if(informeObjct2.isHayBalanza()) {
-                 data.add(new DataToPDF("SI","BALANZA"));
-
-             }else{
-                 data.add(new DataToPDF("SI","BALANZA"));
-
-
-             }
-
-
-
-             data.add(new DataToPDF(informeObjct2.getCondicionBalanza(),"CONDICION DE BALANZA"));
-
+             data.add(new DataToPDF("SI","ENSUNCHADO"));
+             data.add(new DataToPDF("SI","BALANZA"));
+             data.add(new DataToPDF("BUENA","CONDICION DE BALANZA"));
              data.add(new DataToPDF("BASCULA","TIPO DE BALANZA"));
-
-                 if(informeObjct2.getTipoDeBalanzaRepeso().equals("Ninguna") || informeObjct2.getTipoDeBalanzaRepeso().equals("") ||
-                         informeObjct2.getTipoDeBalanzaRepeso().equals(" ") )  {
-                     data.add(new DataToPDF("SI","BALANZA DE REPESA"));
-
-
-                 }else{
-
-                     data.add(new DataToPDF("SI","BALANZA DE REPESA"));
-                     data.add(new DataToPDF(informeObjct2.getTipoDeBalanzaRepeso(),"TIPO DE BALANZA DE REPESA"));
-
-
-                 }
+             data.add(new DataToPDF("SI","BALANZA DE REPESA"));
+             data.add(new DataToPDF("BASCULA","TIPO DE BALANZA DE REPESA"));
 
 
 
@@ -943,7 +936,10 @@ public class PdfMaker {
         paintDescripcionImg.setColor(Color.parseColor("#2E2E2E"));
         paintDescripcionImg.setTextSize(7);
 
-
+        paintTextMini= new Paint();
+        paintTextMini.setTextAlign(Paint.Align.LEFT);
+        paintTextMini.setColor(Color.parseColor("#2E2E2E"));
+        paintTextMini.setTextSize(6);
 
 
         paintContentText.setTextSize(8);
