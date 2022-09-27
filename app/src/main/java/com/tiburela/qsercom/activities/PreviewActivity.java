@@ -72,6 +72,7 @@ import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
@@ -194,7 +195,15 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     TextInputEditText ediBalanzaRepeso;
 
 
-
+    TextInputEditText ediFuenteAgua;
+    TextInputEditText ediAguaCorrida;
+    TextInputEditText ediLavadoRacimos;
+    TextInputEditText ediFumigacionClin1;
+    TextInputEditText ediTipoBoquilla;
+    TextInputEditText ediCajasProcDesp;
+    TextInputEditText ediRacimosCosech;
+    TextInputEditText ediRacimosRecha;
+    TextInputEditText ediRacimProces;
 
 
     LinearLayout linLayoutHeader1;
@@ -528,6 +537,16 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         ediEnsunchado=findViewById(R.id.ediEnsunchado);
         ediBalanzaRepeso=findViewById(R.id.ediBalanzaRepeso);
 
+        ediFuenteAgua=findViewById(R.id.ediFuenteAgua);
+        ediAguaCorrida=findViewById(R.id.ediAguaCorrida);
+        ediLavadoRacimos=findViewById(R.id.ediLavadoRacimos);
+        ediFumigacionClin1=findViewById(R.id.ediFumigacionClin1);
+        ediTipoBoquilla=findViewById(R.id.ediTipoBoquilla);
+        ediCajasProcDesp=findViewById(R.id.ediCajasProcDesp);
+        ediRacimosCosech=findViewById(R.id.ediRacimosCosech);
+
+        ediRacimosRecha=findViewById(R.id.ediRacimosRecha);
+        ediRacimProces=findViewById(R.id.ediRacimProces);
 
 
         linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
@@ -1857,6 +1876,30 @@ void checkDataFields(){ //
 
     }
 
+    if(! checkDatosHaciendaIsLleno()){
+        Log.i("test001","no esta lleno  checkDatosHaciendaIsLleno");
+
+        return;
+    }else{
+
+        Log.i("test001","si  esta lleno  checkDatosHaciendaIsLleno");
+
+
+    }
+
+
+    if(! checkDataCalibFrutaCalEnfn()){
+        Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
+
+        return;
+    }else{
+
+        Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
+
+
+    }
+
+
     Log.i("test001","toda la data esta completa HUrra ");
 
 
@@ -1930,6 +1973,15 @@ private void createObjcInformeAndUpload(){
     informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
+
+    SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),ediAguaCorrida.getText().toString(), ediLavadoRacimos.getText().toString(),
+            ediFumigacionClin1.getText().toString(),ediTipoBoquilla.getText().toString(),ediCajasProcDesp.getText().toString(),
+            ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME);
+
+    informe3.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+
     //Agregamos un nuevo informe
     RealtimeDB.initDatabasesReference(); //inicilizamos la base de datos
 
@@ -1937,9 +1989,11 @@ private void createObjcInformeAndUpload(){
 
 
     RealtimeDB.actualizaInformePart1(informe);
+    RealtimeDB.actualizaInformePart2(informe2);
 
+    RealtimeDB.addNewInforme(informe3); //vamos a subir este informe...
 
-  RealtimeDB.actualizaInformePart2(informe2);
+    // RealtimeDB.actualizaInformePart3(informe3);
 
 
     addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
@@ -4202,6 +4256,116 @@ private void checkModeVisualitY(){
 
 
 
+    }
+
+
+    private boolean checkDatosHaciendaIsLleno(){
+        LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
+
+
+
+
+        if(ediFuenteAgua.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediFuenteAgua.requestFocus();
+            ediFuenteAgua.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediAguaCorrida.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediAguaCorrida.requestFocus();
+            ediAguaCorrida.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediLavadoRacimos.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediLavadoRacimos.requestFocus();
+            ediLavadoRacimos.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediFumigacionClin1.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediFumigacionClin1.requestFocus();
+            ediFumigacionClin1.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediTipoBoquilla.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipoBoquilla.requestFocus();
+            ediTipoBoquilla.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediCajasProcDesp.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCajasProcDesp.requestFocus();
+            ediCajasProcDesp.setError("Este espacio es obligatorio");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediRacimosCosech.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediRacimosCosech.requestFocus();
+            ediRacimosCosech.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediRacimosRecha.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediRacimosRecha.requestFocus();
+            ediRacimosRecha.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+        }
+
+        if(ediRacimProces.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediRacimProces.requestFocus();
+            ediRacimProces.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        ///vamos con los datos de semananas y eso
+
+
+
+
+        return true;
+
+    }
+
+    private boolean checkDataCalibFrutaCalEnfn(){
+
+        //le decimos que esta todo bien y omitiremos estos datos....
+        return true;
     }
 
 }

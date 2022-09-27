@@ -16,6 +16,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.Utils;
@@ -89,6 +90,39 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
+
+
+    public static void addNewInforme( SetInformDatsHacienda informeObjct) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
+
+        //agregamos la propiedad keyFirebase a al objeto
+        String PuskEY = mibasedata.push().getKey();
+
+        informeObjct.setKeyFirebase(PuskEY);
+        Map<String, Object> mapValues = informeObjct.toMap();
+
+        mibasedata.child(PuskEY).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
     public static void actualizaInformePart1( SetInformEmbarque1 informeObjct) {
 
         ///"-NCHQnVUUyMat8l_SSwh"
@@ -140,6 +174,32 @@ static  public  DatabaseReference mibasedataPathImages;
 
 
     }
+
+
+    public static void actualizaInformePart3( SetInformDatsHacienda informeObjc3) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child(informeObjc3.getKeyFirebase());
+
+        Map<String, Object> mapValues = informeObjc3.toMap(); //lo convertimos en maP
+
+        mibasedata.updateChildren(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
 
 
 
