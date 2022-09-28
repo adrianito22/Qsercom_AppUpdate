@@ -68,6 +68,7 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
@@ -102,6 +103,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     private int contadorIterador;
     private boolean isModEdicionFields=false;
     private boolean esFirstCharge=true;
+    CalibrFrutCalEnf calibrFrutCalEnf;
 
     private static int currentTypeImage=0;
     ProgressBar progressBarFormulario;
@@ -228,6 +230,9 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     Switch switchHaybalanza;
     Switch switchHayEnsunchado;
     Switch switchBalanzaRep;
+
+    Switch swAguaCorrida;
+    Switch switchLavdoRacimos;
 
     ArrayList<View> listViewsClickedUser;
 
@@ -559,7 +564,8 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         linLayoutHeader8  = findViewById(R.id.linLayoutHeader8) ;
 
 
-
+         swAguaCorrida=findViewById(R.id.swAguaCorrida);
+         switchLavdoRacimos=findViewById(R.id.switchLavdoRacimos);
 
         switchContenedor=findViewById(R.id.switchContenedor);
         ediContenedor=findViewById(R.id.ediContenedor);
@@ -1888,13 +1894,13 @@ void checkDataFields(){ //
     }
 
 
-    if(! checkDataCalibFrutaCalEnfn()){
-        Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
+    if(! chekCalibracionFutaCalendario()){
+        Log.i("test001","no esta lleno  chekCalibracionFutaCalendario");
 
         return;
     }else{
 
-        Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
+        Log.i("test001","si  esta lleno  chekCalibracionFutaCalendario");
 
 
     }
@@ -1974,7 +1980,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-    SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),ediAguaCorrida.getText().toString(), ediLavadoRacimos.getText().toString(),
+    SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
             ediFumigacionClin1.getText().toString(),ediTipoBoquilla.getText().toString(),ediCajasProcDesp.getText().toString(),
             ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME);
 
@@ -1993,10 +1999,11 @@ private void createObjcInformeAndUpload(){
 
     RealtimeDB.addNewInforme(informe3); //vamos a subir este informe...
 
-    // RealtimeDB.actualizaInformePart3(informe3);
+    RealtimeDB.actualizaInformePart3(informe3);
 
 
     addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
+    addCalibracionFutaC_enfAndUpload(); //agregamos y subimos los productos postcosecha..
 
 
 }
@@ -3687,7 +3694,7 @@ return true;
 
 
 
-    private  void addDataENfiledsoTHERviews(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object) {
+    private  void addDataENfiledsoTHERviews(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object,SetInformDatsHacienda  info3Object) {
 
 
 
@@ -3718,7 +3725,13 @@ return true;
          switchHayEnsunchado.setChecked(info2Object.isHayExcelnsuchado());
          switchBalanzaRep.setChecked(info2Object.getHayBalanzaRepeso());
 
+        swAguaCorrida.setChecked(info3Object.isHayAguaCorrida());
+        switchLavdoRacimos.setChecked(info3Object.isHayLavadoRacimos());
+
+
     }
+
+
 
 
     private void selectValue(Spinner spinner, String value) {
@@ -3740,7 +3753,7 @@ return true;
     }
 
 
-    private  void addDataEnFields(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object)  {
+    private  void addDataEnFields(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object,SetInformDatsHacienda informDatsHacienda)  {
         //usamos los 2 objetos para establecer esta data..
 
         Log.i("jamisama","la semana es "+info1Object.getSemana());
@@ -3817,6 +3830,36 @@ return true;
         ediOtherSellos.setText(info2Object.getOtrosSellosEspecif());
 
 
+        ediFuenteAgua.setText(informDatsHacienda.getFuenteAgua());
+       // ediAguaCorrida.setText(informDatsHacienda.isHayAguaCorrida());
+
+        if(informDatsHacienda.isHayAguaCorrida()){
+            ediAguaCorrida.setText(" SI ");
+        }else{
+
+
+            ediAguaCorrida.setText(" NO ");
+
+        }
+
+
+        if(informDatsHacienda.isHayLavadoRacimos()){
+
+            ediLavadoRacimos.setText(" SI ");
+        }else{
+
+
+            ediLavadoRacimos.setText(" NO ");
+
+        }
+
+       /// ediLavadoRacimos.setText(informDatsHacienda.isHayLavadoRacimos());
+        ediFumigacionClin1.setText(informDatsHacienda.getFumigacionClin1());
+        ediTipoBoquilla.setText(informDatsHacienda.getEdiTipoBoquilla());
+        ediCajasProcDesp.setText(informDatsHacienda.getEdiCajasProcDesp());
+        ediRacimosCosech.setText(informDatsHacienda.getEdiRacimosCosech());
+        ediRacimosRecha.setText(informDatsHacienda.getEdiRacimosRecha());
+        ediRacimProces.setText(informDatsHacienda.getEdiRacimProces());
 
 
 
@@ -3851,9 +3894,9 @@ private void checkModeVisualitY(){
 
      Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
     //AGREGMOS LA DATA EN LOS FILEDS
-    addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+    addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
 
-    addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+    addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
 
 
 
@@ -3864,6 +3907,7 @@ private void checkModeVisualitY(){
 
     dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinforme());
 
+    dowLoadCalibFrutCal(Variables.CurrenReportPart1.getUniqueIDinforme());
 
 
 }
@@ -4054,6 +4098,50 @@ private void checkModeVisualitY(){
 
     }
 
+    void dowLoadCalibFrutCal(String idAlquePERTENECE){
+
+        RealtimeDB.initDatabasesReference();
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").
+                child("listCalibracionFtutsCal").
+                orderByChild("idPertenece").equalTo(idAlquePERTENECE);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Map<String, Object> map = null;
+                //  Map<String, String> map = dataSnapshot.getValue(Map.class);
+                //  Log.i("sliexsa","el size de map es "+map.size());
+
+
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    calibrFrutCalEnf=ds.getValue(CalibrFrutCalEnf.class);
+                }
+
+                //  Log.i("sliexsa","existe"+product.cantidadOtro);
+
+
+                if(calibrFrutCalEnf!=null){
+                    setCalibrFrutCalEnf(calibrFrutCalEnf);
+
+                }
+
+
+                // createlistsForReciclerviewsImages(listImagenData);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
 
 
  void setProductosPostcosecha( ProductPostCosecha objProducto) {
@@ -4085,6 +4173,47 @@ private void checkModeVisualitY(){
  }
 
 
+    void setCalibrFrutCalEnf( CalibrFrutCalEnf calibraCaEnf) {
+
+        TextInputEditText  ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9;
+        TextInputEditText  ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9;
+
+        //findviewsid
+        ediColorSem14=findViewById(R.id.ediColorSem14);
+        ediColortSem13 =findViewById(R.id.ediColortSem13);
+        ediColortSem12=findViewById(R.id.ediColortSem12);
+        ediColortSem11=findViewById(R.id.ediColortSem11);
+        ediColortSem10=findViewById(R.id.ediColortSem10);
+        ediColortSem9=findViewById(R.id.ediColortSem9);
+
+        ediNumRcim14=findViewById(R.id.ediNumRcim14);
+        ediNumRcim13=findViewById(R.id.ediNumRcim13);
+        ediNumRcim12=findViewById(R.id.ediNumRcim12);
+        ediNumRcim11=findViewById(R.id.ediNumRcim11);
+        ediNumRcim10=findViewById(R.id.ediNumRcim10);
+        ediNumRac9=findViewById(R.id.ediNumRac9);
+
+        ediNumRcim14.setText(calibraCaEnf.getNumeracionRacimosSem14());
+        ediNumRcim13.setText(calibraCaEnf.getNumeracionRacimosSem13());
+        ediNumRcim12.setText(calibraCaEnf.getNumeracionRacimosSem12());
+        ediNumRcim11.setText(calibraCaEnf.getNumeracionRacimosSem11());
+        ediNumRcim10.setText(calibraCaEnf.getNumeracionRacimosSem10());
+        ediNumRac9.setText(calibraCaEnf.getNumeracionRacimosSem9());
+
+
+        ediColorSem14.setText(calibraCaEnf.getColorSemana14());
+        ediColortSem13.setText(calibraCaEnf.getColorSemana13());
+        ediColortSem12.setText(calibraCaEnf.getColorSemana12());
+        ediColortSem11.setText(calibraCaEnf.getColorSemana12());
+        ediColortSem10.setText(calibraCaEnf.getColorSemana10());
+        ediColortSem9.setText(calibraCaEnf.getColorSemana9());
+
+
+
+
+        // Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
+
+    }
 
 
 
@@ -4362,10 +4491,151 @@ private void checkModeVisualitY(){
 
     }
 
-    private boolean checkDataCalibFrutaCalEnfn(){
 
-        //le decimos que esta todo bien y omitiremos estos datos....
-        return true;
+    private void  addCalibracionFutaC_enfAndUpload(){
+
+
+
+        CalibrFrutCalEnf calibrFrutCalEnf=new CalibrFrutCalEnf(UNIQUE_ID_iNFORME);
+        //creamos un array de editext
+        //editext here
+        TextInputEditText  ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9;
+        TextInputEditText  ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9;
+
+
+        //findviewsid
+        ediColorSem14=findViewById(R.id.ediColorSem14);
+        ediColortSem13 =findViewById(R.id.ediColortSem13);
+        ediColortSem12=findViewById(R.id.ediColortSem12);
+        ediColortSem11=findViewById(R.id.ediColortSem11);
+        ediColortSem10=findViewById(R.id.ediColortSem10);
+        ediColortSem9=findViewById(R.id.ediColortSem9);
+
+        ediNumRcim14=findViewById(R.id.ediNumRcim14);
+        ediNumRcim13=findViewById(R.id.ediNumRcim13);
+        ediNumRcim12=findViewById(R.id.ediNumRcim12);
+        ediNumRcim11=findViewById(R.id.ediNumRcim11);
+        ediNumRcim10=findViewById(R.id.ediNumRcim10);
+        ediNumRac9=findViewById(R.id.ediNumRac9);
+
+
+        EditText [] editextArrayColorSeman = {ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9} ;
+        EditText [] editextNumRacimsArray =           {ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9} ;
+
+
+        for (int indice =0; indice<editextArrayColorSeman.length; indice++) {
+            EditText currentEditextColorSem=editextArrayColorSeman[indice];
+            EditText currentEditextNumRacims=editextNumRacimsArray[indice];
+
+            if (!currentEditextColorSem.getText().toString().isEmpty()){ //si no esta vacioo
+                if (!currentEditextColorSem.getText().toString().trim().isEmpty())  //si no es un espacio vacio
+                {
+
+                    switch (currentEditextColorSem.getId()){
+
+                        case R.id.ediColorSem14:
+                            calibrFrutCalEnf.setColorSemana14(currentEditextColorSem.getText().toString());
+                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+
+                            break;
+                        case R.id.ediColortSem13:
+                            calibrFrutCalEnf.setColorSemana13(currentEditextColorSem.getText().toString());
+                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+
+                            break;
+
+                        case R.id.ediColortSem12:
+                            calibrFrutCalEnf.setColorSemana12(currentEditextColorSem.getText().toString());
+                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+
+                            break;
+
+                        case R.id.ediColortSem11:
+                            calibrFrutCalEnf.setColorSemana11(currentEditextColorSem.getText().toString());
+                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+
+                            break;
+                        case R.id.ediColortSem10:
+                            calibrFrutCalEnf.setColorSemana10(currentEditextColorSem.getText().toString());
+                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+
+                            break;
+                        case R.id.ediColortSem9:
+                            calibrFrutCalEnf.setColorSemana9(currentEditextColorSem.getText().toString());
+                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+
+                            break;
+
+                    }
+
+                }
+
+
+            }
+
+            //si el editext tiene data lo corregimos usando la propiedad hint
+
+
+        }
+
+
+       //vamos a subirlo
+
+        RealtimeDB.UploadCalibracionFrutCal(calibrFrutCalEnf);
+
+
+
     }
+
+
+    private boolean  chekCalibracionFutaCalendario(){
+
+         boolean estanLlenosTodos=true;
+
+
+        //editext here
+        TextInputEditText  ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9;
+        TextInputEditText  ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9;
+
+
+        //findviewsid
+        ediColorSem14=findViewById(R.id.ediColorSem14);
+        ediColortSem13 =findViewById(R.id.ediColortSem13);
+        ediColortSem12=findViewById(R.id.ediColortSem12);
+        ediColortSem11=findViewById(R.id.ediColortSem11);
+        ediColortSem10=findViewById(R.id.ediColortSem10);
+        ediColortSem9=findViewById(R.id.ediColortSem9);
+
+        ediNumRcim14=findViewById(R.id.ediNumRcim14);
+        ediNumRcim13=findViewById(R.id.ediNumRcim13);
+        ediNumRcim12=findViewById(R.id.ediNumRcim12);
+        ediNumRcim11=findViewById(R.id.ediNumRcim11);
+        ediNumRcim10=findViewById(R.id.ediNumRcim10);
+        ediNumRac9=findViewById(R.id.ediNumRac9);
+
+
+        EditText [] editextArrayColorSeman = {ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9} ;
+        EditText [] editextNumRacimsArray =           {ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9} ;
+
+
+        for (int indice =0; indice<editextArrayColorSeman.length; indice++) {
+            EditText currentEditextColorSem=editextArrayColorSeman[indice];
+            EditText currentEditextNumRacims=editextNumRacimsArray[indice];
+
+            if (currentEditextColorSem.getText().toString().isEmpty()  || currentEditextNumRacims.getText().toString().isEmpty() ){ //
+                estanLlenosTodos=false;
+            }
+
+            //si el editext tiene data lo corregimos usando la propiedad hint
+
+
+        }
+
+
+        //vamos a subirlo
+        return estanLlenosTodos;
+
+    }
+
 
 }

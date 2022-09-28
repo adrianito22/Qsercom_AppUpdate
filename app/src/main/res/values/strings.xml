@@ -73,6 +73,28 @@
         <item>ANTEAYER </item>
     </string-array>
 
+    <string-array name="fuentesAguaArray">
+        <item>Ninguna</item>
+        <item>AGUA POTABLE</item>
+        <item>POZO</item>
+        <item>BIDON</item>
+    </string-array>
 
+
+    <string-array name="fumcionCoronaLin1">
+        <item>Ninguna</item>
+        <item>FOGGING</item>
+        <item>BOMBA CP3 MANUAL</item>
+        <item>BOMBA CP3 ELECTRICA</item>
+
+    </string-array>
+
+
+    <string-array name="tipoBoquilla">
+        <item>Ninguna</item>
+        <item>8002</item>
+        <item>8003</item>
+
+    </string-array>
 
 </resources>

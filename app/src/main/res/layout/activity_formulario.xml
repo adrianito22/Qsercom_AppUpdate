@@ -326,7 +326,14 @@
             </LinearLayout>
 
             <include
+                android:id="@+id/lastnclude"
                 layout="@layout/ly_datos_de_hacienda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/lastnclude"
+                layout="@layout/ly_datoshacienda_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class SetInformDatsHacienda {
     private String fuenteAgua;
-    private String aguaCorrida;
-    private String lavadoRacimos;
+    private boolean hayAguaCorrida;
+    private boolean hayLavadoRacimos;
     private String fumigacionClin1;
     private String ediTipoBoquilla;
 
@@ -45,12 +45,12 @@ public class SetInformDatsHacienda {
         return keyFirebase;
     }
 
-    public String getCodeInformePertenence() {
-        return codeInformePertenence;
+    public String getUniqueIDinforme() {
+        return uniqueIDinforme;
     }
 
     private String keyFirebase;
-    private String codeInformePertenence;
+    private String uniqueIDinforme;
 
 
 
@@ -62,20 +62,20 @@ public class SetInformDatsHacienda {
         this.fuenteAgua = fuenteAgua;
     }
 
-    public String getAguaCorrida() {
-        return aguaCorrida;
+    public boolean isHayAguaCorrida() {
+        return hayAguaCorrida;
     }
 
-    public void setAguaCorrida(String aguaCorrida) {
-        this.aguaCorrida = aguaCorrida;
+    public void setHayAguaCorrida(boolean hayAguaCorrida) {
+        this.hayAguaCorrida = hayAguaCorrida;
     }
 
-    public String getLavadoRacimos() {
-        return lavadoRacimos;
+    public boolean isHayLavadoRacimos() {
+        return hayLavadoRacimos;
     }
 
-    public void setLavadoRacimos(String lavadoRacimos) {
-        this.lavadoRacimos = lavadoRacimos;
+    public void setHayLavadoRacimos(boolean hayLavadoRacimos) {
+        this.hayLavadoRacimos = hayLavadoRacimos;
     }
 
     public String getFumigacionClin1() {
@@ -251,13 +251,13 @@ public class SetInformDatsHacienda {
         this.keyFirebase = keyFirebase;
     }
 
-    public SetInformDatsHacienda(String fuenteAgua, String aguaCorrida, String lavadoRacimos, String fumigacionClin1,
+    public SetInformDatsHacienda(String fuenteAgua, boolean hayAguaCorrida, boolean lavadoRacimos, String fumigacionClin1,
                                  String ediTipoBoquilla, String ediCajasProcDesp, String ediRacimosCosech,
-                                 String ediRacimosRecha, String ediRacimProces,String codeInformePertenence ){
+                                 String ediRacimosRecha, String ediRacimProces, String uniqueIDinforme ){
 
    this. fuenteAgua=fuenteAgua;
-    this.aguaCorrida=aguaCorrida;
-    this.lavadoRacimos=lavadoRacimos;
+    this.hayAguaCorrida = hayAguaCorrida;
+    this.hayLavadoRacimos =lavadoRacimos;
   this. fumigacionClin1=fumigacionClin1;
   this. ediTipoBoquilla=ediTipoBoquilla;
    this. ediCajasProcDesp=ediCajasProcDesp;
@@ -283,7 +283,7 @@ this.ediRacimProces=ediRacimProces;
     porc11="";
     porc10="";
 
-   this.codeInformePertenence=codeInformePertenence;
+   this.uniqueIDinforme =uniqueIDinforme;
 
 }
 
@@ -293,8 +293,8 @@ this.ediRacimProces=ediRacimProces;
         HashMap<String, Object> result = new HashMap<>();
 
         result.put("fuenteAgua", fuenteAgua);
-        result.put("aguaCorrida", aguaCorrida);
-        result.put("lavadoRacimos", lavadoRacimos);
+        result.put("aguaCorrida", hayAguaCorrida);
+        result.put("lavadoRacimos", hayLavadoRacimos);
         result.put("fumigacionClin1", fumigacionClin1);
         result.put("ediTipoBoquilla", ediTipoBoquilla);
         result.put("ediCajasProcDesp", ediCajasProcDesp);
@@ -319,7 +319,7 @@ this.ediRacimProces=ediRacimProces;
         result.put("porc11", porc11);
         result.put("porc10", porc10);
         result.put("keyFirebase", keyFirebase);
-        result.put("codeInformePertenence", codeInformePertenence);
+        result.put("uniqueIDinforme", uniqueIDinforme);
 
 
 

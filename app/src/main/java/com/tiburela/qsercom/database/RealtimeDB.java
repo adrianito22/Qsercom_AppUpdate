@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
@@ -300,6 +301,57 @@ static  public  DatabaseReference mibasedataPathImages;
 
 
     }
+
+    public static void UploadCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal");
+        // Map<String, Object> mapValues = informeObjct.toMap();
+        String PuskEY = mibasedata.push().getKey();
+
+        calibrFrutCalEnf.setKeyFirebase(PuskEY);
+        //SUBE MAPA
+        mibasedata.child(PuskEY).setValue(calibrFrutCalEnf).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+    public static void UpdateCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal").child(calibrFrutCalEnf.getKeyFirebase());
+        // Map<String, Object> mapValues = informeObjct.toMap();
+        //SUBE MAPA
+        mibasedata.setValue(calibrFrutCalEnf).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
     public static void UpdateProductosPostCosecha( ProductPostCosecha productosObject) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listProductosPostCosecha").child(productosObject.keyFirebase);

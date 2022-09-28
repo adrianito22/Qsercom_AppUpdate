@@ -2,6 +2,7 @@ package com.tiburela.qsercom.utils;
 
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 
@@ -43,6 +44,8 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static SetInformEmbarque1 CurrenReportPart1;
 
     public static SetInformEmbarque2 CurrenReportPart2;
+
+    public static SetInformDatsHacienda CurrenReportPart3;
 
 
     public static String KEYEXTRAPREVIEW= "estacontent";

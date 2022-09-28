@@ -25,6 +25,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.Variables;
@@ -295,10 +296,6 @@ return fecha;
         pd.setMessage("Obteniendo Data");
         pd.show();
 
-
-
-
-
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinforme").equalTo(reportUNIQUEidtoSEARCH);
 
@@ -311,6 +308,14 @@ return fecha;
                     SetInformEmbarque2 informEmbarque2=ds.getValue(SetInformEmbarque2.class);
                       Variables.CurrenReportPart2=informEmbarque2;
                       Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinforme());
+
+
+                    SetInformDatsHacienda datoHaicnda=ds.getValue(SetInformDatsHacienda.class);
+                    Variables.CurrenReportPart3=datoHaicnda;
+
+                            Log.i("midaclick","el fist data elemet del objeto datoHaicnda es  "+Variables.CurrenReportPart3.getUniqueIDinforme());
+
+
                 }
 
 
