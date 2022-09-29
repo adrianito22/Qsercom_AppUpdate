@@ -20,7 +20,7 @@ public class SetInformEmbarque1 {
     private boolean esEditableNow; //si aun se puede editar
     private int  stateInformacion; //si es borrador
     private long fechaCreacionInf;
-
+    private String  numcionContenedor;
 
 
     private String uniqueIDinforme;
@@ -41,6 +41,14 @@ public class SetInformEmbarque1 {
     }
 
 
+    public String getNumcionContenedor() {
+        return numcionContenedor;
+    }
+
+    public void setNumcionContenedor(String numcionContenedor) {
+        this.numcionContenedor = numcionContenedor;
+    }
+
     public SetInformEmbarque1(String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
                               String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
                               String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
@@ -48,6 +56,7 @@ public class SetInformEmbarque1 {
                               String horaSalidadContenedor,
                               String destinoContenedor,
                               String numeroViajeContenedor,
+                              String numcionContenedor,
                               String vapor,
                               String tipoContenedor,
                               String tare,
@@ -490,6 +499,7 @@ public class SetInformEmbarque1 {
         result.put("horaSalidadContenedor", horaSalidadContenedor);
         result.put("destinoContenedor", destinoContenedor);
         result.put("numeroViajeContenedor", numeroViajeContenedor);
+        result.put("numcionContenedor", numcionContenedor);
         result.put("vapor", vapor);
         result.put("tipoContenedor", tipoContenedor);
 

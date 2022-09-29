@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediTermofrafo1"
+                            android:id="@+id/ediNombProd1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -55,7 +55,7 @@
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediHoraEncendido1"
+                            android:id="@+id/ediTipoEmp2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -73,7 +73,7 @@
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediUbicacion1"
+                            android:id="@+id/ediCod2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
@@ -91,7 +91,7 @@
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediRuma1"
+                            android:id="@+id/edinCajas3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"

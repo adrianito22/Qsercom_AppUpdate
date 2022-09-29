@@ -63,6 +63,13 @@
             />
 
         <activity
+            android:name=".activities.FormDatosContersEnAcopio"
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            />
+
+        <activity
             android:name=".activities.FormularioActivity"
             android:configChanges="orientation"
             android:exported="true"

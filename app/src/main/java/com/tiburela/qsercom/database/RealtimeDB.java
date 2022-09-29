@@ -14,7 +14,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.activities.FormDatosContersEnAcopio;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
+import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
@@ -56,6 +59,38 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
+    public static void addNewInformContenresAcopio( ContenedoresEnAcopio informeObjct) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("contenedoresAcopio");
+
+        //agregamos la propiedad keyFirebase a al objeto
+        String PuskEY = mibasedata.push().getKey();
+
+        informeObjct.setKeyFirebase(PuskEY);
+
+       // Map<String, Object> mapValues = informeObjct.toMap();
+
+
+
+        mibasedata.child(PuskEY).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
 
 
 
@@ -243,6 +278,46 @@ static  public  DatabaseReference mibasedataPathImages;
 
 
     }
+
+
+    public static void addDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,DatabaseReference mibasedata,String Pushkey) {
+   //    DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
+        //agregamos la propiedad keyFirebase a al objeto
+      //  String PuskEY = mibasedata.push().getKey();
+
+      //  datosProcesoMap.put("keyfirebase","sfgd").setKeyFirebase(PuskEY);
+
+     //   Map<String, Object> mapValues = informeObjct.toMap();
+
+        //SUBE MAPA
+        mibasedata.child(Pushkey).setValue(datosProcesoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                    //lo borramos...
+
+                    try {
+                       // Utils.deleteMap(context);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
 
 
     public static void addNewSetPicsInforme(Context context, ImagenReport objecImageReport ) {

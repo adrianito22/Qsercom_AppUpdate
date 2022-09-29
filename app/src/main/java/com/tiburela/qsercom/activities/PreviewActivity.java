@@ -195,7 +195,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     TextInputEditText ediOtherSellos;
     TextInputEditText ediEnsunchado;
     TextInputEditText ediBalanzaRepeso;
-
+     TextInputEditText ediNumContenedor;
 
     TextInputEditText ediFuenteAgua;
     TextInputEditText ediAguaCorrida;
@@ -406,7 +406,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
                         }
 
 
-                        else if (vista.getId()== R.id.ediHoraEncendido1) {
+                        else if (vista.getId()== R.id.ediTipoEmp2) {
                             ediHoraEncendido1.setText(sHour + ":" + sMinute);
 
 
@@ -526,7 +526,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         ediObservacion = findViewById(R.id.ediObservacion);
         ediFotosLlegada=findViewById(R.id.ediFotosLlegada);
 
-
+        ediNumContenedor=findViewById(R.id.ediNumContenedor);
 
 
         ediTare=findViewById(R.id.ediTare);
@@ -619,10 +619,10 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-        ediTermofrafo1=findViewById(R.id.ediTermofrafo1);
-        ediHoraEncendido1=findViewById(R.id.ediHoraEncendido1);
-        ediUbicacion1=findViewById(R.id.ediUbicacion1);
-        ediRuma1=findViewById(R.id.ediRuma1);
+        ediTermofrafo1=findViewById(R.id.ediNombProd1);
+        ediHoraEncendido1=findViewById(R.id.ediTipoEmp2);
+        ediUbicacion1=findViewById(R.id.ediCod2);
+        ediRuma1=findViewById(R.id.edinCajas3);
         ediTermofrafo2=findViewById(R.id.ediTermofrafo2);
         ediHoraEncendido2=findViewById(R.id.ediHoraEncendido2);
         ediUbicacion2=findViewById(R.id.ediUbicacion2);
@@ -924,7 +924,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
                break; //
 
-           case R.id.ediHoraEncendido1:
+           case R.id.ediTipoEmp2:
                // Utils.closeKeyboard(FormularioActivity.this);
                showingTimePicker(view);
 
@@ -1948,7 +1948,7 @@ private void createObjcInformeAndUpload(){
             ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
             ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
             FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-            ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediVapor.getText().toString(),
+            ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
             ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
             ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
             ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
@@ -2021,7 +2021,7 @@ private void createObjcInformeAndUpload(){
                 ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
                 ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
                 FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-                ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediVapor.getText().toString(),
+                ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
                 ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
                 ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
                 ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
@@ -3791,6 +3791,7 @@ return true;
         ediTipoContenedor.setText(info1Object.getTipoContenedor());
                 ediVapor.setText(info1Object.getVapor());
 
+        ediNumContenedor.setText(info1Object.getNumcionContenedor());
         ediCompaniaTransporte.setText(info2Object.getCompaniaTranporte());
         ediNombreChofer.setText(info2Object.getNombreChofer());
         ediCedula.setText(String.valueOf(info2Object.getCedulaChofer()));
