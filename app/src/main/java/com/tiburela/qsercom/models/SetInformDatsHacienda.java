@@ -45,12 +45,12 @@ public class SetInformDatsHacienda {
         return keyFirebase;
     }
 
-    public String getUniqueIDinforme() {
-        return uniqueIDinforme;
+    public String getCodeInformePertenence() {
+        return codeInformePertenence;
     }
 
     private String keyFirebase;
-    private String uniqueIDinforme;
+    private String codeInformePertenence;
 
 
 
@@ -251,13 +251,13 @@ public class SetInformDatsHacienda {
         this.keyFirebase = keyFirebase;
     }
 
-    public SetInformDatsHacienda(String fuenteAgua, boolean hayAguaCorrida, boolean lavadoRacimos, String fumigacionClin1,
+    public SetInformDatsHacienda(String fuenteAgua, boolean hayAguaCorrida, boolean hayLavadoRacimos, String fumigacionClin1,
                                  String ediTipoBoquilla, String ediCajasProcDesp, String ediRacimosCosech,
-                                 String ediRacimosRecha, String ediRacimProces, String uniqueIDinforme ){
+                                 String ediRacimosRecha, String ediRacimProces, String codeInformePertenence ){
 
    this. fuenteAgua=fuenteAgua;
     this.hayAguaCorrida = hayAguaCorrida;
-    this.hayLavadoRacimos =lavadoRacimos;
+    this.hayLavadoRacimos = hayLavadoRacimos;
   this. fumigacionClin1=fumigacionClin1;
   this. ediTipoBoquilla=ediTipoBoquilla;
    this. ediCajasProcDesp=ediCajasProcDesp;
@@ -283,7 +283,7 @@ this.ediRacimProces=ediRacimProces;
     porc11="";
     porc10="";
 
-   this.uniqueIDinforme =uniqueIDinforme;
+   this.codeInformePertenence=codeInformePertenence;
 
 }
 
@@ -293,8 +293,8 @@ this.ediRacimProces=ediRacimProces;
         HashMap<String, Object> result = new HashMap<>();
 
         result.put("fuenteAgua", fuenteAgua);
-        result.put("aguaCorrida", hayAguaCorrida);
-        result.put("lavadoRacimos", hayLavadoRacimos);
+        result.put("hayAguaCorrida", hayAguaCorrida);
+        result.put("hayLavadoRacimos", hayLavadoRacimos);
         result.put("fumigacionClin1", fumigacionClin1);
         result.put("ediTipoBoquilla", ediTipoBoquilla);
         result.put("ediCajasProcDesp", ediCajasProcDesp);
@@ -319,7 +319,7 @@ this.ediRacimProces=ediRacimProces;
         result.put("porc11", porc11);
         result.put("porc10", porc10);
         result.put("keyFirebase", keyFirebase);
-        result.put("uniqueIDinforme", uniqueIDinforme);
+        result.put("codeInformePertenence", codeInformePertenence);
 
 
 

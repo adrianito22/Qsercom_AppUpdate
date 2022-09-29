@@ -437,14 +437,8 @@ public class SetInformEmbarque2 {
         result.put("tipoDeBalanzaRepeso", tipoDeBalanzaRepeso);
         result.put("keyFirebase", keyFirebase);
 
-
         return result;
 
 
     }
-
-
-
-
-
 }
