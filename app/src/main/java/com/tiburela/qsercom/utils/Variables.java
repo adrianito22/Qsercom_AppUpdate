@@ -102,6 +102,8 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int  DOS_HORIZONTALES= 2503 ;
     public static final int  DEFAULNO_ENCONTRO_NADA= 2504 ;
 
-   public static  ArrayList<ImagesToPdf>listImagesSeccion=new ArrayList<ImagesToPdf>();
+
+
+    public static  ArrayList<ImagesToPdf>listImagesSeccion=new ArrayList<ImagesToPdf>();
 
 }
