@@ -15,19 +15,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.activities.ActivitySeeReports;
+import com.tiburela.qsercom.activities.FormDatosContersEnAcopio;
+import com.tiburela.qsercom.activities.FormularioActivity;
 import com.tiburela.qsercom.activities.PreviewActivity;
 import com.tiburela.qsercom.models.ImagenReport;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Map;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.storage.StorageData;
@@ -37,10 +37,7 @@ import com.tiburela.qsercom.utils.Variables;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>  implements   View.OnClickListener  {
 
-   // private static ClickListener clickListener;
-
     private View.OnClickListener listener;
-
     private static ClickListener clickListener;
 
 
@@ -92,8 +89,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             try {
                  uri=Uri.parse(imagenReport.geturiImage());
+                InputStream inputStream=null;
 
-                InputStream inputStream = PreviewActivity.context.getContentResolver().openInputStream(uri);
+
+                if(Variables.activityCurrent==Variables.FormatDatsContAcopi){
+                    inputStream = FormDatosContersEnAcopio.context.getContentResolver().openInputStream(uri);
+
+
+                }else if(Variables.activityCurrent==Variables.FormaFormularyActivity) { //si es previews
+                    inputStream = FormularioActivity.context.getContentResolver().openInputStream(uri);
+
+
+                }
+                else if(Variables.activityCurrent==Variables.FormPreviewFormularioActivity){ //es preview
+                    inputStream = PreviewActivity.context.getContentResolver().openInputStream(uri);
+
+                }
+
+
+
                 inputStream.close();
                 existFileInPhone = true;
 
@@ -121,21 +135,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
           else
 
+
+
           {  //es el modo de selecionar imagenes y tomar fotos con la camara
               Log.i("ladtastor","lo descragamos  "+imagenReport.getUniqueIdNamePic());
 
+                  if(HelperImage.ImagesToPdfMap.containsKey(imagenReport.getUniqueIdNamePic())) {
 
+                      Bitmap currentBitmP= HelperImage.ImagesToPdfMap.get(imagenReport.getUniqueIdNamePic()).miBitmap;
 
-              if(HelperImage.ImagesToPdfMap.containsKey(imagenReport.getUniqueIdNamePic())) {
+                      holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
 
-                  Bitmap currentBitmP= HelperImage.ImagesToPdfMap.get(imagenReport.getUniqueIdNamePic()).miBitmap;
-
-                  holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
-
-
-              }
-
-
+                  }
 
             //dowloadImagesAndaddTag(imagenReport.getUniqueIdNamePic(), holder,imagenReport.getUniqueIdNamePic());
 
@@ -252,9 +263,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
+private void checkExistFile(){
+
+     /*
+        if(Activi){
 
 
+        }
+*/
 
+
+}
 
     private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
 

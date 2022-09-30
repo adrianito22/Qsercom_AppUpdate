@@ -251,6 +251,11 @@ public class SetInformDatsHacienda {
         this.keyFirebase = keyFirebase;
     }
 
+     public SetInformDatsHacienda(){
+
+
+     }
+
     public SetInformDatsHacienda(String fuenteAgua, boolean hayAguaCorrida, boolean lavadoRacimos, String fumigacionClin1,
                                  String ediTipoBoquilla, String ediCajasProcDesp, String ediRacimosCosech,
                                  String ediRacimosRecha, String ediRacimProces, String uniqueIDinforme ){

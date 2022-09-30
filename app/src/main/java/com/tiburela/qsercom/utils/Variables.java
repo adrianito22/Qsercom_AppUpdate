@@ -13,7 +13,17 @@ public class Variables {
 
 public static String  paqueteName="com.tiburela.qsercom";
 
+    public static  int   activityCurrent;
+
+    public static final int   FormatDatsContAcopi=10067;
+    public static final int   FormaFormularyActivity=10066;
+    public static final int   FormPreviewFormularioActivity=10060;
+
+
     public static  int   tipoDeFoto;
+    public static final int CREATE_NEW_FORM =1005;
+    public static final int   EDIT_FORM=1006;
+    public static  int   modoCurren;
 
     public static final int   FOTO_LLEGADA=1;
     public static final int   FOTO_PROD_POSTCOSECHA=2;

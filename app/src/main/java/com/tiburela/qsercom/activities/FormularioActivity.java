@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -79,6 +80,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     private String UNIQUE_ID_iNFORME;
 
     boolean hayUnformularioIcompleto ;
+    public static Context context;
 
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
@@ -285,6 +287,9 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+        context=getApplicationContext();
+        Variables.activityCurrent=Variables.FormaFormularyActivity;
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -459,13 +464,13 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     private void findViewsIds( ) { //configuraremos algos views al iniciar
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
 
-         ediSemana=findViewById(R.id.ediSemana);
-         ediFecha=findViewById(R.id.ediFecha);
-         ediProductor=findViewById(R.id.ediProductor);
-         ediHacienda=findViewById(R.id.ediHacienda);
-         ediCodigo=findViewById(R.id.ediCodigo);
-         ediInscirpMagap=findViewById(R.id.ediInscirpMagap);
-         ediPemarque=findViewById(R.id.ediPemarque);
+         ediSemana=findViewById(R.id.ediCodigoN4);
+         ediFecha=findViewById(R.id.ediCodigoN9);
+         ediProductor=findViewById(R.id.ediCodigoN2);
+         ediHacienda=findViewById(R.id.ediCodigoN8);
+         ediCodigo=findViewById(R.id.ediCodigoN7);
+         ediInscirpMagap=findViewById(R.id.ediCajas10);
+         ediPemarque=findViewById(R.id.ediCodigoN1);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
          ediHoraInicio=findViewById(R.id.ediHoraInicio);
@@ -698,10 +703,20 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
+        if(!checkPermission()){
+
+            requestPermission();
+            //   Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            // checkPermission2();
+
+            /****por aqui pedir permisos antes **/
+
+        }
 
 
 
        switch (view.getId()) {
+
 
            case R.id.linLayoutHeader1:
                LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
@@ -804,7 +819,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                }
                break; //
 
-           case R.id.ediFecha:
+           case R.id.ediCodigoN9:
               // Utils.closeKeyboard(FormularioActivity.this);
 
                selecionaFecha();

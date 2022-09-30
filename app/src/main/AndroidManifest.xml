@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tiburela.qsercom">
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29"
@@ -15,66 +16,58 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:hardwareAccelerated="false"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-
         tools:targetApi="s">
         <activity
+            android:name=".activities.PackingListActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.ActivitySeeReports"
-            android:exported="true"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PreviewActivity"
-            android:exported="true"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ActivityMenu"
-            android:exported="true"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PieChartActivity"
-            android:exported="false"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.CharActivity"
-            android:exported="true"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PdfPreviewActivity"
-            android:exported="true"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            />
-
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FormDatosContersEnAcopio"
-            android:exported="true"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            />
-
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FormularioActivity"
             android:configChanges="orientation"
             android:exported="true"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.tiburela.qsercom.splashScreen.SplashScreen"
             android:configChanges="orientation"
@@ -96,7 +89,6 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

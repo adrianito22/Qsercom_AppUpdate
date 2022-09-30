@@ -322,6 +322,9 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
 
+        Variables.activityCurrent=Variables.FormPreviewFormularioActivity;
+
+
         /*
         findViewsIds();
 
@@ -507,13 +510,13 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         btnDowlPdf=findViewById(R.id.btnDowlPdf);
 
 
-         ediSemana=findViewById(R.id.ediSemana);
-         ediFecha=findViewById(R.id.ediFecha);
-         ediProductor=findViewById(R.id.ediProductor);
-         ediHacienda=findViewById(R.id.ediHacienda);
-         ediCodigo=findViewById(R.id.ediCodigo);
-         ediInscirpMagap=findViewById(R.id.ediInscirpMagap);
-         ediPemarque=findViewById(R.id.ediPemarque);
+         ediSemana=findViewById(R.id.ediCodigoN4);
+         ediFecha=findViewById(R.id.ediCodigoN9);
+         ediProductor=findViewById(R.id.ediCodigoN2);
+         ediHacienda=findViewById(R.id.ediCodigoN8);
+         ediCodigo=findViewById(R.id.ediCodigoN7);
+         ediInscirpMagap=findViewById(R.id.ediCajas10);
+         ediPemarque=findViewById(R.id.ediCodigoN1);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
          ediHoraInicio=findViewById(R.id.ediHoraInicio);
@@ -890,7 +893,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
                break; //
 
 
-           case R.id.ediFecha:
+           case R.id.ediCodigoN9:
               // Utils.closeKeyboard(FormularioActivity.this);
 
                selecionaFecha();

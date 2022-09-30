@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -171,7 +172,8 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
     ImageView imbTakePicDatosContenedor;
     ImageView imbAtachPrPostcosecha;
     ImageView imbTakePicPrPostcosecha;
-
+     ImageView imbTakePic;
+    public static Context context;
 
 
     @Override
@@ -181,7 +183,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         Auth.initAuth(FormDatosContersEnAcopio.this);
         Auth.signInAnonymously(FormDatosContersEnAcopio.this);
 
-
+/*
         if(hayUnformularioIcompleto){
 
              TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
@@ -209,7 +211,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
         }
 
-
+*/
 
         // Check if user is signed in (non-null) and update UI accordingly.
        // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
@@ -231,7 +233,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
             //The key argument here must match that used in the other activity
         }
 
-
+        context = getApplicationContext();
 
 
         UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
@@ -239,6 +241,8 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
       // FirebaseApp.initializeApp(this);
       //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
 
+
+        Variables.activityCurrent=Variables.FormatDatsContAcopi;
         Auth.initAuth(this);
 
         StorageData. initStorageReference();
@@ -332,7 +336,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    void selecionaFecha(){
+    void selecionaFecha(int idView){
 
 
         final Calendar cldr = Calendar.getInstance();
@@ -346,7 +350,16 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-                        ediFechaInicio.setText(daySemana+"/"+mes+"/"+year);
+
+                        if(idView==R.id.ediFechaInicio){
+                            ediFechaInicio.setText(daySemana+"/"+mes+"/"+year);
+
+                        }else{
+
+                            fechDetermino.setText(daySemana+"/"+mes+"/"+year);
+
+                        }
+
 
                     }
                 }, year,  mes, daySemana);
@@ -373,6 +386,8 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
     private void configCertainSomeViewsAliniciar( ) { //configuraremos algos views al iniciar
 
         disableEditText(ediFechaInicio);
+        disableEditText(fechDetermino);
+
         disableEditText(ediHoraInicio);
         disableEditText(ediHoraTermino);
 
@@ -509,8 +524,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
          imbAtachPrPostcosecha=findViewById(R.id.imbAtachPrPostcosecha);
          imbTakePicPrPostcosecha=findViewById(R.id.imbTakePicPrPostcosecha);
         imbTakePicDatosContenedor=findViewById(R.id.imbTakePicDatosContenedor);
-
-
+        imbTakePic=findViewById(R.id.imbTakePic);
 
 
 
@@ -534,6 +548,10 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
          imbAtachDatosContenedor.setOnClickListener(this);
          imbTakePicDatosContenedor.setOnClickListener(this);
 
+
+        imBatach.setOnClickListener(this);
+        imbTakePic.setOnClickListener(this);
+
         ediHoraEncendido1.setOnClickListener(this);
         ediHoraEncendido2.setOnClickListener(this);
 
@@ -550,7 +568,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         ediFechaInicio.setOnClickListener(this);
         ediHoraInicio.setOnClickListener(this);
         ediHoraTermino.setOnClickListener(this);
-
+        fechDetermino.setOnClickListener(this);
         ediHoraLLegadaContenedor.setOnClickListener(this);
         ediHoraSalidaContenedor.setOnClickListener(this);
 
@@ -675,12 +693,17 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
            case R.id.ediFechaInicio:
               // Utils.closeKeyboard(FormularioActivity.this);
-
-               selecionaFecha();
+               selecionaFecha(R.id.ediFechaInicio);
 
                break; //
 
 
+           case R.id.fechDetermino:
+               // Utils.closeKeyboard(FormularioActivity.this);
+
+               selecionaFecha(R.id.fechDetermino);
+
+               break; //
 
            case R.id.ediHoraInicio:
               // Utils.closeKeyboard(FormularioActivity.this);
@@ -866,7 +889,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
-                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, FormDatosContersEnAcopio.this);
+                            //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, FormDatosContersEnAcopio.this);
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1026,7 +1049,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
 
                           //  actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-                             Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", FormDatosContersEnAcopio.this);
+                           //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", FormDatosContersEnAcopio.this);
 
 
                         }
@@ -1057,11 +1080,11 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
                  //   actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
 
-                    Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", FormDatosContersEnAcopio.this);
+                  //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", FormDatosContersEnAcopio.this);
+
 
 
                 }
-
 
 
         }
@@ -1100,7 +1123,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         //otra para radiobutton y otr para otro tipo de view..tec
 
 
-        actualizaProgressBar();
+       // actualizaProgressBar();
 
             }
 
@@ -1211,13 +1234,13 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
 
 //                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(FormularioActivity.this,cam_uri)));
-                            ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(FormDatosContersEnAcopio.this,result.get(indice))));
+                            ImagenReport imagenReportObjc =new ImagenReport("adrianitotest",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(FormDatosContersEnAcopio.this,result.get(indice))));
 
                           Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
 
                             ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
-                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, FormDatosContersEnAcopio.this);
+                            //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, FormDatosContersEnAcopio.this);
 
                         }
 
@@ -1295,27 +1318,6 @@ private void listennersSpinners() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
@@ -1325,6 +1327,10 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     if(isDeleteImg){
 
         currentTypeImage=Variables.typeoFdeleteImg;
+
+        Log.i("isdeletyin","is deleting ");
+
+
     }
 
 
@@ -1359,11 +1365,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 
     }
-    else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
-         recyclerView= findViewById(R.id.recyclerViewPostcosecha);
-        // at last set adapter to recycler view.
-
-    }
 
     else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
         recyclerView = findViewById(R.id.recyclerVieDatsTransport);
@@ -1383,6 +1384,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 
 
+    Log.i("isdeletyin","el value de first uri  items es "+filterListImagesData.get(0).geturiImage());
 
     RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
     GridLayoutManager layoutManager=new GridLayoutManager(this,2);
@@ -1641,7 +1643,15 @@ private void creaDatosProcesoMapAndUpload(String informePertenece){
 
          String tipoEmpaque=arrayTiposEmpaque[indice].getText().toString();
          String cod=arrayCodigos[indice].getText().toString();
-         int numeroCajas = Integer.parseInt(arraynCajas[indice].getText().toString() );
+        int numeroCajas;
+         if(arraynCajas [indice].getText().toString().isEmpty() || arraynCajas [indice].getText().toString().trim().isEmpty() ){
+             numeroCajas=0;
+         }else{
+             numeroCajas = Integer.parseInt(arraynCajas[indice].getText().toString() );
+
+         }
+
+
          String nombreProd=arrayNmbresProd[indice].getText().toString();
 
          //String InformePertenece;
@@ -1940,8 +1950,7 @@ private void createObjcInformeAndUpload(){
 
     private boolean checkDatosGeneralesIsLleno(){
 
-        LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
-
+        LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion7);
         if(ediFechaInicio.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediFechaInicio.requestFocus();
             ediFechaInicio.setError("Este espacio es obligatorio");

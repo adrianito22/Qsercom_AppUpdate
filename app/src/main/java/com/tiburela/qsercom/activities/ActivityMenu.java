@@ -30,6 +30,10 @@ import java.util.HashMap;
 
 public class ActivityMenu extends AppCompatActivity {
 ImageView imgContenedores;
+ImageView imgContenEnAcopio;
+ImageView imgPackingListImageView;
+
+
 SetInformEmbarque1 informeObjct;
 Button btnInInformes;
 TextView txtAdviser,txtAdviser2;
@@ -51,15 +55,32 @@ TextView txtAdviser,txtAdviser2;
 
         btnInInformes =findViewById(R.id.btnIformesRevisar);
         imgContenedores=findViewById(R.id.imgContenedores);
+        imgContenEnAcopio=findViewById(R.id.imgContenEnAcopio);
+
+        imgPackingListImageView=findViewById(R.id.imgPackingList);
+
+        imgPackingListImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(ActivityMenu.this, PackingListActivity.class));
+
+
+            }
+        });
+
+
+        imgContenEnAcopio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityMenu.this, FormDatosContersEnAcopio.class));
+
+            }
+        });
 
          imgContenedores.setOnClickListener(new View.OnClickListener() {
-
-
              @Override
              public void onClick(View view) {
-
-
-
                  startActivity(new Intent(ActivityMenu.this,FormularioActivity.class ));
 
 
