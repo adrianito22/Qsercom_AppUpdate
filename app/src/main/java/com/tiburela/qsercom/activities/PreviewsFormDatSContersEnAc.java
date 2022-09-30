@@ -2,7 +2,6 @@ package com.tiburela.qsercom.activities;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.os.Build.VERSION.SDK_INT;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -24,14 +23,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -47,6 +45,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,15 +59,18 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.models.SetInformDatsHacienda;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
+import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.IOException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -77,14 +79,16 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class FormDatosContersEnAcopio extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
-
+    boolean isModEdicionFields;
+    FloatingActionButton fab ;
 
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
+
     TextInputEditText ediFechaInicio;
     TextInputEditText fechDetermino;
     TextInputEditText ediExpSolicitante;
@@ -128,8 +132,6 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
     TextInputEditText ediOtroSellosLlegada;
     TextInputEditText ediFotosSellosLLegada;
 
-
-
     TextInputEditText ediTermofrafo1;
     TextInputEditText ediHoraEncendido1;
     TextInputEditText ediUbicacion1;
@@ -148,27 +150,13 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
     TextInputEditText esiSelloAdhNaviera;
     TextInputEditText ediOtherSellos;
 
-    LinearLayout linLayoutHeader1;
-    LinearLayout linLayoutHeader3;
-    LinearLayout linLayoutHeader4;
-    LinearLayout linLayoutHeader5;
-    LinearLayout linLayoutHeader6;
-    LinearLayout linLayoutHeader7;
-
-
-
     Spinner spinnerSelectZona;
     Spinner spFumigaCorL1 ;
     Spinner spTipoBoquilla ;
-    ArrayList<View> listViewsClickedUser;
+
 
     ImageView imBatach;
-    ActivityResultLauncher activityResultLauncher;
-    Uri cam_uri;
-
     ImageView imBtakePic;
-
-    ////////
     ImageView imbAtach_transportista;
     ImageView imbTakePicTransportista;
     ImageView imbAtachSellosLlegada;
@@ -177,7 +165,24 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
     ImageView imbTakePicDatosContenedor;
     ImageView imbAtachPrPostcosecha;
     ImageView imbTakePicPrPostcosecha;
-     ImageView imbTakePic;
+    ImageView imbTakePic;
+
+
+    LinearLayout linLayoutHeader1;
+    LinearLayout linLayoutHeader3;
+    LinearLayout linLayoutHeader4;
+    LinearLayout linLayoutHeader5;
+    LinearLayout linLayoutHeader6;
+    LinearLayout linLayoutHeader7;
+
+
+    ArrayList<View> listViewsClickedUser;
+
+    ActivityResultLauncher activityResultLauncher;
+    Uri cam_uri;
+
+
+
     public static Context context;
 
 
@@ -185,8 +190,18 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
     protected void onStart() {
         super.onStart();
 
-        Auth.initAuth(FormDatosContersEnAcopio.this);
-        Auth.signInAnonymously(FormDatosContersEnAcopio.this);
+        Auth.initAuth(PreviewsFormDatSContersEnAc.this);
+        Auth.signInAnonymously(PreviewsFormDatSContersEnAc.this);
+
+
+        checkModeVisualitY(); //despues lo llamaremos solo una vez
+
+        addDataEnFields(Variables.CurrenReportContensEnACp);
+
+        //descarga info
+
+
+
 
 /*
         if(hayUnformularioIcompleto){
@@ -228,7 +243,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.form_datos_contene_acopio);
+        setContentView(R.layout.form_datos_contene_acopio_prev);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -279,7 +294,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
         // time picker dialog
-        TimePickerDialog  picker = new TimePickerDialog(FormDatosContersEnAcopio.this,
+        TimePickerDialog  picker = new TimePickerDialog(PreviewsFormDatSContersEnAc.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
@@ -350,7 +365,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         int mes = cldr.get(Calendar.MONTH);
 
         // time picker dialog
-        DatePickerDialog  picker = new DatePickerDialog(FormDatosContersEnAcopio.this,
+        DatePickerDialog  picker = new DatePickerDialog(PreviewsFormDatSContersEnAc.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -411,6 +426,9 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
 
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
@@ -546,6 +564,8 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
       ///  imBtakePic.setOnClickListener(this);
        // imBatach.setOnClickListener(this);
 
+        fab.setOnClickListener(this);
+
          imbAtach_transportista.setOnClickListener(this);
          imbTakePicTransportista.setOnClickListener(this);
          imbAtachSellosLlegada.setOnClickListener(this);
@@ -604,6 +624,45 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
 
        switch (view.getId()) {
+           case R.id.fab: //si pulas en btn chekear en que modo esta ...si el modo cambia...
+
+           TextView txtModeAdviser=findViewById(R.id.txtModeAdviser2);
+
+           if(isModEdicionFields){ //si es modo edicion..
+               fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
+
+               txtModeAdviser.setText("Modo Visualizacion ");
+
+
+
+               //cambiamos al modo visualizacion
+               isModEdicionFields=false;
+               activateModePreview();
+
+
+           }else{ //SI NO ES MODO VISUZALIZACION
+               fab.setImageResource(R.drawable.ic_baseline_preview_24jhj);
+               txtModeAdviser.setText("Modo Edicion ");
+
+               isModEdicionFields=true;
+               activateModeEdit();
+
+
+               //CAMABIAMOS EL MODO
+
+           }
+
+
+
+           break; //
+
+
+
+
+
+
+
+
 
            case R.id.linLayoutHeader1:
                LinearLayout layoutContainerSeccion=findViewById(R.id.layoutContainerSeccion7);
@@ -854,14 +913,14 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
     private void takepickNow() {
 
-        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, FormDatosContersEnAcopio.this);
+        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, PreviewsFormDatSContersEnAc.this);
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
             ContentValues values = new ContentValues();
             values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
             values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
-             cam_uri = FormDatosContersEnAcopio.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+             cam_uri = PreviewsFormDatSContersEnAc.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
 
@@ -889,7 +948,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
                            // showImageByUri(cam_uri);
 
                             //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(FormDatosContersEnAcopio.this,cam_uri)));
+                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,cam_uri)));
 
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -1239,7 +1298,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
 
 //                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(FormularioActivity.this,cam_uri)));
-                            ImagenReport imagenReportObjc =new ImagenReport("adrianitotest",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(FormDatosContersEnAcopio.this,result.get(indice))));
+                            ImagenReport imagenReportObjc =new ImagenReport("adrianitotest",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice))));
 
                           Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
 
@@ -1736,7 +1795,7 @@ private void createObjcInformeAndUpload(){
 
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, FormDatosContersEnAcopio.this);
+                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewsFormDatSContersEnAc.this);
 
 
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
@@ -1771,7 +1830,7 @@ private void createObjcInformeAndUpload(){
         //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
 
         //aqui subimos
-       StorageData.uploadImage(FormDatosContersEnAcopio.this, ImagenReport.hashMapImagesData);
+       StorageData.uploadImage(PreviewsFormDatSContersEnAc.this, ImagenReport.hashMapImagesData);
 
     }
 
@@ -2793,5 +2852,191 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     }
+
+
+    private void checkModeVisualitY(){
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            isModEdicionFields = extras.getBoolean(Variables.KEYEXTRA_CONTEN_EN_ACP);
+
+            Log.i("extra","el modo es "+isModEdicionFields);
+            //The key argument here must match that used in the other activity
+        }
+
+
+        if(isModEdicionFields){
+            TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
+            activateModeEdit();
+            txtModeAdviser.setText("Modo Edicion ");
+
+            Log.i("moder","es modoedicion, de");
+
+        }
+
+
+        else{
+            activateModePreview();
+           fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
+            Log.i("moder","es modo preview");
+
+        }
+
+
+        Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
+        //AGREGMOS LA DATA EN LOS FILEDS
+      //  addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+
+       // addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+
+
+
+
+        //inicializamos STORAGE..
+        StorageData.initStorageReference();
+     //   dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinforme());
+
+      //  dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinforme());
+
+
+
+    }
+    private void activateModeEdit() {
+        Variables.isClickable=true;
+        //Creamos un array de todos los objetos..
+
+        //vamos a probar ocn varios
+
+        View [] misViewsArray={ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediExpProcesada,    ediMarca,    ediPuerto,    ediAgenciaNav,
+                ediInspectorAcopio,    ediCedulaI,    ediZona,    ediHoraInicio,    ediHoraTermino,    ediHoraLLegadaContenedor,
+                ediHoraSalidaContenedor,    ediNguiaRemision,    ediNtargetaEmbarque,    ediFotosLlegada,    ediDestino,    ediVapor,
+                ediFotoContenedor,    ediFotosPposcosecha,    ediNumContenedor,    ediCompaniaTransporte,    ediNombreChofer,    ediCedula,
+                ediCelular,    ediPLaca,    ediMarcaCabezal,    ediColorCabezal,    ediFotosLlegadaTransport,    ediTare,    ediBooking,
+                ediMaxGross,    ediNumSerieFunda,    stikVentolerExterna,    ediCableRastreoLlegada,    ediSelloPlasticoNaviera,    ediOtroSellosLlegada,
+                ediFotosSellosLLegada,        ediTermofrafo1,    ediHoraEncendido1,    ediUbicacion1,    ediRuma1,    ediTermofrafo2,
+                ediHoraEncendido2,    ediUbicacion2,    ediRuma2,    ediCandadoqsercon,    ediSelloNaviera,    ediCableNaviera,    ediSelloPlastico,
+                ediCandadoBotella,    ediCableExportadora,    ediSelloAdesivoexpor,    esiSelloAdhNaviera,    ediOtherSellos,
+                spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla ,    imBatach,    imBtakePic,    imbAtach_transportista,    imbTakePicTransportista,
+                imbAtachSellosLlegada,    imbTakePicSellosLLegada,    imbAtachDatosContenedor,    imbTakePicDatosContenedor,    imbAtachPrPostcosecha,
+                imbTakePicPrPostcosecha,    imbTakePic,
+
+    };
+
+
+
+
+        HelperEditAndPreviewmode.activateViewsByTypeView(misViewsArray);
+
+
+        //Buttons
+        Button  btnCheck=findViewById(R.id.btnCheck);
+      ///  activateViewsByTypeView( btnCheck);
+
+    }
+
+    private void activateModePreview() {
+        Variables.isClickable=false;
+        //Creamos un array de todos los objetos..
+
+        //vamos a probar ocn varios
+
+        View [] misViewsArray={ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediExpProcesada,    ediMarca,    ediPuerto,    ediAgenciaNav,
+                ediInspectorAcopio,    ediCedulaI,    ediZona,    ediHoraInicio,    ediHoraTermino,    ediHoraLLegadaContenedor,
+                ediHoraSalidaContenedor,    ediNguiaRemision,    ediNtargetaEmbarque,    ediFotosLlegada,    ediDestino,    ediVapor,
+                ediFotoContenedor,    ediFotosPposcosecha,    ediNumContenedor,    ediCompaniaTransporte,    ediNombreChofer,    ediCedula,
+                ediCelular,    ediPLaca,    ediMarcaCabezal,    ediColorCabezal,    ediFotosLlegadaTransport,    ediTare,    ediBooking,
+                ediMaxGross,    ediNumSerieFunda,    stikVentolerExterna,    ediCableRastreoLlegada,    ediSelloPlasticoNaviera,    ediOtroSellosLlegada,
+                ediFotosSellosLLegada,        ediTermofrafo1,    ediHoraEncendido1,    ediUbicacion1,    ediRuma1,    ediTermofrafo2,
+                ediHoraEncendido2,    ediUbicacion2,    ediRuma2,    ediCandadoqsercon,    ediSelloNaviera,    ediCableNaviera,    ediSelloPlastico,
+                ediCandadoBotella,    ediCableExportadora,    ediSelloAdesivoexpor,    esiSelloAdhNaviera,    ediOtherSellos,
+                spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla ,    imBatach,    imBtakePic,    imbAtach_transportista,    imbTakePicTransportista,
+                imbAtachSellosLlegada,    imbTakePicSellosLLegada,    imbAtachDatosContenedor,    imbTakePicDatosContenedor,    imbAtachPrPostcosecha,
+                imbTakePicPrPostcosecha,    imbTakePic,
+
+        };
+
+        //CREAMOS DATA
+        HelperEditAndPreviewmode.diseableViewsByTipe(misViewsArray);
+
+
+        //Buttons
+        Button  btnCheck=findViewById(R.id.btnCheck);
+        ///  activateViewsByTypeView( btnCheck);
+
+    }
+
+    // ();
+    private  void addDataEnFields(ContenedoresEnAcopio currentInform)  {
+        //usamos los 2 objetos para establecer esta data..
+
+     //   Log.i("jamisama","la semana es "+currentInform.getSemana());
+        ediExpSolicitante.setText(currentInform.getExportSolicitante());
+        ediExpProcesada.setText(currentInform.getExportProcesada());
+                ediMarca.setText(currentInform.getMarca());
+        ediPuerto.setText(currentInform.getPuerto());
+                ediNumContenedor.setText(currentInform.getNumContenedor());
+        ediAgenciaNav.setText(currentInform.getAgenciaNaviera());
+
+        ediFechaInicio.setText(currentInform.getFechaInicio());
+       // Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+       // String fechaString = formatter.format(currentInform.get);
+        fechDetermino.setText(currentInform.getFechadeTermino());
+        ediZona.setText(currentInform.getZona());
+        ediHoraInicio.setText(currentInform.getHoraInicio());
+
+        ediHoraTermino.setText(currentInform.getHoraDetermino());
+        ediHoraLLegadaContenedor.setText(currentInform.getHoraDeLlegada());
+
+        ediHoraSalidaContenedor.setText(currentInform.getHoraDeSalida());
+        ediNguiaRemision.setText(currentInform.getGuiaDeRemision());
+        ediNtargetaEmbarque.setText(currentInform.getTarjaDeEmbarque());
+
+        /*faltan los prouctos postcosecha agregamos usando un for**/
+
+
+        ediDestino.setText(currentInform.getDestino());
+        ediVapor.setText(currentInform.getVapor());
+
+        ediCompaniaTransporte.setText(currentInform.getCompaniaTranportista());
+        ediNombreChofer.setText(currentInform.getNombredeChofer());
+        ediCedula.setText(String.valueOf(currentInform.getCedula()));
+        ediCelular.setText(String.valueOf(currentInform.getCelular()));
+        ediPLaca.setText(currentInform.getPlaca());
+        ediMarcaCabezal.setText(currentInform.getMarcaCabezal());
+        ediColorCabezal.setText(currentInform.getColorCabezal());
+        ediTare.setText(currentInform.getTare());
+        ediBooking.setText(currentInform.getBooking());
+        ediMaxGross.setText(currentInform.getMaxGross());
+        ediNumSerieFunda.setText(currentInform.getNumSerieFunda());
+        stikVentolerExterna.setText(currentInform.getStickerDeVentolExternn1());
+        ediCableRastreoLlegada.setText(currentInform.getCableRastreoLlegada());
+        ediSelloPlasticoNaviera.setText(currentInform.getSellosPlasticoNaviera());
+        ediTermofrafo1.setText(currentInform.getTermografoN1());
+
+       // ediHoraEncendido1.setText(currentInform.geth);
+
+       // ediUbicacion1.setText(currentInform.ubi);
+      //  ediRuma1.setText(currentInform.);
+
+       // ediTermofrafo2.setText(currentInform.getRumaPalletN2());
+      //  ediHoraEncendido2.setText(currentInform.getTermografo2HoraEncendido());
+       // ediUbicacion2.setText(currentInform.getUbicacionPalletN2());
+      //  ediRuma2.setText(currentInform.getRuma);
+        ediCandadoqsercon.setText(currentInform.getCandadoDeQsercon());
+        ediSelloNaviera.setText(currentInform.getSelloDeNaviera());
+        ediCableNaviera.setText(currentInform.getCableDeNaviera());
+        ediSelloPlastico.setText(currentInform.getSelloPlastico());
+        ediCandadoBotella.setText(currentInform.getCandadodeBotella());
+        ediCableExportadora.setText(currentInform.getCableExportadora());
+        ediSelloAdesivoexpor.setText(currentInform.getSelloAdhesivoExportadora());
+        esiSelloAdhNaviera.setText(currentInform.getSelloAdhesivoNaviera()); //ESTE PARECE OTRO
+        ediOtherSellos.setText(currentInform.getOtrosSellos());
+
+
+
+
+
+    }
+
 
 }

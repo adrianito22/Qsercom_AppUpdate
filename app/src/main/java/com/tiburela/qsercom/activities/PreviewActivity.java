@@ -102,7 +102,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     private int contadorIterador;
     private boolean isModEdicionFields=false;
     private boolean esFirstCharge=true;
-
+   private Switch swAguaCorrida,switchLavdoRacimos;
     private static int currentTypeImage=0;
     ProgressBar progressBarFormulario;
 
@@ -193,7 +193,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     TextInputEditText ediOtherSellos;
     TextInputEditText ediEnsunchado;
     TextInputEditText ediBalanzaRepeso;
-
+     TextInputEditText ediNumContenedor;
 
     TextInputEditText ediFuenteAgua;
     TextInputEditText ediAguaCorrida;
@@ -524,8 +524,9 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         ediObservacion = findViewById(R.id.ediObservacion);
         ediFotosLlegada=findViewById(R.id.ediFotosLlegada);
 
-
-
+        ediNumContenedor=findViewById(R.id.ediNumContenedor);
+        swAguaCorrida=findViewById(R.id.swAguaCorrida);
+        switchLavdoRacimos=findViewById(R.id.switchLavdoRacimos);
 
         ediTare=findViewById(R.id.ediTare);
         ediBooking=findViewById(R.id.ediBooking);
@@ -1937,6 +1938,7 @@ private void createObjcInformeAndUpload(){
         //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
 
+
     SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
             Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
             ,ediProductor.getText().toString(),ediCodigo.getText().toString()
@@ -1945,12 +1947,10 @@ private void createObjcInformeAndUpload(){
             ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
             ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
             FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-            ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediVapor.getText().toString(),
+            ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
             ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
             ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
             ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
-
-
     informe.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
@@ -1977,7 +1977,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-    SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),asfas, ediLavadoRacimos.getText().toString(),
+    SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),
             ediFumigacionClin1.getText().toString(),ediTipoBoquilla.getText().toString(),ediCajasProcDesp.getText().toString(),
             ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME);
 
@@ -2009,6 +2009,7 @@ private void createObjcInformeAndUpload(){
         //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
 
+
         SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
                 Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
                 ,ediProductor.getText().toString(),ediCodigo.getText().toString()
@@ -2017,11 +2018,10 @@ private void createObjcInformeAndUpload(){
                 ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
                 ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
                 FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-                ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediVapor.getText().toString(),
+                ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
                 ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
                 ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
                 ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
-
 
         informe.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
@@ -3855,6 +3855,9 @@ private void checkModeVisualitY(){
      Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
     //AGREGMOS LA DATA EN LOS FILEDS
     addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+
+    Log.i("isclkiel","el data es "+ Variables.CurrenReportPart1.getContenedor());
+
 
     addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
 

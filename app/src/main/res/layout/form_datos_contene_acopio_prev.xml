@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="right"
+    android:background="#E6E6E6"
+    tools:context=".activities.FormularioActivity">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="20dp"
+
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/ic_baseline_preview_24jhj"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ProgressBar
+        android:id="@+id/progressBarFormulario"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:progress="1"
+        android:progressTint="#01B151"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtModeAdviser2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="5dp"
+        android:text="Modo Visualizacion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarFormulario" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModeAdviser2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/linLayoutHeader1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#151C47"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:padding="5dp"
+                    android:text="DATOS GENERALES"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/arrow_down_float" />
+            </LinearLayout>
+
+
+            <include
+                layout="@layout/ly_contenedoresen_acopio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/linLayoutHeader4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#151C47"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:padding="5dp"
+                    android:text="DATOS DEL CONTENEDOR"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/imvOcultaLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/arrow_down_float" />
+            </LinearLayout>
+
+            <include
+                layout="@layout/ly_datos_contenedor2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:id="@+id/linLayoutHeader3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#151C47"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:padding="5dp"
+                    android:text="SELLOS  DE LLEGADA"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/imvOcultaLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/arrow_down_float" />
+            </LinearLayout>
+
+
+            <include
+                layout="@layout/ly_sellos_llegada2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/linLayoutHeader7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#151C47"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:padding="5dp"
+                    android:text="SELLOS INSTALADOS"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/imvOcultaLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/arrow_down_float" />
+            </LinearLayout>
+
+
+            <include
+                layout="@layout/ly_sellos_instal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/linLayoutHeader5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#151C47"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:padding="5dp"
+                    android:text="Datos del transportista"
+                    android:textAllCaps="true"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/imvOcultaLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/arrow_down_float" />
+            </LinearLayout>
+
+
+            <include
+                layout="@layout/ly_datos_transportista"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:id="@+id/linLayoutHeader6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#151C47"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:padding="5dp"
+                    android:text="Datos del Proceso"
+                    android:textAllCaps="true"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/imvOcultaLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/arrow_down_float" />
+
+            </LinearLayout>
+
+
+            <include
+                layout="@layout/datos_proceso2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/btn"
+                    android:text="Guardar Formulario" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

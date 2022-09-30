@@ -14,27 +14,53 @@ import java.util.HashMap;
 
 public class PackingListActivity extends AppCompatActivity {
 
-    TextInputEditText ediname1;
-    TextInputEditText ediname2;
-    TextInputEditText ediname3;
-    TextInputEditText ediname4;
-    TextInputEditText ediname5;
-    TextInputEditText ediname6;
-    TextInputEditText ediname7;
-    TextInputEditText ediname8;
-    TextInputEditText ediname9;
-    TextInputEditText ediname10;
+    TextInputEditText edinumbox1;
+    TextInputEditText edinumbox2;
+    TextInputEditText edinumbox3;
+    TextInputEditText edinumbox4;
+    TextInputEditText edinumbox5;
+    TextInputEditText edinumbox6;
+    TextInputEditText edinumbox7;
+    TextInputEditText edinumbox8;
+    TextInputEditText edinumbox9;
+    TextInputEditText edinumbox10;
 
-    TextInputEditText ediValor1;
-    TextInputEditText ediValor2;
-    TextInputEditText ediValor3;
-    TextInputEditText ediValor4;
-    TextInputEditText ediValor5;
-    TextInputEditText ediValor6;
-    TextInputEditText ediValor7;
-    TextInputEditText ediValor8;
-    TextInputEditText ediValor9;
-    TextInputEditText ediValor10;
+    TextInputEditText edinumbox11;
+    TextInputEditText edinumbox12;
+    TextInputEditText edinumbox13;
+
+    TextInputEditText edinumbox14;
+    TextInputEditText edinumbox15;
+    TextInputEditText edinumbox16;
+    TextInputEditText edinumbox17;
+    TextInputEditText edinumbox18;
+    TextInputEditText edinumbox19;
+    TextInputEditText edinumbox20;
+
+
+    TextInputEditText ediDescripcion1;
+    TextInputEditText ediDescripcion2;
+    TextInputEditText ediDescripcion3;
+    TextInputEditText ediDescripcion4;
+    TextInputEditText ediDescripcion5;
+    TextInputEditText ediDescripcion6;
+    TextInputEditText ediDescripcion7;
+    TextInputEditText ediDescripcion8;
+    TextInputEditText ediDescripcion9;
+    TextInputEditText ediDescripcion10;
+
+    TextInputEditText ediDescripcion11;
+    TextInputEditText ediDescripcion12;
+    TextInputEditText ediDescripcion13;
+    TextInputEditText ediDescripcion14;
+    TextInputEditText ediDescripcion15;
+    TextInputEditText ediDescripcion16;
+    TextInputEditText ediDescripcion17;
+    TextInputEditText ediDescripcion18;
+    TextInputEditText ediDescripcion19;
+    TextInputEditText ediDescripcion20;
+
+
 
 
     @Override
@@ -47,28 +73,50 @@ public class PackingListActivity extends AppCompatActivity {
 
     void findViewsIds( ) {
 
-        ediname1  =findViewById(R.id.ediname1 );
-                ediname2 =findViewById(R.id.ediname2 );
-        ediname3 =findViewById(R.id.ediname3 );
-                ediname4 =findViewById(R.id.ediname4 );
-        ediname5 =findViewById(R.id.ediname5 );
-                ediname6 =findViewById(R.id.ediname6 );
-        ediname7 =findViewById(R.id.ediname7 );
-                ediname8 =findViewById(R.id.ediname8 );
-        ediname9 =findViewById(R.id.ediname9 );
-                ediname10 =findViewById(R.id.ediname10 );
+        edinumbox1  =findViewById(R.id.edinumbox1 );
+        edinumbox2 =findViewById(R.id.edinumbox2 );
+        edinumbox3 =findViewById(R.id.edinumbox3 );
+        edinumbox4 =findViewById(R.id.edinumbox4 );
+        edinumbox5 =findViewById(R.id.edinumbox5 );
+        edinumbox6 =findViewById(R.id.edinumbox6 );
+        edinumbox7 =findViewById(R.id.edinumbox7 );
+        edinumbox8 =findViewById(R.id.edinumbox8 );
+        edinumbox9 =findViewById(R.id.edinumbox9 );
+        edinumbox10 =findViewById(R.id.edinumbox10 );
+         edinumbox11=findViewById(R.id.edinumbox11);
+         edinumbox12=findViewById(R.id.edinumbox12);
+         edinumbox13=findViewById(R.id.edinumbox13);
+         edinumbox14=findViewById(R.id.edinumbox14);
+         edinumbox15=findViewById(R.id.edinumbox15);
+         edinumbox16=findViewById(R.id.edinumbox16);
+         edinumbox17=findViewById(R.id.edinumbox17);
+         edinumbox18=findViewById(R.id.edinumbox18);
+         edinumbox19=findViewById(R.id.edinumbox19);
+         edinumbox20=findViewById(R.id.edinumbox20);
 
-        ediValor1 =findViewById(R.id.ediValor1 );
-                ediValor2 =findViewById(R.id.ediValor2 );
-        ediValor3 =findViewById(R.id.ediValor3 );
-                ediValor4 =findViewById(R.id.ediValor4 );
-        ediValor5 =findViewById(R.id.ediValor5 );
-                ediValor6 =findViewById(R.id.ediValor6 );
-        ediValor7 =findViewById(R.id.ediValor7 );
-                ediValor8 =findViewById(R.id.ediValor8 );
-        ediValor9 =findViewById(R.id.ediValor9 );
-                ediValor10 =findViewById(R.id.ediValor10 );
 
+
+        ediDescripcion1 =findViewById(R.id.ediDescripcion1 );
+        ediDescripcion2 =findViewById(R.id.ediDescripcion2 );
+        ediDescripcion3 =findViewById(R.id.ediDescripcion3 );
+        ediDescripcion4 =findViewById(R.id.ediDescripcion4 );
+        ediDescripcion5 =findViewById(R.id.ediDescripcion5 );
+        ediDescripcion6 =findViewById(R.id.ediDescripcion6 );
+        ediDescripcion7 =findViewById(R.id.ediDescripcion7 );
+        ediDescripcion8 =findViewById(R.id.ediDescripcion8 );
+        ediDescripcion9 =findViewById(R.id.ediDescripcion9 );
+        ediDescripcion10 =findViewById(R.id.ediDescripcion10 );
+
+
+
+         ediDescripcion11=findViewById(R.id.ediDescripcion11);
+         ediDescripcion12=findViewById(R.id.ediDescripcion12);
+         ediDescripcion13=findViewById(R.id.ediDescripcion13);
+         ediDescripcion14=findViewById(R.id.ediDescripcion14);
+         ediDescripcion15=findViewById(R.id.ediDescripcion15);
+         ediDescripcion16=findViewById(R.id.ediDescripcion16);
+         ediDescripcion17=findViewById(R.id.ediDescripcion17);
+         ediDescripcion18=findViewById(R.id.ediDescripcion18);
     }
 
     ///vasmos a crear un mapa usando un tag o el id.....
@@ -109,27 +157,50 @@ public class PackingListActivity extends AppCompatActivity {
 
        TextInputEditText   [] miArray = {
 
-               ediname1, //0
-               ediname2,
-               ediname3,
-               ediname4,
-               ediname5,
-               ediname6,
-               ediname7,
-               ediname8,
-               ediname9,
-               ediname10,
+               edinumbox1, //0
+               edinumbox2,
+               edinumbox3,
+               edinumbox4,
+               edinumbox5,
+               edinumbox6,
+               edinumbox7,
+               edinumbox8,
+               edinumbox9,
+               edinumbox11,
+               edinumbox12,
+               edinumbox13,
+               edinumbox14,
+               edinumbox15,
+               edinumbox16,
+               edinumbox18,
+               edinumbox19,
+               edinumbox20,
 
-               ediValor1,
-               ediValor2,
-               ediValor3,
-               ediValor4,
-               ediValor5,
-               ediValor6,
-               ediValor7,
-               ediValor8,
-               ediValor9,
-               ediValor10,
+
+
+
+
+               ediDescripcion1,
+               ediDescripcion2,
+               ediDescripcion3,
+               ediDescripcion4,
+               ediDescripcion5,
+               ediDescripcion6,
+               ediDescripcion7,
+               ediDescripcion8,
+               ediDescripcion9,
+               ediDescripcion10,
+               ediDescripcion11,
+               ediDescripcion12,
+               ediDescripcion13,
+               ediDescripcion14,
+               ediDescripcion15,
+               ediDescripcion16,
+               ediDescripcion17,
+               ediDescripcion18,
+               ediDescripcion19,
+               ediDescripcion20,
+
 
 
        } ;

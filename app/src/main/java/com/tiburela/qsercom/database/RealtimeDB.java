@@ -59,14 +59,14 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
-    public static void addNewInformContenresAcopio( ContenedoresEnAcopio informeObjct) {
+    public static void addNewInformContenresAcopio( ContenedoresEnAcopio informeObjct,String uniqUEid) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("contenedoresAcopio");
 
         //agregamos la propiedad keyFirebase a al objeto
         String PuskEY = mibasedata.push().getKey();
 
         informeObjct.setKeyFirebase(PuskEY);
-
+        informeObjct.setUniqueIDinforme(uniqUEid);
        // Map<String, Object> mapValues = informeObjct.toMap();
 
 

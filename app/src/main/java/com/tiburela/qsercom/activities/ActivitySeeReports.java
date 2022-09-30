@@ -25,6 +25,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
+import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.ReportsAllModel;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.Variables;
@@ -42,6 +44,18 @@ Spinner  spinnerDatesSelector;
     ProgressDialog pd;
     DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
+
+    public final int REPORTE_CONTENEDORES_EN_HCDA=1200;
+    public final int CONTENEDORES=1200;
+    public final int PACKINGLIST=1201;
+    public final int OTRO_REPORTE=1202;
+    public final int REPORTE_CONTENEDORES_EN_ACOPIO=1203;
+
+
+
+
+    ArrayList<ReportsAllModel>allReportFiltB;
+
 
     public static Context context;
 
@@ -109,7 +123,8 @@ Spinner  spinnerDatesSelector;
                 if(timeSelecionado.equals("HOY")){
 
                     fechaToSearch=generaFechaToSearch(Variables.HOY);
-                    dowloadinformesbytimedate(fechaToSearch);
+                    dowloadinformesby_CONTENEDORES(fechaToSearch);
+                    dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
                     Log.d("dateis ","el dat today is "+fechaToSearch) ;
 
@@ -118,20 +133,26 @@ Spinner  spinnerDatesSelector;
                 else if (timeSelecionado.equals("AYER")){
 
                     fechaToSearch=generaFechaToSearch(Variables.AYER);
-                    dowloadinformesbytimedate(fechaToSearch);
+                    dowloadinformesby_CONTENEDORES(fechaToSearch);
+                    dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+
 
                 }
 
                 else if (timeSelecionado.equals("ANTEAYER")){
 
                     fechaToSearch=generaFechaToSearch(Variables.ANTEAYER);
-                    dowloadinformesbytimedate(fechaToSearch);
+                    dowloadinformesby_CONTENEDORES(fechaToSearch);
+                    dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+
 
                 }else if (timeSelecionado.equals("FECHA ESPECIFICA")){
 
                     String fecheEspecifica ="14-09-2022";//aqui va la fecha que obtengamos
 
-                    dowloadinformesbytimedate(fecheEspecifica);
+                    dowloadinformesby_CONTENEDORES(fecheEspecifica);
+                    dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+
 
 
                 }
@@ -150,28 +171,33 @@ Spinner  spinnerDatesSelector;
     }
 
 
-    void dowloadinformesbytimedate(String dateSelecionado){
+    void dowloadinformesby_CONTENEDORES(String dateSelecionado){
 
        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
-        reportsListPart1 = new ArrayList<>();
+        //reportsListPart1 = new ArrayList<>();
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                allReportFiltB=new ArrayList<>();
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     SetInformEmbarque1 informEmbarque1=ds.getValue(SetInformEmbarque1.class);
 
-                    reportsListPart1.add(informEmbarque1);
+                  //  reportsListPart1.add(informEmbarque1);
+
+
+                    allReportFiltB.add(new ReportsAllModel(CONTENEDORES,false,false,false,"Contenedores"
+                            , informEmbarque1.getSimpleDataFormat(),informEmbarque1.getUniqueIDinforme()));
 
                 }
 
 
 
 
-                setAdapaterDataAndShow(reportsListPart1);
+                //setAdapaterDataAndShow(reportsListPart1);
 
             }
 
@@ -187,9 +213,46 @@ Spinner  spinnerDatesSelector;
     }
 
 
+    void dowloadinformesby_CONTENEDORES_EN_ACOPIO(String dateSelecionado){
+
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = rootDatabaseReference.child("Informes").child("contenedoresAcopio").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
+    //    reportsListPart1 = new ArrayList<>();
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ContenedoresEnAcopio contenedoresEnAcopio=ds.getValue(ContenedoresEnAcopio.class);
+
+                  //  reportsListPart1.add(informEmbarque1);
+
+                    allReportFiltB.add(new ReportsAllModel(REPORTE_CONTENEDORES_EN_ACOPIO,false,false,false,"Contenedores Acopio"
+                            , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme()));
+
+                }
 
 
-    void setAdapaterDataAndShow(ArrayList<SetInformEmbarque1>reports ) {
+                setAdapaterDataAndShow(allReportFiltB);
+
+                //setAdapaterDataAndShow(reportsListPart1);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+    void setAdapaterDataAndShow(ArrayList<ReportsAllModel>reports ) {
 
 
         if (reports.size()>0 )
@@ -223,12 +286,12 @@ Spinner  spinnerDatesSelector;
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
 
-                Variables.CurrenReportPart1=  reportsListPart1.get(position);
+               // Variables.CurrenReportPart1=  reportsListPart1.get(position);
 
-                showBottomSheetDialog();
+                showBottomSheetDialog(allReportFiltB.get(position).getReporteTipo(),allReportFiltB.get(position).getIdInforme());
 
 
-                Log.i("midaclick","el click es here, posicion es "+position);
+                Log.i("midaclick","el click es here, el informe es "+allReportFiltB.get(position).getIdInforme());
 
 
             }
@@ -236,6 +299,135 @@ Spinner  spinnerDatesSelector;
         });
     }
 
+
+
+    private void DowloadReportPart1(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
+
+            //to fetch all the users of firebase Auth app
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+            DatabaseReference usersdRef = rootRef.child("Informes").child("listInformes");
+
+        Query query = usersdRef.orderByChild("uniqueIDinforme").equalTo(uniqeuIDiNFORME);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                   // DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                  //  String key = nodeShot.getKey();
+
+
+
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        SetInformEmbarque1 currentObect= ds.getValue(SetInformEmbarque1.class);
+
+                        if(currentObect!=null){
+                            Variables.CurrenReportPart1=currentObect;
+                           break;
+
+                        }
+
+
+
+                    }
+
+                    Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
+
+
+
+
+                 //   Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
+
+                    dowloadSecondPART_ReportAndGetActivity(Variables.CurrenReportPart1.getUniqueIDinforme(),modoReporte);//y despues vamos a a la activity preview
+
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.i("isclkiel","el error es  "+ error.getMessage());
+
+
+                }
+            } );
+
+
+
+
+    }
+
+
+
+    private void DowloadReportContersAcopio(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
+
+        //to fetch all the users of firebase Auth app
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference usersdRef = rootRef.child("Informes").child("contenedoresAcopio");
+
+        Query query = usersdRef.orderByChild("uniqueIDinforme").equalTo(uniqeuIDiNFORME);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    ContenedoresEnAcopio informe=ds.getValue(ContenedoresEnAcopio.class);
+
+                        if(informe!=null){
+                            Variables.CurrenReportContensEnACp=informe;
+                            break;
+
+                        }
+
+
+                }
+
+                Intent intencion= new Intent(ActivitySeeReports.this, PreviewsFormDatSContersEnAc.class);
+
+
+                if(modoReporte==Variables.MODO_EDICION ){
+
+                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    startActivity(intencion);
+
+                    //pd.dismiss();
+
+                    //finish();
+                }else{
+
+
+                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,false);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    startActivity(intencion);
+                    // pd.dismiss();
+                    // finish();
+
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
+
+
+    }
 
 
     String  generaFechaToSearch( int dateId) {
@@ -296,9 +488,6 @@ return fecha;
         pd.show();
 
 
-
-
-
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinforme").equalTo(reportUNIQUEidtoSEARCH);
 
@@ -308,12 +497,19 @@ return fecha;
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    SetInformEmbarque2 informEmbarque2=ds.getValue(SetInformEmbarque2.class);
-                      Variables.CurrenReportPart2=informEmbarque2;
-                      Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinforme());
+                    SetInformEmbarque2 informEmbarque2= ds.getValue(SetInformEmbarque2.class);
+
+                    if(informEmbarque2!=null){
+                        Variables.CurrenReportPart2=informEmbarque2;
+                        break;
+
+                    }
+
+                  ///  Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinforme());
                 }
 
 
+                Log.i("midaclick","es resporte Conetenedores vamos "+Variables.CurrenReportPart2.getUniqueIDinforme());
 
 
                 Intent intencion= new Intent(ActivitySeeReports.this, PreviewActivity.class);
@@ -365,12 +561,11 @@ return fecha;
 
 
     }
-    private void showBottomSheetDialog() {
+    private void showBottomSheetDialog(int reportTipo,String idReport) {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivitySeeReports.this);
 
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_edit_cpn);
-
 
         LinearLayout lyRevisar = bottomSheetDialog.findViewById(R.id.lyRevisar);
         LinearLayout lyEditar = bottomSheetDialog.findViewById(R.id.lyEditar);
@@ -379,11 +574,28 @@ return fecha;
 
 
 
-        lyRevisar.setOnClickListener(new View.OnClickListener() { //editar
+        lyRevisar.setOnClickListener(new View.OnClickListener() { //revisar
+
             @Override
             public void onClick(View v) {
 
-                dowloadSecondPART_ReportAndGetActivity(Variables.CurrenReportPart1.getUniqueIDinforme(),Variables.MODO_VISUALIZACION);//y despues vamos a a la activity preview
+                allReportFiltB=new ArrayList<>();
+
+
+                if(reportTipo==CONTENEDORES){
+                    ///descragamos la parte uno del reporte
+                    DowloadReportPart1(idReport,Variables.MODO_VISUALIZACION);
+
+                }else if(reportTipo==REPORTE_CONTENEDORES_EN_ACOPIO){
+
+
+                    DowloadReportContersAcopio(idReport,Variables.MODO_VISUALIZACION);
+                    //Descargamos un objeto contenedores object...
+
+                }
+
+
+
 
                 bottomSheetDialog.dismiss();
 
@@ -396,9 +608,24 @@ return fecha;
         lyEditar.setOnClickListener(new View.OnClickListener() {  //activar switch
             @Override
             public void onClick(View v) {
-                //  Toast.makeText(getActivity(), "Share is Clicked", Toast.LENGTH_LONG).show();
+                allReportFiltB=new ArrayList<>();
 
-                dowloadSecondPART_ReportAndGetActivity(Variables.CurrenReportPart1.getUniqueIDinforme(),Variables.MODO_EDICION);//y despues vamos a a la activity preview
+                //  Toast.makeText(getActivity(), "Share is Clicked", Toast.LENGTH_LONG).show();
+                if(reportTipo==CONTENEDORES){
+                    ///descragamos la parte uno del reporte
+                    DowloadReportPart1(idReport,Variables.MODO_EDICION);
+
+                }else if(reportTipo==REPORTE_CONTENEDORES_EN_ACOPIO){
+
+
+                    DowloadReportContersAcopio(idReport,Variables.MODO_EDICION);
+                    //Descargamos un objeto contenedores object...
+
+                }
+
+
+
+
 
                 bottomSheetDialog.dismiss();
             }

@@ -1,11 +1,20 @@
 package com.tiburela.qsercom.models;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ContenedoresEnAcopio {
+
+
+    public ContenedoresEnAcopio(){
+
+
+    }
 
 
     public ContenedoresEnAcopio(String uniqueIDinforme,String fechaInicio, String fechadeTermino, String exportSolicitante, String exportProcesada, String puerto, String zona, String marca, String horaInicio, String horaDetermino, String guiaDeRemision, String tarjaDeEmbarque, String destino, String vapor, String numContenedor, String horaDeLlegada, String horaDeSalida, String agenciaNaviera, String sellosPlasticoNaviera, String stickerDeVentolExternn1, String numSerieFunda, String cableRastreoLlegada, String booking, String maxGross, String tare, String otrosCandados, String termografoN1, String termogragoN2, String candadoDeQsercon, String selloDeNaviera, String cableDeNaviera, String selloPlastico, String candadodeBotella, String cableExportadora, String selloAdhesivoExportadora, String selloAdhesivoNaviera, String otrosSellos, String companiaTranportista, String nombredeChofer, String cedula, String celular, String placa, String marcaCabezal, String colorCabezal) {
         this.uniqueIDinforme = uniqueIDinforme;
-
         this.fechaInicio = fechaInicio;
         this.fechadeTermino = fechadeTermino;
         this.exportSolicitante = exportSolicitante;
@@ -50,11 +59,37 @@ public class ContenedoresEnAcopio {
         this.placa = placa;
         this.marcaCabezal = marcaCabezal;
         this.colorCabezal = colorCabezal;
+        fechaUploadMilliseconds =    new Date().getTime();
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        simpleDataFormat = formatter.format(fechaUploadMilliseconds);
+
+   }
+
+    public double getFechaUploadMilliseconds() {
+        return fechaUploadMilliseconds;
     }
+
+    private double fechaUploadMilliseconds;
 
     private String fechaInicio;
 private String fechadeTermino;
-private String uniqueIDinforme;
+
+    public String getSimpleDataFormat() {
+        return simpleDataFormat;
+    }
+
+    private String simpleDataFormat;
+
+
+    public String getUniqueIDinforme() {
+        return uniqueIDinforme;
+    }
+
+    public void setUniqueIDinforme(String uniqueIDinforme) {
+        this.uniqueIDinforme = uniqueIDinforme;
+    }
+
+    private String uniqueIDinforme;
 private String exportSolicitante;
     private String exportProcesada;
     private String  puerto;

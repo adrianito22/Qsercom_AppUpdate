@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,10 +12,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.ReportsAllModel;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class RecyclerVAdapterReportsList extends RecyclerView.Adapter<RecyclerVAdapterReportsList.RecyclerViewHolder>  implements   View.OnClickListener  {
@@ -28,11 +25,11 @@ public class RecyclerVAdapterReportsList extends RecyclerView.Adapter<RecyclerVA
     private static ClickListener clickListener;
 
 
-    private ArrayList<SetInformEmbarque1> listImagenData;
+    private ArrayList<ReportsAllModel> listReports;
     private Context mcontext;
 
-    public RecyclerVAdapterReportsList(ArrayList<SetInformEmbarque1> SetInformEmbarque1ArrayList, Context mcontext) {
-        this.listImagenData = SetInformEmbarque1ArrayList;
+    public RecyclerVAdapterReportsList(ArrayList<ReportsAllModel> ReportsAllModelArrayList, Context mcontext) {
+        this.listReports = ReportsAllModelArrayList;
         this.mcontext = mcontext;
     }
 
@@ -49,14 +46,14 @@ public class RecyclerVAdapterReportsList extends RecyclerView.Adapter<RecyclerVA
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, @SuppressLint("RecyclerView") int position) {
         // Set the data to textview and imageview.
-        SetInformEmbarque1 SetInformEmbarque1 = listImagenData.get(position);
+        ReportsAllModel ReportsAllModel = listReports.get(position);
 
-        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String dateString = formatter.format(SetInformEmbarque1.getFechaCreacionInf());
+       // Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+       // String dateString = formatter.format(ReportsAllModel.getFechaCreacionInf());
 
-        holder.txtReportCode.setText(SetInformEmbarque1.getCodeInforme());
-        holder.txtDate.setText(dateString);
-
+        holder.txtReportCode.setText("Reporte cod: 00012");
+        holder.txtDate.setText(ReportsAllModel.getDateReport());
+        holder.txtCategoria.setText(ReportsAllModel.getNombreCategoria());
       //  holder.txtUploadBy.setText(dateString);
 
 
@@ -66,7 +63,7 @@ public class RecyclerVAdapterReportsList extends RecyclerView.Adapter<RecyclerVA
     @Override
     public int getItemCount() {
         // this method returns the size of recyclerview
-        return listImagenData.size();
+        return listReports.size();
     }
     public void setOnClickListener(View.OnClickListener listener){
         this.listener=listener;
@@ -82,14 +79,14 @@ public class RecyclerVAdapterReportsList extends RecyclerView.Adapter<RecyclerVA
     // View Holder Class to handle Recycler View.
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView txtReportCode,txtDate,txtUploadBy;
+        private TextView txtReportCode,txtDate, txtCategoria;
        private  CardView cardview;
 
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             txtReportCode = itemView.findViewById(R.id.txtReportCode);
             txtDate = itemView.findViewById(R.id.txtDate);
-            txtUploadBy= itemView.findViewById(R.id.txtUploadBy);
+            txtCategoria = itemView.findViewById(R.id.txtCategoria);
 
 
             cardview= itemView.findViewById(R.id.cardview);

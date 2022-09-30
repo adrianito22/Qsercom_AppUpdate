@@ -37,7 +37,7 @@
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediNombProd1"
+                            android:id="@+id/ediTermofrafo1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -55,7 +55,7 @@
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediTipoEmp2"
+                            android:id="@+id/ediHoraEncendido1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -73,7 +73,7 @@
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediCod2"
+                            android:id="@+id/ediUbicacion1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
@@ -91,7 +91,7 @@
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edinCajas3"
+                            android:id="@+id/ediRuma1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"

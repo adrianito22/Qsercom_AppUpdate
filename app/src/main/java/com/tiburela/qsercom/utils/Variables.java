@@ -1,5 +1,6 @@
 package com.tiburela.qsercom.utils;
 
+import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
@@ -56,9 +57,11 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static SetInformEmbarque2 CurrenReportPart2;
 
     public static SetInformDatsHacienda CurrenReportPart3;
+    public static ContenedoresEnAcopio CurrenReportContensEnACp;
 
 
     public static String KEYEXTRAPREVIEW= "estacontent";
+    public static String KEYEXTRA_CONTEN_EN_ACP= "estacontentXCC";
 
 
 
