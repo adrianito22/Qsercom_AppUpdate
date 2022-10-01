@@ -60,6 +60,28 @@ public class DatosDeProceso {
     private String InformePertenece;
     private String KeyFirebase;
 
+
+    public String getKey1() {
+        return key1;
+    }
+
+    public void setKey1(String key1) {
+        this.key1 = key1;
+    }
+
+    public String getKey2() {
+        return key2;
+    }
+
+    public void setKey2(String key2) {
+        this.key2 = key2;
+    }
+
+    private String key1;
+    private String key2;
+
+
+
     public String getKeyFirebase() {
         return KeyFirebase;
     }
@@ -68,14 +90,21 @@ public class DatosDeProceso {
         KeyFirebase = keyFirebase;
     }
 
-    public DatosDeProceso(String nombreProd, int numProd, String tipoEmpaque, String cod, int numeroCajas, String InformePertenece) {
+    public DatosDeProceso(String nombreProd, int numProd, String tipoEmpaque, String cod, int numeroCajas, String InformePertenece,String key1) {
         this.nombreProd = nombreProd;
         this.numProd = numProd;
         this.tipoEmpaque = tipoEmpaque;
         this.cod = cod;
         this.numeroCajas = numeroCajas;
         this.InformePertenece = InformePertenece;
+        this.key1=key1;
         KeyFirebase="";
+    }
+
+
+    public DatosDeProceso(){
+
+
     }
 
 }

@@ -45,14 +45,20 @@ static  public  DatabaseReference mibasedataPathImages;
 
     public static  void initDatabasesReference(){
 
-        rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
-
         mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImagesData");
 
 
     }
 
 
+    public static  void initDatabasesRootOnly(){
+
+        rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
+
+       // mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImagesData");
+
+
+    }
 
     private void editInform(){
 
@@ -92,6 +98,31 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
+    public static void updateInformContenresAcopio( ContenedoresEnAcopio informeObjct,String key) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("contenedoresAcopio");
+
+
+        mibasedata.child(key).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
 
 
     public static void addNewInforme(Context context, SetInformEmbarque1 informeObjct) {
@@ -318,6 +349,35 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
+    public static void UpadateDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,DatabaseReference mibasedata,String Pushkey) {
+        //SUBE MAPA
+        mibasedata.child(Pushkey).setValue(datosProcesoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                    //lo borramos...
+
+                    try {
+                        // Utils.deleteMap(context);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
 
 
     public static void addNewSetPicsInforme(Context context, ImagenReport objecImageReport ) {

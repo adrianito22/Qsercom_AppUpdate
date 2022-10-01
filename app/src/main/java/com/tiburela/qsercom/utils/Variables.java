@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.utils;
 
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
@@ -19,6 +20,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int   FormatDatsContAcopi=10067;
     public static final int   FormaFormularyActivity=10066;
     public static final int   FormPreviewFormularioActivity=10060;
+    public static final int   FormatDatsContAcopiPREVIEW=10069;
 
 
     public static  int   tipoDeFoto;
@@ -104,6 +106,8 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int  DOS_IMGS_VERTICALES= 2502 ;
     public static final int  DOS_HORIZONTALES= 2503 ;
     public static final int  DEFAULNO_ENCONTRO_NADA= 2504 ;
+
+    public static HashMap<String, DatosDeProceso> mimapaDatosProcesMapCurrent=new HashMap<>();
 
 
 

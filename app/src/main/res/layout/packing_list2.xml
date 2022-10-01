@@ -72,7 +72,7 @@
                     android:hint="PRODUCTOR 4">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodigoN8"
+                        android:id="@+id/ediProductor4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -163,7 +163,7 @@
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodigoN1"
+                        android:id="@+id/ediProductor10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -215,7 +215,7 @@
                     android:hint="#CAJAS">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodigoN4"
+                        android:id="@+id/ediCajas3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number" />
@@ -272,7 +272,7 @@
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodigoN9"
+                        android:id="@+id/ediCajas7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -286,7 +286,7 @@
                     android:hint="#CAJAS">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodigoN2"
+                        android:id="@+id/ediCajas8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />

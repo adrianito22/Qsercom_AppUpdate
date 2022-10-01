@@ -24,6 +24,7 @@ import com.tiburela.qsercom.activities.ActivitySeeReports;
 import com.tiburela.qsercom.activities.FormDatosContersEnAcopio;
 import com.tiburela.qsercom.activities.FormularioActivity;
 import com.tiburela.qsercom.activities.PreviewActivity;
+import com.tiburela.qsercom.activities.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.models.ImagenReport;
 
 import java.io.InputStream;
@@ -106,6 +107,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 }
 
+                else if(Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW){ //es preview
+                    inputStream = PreviewsFormDatSContersEnAc.context.getContentResolver().openInputStream(uri);
+
+                }
 
 
                 inputStream.close();

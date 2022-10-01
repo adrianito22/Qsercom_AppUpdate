@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.utils;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -8,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.SetInformEmbarque2;
 
 public class HelperEditAndPreviewmode {
 
@@ -126,6 +129,27 @@ public class HelperEditAndPreviewmode {
     }
 
 
+
+
+
+
+    static void selectValue(Spinner spinner, String value) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(value)) {
+                spinner.setSelection(i);
+                Log.i("mizona","existe hurra"+value);
+                break;
+
+            }else
+
+            {
+
+                Log.i("mizona","no exiwste "+value);
+
+            }
+        }
+
+    }
 
 
 }

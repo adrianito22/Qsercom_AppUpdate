@@ -464,13 +464,13 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     private void findViewsIds( ) { //configuraremos algos views al iniciar
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
 
-         ediSemana=findViewById(R.id.ediCodigoN4);
-         ediFecha=findViewById(R.id.ediCodigoN9);
+         ediSemana=findViewById(R.id.ediCajas3);
+         ediFecha=findViewById(R.id.ediCajas7);
          ediProductor=findViewById(R.id.ediCodigoN2);
          ediHacienda=findViewById(R.id.ediCodigoN8);
          ediCodigo=findViewById(R.id.ediCodigoN7);
          ediInscirpMagap=findViewById(R.id.ediCajas10);
-         ediPemarque=findViewById(R.id.ediCodigoN1);
+         ediPemarque=findViewById(R.id.ediProductor10);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
          ediHoraInicio=findViewById(R.id.ediHoraInicio);
@@ -819,7 +819,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                }
                break; //
 
-           case R.id.ediCodigoN9:
+           case R.id.ediCajas7:
               // Utils.closeKeyboard(FormularioActivity.this);
 
                selecionaFecha();

@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -1529,7 +1530,7 @@ private boolean checkaDatosProcesoISllENO(){
 
 
 
-private void creaDatosProcesoMapAndUpload(String informePertenece){
+private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY, DatabaseReference mibasedata){
 
         TextInputEditText ediCjasProcesDespacha;
 
@@ -1636,10 +1637,8 @@ private void creaDatosProcesoMapAndUpload(String informePertenece){
 
 
     //cremaos un mapa
-    HashMap<String, DatosDeProceso> mimapaDatosProces=new HashMap<>();
+    HashMap<String, DatosDeProceso> mimapaDatosProcesMap=new HashMap<>();
 
-        DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
-        String PuskEY = mibasedata.push().getKey(); //que que cotienen este nodo
 
 
     for(int indice=0; indice<arraynCajas.length; indice++){
@@ -1660,15 +1659,15 @@ private void creaDatosProcesoMapAndUpload(String informePertenece){
          String nombreProd=arrayNmbresProd[indice].getText().toString();
 
          //String InformePertenece;
-         DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,numeroCajas,tipoEmpaque,cod,numeroCajas,informePertenece);
+         DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,numeroCajas,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
          midatosProceso.setKeyFirebase(PuskEY);
 
-         mimapaDatosProces.put(KeyDataIdOfView,midatosProceso);
+         mimapaDatosProcesMap.put(KeyDataIdOfView,midatosProceso);
 
     }
 
 
-   RealtimeDB. addDatosProceso(mimapaDatosProces,mibasedata,PuskEY);
+   RealtimeDB. addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);
 
 
 
@@ -1710,9 +1709,19 @@ private void createObjcInformeAndUpload(){
 
     //agr5egamos la data finalemente
 
+
+
+    //obtenemos el pushkey
+    DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
+    String PuskEY = mibasedata.push().getKey(); //que que cotienen este nodo
+
+
+    informe.setDatosProcesoContenAcopioKEYFather(PuskEY); //le agregamos esa propiedad
     RealtimeDB.addNewInformContenresAcopio(informe,UNIQUE_ID_iNFORME);
 
-    creaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME);
+
+
+    creaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME,PuskEY,mibasedata);
 
 
 }
@@ -2634,8 +2643,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ediOtherSellos,
 
 
-
-
     } ;
 
 
@@ -2709,6 +2716,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
+
+
+
     void createlistsForReciclerviewsImages(ArrayList<ImagenReport>listImagenReports){
 
         //  addInfotomap(listImagenReports);
@@ -2758,40 +2768,5 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
-
-    private void ediDatosAcopio(final String keyIdTOEdit,String fjf){
-        ValueEventListener seenListener;
-
-        DatabaseReference rootDatabaseReference=RealtimeDB.rootDatabaseReference;
-
-        seenListener = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    for (DataSnapshot dss : dataSnapshot.getChildren()) {
-
-                        DatosDeProceso datosProceso = dss.getValue(DatosDeProceso.class);
-
-                        if (datosProceso.getKeyFirebase().equals(keyIdTOEdit) ) {///
-
-                            Map<String, Object> hashMap = new HashMap<>();
-                            hashMap.put("isseen", new DatosDeProceso("",1,"","",2,""));
-                            dss.getRef().updateChildren(hashMap);
-
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-
-
-
-    }
 
 }

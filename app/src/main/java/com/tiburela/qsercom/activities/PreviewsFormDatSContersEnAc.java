@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,12 +46,17 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -59,18 +65,19 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
+import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.File;
 import java.io.IOException;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -85,6 +92,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     boolean hayUnformularioIcompleto ;
     boolean isModEdicionFields;
     FloatingActionButton fab ;
+    int contadorIterador=0;
 
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
@@ -197,6 +205,17 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         checkModeVisualitY(); //despues lo llamaremos solo una vez
 
         addDataEnFields(Variables.CurrenReportContensEnACp);
+        //imagenes set
+        RealtimeDB.initDatabasesRootOnly();
+        dowloadImagesDataReport(Variables.CurrenReportContensEnACp.getUniqueIDinforme());
+
+
+
+
+
+        Log.i("misadhd","el value es  "+ Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
+
+        dowLOADAndCallSETdatosAcopioprocesO(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
 
         //descarga info
 
@@ -256,13 +275,13 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         context = getApplicationContext();
 
 
-        UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
+        UNIQUE_ID_iNFORME=Variables.CurrenReportContensEnACp.getKeyFirebase();
 
       // FirebaseApp.initializeApp(this);
       //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
 
 
-        Variables.activityCurrent=Variables.FormatDatsContAcopi;
+        Variables.activityCurrent=Variables.FormatDatsContAcopiPREVIEW;
         Auth.initAuth(this);
 
         StorageData. initStorageReference();
@@ -1588,7 +1607,7 @@ private boolean checkaDatosProcesoISllENO(){
 
 
 
-private void creaDatosProcesoMapAndUpload(String informePertenece){
+private void creaActualizaDatosProcesoMapAndUpload(String informePertenece){
 
         TextInputEditText ediCjasProcesDespacha;
 
@@ -1719,10 +1738,11 @@ private void creaDatosProcesoMapAndUpload(String informePertenece){
          String nombreProd=arrayNmbresProd[indice].getText().toString();
 
          //String InformePertenece;
-         DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,numeroCajas,tipoEmpaque,cod,numeroCajas,informePertenece);
+         DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,numeroCajas,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
          midatosProceso.setKeyFirebase(PuskEY);
 
-         mimapaDatosProces.put(KeyDataIdOfView,midatosProceso);
+         Variables.mimapaDatosProcesMapCurrent.put(KeyDataIdOfView,midatosProceso);
+
 
     }
 
@@ -1769,9 +1789,10 @@ private void createObjcInformeAndUpload(){
 
     //agr5egamos la data finalemente
 
-    RealtimeDB.addNewInformContenresAcopio(informe,UNIQUE_ID_iNFORME);
+    RealtimeDB.updateInformContenresAcopio(informe,UNIQUE_ID_iNFORME);
 
-    creaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME);
+
+    creaActualizaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME);
 
 
 }
@@ -2729,13 +2750,8 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         if(currentTypeImage== Variables.FOTO_LLEGADA)  {
             recyclerView= findViewById(R.id.recyclerView);
 
-
         }
-        else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
-            recyclerView= findViewById(R.id.recyclerViewPostcosecha);
-            // at last set adapter to recycler view.
 
-        }
 
         else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
             recyclerView = findViewById(R.id.recyclerVieDatsTransport);
@@ -2818,7 +2834,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
-    private void ediDatosAcopio(final String keyIdTOEdit,String fjf){
+    private void ediDatosAcopio(final String keyIdTOEdit ){
         ValueEventListener seenListener;
 
         DatabaseReference rootDatabaseReference=RealtimeDB.rootDatabaseReference;
@@ -2833,9 +2849,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                         if (datosProceso.getKeyFirebase().equals(keyIdTOEdit) ) {///
 
-                            Map<String, Object> hashMap = new HashMap<>();
-                            hashMap.put("isseen", new DatosDeProceso("",1,"","",2,""));
-                            dss.getRef().updateChildren(hashMap);
+                           // Map<String, Object> hashMap = new HashMap<>();
+                          //  hashMap.put("isseen", new DatosDeProceso("",1,"","",2,""));
+                           // dss.getRef().updateChildren(hashMap);
 
                         }
                     }
@@ -2852,6 +2868,190 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     }
+
+
+
+    private void dowLOADAndCallSETdatosAcopioprocesO(String fathherNode){
+        ValueEventListener seenListener;
+
+        RealtimeDB.initDatabasesRootOnly();
+        DatabaseReference rootDatabaseReference=RealtimeDB.rootDatabaseReference;
+
+        seenListener = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").child(fathherNode).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Variables.mimapaDatosProcesMapCurrent=new HashMap<>();
+
+
+                for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                    DatosDeProceso datosProceso = dss.getValue(DatosDeProceso.class);
+
+                    if (datosProceso!=null) {///
+
+                        Variables.mimapaDatosProcesMapCurrent.put(datosProceso.getKey1(),datosProceso);
+
+                        Log.i("misadhd","el size del mapa es "+ Variables.mimapaDatosProcesMapCurrent.size());
+
+                    //    Map<String, Object> hashMap = new HashMap<>();
+                    //    hashMap.put("isseen", new DatosDeProceso("",1,"","",2,""));
+                     //   dss.getRef().updateChildren(hashMap);
+
+                        setDatosProcesODataInViews(Variables.mimapaDatosProcesMapCurrent);
+
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("misadhd","el error es "+ databaseError.getMessage());
+
+
+
+            }
+        });
+
+
+
+
+    }
+
+    private void setDatosProcesODataInViews(HashMap<String, DatosDeProceso> mimapaDatosProcesMapCurrent) {
+
+
+        TextInputEditText ediCjasProcesDespacha;
+
+        TextInputEditText ediNombProd1;
+        TextInputEditText ediNombProd2;
+        TextInputEditText ediNombProd3;
+        TextInputEditText ediNombProd4;
+        TextInputEditText ediNombProd5;
+        TextInputEditText ediNombProd6;
+        TextInputEditText ediNombProd7;
+        TextInputEditText ediNombProd8;
+
+        TextInputEditText  ediTipoEmp1;
+        TextInputEditText  ediTipoEmp2;
+        TextInputEditText  ediTipoEmp3;
+        TextInputEditText  ediTipoEmp4;
+        TextInputEditText  ediTipoEmp5;
+        TextInputEditText  ediTipoEmp6;
+        TextInputEditText  ediTipoEmp7;
+        TextInputEditText  ediTipoEmp8;
+
+        TextInputEditText  ediCod1;
+        TextInputEditText  ediCod2;
+        TextInputEditText  ediCod3;
+        TextInputEditText  ediCod4;
+        TextInputEditText  ediCod5;
+        TextInputEditText  ediCod6;
+        TextInputEditText  ediCod7;
+        TextInputEditText  ediCod8;
+
+
+        TextInputEditText  edinCajas1;
+        TextInputEditText  edinCajas2;
+        TextInputEditText  edinCajas3;
+        TextInputEditText  edinCajas4;
+        TextInputEditText  edinCajas5;
+        TextInputEditText  edinCajas6;
+        TextInputEditText  edinCajas7;
+        TextInputEditText  edinCajas8;
+
+
+
+
+        ///vamos con findview id
+        ediNombProd1=findViewById(R.id.ediNombProd1);
+        ediNombProd2=findViewById(R.id.ediNombProd2);
+        ediNombProd3=findViewById(R.id.ediNombProd3);
+        ediNombProd4=findViewById(R.id.ediNombProd4);
+        ediNombProd5=findViewById(R.id.ediNombProd5);
+        ediNombProd6=findViewById(R.id.ediNombProd6);
+        ediNombProd7=findViewById(R.id.ediNombProd7);
+        ediNombProd8=findViewById(R.id.ediNombProd8);
+
+        ediTipoEmp1=findViewById(R.id.ediTipoEmp1);
+        ediTipoEmp2=findViewById(R.id.ediTipoEmp2);
+        ediTipoEmp3=findViewById(R.id.ediTipoEmp3);
+        ediTipoEmp4=findViewById(R.id.ediTipoEmp4);
+        ediTipoEmp5=findViewById(R.id.ediTipoEmp5);
+        ediTipoEmp6=findViewById(R.id.ediTipoEmp6);
+        ediTipoEmp7=findViewById(R.id.ediTipoEmp7);
+        ediTipoEmp8=findViewById(R.id.ediTipoEmp8);
+
+        ediCod1=findViewById(R.id.ediCod1);
+        ediCod2=findViewById(R.id.ediCod2);
+        ediCod3=findViewById(R.id.ediCod3);
+        ediCod4=findViewById(R.id.ediCod4);
+        ediCod5=findViewById(R.id.ediCod5);
+        ediCod6=findViewById(R.id.ediCod6);
+        ediCod7=findViewById(R.id.ediCod7);
+        ediCod8=findViewById(R.id.ediCod8);
+
+
+        edinCajas1=findViewById(R.id.edinCajas1);
+        edinCajas2=findViewById(R.id.edinCajas2);
+        edinCajas3=findViewById(R.id.edinCajas3);
+        edinCajas4=findViewById(R.id.edinCajas4);
+        edinCajas5=findViewById(R.id.edinCajas5);
+        edinCajas6=findViewById(R.id.edinCajas6);
+        edinCajas7=findViewById(R.id.edinCajas7);
+        edinCajas8=findViewById(R.id.edinCajas8);
+
+
+        TextInputEditText [] arrayNmbresProd= {ediNombProd1, ediNombProd2, ediNombProd3, ediNombProd4, ediNombProd5, ediNombProd6, ediNombProd7, ediNombProd8
+
+        };
+
+
+
+        TextInputEditText [] arrayTiposEmpaque= {ediTipoEmp1, ediTipoEmp2, ediTipoEmp3, ediTipoEmp4, ediTipoEmp5, ediTipoEmp6, ediTipoEmp7, ediTipoEmp8
+
+        };
+
+
+        TextInputEditText [] arrayCodigos= {ediCod1, ediCod2, ediCod3, ediCod4, ediCod5, ediCod6, ediCod7, ediCod8
+
+        };
+
+
+
+        TextInputEditText [] arraynCajas= {edinCajas1, edinCajas2, edinCajas3, edinCajas4, edinCajas5, edinCajas6, edinCajas7, edinCajas8
+
+        };
+
+
+
+
+
+
+
+        for(int indice=0; indice<arrayNmbresProd.length; indice++){
+             //recoreemos el array arrayNmbresProd que contien los keys como ids..
+            String keySearch=String.valueOf(arrayNmbresProd[indice].getId());
+
+            if(mimapaDatosProcesMapCurrent.containsKey(keySearch)){//si contiene esta key
+
+                        DatosDeProceso currenObjDaProc= mimapaDatosProcesMapCurrent.get(keySearch);
+
+
+                        arrayNmbresProd [indice].setText(currenObjDaProc.getNombreProd());
+                        arrayTiposEmpaque [indice].setText(currenObjDaProc.getTipoEmpaque());
+                        arraynCajas [indice].setText(String.valueOf(currenObjDaProc.getNumeroCajas()));
+                           arrayCodigos[indice].setText(currenObjDaProc.getCod());
+
+            }
+
+
+        }}
+
+
+
 
 
     private void checkModeVisualitY(){
@@ -2955,7 +3155,14 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         };
 
-        //CREAMOS DATA
+
+        View [] misViewsArray2OtherVIEWS={ediFechaInicio,
+
+
+        };
+
+
+                //CREAMOS DATA
         HelperEditAndPreviewmode.diseableViewsByTipe(misViewsArray);
 
 
@@ -2966,6 +3173,27 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
     // ();
+
+
+
+
+    private void selectValue(Spinner spinner, String value) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(value)) {
+                spinner.setSelection(i);
+                Log.i("mizona","existe hurra"+value);
+                break;
+
+            }else
+
+            {
+
+                Log.i("mizona","no exiwste "+value);
+
+            }
+        }
+
+    }
     private  void addDataEnFields(ContenedoresEnAcopio currentInform)  {
         //usamos los 2 objetos para establecer esta data..
 
@@ -3032,7 +3260,137 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         esiSelloAdhNaviera.setText(currentInform.getSelloAdhesivoNaviera()); //ESTE PARECE OTRO
         ediOtherSellos.setText(currentInform.getOtrosSellos());
 
+        selectValue(spinnerSelectZona,Variables.CurrenReportContensEnACp.getZona()) ;
 
+
+        // selectValue(spFumigaCorL1,Variables.CurrenReportContensEnACp.fum) ;
+        //   selectValue(spTipoBoquilla,Variables.CurrenReportContensEnACp.tipo) ;
+
+    }
+
+
+
+    void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH){ //DESCRAGAMOS EL SEGUNDO
+        RealtimeDB.initDatabasesReference();
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("idReportePerteence").equalTo(reportUNIQUEidtoSEARCH);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<ImagenReport>listImagenData=new ArrayList<>();
+
+
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ImagenReport imagenReport=ds.getValue(ImagenReport.class);
+                    listImagenData.add(imagenReport);
+
+                }
+
+
+                Variables.listImagenData=listImagenData;
+
+                dowloadAllImages2AddCallRecicler(Variables.listImagenData);
+
+                Log.i("mispiggi","se llamo a: addInfotomap");
+
+                addInfotomap(Variables.listImagenData);
+
+
+
+                //este metodo lo llamaremos ahora
+                //al objeto imagen report le agregaremos una propiedad llamada bitmap...o crearemos un map de bitmaps que usraemos para cargarlos desde el
+                //el adpater del recicler view y asiu no alteramos el objeto imagereport...solo que ya no descragremos la imagen nuevamente...
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+
+    public   void dowloadAllImages2AddCallRecicler(ArrayList<ImagenReport>miLisAllImages){
+        //lllamos a este metodo unicamente si la lista es 0....si no
+        HelperImage.ImagesToPdfMap=new HashMap<>();
+
+        for(int i = 0; i <miLisAllImages.size() ;i++ ){
+
+            String pathImage =miLisAllImages.get(i).getUniqueIdNamePic();
+            int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
+            String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
+            String descripcionImage=miLisAllImages.get(i).getDescripcionImagen();
+            StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
+
+
+            try {
+                final File localFile = File.createTempFile("Images", "bmp");
+                storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener< FileDownloadTask.TaskSnapshot >() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                        Bitmap  bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                        String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+
+                        ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId,descripcionImage);
+                        HelperImage.imAGESpdfSetGlobal.add(imgsObect);
+                        HelperImage.ImagesToPdfMap.put(uniqueId,imgsObect);
+
+                        Log.i("hamiso","el size de la lista de Variables.listImagenData es "+Variables.listImagenData.size());
+                        Log.i("hamiso","el size del map es "+HelperImage.ImagesToPdfMap.size());
+
+                        ///llamamos a este otro metodo .......
+                        contadorIterador++;
+                        Log.i("hamiso","el contador iteradopr "+ contadorIterador);
+
+
+
+
+                        if(contadorIterador == miLisAllImages.size() ) {
+
+                            createlistsForReciclerviewsImages(Variables.listImagenData);
+                            Log.i("hamiso","se llamokkk");
+                            Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
+                           // btnDowlPdf.setEnabled(true);
+
+                        }
+
+
+
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("hamiso","se produjo un error");
+
+                        // Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+
+
+
+
+
+        }
+
+
+        Log.i("hamiso","llamos a recicler create y el size de map es  "+HelperImage.ImagesToPdfMap.size());
 
 
 
