@@ -310,7 +310,9 @@ static  public  DatabaseReference mibasedataPathImages;
 
 
     public static void addDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,DatabaseReference mibasedata,String Pushkey) {
-   //    DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
+
+
+        //    DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
         //agregamos la propiedad keyFirebase a al objeto
       //  String PuskEY = mibasedata.push().getKey();
 
@@ -347,24 +349,36 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
-    public static void UpadateDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,DatabaseReference mibasedata,String Pushkey) {
+
+
+
+
+    public static void UpadateDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,String keYNodeData) {
+
+
+             if(datosProcesoMap ==null || datosProcesoMap.size()==0){
+                  Log.i("saer","el data es nuell o es 0");
+
+                 return;
+
+             }
+
+      //  Log.i("saer","el size del mapa es "+datosProcesoMap.size());
+
+        Log.i("saer","el node key data es "+keYNodeData);
+
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").child(keYNodeData);
+
+        // String PuskEY = mibasedata.push().getKey(); //que que cotienen este nodo
         //SUBE MAPA
-        mibasedata.child(Pushkey).setValue(datosProcesoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+        mibasedata.setValue(datosProcesoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
                     //lo borramos...
-
-                    try {
-                        // Utils.deleteMap(context);
-
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {

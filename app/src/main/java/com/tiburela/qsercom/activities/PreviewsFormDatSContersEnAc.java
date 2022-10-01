@@ -1579,12 +1579,28 @@ void checkDataFields(){ //
 
     }
 
+    String keyNodeActualizar =Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(); //que que cotienen este nodo
+
+
+    if(! creaAcMapDatosProcesoAndCheck(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(),keyNodeActualizar)){
+        Log.i("caramba","no esta en orden ");
+
+        return;
+    }else{
+
+        Log.i("caramba","si  esta lleno  todo en orden");
+
+
+    }
+
+
 
 
     Log.i("test001","toda la data esta completa HUrra ");
+    Log.i("test001","actualizamosd data proceso en el nodo "+keyNodeActualizar);
 
 
-
+    RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);
 
 
     createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
@@ -1665,8 +1681,8 @@ private boolean checkaDatosProcesoISllENO(){
 
 
 
-private void creaActualizaDatosProcesoMapAndUpload(String informePertenece){
-
+private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String PuskEY){
+ boolean isReady=true;
         TextInputEditText ediCjasProcesDespacha;
 
     TextInputEditText ediNombProd1;
@@ -1771,45 +1787,69 @@ private void creaActualizaDatosProcesoMapAndUpload(String informePertenece){
 
 
 
-    //cremaos un mapa
-    HashMap<String, DatosDeProceso> mimapaDatosProces=new HashMap<>();
 
-        DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
-        String PuskEY =Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(); //que que cotienen este nodo
+    if(! Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
+        Log.i("caramba", "aqui es return");
+
+        return false;
+    }
+
 
 
     for(int indice=0; indice<arraynCajas.length; indice++){
 
         String KeyDataIdOfView=String.valueOf(arrayNmbresProd[indice].getId()) ;
-
-         String tipoEmpaque=arrayTiposEmpaque[indice].getText().toString();
-         String cod=arrayCodigos[indice].getText().toString();
-        int numeroCajas;
-         if(arraynCajas [indice].getText().toString().isEmpty() || arraynCajas [indice].getText().toString().trim().isEmpty() ){
-             numeroCajas=0;
-         }else{
-             numeroCajas = Integer.parseInt(arraynCajas[indice].getText().toString() );
-
-         }
+        String tipoEmpaque=arrayTiposEmpaque[indice].getText().toString();
+        String cod=arrayCodigos[indice].getText().toString();
+        String nombreProd=arrayNmbresProd[indice].getText().toString();
+        int numeroCajas=0;
 
 
-         String nombreProd=arrayNmbresProd[indice].getText().toString();
 
-         //String InformePertenece;
-         DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,numeroCajas,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
-         midatosProceso.setKeyFirebase(PuskEY);
+        if(indice==0 && tipoEmpaque.trim().isEmpty()  && cod.trim().isEmpty()  && nombreProd.trim().isEmpty()
+                && arraynCajas[indice].getText().toString().trim().isEmpty()){
 
-         Variables.mimapaDatosProcesMapCurrent.put(KeyDataIdOfView,midatosProceso);
+            tipoEmpaque="";
+            cod="";
+            numeroCajas=0;
+            nombreProd="";
+
+            //String InformePertenece;  //subimos el primero al menos..
+            DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
+            midatosProceso.setKeyFirebase(PuskEY);
+            Variables.mimapaDatosProcesMapCurrent.put(KeyDataIdOfView,midatosProceso);
+
+        }
+
+
+
+        if(! tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
+                & ! arraynCajas[indice].getText().toString().trim().isEmpty()  ) {  //si es diferente de 0
+
+            //entonces subimos la data.....
+
+            //String InformePertenece;
+            DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
+            midatosProceso.setKeyFirebase(PuskEY);
+
+            Variables.mimapaDatosProcesMapCurrent.put(KeyDataIdOfView,midatosProceso);
+
+            Log.i("saer","hay un data");
+
+        }
+
+
 
 
     }
 
 
-   RealtimeDB. addDatosProceso(mimapaDatosProces,mibasedata,PuskEY);
 
 
 
 
+
+    return isReady;
   }
 
 
@@ -1846,14 +1886,16 @@ private void createObjcInformeAndUpload(){
 
     //agr5egamos la data finalemente
 
-
+    informe.setDatosProcesoContenAcopioKEYFather(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
     informe.setKeyFirebase(Variables.CurrenReportContensEnACp.getKeyFirebase());
     RealtimeDB.updateInformContenresAcopio(informe);
 
     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
-    creaActualizaDatosProcesoMapAndUpload(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
+
+
+
 
     Toast.makeText(context, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
@@ -3147,10 +3189,12 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
             if(mimapaDatosProcesMapCurrent.containsKey(keySearch)){//si contiene esta key
 
+
                         DatosDeProceso currenObjDaProc= mimapaDatosProcesMapCurrent.get(keySearch);
 
 
-                        arrayNmbresProd [indice].setText(currenObjDaProc.getNombreProd());
+
+                arrayNmbresProd [indice].setText(currenObjDaProc.getNombreProd());
                         arrayTiposEmpaque [indice].setText(currenObjDaProc.getTipoEmpaque());
                         arraynCajas [indice].setText(String.valueOf(currenObjDaProc.getNumeroCajas()));
                            arrayCodigos[indice].setText(currenObjDaProc.getCod());
@@ -3158,7 +3202,20 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             }
 
 
-        }}
+        }
+
+
+        if(ediNombProd1.getText().toString().trim().isEmpty() || ediNombProd1.getText().toString().isEmpty() ) {//si el primer valor es empty noo lo pongAS
+            ediNombProd1.getText().clear();
+            ediTipoEmp1.getText().clear();
+            ediCod1.getText().clear();
+            edinCajas1.getText().clear();
+
+        }
+
+
+
+    }
 
 
 

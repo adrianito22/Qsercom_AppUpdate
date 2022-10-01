@@ -90,9 +90,8 @@ public class DatosDeProceso {
         KeyFirebase = keyFirebase;
     }
 
-    public DatosDeProceso(String nombreProd, int numProd, String tipoEmpaque, String cod, int numeroCajas, String InformePertenece,String key1) {
+    public DatosDeProceso(String nombreProd, String tipoEmpaque, String cod, int numeroCajas, String InformePertenece,String key1) {
         this.nombreProd = nombreProd;
-        this.numProd = numProd;
         this.tipoEmpaque = tipoEmpaque;
         this.cod = cod;
         this.numeroCajas = numeroCajas;

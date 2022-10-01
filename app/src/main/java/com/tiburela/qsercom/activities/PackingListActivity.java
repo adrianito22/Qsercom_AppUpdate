@@ -229,4 +229,40 @@ public class PackingListActivity extends AppCompatActivity {
 
         return miArray;
     }
+
+
+
+
+    /***
+     *
+     *
+     * CHEKEAY CREA MAPA PACKING LIST...
+     * ARRAY [0] CONTIENE DATA Y ARRAY2[0]... NO CONTIENE.. O S ARRAY 1 NO CONTIENE DATA Y EL OTRO SI.....
+     *
+     * IF
+     *
+     * if*(
+     *
+     * le decimos false return,,,
+     *
+     * y terminamos el bucle....
+     *
+     * ...y solo creamos un mapa si ambos contienen data...
+     *
+     *
+     *
+     * RECORREMOS UN FOR....
+     *
+     * entyoncese seran 3 forsss.....
+     * varios array con su par clave valor....
+     *
+     *
+     * CREMAOS UN MAPA GLOBAL QUE IDGA SUPER PACKING LIST...*/
+
+
+
+
+
+
+
 }

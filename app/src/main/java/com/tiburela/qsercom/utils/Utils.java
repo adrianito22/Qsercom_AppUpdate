@@ -370,6 +370,79 @@ return
     public static  ArrayList<String> objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
 
 
+    public static  boolean checkIFaltaunDatoLlenoAndFocus(TextInputEditText [] arrayNmbresProd, TextInputEditText [] arrayTiposEmpaque,
+                                                       TextInputEditText [] arrayCodigos, TextInputEditText [] arraynCajas){
+
+        //le decimos que falta data
+        boolean isReady=true;
+
+          int numero_fieldVacios =0;
+
+          ArrayList<TextInputEditText>ediTEXTVacios;
+
+
+        for(int indice=0; indice<arrayNmbresProd.length; indice++){
+            ediTEXTVacios=new ArrayList<>();
+
+            if(arrayNmbresProd[indice].getText().toString().isEmpty()){ //si esta vacio le restamos uno
+                numero_fieldVacios=numero_fieldVacios+1;
+
+                ediTEXTVacios.add(arrayNmbresProd[indice]);
+
+            }
+
+
+
+            if(arrayCodigos[indice].getText().toString().isEmpty()){
+                numero_fieldVacios=numero_fieldVacios+1;
+                ediTEXTVacios.add(arrayCodigos[indice]);
+
+            }
+
+
+
+           if(arrayTiposEmpaque[indice].getText().toString().isEmpty()){
+                numero_fieldVacios=numero_fieldVacios+1;
+               ediTEXTVacios.add(arrayTiposEmpaque[indice]);
+
+
+           }
+
+
+
+           if(arraynCajas[indice].getText().toString().isEmpty()){
+                numero_fieldVacios=numero_fieldVacios+1;
+
+               ediTEXTVacios.add(arraynCajas[indice]);
+
+           }
+
+
+
+
+                //numero_fieldVacios
+
+            if (numero_fieldVacios > 0 && numero_fieldVacios < 4) {
+
+               Log.i("caramba","el id  error focus es "+ediTEXTVacios.get(0).getId());
+               ediTEXTVacios.get(0).requestFocus();
+               ediTEXTVacios.get(0).setError("Este dato es requerido");
+                isReady=false;
+                break;
+
+                ///sdile que falta data...y focush primer editext...solo guardamos uno....
+
+           }
+
+        }
+
+        Log.i("caramba","retornamos: "+isReady);
+
+
+        return isReady;
+
+    }
+
 
 
 

@@ -1627,57 +1627,57 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
 
     //cremaos un mapa
     HashMap<String, DatosDeProceso> mimapaDatosProcesMap=new HashMap<>();
-      boolean estaNrEADY=true;
 
     for(int indice=0; indice<arraynCajas.length; indice++){
 
           String KeyDataIdOfView=String.valueOf(arrayNmbresProd[indice].getId()) ;
          String tipoEmpaque=arrayTiposEmpaque[indice].getText().toString();
          String cod=arrayCodigos[indice].getText().toString();
+        String nombreProd=arrayNmbresProd[indice].getText().toString();
+        int numeroCajas=0;
 
+         if(Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
 
-         if(){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
+           return;
+         }
 
-
-         }else{ //si no a llenado ninguno
-
-             if(indice==0){
+             if(indice==0 & tipoEmpaque.trim().isEmpty()  & cod.trim().isEmpty()  & nombreProd.trim().isEmpty()
+                     & arraynCajas[indice].getText().toString().trim().isEmpty()){
 
                  tipoEmpaque="";
                  cod="";
+                 numeroCajas=0;
+                 nombreProd="";
+
+                 //String InformePertenece;  //subimos el primero al menos..
+                 DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
+                 midatosProceso.setKeyFirebase(PuskEY);
+                 mimapaDatosProcesMap.put(KeyDataIdOfView,midatosProceso);
+
              }
 
-         }
+
+
+           if(indice != 0 && ! tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
+                   & ! arraynCajas[indice].getText().toString().trim().isEmpty()  ) {  //si es diferente de 0
+
+               //entonces subimos la data.....
+
+               //String InformePertenece;
+               DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
+               midatosProceso.setKeyFirebase(PuskEY);
+
+               mimapaDatosProcesMap.put(KeyDataIdOfView,midatosProceso);
+
+           }
 
 
 
-
-
-
-
-
-
-        int numeroCajas;
-         if(arraynCajas [indice].getText().toString().isEmpty() || arraynCajas [indice].getText().toString().trim().isEmpty() ){
-             numeroCajas=0;
-         }else{
-             numeroCajas = Integer.parseInt(arraynCajas[indice].getText().toString() );
-
-         }
-
-
-         String nombreProd=arrayNmbresProd[indice].getText().toString();
-
-         //String InformePertenece;
-         DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,numeroCajas,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
-         midatosProceso.setKeyFirebase(PuskEY);
-
-         mimapaDatosProcesMap.put(KeyDataIdOfView,midatosProceso);
 
     }
 
 
-   RealtimeDB. addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);
+   RealtimeDB. addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);  //subimos
 
 
 
@@ -1685,48 +1685,6 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
   }
 
 
-
-private void checkIFaltaunDatoLlenoAndRequestFocus(TextInputEditText [] arrayNmbresProd, TextInputEditText [] arrayTiposEmpaque,
-                                                   TextInputEditText [] arrayCodigos, TextInputEditText [] arraynCajas){
-
-
-          for(int indice=0; indice>arrayNmbresProd.length; indice++){
-
-              //el primero esta vacio y los demas llenos
-
-              if(arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&
-                      !arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&){
-
-
-              }
-                       //el segundo esta vacio y los demas no
-
-              else if(!arrayNmbresProd[indice].getText().toString().isEmpty() && arrayNmbresProd[indice].getText().toString().isEmpty() &&
-                      !arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() ){
-
-
-              }
-
-              //el tercero  esta vacio y los demas no
-
-              else if(!arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&
-                      arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&){
-
-
-              }
-                        //el cuarto esta vacio y los demas no
-             else  if(!arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&
-                      !arrayNmbresProd[indice].getText().toString().isEmpty() && arrayNmbresProd[indice].getText().toString().isEmpty() &&){
-
-
-              }
-
-
-          }
-
-
-
-}
 
 
 
