@@ -2042,7 +2042,7 @@ private void createObjcInformeAndUpload(){
 
 
     //Agregamos un nuevo informe
-    RealtimeDB.initDatabasesReference(); //inicilizamos la base de datos
+    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     //agr5egamos la data finalemente
 

@@ -43,26 +43,19 @@ private static int counTbucle=0;
 
     public static void uploadImage(Context context,  HashMap<String, ImagenReport> hasmapImagenData) {
 
+            //iteramos el mapa
+            for (Map.Entry<String, ImagenReport> entry : hasmapImagenData.entrySet()) {
+                ImagenReport value = entry.getValue();
+                String uriFilePath =value.geturiImage();
 
-        if(hasmapImagenData.size() ==0) {
-            Log.i("debugasd","es 0");
+                Uri myUri = Uri.parse(uriFilePath);
+                ///
 
-            return;
-        }
+                //por aqui comprimir la imagen para subir
 
-             //iteramos el mapa
-        for (Map.Entry<String, ImagenReport> entry : hasmapImagenData.entrySet()) {
-            ImagenReport value = entry.getValue();
-            String uriFilePath =value.geturiImage();
+                counTbucle++;
 
-             Uri myUri = Uri.parse(uriFilePath);
-              ///
-
-             //por aqui comprimir la imagen para subir
-
-            counTbucle++;
-
-            // Defining the child of storageReference
+                // Defining the child of storageReference
                 stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+value.getUniqueIdNamePic());
 
 
@@ -77,7 +70,7 @@ private static int counTbucle=0;
                                     public void onSuccess(
                                             UploadTask.TaskSnapshot taskSnapshot) {
 
-                                              //subimos el registro
+                                        //subimos el registro
 
                                         Log.i("comoer","info "+counTbucle+" = "+hasmapImagenData.size());
                                         RealtimeDB.addNewSetPicsInforme(context,value);
@@ -121,7 +114,9 @@ private static int counTbucle=0;
 
 
 
-    }
+            }
+
+
 
     }
 

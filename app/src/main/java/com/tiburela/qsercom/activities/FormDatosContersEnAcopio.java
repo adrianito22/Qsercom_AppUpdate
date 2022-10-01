@@ -2,7 +2,6 @@ package com.tiburela.qsercom.activities;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.os.Build.VERSION.SDK_INT;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -19,20 +18,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -49,10 +45,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -61,8 +54,6 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.models.SetInformDatsHacienda;
-import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.Permisionx;
@@ -251,7 +242,7 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         Variables.activityCurrent=Variables.FormatDatsContAcopi;
         Auth.initAuth(this);
 
-        StorageData. initStorageReference();
+        StorageData.initStorageReference();
 
 
         findViewsIds();
@@ -1629,24 +1620,43 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
     };
 
 
-
     TextInputEditText [] arraynCajas= {edinCajas1, edinCajas2, edinCajas3, edinCajas4, edinCajas5, edinCajas6, edinCajas7, edinCajas8
 
     };
 
 
-
     //cremaos un mapa
     HashMap<String, DatosDeProceso> mimapaDatosProcesMap=new HashMap<>();
-
-
+      boolean estaNrEADY=true;
 
     for(int indice=0; indice<arraynCajas.length; indice++){
 
-        String KeyDataIdOfView=String.valueOf(arrayNmbresProd[indice].getId()) ;
-
+          String KeyDataIdOfView=String.valueOf(arrayNmbresProd[indice].getId()) ;
          String tipoEmpaque=arrayTiposEmpaque[indice].getText().toString();
          String cod=arrayCodigos[indice].getText().toString();
+
+
+         if(){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
+
+
+         }else{ //si no a llenado ninguno
+
+             if(indice==0){
+
+                 tipoEmpaque="";
+                 cod="";
+             }
+
+         }
+
+
+
+
+
+
+
+
+
         int numeroCajas;
          if(arraynCajas [indice].getText().toString().isEmpty() || arraynCajas [indice].getText().toString().trim().isEmpty() ){
              numeroCajas=0;
@@ -1676,7 +1686,47 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
 
 
 
+private void checkIFaltaunDatoLlenoAndRequestFocus(TextInputEditText [] arrayNmbresProd, TextInputEditText [] arrayTiposEmpaque,
+                                                   TextInputEditText [] arrayCodigos, TextInputEditText [] arraynCajas){
 
+
+          for(int indice=0; indice>arrayNmbresProd.length; indice++){
+
+              //el primero esta vacio y los demas llenos
+
+              if(arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&
+                      !arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&){
+
+
+              }
+                       //el segundo esta vacio y los demas no
+
+              else if(!arrayNmbresProd[indice].getText().toString().isEmpty() && arrayNmbresProd[indice].getText().toString().isEmpty() &&
+                      !arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() ){
+
+
+              }
+
+              //el tercero  esta vacio y los demas no
+
+              else if(!arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&
+                      arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&){
+
+
+              }
+                        //el cuarto esta vacio y los demas no
+             else  if(!arrayNmbresProd[indice].getText().toString().isEmpty() && !arrayNmbresProd[indice].getText().toString().isEmpty() &&
+                      !arrayNmbresProd[indice].getText().toString().isEmpty() && arrayNmbresProd[indice].getText().toString().isEmpty() &&){
+
+
+              }
+
+
+          }
+
+
+
+}
 
 
 
@@ -1705,7 +1755,7 @@ private void createObjcInformeAndUpload(){
 
 
     //Agregamos un nuevo informe
-    RealtimeDB.initDatabasesReference(); //inicilizamos la base de datos
+    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     //agr5egamos la data finalemente
 

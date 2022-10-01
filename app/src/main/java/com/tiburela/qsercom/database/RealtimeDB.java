@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.tiburela.qsercom.activities.FormDatosContersEnAcopio;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
@@ -43,7 +42,7 @@ static  public  DatabaseReference mibasedataPathImages;
     //ESTA VCLASED VA A ENCRAGARSE DE CREAR MODIFICAR ,BORRAR DATOS DE LA BASE DE DATOS REALTIME
 
 
-    public static  void initDatabasesReference(){
+    public static  void initDatabasesReferenceImagesData(){
 
         mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImagesData");
 
@@ -98,12 +97,12 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
-    public static void updateInformContenresAcopio( ContenedoresEnAcopio informeObjct,String key) {
+    public static void updateInformContenresAcopio( ContenedoresEnAcopio informeObjct) {
 
-        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("contenedoresAcopio");
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("contenedoresAcopio").child(informeObjct.getKeyFirebase());
 
 
-        mibasedata.child(key).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mibasedata.setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
 
@@ -193,9 +192,8 @@ static  public  DatabaseReference mibasedataPathImages;
     public static void actualizaInformePart1( SetInformEmbarque1 informeObjct) {
 
         ///"-NCHQnVUUyMat8l_SSwh"
-        Log.i("elides","el key o child al que perteence este objeto es "+informeObjct.getKeyFirebase());
 
-        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child("-NCHQnVUUyMat8l_SSwh");
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child(informeObjct.getKeyFirebase());
 
         Map<String, Object> mapValues = informeObjct.toMap(); //lo convertimos en maP
 
@@ -383,7 +381,7 @@ static  public  DatabaseReference mibasedataPathImages;
     public static void addNewSetPicsInforme(Context context, ImagenReport objecImageReport ) {
 
        if(mibasedataPathImages==null ) {
-           initDatabasesReference();
+           initDatabasesReferenceImagesData();
 
        }
 

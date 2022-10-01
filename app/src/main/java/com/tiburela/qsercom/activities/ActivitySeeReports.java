@@ -124,7 +124,7 @@ Spinner  spinnerDatesSelector;
 
                     fechaToSearch=generaFechaToSearch(Variables.HOY);
                     dowloadinformesby_CONTENEDORES(fechaToSearch);
-                    dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+                    //dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
                     Log.d("dateis ","el dat today is "+fechaToSearch) ;
 
@@ -134,7 +134,7 @@ Spinner  spinnerDatesSelector;
 
                     fechaToSearch=generaFechaToSearch(Variables.AYER);
                     dowloadinformesby_CONTENEDORES(fechaToSearch);
-                    dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+                   // dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
 
                 }
@@ -143,7 +143,7 @@ Spinner  spinnerDatesSelector;
 
                     fechaToSearch=generaFechaToSearch(Variables.ANTEAYER);
                     dowloadinformesby_CONTENEDORES(fechaToSearch);
-                    dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+                    //dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
 
                 }else if (timeSelecionado.equals("FECHA ESPECIFICA")){
@@ -151,7 +151,7 @@ Spinner  spinnerDatesSelector;
                     String fecheEspecifica ="14-09-2022";//aqui va la fecha que obtengamos
 
                     dowloadinformesby_CONTENEDORES(fecheEspecifica);
-                    dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+                   // dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
 
 
@@ -172,6 +172,7 @@ Spinner  spinnerDatesSelector;
 
 
     void dowloadinformesby_CONTENEDORES(String dateSelecionado){
+        allReportFiltB=new ArrayList<>();
 
        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
@@ -180,7 +181,6 @@ Spinner  spinnerDatesSelector;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                allReportFiltB=new ArrayList<>();
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
@@ -195,8 +195,8 @@ Spinner  spinnerDatesSelector;
                 }
 
 
-
-
+                dowloadinformesby_CONTENEDORES_EN_ACOPIO(dateSelecionado);
+                   Log.i("sellamos","se llamo dowload more info data ");
                 //setAdapaterDataAndShow(reportsListPart1);
 
             }
@@ -214,6 +214,10 @@ Spinner  spinnerDatesSelector;
 
 
     void dowloadinformesby_CONTENEDORES_EN_ACOPIO(String dateSelecionado){
+        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
+
+
+        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("contenedoresAcopio").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
@@ -231,8 +235,11 @@ Spinner  spinnerDatesSelector;
                     allReportFiltB.add(new ReportsAllModel(REPORTE_CONTENEDORES_EN_ACOPIO,false,false,false,"Contenedores Acopio"
                             , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme()));
 
+
+
                 }
 
+                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
 
                 setAdapaterDataAndShow(allReportFiltB);
 
@@ -377,6 +384,8 @@ Spinner  spinnerDatesSelector;
 
                         if(informe!=null){
                             Variables.CurrenReportContensEnACp=informe;
+                            Log.i("verdura","el value es "+ Variables.CurrenReportContensEnACp.getAgenciaNaviera());
+
                             break;
 
                         }
@@ -579,7 +588,6 @@ return fecha;
             @Override
             public void onClick(View v) {
 
-                allReportFiltB=new ArrayList<>();
 
 
                 if(reportTipo==CONTENEDORES){
@@ -608,7 +616,6 @@ return fecha;
         lyEditar.setOnClickListener(new View.OnClickListener() {  //activar switch
             @Override
             public void onClick(View v) {
-                allReportFiltB=new ArrayList<>();
 
                 //  Toast.makeText(getActivity(), "Share is Clicked", Toast.LENGTH_LONG).show();
                 if(reportTipo==CONTENEDORES){

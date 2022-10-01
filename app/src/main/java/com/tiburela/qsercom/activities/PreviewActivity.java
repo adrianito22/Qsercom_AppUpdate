@@ -276,6 +276,8 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
                    Auth.initAuth(this);
 
+
+                   RealtimeDB.initDatabasesRootOnly();
                    StorageData. initStorageReference();
 
 
@@ -1984,9 +1986,7 @@ private void createObjcInformeAndUpload(){
     informe3.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
-
-    //Agregamos un nuevo informe
-    RealtimeDB.initDatabasesReference(); //inicilizamos la base de datos
+    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     //agr5egamos la data finalemente
 
@@ -2121,7 +2121,7 @@ private void createObjcInformeAndUpload(){
 
             if(Utils.objsIdsDecripcionImgsMOreDescripc.size()>0) {
 
-                RealtimeDB.initDatabasesReference();
+                RealtimeDB.initDatabasesReferenceImagesData();
                 RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
 
 
@@ -4015,7 +4015,6 @@ private void checkModeVisualitY(){
 
     void dowLoadProducsPostC(String idAlquePERTENECE){
 
-        RealtimeDB.initDatabasesReference();
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = RealtimeDB.rootDatabaseReference.child("Informes").
                 child("listProductosPostCosecha").
@@ -4096,7 +4095,7 @@ private void checkModeVisualitY(){
 
 
     void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH){ //DESCRAGAMOS EL SEGUNDO
-        RealtimeDB.initDatabasesReference();
+
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("idReportePerteence").equalTo(reportUNIQUEidtoSEARCH);
 

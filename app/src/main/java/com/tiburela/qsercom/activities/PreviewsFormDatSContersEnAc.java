@@ -46,8 +46,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
@@ -66,8 +68,6 @@ import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
-import com.tiburela.qsercom.models.SetInformEmbarque1;
-import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
@@ -93,7 +93,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     boolean isModEdicionFields;
     FloatingActionButton fab ;
     int contadorIterador=0;
-
+    boolean copiamosDatax;
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
 
@@ -202,23 +202,19 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         Auth.signInAnonymously(PreviewsFormDatSContersEnAc.this);
 
 
-        checkModeVisualitY(); //despues lo llamaremos solo una vez
+            checkModeVisualitY(); //despues lo llamaremos solo una vez
 
-        addDataEnFields(Variables.CurrenReportContensEnACp);
-        //imagenes set
+            addDataEnFields(Variables.CurrenReportContensEnACp);
+            //imagenes set
+
         RealtimeDB.initDatabasesRootOnly();
+
         dowloadImagesDataReport(Variables.CurrenReportContensEnACp.getUniqueIDinforme());
 
 
+            Log.i("misadhd","el value es  "+ Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
 
-
-
-        Log.i("misadhd","el value es  "+ Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
-
-        dowLOADAndCallSETdatosAcopioprocesO(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
-
-        //descarga info
-
+            dowLOADAndCallSETdatosAcopioprocesO(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
 
 
 
@@ -275,7 +271,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         context = getApplicationContext();
 
 
-        UNIQUE_ID_iNFORME=Variables.CurrenReportContensEnACp.getKeyFirebase();
+        UNIQUE_ID_iNFORME=Variables.CurrenReportContensEnACp.getUniqueIDinforme();
 
       // FirebaseApp.initializeApp(this);
       //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
@@ -1467,7 +1463,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 
 
-    Log.i("isdeletyin","el value de first uri  items es "+filterListImagesData.get(0).geturiImage());
 
     RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
     GridLayoutManager layoutManager=new GridLayoutManager(this,2);
@@ -1548,6 +1543,8 @@ void checkDataFields(){ //
     }
 
 
+    /*
+
     if(! checkSellosInstaladosIsLleno()){
         Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
 
@@ -1558,7 +1555,7 @@ void checkDataFields(){ //
 
 
     }
-
+*/
 
     if(! checkDatosTransportistaIsLleno()){
         Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
@@ -1586,17 +1583,78 @@ void checkDataFields(){ //
 
     Log.i("test001","toda la data esta completa HUrra ");
 
-    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+
+
 
     createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
 
 
 
+    for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
+
+        geTidAndDelete(Variables.listImagesToDelete.get(i));
+
+
+    }
+
+    //aliminamos c
 
 }
 
 
+    private void geTidAndDelete( String idUniqueToDelete){ //busca el que tenga esa propieda y obtiene el id node child
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
+
+        DatabaseReference usersdRef= RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
+        //  Query query = usersdRef.orderByChild("uniqueIdNamePic").equalTo(Variables.currentCuponObjectGlob.getUniqueIdCupòn());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String key=null;
+
+                try {
+                    DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                     key = nodeShot.getKey();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
+
+
+                if(key!=null){
+                    usersdRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                //Toast.makeText(OfertsAdminActivity.this, "Se elimino correctamente", Toast.LENGTH_SHORT).show();
+
+                            }
+
+
+
+                        }
+                    });
+
+
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
 private boolean checkaDatosProcesoISllENO(){
 
@@ -1717,7 +1775,7 @@ private void creaActualizaDatosProcesoMapAndUpload(String informePertenece){
     HashMap<String, DatosDeProceso> mimapaDatosProces=new HashMap<>();
 
         DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
-        String PuskEY = mibasedata.push().getKey(); //que que cotienen este nodo
+        String PuskEY =Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(); //que que cotienen este nodo
 
 
     for(int indice=0; indice<arraynCajas.length; indice++){
@@ -1784,16 +1842,22 @@ private void createObjcInformeAndUpload(){
 
 
 
-    //Agregamos un nuevo informe
-    RealtimeDB.initDatabasesReference(); //inicilizamos la base de datos
+    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     //agr5egamos la data finalemente
 
-    RealtimeDB.updateInformContenresAcopio(informe,UNIQUE_ID_iNFORME);
+
+    informe.setKeyFirebase(Variables.CurrenReportContensEnACp.getKeyFirebase());
+    RealtimeDB.updateInformContenresAcopio(informe);
+
+    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
-    creaActualizaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME);
+    creaActualizaDatosProcesoMapAndUpload(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
 
+    Toast.makeText(context, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+
+    finish();
 
 }
 
@@ -1806,24 +1870,30 @@ private void createObjcInformeAndUpload(){
             public void onItemClick(int position, View v) {  //este para eminar
                 //  Variables.currentCuponObjectGlob =listGiftCards.get(position);
 
-                Log.i("midaclick","el click es here, posicion es "+position);
+                Log.i("elfile","elsize de mapa es "+ImagenReport.hashMapImagesData.size());
 
                ///elimnar el hasmap
                //vamos a ver el tipo del objeto removivo
-               Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+                if( ImagenReport.hashMapImagesData.containsKey(v.getTag().toString())){
 
-                Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                    Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
 
-
-                ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewsFormDatSContersEnAc.this);
-
-
-                Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
-
-                showImagesPicShotOrSelectUpdateView(true);
+                    Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                    Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
 
+                    ImagenReport.hashMapImagesData.remove(v.getTag().toString());
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewsFormDatSContersEnAc.this);
+
+
+                    Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
+
+                    showImagesPicShotOrSelectUpdateView(true);
+
+
+
+
+                }
 
 
 
@@ -1848,10 +1918,32 @@ private void createObjcInformeAndUpload(){
              return;
         }
 
-        //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
+        if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
-        //aqui subimos
-       StorageData.uploadImage(PreviewsFormDatSContersEnAc.this, ImagenReport.hashMapImagesData);
+            Log.i("elfile","alguno o toos son diferentes images llamaos metodo filtra");
+
+
+
+            HashMap<String , ImagenReport>mihasmap= Utils.creaHahmapNoDuplicado();
+
+
+            if(mihasmap.size()>0){
+
+                StorageData.uploadImage(PreviewsFormDatSContersEnAc.this,mihasmap);
+
+
+            }
+
+        }
+
+        else{
+            Log.i("elfile","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
+
+
+            Log.i("elfile","son iguales las imagenes");
+
+        }
+
 
     }
 
@@ -2724,6 +2816,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     void addInfotomap(ArrayList<ImagenReport>listImagenReports){
+
         ImagenReport.hashMapImagesData= new HashMap<>();
 
         //agregamos adata al mapusnado un bucle
@@ -2735,6 +2828,29 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ImagenReport.hashMapImagesData.put(currentImareportObj.getUniqueIdNamePic(),currentImareportObj);
 
         }
+        if(!copiamosDatax) {
+            // Variables.hashMapImagesStart =ImagenReport.hashMapImagesData;
+
+            //CREAMOS UNA COPIA USANDO UN BUCLE
+
+            Variables.hashMapImagesStart=new HashMap<String, ImagenReport>();
+
+
+            for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) {
+                String key = entry.getKey();
+                ImagenReport value = entry.getValue();
+
+                Variables.hashMapImagesStart.put(key,value);
+                // ...
+            }
+
+            copiamosDatax =true;
+
+
+
+
+        }
+
 
 
     }
@@ -2836,10 +2952,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     private void ediDatosAcopio(final String keyIdTOEdit ){
         ValueEventListener seenListener;
-
-        DatabaseReference rootDatabaseReference=RealtimeDB.rootDatabaseReference;
-
-        seenListener = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").addValueEventListener(new ValueEventListener() {
+        seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -2874,10 +2987,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     private void dowLOADAndCallSETdatosAcopioprocesO(String fathherNode){
         ValueEventListener seenListener;
 
-        RealtimeDB.initDatabasesRootOnly();
-        DatabaseReference rootDatabaseReference=RealtimeDB.rootDatabaseReference;
-
-        seenListener = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").child(fathherNode).addValueEventListener(new ValueEventListener() {
+        seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").child(fathherNode).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -3271,9 +3381,13 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH){ //DESCRAGAMOS EL SEGUNDO
-        RealtimeDB.initDatabasesReference();
+
+        Log.i("mispiggi","el reportunique id es "+reportUNIQUEidtoSEARCH);
+
+
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("idReportePerteence").equalTo(reportUNIQUEidtoSEARCH);
+        Log.i("mispiggi","se llamo dowload images cc");
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -3290,6 +3404,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                 }
 
+                Log.i("mispiggi","el size es "+listImagenData.size());
 
                 Variables.listImagenData=listImagenData;
 
@@ -3311,7 +3426,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Log.i("sliexsa","el error es "+error.getMessage());
+                Log.i("mispiggi","el error es "+error.getMessage());
 
             }
         });
@@ -3352,7 +3467,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                         ///llamamos a este otro metodo .......
                         contadorIterador++;
-                        Log.i("hamiso","el contador iteradopr "+ contadorIterador);
+                        Log.i("mispiggi","el contador iteradopr "+ contadorIterador);
 
 
 
@@ -3360,7 +3475,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                         if(contadorIterador == miLisAllImages.size() ) {
 
                             createlistsForReciclerviewsImages(Variables.listImagenData);
-                            Log.i("hamiso","se llamokkk");
+                            Log.i("mispiggi","se llamokkk");
                             Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
                            // btnDowlPdf.setEnabled(true);
 
@@ -3373,7 +3488,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.i("hamiso","se produjo un error");
+                        Log.i("mispiggi","se produjo un error y es "+e.getMessage());
 
                         // Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
