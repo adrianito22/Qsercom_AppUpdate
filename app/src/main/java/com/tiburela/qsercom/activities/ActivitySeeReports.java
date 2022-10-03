@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ReportsAllModel;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -235,9 +236,53 @@ Spinner  spinnerDatesSelector;
                     allReportFiltB.add(new ReportsAllModel(REPORTE_CONTENEDORES_EN_ACOPIO,false,false,false,"Contenedores Acopio"
                             , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme()));
 
+                }
 
+                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
+                dowloadinformesby_PACKE_lIST(dateSelecionado);
+                //setAdapaterDataAndShow(reportsListPart1);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+    void dowloadinformesby_PACKE_lIST(String dateSelecionado){
+        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
+
+
+        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
+
+        //        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("PackingListDescripcion");
+
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = rootDatabaseReference.child("Informes").child("PackingListDescripcion").orderByChild("simpledatFormt").equalTo(dateSelecionado);
+        //    reportsListPart1 = new ArrayList<>();
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    PackingListMod packinList=ds.getValue(PackingListMod.class);
+
+                    //  reportsListPart1.add(informEmbarque1);
+
+                    allReportFiltB.add(new ReportsAllModel(PACKINGLIST,false,false,false,"Packing List"
+                            , packinList.getSimpledatFormt(),packinList.getUniqueIDinforme()));
 
                 }
+
+
 
                 Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
 
@@ -439,6 +484,91 @@ Spinner  spinnerDatesSelector;
     }
 
 
+
+
+    private void DowloadPackingList(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
+
+        //        Query query = rootDatabaseReference.child("Informes").child("PackingListDescripcion").orderByChild("simpledatFormt").equalTo(dateSelecionado);
+
+        //to fetch all the users of firebase Auth app
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference usersdRef = rootRef.child("Informes").child("PackingListDescripcion");
+
+        Query query = usersdRef.orderByChild("uniqueIDinforme").equalTo(uniqeuIDiNFORME);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    PackingListMod informe=ds.getValue(PackingListMod.class);
+
+                    if(informe!=null){
+                        Variables.currenReportPackinList=informe;
+                        Log.i("verdura","el value es "+ Variables.currenReportPackinList.getKeyOrNodeContainsMapPli());
+
+                        break;
+
+                    }
+
+
+                }
+
+                Intent intencion= new Intent(ActivitySeeReports.this, PackingListPreviewActivity.class);
+
+
+                if(modoReporte==Variables.MODO_EDICION ){
+
+                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    startActivity(intencion);
+
+                    //pd.dismiss();
+
+                    //finish();
+                }else{
+
+
+                    intencion.putExtra(Variables.KEY_PACKING_LIST,false);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    startActivity(intencion);
+                    // pd.dismiss();
+                    // finish();
+
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
     String  generaFechaToSearch( int dateId) {
              String fecha="";
         if    (dateId == Variables.HOY) {
@@ -594,10 +724,20 @@ return fecha;
                     ///descragamos la parte uno del reporte
                     DowloadReportPart1(idReport,Variables.MODO_VISUALIZACION);
 
-                }else if(reportTipo==REPORTE_CONTENEDORES_EN_ACOPIO){
+                }
+
+                else if(reportTipo==REPORTE_CONTENEDORES_EN_ACOPIO){
 
 
                     DowloadReportContersAcopio(idReport,Variables.MODO_VISUALIZACION);
+                    //Descargamos un objeto contenedores object...
+
+                }
+
+                else if(reportTipo==PACKINGLIST){
+
+
+                    DowloadPackingList(idReport,Variables.MODO_VISUALIZACION);
                     //Descargamos un objeto contenedores object...
 
                 }
@@ -629,6 +769,15 @@ return fecha;
                     //Descargamos un objeto contenedores object...
 
                 }
+
+                else if(reportTipo==PACKINGLIST){
+
+
+                    DowloadPackingList(idReport,Variables.MODO_EDICION);
+                    //Descargamos un objeto contenedores object...
+
+                }
+
 
 
 

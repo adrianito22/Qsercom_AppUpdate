@@ -4,19 +4,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
+import com.tiburela.qsercom.utils.Variables;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class PackingListActivity extends AppCompatActivity {
+public class PackingListPreviewActivity extends AppCompatActivity {
 
     HashMap<String, String> packingListMap;
     Button btnSavePacking;
@@ -108,45 +116,28 @@ public class PackingListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_packing_list2);
 
      findviewsIDS();
+
      RealtimeDB.initDatabasesRootOnly();
+
+        getPakinkListMap(Variables.currenReportPackinList.getKeyOrNodeContainsMapPli());
 
 
         btnSavePacking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                mEdiTotalCajas=findViewById(R.id.ediTotalCajas);
-                mEdiContenedorxzz=findViewById(R.id.ediContenedorxzz);
-                mEdiFechaHere=findViewById(R.id.ediFechaHere);
-
-
                 if(CheckData()){ //si todo esta en orden....
-
-                    Log.i("misdatas","devolvemos true here");
-
 
                  if( checkAndCreateAllPackinListMap()){
 
                      if(packingListMap.size()>0){//si el packing list es mayor 0
 
-                         Log.i("misdatas","gaurdamos data es mayor a cero");
-
-                         //cremoas un objeto packing list
-                         PackingListMod obpackinList= new PackingListMod(Integer.parseInt(mEdiTotalCajas.getText().toString()),mEdiContenedorxzz.getText().toString());
-
-                          //agregamos en el mapa ty lo subimos..
-                         RealtimeDB.addNewPackingListHasMap(packingListMap);
-                         RealtimeDB.AddNewPackingListObject(obpackinList);
-
+                         showBottomSheetDialogConfirmAndCallUpdate();
 
                          //debe haber al menos un datao en el paking list
 
                      }else{
-                         Log.i("misdatas","no hay datoseen e; packing list");
-
-
-                         Toast.makeText(PackingListActivity.this, "No tienes datosen el packing list ", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(PackingListPreviewActivity.this, "No tienes datosen el packing list ", Toast.LENGTH_SHORT).show();
 
 
                          //probablemente mostrar un sheet here..
@@ -164,27 +155,18 @@ public class PackingListActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
 
-    }
-
-    private boolean CheckData(){
+private boolean CheckData(){
 
         if(mEdiTotalCajas.getText().toString().isEmpty()){
             mEdiTotalCajas.requestFocus();
             mEdiTotalCajas.setError("Agrege el total de cajas");
-            Log.i("misdatas","devolvemos false");
-
             return false;
         }
         else if(mEdiContenedorxzz.getText().toString().isEmpty()){
             mEdiContenedorxzz.requestFocus();
             mEdiContenedorxzz.setError("Este datos es rquerido");
-            Log.i("misdatas","devolvemos false");
-
             return false;
 
 
@@ -193,16 +175,11 @@ public class PackingListActivity extends AppCompatActivity {
         else if(mEdiFechaHere.getText().toString().isEmpty()){
             mEdiFechaHere.requestFocus();
             mEdiFechaHere.setError("Selecione una fecha ");
-            Log.i("misdatas","devolvemos false");
-
-
             return false;
 
         }
-    Log.i("misdatas","devolvemos true");
 
        return  true;
-
 
 }
 
@@ -361,13 +338,14 @@ private boolean checkAndCreateAllPackinListMap() {
 
 //1 array edinumbox
 
+
     TextInputEditText[][] arrayEdisNumBoxAndediDescripcion = {{
 
             mEdinumbox1,  mEdinumbox2, mEdinumbox3, mEdinumbox4, mEdinumbox5, mEdinumbox6, mEdinumbox7, mEdinumbox8, mEdinumbox9, mEdinumbox10, mEdinumbox11,
             mEdinumbox12, mEdinumbox13, mEdinumbox14, mEdinumbox15, mEdinumbox16, mEdinumbox17, mEdinumbox18, mEdinumbox19, mEdinumbox20},
 
 
-             //19
+            //19
 
             {mEdiDescripcion1, mEdiDescripcion2, mEdiDescripcion3, mEdiDescripcion4, mEdiDescripcion5, mEdiDescripcion6, mEdiDescripcion7, mEdiDescripcion8,
                     mEdiDescripcion9, mEdiDescripcion10, mEdiDescripcion11, mEdiDescripcion12, mEdiDescripcion13, mEdiDescripcion14,
@@ -404,82 +382,79 @@ private boolean checkAndCreateAllPackinListMap() {
     packingListMap= new HashMap<>();
 
 
+
         //chekeamos que haya data
 
-        for(int indice2=0; indice2<arrayEdisNumBoxAndediDescripcion[0].length; indice2++){
-            Log.i("misdatas","se eejctuo esto "+indice2+" veces");
+    for(int indice2=0; indice2<arrayEdisNumBoxAndediDescripcion[0].length; indice2++){
+        Log.i("misdatas","se eejctuo esto "+indice2+" veces");
 
 
-            //chekeamos que haya dat
+        //chekeamos que haya dat
 
-            //el primero tiene data y el otro no
-            if(!arrayEdisNumBoxAndediDescripcion[0][indice2].getText(). toString().trim().isEmpty() && arrayEdisNumBoxAndediDescripcion[1][indice2].getText(). toString().trim().isEmpty() ){  ///
-                arrayEdisNumBoxAndediDescripcion[1][indice2].requestFocus();
-                arrayEdisNumBoxAndediDescripcion[1][indice2].setError("Falta este dato");
-                Log.i("misdatas","se eejctuo primer  if");
+        //el primero tiene data y el otro no
+        if(!arrayEdisNumBoxAndediDescripcion[0][indice2].getText(). toString().trim().isEmpty() && arrayEdisNumBoxAndediDescripcion[1][indice2].getText(). toString().trim().isEmpty() ){  ///
+            arrayEdisNumBoxAndediDescripcion[1][indice2].requestFocus();
+            arrayEdisNumBoxAndediDescripcion[1][indice2].setError("Falta este dato");
+            Log.i("misdatas","se eejctuo primer  if");
 
-                  return false;
+            return false;
 
-            }
-
-
-            //el primero no tiene data y el segundo si
-            if(arrayEdisNumBoxAndediDescripcion[0][indice2].getText(). toString().trim().isEmpty() && ! arrayEdisNumBoxAndediDescripcion[1][indice2].getText(). toString().trim().isEmpty() ){  ///
-                arrayEdisNumBoxAndediDescripcion[0][indice2].requestFocus();
-                arrayEdisNumBoxAndediDescripcion[0][indice2].setError("Falta este dato");
-                Log.i("misdatas","se eejctuo este segundo if");
-
-                return false;
-
-            }
-
-            //si ambs tienen data
-            if(!arrayEdisNumBoxAndediDescripcion[0][indice2].getText().toString().trim().isEmpty() && !arrayEdisNumBoxAndediDescripcion[1][indice2].getText(). toString().trim().isEmpty() ){  ///
-
-                String key1=String .valueOf(arrayEdisNumBoxAndediDescripcion[0][indice2].getId());
-                String key2=String .valueOf(arrayEdisNumBoxAndediDescripcion[1][indice2].getId());
-
-                packingListMap.put(key1,arrayEdisNumBoxAndediDescripcion[0][indice2].getText().toString());
-                packingListMap.put(key2,arrayEdisNumBoxAndediDescripcion[1][indice2].getText().toString());
-
-                Log.i("misdatas","esta tiene data z");
+        }
 
 
-            }
+        //el primero no tiene data y el segundo si
+        if(arrayEdisNumBoxAndediDescripcion[0][indice2].getText(). toString().trim().isEmpty() && ! arrayEdisNumBoxAndediDescripcion[1][indice2].getText(). toString().trim().isEmpty() ){  ///
+            arrayEdisNumBoxAndediDescripcion[0][indice2].requestFocus();
+            arrayEdisNumBoxAndediDescripcion[0][indice2].setError("Falta este dato");
+            Log.i("misdatas","se eejctuo este segundo if");
+
+            return false;
+
+        }
+
+        //si ambs tienen data
+        if(!arrayEdisNumBoxAndediDescripcion[0][indice2].getText().toString().trim().isEmpty() && !arrayEdisNumBoxAndediDescripcion[1][indice2].getText(). toString().trim().isEmpty() ){  ///
+
+            String key1=String .valueOf(arrayEdisNumBoxAndediDescripcion[0][indice2].getId());
+            String key2=String .valueOf(arrayEdisNumBoxAndediDescripcion[1][indice2].getId());
+
+            packingListMap.put(key1,arrayEdisNumBoxAndediDescripcion[0][indice2].getText().toString());
+            packingListMap.put(key2,arrayEdisNumBoxAndediDescripcion[1][indice2].getText().toString());
+
+            Log.i("misdatas","esta tiene data z");
 
 
         }
 
 
-
+    }
 
 
 
     //segundo array
         //chekeamos que haya data
 
-        for(int indice2=0; indice2<arrayEdiProductoresAndDescripc[0].length; indice2++){
+        for(int indice2=0; indice2<arrayEdiProductoresAndDescripc.length; indice2++){
             //chekeamos que haya dat
 
             //el primero tiene data y el otro no
-            if(!arrayEdiProductoresAndDescripc[0][indice2].getText(). toString().trim().isEmpty() && arrayEdiProductoresAndDescripc[1][indice2].getText(). toString().trim().isEmpty() ){  ///
+            if(!arrayEdiProductoresAndDescripc[0][indice2].getText(). toString().isEmpty() && arrayEdiProductoresAndDescripc[1][indice2].getText(). toString().isEmpty() ){  ///
                 arrayEdiProductoresAndDescripc[1][indice2].requestFocus();
                 arrayEdiProductoresAndDescripc[1][indice2].setError("Falta este dato");
+
                 return false;
             }
 
             //el primero no tiene data y el segundo si
-            if(arrayEdiProductoresAndDescripc[0][indice2].getText(). toString().trim().isEmpty() && ! arrayEdiProductoresAndDescripc[1][indice2].getText(). toString().trim().isEmpty() ){  ///
+            if(arrayEdiProductoresAndDescripc[0][indice2].getText(). toString().isEmpty() && ! arrayEdiProductoresAndDescripc[1][indice2].getText(). toString().isEmpty() ){  ///
                 arrayEdiProductoresAndDescripc[0][indice2].requestFocus();
                 arrayEdiProductoresAndDescripc[0][indice2].setError("Falta este dato");
-
                 return false;
-
             }
 
 
 
-            if(!arrayEdiProductoresAndDescripc[0][indice2].getText().toString().trim().isEmpty() && !arrayEdiProductoresAndDescripc[1][indice2].getText(). toString().trim().isEmpty() ){  ///
+            if(!arrayEdiProductoresAndDescripc[0][indice2].getText().toString().isEmpty() && !arrayEdiProductoresAndDescripc[1][indice2].getText(). toString().isEmpty() ){  ///
 
                 String key1=String .valueOf(arrayEdiProductoresAndDescripc[0][indice2].getId());
                 String key2=String .valueOf(arrayEdiProductoresAndDescripc[1][indice2].getId());
@@ -487,41 +462,26 @@ private boolean checkAndCreateAllPackinListMap() {
                 packingListMap.put(key1,arrayEdiProductoresAndDescripc[0][indice2].getText().toString());
                 packingListMap.put(key2,arrayEdiProductoresAndDescripc[1][indice2].getText().toString());
 
-                Log.i("misdatas","esta tiene data za");
-
-
             }
 
         }
 
 
 
+    for(int indice2=0; indice2<arrayCodigos.length; indice2++){
+        //chekeamos que haya dat
 
-        for(int indice2=0; indice2<arrayCodigos.length; indice2++){
-            //chekeamos que haya dat
-            String key=String.valueOf(arrayCodigos[indice2].getId());
+        String key=String.valueOf(arrayCodigos[indice2].getId());
 
-            if(!arrayCodigos[indice2].getText().toString().trim().isEmpty()){
+        if(!arrayCodigos[indice2].getText().toString().trim().isEmpty()){
 
-                packingListMap.put(key,arrayCodigos[indice2].getText().toString());
-
-            }
-
-
-
+            packingListMap.put(key,arrayCodigos[indice2].getText().toString());
 
         }
 
 
 
-
-
-
-
-
-
-
-
+    }
 
     return true;
 
@@ -529,11 +489,203 @@ private boolean checkAndCreateAllPackinListMap() {
     }
 
 
+    private void setDaataOfViews(HashMap <String,String>miMapa, PackingListMod packingListModObj){
+  ///agregamos algunos datos el objeto packing
+        mEdiFechaHere.setText(packingListModObj.getSimpledatFormt());
+        mEdiContenedorxzz.setText(packingListModObj.getContenedor());
+        mEdiTotalCajas.setText(String.valueOf(packingListModObj.getTotalCajas()));
+        btnSavePacking.setText("Guardar Cambios");
+
+
+        TextInputEditText[] allArrayViewsTextIMPUTe =
+
+                {mEdinumbox1, mEdinumbox2, mEdinumbox3, mEdinumbox4, mEdinumbox5, mEdinumbox6, mEdinumbox7, mEdinumbox8, mEdinumbox9, mEdinumbox10, mEdinumbox11, mEdinumbox12, mEdinumbox13
+                        , mEdinumbox14, mEdinumbox15, mEdinumbox16, mEdinumbox17, mEdinumbox18, mEdinumbox19, mEdinumbox20,
+
+                        mEdiDescripcion1, mEdiDescripcion2, mEdiDescripcion3, mEdiDescripcion4, mEdiDescripcion5, mEdiDescripcion6, mEdiDescripcion7, mEdiDescripcion8, mEdiDescripcion9, mEdiDescripcion10,
+                        mEdiDescripcion11, mEdiDescripcion12, mEdiDescripcion13, mEdiDescripcion14, mEdiDescripcion15, mEdiDescripcion16,
+                        mEdiDescripcion17, mEdiDescripcion18, mEdiDescripcion19, mEdiDescripcion20,
+
+                        mEdiProductor1, mEdiProductor2, mEdiProductor3, mEdiProductor4, mEdiProductor5, mEdiProductor6, mEdiProductor7,
+                        mEdiProductor8, mEdiProductor9, mEdiProductor10,
+
+                        mEdiCajas1, mEdiCajas2, mEdiCajas3, mEdiCajas4, mEdiCajas5, mEdiCajas6, mEdiCajas7, mEdiCajas8, mEdiCajas9, mEdiCajas10,
+
+                        mEdiCodigoN1, mEdiCodigoN2, mEdiCodigoN3, mEdiCodigoN4, mEdiCodigoN5, mEdiCodigoN6, mEdiCodigoN7, mEdiCodigoN8,
+                        mEdiCodigoN9, mEdiCodigoN10,
+
+                };
+
+
+        for (Map.Entry<String, String > entry : miMapa.entrySet()) {
+            String keyAndIdOfView = entry.getKey();
+            String valueOfItem = entry.getValue();
+
+            TextInputEditText currenTextImput=getTexImputEditextByidORkey(allArrayViewsTextIMPUTe,Integer.parseInt(keyAndIdOfView));
+
+            if(currenTextImput==null){ //si es nulo
+
+                Log.i("midata","este teximputeditext es nulo" +keyAndIdOfView);
+
+                return;
+
+
+            }else{
+
+                currenTextImput.setText(valueOfItem);
+
+
+            }
+
+
+           //Agregamos este valor en este edi text
+
+        }
+
+        ///
+    }
+
+
+private TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allArrayViewsTextIMPUTe,int idViewSearch ){
+
+        TextInputEditText textInputEditText=null;
+    Log.i("midata","hay en totak "+allArrayViewsTextIMPUTe.length + "textimput editext");
+
+
+    for(int indice=0; indice<allArrayViewsTextIMPUTe.length ; indice++){  //iteramos el mapa
+
+        Log.i("midata","el id de este view es es "+allArrayViewsTextIMPUTe[indice].getId());
+
+        if(allArrayViewsTextIMPUTe[indice].getId()==idViewSearch){
+
+
+            textInputEditText= allArrayViewsTextIMPUTe[indice];
+            break;
+        }
+
+    }
+
+   return textInputEditText;
+}
+
+
+
+//getPakinkListMap
+
+    private void getPakinkListMap (String nodeKePackinGList){
+        Log.i("hameha","el NODEKey es : "+nodeKePackinGList);
+
+        ValueEventListener seenListener;
+
+
+
+//        /
+        //
+       // DatabaseReference usersdRef = rootRef.child("Informes").child("PackingListMaps");
+
+       /// Query query = usersdRef.orderByChild("uniqueIDinforme").equalTo(uniqeuIDiNFORME);
+
+
+        seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("PackingListMaps").child(nodeKePackinGList).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+               packingListMap=new HashMap<>();
+
+
+                for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                    String key = dss.getKey();
+
+                    String  fieldData =dss.getValue(String.class);
+
+                 //   HashMap packinKey = dss.getValue( String.class);
+
+                 //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
+                    Log.i("hameha","el key es "+key);
+
+
+                    if (fieldData!=null) {///
+
+                        packingListMap.put(key,fieldData);
+
+
+                        //    Map<String, Object> hashMap = new HashMap<>();
+                        //    hashMap.put("isseen", new DatosDeProceso("",1,"","",2,""));
+                        //   dss.getRef().updateChildren(hashMap);
+
+
+
+                      //  setDatosProcesODataInViews(Variables.mimapaDatosProcesMapCurrent);
+
+                       setDaataOfViews(packingListMap,Variables.currenReportPackinList);
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("misadhd","el error es "+ databaseError.getMessage());
+
+
+
+            }
+        });
 
 
 
 
+    }
 
+
+    private  void showBottomSheetDialogConfirmAndCallUpdate( ) {
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(PackingListPreviewActivity.this);
+
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_confirm_changes);
+
+        Button btnSi=bottomSheetDialog.findViewById(R.id.btnSi);
+        Button btnNo=bottomSheetDialog.findViewById(R.id.btnNo);
+
+
+        btnSi.setOnClickListener(new View.OnClickListener() { //revisar
+
+            @Override
+            public void onClick(View v) {
+
+
+                PackingListMod objePackingList=new PackingListMod(Integer.parseInt(mEdiTotalCajas.getText().toString()),mEdiContenedorxzz.getText().toString());
+                objePackingList.setTimeCurrenMillisecds(Variables.currenReportPackinList.getTimeCurrenMillisecds());
+
+                //actualizamos data
+                RealtimeDB.updateNewPackingListHasMap(packingListMap,Variables.currenReportPackinList);
+                RealtimeDB.updatePackingListObject(objePackingList,Variables.currenReportPackinList);
+                //guardamos data...
+
+
+                Toast.makeText(PackingListPreviewActivity.this, "Hecho", Toast.LENGTH_SHORT).show();
+                 finish();
+                bottomSheetDialog.dismiss();
+
+
+            }
+        });
+
+
+
+        btnNo.setOnClickListener(new View.OnClickListener() {  //activar switch
+            @Override
+            public void onClick(View v) {
+
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+
+        bottomSheetDialog.show();
+    }
 
 
 }

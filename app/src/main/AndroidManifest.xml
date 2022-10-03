@@ -34,6 +34,13 @@
             android:exported="true"
             android:screenOrientation="portrait" />
 
+
+        <activity
+            android:name=".activities.PackingListPreviewActivity"
+            android:configChanges="orientation"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.PreviewsFormDatSContersEnAc"
             android:configChanges="orientation"

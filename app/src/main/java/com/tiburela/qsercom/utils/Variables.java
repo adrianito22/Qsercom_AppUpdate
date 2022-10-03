@@ -4,6 +4,7 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
+import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -15,12 +16,17 @@ public class Variables {
 
 public static String  paqueteName="com.tiburela.qsercom";
 
+
     public static  int   activityCurrent;
 
+
+    public static String nodoDondeEstaHashMapQueReciensubimos;
     public static final int   FormatDatsContAcopi=10067;
     public static final int   FormaFormularyActivity=10066;
     public static final int   FormPreviewFormularioActivity=10060;
     public static final int   FormatDatsContAcopiPREVIEW=10069;
+
+
 
 
     public static  int   tipoDeFoto;
@@ -55,15 +61,17 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int   ESPECIFIC_DATE=603;
 
     public static SetInformEmbarque1 CurrenReportPart1;
-
     public static SetInformEmbarque2 CurrenReportPart2;
 
     public static SetInformDatsHacienda CurrenReportPart3;
     public static ContenedoresEnAcopio CurrenReportContensEnACp;
+    public static PackingListMod currenReportPackinList;
+
 
 
     public static String KEYEXTRAPREVIEW= "estacontent";
     public static String KEYEXTRA_CONTEN_EN_ACP= "estacontentXCC";
+    public static String KEY_PACKING_LIST= "MIPAQKICN";
 
 
 

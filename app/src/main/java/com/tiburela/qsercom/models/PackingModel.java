@@ -45,6 +45,9 @@ public class PackingModel {
         this.valor = valor;
         this.uniqIdReportPertenece = uniqIdReportPertenece;
         this.keyOfValor = keyOfValor;
+
+
+
     }
 
 

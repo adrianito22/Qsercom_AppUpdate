@@ -400,7 +400,7 @@
                             app:endIconMode="clear_text">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/ediDescripcion18"
+                                android:id="@+id/ediDescripcion19"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="text" />
@@ -839,7 +839,22 @@
                 <include
                     layout="@layout/vapor_a_estribor"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:id="@+id/btnSavePacking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:padding="8dp"
+                    android:text="Guardar Packing List"
+                    android:textSize="16sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
+
             </LinearLayout>
 
         </LinearLayout>

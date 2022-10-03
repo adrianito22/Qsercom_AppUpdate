@@ -18,6 +18,7 @@ import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
@@ -28,6 +29,7 @@ import com.tiburela.qsercom.utils.Variables;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class RealtimeDB {
 
@@ -350,6 +352,70 @@ static  public  DatabaseReference mibasedataPathImages;
     }
 
 
+
+    public static void addNewPackingListHasMap(HashMap <String ,String > packinListMap) {
+
+        DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("PackingListMaps");
+        String nododDondeEstaraEsteHasmap = mibasedata2.push().getKey();
+       // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
+
+        mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list mapa
+
+
+            Variables.nodoDondeEstaHashMapQueReciensubimos=nododDondeEstaraEsteHasmap;
+
+     //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
+
+
+    }
+
+
+    public static void AddNewPackingListObject( PackingListMod objPacking ) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("PackingListDescripcion"); //nodo para packing list object
+        objPacking.setUniqueIDinforme(UUID.randomUUID().toString()); //le damos un id unico
+        String keyNodoDondeEstaObjectPacking = mibasedata.push().getKey(); //creamos un nodo o rtua o key
+        objPacking.setNodoPadreThisObect(keyNodoDondeEstaObjectPacking);
+
+        objPacking.setKeyOrNodeContaineHashMap( Variables.nodoDondeEstaHashMapQueReciensubimos);//editamos el valor del nodo donde estara el hasmap
+        mibasedata.child(keyNodoDondeEstaObjectPacking).setValue(objPacking);  //subimos el packing list mapa
+
+
+
+    }
+
+
+
+
+    public static void  updateNewPackingListHasMap(HashMap <String ,String > packinListMap,PackingListMod antiguoPackinListOb) {
+
+        DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("PackingListMaps");
+        String nododDondeEstaraEsteHasmap =antiguoPackinListOb.getKeyOrNodeContainsMapPli();
+        // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
+
+        mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list mapa
+
+        //Variables.nodoDondeEstaHashMapQueReciensubimos=nododDondeEstaraEsteHasmap;
+
+        //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
+
+    }
+
+
+    public static void updatePackingListObject( PackingListMod newOBjecPacking, PackingListMod entiguoObjectPacking ) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("PackingListDescripcion"); //nodo para packing list object
+
+        newOBjecPacking.setUniqueIDinforme(entiguoObjectPacking.getUniqueIDinforme()); //le damos un id unico
+        String keyNodoDondeEstaObjectPacking =entiguoObjectPacking.getNodoPadreThisObect() ; //creamos un nodo o rtua o key
+        newOBjecPacking.setNodoPadreThisObect(keyNodoDondeEstaObjectPacking);
+
+        newOBjecPacking.setKeyOrNodeContaineHashMap(entiguoObjectPacking.getKeyOrNodeContainsMapPli() );//editamos el valor del nodo donde estara el hasmap
+        mibasedata.child(keyNodoDondeEstaObjectPacking).setValue(newOBjecPacking);  //subimos el packing list mapa
+
+
+
+    }
 
 
 

@@ -48,10 +48,13 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_sellos_instal.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_sellos_llegada.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_sellos_llegada2.xml" value="0.4" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_packing_list2.xml" value="0.2" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/btn.xml" value="0.252" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_packing_list2.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_packing_list3.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_preview.xml" value="0.33979885057471265" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_see_reports.xml" value="0.264" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/bottom_sheet_confirmChanges.xml" value="0.4" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/bottom_sheet_edit_cpn.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/form_datos_contene_acopio.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/form_datos_contene_acopio_prev.xml" value="0.2" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/item_of_recycler_report.xml" value="0.4" />
