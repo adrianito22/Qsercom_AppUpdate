@@ -260,6 +260,7 @@ public class SetInformDatsHacienda {
     this.hayLavadoRacimos =lavadoRacimos;
   this. fumigacionClin1=fumigacionClin1;
   this. ediTipoBoquilla=ediTipoBoquilla;
+
    this. ediCajasProcDesp=ediCajasProcDesp;
    this.ediRacimosCosech=ediRacimosCosech;
  this. ediRacimosRecha=ediRacimosRecha;

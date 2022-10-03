@@ -30,12 +30,7 @@ public class ReprtCaliCamionsyCarretas {
     //datos de proceso.
 
 
-    private String tipoDePlastico;
-    private String tipoDeCaja;
-    private boolean hayEnsunchado;
-    private boolean hayensunchado;
-    private boolean hayBalanza;
-    private String condicionBalanza;
+
     private String tipoBalanza;
     private boolean  hayBalanzaRepesa;
     private String tipoBalanzaRepesa;

@@ -23,6 +23,355 @@ public class ReportCamionesyCarretas {
     private String  numcionContenedor;
 
 
+    //datos transportista
+    private String nombredeChofer;
+
+    public String getNombredeChofer() {
+        return nombredeChofer;
+    }
+
+    public void setNombredeChofer(String nombredeChofer) {
+        this.nombredeChofer = nombredeChofer;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public String getCandadoQsercom() {
+        return CandadoQsercom;
+    }
+
+    public void setCandadoQsercom(String candadoQsercom) {
+        CandadoQsercom = candadoQsercom;
+    }
+
+    public String getTipoDePlastico() {
+        return tipoDePlastico;
+    }
+
+    public void setTipoDePlastico(String tipoDePlastico) {
+        this.tipoDePlastico = tipoDePlastico;
+    }
+
+    public String getTipoDeCaja() {
+        return tipoDeCaja;
+    }
+
+    public void setTipoDeCaja(String tipoDeCaja) {
+        this.tipoDeCaja = tipoDeCaja;
+    }
+
+    public boolean isHayEnsunchado() {
+        return hayEnsunchado;
+    }
+
+    public void setHayEnsunchado(boolean hayEnsunchado) {
+        this.hayEnsunchado = hayEnsunchado;
+    }
+
+    public boolean isHayBalanza() {
+        return hayBalanza;
+    }
+
+    public void setHayBalanza(boolean hayBalanza) {
+        this.hayBalanza = hayBalanza;
+    }
+
+    public String getCondicionBalanza() {
+        return condicionBalanza;
+    }
+
+    public void setCondicionBalanza(String condicionBalanza) {
+        this.condicionBalanza = condicionBalanza;
+    }
+
+    public String getTipoBalanza() {
+        return tipoBalanza;
+    }
+
+    public void setTipoBalanza(String tipoBalanza) {
+        this.tipoBalanza = tipoBalanza;
+    }
+
+    public boolean isHayBalanzaRepesa() {
+        return hayBalanzaRepesa;
+    }
+
+    public void setHayBalanzaRepesa(boolean hayBalanzaRepesa) {
+        this.hayBalanzaRepesa = hayBalanzaRepesa;
+    }
+
+    public String getTipoBalanzaRepesa() {
+        return tipoBalanzaRepesa;
+    }
+
+    public void setTipoBalanzaRepesa(String tipoBalanzaRepesa) {
+        this.tipoBalanzaRepesa = tipoBalanzaRepesa;
+    }
+
+    public String getFuenteAgua() {
+        return fuenteAgua;
+    }
+
+    public void setFuenteAgua(String fuenteAgua) {
+        this.fuenteAgua = fuenteAgua;
+    }
+
+    public boolean isHayAguaCorrida() {
+        return hayAguaCorrida;
+    }
+
+    public void setHayAguaCorrida(boolean hayAguaCorrida) {
+        this.hayAguaCorrida = hayAguaCorrida;
+    }
+
+    public boolean isLavadoRacimos() {
+        return lavadoRacimos;
+    }
+
+    public void setLavadoRacimos(boolean lavadoRacimos) {
+        this.lavadoRacimos = lavadoRacimos;
+    }
+
+    public String getFumigacionClin1() {
+        return fumigacionClin1;
+    }
+
+    public void setFumigacionClin1(String fumigacionClin1) {
+        this.fumigacionClin1 = fumigacionClin1;
+    }
+
+    public int getRacimosCosechados() {
+        return racimosCosechados;
+    }
+
+    public void setRacimosCosechados(int racimosCosechados) {
+        this.racimosCosechados = racimosCosechados;
+    }
+
+    public int getRacimosRechazados() {
+        return racimosRechazados;
+    }
+
+    public void setRacimosRechazados(int racimosRechazados) {
+        this.racimosRechazados = racimosRechazados;
+    }
+
+    public int getRacimosProcesados() {
+        return racimosProcesados;
+    }
+
+    public void setRacimosProcesados(int racimosProcesados) {
+        this.racimosProcesados = racimosProcesados;
+    }
+
+    public int getCajasProcesadasDespachadas() {
+        return cajasProcesadasDespachadas;
+    }
+
+    public void setCajasProcesadasDespachadas(int cajasProcesadasDespachadas) {
+        this.cajasProcesadasDespachadas = cajasProcesadasDespachadas;
+    }
+
+    public String getColortSem14() {
+        return colortSem14;
+    }
+
+    public void setColortSem14(String colortSem14) {
+        this.colortSem14 = colortSem14;
+    }
+
+    public String getColortSem13() {
+        return colortSem13;
+    }
+
+    public void setColortSem13(String colortSem13) {
+        this.colortSem13 = colortSem13;
+    }
+
+    public String getColortSem12() {
+        return colortSem12;
+    }
+
+    public void setColortSem12(String colortSem12) {
+        this.colortSem12 = colortSem12;
+    }
+
+    public String getColortSem11() {
+        return colortSem11;
+    }
+
+    public void setColortSem11(String colortSem11) {
+        this.colortSem11 = colortSem11;
+    }
+
+    public String getColortSem10() {
+        return colortSem10;
+    }
+
+    public void setColortSem10(String colortSem10) {
+        this.colortSem10 = colortSem10;
+    }
+
+    public String getColortSem9() {
+        return colortSem9;
+    }
+
+    public void setColortSem9(String colortSem9) {
+        this.colortSem9 = colortSem9;
+    }
+
+    public String getNumRcim14() {
+        return numRcim14;
+    }
+
+    public void setNumRcim14(String numRcim14) {
+        this.numRcim14 = numRcim14;
+    }
+
+    public String getNumRcim13() {
+        return numRcim13;
+    }
+
+    public void setNumRcim13(String numRcim13) {
+        this.numRcim13 = numRcim13;
+    }
+
+    public String getNumRcim12() {
+        return numRcim12;
+    }
+
+    public void setNumRcim12(String numRcim12) {
+        this.numRcim12 = numRcim12;
+    }
+
+    public String getNumRcim11() {
+        return numRcim11;
+    }
+
+    public void setNumRcim11(String numRcim11) {
+        this.numRcim11 = numRcim11;
+    }
+
+    public String getNumRcim10() {
+        return numRcim10;
+    }
+
+    public void setNumRcim10(String numRcim10) {
+        this.numRcim10 = numRcim10;
+    }
+
+    public String getNumRcim9() {
+        return numRcim9;
+    }
+
+    public void setNumRcim9(String numRcim9) {
+        this.numRcim9 = numRcim9;
+    }
+
+    public String getExtensionistaEnCalidad() {
+        return extensionistaEnCalidad;
+    }
+
+    public void setExtensionistaEnCalidad(String extensionistaEnCalidad) {
+        this.extensionistaEnCalidad = extensionistaEnCalidad;
+    }
+
+    public String getExtensionistaEnRodillo() {
+        return extensionistaEnRodillo;
+    }
+
+    public void setExtensionistaEnRodillo(String extensionistaEnRodillo) {
+        this.extensionistaEnRodillo = extensionistaEnRodillo;
+    }
+
+    public String getExtensionistaEnGancho() {
+        return extensionistaEnGancho;
+    }
+
+    public void setExtensionistaEnGancho(String extensionistaEnGancho) {
+        this.extensionistaEnGancho = extensionistaEnGancho;
+    }
+
+    private String cedula;
+    private String celular;
+    private String placa;
+    private String CandadoQsercom;
+
+
+    private String tipoDePlastico;
+    private String tipoDeCaja;
+    private boolean hayEnsunchado;
+    private boolean hayBalanza;
+    private String condicionBalanza;
+    private String tipoBalanza;
+    private boolean  hayBalanzaRepesa;
+    private String tipoBalanzaRepesa;
+    private String fuenteAgua;
+    private boolean hayAguaCorrida;
+    private boolean lavadoRacimos;
+    private String fumigacionClin1;
+    private int racimosCosechados;
+    private int racimosRechazados;
+    private int racimosProcesados;
+    private int cajasProcesadasDespachadas;
+    private String colortSem14;
+    private String colortSem13;
+    private String colortSem12;
+    private String colortSem11;
+    private String colortSem10;
+    private String colortSem9;
+    private String numRcim14;
+    private String numRcim13;
+    private String numRcim12;
+    private String numRcim11;
+    private String numRcim10;
+    private String numRcim9;
+    private String extensionistaEnCalidad;
+    private String extensionistaEnRodillo;
+    private String extensionistaEnGancho;
+    private int ediNhojaEvaluacion;
+    private String zona;
+    private String productor;
+    private String codigo;
+    private String pemarque;
+    private String nguiaRemision;
+    private String hacienda;
+    private String _nguia_transporte;
+    private String ntargetaEmbarque;
+    private String inscirpMagap;
+    private String horaInicio;
+
+    private String horaTermino;
+    private String semana;
+    private String empacadora;
+
+    String calidadCi;
+    String extRodilloCi;
+    String ganchoCi;
+
+
     private String uniqueIDinforme;
 
     public String getKeyFirebase() {
@@ -52,8 +401,21 @@ public class ReportCamionesyCarretas {
     public ReportCamionesyCarretas(String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
                                    String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
                                    String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
-                                   String empacadora, String contenedor, String observacion
-                                ) {
+                                   String empacadora,
+
+                                   String nombredeChofer, String cedula,String celular,String placa,String CandadoQsercom,
+
+                                   String tipoDePlastico,String tipoDeCaja,boolean hayEnsunchado, boolean hayBalanza,String condicionBalanza,String tipoBalanza,
+                                   boolean  hayBalanzaRepesa, String tipoBalanzaRepesa,
+
+
+                                   String fuenteAgua, boolean hayAguaCorrida, boolean lavadoRacimos, String fumigacionClin1,
+
+                                   int racimosCosechados,int racimosRechazados,int racimosProcesados,int cajasProcesadasDespachadas,
+                                   String extensionistaEnCalidad,  String extensionistaEnRodillo,  String extensionistaEnGancho
+                                   ,String calidadCi,String extRodilloCi,String ganchoCi) {
+
+        keyFirebase="";
 
         this.uniqueIDinforme=uniqueIDinforme;
         this.codeInforme = codeInforme;
@@ -61,11 +423,8 @@ public class ReportCamionesyCarretas {
         esEditableNow = true;
         stateInformacion = 1;
         fechaCreacionInf = new Date().getTime();
-
-
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
         simpleDataFormat = formatter.format(fechaCreacionInf);
-
         this.ediNhojaEvaluacion = ediNhojaEvaluacion;
         this.zona = zona;
         this.productor = productor;
@@ -80,29 +439,40 @@ public class ReportCamionesyCarretas {
         this.horaTermino = horaTermino;
         this.semana = semana;
         this.empacadora = empacadora;
-        this.contenedor = contenedor;
-        this.observacion = observacion;
-        keyFirebase="";
+
+        this. nombredeChofer=nombredeChofer;
+        this. cedula=cedula;
+        this. celular=celular;
+        this. placa=placa;
+        this. CandadoQsercom=CandadoQsercom;
+        this.tipoDePlastico=tipoDePlastico;
+        this.tipoDeCaja=tipoDeCaja;
+        this.hayEnsunchado=hayEnsunchado;
+        this.hayBalanza=hayBalanza;
+        this.condicionBalanza=condicionBalanza;
+        this.tipoBalanza=tipoBalanza;
+        this.hayBalanzaRepesa=hayBalanzaRepesa;
+        this.tipoBalanzaRepesa=tipoBalanzaRepesa;
+        this.fuenteAgua=fuenteAgua;
+        this.hayAguaCorrida=hayAguaCorrida;
+        this.lavadoRacimos=lavadoRacimos;
+        this.fumigacionClin1=fumigacionClin1;
+        this.racimosCosechados=racimosCosechados;
+        this.racimosRechazados=racimosRechazados;
+        this.racimosProcesados=racimosProcesados;
+        this.cajasProcesadasDespachadas=cajasProcesadasDespachadas;
+        this.extensionistaEnCalidad=extensionistaEnCalidad;
+        this.extensionistaEnRodillo=extensionistaEnRodillo;
+        this.extensionistaEnGancho=extensionistaEnGancho;
+       this.calidadCi=calidadCi;
+       this.extRodilloCi=extRodilloCi;
+        this.ganchoCi=ganchoCi;
 
     }
 
     /***Datos formulario */
 
-    private int ediNhojaEvaluacion;
-    private String zona;
-    private String productor;
-    private String codigo;
-    private String pemarque;
-    private String nguiaRemision;
-    private String hacienda;
-    private String _nguia_transporte;
-    private String ntargetaEmbarque;
-    private String inscirpMagap;
-    private String horaInicio;
 
-    private String horaTermino;
-    private String semana;
-    private String empacadora;
     private String contenedor;
     private String observacion;
 
@@ -304,43 +674,6 @@ public class ReportCamionesyCarretas {
 
 
 
-
-
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-
-        result.put("simpleDataFormat", simpleDataFormat);
-        result.put("uniqueIDinforme", uniqueIDinforme);
-        result.put("codeInforme", codeInforme);
-        result.put("esVisually", esVisually);
-        result.put("esEditableNow", esEditableNow);
-        result.put("stateInformacion", stateInformacion);
-        result.put("fechaCreacionInf", fechaCreacionInf);
-        result.put("ediNhojaEvaluacion", ediNhojaEvaluacion);
-        result.put("zona", zona);
-        result.put("productor", productor);
-        result.put("codigo", codigo);
-        result.put("pemarque", pemarque);
-        result.put("nguiaRemision", nguiaRemision);
-        result.put("hacienda", hacienda);
-        result.put("_nguia_transporte", _nguia_transporte);
-        result.put("ntargetaEmbarque", ntargetaEmbarque);
-        result.put("inscirpMagap", inscirpMagap);
-        result.put("horaInicio", horaInicio);
-        result.put("horaTermino", horaTermino);
-        result.put("semana", semana);
-        result.put("empacadora", empacadora);
-        result.put("contenedor", contenedor);
-        result.put("observacion", observacion);
-
-        result.put("keyFirebase", keyFirebase);
-          //39
-
-        return result;
-
-
-    }
 
 
 

@@ -55,6 +55,7 @@ import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -187,6 +188,13 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
     TextInputEditText esiSelloAdhNaviera;
     TextInputEditText ediOtherSellos;
 
+    TextInputEditText ediExtCalid;
+    TextInputEditText ediExtRodillo;
+    TextInputEditText ediExtGancho;
+
+    TextInputEditText ediExtCalidCi;
+    TextInputEditText ediExtRodilloCi;
+    TextInputEditText ediExtGanchoCi;
 
 
     LinearLayout linLayoutHeader1;
@@ -444,8 +452,8 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         disableEditText(ediHoraInicio);
         disableEditText(ediHoraTermino);
 
-        disableEditText(ediHoraLLegadaContenedor);//here
-        disableEditText(ediHoraSalidaContenedor);
+      //  disableEditText(ediHoraLLegadaContenedor);//here
+       // disableEditText(ediHoraSalidaContenedor);
 
 
         disableEditText(ediContenedor);
@@ -455,8 +463,8 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         disableEditText(ediEnsunchado);
         disableEditText(ediBalanzaRepeso);
 
-        disableEditText(ediHoraEncendido1);
-        disableEditText(ediHoraEncendido2);
+       // disableEditText(ediHoraEncendido1);
+      //  disableEditText(ediHoraEncendido2);
 
 
     }
@@ -514,6 +522,19 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         ediNumContenedor=findViewById(R.id.ediNumContenedor);
 
 
+         ediExtCalid=findViewById(R.id.ediExtCalid);
+         ediExtRodillo=findViewById(R.id.ediExtRodillo);
+         ediExtGancho= findViewById(R.id.ediExtGancho);
+
+         ediExtCalidCi=findViewById(R.id.ediExtCalidCi);
+         ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
+         ediExtGanchoCi =findViewById(R.id.ediExtGanchoCi);
+
+
+
+
+
+
         linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
         linLayoutHeader2 =findViewById(R.id.linLayoutHeader2);
         linLayoutHeader3 =findViewById(R.id.linLayoutHeader3);
@@ -561,13 +582,13 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         // ediHOraLllegada=findViewById(R.id.ediHoraLLegadaContenedor);
         //ediHoraSalida=findViewById(R.id.ediHoraSalida);
 
-        ediHoraLLegadaContenedor=findViewById(R.id.ediHoraLLegadaContenedor);
-        ediHoraSalidaContenedor=findViewById(R.id.ediHoraSalidaContenedor);
+       // ediHoraLLegadaContenedor=findViewById(R.id.ediHoraLLegadaContenedor);
+       // ediHoraSalidaContenedor=findViewById(R.id.ediHoraSalidaContenedor);
 
 
-        ediTipoContenedor=findViewById(R.id.ediTipoContenedor);
+       // ediTipoContenedor=findViewById(R.id.ediTipoContenedor);
 
-        ediFotoContenedor=findViewById(R.id.ediFotoContenedor);
+       // ediFotoContenedor=findViewById(R.id.ediFotoContenedor);
 
         progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
@@ -583,11 +604,11 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         ediTermofrafo1=findViewById(R.id.ediNombProd1);
-        ediHoraEncendido1=findViewById(R.id.ediTipoEmp2);
+       // ediHoraEncendido1=findViewById(R.id.ediTipoEmp2);
         ediUbicacion1=findViewById(R.id.ediCod2);
         ediRuma1=findViewById(R.id.edinCajas3);
         ediTermofrafo2=findViewById(R.id.ediTermofrafo2);
-        ediHoraEncendido2=findViewById(R.id.ediHoraEncendido2);
+       // ediHoraEncendido2=findViewById(R.id.ediHoraEncendido2);
         ediUbicacion2=findViewById(R.id.ediUbicacion2);
         ediRuma2=findViewById(R.id.ediRuma2);
         ediCandadoqsercon=findViewById(R.id.ediCandadoqsercon);
@@ -652,23 +673,23 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
         imbAtach_transportista.setOnClickListener(this);
         imbTakePicTransportista.setOnClickListener(this);
-        imbAtachSellosLlegada.setOnClickListener(this);
-        imbTakePicSellosLLegada.setOnClickListener(this);
-        imbAtachDatosContenedor.setOnClickListener(this);
-        imbTakePicDatosContenedor.setOnClickListener(this);
+      //  imbAtachSellosLlegada.setOnClickListener(this);
+      //  imbTakePicSellosLLegada.setOnClickListener(this);
+       // imbAtachDatosContenedor.setOnClickListener(this);
+      //  imbTakePicDatosContenedor.setOnClickListener(this);
         imbAtachPrPostcosecha.setOnClickListener(this);
         imbTakePicPrPostcosecha.setOnClickListener(this);
 
-        ediHoraEncendido1.setOnClickListener(this);
-        ediHoraEncendido2.setOnClickListener(this);
+      //  ediHoraEncendido1.setOnClickListener(this);
+      //  ediHoraEncendido2.setOnClickListener(this);
 
 
 
         linLayoutHeader2.setOnClickListener(this);
         linLayoutHeader1.setOnClickListener(this);
-        linLayoutHeader3.setOnClickListener(this);
-        linLayoutHeader4.setOnClickListener(this);
-        linLayoutHeader5.setOnClickListener(this);
+      //  linLayoutHeader3.setOnClickListener(this);
+     //   linLayoutHeader4.setOnClickListener(this);
+     //   linLayoutHeader5.setOnClickListener(this);
         linLayoutHeader6.setOnClickListener(this);
         linLayoutHeader7.setOnClickListener(this);
         linLayoutHeader8.setOnClickListener(this);
@@ -677,8 +698,8 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         ediHoraInicio.setOnClickListener(this);
         ediHoraTermino.setOnClickListener(this);
 
-        ediHoraLLegadaContenedor.setOnClickListener(this);
-        ediHoraSalidaContenedor.setOnClickListener(this);
+       // ediHoraLLegadaContenedor.setOnClickListener(this);
+     //   ediHoraSalidaContenedor.setOnClickListener(this);
 
 
 
@@ -1112,29 +1133,31 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         ediPPC016.setOnTouchListener(this);
 
 
-        ediHoraLLegadaContenedor.setOnTouchListener(this);
-        ediHoraSalidaContenedor.setOnTouchListener(this);
-        ediDestino.setOnTouchListener(this);
-        ediNViaje.setOnTouchListener(this);
+       // ediHoraLLegadaContenedor.setOnTouchListener(this);
+      //  ediHoraSalidaContenedor.setOnTouchListener(this);
+      //  ediDestino.setOnTouchListener(this);
+       // ediNViaje.setOnTouchListener(this);
 
-        ediVapor.setOnTouchListener(this);
-        ediTipoContenedor.setOnTouchListener(this);
+       // ediVapor.setOnTouchListener(this);
+      //  ediTipoContenedor.setOnTouchListener(this);
 
         //HAST AQUI.setOnTouchListener(this);
-        ediTare.setOnTouchListener(this);
-        ediBooking.setOnTouchListener(this);
-        ediMaxGross.setOnTouchListener(this);
+       // ediTare.setOnTouchListener(this);
+      //  ediBooking.setOnTouchListener(this);
+     //   ediMaxGross.setOnTouchListener(this);
 
-        ediNumSerieFunda.setOnTouchListener(this);
-        stikVentolerExterna.setOnTouchListener(this);
-        ediCableRastreoLlegada.setOnTouchListener(this);
+      //  ediNumSerieFunda.setOnTouchListener(this);
+       // stikVentolerExterna.setOnTouchListener(this);
+       // ediCableRastreoLlegada.setOnTouchListener(this);
 
-        ediSelloPlasticoNaviera.setOnTouchListener(this);
-        ediOtroSellosLlegada.setOnTouchListener(this);
+       // ediSelloPlasticoNaviera.setOnTouchListener(this);
+       // ediOtroSellosLlegada.setOnTouchListener(this);
 
-        ediTermofrafo1.setOnTouchListener(this);
+       // ediTermofrafo1.setOnTouchListener(this);
 
-        ediHoraEncendido1.setOnTouchListener(this);
+      //  ediHoraEncendido1.setOnTouchListener(this);
+
+       /*
         ediUbicacion1.setOnTouchListener(this);
         ediRuma1.setOnTouchListener(this);
         ediTermofrafo2.setOnTouchListener(this);
@@ -1153,7 +1176,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         ediSelloAdesivoexpor.setOnTouchListener(this);
         esiSelloAdhNaviera.setOnTouchListener(this);
 
-
+*/
 
         ediCompaniaTransporte.setOnTouchListener(this);
         ediNombreChofer.setOnTouchListener(this);
@@ -1893,8 +1916,6 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
         }
 
-
-
         if(! checkcantidadPostcosechaIsLleno()){
 
             Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
@@ -1914,31 +1935,6 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
             Log.i("test001","si  esta lleno  checkDatosContenedorIsLleno");
         }
 
-
-        if(! checkDataSellosLlegadaIsLleno()){
-            Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
-
-            return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkDataSellosLlegadaIsLleno");
-
-
-        }
-
-
-        if(! checkSellosInstaladosIsLleno()){
-            Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
-
-            return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkSellosInstaladosIsLleno");
-
-
-        }
-
-
         if(! checkDatosTransportistaIsLleno()){
             Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
 
@@ -1946,8 +1942,6 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         }else{
 
             Log.i("test001","si  esta lleno  checkDatosTransportistaIsLleno");
-
-
         }
 
 
@@ -1958,7 +1952,6 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         }else{
 
             Log.i("test001","si  esta lleno  checkDatosProcesoIsLleno");
-
 
         }
 
@@ -1971,8 +1964,6 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         }else{
 
             Log.i("test001","si  esta lleno  checkDatosHaciendaIsLleno");
-
-
         }
 
 
@@ -1986,6 +1977,20 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         }
+
+        if(! chekDaTaEvaluador()){
+            Log.i("test001","no esta lleno  chekDaTaEvaluador");
+
+            return;
+        }else{
+
+            Log.i("test001","si  esta lleno  chekDaTaEvaluador");
+
+
+        }
+
+
+
 
 
 
@@ -2004,53 +2009,33 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
     private void createObjcInformeAndUpload(){
 
+        ReportCamionesyCarretas informe = new ReportCamionesyCarretas(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
+                Integer.parseInt(ediNhojaEvaluacion.getText().toString()),ediZona.getText().toString(),ediProductor.getText().toString(),
+                ediCodigo.getText().toString(), ediPemarque.getText().toString(),
+                 ediNguiaRemision.getText().toString(),ediHacienda.getText().toString(),edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
+                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString(),ediSemana.getText().toString(),ediEmpacadora.getText().toString(),
+                ediNombreChofer.getText().toString(),ediCedula.getText().toString(),ediCelular.getText().toString(),ediPLaca.getText().toString(),ediCandadoqsercon.getText().toString(),
+                   ediTipoPlastico.getText().toString(),ediTipodeCaja.getText().toString(),switchHayEnsunchado.isChecked(),switchHaybalanza.isChecked(),
+                   ediCondicionBalanza.getText().toString(),ediTipoBalanza.getText().toString(),switchBalanzaRep.isChecked(),editipbalanzaRepeso.getText().toString(),
+                ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),true,ediFumigacionClin1.getText().toString(),
+                Integer.parseInt(ediRacimosCosech.getText().toString()) ,Integer.parseInt(ediRacimosRecha.getText().toString()),Integer.parseInt(ediRacimProces.getText().toString()),Integer .parseInt(ediCajasProcDesp.getText().toString()),
+                ediExtCalid.getText().toString(),ediExtRodillo.getText().toString(), ediExtGancho.getText().toString(),
+                ediExtCalidCi.getText().toString(),ediExtRodilloCi.getText().toString(),ediExtGanchoCi.getText().toString()
 
 
-//aplicamos la logica PARA CREAR UN NUEVO INFORME
-//SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
-
-        SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
-                Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
-                ,ediProductor.getText().toString(),ediCodigo.getText().toString()
-                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
-                FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-                ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
-                ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
-                ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
-                ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
 
 
-        SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
-                ,ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString(),
-                ediUbicacion1.getText().toString(),ediUbicacion2.getText().toString(),ediRuma1.getText().toString(),ediRuma2.getText().toString()
-                ,ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),
-                ediSelloPlasticoNaviera.getText().toString(),ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),
-                ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString(),FieldOpcional.otrosSellosInstalaEsp,
-                ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(),ediCedula.getText().toString(),
-                ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
-                ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
-                ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
-                switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
-
-        SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
-                ediFumigacionClin1.getText().toString(),ediTipoBoquilla.getText().toString(),ediCajasProcDesp.getText().toString(),
-                ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME);
+        ) ;
 
 
         //Agregamos un nuevo informe
         RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
         //agr5egamos la data finalemente
+        RealtimeDB.addNewReportCalidaCamionCarrretas(informe);
 
-        RealtimeDB.addNewInforme(ReporteCalidadCamionesyCarretas.this,informe);
 
-        RealtimeDB.addNewInforme(ReporteCalidadCamionesyCarretas.this,informe2);
-
-        RealtimeDB.addNewInforme(informe3);
 
 
         addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
@@ -3136,7 +3121,80 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
         //le decimos que esta todo bien y omitiremos estos datos....
         return true;
+
     }
+
+
+    private boolean chekDaTaEvaluador(){
+
+
+        if(ediExtCalid.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtCalid.requestFocus();
+            ediExtCalid.setError("Este espacio es obligatorio");
+
+          //  layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediExtCalidCi.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtCalidCi.requestFocus();
+            ediExtCalidCi.setError("Este espacio es obligatorio");
+
+            //  layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediExtRodillo.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtRodillo.requestFocus();
+            ediExtRodillo.setError("Este espacio es obligatorio");
+
+            //  layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediExtRodilloCi.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtRodilloCi.requestFocus();
+            ediExtRodilloCi.setError("Este espacio es obligatorio");
+
+            //  layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(ediExtGancho.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtGancho.requestFocus();
+            ediExtGancho.setError("Este espacio es obligatorio");
+
+            //  layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediExtGanchoCi.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtGanchoCi.requestFocus();
+            ediExtGanchoCi.setError("Este espacio es obligatorio");
+
+            //  layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        return true;
+    }
+
+
 
     private boolean checkDatosProcesoIsLleno(){
         LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
@@ -3321,8 +3379,6 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
     private void  addCalibracionFutaC_enfAndUpload(){
-
-
 
         CalibrFrutCalEnf calibrFrutCalEnf=new CalibrFrutCalEnf(UNIQUE_ID_iNFORME);
         //creamos un array de editext
