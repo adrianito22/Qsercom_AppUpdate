@@ -31,14 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btngGoDriveActivity;
 
-     int num1=500;
-     float num=56000000000.000000f;
-    double num6=56000000000000000000000000000000.00000000000001000000000;
 
-    int num2=1;
-     String hola= "hola";
-     String hola2= "hola";
-     boolean  siEstaonline=true;
 
 
     private static final int PERMISSION_REQUEST_CODE=100;
@@ -47,33 +40,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-if(num1==num2) {
-
- Log.i("mundo","si esta online") ;
-
-}
-
-else {
-
-
-    Log.i("mundo","num uno no es mayor ") ;
-
-
-}
-
-
-
-        for(int indice=0; indice< 10; indice ++) {
-
-          //  num=num+2;
-
-//Log.i("camisa","el resultado es "+num);
-
-
-
-        }
-
 
 
         btngGoDriveActivity=findViewById(R.id.btngGoDriveActivity);
