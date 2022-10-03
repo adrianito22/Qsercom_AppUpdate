@@ -133,7 +133,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/imgCamionesyCarretas"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
@@ -146,7 +146,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/m_medium"
                     android:gravity="center_horizontal"
-                    android:text="Ganchos" />
+                    android:text="Camiones y Carretas" />
             </LinearLayout>
 
             <LinearLayout

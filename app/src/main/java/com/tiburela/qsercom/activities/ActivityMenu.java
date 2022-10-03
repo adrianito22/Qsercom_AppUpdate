@@ -32,6 +32,7 @@ public class ActivityMenu extends AppCompatActivity {
 ImageView imgContenedores;
 ImageView imgContenEnAcopio;
 ImageView imgPackingListImageView;
+ImageView imgCamionesyCarretas;
 
 
 SetInformEmbarque1 informeObjct;
@@ -56,8 +57,18 @@ TextView txtAdviser,txtAdviser2;
         btnInInformes =findViewById(R.id.btnIformesRevisar);
         imgContenedores=findViewById(R.id.imgContenedores);
         imgContenEnAcopio=findViewById(R.id.imgContenEnAcopio);
-
         imgPackingListImageView=findViewById(R.id.imgPackingList);
+        imgCamionesyCarretas=findViewById(R.id.imgCamionesyCarretas);
+
+        imgCamionesyCarretas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(ActivityMenu.this, ReporteCalidadCamionesyCarretas.class));
+
+
+            }
+        });
 
         imgPackingListImageView.setOnClickListener(new View.OnClickListener() {
             @Override

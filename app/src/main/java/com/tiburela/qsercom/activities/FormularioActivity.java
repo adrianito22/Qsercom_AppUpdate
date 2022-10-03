@@ -582,10 +582,10 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
 
 
-        ediTermofrafo1=findViewById(R.id.ediNombProd1);
-        ediHoraEncendido1=findViewById(R.id.ediTipoEmp2);
-        ediUbicacion1=findViewById(R.id.ediCod2);
-        ediRuma1=findViewById(R.id.edinCajas3);
+        ediTermofrafo1=findViewById(R.id.ediTermofrafo1);
+        ediHoraEncendido1=findViewById(R.id.ediHoraEncendido1);
+        ediUbicacion1=findViewById(R.id.ediUbicacion1);
+        ediRuma1=findViewById(R.id.ediRuma1);
         ediTermofrafo2=findViewById(R.id.ediTermofrafo2);
         ediHoraEncendido2=findViewById(R.id.ediHoraEncendido2);
         ediUbicacion2=findViewById(R.id.ediUbicacion2);
