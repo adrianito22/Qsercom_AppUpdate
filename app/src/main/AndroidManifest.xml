@@ -26,6 +26,9 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="s">
         <activity
+            android:name=".ReporteCalidadCamionesyCarretas"
+            android:exported="false" />
+        <activity
             android:name=".activities.PackingListActivity"
             android:exported="true" />
         <activity
@@ -33,21 +36,16 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".activities.PackingListPreviewActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.PreviewsFormDatSContersEnAc"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".activities.PreviewActivity"
             android:configChanges="orientation"
@@ -84,7 +82,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tiburela.qsercom.splashScreen.SplashScreen"
+            android:name=".splashScreen.SplashScreen"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait">

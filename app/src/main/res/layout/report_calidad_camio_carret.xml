@@ -114,114 +114,6 @@
 
 
             <LinearLayout
-                android:id="@+id/linLayoutHeader3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="#151C47"
-                android:orientation="horizontal"
-                android:padding="3dp"
-                android:weightSum="10">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="9"
-                    android:padding="5dp"
-                    android:text="DATOS DEL CONTENEDOR"
-                    android:textColor="#FFFFFF" />
-
-                <ImageView
-                    android:id="@+id/imvOcultaLayout"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="1"
-                    android:src="@android:drawable/arrow_down_float" />
-            </LinearLayout>
-
-
-            <include
-                layout="@layout/ly_datos_contenedor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <LinearLayout
-                android:id="@+id/linLayoutHeader4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="#151C47"
-                android:orientation="horizontal"
-                android:padding="3dp"
-                android:weightSum="10">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="9"
-                    android:padding="5dp"
-                    android:text="SELLOS  DE LLEGADA"
-                    android:textColor="#FFFFFF" />
-
-                <ImageView
-                    android:id="@+id/imvOcultaLayout"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="1"
-                    android:src="@android:drawable/arrow_down_float" />
-            </LinearLayout>
-
-
-            <include
-                layout="@layout/ly_sellos_llegada"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <LinearLayout
-                android:id="@+id/linLayoutHeader5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="#151C47"
-                android:orientation="horizontal"
-                android:padding="3dp"
-                android:weightSum="10">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="9"
-                    android:padding="5dp"
-                    android:text="SELLOS INSTALADOS"
-                    android:textColor="#FFFFFF" />
-
-                <ImageView
-                    android:id="@+id/imvOcultaLayout"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="1"
-                    android:src="@android:drawable/arrow_down_float" />
-            </LinearLayout>
-
-
-            <include
-                layout="@layout/ly_sellos_instal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <LinearLayout
                 android:id="@+id/linLayoutHeader6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -339,27 +231,48 @@
 
 
             <LinearLayout
+                android:id="@+id/linLayoutHeader8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginTop="10dp"
+                android:background="#151C47"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView39"
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text=" POR CLUSTER (SOLO PARA QUIENES PROCESEN ....).." />
+                    android:layout_weight="9"
+                    android:padding="5dp"
+                    android:text="PESO BRUTO POR CLUSTER (SOLO PARA QUIENES PROCESEN CAJAS  DE 2 Y 3 LIBRAS)"
+                    android:textAllCaps="true"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/imvOcultaLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/arrow_down_float" />
+
             </LinearLayout>
 
             <include
+                android:id="@+id/lastnclude"
                 layout="@layout/ly_peso_bruto_por_clust_solo_para"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <include
+                android:id="@+id/lastnclude"
                 layout="@layout/ly_peso_bruto_por_clust_solo_para2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
