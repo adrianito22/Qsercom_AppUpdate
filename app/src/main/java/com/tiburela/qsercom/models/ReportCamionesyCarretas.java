@@ -367,6 +367,7 @@ public class ReportCamionesyCarretas {
     String calidadCi;
     String extRodilloCi;
     String ganchoCi;
+    private String ubicacionBalanza;
 
 
     private String uniqueIDinforme;
@@ -395,22 +396,48 @@ public class ReportCamionesyCarretas {
         this.numcionContenedor = numcionContenedor;
     }
 
+    public String getCalidadCi() {
+        return calidadCi;
+    }
+
+    public void setCalidadCi(String calidadCi) {
+        this.calidadCi = calidadCi;
+    }
+
+    public String getExtRodilloCi() {
+        return extRodilloCi;
+    }
+
+    public void setExtRodilloCi(String extRodilloCi) {
+        this.extRodilloCi = extRodilloCi;
+    }
+
+    public String getGanchoCi() {
+        return ganchoCi;
+    }
+
+    public void setGanchoCi(String ganchoCi) {
+        this.ganchoCi = ganchoCi;
+    }
+
+
+
     public ReportCamionesyCarretas(String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
                                    String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
                                    String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
                                    String empacadora,
 
-                                   String nombredeChofer, String cedula,String celular,String placa,String CandadoQsercom,
+                                   String nombredeChofer, String cedula, String celular, String placa, String CandadoQsercom,
 
-                                   String tipoDePlastico,String tipoDeCaja,boolean hayEnsunchado, boolean hayBalanza,String condicionBalanza,String tipoBalanza,
+                                   String tipoDePlastico, String tipoDeCaja, boolean hayEnsunchado, boolean hayBalanza, String condicionBalanza, String tipoBalanza,
                                    boolean  hayBalanzaRepesa, String tipoBalanzaRepesa,
 
 
                                    String fuenteAgua, boolean hayAguaCorrida, boolean lavadoRacimos, String fumigacionClin1,
 
-                                   int racimosCosechados,int racimosRechazados,int racimosProcesados,int cajasProcesadasDespachadas,
-                                   String extensionistaEnCalidad,  String extensionistaEnRodillo,  String extensionistaEnGancho
-                                   ,String calidadCi,String extRodilloCi,String ganchoCi,String observacionOpc) {
+                                   int racimosCosechados, int racimosRechazados, int racimosProcesados, int cajasProcesadasDespachadas,
+                                   String extensionistaEnCalidad, String extensionistaEnRodillo, String extensionistaEnGancho
+                                   , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc) {
 
         keyFirebase="";
 
@@ -465,6 +492,7 @@ public class ReportCamionesyCarretas {
        this.extRodilloCi=extRodilloCi;
         this.ganchoCi=ganchoCi;
         this.observacionOpc=observacionOpc;
+
 
     }
 

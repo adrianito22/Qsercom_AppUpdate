@@ -1178,7 +1178,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         ediRuma2.setOnTouchListener(this);
 
 
-        ediCandadoqsercon.setOnTouchListener(this);
+        ediCandadoQsercom.setOnTouchListener(this);
         ediSelloNaviera.setOnTouchListener(this);
         ediCableNaviera.setOnTouchListener(this);
 

@@ -27,6 +27,7 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.PackingListMod;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.ReportsAllModel;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -51,6 +52,7 @@ Spinner  spinnerDatesSelector;
     public final int PACKINGLIST=1201;
     public final int OTRO_REPORTE=1202;
     public final int REPORTE_CONTENEDORES_EN_ACOPIO=1203;
+    public final int REPORTE_CAMIONES_y_CARRETAS=1204;
 
 
 
@@ -283,12 +285,55 @@ Spinner  spinnerDatesSelector;
                 }
 
 
+                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
+                dowloadinformesby_CAMIONES_Y_CARRETAS(dateSelecionado);
+
+                //setAdapaterDataAndShow(reportsListPart1);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+    void dowloadinformesby_CAMIONES_Y_CARRETAS(String dateSelecionado){
+        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
+
+
+        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
+
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = rootDatabaseReference.child("Informes").child("informeCamionesYcarretas").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
+        //    reportsListPart1 = new ArrayList<>();
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ContenedoresEnAcopio contenedoresEnAcopio=ds.getValue(ContenedoresEnAcopio.class);
+
+                    //  reportsListPart1.add(informEmbarque1);
+
+                    allReportFiltB.add(new ReportsAllModel(REPORTE_CAMIONES_y_CARRETAS,false,false,false,"Camiones Y Carretas"
+                            , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme()));
+
+                }
 
                 Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
+              ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
+                //setAdapaterDataAndShow(reportsListPart1);
 
                 setAdapaterDataAndShow(allReportFiltB);
 
-                //setAdapaterDataAndShow(reportsListPart1);
 
             }
 
@@ -408,6 +453,81 @@ Spinner  spinnerDatesSelector;
 
 
     }
+
+
+
+    private void DowloadReportCamionesYcarretas(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
+
+        //to fetch all the users of firebase Auth app
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference usersdRef = rootRef.child("Informes").child("informeCamionesYcarretas");
+
+        Query query = usersdRef.orderByChild("uniqueIDinforme").equalTo(uniqeuIDiNFORME);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    ReportCamionesyCarretas informe=ds.getValue(ReportCamionesyCarretas.class);
+
+                    if(informe!=null){
+                        Variables.currenReportCamionesyCarretas=informe;
+                        Log.i("elcarreta","el value es "+ Variables.currenReportCamionesyCarretas.get_nguia_transporte());
+
+                        break;
+
+                    }
+
+
+                }
+
+                Intent intencion= new Intent(ActivitySeeReports.this, PreviewCalidadCamionesyCarretas.class);
+
+
+                if(modoReporte==Variables.MODO_EDICION ){
+
+                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    startActivity(intencion);
+
+                    //pd.dismiss();
+
+                    //finish();
+                }else{
+
+
+                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,false);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    startActivity(intencion);
+                    // pd.dismiss();
+                    // finish();
+
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
+
+
+    }
+
 
 
 
@@ -743,6 +863,15 @@ return fecha;
                 }
 
 
+                else if(reportTipo==REPORTE_CAMIONES_y_CARRETAS){
+
+
+                    DowloadReportCamionesYcarretas(idReport,Variables.MODO_VISUALIZACION);
+                    //Descargamos un objeto contenedores object...
+
+                }
+
+
 
 
                 bottomSheetDialog.dismiss();
@@ -775,6 +904,16 @@ return fecha;
 
                     DowloadPackingList(idReport,Variables.MODO_EDICION);
                     //Descargamos un objeto contenedores object...
+
+                }
+
+
+                else if(reportTipo==REPORTE_CAMIONES_y_CARRETAS){
+
+
+                    DowloadReportCamionesYcarretas(idReport,Variables.MODO_EDICION);
+                    //Descargamos un objeto contenedores object...
+
 
                 }
 

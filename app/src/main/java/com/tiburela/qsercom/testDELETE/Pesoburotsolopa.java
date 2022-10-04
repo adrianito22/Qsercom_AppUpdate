@@ -11,7 +11,7 @@ public class Pesoburotsolopa extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ly_peso_bruto_por_clust_solo_para2);
+        setContentView(R.layout.deletexx);
 
 
     }
