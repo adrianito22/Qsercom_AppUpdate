@@ -32,7 +32,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 1"
+                        android:hint="PESO BRUTO POR CLUSTER Nº11"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -142,7 +142,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 2"
+                        android:hint="PESO BRUTO POR CLUSTER Nº12"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -252,7 +252,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 3"
+                        android:hint="PESO BRUTO POR CLUSTER Nº13"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -361,7 +361,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 4"
+                        android:hint="PESO BRUTO POR CLUSTER Nº14"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -470,7 +470,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 5"
+                        android:hint="PESO BRUTO POR CLUSTER Nº15"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -579,7 +579,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 6"
+                        android:hint="PESO BRUTO POR CLUSTER Nº16"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -688,7 +688,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 7"
+                        android:hint="PESO BRUTO POR CLUSTER Nº17"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -797,7 +797,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 8"
+                        android:hint="PESO BRUTO POR CLUSTER Nº 18"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -906,7 +906,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 9"
+                        android:hint="PESO BRUTO POR CLUSTER Nº 19"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -1015,7 +1015,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER N 10"
+                        android:hint="PESO BRUTO POR CLUSTER Nº 20"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 

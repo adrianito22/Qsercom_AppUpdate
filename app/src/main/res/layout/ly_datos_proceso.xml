@@ -38,9 +38,9 @@
                         android:id="@+id/ediCondicionBalanza"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
+                        android:enabled="false"
 
-                        />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Spinner
@@ -72,9 +72,9 @@
                         android:id="@+id/ediTipodeCaja"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
+                        android:enabled="false"
 
-                        />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Spinner
@@ -107,9 +107,9 @@
                         android:id="@+id/ediBalanza"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
+                        android:enabled="false"
 
-                        />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Switch
@@ -148,9 +148,9 @@
                         android:id="@+id/ediEnsunchado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
+                        android:enabled="false"
 
-                        />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Switch
@@ -190,6 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
+                        android:enabled="false"
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,6 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="4"
+                    android:enabled="false"
                     android:hint="Tipo de balanza"
                     android:visibility="visible"
                     app:endIconMode="clear_text">
@@ -256,9 +258,9 @@
                         android:id="@+id/ediBalanzaRepeso"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
+                        android:enabled="false"
 
-                        />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Switch
@@ -289,9 +291,9 @@
                         android:id="@+id/editipbalanzaRepeso"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
+                        android:enabled="false"
 
-                        />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Spinner
@@ -323,9 +325,9 @@
                         android:id="@+id/ediUbicacionBalanza"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
+                        android:enabled="false"
 
-                        />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Spinner

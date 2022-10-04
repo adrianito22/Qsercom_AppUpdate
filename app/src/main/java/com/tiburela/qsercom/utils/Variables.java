@@ -5,6 +5,7 @@ import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.PackingListMod;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -25,7 +26,9 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int   FormaFormularyActivity=10066;
     public static final int   FormPreviewFormularioActivity=10060;
     public static final int   FormatDatsContAcopiPREVIEW=10069;
+    public static final int   FormCamionesyCarretasActivity=10070;
 
+    public static final int   FormCamionesyCarretasActivityPreview=10071;
 
 
 
@@ -67,6 +70,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static ContenedoresEnAcopio CurrenReportContensEnACp;
     public static PackingListMod currenReportPackinList;
 
+    public static ReportCamionesyCarretas currenReportCamionesyCarretas;
 
 
     public static String KEYEXTRAPREVIEW= "estacontent";

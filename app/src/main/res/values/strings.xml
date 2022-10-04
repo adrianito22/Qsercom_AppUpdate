@@ -20,6 +20,13 @@
 
     </string-array>
 
+    <string-array name="candadoQsercomArray">
+        <item>Candado 1</item>
+        <item>Candado 2</item>
+        <item>Candado 3</item>
+
+    </string-array>
+
 
     <string-array name="tipoCaja">
         <item>Ninguna</item>

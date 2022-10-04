@@ -1,12 +1,9 @@
 package com.tiburela.qsercom.models;
 
-import com.google.firebase.database.Exclude;
-
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ReportCamionesyCarretas {
 
@@ -413,7 +410,7 @@ public class ReportCamionesyCarretas {
 
                                    int racimosCosechados,int racimosRechazados,int racimosProcesados,int cajasProcesadasDespachadas,
                                    String extensionistaEnCalidad,  String extensionistaEnRodillo,  String extensionistaEnGancho
-                                   ,String calidadCi,String extRodilloCi,String ganchoCi) {
+                                   ,String calidadCi,String extRodilloCi,String ganchoCi,String observacionOpc) {
 
         keyFirebase="";
 
@@ -467,6 +464,7 @@ public class ReportCamionesyCarretas {
        this.calidadCi=calidadCi;
        this.extRodilloCi=extRodilloCi;
         this.ganchoCi=ganchoCi;
+        this.observacionOpc=observacionOpc;
 
     }
 
@@ -474,7 +472,7 @@ public class ReportCamionesyCarretas {
 
 
     private String contenedor;
-    private String observacion;
+    private String observacionOpc;
 
 
     public static HashMap<String, String> getProdcutsPostCosecha() {
@@ -658,12 +656,12 @@ public class ReportCamionesyCarretas {
         this.contenedor = contenedor;
     }
 
-    public String getObservacion() {
-        return observacion;
+    public String getObservacionOpc() {
+        return observacionOpc;
     }
 
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
+    public void setObservacionOpc(String observacionOpc) {
+        this.observacionOpc = observacionOpc;
     }
 
 

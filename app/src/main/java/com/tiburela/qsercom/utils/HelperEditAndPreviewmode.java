@@ -16,11 +16,29 @@ public class HelperEditAndPreviewmode {
 
     public static  void diseableViewsByTipe(View []arrayViews) {
 
+//String name = (v.getId() == View.NO_ID) ? "" :
+//    v.getResources().getResourceName(v.getId()).split(":id/")[1];
+
+        Log.i("cabron", "se llamo diseable by type");
 
 
         for(int indice=0; indice<arrayViews.length; indice++){
 
             View view=arrayViews[indice];
+
+
+            //si el view es nulo
+            if(view==null){
+
+
+
+                Log.i("cabron", "la posicion en el array es  "+indice);
+            }
+
+
+
+
+
 
             if (view instanceof TextInputEditText) { //asi es un editex compobamos si esta lleno
 
