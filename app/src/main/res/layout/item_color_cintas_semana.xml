@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:enabled="false"
+            android:hint="1"
+            android:visibility="visible"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/semnNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:enabled="false"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/ediColum14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:digits="0123456789."
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/ediColum13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:digits="0123456789."
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/ediColum12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:digits="0123456789."
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/ediColum11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:digits="0123456789."
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/ediColum10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/ediColum9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
