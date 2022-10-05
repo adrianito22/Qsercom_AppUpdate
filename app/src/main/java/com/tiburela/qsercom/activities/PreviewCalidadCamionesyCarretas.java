@@ -3990,8 +3990,15 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         ediExtCalidCi.setText(currenReport.getGanchoCi());
         ediExtGanchoCi.setText(currenReport.getGanchoCi());
-        ediExtRodillo.setText(currenReport.getExtRodilloCi());
+        ediExtRodilloCi.setText(currenReport.getExtRodilloCi());
 
+
+        //control de gancho
+
+        ediCajasProcDesp.setText(String.valueOf(currenReport.getCajasProcesadasDespachadas()));
+        ediRacimosCosech.setText(String.valueOf(currenReport.getRacimosCosechados()));
+        ediRacimosRecha.setText(String.valueOf(currenReport.getRacimosRechazados()));
+        ediRacimProces.setText(String.valueOf(currenReport.getRacimosProcesados()));
 
 
     }
