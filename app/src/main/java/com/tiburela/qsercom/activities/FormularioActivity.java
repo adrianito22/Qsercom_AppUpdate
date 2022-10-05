@@ -3332,7 +3332,7 @@ private void  addProdcutsPostCosechaAndUpload(){
 
 
         //findviewsid
-          ediColorSem14=findViewById(R.id.ediColorSem14);
+          ediColorSem14=findViewById(R.id.ediColortSem14);
         ediColortSem13 =findViewById(R.id.ediColortSem13);
         ediColortSem12=findViewById(R.id.ediColortSem12);
         ediColortSem11=findViewById(R.id.ediColortSem11);
@@ -3361,7 +3361,7 @@ private void  addProdcutsPostCosechaAndUpload(){
 
                     switch (currentEditextColorSem.getId()){
 
-                        case R.id.ediColorSem14:
+                        case R.id.ediColortSem14:
                             calibrFrutCalEnf.setColorSemana14(currentEditextColorSem.getText().toString());
                             calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
 

@@ -41,7 +41,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:enabled="false"
-
                             android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -384,11 +383,11 @@
 
                         <com.google.android.material.textfield.TextInputEditText
 
+                            android:id="@+id/p2pbCluster016"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
 
-                            />
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout

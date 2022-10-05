@@ -80,7 +80,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
     boolean hayUnformularioIcompleto ;
     public static Context context;
 
-    HashMap<String,Integer> hasmapPesoBrutoClosters2y3L;
+    HashMap<String,Float> hasmapPesoBrutoClosters2y3L;
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
 
@@ -168,7 +168,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
     TextInputEditText ediTipoPlastico;
     TextInputEditText ediTipoBalanza;
     TextInputEditText editipbalanzaRepeso;
-    TextInputEditText ediUbicacionBalanza;
+  //  TextInputEditText ediUbicacionBalanza;
 
     TextInputEditText ediTermofrafo1;
     TextInputEditText ediHoraEncendido1;
@@ -214,7 +214,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
     Spinner spinnertipodePlastico;
     Spinner spinnertipodeBlanza ;
     Spinner spinnertipodeBlanzaRepeso ;
-    Spinner spinnerubicacionBalanza ;
+  //  Spinner spinnerubicacionBalanza ;
 
     Spinner spFuenteAgua ;
     Spinner spFumigaCorL1 ;
@@ -453,7 +453,8 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         lyEscontenedor.setVisibility(LinearLayout.GONE);
 
 
-
+        LinearLayout lyUbicacionBalanza=findViewById(R.id.lyUbicacionBalanza);
+        lyUbicacionBalanza.setVisibility(LinearLayout.GONE);
 
 
         disableEditText(ediFecha);
@@ -608,7 +609,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         ediTipoPlastico=findViewById(R.id.ediTipoPlastico);
         ediTipoBalanza=findViewById(R.id.ediTipoBalanza);
         editipbalanzaRepeso=findViewById(R.id.editipbalanzaRepeso);
-        ediUbicacionBalanza=findViewById(R.id.ediUbicacionBalanza);
+        //ediUbicacionBalanza=findViewById(R.id.ediUbicacionBalanza);
 
 
 
@@ -661,7 +662,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         spinnertipodePlastico = findViewById(R.id.spinnertipodePlastico);
         spinnertipodeBlanza =  findViewById(R.id.spinnertipodeBlanza);
         spinnertipodeBlanzaRepeso =  findViewById(R.id.spinnertipodeBlanzaRepeso);
-        spinnerubicacionBalanza =  findViewById(R.id.spinnerubicacionBalanza);
+      //  spinnerubicacionBalanza =  findViewById(R.id.spinnerubicacionBalanza);
 
         switchHaybalanza=findViewById(R.id.switchHaybalanza);
         switchHayEnsunchado=findViewById(R.id.switchHayEnsunchado);
@@ -1111,7 +1112,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         spinnertipodePlastico.setOnTouchListener(this);
         spinnertipodeBlanza.setOnTouchListener(this);
         spinnertipodeBlanzaRepeso .setOnTouchListener(this);
-        spinnerubicacionBalanza.setOnTouchListener(this);
+      //  spinnerubicacionBalanza.setOnTouchListener(this);
 
 
 
@@ -1757,12 +1758,13 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
+        /*
         spinnerubicacionBalanza .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String zonaEelejida= spinnerubicacionBalanza.getSelectedItem().toString();
 
-                ediUbicacionBalanza.setText(zonaEelejida);
+              //  ediUbicacionBalanza.setText(zonaEelejida);
 
                 if(zonaEelejida.equals("Ninguna")){
                     //actualizamos
@@ -1779,7 +1781,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
             }
         });
-
+*/
 
         /*
         switchContenedor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -2035,13 +2037,14 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
+        RealtimeDB.initDatabasesRootOnly();
+        RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
         Log.i("test001","toda la data esta completa HUrra ");
 
         uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
         createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
 
 
 
@@ -2062,7 +2065,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
                 ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),ediFumigacionClin1.getText().toString(),
                 Integer.parseInt(ediRacimosCosech.getText().toString()) ,Integer.parseInt(ediRacimosRecha.getText().toString()),Integer.parseInt(ediRacimProces.getText().toString()),Integer .parseInt(ediCajasProcDesp.getText().toString()),
                 ediExtCalid.getText().toString(),ediExtRodillo.getText().toString(), ediExtGancho.getText().toString(),
-                ediExtCalidCi.getText().toString(),ediExtRodilloCi.getText().toString(),ediExtGanchoCi.getText().toString(),FieldOpcional.observacionOpcional
+                ediExtCalidCi.getText().toString(),ediExtRodilloCi.getText().toString(),ediExtGanchoCi.getText().toString(),FieldOpcional.observacionOpcional,""
 
 
         ) ;
@@ -2070,19 +2073,16 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         //iniciamos root base de datos
-
-        RealtimeDB.initDatabasesRootOnly();
-        //Agregamos un nuevo informe
-        RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
+        Variables.nodoDondeEstaraPesoBruto2y3l = RealtimeDB.rootDatabaseReference.push().getKey();
+        informe.setNodoQueContieneMapPesoBrutoCloster2y3l(Variables.nodoDondeEstaraPesoBruto2y3l);
 
         //agr5egamos la data finalemente
         RealtimeDB.addNewReportCalidaCamionCarrretas(informe);
         addCalibracionFutaC_enfAndUpload();
-
-
-
         addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
 
+
+        createHashmapPesoBrutoCloster2y3lAndUpload(Variables.nodoDondeEstaraPesoBruto2y3l);
 
 
     }
@@ -3294,7 +3294,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
             return false;
 
         }
-
+/*
 
         if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediUbicacionBalanza.requestFocus();
@@ -3304,7 +3304,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
             return false;
 
         }
-
+*/
 
         return true;
 
@@ -3426,7 +3426,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         //findviewsid
-        ediColorSem14=findViewById(R.id.ediColorSem14);
+        ediColorSem14=findViewById(R.id.ediColortSem14);
         ediColortSem13 =findViewById(R.id.ediColortSem13);
         ediColortSem12=findViewById(R.id.ediColortSem12);
         ediColortSem11=findViewById(R.id.ediColortSem11);
@@ -3455,7 +3455,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
                     switch (currentEditextColorSem.getId()){
 
-                        case R.id.ediColorSem14:
+                        case R.id.ediColortSem14:
                             calibrFrutCalEnf.setColorSemana14(currentEditextColorSem.getText().toString());
                             calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
 
@@ -3600,7 +3600,7 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
                 ediTipoPlastico,
                 ediTipoBalanza,
                 editipbalanzaRepeso,
-                ediUbicacionBalanza,
+             //   ediUbicacionBalanza,
 
                 ediTermofrafo1,
                 ediHoraEncendido1,
@@ -3746,13 +3746,168 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
 
-    private void createHashmapPesoBrutoCloster2y3l(){
-       //Creamos un super array teximputeditext...con todas las casillas
 
 
-        hasmapPesoBrutoClosters2y3L =new HashMap<>();
 
+
+    private void createHashmapPesoBrutoCloster2y3lAndUpload(String keyNodoToUpload ){
+        //Creamos un super array teximputeditext...con todas las casillas
+        TextInputEditText mPbCluster01 = findViewById(R.id.pbCluster01);
+        TextInputEditText mPbCluster02 = findViewById(R.id.pbCluster02);
+        TextInputEditText mPbCluster03 = findViewById(R.id.pbCluster03);
+        TextInputEditText mPbCluster04 = findViewById(R.id.pbCluster04);
+        TextInputEditText mPbCluster05 = findViewById(R.id.pbCluster05);
+        TextInputEditText mPbCluster06 = findViewById(R.id.pbCluster06);
+        TextInputEditText mPbCluster07 = findViewById(R.id.pbCluster07);
+        TextInputEditText mPbCluster08 = findViewById(R.id.pbCluster08);
+        TextInputEditText mPbCluster09 = findViewById(R.id.pbCluster09);
+        TextInputEditText mPbCluster010 = findViewById(R.id.pbCluster010);
+        TextInputEditText mPbCluster011 = findViewById(R.id.pbCluster011);
+        TextInputEditText mPbCluster012 = findViewById(R.id.pbCluster012);
+        TextInputEditText mPbCluster013 = findViewById(R.id.pbCluster013);
+        TextInputEditText mPbCluster014 = findViewById(R.id.pbCluster014);
+        TextInputEditText mPbCluster015 = findViewById(R.id.pbCluster015);
+        TextInputEditText mPbCluster016 = findViewById(R.id.pbCluster016);
+        TextInputEditText mPbCluster017 = findViewById(R.id.pbCluster017);
+        TextInputEditText mPbCluster018 = findViewById(R.id.pbCluster018);
+        TextInputEditText mPbCluster019 = findViewById(R.id.pbCluster019);
+        TextInputEditText mPbCluster020 = findViewById(R.id.pbCluster020);
+        TextInputEditText mPbCluster021 = findViewById(R.id.pbCluster021);
+        TextInputEditText mPbCluster022 = findViewById(R.id.pbCluster022);
+        TextInputEditText mPbCluster023 = findViewById(R.id.pbCluster023);
+        TextInputEditText mPbCluster024 = findViewById(R.id.pbCluster024);
+        TextInputEditText mPbCluster025 = findViewById(R.id.pbCluster025);
+        TextInputEditText mPbCluster026 = findViewById(R.id.pbCluster026);
+        TextInputEditText mPbCluster027 = findViewById(R.id.pbCluster027);
+        TextInputEditText mPbCluster028 = findViewById(R.id.pbCluster028);
+        TextInputEditText mPbCluster029 = findViewById(R.id.pbCluster029);
+        TextInputEditText mPbCluster030 = findViewById(R.id.pbCluster030);
+        TextInputEditText mPbCluster031 = findViewById(R.id.pbCluster031);
+        TextInputEditText mPbCluster032 = findViewById(R.id.pbCluster032);
+        TextInputEditText mPbCluster033 = findViewById(R.id.pbCluster033);
+        TextInputEditText mPbCluster034 = findViewById(R.id.pbCluster034);
+        TextInputEditText mPbCluster035 = findViewById(R.id.pbCluster035);
+        TextInputEditText mPbCluster036 = findViewById(R.id.pbCluster036);
+        TextInputEditText mPbCluster037 = findViewById(R.id.pbCluster037);
+        TextInputEditText mPbCluster038 = findViewById(R.id.pbCluster038);
+        TextInputEditText mPbCluster039 = findViewById(R.id.pbCluster039);
+        TextInputEditText mPbCluster040 = findViewById(R.id.pbCluster040);
+        TextInputEditText mPbCluster041 = findViewById(R.id.pbCluster041);
+        TextInputEditText mPbCluster042 = findViewById(R.id.pbCluster042);
+        TextInputEditText mPbCluster043 = findViewById(R.id.pbCluster043);
+        TextInputEditText mPbCluster044 = findViewById(R.id.pbCluster044);
+        TextInputEditText mPbCluster045 = findViewById(R.id.pbCluster045);
+        TextInputEditText mPbCluster046 = findViewById(R.id.pbCluster046);
+        TextInputEditText mPbCluster047 = findViewById(R.id.pbCluster047);
+        TextInputEditText mPbCluster048 = findViewById(R.id.pbCluster048);
+        TextInputEditText mPbCluster049 = findViewById(R.id.pbCluster049);
+        TextInputEditText mPbCluster050 = findViewById(R.id.pbCluster050);
+
+
+        //vamos con la otra sheet
+        TextInputEditText mP2pbCluster01 = findViewById(R.id.p2pbCluster01);
+        TextInputEditText mP2pbCluster02 = findViewById(R.id.p2pbCluster02);
+        TextInputEditText mP2pbCluster03 = findViewById(R.id.p2pbCluster03);
+        TextInputEditText mP2pbCluster04 = findViewById(R.id.p2pbCluster04);
+        TextInputEditText mP2pbCluster05 = findViewById(R.id.p2pbCluster05);
+        TextInputEditText mP2pbCluster06 = findViewById(R.id.p2pbCluster06);
+        TextInputEditText mP2pbCluster07 = findViewById(R.id.p2pbCluster07);
+        TextInputEditText mP2pbCluster08 = findViewById(R.id.p2pbCluster08);
+        TextInputEditText mP2pbCluster09 = findViewById(R.id.p2pbCluster09);
+        TextInputEditText mP2pbCluster010 = findViewById(R.id.p2pbCluster010);
+        TextInputEditText mP2pbCluster011 = findViewById(R.id.p2pbCluster011);
+        TextInputEditText mP2pbCluster012 = findViewById(R.id.p2pbCluster012);
+        TextInputEditText mP2pbCluster013 = findViewById(R.id.p2pbCluster013);
+        TextInputEditText mP2pbCluster014 = findViewById(R.id.p2pbCluster014);
+        TextInputEditText mP2pbCluster015 = findViewById(R.id.p2pbCluster015);
+        TextInputEditText mP2pbCluster016 = findViewById(R.id.p2pbCluster016);
+        TextInputEditText mP2pbCluster017 = findViewById(R.id.p2pbCluster017);
+        TextInputEditText mP2pbCluster018 = findViewById(R.id.p2pbCluster018);
+        TextInputEditText mP2pbCluster019 = findViewById(R.id.p2pbCluster019);
+        TextInputEditText mP2pbCluster020 = findViewById(R.id.p2pbCluster020);
+        TextInputEditText mP2pbCluster021 = findViewById(R.id.p2pbCluster021);
+        TextInputEditText mP2pbCluster022 = findViewById(R.id.p2pbCluster022);
+        TextInputEditText mP2pbCluster023 = findViewById(R.id.p2pbCluster023);
+        TextInputEditText mP2pbCluster024 = findViewById(R.id.p2pbCluster024);
+        TextInputEditText mP2pbCluster025 = findViewById(R.id.p2pbCluster025);
+        TextInputEditText mP2pbCluster026 = findViewById(R.id.p2pbCluster026);
+        TextInputEditText mP2pbCluster027 = findViewById(R.id.p2pbCluster027);
+        TextInputEditText mP2pbCluster028 = findViewById(R.id.p2pbCluster028);
+        TextInputEditText mP2pbCluster029 = findViewById(R.id.p2pbCluster029);
+        TextInputEditText mP2pbCluster030 = findViewById(R.id.p2pbCluster030);
+        TextInputEditText mP2pbCluster031 = findViewById(R.id.p2pbCluster031);
+        TextInputEditText mP2pbCluster032 = findViewById(R.id.p2pbCluster032);
+        TextInputEditText mP2pbCluster033 = findViewById(R.id.p2pbCluster033);
+        TextInputEditText mP2pbCluster034 = findViewById(R.id.p2pbCluster034);
+        TextInputEditText mP2pbCluster035 = findViewById(R.id.p2pbCluster035);
+        TextInputEditText mP2pbCluster036 = findViewById(R.id.p2pbCluster036);
+        TextInputEditText mP2pbCluster037 = findViewById(R.id.p2pbCluster037);
+        TextInputEditText mP2pbCluster038 = findViewById(R.id.p2pbCluster038);
+        TextInputEditText mP2pbCluster039 = findViewById(R.id.p2pbCluster039);
+        TextInputEditText mP2pbCluster040 = findViewById(R.id.p2pbCluster040);
+        TextInputEditText mP2pbCluster041 = findViewById(R.id.p2pbCluster041);
+        TextInputEditText mP2pbCluster042 = findViewById(R.id.p2pbCluster042);
+        TextInputEditText mP2pbCluster043 = findViewById(R.id.p2pbCluster043);
+        TextInputEditText mP2pbCluster044 = findViewById(R.id.p2pbCluster044);
+        TextInputEditText mP2pbCluster045 = findViewById(R.id.p2pbCluster045);
+        TextInputEditText mP2pbCluster046 = findViewById(R.id.p2pbCluster046);
+        TextInputEditText mP2pbCluster047 = findViewById(R.id.p2pbCluster047);
+        TextInputEditText mP2pbCluster048 = findViewById(R.id.p2pbCluster048);
+        TextInputEditText mP2pbCluster049 = findViewById(R.id.p2pbCluster049);
+        TextInputEditText mP2pbCluster050 = findViewById(R.id.p2pbCluster050);
+
+
+        //creamos el array...
+
+        TextInputEditText[]arraYedistClusters={
+                mPbCluster01, mPbCluster02, mPbCluster03, mPbCluster04, mPbCluster05, mPbCluster06, mPbCluster07, mPbCluster08, mPbCluster09, mPbCluster010,
+                mPbCluster011, mPbCluster012, mPbCluster013, mPbCluster014, mPbCluster015, mPbCluster016, mPbCluster017, mPbCluster018, mPbCluster019,
+                mPbCluster020, mPbCluster021, mPbCluster022, mPbCluster023, mPbCluster024, mPbCluster025, mPbCluster026, mPbCluster027,
+                mPbCluster028, mPbCluster029, mPbCluster030, mPbCluster031, mPbCluster032, mPbCluster033, mPbCluster034, mPbCluster035,
+                mPbCluster036, mPbCluster037, mPbCluster038, mPbCluster039, mPbCluster040, mPbCluster041, mPbCluster042, mPbCluster043,
+                mPbCluster044, mPbCluster045, mPbCluster046, mPbCluster047, mPbCluster048, mPbCluster049, mPbCluster050,
+
+                mP2pbCluster01, mP2pbCluster02, mP2pbCluster03, mP2pbCluster04, mP2pbCluster05, mP2pbCluster06, mP2pbCluster07,
+                mP2pbCluster08, mP2pbCluster09, mP2pbCluster010, mP2pbCluster011, mP2pbCluster012, mP2pbCluster013,
+                mP2pbCluster014, mP2pbCluster015, mP2pbCluster016, mP2pbCluster017, mP2pbCluster018, mP2pbCluster019,
+                mP2pbCluster020, mP2pbCluster021, mP2pbCluster022, mP2pbCluster023, mP2pbCluster024, mP2pbCluster025,
+                mP2pbCluster026, mP2pbCluster027, mP2pbCluster028, mP2pbCluster029, mP2pbCluster030, mP2pbCluster031,
+                mP2pbCluster032, mP2pbCluster033, mP2pbCluster034, mP2pbCluster035, mP2pbCluster036, mP2pbCluster037,
+                mP2pbCluster038, mP2pbCluster039, mP2pbCluster040, mP2pbCluster041, mP2pbCluster042, mP2pbCluster043,
+                mP2pbCluster044, mP2pbCluster045, mP2pbCluster046, mP2pbCluster047, mP2pbCluster048, mP2pbCluster049, mP2pbCluster050,
+
+        };
+
+        hasmapPesoBrutoClosters2y3L=new HashMap<>();
+
+
+        for(int indice=0; indice< arraYedistClusters.length; indice++){
+            String keyOfView=String.valueOf(arraYedistClusters[indice].getId());
+            String valor=arraYedistClusters[indice].getText().toString();
+
+            //chekea que haya contenido
+            if(!valor.trim().isEmpty()){
+                float valorFlotante=Float.parseFloat(valor);
+                hasmapPesoBrutoClosters2y3L.put(keyOfView,valorFlotante);
+
+
+            }
+
+
+        }
+
+
+
+        //SUBIMOS EL MAPA
+        if(hasmapPesoBrutoClosters2y3L.size()>0){
+
+            RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(hasmapPesoBrutoClosters2y3L,keyNodoToUpload);
+        }
+
+
+        Log.i("debugmapa","el size de el hasmap es ; "+hasmapPesoBrutoClosters2y3L.size());
 
     }
+
 
 }

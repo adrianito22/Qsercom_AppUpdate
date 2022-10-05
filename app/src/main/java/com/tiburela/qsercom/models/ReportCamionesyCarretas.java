@@ -19,6 +19,24 @@ public class ReportCamionesyCarretas {
     private long fechaCreacionInf;
     private String  numcionContenedor;
 
+    public String getNodoQueContieneMapPesoBrutoCloster2y3l() {
+        return nodoQueContieneMapPesoBrutoCloster2y3l;
+    }
+
+    public void setNodoQueContieneMapPesoBrutoCloster2y3l(String nodoQueContieneMapPesoBrutoCloster2y3l) {
+        this.nodoQueContieneMapPesoBrutoCloster2y3l = nodoQueContieneMapPesoBrutoCloster2y3l;
+    }
+
+    public String getUbicacionBalanza() {
+        return ubicacionBalanza;
+    }
+
+    public void setUbicacionBalanza(String ubicacionBalanza) {
+        this.ubicacionBalanza = ubicacionBalanza;
+    }
+
+    private String nodoQueContieneMapPesoBrutoCloster2y3l;
+
 
     //datos transportista
     private String nombredeChofer;
@@ -437,7 +455,7 @@ public class ReportCamionesyCarretas {
 
                                    int racimosCosechados, int racimosRechazados, int racimosProcesados, int cajasProcesadasDespachadas,
                                    String extensionistaEnCalidad, String extensionistaEnRodillo, String extensionistaEnGancho
-                                   , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc) {
+                                   , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc,String nodoQueContieneMapPesoBrutoCloster2y3l) {
 
         keyFirebase="";
 
@@ -492,7 +510,7 @@ public class ReportCamionesyCarretas {
        this.extRodilloCi=extRodilloCi;
         this.ganchoCi=ganchoCi;
         this.observacionOpc=observacionOpc;
-
+         this.nodoQueContieneMapPesoBrutoCloster2y3l=nodoQueContieneMapPesoBrutoCloster2y3l;
 
     }
 

@@ -201,7 +201,6 @@ static  public  DatabaseReference mibasedataPathImages;
 
         //agregamos la propiedad keyFirebase a al objeto
         String PuskEY = mibasedata.push().getKey();
-
         informeObjct.setKeyFirebase(PuskEY);
      //   Map<String, Object> mapValues = informeObjct.toMap();
 
@@ -226,6 +225,74 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
+
+    public static void updateCalidaCamionCarrretas( ReportCamionesyCarretas informeObjct,ReportCamionesyCarretas antiguoInformObject) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("informeCamionesYcarretas");
+
+        informeObjct.setKeyFirebase(antiguoInformObject.getKeyFirebase());
+        informeObjct.setNodoQueContieneMapPesoBrutoCloster2y3l(antiguoInformObject.getNodoQueContieneMapPesoBrutoCloster2y3l());
+        informeObjct.setSimpleDataFormat(antiguoInformObject.getSimpleDataFormat());
+
+
+        mibasedata.child(antiguoInformObject.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+    public static void addNewhasmapPesoBrutoClosters2y3L( HashMap<String, Float> miMapa,String keyOrNodeToUpload) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("MapsPesoBrutoCloster2y3l");
+
+        mibasedata.child(keyOrNodeToUpload).setValue(miMapa).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+    public static void UpdateHasmapPesoBrutoClosters2y3L( HashMap<String, Float> miMapa,String keyOrNodeToUpdate) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("MapsPesoBrutoCloster2y3l");
+
+        mibasedata.child(keyOrNodeToUpdate).setValue(miMapa).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
 
 
 
@@ -579,9 +646,9 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
-    public static void UpdateCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf) {
+    public static void UpdateCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf,String keyNodeToUpdate) {
 
-        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal").child(calibrFrutCalEnf.getKeyFirebase());
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal").child(keyNodeToUpdate);
         // Map<String, Object> mapValues = informeObjct.toMap();
         //SUBE MAPA
         mibasedata.setValue(calibrFrutCalEnf).addOnCompleteListener(new OnCompleteListener<Void>() {

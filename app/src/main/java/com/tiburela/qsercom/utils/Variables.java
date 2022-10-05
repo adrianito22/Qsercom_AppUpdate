@@ -77,6 +77,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static String KEYEXTRA_CONTEN_EN_ACP= "estacontentXCC";
     public static String KEY_PACKING_LIST= "MIPAQKICN";
 
+    public static String nodoDondeEstaraPesoBruto2y3l;
 
 
     public static final int  DOWLOAD_IMAGES= 1500 ;

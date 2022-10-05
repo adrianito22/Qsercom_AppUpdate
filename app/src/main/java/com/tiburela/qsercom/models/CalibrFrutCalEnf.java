@@ -128,6 +128,12 @@ public class CalibrFrutCalEnf {
         this.keyFirebase = keyFirebase;
     }
 
+
+    public CalibrFrutCalEnf(){
+
+
+    }
+
     public CalibrFrutCalEnf(String idPertenece){
         this.idPertenece=idPertenece;
         colorSemana14="";
