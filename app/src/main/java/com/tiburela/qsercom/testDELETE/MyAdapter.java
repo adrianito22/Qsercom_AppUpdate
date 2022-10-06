@@ -1,3 +1,17 @@
+package com.tiburela.qsercom.testDELETE;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.tiburela.qsercom.R;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private String[] mDataset;
@@ -9,13 +23,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_edittext, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_color_cintas_semana, parent, false);
         // pass MyCustomEditTextListener to viewholder in onCreateViewHolder
         // so that we don't have to do this expensive allocation in onBindViewHolder
         ViewHolder vh = new ViewHolder(v, new MyCustomEditTextListener());
 
         return vh;
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
@@ -30,15 +45,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return mDataset.length;
     }
 
-    @Override
-    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
-        ((ViewHolder) holder).enableTextWatcher();
-    }
 
-    @Override
-    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
-        ((ViewHolder) holder).disableTextWatcher();
-    }
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -48,7 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ViewHolder(View v, MyCustomEditTextListener myCustomEditTextListener) {
             super(v);
 
-            this.mEditText = (EditText) v.findViewById(R.id.editText);
+          //  this.mEditText = (EditText) v.findViewById(R.id.editText);
             this.myCustomEditTextListener = myCustomEditTextListener;
         }
 

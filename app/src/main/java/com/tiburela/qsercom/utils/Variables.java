@@ -1,5 +1,6 @@
 package com.tiburela.qsercom.utils;
 
+import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -9,6 +10,7 @@ import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.testDELETE.Pesoburotsolopa;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,6 +124,7 @@ public static String  paqueteName="com.tiburela.qsercom";
 
     public static HashMap<String, DatosDeProceso> mimapaDatosProcesMapCurrent=new HashMap<>();
 
+    public static HashMap<String, ColorCintasSemns> mapColorCintasSemanas=new HashMap<>();
 
 
     public static  ArrayList<ImagesToPdf>listImagesSeccion=new ArrayList<ImagesToPdf>();

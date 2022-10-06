@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,7 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.utils.Utils;
+import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 
@@ -31,10 +34,14 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
     private ArrayList<ColorCintasSemns> listSemns;
     private Context mcontext;
+    private Activity activity;
 
-    public RecyclerVAdapterColorCintSem(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList, Context mcontext) {
+    public RecyclerVAdapterColorCintSem(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList, Context mcontext,Activity activity) {
         this.listSemns = ColorCintasSemnsArrayList;
         this.mcontext = mcontext;
+
+        this.activity = activity;
+
     }
 
     @NonNull
@@ -52,31 +59,63 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
         // Set the data to textview and imageview.
 
 
-
-
-
         ColorCintasSemns objectCurrent = listSemns.get(position);
 
-        holder.semnNum.setText(objectCurrent.getSemanNum());
-        holder.ediColum9.setText(objectCurrent.getColumFieldNUm9());
-        holder.ediColum10.setText(objectCurrent.getColumFieldNUm10());
-        holder.ediColum11.setText(objectCurrent.getColumFieldNUm11());
-        holder.ediColum12.setText(objectCurrent.getColumFieldNUm12());
-        holder.ediColum13.setText(objectCurrent.getColumFieldNUm13());
-        holder.ediColum14.setText(objectCurrent.getColumFieldNUm14());
+         //si el valor es diferente de 0..
+
+        if(objectCurrent.getColumFieldNUm9()!=0){
+
+            holder.ediColum9.setText(String.valueOf(objectCurrent.getColumFieldNUm9()));
+
+
+        }
+
+        if(objectCurrent.getColumFieldNUm10()!=0){
+
+            holder.ediColum10.setText(String.valueOf(objectCurrent.getColumFieldNUm10()));
+
+        }
+        if(objectCurrent.getColumFieldNUm11()!=0){
+            holder.ediColum11.setText(String.valueOf(objectCurrent.getColumFieldNUm11()));
+
+
+        }
+        if(objectCurrent.getColumFieldNUm12()!=0){
+            holder.ediColum12.setText(String.valueOf(objectCurrent.getColumFieldNUm12()));
+
+
+        }
+        if(objectCurrent.getColumFieldNUm13()!=0){
+            holder.ediColum13.setText(String.valueOf(objectCurrent.getColumFieldNUm13()));
+
+
+        }
+        if(objectCurrent.getColumFieldNUm14()!=0){
+
+            holder.ediColum14.setText(String.valueOf(objectCurrent.getColumFieldNUm14()));
+
+        }
+
+
+        holder.semnNum.setText(String.valueOf(objectCurrent.getSemanNum()) );
 
         //ad atags
-        holder.semnNum.setTag(objectCurrent.getUniqueId());
-        holder.ediColum9.setTag(objectCurrent.getUniqueId());
-        holder.ediColum10.setTag(objectCurrent.getUniqueId());
-        holder.ediColum11.setTag(objectCurrent.getUniqueId());
-        holder.ediColum12.setTag(objectCurrent.getUniqueId());
-        holder.ediColum13.setTag(objectCurrent.getUniqueId());
-        holder.ediColum14.setTag(objectCurrent.getUniqueId());
+       // holder.semnNum.setTag("semnNum");
+        holder.ediColum9.setTag("ediColum9");
+        holder.ediColum10.setTag("ediColum10");
+        holder.ediColum11.setTag("ediColum11");
+        holder.ediColum12.setTag("ediColum12");
+        holder.ediColum13.setTag("ediColum13");
+        holder.ediColum14.setTag("ediColum14");
 
 
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
-     //   holder.ediColum14.setText(StringlistSemns.get(holder.getAdapterPosition()));
+
+
+       /// holder.myCustomEditTextListener.getClass()
+      //  holder.ediColum9.upDa
+
+     //  holder.ediColum14.setText(StringlistSemns.get(holder.getAdapterPosition()));
 
 
 
@@ -88,11 +127,6 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
         // this method returns the size of recyclerview
         return listSemns.size();
     }
-
-
-
-
-
 
 
 
@@ -135,7 +169,12 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
             ediColum14 = itemView.findViewById(R.id.ediColum14);
 
 
-
+            this.ediColum9.addTextChangedListener(myCustomEditTextListener);
+            this.ediColum10.addTextChangedListener(myCustomEditTextListener);
+            this.ediColum11.addTextChangedListener(myCustomEditTextListener);
+            this.ediColum12.addTextChangedListener(myCustomEditTextListener);
+            this.ediColum13.addTextChangedListener(myCustomEditTextListener);
+            this.ediColum14.addTextChangedListener(myCustomEditTextListener);
 
 
         }
@@ -145,17 +184,6 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
             clickListener.onItemClick(getAdapterPosition(), view);
 
         }
-
-
-        void enableTextWatcher() {
-            ediColum9.addTextChangedListener(myCustomEditTextListener);
-        }
-
-        void disableTextWatcher() {
-            ediColum9.removeTextChangedListener(myCustomEditTextListener);
-        }
-
-
 
 
     }
@@ -180,10 +208,21 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
     private class MyCustomEditTextListener implements TextWatcher {
         private int position;
+        private String tag;
+      //  Activity activity;
+
+
 
         public void updatePosition(int position) {
             this.position = position;
         }
+
+
+        public void getTag(String tag) {
+            this.tag = tag;
+        }
+
+
 
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -194,6 +233,36 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
            // mDataset[position] = charSequence.toString();
+
+            Log.i("eltex","el texto es "+charSequence.toString());
+
+
+View fockview=activity.getCurrentFocus();
+if(fockview!=null){
+    EditText edit=(EditText) fockview.findViewById(R.id.ediColum14);
+    EditText edit2=(EditText) fockview.findViewById(R.id.ediColum13);
+
+
+    if(edit!=null){
+        String d=edit.getTag().toString();
+
+        Log.i("eltex","el id data  es "+d);
+
+    }
+
+
+    if(edit2!=null){
+        String d=edit.getTag().toString();
+
+        Log.i("eltex","el id data  es "+d);
+
+    }
+}
+
+
+            Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),listSemns.get(position));
+
+
 
 
         }

@@ -12,11 +12,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:enabled="false"
-            android:hint="1"
             android:visibility="visible"
             app:endIconMode="clear_text">
 
@@ -27,7 +26,9 @@
                 android:layout_height="wrap_content"
                 android:digits="0123456789."
                 android:enabled="false"
-                android:inputType="number" />
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:text="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -43,8 +44,7 @@
                 android:id="@+id/ediColum14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:digits="0123456789."
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:digits="0123456789."
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:digits="0123456789."
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:digits="0123456789."
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:inputType="text" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -134,7 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:inputType="text" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
 

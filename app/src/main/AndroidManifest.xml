@@ -40,6 +40,20 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".testDELETE.Pesoburotsolopa"
+            android:configChanges="orientation"
+            android:exported="true"
+            android:screenOrientation="portrait" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".activities.ActivitySeeReports"
             android:configChanges="orientation"
@@ -95,11 +109,7 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.ActivityGoogleDrive"
