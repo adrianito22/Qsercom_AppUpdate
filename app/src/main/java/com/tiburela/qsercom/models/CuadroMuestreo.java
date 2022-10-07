@@ -313,8 +313,6 @@ public class CuadroMuestreo {
     public CuadroMuestreo(int semanaNum,String exportadora, String vapor, String productor, String codigo, String enfunde, String nodoKyDondeEstaHasmap,
                           String extensionistaCalidad,String extensionistaEnRodillo,String extensionistaEnGancho) {
 
-
-
         this.semanaNum = semanaNum;
         this.exportadora=exportadora;
         this.vapor = vapor;
