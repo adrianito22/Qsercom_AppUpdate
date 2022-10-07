@@ -13,7 +13,7 @@ public class CuadroMuestreo {
     private int cremaAlmendraFloja;
 
     private String keyFirebaseLocation;
-
+   private String exportadora;
 
     public int getMutantes() {
         return mutantes;
@@ -310,12 +310,13 @@ public class CuadroMuestreo {
     private double dateInMillisecond;
 
 
-    public CuadroMuestreo(int semanaNum, String vapor, String productor, String codigo, String enfunde, String nodoKyDondeEstaHasmap,
+    public CuadroMuestreo(int semanaNum,String exportadora, String vapor, String productor, String codigo, String enfunde, String nodoKyDondeEstaHasmap,
                           String extensionistaCalidad,String extensionistaEnRodillo,String extensionistaEnGancho) {
 
 
 
         this.semanaNum = semanaNum;
+        this.exportadora=exportadora;
         this.vapor = vapor;
         this.productor = productor;
         this.codigo = codigo;

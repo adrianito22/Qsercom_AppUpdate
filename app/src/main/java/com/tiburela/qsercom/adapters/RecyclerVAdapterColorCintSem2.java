@@ -1,16 +1,13 @@
 package com.tiburela.qsercom.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,13 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.ColorCintasSemns;
-import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.utils.Utils;
-import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 
-public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerVAdapterColorCintSem.RecyclerViewHolder>  implements   View.OnClickListener  {
+public class RecyclerVAdapterColorCintSem2 extends RecyclerView.Adapter<RecyclerVAdapterColorCintSem2.RecyclerViewHolder>  implements   View.OnClickListener  {
 
    // private static ClickListener clickListener;
 
@@ -37,7 +32,7 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
     private Context mcontext;
     private Activity activity;
 
-    public RecyclerVAdapterColorCintSem(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList, Context mcontext,Activity activity) {
+    public RecyclerVAdapterColorCintSem2(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList, Context mcontext, Activity activity) {
         this.listSemns = ColorCintasSemnsArrayList;
         this.mcontext = mcontext;
 
@@ -62,19 +57,7 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
         ColorCintasSemns objectCurrent = listSemns.get(position);
          //si el valor es diferente de 0..
 
-
-
-
         Log.i("debugeoxc","call here");
-
-
-
-        if(objectCurrent.getSemanNum().equals("Color Cintas Semanas")){
-
-            holder.semnNum.setBackgroundColor(Color.parseColor("#818181"));
-            holder.semnNum.setTextSize(15);
-
-        }
 
 
         if(objectCurrent.getColumFieldNUm9()!=0){
@@ -213,7 +196,7 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        RecyclerVAdapterColorCintSem.clickListener = clickListener;
+        RecyclerVAdapterColorCintSem2.clickListener = clickListener;
 
 
     }

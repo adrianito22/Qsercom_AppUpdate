@@ -392,11 +392,13 @@ static  public  DatabaseReference mibasedataPathImages;
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                    Log.i("saber"," se subio la data ocmplete  ");
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
 
+                    Log.i("saber"," no es succes"+task.getException().getMessage());
 
                 }
             }
@@ -413,7 +415,6 @@ static  public  DatabaseReference mibasedataPathImages;
         newinformeObjct.setNodoKyDondeEstaHasmap(objecAntiguo.getNodoKyDondeEstaHasmap());
         newinformeObjct.setUniqueIdObject(objecAntiguo.getUniqueIdObject());
         newinformeObjct.setSimpleDateFormat(objecAntiguo.getSimpleDateFormat());
-
 
 
         mibasedata.child(objecAntiguo.getNodoKyDondeEstaHasmap()).setValue(newinformeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -439,8 +440,29 @@ static  public  DatabaseReference mibasedataPathImages;
 
     public static void addNewCuadroMuestreoHasMap(HashMap <String , ColorCintasSemns> mapCuadroMuestreo, String nododDondeEstaraEsteHasmap) {
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("CuadroMuestreoMaps");
-        mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(mapCuadroMuestreo);  //subimos el packing list mapa
+        mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(mapCuadroMuestreo).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if (task.isSuccessful()) {
+
+                    Log.i("saber"," se subio mapa ");
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+                    Log.i("saber"," no es succes mapa"+task.getException().getMessage());
+
+                }
+
+
+            }
+        });  //subimos el packing list mapa
     }
+
+
+
 
     public static void updateCuadroMuestreoHasMap(HashMap <String , ColorCintasSemns> mapCuadroMuestreo, String nododDondeEstaraEsteHasmap) {
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("CuadroMuestreoMaps");

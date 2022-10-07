@@ -1,9 +1,12 @@
 package com.tiburela.qsercom.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapterColorCintSem;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -29,7 +33,12 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
     //textimputeditexts
 
+
+
+
     TextInputEditText ediSemanaxc;
+    TextInputEditText ediExportadora;
+
     TextInputEditText ediVaporx;
     TextInputEditText ediFechax;
     TextInputEditText ediProductoras;
@@ -61,6 +70,9 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
     TextView txtTotalRechazados;
 
+    ImageView imgVupdate;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +100,7 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
         btnSaveCambios=findViewById(R.id.btnSaveCambios);
         ediSemanaxc=findViewById(R.id.ediSemanaxc);
+        ediExportadora=findViewById(R.id.ediExportadora);
         ediVaporx=findViewById(R.id.ediVaporx);
         ediFechax=findViewById(R.id.ediFechax);
         ediProductoras=findViewById(R.id.ediProductoras);
@@ -98,8 +111,29 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
         ediExteRodillo=findViewById(R.id.ediExteRodillo);
         ediExtGancho=findViewById(R.id.ediExtGancho);
         txtTotalRechazados=findViewById(R.id.txtTotalRechazados);
+        imgVupdate=findViewById(R.id.imgVupdate);
 
 
+        imgVupdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                CuadroMuestreo objec= new CuadroMuestreo(0,"","",""
+                        ,"", "","","",
+                        "", ""
+                );
+
+                ///editamos los otos datos de la cantidad de rechzados..
+                CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
+
+
+            String totalRechazados=String.valueOf( obtenTotaLrechazados(objectWhitMoreData));
+            txtTotalRechazados.setText(totalRechazados);
+
+
+            }
+        });
 
         btnSaveCambios.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +150,7 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
 
 
-                    CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediVaporx.getText().toString(),ediProductoras.getText().toString()
+                    CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),ediVaporx.getText().toString(),ediProductoras.getText().toString()
                             ,ediCodigoxs.getText().toString(), ediEnfundex.getText().toString(),keyDondeEstaraHashmap,ediExtCalidad.getText().toString(),
                             ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
 
@@ -129,6 +163,9 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
                     RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 
+
+                    Toast.makeText(CuadMuestreoCalibAndRechaz.this, "Se Guardo Informe", Toast.LENGTH_SHORT).show();
+                     Log.i("saber"," se subio la data ");
 
 
                 }
@@ -143,11 +180,15 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
         ColorCintasSemnsArrayList=new ArrayList<>();
 
-        for(int indice=0; indice<30; indice++){
+        for(int indice=0; indice<31; indice++){
 
-            ColorCintasSemns object= new ColorCintasSemns(indice+1,0,0,0,0,0,0);
+
+
+            ColorCintasSemns    object= new ColorCintasSemns(String.valueOf(indice),0,0,0,0,0,0);
 
             ColorCintasSemnsArrayList.add(object);
+
+
 
         }
 
@@ -158,11 +199,16 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
     private void setRECICLERdata(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList ) {
 
-        RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem(ColorCintasSemnsArrayList,this, CuadMuestreoCalibAndRechaz.this);
+        Log.i("debugeoxc","call here set recicler ");
+
+
+        RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem(ColorCintasSemnsArrayList,this,CuadMuestreoCalibAndRechaz.this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CuadMuestreoCalibAndRechaz.this);
 
+        mireciclerv.setNestedScrollingEnabled(false);
         mireciclerv.setLayoutManager(layoutManager);
+       // mireciclerv.setHasFixedSize(true);
 
         mireciclerv.setAdapter(adapter);
 
@@ -348,6 +394,32 @@ return object;
         }
 
 
+        if(ediExtCalidad.getText().toString().trim().isEmpty()){
+            ediExtCalidad.requestFocus();
+            ediExtCalidad.setError("Este dato es requerido");
+
+            return false;
+        }
+
+
+        if(ediExteRodillo.getText().toString().trim().isEmpty()){
+            ediExteRodillo.requestFocus();
+            ediExteRodillo.setError("Este dato es requerido");
+
+            return false;
+        }
+
+
+
+
+        if(ediExtGancho.getText().toString().trim().isEmpty()){
+            ediExtGancho.requestFocus();
+            ediExtGancho.setError("Este dato es requerido");
+
+            return false;
+        }
+
+
 
         return true;
     }
@@ -397,7 +469,7 @@ return object;
 
 
 
-    private int muestraTotaLrechazados(CuadroMuestreo cuadroMuestreo){
+    private int obtenTotaLrechazados(CuadroMuestreo cuadroMuestreo){
         ///iterate values object
         int  sum_of_values = 0;
 
