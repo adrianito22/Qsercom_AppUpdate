@@ -409,12 +409,14 @@ static  public  DatabaseReference mibasedataPathImages;
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
 
-        //agregamos la propiedad keyFirebase a al objeto
-        String PuskEY = mibasedata.push().getKey();
-        // informeObjct.setKeyFirebase(PuskEY);
-        //   Map<String, Object> mapValues = informeObjct.toMap();
+        newinformeObjct.setDateInMillisecond(objecAntiguo.getDateInMillisecond());
+        newinformeObjct.setNodoKyDondeEstaHasmap(objecAntiguo.getNodoKyDondeEstaHasmap());
+        newinformeObjct.setUniqueIdObject(objecAntiguo.getUniqueIdObject());
+        newinformeObjct.setSimpleDateFormat(objecAntiguo.getSimpleDateFormat());
 
-        mibasedata.child(PuskEY).setValue(newinformeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+        mibasedata.child(objecAntiguo.getNodoKyDondeEstaHasmap()).setValue(newinformeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
 
@@ -443,6 +445,9 @@ static  public  DatabaseReference mibasedataPathImages;
     public static void updateCuadroMuestreoHasMap(HashMap <String , ColorCintasSemns> mapCuadroMuestreo, String nododDondeEstaraEsteHasmap) {
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("CuadroMuestreoMaps");
         mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(mapCuadroMuestreo);  //subimos el packing list mapa
+
+
+
     }
 
 

@@ -1,15 +1,19 @@
-package com.tiburela.qsercom.testDELETE;
+package com.tiburela.qsercom.activities;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -21,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Pesoburotsolopa extends AppCompatActivity {
+public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity {
 
     RecyclerView mireciclerv;
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
@@ -70,7 +74,7 @@ public class Pesoburotsolopa extends AppCompatActivity {
         ediPuntaamarillayB=findViewById(R.id.ediPuntaamarillayB);
         ediCremaAlmendraFloja=findViewById(R.id.ediCremaAlmendraFloja);
         ediManchaRoja=findViewById(R.id.ediManchaRoja);
-        ediAlterados=findViewById(R.id.ediAlterados);    
+        ediAlterados=findViewById(R.id.ediAlterados);
         ediPobres=findViewById(R.id.ediPobres);
         ediCaidos=findViewById(R.id.ediCaidos);
         ediSobreGrado=findViewById(R.id.ediSobreGrado);
@@ -95,7 +99,11 @@ public class Pesoburotsolopa extends AppCompatActivity {
         ediExtCalidad=findViewById(R.id.ediExtCalidad);
         ediExteRodillo=findViewById(R.id.ediExteRodillo);
         ediExtGancho=findViewById(R.id.ediExtGancho);
+        mireciclerv=findViewById(R.id.mireciclerv);
 
+        RealtimeDB.initDatabasesRootOnly();
+        getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
+        setDataInViews(Variables.currentcuadroMuestreo);
 
 
         btnSaveCambios.setOnClickListener(new View.OnClickListener() {
@@ -108,8 +116,7 @@ public class Pesoburotsolopa extends AppCompatActivity {
 
 
                     //creamos un objeto
-                    RealtimeDB.initDatabasesRootOnly();
-                    String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
+                    String keyDondeEstaraHashmap=Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap();
 
 
 
@@ -122,9 +129,9 @@ public class Pesoburotsolopa extends AppCompatActivity {
                     CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
 
 
-                    RealtimeDB.addNewCuadroMuestreoObject(objectWhitMoreData); //subimos un cuadro de muestreo object
+                    RealtimeDB.updateCuadroMuestreoObject(objectWhitMoreData,Variables.currentcuadroMuestreo); //subimos un cuadro de muestreo object
 
-                    RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
+                    RealtimeDB.updateCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 
 
 
@@ -136,28 +143,13 @@ public class Pesoburotsolopa extends AppCompatActivity {
 
 
 
-        mireciclerv=findViewById(R.id.mireciclerv);
-
-        ColorCintasSemnsArrayList=new ArrayList<>();
-
-        for(int indice=0; indice<30; indice++){
-
-            ColorCintasSemns object= new ColorCintasSemns(indice+1,0,0,0,0,0,0);
-
-            ColorCintasSemnsArrayList.add(object);
-
-        }
-
-        setRECICLERdata(ColorCintasSemnsArrayList);
-        createMapInitial();
-
     }
 
     private void setRECICLERdata(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList ) {
 
-        RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem(ColorCintasSemnsArrayList,this,Pesoburotsolopa.this);
+        RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem(ColorCintasSemnsArrayList,this, CuadMuestreoCalibAndRechazPrev.this);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Pesoburotsolopa.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CuadMuestreoCalibAndRechazPrev.this);
 
         mireciclerv.setLayoutManager(layoutManager);
 
@@ -351,7 +343,7 @@ return object;
 
 
 
-    private void setDataInViews(CuadroMuestreo cuadroMuestreo, HashMap<String, ColorCintasSemns> mapColorCintasSemanas ){
+    private void setDataInViews(CuadroMuestreo cuadroMuestreo){
         //agregamos la data dde cuadro de muestro..
 
  //aqui ya debemos tener un mpaa  mejor seria usar el mapa global que tenemos en la clase variables
@@ -368,12 +360,37 @@ return object;
          //con racimos rechazados
 
 
+        ediMutante.setText(cuadroMuestreo.getMutantes());
+        ediSPEKLING.setText(cuadroMuestreo.getSpekling());
+        ediPuntaamarillayB.setText(cuadroMuestreo.getPtaAmarillaYb());
+        ediCremaAlmendraFloja.setText(cuadroMuestreo.getCremaAlmendraFloja());
+        ediManchaRoja.setText(cuadroMuestreo.getManchaRoja());
+        ediAlterados.setText(cuadroMuestreo.getAlterados());
+        ediPobres.setText(cuadroMuestreo.getPobres());
+        ediCaidos.setText(cuadroMuestreo.getCaidos());
+        ediSobreGrado.setText(cuadroMuestreo.getSobreGrado());
+        ediBajoGrado.setText(cuadroMuestreo.getBajoGrado());
+        edimosaico.setText(cuadroMuestreo.getMosaico());
+        ediDanoDeAnimal.setText(cuadroMuestreo.getDanoAnimal());
+        ediExplosivo.setText(cuadroMuestreo.getExplosivo());
+        ediErwinea.setText(cuadroMuestreo.getErwinea());
+        ediDedoCorto.setText(cuadroMuestreo.getDedoCorto());
+        ediRacimosPesadosDeEdad.setText(cuadroMuestreo.getRacimosPasadosEdad());
+        ediCochinillaEscamaFumagina.setText(cuadroMuestreo.getCochinillaEscamaFunagina());
+        ediRacimosSinEdintificacion.setText(cuadroMuestreo.getRacimosSinEdintificacion());
 
-         //AHORA EL MAPA//ITERAMOS EL MAPA
-           ArrayList<ColorCintasSemns>milista=new ArrayList<>();
+
+    }
+
+
+    private void setDataInViewMapData(HashMap<String, ColorCintasSemns> mapColorCintasSemanas ){
+
+
+        //AHORA EL MAPA//ITERAMOS EL MAPA
+        ArrayList<ColorCintasSemns>milista=new ArrayList<>();
 
         for (Map.Entry<String, ColorCintasSemns > entry : mapColorCintasSemanas.entrySet()) {
-           // String keyAndIdOfView = entry.getKey();
+            // String keyAndIdOfView = entry.getKey();
             ColorCintasSemns valueOfItem = entry.getValue();
 
             ///podemos crear un arra list y organizarlo de mayor menor a mayor,pero por ahora
@@ -384,13 +401,68 @@ return object;
         }
 
 
-         //antes d ellamar la lista no olvidar de  ordenarlo de menor a mayor...
+        //antes d ellamar la lista no olvidar de  ordenarlo de menor a mayor...
 
         setRECICLERdata(milista);
 
 
     }
 
+
+
+
+
+    private void getAndDowloadHasmapAndCALLSetReciclerV(String nodeWhereMapLocation){
+        Log.i("hameha","el NODEKey es : "+nodeWhereMapLocation);
+
+        ValueEventListener seenListener;
+
+
+        seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadroMuestreoMaps").child(nodeWhereMapLocation).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Variables.mapColorCintasSemanas=new HashMap<>();
+
+
+                for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                    String key = dss.getKey();
+
+                    ColorCintasSemns  currentObecjt =dss.getValue(ColorCintasSemns.class);
+
+                    //   HashMap packinKey = dss.getValue( String.class);
+
+                    //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
+                    Log.i("hameha","el key es "+key);
+
+
+                    if (currentObecjt!=null) {///
+
+                        Variables.mapColorCintasSemanas.put(key,currentObecjt);
+
+                    }
+                }
+
+
+
+                setDataInViewMapData(Variables.mapColorCintasSemanas);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("misadhd","el error es "+ databaseError.getMessage());
+
+
+
+            }
+        });
+
+
+
+
+    }
 
 
 

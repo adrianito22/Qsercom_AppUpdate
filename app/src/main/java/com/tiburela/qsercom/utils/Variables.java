@@ -11,7 +11,6 @@ import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.testDELETE.Pesoburotsolopa;
 
 import java.util.ArrayList;
 import java.util.HashMap;

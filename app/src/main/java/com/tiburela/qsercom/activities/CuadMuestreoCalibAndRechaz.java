@@ -1,19 +1,15 @@
-package com.tiburela.qsercom.testDELETE;
+package com.tiburela.qsercom.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -25,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PesoburotsolopaPreview extends AppCompatActivity {
+public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
     RecyclerView mireciclerv;
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
@@ -39,7 +35,7 @@ public class PesoburotsolopaPreview extends AppCompatActivity {
     TextInputEditText ediProductoras;
     TextInputEditText ediCodigoxs;
     TextInputEditText ediEnfundex;
-     TextInputEditText ediExtCalidad;
+    TextInputEditText ediExtCalidad;
     TextInputEditText ediExteRodillo;
     TextInputEditText ediExtGancho;
 
@@ -63,6 +59,8 @@ public class PesoburotsolopaPreview extends AppCompatActivity {
     TextInputEditText ediCochinillaEscamaFumagina;
     TextInputEditText ediRacimosSinEdintificacion;
 
+    TextView txtTotalRechazados;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +72,7 @@ public class PesoburotsolopaPreview extends AppCompatActivity {
         ediPuntaamarillayB=findViewById(R.id.ediPuntaamarillayB);
         ediCremaAlmendraFloja=findViewById(R.id.ediCremaAlmendraFloja);
         ediManchaRoja=findViewById(R.id.ediManchaRoja);
-        ediAlterados=findViewById(R.id.ediAlterados);
+        ediAlterados=findViewById(R.id.ediAlterados);    
         ediPobres=findViewById(R.id.ediPobres);
         ediCaidos=findViewById(R.id.ediCaidos);
         ediSobreGrado=findViewById(R.id.ediSobreGrado);
@@ -99,10 +97,8 @@ public class PesoburotsolopaPreview extends AppCompatActivity {
         ediExtCalidad=findViewById(R.id.ediExtCalidad);
         ediExteRodillo=findViewById(R.id.ediExteRodillo);
         ediExtGancho=findViewById(R.id.ediExtGancho);
+        txtTotalRechazados=findViewById(R.id.txtTotalRechazados);
 
-        RealtimeDB.initDatabasesRootOnly();
-        getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
-        setDataInViews(Variables.currentcuadroMuestreo);
 
 
         btnSaveCambios.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +111,7 @@ public class PesoburotsolopaPreview extends AppCompatActivity {
 
 
                     //creamos un objeto
+                    RealtimeDB.initDatabasesRootOnly();
                     String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
 
 
@@ -154,16 +151,16 @@ public class PesoburotsolopaPreview extends AppCompatActivity {
 
         }
 
-     //   setRECICLERdata(ColorCintasSemnsArrayList);
-      //  createMapInitial();
+        setRECICLERdata(ColorCintasSemnsArrayList);
+        createMapInitial();
 
     }
 
     private void setRECICLERdata(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList ) {
 
-        RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem(ColorCintasSemnsArrayList,this, PesoburotsolopaPreview.this);
+        RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem(ColorCintasSemnsArrayList,this, CuadMuestreoCalibAndRechaz.this);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PesoburotsolopaPreview.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CuadMuestreoCalibAndRechaz.this);
 
         mireciclerv.setLayoutManager(layoutManager);
 
@@ -357,7 +354,7 @@ return object;
 
 
 
-    private void setDataInViews(CuadroMuestreo cuadroMuestreo){
+    private void setDataInViews(CuadroMuestreo cuadroMuestreo, HashMap<String, ColorCintasSemns> mapColorCintasSemanas ){
         //agregamos la data dde cuadro de muestro..
 
  //aqui ya debemos tener un mpaa  mejor seria usar el mapa global que tenemos en la clase variables
@@ -374,37 +371,12 @@ return object;
          //con racimos rechazados
 
 
-        ediMutante.setText(cuadroMuestreo.getProductor());
-        ediSPEKLING.setText(cuadroMuestreo.getSpekling());
-        ediPuntaamarillayB.setText(cuadroMuestreo.getPtaAmarillaYb());
-        ediCremaAlmendraFloja.setText(cuadroMuestreo.getCremaAlmendraFloja());
-        ediManchaRoja.setText(cuadroMuestreo.getManchaRoja());
-        ediAlterados.setText(cuadroMuestreo.getAlterados());
-        ediPobres.setText(cuadroMuestreo.getPobres());
-        ediCaidos.setText(cuadroMuestreo.getCaidos());
-        ediSobreGrado.setText(cuadroMuestreo.getSobreGrado());
-        ediBajoGrado.setText(cuadroMuestreo.getBajoGrado());
-        edimosaico.setText(cuadroMuestreo.getMosaico());
-        ediDanoDeAnimal.setText(cuadroMuestreo.getDanoAnimal());
-        ediExplosivo.setText(cuadroMuestreo.getExplosivo());
-        ediErwinea.setText(cuadroMuestreo.getErwinea());
-        ediDedoCorto.setText(cuadroMuestreo.getDedoCorto());
-        ediRacimosPesadosDeEdad.setText(cuadroMuestreo.getRacimosPasadosEdad());
-        ediCochinillaEscamaFumagina.setText(cuadroMuestreo.getCochinillaEscamaFunagina());
-        ediRacimosSinEdintificacion.setText(cuadroMuestreo.getRacimosSinEdintificacion());
 
-
-    }
-
-
-    private void setDataInViewMapData(HashMap<String, ColorCintasSemns> mapColorCintasSemanas ){
-
-
-        //AHORA EL MAPA//ITERAMOS EL MAPA
-        ArrayList<ColorCintasSemns>milista=new ArrayList<>();
+         //AHORA EL MAPA//ITERAMOS EL MAPA
+           ArrayList<ColorCintasSemns>milista=new ArrayList<>();
 
         for (Map.Entry<String, ColorCintasSemns > entry : mapColorCintasSemanas.entrySet()) {
-            // String keyAndIdOfView = entry.getKey();
+           // String keyAndIdOfView = entry.getKey();
             ColorCintasSemns valueOfItem = entry.getValue();
 
             ///podemos crear un arra list y organizarlo de mayor menor a mayor,pero por ahora
@@ -415,7 +387,7 @@ return object;
         }
 
 
-        //antes d ellamar la lista no olvidar de  ordenarlo de menor a mayor...
+         //antes d ellamar la lista no olvidar de  ordenarlo de menor a mayor...
 
         setRECICLERdata(milista);
 
@@ -425,59 +397,19 @@ return object;
 
 
 
+    private int muestraTotaLrechazados(CuadroMuestreo cuadroMuestreo){
+        ///iterate values object
+        int  sum_of_values = 0;
 
-    private void getAndDowloadHasmapAndCALLSetReciclerV(String nodeWhereMapLocation){
-        Log.i("hameha","el NODEKey es : "+nodeWhereMapLocation);
-
-        ValueEventListener seenListener;
-
-
-        seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadroMuestreoMaps").child(nodeWhereMapLocation).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Variables.mapColorCintasSemanas=new HashMap<>();
-
-
-                for (DataSnapshot dss : dataSnapshot.getChildren()) {
-                    String key = dss.getKey();
-
-                    ColorCintasSemns  currentObecjt =dss.getValue(ColorCintasSemns.class);
-
-                    //   HashMap packinKey = dss.getValue( String.class);
-
-                    //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
-                    Log.i("hameha","el key es "+key);
-
-
-                    if (currentObecjt!=null) {///
-
-                        Variables.mapColorCintasSemanas.put(key,currentObecjt);
-
-                    }
-                }
+        sum_of_values=cuadroMuestreo.getMutantes()+cuadroMuestreo.getSpekling()+cuadroMuestreo.getPtaAmarillaYb()+cuadroMuestreo.getCremaAlmendraFloja()+
+        cuadroMuestreo.getManchaRoja()+cuadroMuestreo.getAlterados()+cuadroMuestreo.getPobres()+cuadroMuestreo.getCaidos()+cuadroMuestreo.getSobreGrado()+
+                cuadroMuestreo.getBajoGrado()+cuadroMuestreo.getMosaico()+cuadroMuestreo.getDanoAnimal()+cuadroMuestreo.getExplosivo()+cuadroMuestreo.getErwinea()+
+                cuadroMuestreo.getDedoCorto()+cuadroMuestreo.getRacimosPasadosEdad()+cuadroMuestreo.getCochinillaEscamaFunagina()+cuadroMuestreo.getRacimosSinEdintificacion();
 
 
 
-                setDataInViewMapData(Variables.mapColorCintasSemanas);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i("misadhd","el error es "+ databaseError.getMessage());
-
-
-
-            }
-        });
-
-
-
-
+return  sum_of_values;
     }
-
 
 
 }

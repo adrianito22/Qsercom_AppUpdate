@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tiburela.qsercom.R;
@@ -29,13 +30,11 @@ import java.util.HashMap;
 
 
 public class ActivityMenu extends AppCompatActivity {
-ImageView imgContenedores;
-ImageView imgContenEnAcopio;
-ImageView imgPackingListImageView;
-ImageView imgCamionesyCarretas;
-
-
-SetInformEmbarque1 informeObjct;
+LinearLayout ly_contenedores;
+LinearLayout ly_conte_en_acopio;
+LinearLayout ly_camy_carretas;
+LinearLayout ly_packing_list;
+LinearLayout ly_cuadro_Muestreo_caly_rechaz;
 Button btnInInformes;
 TextView txtAdviser,txtAdviser2;
     private static final int PERMISSION_REQUEST_CODE=100;
@@ -55,12 +54,19 @@ TextView txtAdviser,txtAdviser2;
         txtAdviser2=findViewById(R.id.txtAdviser2);
 
         btnInInformes =findViewById(R.id.btnIformesRevisar);
-        imgContenedores=findViewById(R.id.imgContenedores);
-        imgContenEnAcopio=findViewById(R.id.imgContenEnAcopio);
-        imgPackingListImageView=findViewById(R.id.imgPackingList);
-        imgCamionesyCarretas=findViewById(R.id.imgCamionesyCarretas);
 
-        imgCamionesyCarretas.setOnClickListener(new View.OnClickListener() {
+
+
+         ly_contenedores=findViewById(R.id.ly_contenedores);
+         ly_conte_en_acopio=findViewById(R.id.ly_conte_en_acopio);
+         ly_camy_carretas=findViewById(R.id.ly_camy_carretas);
+         ly_packing_list=findViewById(R.id.ly_packing_list);
+         ly_cuadro_Muestreo_caly_rechaz=findViewById(R.id.ly_cuadro_Muestreo_caly_rechaz);
+
+
+
+
+        ly_camy_carretas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -70,7 +76,7 @@ TextView txtAdviser,txtAdviser2;
             }
         });
 
-        imgPackingListImageView.setOnClickListener(new View.OnClickListener() {
+        ly_packing_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -81,7 +87,7 @@ TextView txtAdviser,txtAdviser2;
         });
 
 
-        imgContenEnAcopio.setOnClickListener(new View.OnClickListener() {
+        ly_conte_en_acopio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ActivityMenu.this, FormDatosContersEnAcopio.class));
@@ -89,7 +95,8 @@ TextView txtAdviser,txtAdviser2;
             }
         });
 
-         imgContenedores.setOnClickListener(new View.OnClickListener() {
+
+        ly_contenedores.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  startActivity(new Intent(ActivityMenu.this,FormularioActivity.class ));
@@ -97,6 +104,20 @@ TextView txtAdviser,txtAdviser2;
 
              }
          });
+
+
+        ly_cuadro_Muestreo_caly_rechaz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityMenu.this,CuadMuestreoCalibAndRechaz.class ));
+
+
+            }
+        });
+
+
+
+
 
 
          btnInInformes.setOnClickListener(new View.OnClickListener() {
