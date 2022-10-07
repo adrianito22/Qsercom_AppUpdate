@@ -1,6 +1,6 @@
 package com.tiburela.qsercom.models;
 
-public class MuestreoCalibraciones {
+public class MuestreoCalibraRechaz {
     //descropc racimos rechazados..
 
     private int mutantes;

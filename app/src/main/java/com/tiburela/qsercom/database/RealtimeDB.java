@@ -16,7 +16,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.activities.ReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
+import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.PackingListMod;
@@ -372,6 +374,76 @@ static  public  DatabaseReference mibasedataPathImages;
 
     }
 
+
+    public static void addNewCuadroMuestreoObject( CuadroMuestreo informeObjct) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
+
+        //agregamos la propiedad keyFirebase a al objeto
+        String PuskEY = mibasedata.push().getKey();
+       // informeObjct.setKeyFirebase(PuskEY);
+        //   Map<String, Object> mapValues = informeObjct.toMap();
+
+        mibasedata.child(PuskEY).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+    public static void updateCuadroMuestreoObject( CuadroMuestreo newinformeObjct, CuadroMuestreo objecAntiguo) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
+
+        //agregamos la propiedad keyFirebase a al objeto
+        String PuskEY = mibasedata.push().getKey();
+        // informeObjct.setKeyFirebase(PuskEY);
+        //   Map<String, Object> mapValues = informeObjct.toMap();
+
+        mibasedata.child(PuskEY).setValue(newinformeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+    public static void addNewCuadroMuestreoHasMap(HashMap <String , ColorCintasSemns> mapCuadroMuestreo, String nododDondeEstaraEsteHasmap) {
+        DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("CuadroMuestreoMaps");
+        mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(mapCuadroMuestreo);  //subimos el packing list mapa
+    }
+
+    public static void updateCuadroMuestreoHasMap(HashMap <String , ColorCintasSemns> mapCuadroMuestreo, String nododDondeEstaraEsteHasmap) {
+        DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("CuadroMuestreoMaps");
+        mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(mapCuadroMuestreo);  //subimos el packing list mapa
+    }
 
 
 

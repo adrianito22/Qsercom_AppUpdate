@@ -20,7 +20,7 @@
             android:hint="Semana">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediSemana"
+                android:id="@+id/ediSemanaxc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -64,7 +64,7 @@
             android:hint="Productor">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediProductor"
+                android:id="@+id/ediProductoras"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -79,7 +79,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediCodigo"
+                android:id="@+id/ediCodigoxs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />

@@ -236,31 +236,96 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
             Log.i("eltex","el texto es "+charSequence.toString());
 
+         String currentText=charSequence.toString();
+
 
 View fockview=activity.getCurrentFocus();
 if(fockview!=null){
-    EditText edit=(EditText) fockview.findViewById(R.id.ediColum14);
-    EditText edit2=(EditText) fockview.findViewById(R.id.ediColum13);
+    EditText ediColum14=(EditText) fockview.findViewById(R.id.ediColum14);
+    EditText ediColum13=(EditText) fockview.findViewById(R.id.ediColum13);
+    EditText ediColum12=(EditText) fockview.findViewById(R.id.ediColum12);
+    EditText ediColum11=(EditText) fockview.findViewById(R.id.ediColum11);
+    EditText ediColum10=(EditText) fockview.findViewById(R.id.ediColum10);
+    EditText ediColum9=(EditText) fockview.findViewById(R.id.ediColum9);
 
 
-    if(edit!=null){
-        String d=edit.getTag().toString();
+    if(ediColum14!=null){
 
-        Log.i("eltex","el id data  es "+d);
+        ColorCintasSemns objec=listSemns.get(position);
+        objec.setColumFieldNUm14(Integer.parseInt(currentText));
+        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
+
+        String d=ediColum14.getTag().toString();
+        Log.i("eltex","el position es : "+position);
+    }
+
+
+    if(ediColum13!=null){
+
+        ColorCintasSemns objec=listSemns.get(position);
+        objec.setColumFieldNUm13(Integer.parseInt(currentText));
+        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
+
+        String d=ediColum13.getTag().toString();
+        Log.i("eltex","el position es : "+position);
+    }
+
+
+    if(ediColum12!=null){
+
+        ColorCintasSemns objec=listSemns.get(position);
+        objec.setColumFieldNUm12(Integer.parseInt(currentText));
+        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
+        Log.i("eltex","el position es : "+position);
 
     }
 
 
-    if(edit2!=null){
-        String d=edit.getTag().toString();
+    if(ediColum11!=null){
 
-        Log.i("eltex","el id data  es "+d);
+        ColorCintasSemns objec=listSemns.get(position);
+        objec.setColumFieldNUm11(Integer.parseInt(currentText));
+        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
+
+        String d=ediColum11.getTag().toString();
+        Log.i("eltex","el position es : "+position);
 
     }
+
+
+    if(ediColum10!=null){
+        Log.i("eltex","el position es : "+position);
+
+
+        ColorCintasSemns objec=listSemns.get(position);
+        objec.setColumFieldNUm10(Integer.parseInt(currentText));
+        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
+
+        String d=ediColum10.getTag().toString();
+        Log.i("eltex","el position es : "+position);
+    }
+
+
+    if(ediColum9!=null){
+        String d=ediColum9.getTag().toString();
+
+          ColorCintasSemns objec=listSemns.get(position);
+          objec.setColumFieldNUm9(Integer.parseInt(currentText));
+        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
+
+        Log.i("eltex","el position es : "+position);
+    }
+
+
+
+
+    //si el tag es este
+
+
+
 }
 
 
-            Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),listSemns.get(position));
 
 
 
