@@ -30,12 +30,6 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
     RecyclerView mireciclerv;
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
     Button btnSaveCambios;
-
-    //textimputeditexts
-
-
-
-
     TextInputEditText ediSemanaxc;
     TextInputEditText ediExportadora;
 
@@ -184,7 +178,7 @@ public class CuadMuestreoCalibAndRechaz extends AppCompatActivity {
 
 
 
-            ColorCintasSemns    object= new ColorCintasSemns(String.valueOf(indice),0,0,0,0,0,0);
+            ColorCintasSemns    object= new ColorCintasSemns(0,0,0,0,0,0,0);
 
             ColorCintasSemnsArrayList.add(object);
 

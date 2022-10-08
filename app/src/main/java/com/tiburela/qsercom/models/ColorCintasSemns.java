@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class ColorCintasSemns {
 
-  private String semanNum;
+  private int semanNum;
   private int columFieldNUm14;
   private int columFieldNUm13;
   private int columFieldNUm12;
@@ -14,11 +14,11 @@ public class ColorCintasSemns {
   private String uniqueId ;
 
 
-  public String getSemanNum() {
+  public int getSemanNum() {
     return semanNum;
   }
 
-  public void setSemanNum(String semanNum) {
+  public void setSemanNum(int semanNum) {
     this.semanNum = semanNum;
   }
 
@@ -86,7 +86,7 @@ public class ColorCintasSemns {
   }
 
 
-  public ColorCintasSemns(String semanNum, int columFieldNUm14, int columFieldNUm13,
+  public ColorCintasSemns(int semanNum, int columFieldNUm14, int columFieldNUm13,
                           int columFieldNUm12, int columFieldNUm11, int columFieldNUm10,
                           int columFieldNUm9) {
 

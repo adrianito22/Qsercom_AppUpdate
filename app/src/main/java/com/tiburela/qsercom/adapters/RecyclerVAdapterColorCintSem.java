@@ -63,18 +63,8 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
          //si el valor es diferente de 0..
 
 
-
-
         Log.i("debugeoxc","call here");
 
-
-
-        if(objectCurrent.getSemanNum().equals("Color Cintas Semanas")){
-
-            holder.semnNum.setBackgroundColor(Color.parseColor("#818181"));
-            holder.semnNum.setTextSize(15);
-
-        }
 
 
         if(objectCurrent.getColumFieldNUm9()!=0){
