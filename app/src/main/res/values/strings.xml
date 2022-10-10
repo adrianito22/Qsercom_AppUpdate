@@ -106,4 +106,42 @@
 
 
 
+
+
+    <string-array name="tipoBoquillas">
+        <item>Ninguna</item>
+        <item>8002</item>
+        <item>8003</item>
+    </string-array>
+
+
+
+    <string-array name="array_defectos_fruta">
+        <item>Ninguna</item>
+        <item>SRC: ESTROPEO SELECION</item>
+        <item>BR: DAÑO PULPA</item>
+        <item>CT: CDRTE CUCHILLO</item>
+        <item>ML: MAL FORMADO</item>
+        <item>NL: CUELLO ROTO</item>
+        <item>BM: DAÑO COLAPSIS</item>
+        <item>TS: DEDO CORTO</item>
+        <item>RE: RESIDUOS QUIMICOS</item>
+        <item>AB: PULPA CREMA</item>
+        <item>MF: MUTILADO</item>
+        <item>TF: EXCESO DE DEDOS</item>
+        <item>FR: DEDO PODRIDO</item>
+        <item>TC: MOQUILLO</item>
+        <item>FF: DEDOS MELLIZOS </item>
+        <item>8003</item>
+        <item>8003</item>
+        <item>8003</item>
+        <item>8003</item>
+        <item>8003</item>
+        <item>8003</item>
+        <item>8003</item>
+
+    </string-array>
+
+
+
 </resources>
