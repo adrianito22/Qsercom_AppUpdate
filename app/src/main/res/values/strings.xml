@@ -104,10 +104,6 @@
     </string-array>
 
 
-
-
-
-
     <string-array name="tipoBoquillas">
         <item>Ninguna</item>
         <item>8002</item>
@@ -115,9 +111,7 @@
     </string-array>
 
 
-
     <string-array name="array_defectos_fruta">
-        <item>Ninguna</item>
         <item>SRC: ESTROPEO SELECION</item>
         <item>BR: DAÑO PULPA</item>
         <item>CT: CDRTE CUCHILLO</item>
@@ -132,16 +126,104 @@
         <item>FR: DEDO PODRIDO</item>
         <item>TC: MOQUILLO</item>
         <item>FF: DEDOS MELLIZOS </item>
-        <item>8003</item>
-        <item>8003</item>
-        <item>8003</item>
-        <item>8003</item>
-        <item>8003</item>
-        <item>8003</item>
-        <item>8003</item>
+        <item>IG: LATEX GELATINOSO</item>
+        <item>IS: MANCHAS DE LATEX</item>
+        <item>US: BAJO GRADO</item>
+        <item>OG: SOBRE GRADO </item>
+        <item>FL: FLORES </item>
+        <item>RR: MANCHAS ROJAS</item>
+        <item>WI: COCHINILLA </item>
+        <item>SM: FUMAGINA </item>
+        <item>SK: SPEKLING </item>
+    </string-array>
+
+
+    <string-array name="array_defectos_empaque">
+        <item>LP: LARGA PLANA</item>
+        <item>LC: LARGA CURVA</item>
+        <item>P: PEQUEÑA</item>
+        <item>F: FLOJO</item>
+        <item>M: MONTADA</item>
+        <item>V: VIRADO</item>
+        <item>EA: EMPAQUE ALTO</item>
+    </string-array>
+
+
+    <string-array name="arrayNumeroDedosXclusteroManos">
+        >
+        <item> 3 </item>
+        <item> 4 </item>
+        <item> 5 </item>
+        <item> 6 </item>
+        <item> 7 </item>
+        <item> 8 </item>
+        <item> 9 </item>
+        <item> 10 </item>
+        <item> 11 </item>
+        <item> 12 </item>
+        <item> 13 </item>
+        <item> 14 </item>
+        <item> 15 </item>
+        <item> 16 </item>
+        <item> 17 </item>
+        <item> 18 </item>
+        <item> 19 </item>
+        <item> 20 </item>
+        <item> 21 </item>
+        <item> 22 </item>
+        <item> 23 </item>
+        <item> 24 </item>
+        <item> 25 </item>
+        <item> 26 </item>
+        <item> 27 </item>
+        <item> 28 </item>
+        <item> 29 </item>
+        <item> 30 </item>
+    </string-array>
+
+    <string-array name="numdeclustersporcaja">
+        <item> 9 </item>
+        <item> 10 </item>
+        <item> 11 </item>
+        <item> 12 </item>
+        <item> 13 </item>
+        <item> 14 </item>
+        <item> 15 </item>
+        <item> 16 </item>
+        <item> 17 </item>
+        <item> 18 </item>
+        <item> 19 </item>
+        <item> 20 </item>
+        <item> 21 </item>
+        <item> 22 </item>
+        <item> 23 </item>
+        <item> 24 </item>
+        <item> 25 </item>
+        <item> 26 </item>
+
 
     </string-array>
 
 
+    <string-array name="calibraciones">
+        <item> 37 </item>
+        <item> 38 </item>
+        <item> 39 </item>
+        <item> 40 </item>
+        <item> 41 </item>
+        <item> 42 </item>
+        <item> 43 </item>
+        <item> 44 </item>
+        <item> 45 </item>
+        <item> 46 </item>
+        <item> 47 </item>
+        <item> 48 </item>
+        <item> 49 </item>
+        <item> 50 </item>
+        <item> 51 </item>
+        <item> 52 </item>
+        <item> 53 </item>
+        <item> 54 </item>
 
+    </string-array>
 </resources>

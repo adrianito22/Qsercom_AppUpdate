@@ -26,21 +26,30 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="s">
         <activity
+            android:name=".activities.FormularioControlCalidad"
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
             android:name=".testDELETE.Test2"
             android:exported="true" />
-
         <activity
             android:name=".activities.PreviewCalidadCamionesyCarretas"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.CuadMuestreoCalibAndRechazPrev"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.ReporteCalidadCamionesyCarretas"
             android:configChanges="orientation"
@@ -56,11 +65,8 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activities.ActivitySeeReports"
@@ -116,7 +122,7 @@
             android:name=".splashScreen.SplashScreen"
             android:configChanges="orientation"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ActivityGoogleDrive"
             android:configChanges="orientation"
