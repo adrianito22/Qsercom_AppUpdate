@@ -148,9 +148,16 @@
         <item>EA: EMPAQUE ALTO</item>
     </string-array>
 
+    <string-array name="array_defectos_empaque2">
+        <item>BU</item>
+        <item>SR</item>
+        <item>BR</item>
+        <item>NI</item>
+
+    </string-array>
+
 
     <string-array name="arrayNumeroDedosXclusteroManos">
-        >
         <item> 3 </item>
         <item> 4 </item>
         <item> 5 </item>
