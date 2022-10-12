@@ -218,7 +218,7 @@ public class PdfMaker {
 
             yaExportamosUnaVez=true;
 
-            ///directory.delete();// si queremos borrarlo
+            ///directory.ly_defparte3.xml();// si queremos borrarlo
 
 
         } catch (IOException e) {

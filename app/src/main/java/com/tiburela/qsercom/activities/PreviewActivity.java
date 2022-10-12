@@ -1680,7 +1680,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
         //si es eliminar comprobar aqui
     if(isDeleteImg){
 
-        Log.i("mispiggi","si es delete imgVERGA Y EL SIZE ES  "+ ImagenReport.hashMapImagesData.size());
+        Log.i("mispiggi","si es ly_defparte3.xml imgVERGA Y EL SIZE ES  "+ ImagenReport.hashMapImagesData.size());
 
         currentTypeImage=Variables.typeoFdeleteImg;
     }

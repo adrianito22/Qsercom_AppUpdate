@@ -15,9 +15,12 @@ import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.models.ImagenReport;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class FormularioControlCalidad extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
@@ -27,6 +30,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
     TextView textView48;
 
+    HashMap<String, String> hasHmapFieldsRecha;
 
     //Imageviews defects
     ImageView imgSelecDefc1;
@@ -40,53 +44,211 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     ImageView imgSelecDefc9;
     ImageView imgSelecDefc10;
 
+     TextInputEditText ediTimeHoraxx1;
+     TextInputEditText ediTimeHoraxx2;;
+     TextInputEditText ediTimeHoraxx3;
+     TextInputEditText ediTimeHoraxx4;
+     TextInputEditText ediTimeHoraxx5;
+     TextInputEditText ediTimeHoraxx6;
+     TextInputEditText ediTimeHoraxx7;
+     TextInputEditText ediTimeHoraxx8;
+     TextInputEditText ediTimeHoraxx9;
+     TextInputEditText ediTimeHoraxx10;
+
+    TextInputEditText ediPesoL1;
+    TextInputEditText ediPesoL2;
+    TextInputEditText ediPesoL3;
+    TextInputEditText ediPesoL4;
+    TextInputEditText ediPesoL5;
+    TextInputEditText ediPesoL6;
+    TextInputEditText ediPesoL7;
+    TextInputEditText ediPesoL8;
+    TextInputEditText ediPesoL9;
+    TextInputEditText ediPesoL10;
+
+    TextInputEditText ediPH1;
+    TextInputEditText ediPH2;
+    TextInputEditText ediPH3;
+    TextInputEditText ediPH4;
+    TextInputEditText ediPH5;
+    TextInputEditText ediPH6;
+    TextInputEditText ediPH7;
+    TextInputEditText ediPH8;
+    TextInputEditText ediPH9;
+    TextInputEditText ediPH10;
+
+    TextInputEditText ediNumClusInsp1;
+    TextInputEditText ediNumClusInsp2;
+    TextInputEditText ediNumClusInsp3;
+    TextInputEditText ediNumClusInsp4;
+    TextInputEditText ediNumClusInsp5;
+    TextInputEditText ediNumClusInsp6;
+    TextInputEditText ediNumClusInsp7;
+    TextInputEditText ediNumClusInsp8;
+    TextInputEditText ediNumClusInsp9;
+    TextInputEditText ediNumClusInsp10;
+
+    TextInputEditText ediNdedoXclust1;
+    TextInputEditText ediNdedoXclust2 ;
+    TextInputEditText ediNdedoXclust3 ;
+    TextInputEditText ediNdedoXclust4 ;
+    TextInputEditText ediNdedoXclust5 ;
+    TextInputEditText ediNdedoXclust6 ;
+    TextInputEditText ediNdedoXclust7 ;
+    TextInputEditText ediNdedoXclust8 ;
+    TextInputEditText ediNdedoXclust9 ;
+    TextInputEditText ediNdedoXclust10 ;
+    TextInputEditText ediNdedoXclust11 ;
+    TextInputEditText ediNdedoXclust12 ;
+    TextInputEditText ediNdedoXclust13 ;
+    TextInputEditText ediNdedoXclust14 ;
+    TextInputEditText ediNdedoXclust15 ;
+    TextInputEditText ediNdedoXclust16 ;
+    TextInputEditText ediNdedoXclust17 ;
+    TextInputEditText ediNdedoXclust18 ;
+    TextInputEditText ediNdedoXclust19 ;
+    TextInputEditText ediNdedoXclust20 ;
+    TextInputEditText ediNdedoXclust21 ;
+    TextInputEditText ediNdedoXclust22 ;
+    TextInputEditText ediNdedoXclust23 ;
+    TextInputEditText ediNdedoXclust24 ;
+    TextInputEditText ediNdedoXclust25 ;
+    TextInputEditText ediNdedoXclust26 ;
+    TextInputEditText ediNdedoXclust27;
+    TextInputEditText ediNdedoXclust28 ;
+    TextInputEditText ediNdedoXclust29 ;
+    TextInputEditText ediNdedoXclust30 ;
+
+
+    //FILA2
+    TextInputEditText edif2NdedoXclust1;
+    TextInputEditText edif2NdedoXclust2 ;
+    TextInputEditText edif2NdedoXclust3 ;
+    TextInputEditText edif2NdedoXclust4 ;
+    TextInputEditText edif2NdedoXclust5 ;
+    TextInputEditText edif2NdedoXclust6 ;
+    TextInputEditText edif2NdedoXclust7 ;
+    TextInputEditText edif2NdedoXclust8 ;
+    TextInputEditText edif2NdedoXclust9 ;
+    TextInputEditText edif2NdedoXclust10 ;
+    TextInputEditText edif2NdedoXclust11 ;
+    TextInputEditText edif2NdedoXclust12 ;
+    TextInputEditText edif2NdedoXclust13 ;
+    TextInputEditText edif2NdedoXclust14 ;
+    TextInputEditText edif2NdedoXclust15 ;
+    TextInputEditText edif2NdedoXclust16 ;
+    TextInputEditText edif2NdedoXclust17 ;
+    TextInputEditText edif2NdedoXclust18 ;
+    TextInputEditText edif2NdedoXclust19 ;
+    TextInputEditText edif2NdedoXclust20 ;
+    TextInputEditText edif2NdedoXclust21 ;
+    TextInputEditText edif2NdedoXclust22 ;
+    TextInputEditText edif2NdedoXclust23 ;
+    TextInputEditText edif2NdedoXclust24 ;
+    TextInputEditText edif2NdedoXclust25 ;
+    TextInputEditText edif2NdedoXclust26 ;
+    TextInputEditText edif2NdedoXclust27;
+    TextInputEditText edif2NdedoXclust28 ;
+    TextInputEditText edif2NdedoXclust29 ;
+    TextInputEditText edif2NdedoXclust30 ;
 
 
 
-     TextInputEditText	edizz1	;
-     TextInputEditText	edizz2	;
-     TextInputEditText	edizz3	;
-     TextInputEditText	edizz4	;
-     TextInputEditText	edizz5	;
-     TextInputEditText	edizz6	;
-     TextInputEditText	edizz7	;
-     TextInputEditText	edizz8	;
-     TextInputEditText	edizz9	;
-     TextInputEditText	edizz10	;
-     TextInputEditText	edizz11	;
-     TextInputEditText	edizz12	;
-     TextInputEditText	edizz13	;
-     TextInputEditText	edizz14	;
-     TextInputEditText	edizz15	;
-     TextInputEditText	edizz16	;
-     TextInputEditText	edizz17	;
-     TextInputEditText	edizz18	;
-     TextInputEditText	edizz19	;
-     TextInputEditText	edizz20	;
-     TextInputEditText	edizz21	;
-     TextInputEditText	edizz22	;
-     TextInputEditText	edizz23	;
-     TextInputEditText	edizz24	;
-     TextInputEditText	edizz25	;
-     TextInputEditText	edizz26	;
-     TextInputEditText	edizz27	;
-     TextInputEditText	edizz28	;
-     TextInputEditText	edizz29	;
-     TextInputEditText	edizz30	;
-     TextInputEditText	edizz31	;
-     TextInputEditText	edizz32	;
-     TextInputEditText	edizz33	;
-     TextInputEditText	edizz34	;
-     TextInputEditText	edizz35	;
-     TextInputEditText	edizz36	;
-     TextInputEditText	edizz37	;
-     TextInputEditText	edizz38	;
-     TextInputEditText	edizz39	;
-     TextInputEditText	edizz40	;
+    ////SEGUNDO CUADRO
+
+    TextInputEditText edif2NdedoXclustxC1;
+    TextInputEditText edif2NdedoXclustxC2 ;
+    TextInputEditText edif2NdedoXclustxC3 ;
+    TextInputEditText edif2NdedoXclustxC4 ;
+    TextInputEditText edif2NdedoXclustxC5 ;
+    TextInputEditText edif2NdedoXclustxC6 ;
+    TextInputEditText edif2NdedoXclustxC7 ;
+    TextInputEditText edif2NdedoXclustxC8 ;
+    TextInputEditText edif2NdedoXclustxC9 ;
+    TextInputEditText edif2NdedoXclustxC10 ;
+    TextInputEditText edif2NdedoXclustxC11 ;
+    TextInputEditText edif2NdedoXclustxC12 ;
+    TextInputEditText edif2NdedoXclustxC13 ;
+    TextInputEditText edif2NdedoXclustxC14 ;
+    TextInputEditText edif2NdedoXclustxC15 ;
+    TextInputEditText edif2NdedoXclustxC16 ;
+    TextInputEditText edif2NdedoXclustxC17 ;
+    TextInputEditText edif2NdedoXclustxC18 ;
+    TextInputEditText edif2NdedoXclustxC19 ;
+    TextInputEditText edif2NdedoXclustxC20 ;
 
 
 
-     //imgvEMPAQUES
+    TextInputEditText ediNdedoXclustXc1;
+    TextInputEditText ediNdedoXclustXc2 ;
+    TextInputEditText ediNdedoXclustXc3 ;
+    TextInputEditText ediNdedoXclustXc4 ;
+    TextInputEditText ediNdedoXclustXc5 ;
+    TextInputEditText ediNdedoXclustXc6 ;
+    TextInputEditText ediNdedoXclustXc7 ;
+    TextInputEditText ediNdedoXclustXc8 ;
+    TextInputEditText ediNdedoXclustXc9 ;
+    TextInputEditText ediNdedoXclustXc10 ;
+    TextInputEditText ediNdedoXclustXc11 ;
+    TextInputEditText ediNdedoXclustXc12 ;
+    TextInputEditText ediNdedoXclustXc13 ;
+    TextInputEditText ediNdedoXclustXc14 ;
+    TextInputEditText ediNdedoXclustXc15 ;
+    TextInputEditText ediNdedoXclustXc16 ;
+    TextInputEditText ediNdedoXclustXc17 ;
+    TextInputEditText ediNdedoXclustXc18 ;
+    TextInputEditText ediNdedoXclustXc19 ;
+    TextInputEditText ediNdedoXclustXc20 ;
+
+    TextInputEditText ediCalByA1;
+    TextInputEditText ediCalByA2 ;
+    TextInputEditText ediCalByA3 ;
+    TextInputEditText ediCalByA4 ;
+    TextInputEditText ediCalByA5 ;
+    TextInputEditText ediCalByA6 ;
+    TextInputEditText ediCalByA7 ;
+    TextInputEditText ediCalByA8 ;
+    TextInputEditText ediCalByA9 ;
+    TextInputEditText ediCalByA10 ;
+    TextInputEditText ediCalByA11 ;
+    TextInputEditText ediCalByA12 ;
+    TextInputEditText ediCalByA13 ;
+    TextInputEditText ediCalByA14 ;
+    TextInputEditText ediCalByA15 ;
+    TextInputEditText ediCalByA16 ;
+    TextInputEditText ediCalByA17 ;
+    TextInputEditText ediCalByA18 ;
+    TextInputEditText ediCalByA19 ;
+    TextInputEditText ediCalByA20 ;
+    TextInputEditText ediCalByA21 ;
+
+
+    ///////////////////
+    TextInputEditText edif2Calib1;
+    TextInputEditText edif2Calib2 ;
+    TextInputEditText edif2Calib3 ;
+    TextInputEditText edif2Calib4 ;
+    TextInputEditText edif2Calib5 ;
+    TextInputEditText edif2Calib6 ;
+    TextInputEditText edif2Calib7 ;
+    TextInputEditText edif2Calib8 ;
+    TextInputEditText edif2Calib9 ;
+    TextInputEditText edif2Calib10 ;
+    TextInputEditText edif2Calib11 ;
+    TextInputEditText edif2Calib12 ;
+    TextInputEditText edif2Calib13 ;
+    TextInputEditText edif2Calib14 ;
+    TextInputEditText edif2Calib15 ;
+    TextInputEditText edif2Calib16 ;
+    TextInputEditText edif2Calib17 ;
+    TextInputEditText edif2Calib18 ;
+    TextInputEditText edif2Calib19 ;
+    TextInputEditText edif2Calib20 ;
+    TextInputEditText edif2Calib21 ;
+    TextInputEditText edif2Calib22 ;
+    //imgvEMPAQUES
+
+
 
     ImageView imvEmpaque1;
     ImageView imvEmpaque2;
@@ -209,46 +371,6 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
     private void findviewsIds() {
 
-        edizz1=findViewById(R.id.edizz1);
-        edizz2=findViewById(R.id.edizz2);
-        edizz3=findViewById(R.id.edizz3);
-        edizz4=findViewById(R.id.edizz4);
-        edizz5=findViewById(R.id.edizz5);
-        edizz6=findViewById(R.id.edizz6);
-        edizz7=findViewById(R.id.edizz7);
-        edizz8=findViewById(R.id.edizz8);
-        edizz9=findViewById(R.id.edizz9);
-        edizz10=findViewById(R.id.edizz10);
-        edizz11=findViewById(R.id.edizz11);
-        edizz12=findViewById(R.id.edizz12);
-        edizz13=findViewById(R.id.edizz13);
-        edizz14=findViewById(R.id.edizz14);
-        edizz15=findViewById(R.id.edizz15);
-        edizz16=findViewById(R.id.edizz16);
-        edizz17=findViewById(R.id.edizz17);
-        edizz18=findViewById(R.id.edizz18);
-        edizz19=findViewById(R.id.edizz19);
-        edizz20=findViewById(R.id.edizz20);
-        edizz21=findViewById(R.id.edizz21);
-        edizz22=findViewById(R.id.edizz22);
-        edizz23=findViewById(R.id.edizz23);
-        edizz24=findViewById(R.id.edizz24);
-        edizz25=findViewById(R.id.edizz25);
-        edizz26=findViewById(R.id.edizz26);
-        edizz27=findViewById(R.id.edizz27);
-        edizz28=findViewById(R.id.edizz28);
-        edizz29=findViewById(R.id.edizz29);
-        edizz30=findViewById(R.id.edizz30);
-        edizz31=findViewById(R.id.edizz31);
-        edizz32=findViewById(R.id.edizz32);
-        edizz33=findViewById(R.id.edizz33);
-        edizz34=findViewById(R.id.edizz34);
-        edizz35=findViewById(R.id.edizz35);
-        edizz36=findViewById(R.id.edizz36);
-        edizz37=findViewById(R.id.edizz37);
-        edizz38=findViewById(R.id.edizz38);
-        edizz39=findViewById(R.id.edizz39);
-        edizz40=findViewById(R.id.edizz40);
 
 
         imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
@@ -302,6 +424,214 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
         txtTotal=findViewById(R.id.txttotal);
 
+        ediPesoL1=findViewById(R.id. ediPesoL1);
+        ediPesoL2=findViewById(R.id. ediPesoL2);
+        ediPesoL3=findViewById(R.id. ediPesoL3);
+        ediPesoL4=findViewById(R.id. ediPesoL4);
+        ediPesoL5=findViewById(R.id. ediPesoL5);
+        ediPesoL6=findViewById(R.id. ediPesoL6);
+        ediPesoL7=findViewById(R.id. ediPesoL7);
+        ediPesoL8=findViewById(R.id. ediPesoL8);
+        ediPesoL9=findViewById(R.id. ediPesoL9);
+        ediPesoL10=findViewById(R.id. ediPesoL10);
+
+        ediPH1=findViewById(R.id. ediPH1);
+        ediPH2=findViewById(R.id. ediPH2);
+        ediPH3=findViewById(R.id. ediPH3);
+        ediPH4=findViewById(R.id. ediPH4);
+        ediPH5=findViewById(R.id. ediPH5);
+        ediPH6=findViewById(R.id. ediPH6);
+        ediPH7=findViewById(R.id. ediPH7);
+        ediPH8=findViewById(R.id. ediPH8);
+        ediPH9=findViewById(R.id. ediPH9);
+        ediPH10=findViewById(R.id. ediPH10);
+
+
+        ediNumClusInsp1=findViewById(R.id.ediNumClusInsp1 );
+        ediNumClusInsp2=findViewById(R.id.ediNumClusInsp2 );
+        ediNumClusInsp3=findViewById(R.id.ediNumClusInsp3 );
+        ediNumClusInsp4=findViewById(R.id.ediNumClusInsp4 );
+        ediNumClusInsp5=findViewById(R.id.ediNumClusInsp5 );
+        ediNumClusInsp6=findViewById(R.id.ediNumClusInsp6 );
+        ediNumClusInsp7=findViewById(R.id.ediNumClusInsp7 );
+        ediNumClusInsp8=findViewById(R.id.ediNumClusInsp8 );
+        ediNumClusInsp9=findViewById(R.id.ediNumClusInsp9 );
+        ediNumClusInsp10=findViewById(R.id.ediNumClusInsp10 );
+
+
+         ediNdedoXclust1=findViewById(R.id.ediNdedoXclust1);
+        ediNdedoXclust2=findViewById(R.id.ediNdedoXclust2);
+         ediNdedoXclust3=findViewById(R.id.ediNdedoXclust3) ;
+       ediNdedoXclust4=findViewById(R.id.ediNdedoXclust3);
+        ediNdedoXclust5=findViewById(R.id.ediNdedoXclust5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ;
+       ediNdedoXclust6=findViewById(R.id.ediNdedoXclust6);
+        ediNdedoXclust7=findViewById(R.id.ediNdedoXclust7)         ;
+        ediNdedoXclust8=findViewById(R.id.ediNdedoXclust8);
+        ediNdedoXclust9=findViewById(R.id.ediNdedoXclust9);
+        ediNdedoXclust10=findViewById(R.id.ediNdedoXclust10);
+        ediNdedoXclust11=findViewById(R.id.ediNdedoXclust11);
+        ediNdedoXclust12=findViewById(R.id.ediNdedoXclust12);
+        ediNdedoXclust13=findViewById(R.id.ediNdedoXclust13);
+        ediNdedoXclust14=findViewById(R.id.ediNdedoXclust14);
+        ediNdedoXclust15=findViewById(R.id.ediNdedoXclust15);
+        ediNdedoXclust16=findViewById(R.id.ediNdedoXclust16);
+        ediNdedoXclust17=findViewById(R.id.ediNdedoXclust17);
+        ediNdedoXclust18=findViewById(R.id.ediNdedoXclust18);
+        ediNdedoXclust19=findViewById(R.id.ediNdedoXclust19);
+        ediNdedoXclust20=findViewById(R.id.ediNdedoXclust20);
+        ediNdedoXclust21=findViewById(R.id.ediNdedoXclust21);
+        ediNdedoXclust22=findViewById(R.id.ediNdedoXclust22);
+        ediNdedoXclust23=findViewById(R.id.ediNdedoXclust23);
+        ediNdedoXclust24=findViewById(R.id.ediNdedoXclust24);
+        ediNdedoXclust25=findViewById(R.id.ediNdedoXclust25);
+        ediNdedoXclust26=findViewById(R.id.ediNdedoXclust26);
+        ediNdedoXclust27=findViewById(R.id.ediNdedoXclust27);
+        ediNdedoXclust28=findViewById(R.id.ediNdedoXclust28);
+        ediNdedoXclust29=findViewById(R.id.ediNdedoXclust29);
+
+
+        edif2NdedoXclust1=findViewById(R.id.edif2NdedoXclust1);
+        edif2NdedoXclust2=findViewById(R.id.edif2NdedoXclust2);
+        edif2NdedoXclust3=findViewById(R.id.edif2NdedoXclust3);
+        edif2NdedoXclust4=findViewById(R.id.edif2NdedoXclust4);
+        edif2NdedoXclust5=findViewById(R.id.edif2NdedoXclust5);
+        edif2NdedoXclust6=findViewById(R.id.edif2NdedoXclust6);
+        edif2NdedoXclust7=findViewById(R.id.edif2NdedoXclust7);
+        edif2NdedoXclust8=findViewById(R.id.edif2NdedoXclust8);
+        edif2NdedoXclust9=findViewById(R.id.edif2NdedoXclust9);
+        edif2NdedoXclust10=findViewById(R.id.edif2NdedoXclust10);
+        edif2NdedoXclust11=findViewById(R.id.edif2NdedoXclust11);
+        edif2NdedoXclust12=findViewById(R.id.edif2NdedoXclust12);
+        edif2NdedoXclust13=findViewById(R.id.edif2NdedoXclust13);
+        edif2NdedoXclust14=findViewById(R.id.edif2NdedoXclust14);
+        edif2NdedoXclust15=findViewById(R.id.edif2NdedoXclust15);
+        edif2NdedoXclust16=findViewById(R.id.edif2NdedoXclust16);
+        edif2NdedoXclust17=findViewById(R.id.edif2NdedoXclust17);
+        edif2NdedoXclust18=findViewById(R.id.edif2NdedoXclust18);
+        edif2NdedoXclust19=findViewById(R.id.edif2NdedoXclust19);
+        edif2NdedoXclust20=findViewById(R.id.edif2NdedoXclust20);
+        edif2NdedoXclust21=findViewById(R.id.edif2NdedoXclust21);
+        edif2NdedoXclust22=findViewById(R.id.edif2NdedoXclust22);
+        edif2NdedoXclust23=findViewById(R.id.edif2NdedoXclust23);
+        edif2NdedoXclust24=findViewById(R.id.edif2NdedoXclust24);
+        edif2NdedoXclust25=findViewById(R.id.edif2NdedoXclust25);
+        edif2NdedoXclust26=findViewById(R.id.edif2NdedoXclust26);
+        edif2NdedoXclust27=findViewById(R.id.edif2NdedoXclust27);
+        edif2NdedoXclust28=findViewById(R.id.edif2NdedoXclust28);
+        edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
+
+        edif2NdedoXclustxC1=findViewById(R.id.edif2NdedoXclustxC1);
+        edif2NdedoXclustxC2=findViewById(R.id.edif2NdedoXclustxC2);
+        edif2NdedoXclustxC3=findViewById(R.id.edif2NdedoXclustxC3);
+        edif2NdedoXclustxC4=findViewById(R.id.edif2NdedoXclustxC4);
+        edif2NdedoXclustxC5=findViewById(R.id.edif2NdedoXclustxC5);
+        edif2NdedoXclustxC6=findViewById(R.id.edif2NdedoXclustxC6);
+        edif2NdedoXclustxC7=findViewById(R.id.edif2NdedoXclustxC7);
+        edif2NdedoXclustxC8=findViewById(R.id.edif2NdedoXclustxC8);
+        edif2NdedoXclustxC9=findViewById(R.id.edif2NdedoXclustxC9);
+        edif2NdedoXclustxC10=findViewById(R.id.edif2NdedoXclustxC10);
+        edif2NdedoXclustxC11=findViewById(R.id.edif2NdedoXclustxC11);
+        edif2NdedoXclustxC12=findViewById(R.id.edif2NdedoXclustxC12);
+        edif2NdedoXclustxC13=findViewById(R.id.edif2NdedoXclustxC13);
+        edif2NdedoXclustxC14=findViewById(R.id.edif2NdedoXclustxC14);
+        edif2NdedoXclustxC15=findViewById(R.id.edif2NdedoXclustxC15);
+        edif2NdedoXclustxC16=findViewById(R.id.edif2NdedoXclustxC16);
+        edif2NdedoXclustxC17=findViewById(R.id.edif2NdedoXclustxC17);
+        edif2NdedoXclustxC18=findViewById(R.id.edif2NdedoXclustxC18);
+        edif2NdedoXclustxC19=findViewById(R.id.edif2NdedoXclustxC19);
+        edif2NdedoXclustxC20=findViewById(R.id.edif2NdedoXclustxC20);
+
+
+
+
+
+        ediNdedoXclustXc1=findViewById(R.id.ediNdedoXclustXc1);
+        ediNdedoXclustXc2=findViewById(R.id.ediNdedoXclustXc2);
+        ediNdedoXclustXc3=findViewById(R.id.ediNdedoXclustXc3);
+        ediNdedoXclustXc4=findViewById(R.id.ediNdedoXclustXc4);
+        ediNdedoXclustXc5=findViewById(R.id.ediNdedoXclustXc5);
+        ediNdedoXclustXc6=findViewById(R.id.ediNdedoXclustXc6);
+        ediNdedoXclustXc7=findViewById(R.id.ediNdedoXclustXc7);
+        ediNdedoXclustXc8=findViewById(R.id.ediNdedoXclustXc8);
+        ediNdedoXclustXc9=findViewById(R.id.ediNdedoXclustXc9);
+        ediNdedoXclustXc10=findViewById(R.id.ediNdedoXclustXc10);
+        ediNdedoXclustXc11=findViewById(R.id.ediNdedoXclustXc11);
+        ediNdedoXclustXc12=findViewById(R.id.ediNdedoXclustXc12);
+        ediNdedoXclustXc13=findViewById(R.id.ediNdedoXclustXc13);
+        ediNdedoXclustXc14=findViewById(R.id.ediNdedoXclustXc14);
+        ediNdedoXclustXc15=findViewById(R.id.ediNdedoXclustXc15);
+        ediNdedoXclustXc16=findViewById(R.id.ediNdedoXclustXc16);
+        ediNdedoXclustXc17=findViewById(R.id.ediNdedoXclustXc17);
+        ediNdedoXclustXc18=findViewById(R.id.ediNdedoXclustXc18);
+        ediNdedoXclustXc19=findViewById(R.id.ediNdedoXclustXc19);
+        ediNdedoXclustXc20=findViewById(R.id.ediNdedoXclustXc20);
+
+
+        ediCalByA1=findViewById(R.id.ediCalByA1);
+        ediCalByA2=findViewById(R.id.ediCalByA2);
+        ediCalByA3=findViewById(R.id.ediCalByA3);
+        ediCalByA4=findViewById(R.id.ediCalByA4);
+        ediCalByA5=findViewById(R.id.ediCalByA5);
+        ediCalByA6=findViewById(R.id.ediCalByA6);
+        ediCalByA7=findViewById(R.id.ediCalByA7);
+        ediCalByA8=findViewById(R.id.ediCalByA8);
+        ediCalByA9=findViewById(R.id.ediCalByA9);
+        ediCalByA10=findViewById(R.id.ediCalByA10);
+        ediCalByA11=findViewById(R.id.ediCalByA11);
+        ediCalByA12=findViewById(R.id.ediCalByA12);
+        ediCalByA13=findViewById(R.id.ediCalByA13);
+        ediCalByA14=findViewById(R.id.ediCalByA14);
+        ediCalByA15=findViewById(R.id.ediCalByA15);
+        ediCalByA16=findViewById(R.id.ediCalByA16);
+        ediCalByA17=findViewById(R.id.ediCalByA17);
+        ediCalByA18=findViewById(R.id.ediCalByA18);
+        ediCalByA19=findViewById(R.id.ediCalByA19);
+        ediCalByA20=findViewById(R.id.ediCalByA20);
+        ediCalByA21=findViewById(R.id.ediCalByA21);
+
+
+        edif2Calib1=findViewById(R.id.edif2Calib1);
+        edif2Calib2=findViewById(R.id.edif2Calib2);
+        edif2Calib3=findViewById(R.id.edif2Calib3);
+        edif2Calib4=findViewById(R.id.edif2Calib4);
+        edif2Calib5=findViewById(R.id.edif2Calib5);
+        edif2Calib6=findViewById(R.id.edif2Calib6);
+        edif2Calib7=findViewById(R.id.edif2Calib7);
+        edif2Calib8=findViewById(R.id.edif2Calib8);
+        edif2Calib9=findViewById(R.id.edif2Calib9);
+        edif2Calib10=findViewById(R.id.edif2Calib10);
+        edif2Calib11=findViewById(R.id.edif2Calib11);
+        edif2Calib12=findViewById(R.id.edif2Calib12);
+        edif2Calib13=findViewById(R.id.edif2Calib13);
+        edif2Calib14=findViewById(R.id.edif2Calib14);
+        edif2Calib15=findViewById(R.id.edif2Calib15);
+        edif2Calib16=findViewById(R.id.edif2Calib16);
+        edif2Calib17=findViewById(R.id.edif2Calib17);
+        edif2Calib18=findViewById(R.id.edif2Calib18);
+        edif2Calib19=findViewById(R.id.edif2Calib19);
+        edif2Calib20=findViewById(R.id.edif2Calib20);
+        edif2Calib21=findViewById(R.id.edif2Calib21);
+        edif2Calib22=findViewById(R.id.edif2Calib22);
+
+
     }
 
 
@@ -330,16 +660,16 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         imvEmpaque9.setOnClickListener(this);
         imvEmpaque10.setOnClickListener(this);
 
-        edizz1.setOnClickListener(this);
-        edizz5.setOnClickListener(this);
-        edizz9.setOnClickListener(this);
-        edizz13.setOnClickListener(this);
-        edizz17.setOnClickListener(this);
-        edizz21.setOnClickListener(this);
-        edizz25.setOnClickListener(this);
-        edizz29.setOnClickListener(this);
-        edizz33.setOnClickListener(this);
-        edizz37.setOnClickListener(this);
+        ediTimeHoraxx1.setOnClickListener(this);
+        ediTimeHoraxx2.setOnClickListener(this);
+        ediTimeHoraxx3.setOnClickListener(this);
+        ediTimeHoraxx4.setOnClickListener(this);
+        ediTimeHoraxx5.setOnClickListener(this);
+        ediTimeHoraxx6.setOnClickListener(this);
+        ediTimeHoraxx7.setOnClickListener(this);
+        ediTimeHoraxx8.setOnClickListener(this);
+        ediTimeHoraxx9.setOnClickListener(this);
+        ediTimeHoraxx10.setOnClickListener(this);
 
         textView48.setOnClickListener(this);
 
@@ -565,65 +895,68 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
 
-            case R.id.edizz1:
-
-                showingTimePicker(view);
-                break;
 
 
-            case R.id.edizz5:
 
-                showingTimePicker(view);
-                break;
-
-
-            case R.id.edizz9:
+            case R.id.ediTimeHoraxx1:
 
                 showingTimePicker(view);
                 break;
 
 
 
-            case R.id.edizz13:
+            case R.id.ediTimeHoraxx2:
 
                 showingTimePicker(view);
                 break;
 
 
 
-            case R.id.edizz17:
+            case R.id.ediTimeHoraxx3:
 
                 showingTimePicker(view);
                 break;
 
 
-            case R.id.edizz21:
-
-                showingTimePicker(view);
-                break;
-
-
-
-            case R.id.edizz25:
+            case R.id.ediTimeHoraxx4:
 
                 showingTimePicker(view);
                 break;
 
 
 
-            case R.id.edizz29:
+            case R.id.ediTimeHoraxx5:
 
                 showingTimePicker(view);
                 break;
 
 
-            case R.id.edizz33:
+
+            case R.id.ediTimeHoraxx6:
 
                 showingTimePicker(view);
                 break;
 
 
-            case R.id.edizz37:
+            case R.id.ediTimeHoraxx7:
+
+                showingTimePicker(view);
+                break;
+
+
+            case R.id.ediTimeHoraxx8:
+
+                showingTimePicker(view);
+                break;
+
+
+            case R.id.ediTimeHoraxx9:
+
+                showingTimePicker(view);
+                break;
+
+
+            case R.id.ediTimeHoraxx10:
 
                 showingTimePicker(view);
                 break;
@@ -837,76 +1170,76 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                        if(vista.getId()==R.id.edizz1) {
-                            edizz1.setText(sHour + ":" + sMinute);
+                        if(vista.getId()==R.id.ediTimeHoraxx1) {
+                            ediTimeHoraxx1.setText(sHour + ":" + sMinute);
 
 
                         }
 
 
-                        else if (vista.getId()== R.id.edizz5) {
-                            edizz5.setText(sHour + ":" + sMinute);
-
-
-                        }
-
-
-
-                        else if (vista.getId()== R.id.edizz9) {
-                            edizz9.setText(sHour + ":" + sMinute);
+                        else if (vista.getId()== R.id.ediTimeHoraxx2) {
+                            ediTimeHoraxx2.setText(sHour + ":" + sMinute);
 
 
                         }
 
 
 
-                        else if (vista.getId()== R.id.edizz13) {
-                            edizz13.setText(sHour + ":" + sMinute);
-
-
-                        }
-
-
-                        else if (vista.getId()== R.id.edizz17) {
-                            edizz17.setText(sHour + ":" + sMinute);
+                        else if (vista.getId()== R.id.ediTimeHoraxx3) {
+                            ediTimeHoraxx3.setText(sHour + ":" + sMinute);
 
 
                         }
 
 
 
-                        else if (vista.getId()== R.id.edizz21) {
-                            edizz21.setText(sHour + ":" + sMinute);
-
-
-                        }
-
-                        else if (vista.getId()== R.id.edizz25) {
-                            edizz25.setText(sHour + ":" + sMinute);
+                        else if (vista.getId()== R.id.ediTimeHoraxx4) {
+                            ediTimeHoraxx4.setText(sHour + ":" + sMinute);
 
 
                         }
 
 
-                        else if (vista.getId()== R.id.edizz29) {
-                            edizz29.setText(sHour + ":" + sMinute);
+                        else if (vista.getId()== R.id.ediTimeHoraxx5) {
+                            ediTimeHoraxx5.setText(sHour + ":" + sMinute);
 
 
                         }
 
 
 
+                        else if (vista.getId()== R.id.ediTimeHoraxx6) {
+                            ediTimeHoraxx6.setText(sHour + ":" + sMinute);
 
-                        else if (vista.getId()== R.id.edizz33) {
-                            edizz33.setText(sHour + ":" + sMinute);
+
+                        }
+
+                        else if (vista.getId()== R.id.ediTimeHoraxx7) {
+                            ediTimeHoraxx7.setText(sHour + ":" + sMinute);
+
+
+                        }
+
+
+                        else if (vista.getId()== R.id.ediTimeHoraxx8) {
+                            ediTimeHoraxx8.setText(sHour + ":" + sMinute);
 
 
                         }
 
 
 
-                        else if (vista.getId()== R.id.edizz37) {
-                            edizz37.setText(sHour + ":" + sMinute);
+
+                        else if (vista.getId()== R.id.ediTimeHoraxx9) {
+                            ediTimeHoraxx9.setText(sHour + ":" + sMinute);
+
+
+                        }
+
+
+
+                        else if (vista.getId()== R.id.ediTimeHoraxx10) {
+                            ediTimeHoraxx10.setText(sHour + ":" + sMinute);
 
 
                         }
@@ -924,6 +1257,94 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         picker.show();
     }
 
+
+    //1 mapa para todos....
+    //alamacenara datos Styring...
+
+
+    private void createMapInfo() {
+
+        hasHmapFieldsRecha= new HashMap<>();
+
+       TextInputEditText arrayAllFields[] =  {
+
+               ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+               ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
+               ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
+               ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
+               ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
+               ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
+               ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
+               ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
+               ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+               edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
+               edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
+               edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
+               edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
+               edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
+               edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+               edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
+               edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
+               edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
+               edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+               ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
+               , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
+               ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
+               ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+               ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
+               ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+               edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
+               edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
+               edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+
+
+       } ;
+
+
+        for(int i = 0; i<arrayAllFields.length; i++) {
+        TextInputEditText currenTextImput=arrayAllFields[i];
+
+        if(!currenTextImput.getText().toString().trim().isEmpty()) { //si no esta vacio
+
+            String keyOFidView=String.valueOf(currenTextImput.getTag());
+
+             hasHmapFieldsRecha.put(keyOFidView,currenTextImput.getText().toString());
+        }
+
+    }
+
+    }
+
+
+
+    private String [] converTextToArray(String texto) {
+
+
+
+
+
+    }
+
+
+
+    private String  converArayToText(String [] miarray ) {
+
+
+        for(int i =0; i<miarray.length; i++)
+
+        {
+
+
+
+        }
+
+
+
+        //aqui devolvemos un texto con commmas..
+
+
+
+    }
 
 
 }
