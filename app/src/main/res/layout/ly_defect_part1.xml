@@ -170,7 +170,8 @@
                 android:id="@+id/ediSemanazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:digits="0123456789"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -279,9 +280,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediTotalCajaszz"
+                android:digits="0123456789"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

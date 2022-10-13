@@ -18,6 +18,7 @@ import com.tiburela.qsercom.activities.ReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -718,6 +719,45 @@ static  public  DatabaseReference mibasedataPathImages;
 
 
     }
+
+
+    public static void UploadControlcalidadInforms( ControlCalidad producto) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listControCalidad");
+        String keyDonDeEstaraThisInform=mibasedata.push().getKey();
+        producto.setKeyDondeEstarThisInform(keyDonDeEstaraThisInform);
+        //SUBE MAPA
+        mibasedata.child(keyDonDeEstaraThisInform).setValue(producto).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+    public static void addNewHashMapControlCalidad(HashMap <String ,String > hasmapControlCalid,String dondeEstaraThisHasmap) {
+
+        DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("ControCalidHasmap");
+       // String nododDondeEstaraEsteHasmap = mibasedata2.push().getKey();
+        // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
+
+        mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapControlCalid);  //subimos el packing list mapa
+
+        //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
+
+
+    }
+
 
     public static void UploadCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf) {
 

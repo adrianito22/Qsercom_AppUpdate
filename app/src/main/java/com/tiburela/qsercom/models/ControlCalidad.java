@@ -11,6 +11,17 @@ public class ControlCalidad {
     private String simpleDate;
     private double timeDateMillis;
 
+    public String getKeyDondeEstarThisInform() {
+        return keyDondeEstarThisInform;
+    }
+
+    public void setKeyDondeEstarThisInform(String keyDondeEstarThisInform) {
+        this.keyDondeEstarThisInform = keyDondeEstarThisInform;
+    }
+
+    private String keyDondeEstarThisInform;
+
+
     public String getKeyWhereLocateasHmapFieldsRecha() {
         return keyWhereLocateasHmapFieldsRecha;
     }
@@ -307,7 +318,6 @@ public class ControlCalidad {
         this.observaciones = observaciones;
         this.nodekeyLocation = nodekeyLocation;
         this.keyWhereLocateasHmapFieldsRecha=keyWhereLocateasHmapFieldsRecha;
-
         this.vapor=vapor;
         this.productor=productor;
         this.codigo=codigo;
@@ -332,6 +342,7 @@ public class ControlCalidad {
         this.termografo=termografo;
         this.placaCarro=placaCarro;
         this.puertEmbarq=puertEmbarq;
+        keyDondeEstarThisInform="";
 
     }
 

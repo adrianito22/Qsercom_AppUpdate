@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -127,6 +128,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
                                 android:text="Def Caja linea" />
                         </LinearLayout>
 
@@ -141,7 +143,6 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -149,7 +150,6 @@
                             android:text="1" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -208,13 +208,12 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
-
                                 android:id="@+id/ediNumClusInsp1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
-
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <ImageView
@@ -256,7 +255,6 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -264,7 +262,6 @@
                             android:text="2" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -326,10 +323,11 @@
 
                             <com.google.android.material.textfield.TextInputEditText
 
-
                                 android:id="@+id/ediNumClusInsp2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -365,14 +363,13 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:gravity="center"
-
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -380,7 +377,6 @@
                             android:text="3" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -441,11 +437,11 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
-
                                 android:id="@+id/ediNumClusInsp3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -481,14 +477,13 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:gravity="center"
-
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -496,7 +491,6 @@
                             android:text="4" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -557,11 +551,11 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
-
                                 android:id="@+id/ediNumClusInsp4"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -597,13 +591,12 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -611,7 +604,6 @@
                             android:text="5" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -670,11 +662,11 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
-
                                 android:id="@+id/ediNumClusInsp5"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -710,14 +702,13 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:gravity="center"
-
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -725,7 +716,6 @@
                             android:text="6" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -788,6 +778,8 @@
                                 android:id="@+id/ediNumClusInsp6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -824,10 +816,10 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:gravity="center"
-
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -839,7 +831,6 @@
                             android:text="7" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -903,6 +894,8 @@
                                 android:id="@+id/ediNumClusInsp7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -939,9 +932,9 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -1015,6 +1008,8 @@
                                 android:id="@+id/ediNumClusInsp8"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1051,10 +1046,10 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:gravity="center"
-
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -1122,10 +1117,11 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
                                 android:id="@+id/ediNumClusInsp9"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1168,7 +1164,6 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -1241,6 +1236,8 @@
                                 android:id="@+id/ediNumClusInsp10"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1276,11 +1273,11 @@
                     <LinearLayout
 
                         android:id="@+id/tttttttt"
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
 
@@ -1303,7 +1300,13 @@
 
 
                 </LinearLayout>
+
+
             </HorizontalScrollView>
+
+
+
+
 
             <include
                 layout="@layout/ly_num_deds_x_cluster"

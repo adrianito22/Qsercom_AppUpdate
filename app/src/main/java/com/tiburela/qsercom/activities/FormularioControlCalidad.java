@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
 
 import java.util.ArrayList;
@@ -338,7 +339,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ly_defectos);
+        setContentView(R.layout.control_calid_activity);
         // assign variable
        // textView = findViewById(R.id.textView);
         findviewsIds();
@@ -402,6 +403,16 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         // initialize selected language array
         selectedLanguage = new boolean[arrayDefect1.length];
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        eventoUploadFormulario();
+
+
+    }
+
+
     //determinar que posicion pulso o si pusla este hacer esto
 
     private void findviewsIds() {
@@ -568,6 +579,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         ediNdedoXclust27=findViewById(R.id.ediNdedoXclust27);
         ediNdedoXclust28=findViewById(R.id.ediNdedoXclust28);
         ediNdedoXclust29=findViewById(R.id.ediNdedoXclust29);
+        ediNdedoXclust30=findViewById(R.id.ediNdedoXclust30);
 
 
         edif2NdedoXclust1=findViewById(R.id.edif2NdedoXclust1);
@@ -599,6 +611,8 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         edif2NdedoXclust27=findViewById(R.id.edif2NdedoXclust27);
         edif2NdedoXclust28=findViewById(R.id.edif2NdedoXclust28);
         edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
+        edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
+
 
         edif2NdedoXclustxC1=findViewById(R.id.edif2NdedoXclustxC1);
         edif2NdedoXclustxC2=findViewById(R.id.edif2NdedoXclustxC2);
@@ -1365,52 +1379,25 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
         for(int i = 0; i<arrayAllFields.length; i++) {
+
+
         TextInputEditText currenTextImput=arrayAllFields[i];
 
-        if(!currenTextImput.getText().toString().trim().isEmpty()) { //si no esta vacio
+            if(!currenTextImput.getText().toString().trim().isEmpty()) { //si no esta vacio
 
-            String keyOFidView=String.valueOf(currenTextImput.getTag());
+                String keyOFidView=String.valueOf(currenTextImput.getId());
 
-             hasHmapFieldsRecha.put(keyOFidView,currenTextImput.getText().toString());
-        }
-
-    }
-
-    }
-
-
-
-    private String [] converTextToArray(String texto) {
-
-
-        //procurar que el texto tenga commas..
-
-        String [] converTextToArrayX =texto.split(","); //
-
-
-
-
-        return  converTextToArrayX;
-
-    }
-
-
-
-    private String  converArayToText(String [] miarray ) {
-
-        String textoToDevolver="";
-
-        for(int i =0; i<miarray.length; i++) { //debe tener size uno al menos..
-
-            textoToDevolver = textoToDevolver +"," +miarray[i];
-        }
-
-        //aqui devolvemos un texto con commmas..
-
-        return  textoToDevolver ;
+                hasHmapFieldsRecha.put(keyOFidView,currenTextImput.getText().toString());
+            }
 
 
     }
+
+        hasHmapFieldsRecha.put("0","EMPTY");
+
+
+    }
+
 
 
 
@@ -1693,11 +1680,32 @@ return true;
 
 
 
-    private void eventoBtnSaveFomrulario() {
+    private void eventoUploadFormulario () {
 
         btnSaveControlC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(!cheakIfInfoIsComplete()) {
+                    return;
+
+                }
+
+
+
+                createMapInfo();
+
+                RealtimeDB.initDatabasesRootOnly();
+                String keyDondeEstaraHasmap=RealtimeDB.rootDatabaseReference.push().getKey();
+
+                ControlCalidad obecjControlCalidad=creaNuevoFormularioByTxtImputEditext();
+                obecjControlCalidad.setKeyWhereLocateasHmapFieldsRecha(keyDondeEstaraHasmap);
+
+
+                RealtimeDB.UploadControlcalidadInforms(obecjControlCalidad);
+                RealtimeDB.addNewHashMapControlCalidad(hasHmapFieldsRecha,keyDondeEstaraHasmap);
+
+                //subimos en la base de datos...un informe y un hasmap usando los demas fields opcionales
 
                 //
 
@@ -1707,18 +1715,22 @@ return true;
     }
 
 
-    private void creaNuevoFormulario(){
+    private ControlCalidad creaNuevoFormularioByTxtImputEditext(){
 
-        ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
+                ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
                 mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(),mEdiCodigozz.getText().toString(),
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
-                mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()),
-                 mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
+                mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
                 mEdioCalidaCampzz.getText().toString(),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
                 mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
-    }
+
+             return controlCaL;
+
+               }
+
+
 
 
 }
