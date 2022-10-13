@@ -36,11 +36,31 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
 
 
-    //
-
-
-
-
+    // fist fields
+    private TextInputEditText mEdiVaporzz;
+    private TextInputEditText mEdiProductorzz;
+    private TextInputEditText mEdiCodigozz;
+    private TextInputEditText mEdiZonazz;
+    private TextInputEditText mEdiHaciendazz;
+    private TextInputEditText mEdiExportadorazz;
+    private TextInputEditText mEdiCompaniazz;
+    private TextInputEditText mEdiClientezz;
+    private TextInputEditText mEdiZemanazz;
+    private TextInputEditText mEdiFechazz;
+    private TextInputEditText mEdiMagapzz;
+    private TextInputEditText mEdiMarcaCajazz;
+    private TextInputEditText mEdiTipoEmpazz;
+    private TextInputEditText mEdiDestinzz;
+    private TextInputEditText mEdiTotalCajaszz;
+    private TextInputEditText mEdioCalidaCampzz;
+    private TextInputEditText mEdiHoraInizz;
+    private TextInputEditText mEdiHoraTermizz;
+    private TextInputEditText mEdiContenedorzz;
+    private TextInputEditText mEdiSellosnavzz;
+    private TextInputEditText mEdiSelloVerzz;
+    private TextInputEditText mEdiTermografozz;
+    private TextInputEditText mEdiPlacaCarrzz;
+    private TextInputEditText mEdiPuertEmbzz;
 
 
 
@@ -387,6 +407,33 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     //determinar que posicion pulso o si pusla este hacer esto
 
     private void findviewsIds() {
+   //first views fields
+
+        mEdiVaporzz = findViewById(R.id.ediVaporzz);
+        mEdiProductorzz = findViewById(R.id.ediProductorzz);
+        mEdiCodigozz = findViewById(R.id.ediCodigozz);
+        mEdiZonazz = findViewById(R.id.ediZonazz);
+        mEdiHaciendazz = findViewById(R.id.ediHaciendazz);
+        mEdiExportadorazz = findViewById(R.id.ediExportadorazz);
+        mEdiCompaniazz = findViewById(R.id.ediCompaniazz);
+        mEdiClientezz = findViewById(R.id.ediClientezz);
+        mEdiZemanazz = findViewById(R.id.ediZemanazz);
+        mEdiFechazz = findViewById(R.id.ediFechazz);
+        mEdiMagapzz = findViewById(R.id.ediMagapzz);
+        mEdiMarcaCajazz = findViewById(R.id.ediMarcaCajazz);
+        mEdiTipoEmpazz = findViewById(R.id.ediTipoEmpazz);
+        mEdiDestinzz = findViewById(R.id.ediDestinzz);
+        mEdiTotalCajaszz = findViewById(R.id.ediTotalCajaszz);
+        mEdioCalidaCampzz = findViewById(R.id.edioCalidaCampzz);
+        mEdiHoraInizz = findViewById(R.id.ediHoraInizz);
+        mEdiHoraTermizz = findViewById(R.id.ediHoraTermizz);
+        mEdiContenedorzz = findViewById(R.id.ediContenedorzz);
+        mEdiSellosnavzz = findViewById(R.id.ediSellosnavzz);
+        mEdiSelloVerzz = findViewById(R.id.ediSelloVerzz);
+        mEdiTermografozz = findViewById(R.id.ediTermografozz);
+        mEdiPlacaCarrzz = findViewById(R.id.ediPlacaCarrzz);
+        mEdiPuertEmbzz = findViewById(R.id.ediPuertEmbzz);
+
 
 
 
@@ -1419,6 +1466,231 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
 
+
+
+    private void cheakAndUploadFormulario() {
+
+        if(mEdiVaporzz.getText().toString().trim().isEmpty()){
+            mEdiVaporzz.requestFocus() ;
+            mEdiVaporzz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+        if(mEdiProductorzz.getText().toString().trim().isEmpty()){
+            mEdiProductorzz.requestFocus() ;
+            mEdiProductorzz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+        if(mEdiCodigozz.getText().toString().trim().isEmpty()){
+            mEdiCodigozz.requestFocus() ;
+            mEdiCodigozz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiZonazz.getText().toString().trim().isEmpty()){
+            mEdiZonazz.requestFocus() ;
+            mEdiZonazz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiHaciendazz.getText().toString().trim().isEmpty()){
+            mEdiHaciendazz.requestFocus() ;
+            mEdiHaciendazz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiExportadorazz.getText().toString().trim().isEmpty()){
+            mEdiExportadorazz.requestFocus() ;
+            mEdiExportadorazz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiCompaniazz.getText().toString().trim().isEmpty()){
+            mEdiCompaniazz.requestFocus() ;
+            mEdiCompaniazz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiClientezz.getText().toString().trim().isEmpty()){
+            mEdiClientezz.requestFocus() ;
+            mEdiClientezz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+        if(mEdiZemanazz.getText().toString().trim().isEmpty()){
+            mEdiZemanazz.requestFocus() ;
+            mEdiZemanazz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiFechazz.getText().toString().trim().isEmpty()){
+            mEdiFechazz.requestFocus() ;
+            mEdiFechazz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiMagapzz.getText().toString().trim().isEmpty()){
+            mEdiMagapzz.requestFocus() ;
+            mEdiMagapzz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiMarcaCajazz.getText().toString().trim().isEmpty()){
+            mEdiMarcaCajazz.requestFocus() ;
+            mEdiMarcaCajazz.setError("Este espacio es necesario") ;
+
+
+            return;
+        }
+
+
+
+        if(mEdiTipoEmpazz.getText().toString().trim().isEmpty()){
+            mEdiTipoEmpazz.requestFocus() ;
+            mEdiTipoEmpazz.setError("Este espacio es necesario") ;
+            return;
+        }
+
+
+
+        if(mEdiDestinzz.getText().toString().trim().isEmpty()){
+            mEdiDestinzz.requestFocus() ;
+            mEdiDestinzz.setError("Este espacio es necesario") ;
+            return;
+        }
+
+
+
+        if(mEdiTotalCajaszz.getText().toString().trim().isEmpty()){
+            mEdiTotalCajaszz.requestFocus() ;
+            mEdiTotalCajaszz.setError("Este espacio es necesario") ;
+            return;
+        }
+
+
+
+        if(mEdioCalidaCampzz.getText().toString().trim().isEmpty()){
+            mEdioCalidaCampzz.requestFocus() ;
+            mEdioCalidaCampzz.setError("Este espacio es necesario") ;
+
+            return;
+        }
+
+
+
+        if(mEdiHoraInizz.getText().toString().trim().isEmpty()){
+            mEdiHoraInizz.requestFocus() ;
+            mEdiHoraInizz.setError("Este espacio es necesario") ;
+
+            return;
+        }
+
+
+
+        if(mEdiHoraTermizz.getText().toString().trim().isEmpty()){
+            mEdiHoraTermizz.requestFocus() ;
+            mEdiHoraTermizz.setError("Este espacio es necesario") ;
+
+            return;
+        }
+
+
+        if(mEdiContenedorzz.getText().toString().trim().isEmpty()){
+            mEdiContenedorzz.requestFocus() ;
+            mEdiContenedorzz.setError("Este espacio es necesario") ;
+
+            return;
+        }
+
+
+
+        if(mEdiSellosnavzz.getText().toString().trim().isEmpty()){
+            mEdiSellosnavzz.requestFocus() ;
+            mEdiSellosnavzz.setError("Este espacio es necesario") ;
+
+            return;
+        }
+
+
+
+
+        if(mEdiSelloVerzz.getText().toString().trim().isEmpty()){
+            mEdiSelloVerzz.requestFocus() ;
+            mEdiSelloVerzz.setError("Este espacio es necesario") ;
+
+            return;
+        }
+
+
+
+
+        if(mEdiTermografozz.getText().toString().trim().isEmpty()){
+            mEdiTermografozz.requestFocus() ;
+            mEdiTermografozz.setError("Este espacio es necesario") ;
+            return;
+        }
+
+
+
+
+        if(mEdiPlacaCarrzz.getText().toString().trim().isEmpty()){
+            mEdiPlacaCarrzz.requestFocus() ;
+            mEdiPlacaCarrzz.setError("Este espacio es necesario") ;
+            return;
+        }
+
+
+        if(mEdiPuertEmbzz.getText().toString().trim().isEmpty()){
+            mEdiPuertEmbzz.requestFocus() ;
+            mEdiPuertEmbzz.setError("Este espacio es necesario") ;
+            return;
+        }
+
+
+
+
+    }
 
 
 }

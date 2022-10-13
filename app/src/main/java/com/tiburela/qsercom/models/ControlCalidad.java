@@ -65,11 +65,240 @@ public class ControlCalidad {
     private String observaciones;
     private String nodekeyLocation;
 
+    private String vapor;
+    private String productor;
+    private String codigo;
+    private String zona;
+    private String hacienda;
+    private String exportadora;
+    private String compania;
+    private String cliente;
+    private int semana;
+    private String fecha;
+    private String magap;
+    private String marcaCaja;
+    private String tipoEmpaque;
+    private String destino;
+    private int totalCajas;
+
+    public String getVapor() {
+        return vapor;
+    }
+
+    public void setVapor(String vapor) {
+        this.vapor = vapor;
+    }
+
+    public String getProductor() {
+        return productor;
+    }
+
+    public void setProductor(String productor) {
+        this.productor = productor;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getZona() {
+        return zona;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public String getHacienda() {
+        return hacienda;
+    }
+
+    public void setHacienda(String hacienda) {
+        this.hacienda = hacienda;
+    }
+
+    public String getExportadora() {
+        return exportadora;
+    }
+
+    public void setExportadora(String exportadora) {
+        this.exportadora = exportadora;
+    }
+
+    public String getCompania() {
+        return compania;
+    }
+
+    public void setCompania(String compania) {
+        this.compania = compania;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public int getSemana() {
+        return semana;
+    }
+
+    public void setSemana(int semana) {
+        this.semana = semana;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getMagap() {
+        return magap;
+    }
+
+    public void setMagap(String magap) {
+        this.magap = magap;
+    }
+
+    public String getMarcaCaja() {
+        return marcaCaja;
+    }
+
+    public void setMarcaCaja(String marcaCaja) {
+        this.marcaCaja = marcaCaja;
+    }
+
+    public String getTipoEmpaque() {
+        return tipoEmpaque;
+    }
+
+    public void setTipoEmpaque(String tipoEmpaque) {
+        this.tipoEmpaque = tipoEmpaque;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public int getTotalCajas() {
+        return totalCajas;
+    }
+
+    public void setTotalCajas(int totalCajas) {
+        this.totalCajas = totalCajas;
+    }
+
+    public String getCalidaCamp() {
+        return calidaCamp;
+    }
+
+    public void setCalidaCamp(String calidaCamp) {
+        this.calidaCamp = calidaCamp;
+    }
+
+    public String getHoraIni() {
+        return horaIni;
+    }
+
+    public void setHoraIni(String horaIni) {
+        this.horaIni = horaIni;
+    }
+
+    public String getHoraTermi() {
+        return horaTermi;
+    }
+
+    public void setHoraTermi(String horaTermi) {
+        this.horaTermi = horaTermi;
+    }
+
+    public String getContenedor() {
+        return contenedor;
+    }
+
+    public void setContenedor(String contenedor) {
+        this.contenedor = contenedor;
+    }
+
+    public String getSellosnav() {
+        return sellosnav;
+    }
+
+    public void setSellosnav(String sellosnav) {
+        this.sellosnav = sellosnav;
+    }
+
+    public String getSelloVerificadora() {
+        return selloVerificadora;
+    }
+
+    public void setSelloVerificadora(String selloVerificadora) {
+        this.selloVerificadora = selloVerificadora;
+    }
+
+    public String getTermografo() {
+        return termografo;
+    }
+
+    public void setTermografo(String termografo) {
+        this.termografo = termografo;
+    }
+
+    public String getPlacaCarro() {
+        return placaCarro;
+    }
+
+    public void setPlacaCarro(String placaCarro) {
+        this.placaCarro = placaCarro;
+    }
+
+    public String getPuertEmbarq() {
+        return puertEmbarq;
+    }
+
+    public void setPuertEmbarq(String puertEmbarq) {
+        this.puertEmbarq = puertEmbarq;
+    }
+
+    private String calidaCamp;
+    private String horaIni;
+    private String horaTermi;
+    private String contenedor;
+    private String sellosnav;
+    private String selloVerificadora;
+    private String termografo;
+    private String placaCarro;
+    private String puertEmbarq;
 
 
 
+    //default copntructort
+    public  ControlCalidad() {
 
-    public ControlCalidad( String observaciones, String nodekeyLocation,String keyWhereLocateasHmapFieldsRecha) {
+
+    }
+
+
+
+    public ControlCalidad( String observaciones, String nodekeyLocation,String keyWhereLocateasHmapFieldsRecha,String vapor,
+                           String productor, String codigo, String zona, String hacienda, String exportadora, String compania,
+                           String cliente, int semana, String fecha, String magap, String marcaCaja, String tipoEmpaque,
+                           String destino, int totalCajas, String calidaCamp, String horaIni, String horaTermi, String contenedor,
+                           String sellosnav, String selloVerificadora, String termografo, String placaCarro, String puertEmbarq) {
+
         uniqueId = UUID.randomUUID().toString();
         timeDateMillis = new Date().getTime();
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -78,6 +307,32 @@ public class ControlCalidad {
         this.observaciones = observaciones;
         this.nodekeyLocation = nodekeyLocation;
         this.keyWhereLocateasHmapFieldsRecha=keyWhereLocateasHmapFieldsRecha;
+
+        this.vapor=vapor;
+        this.productor=productor;
+        this.codigo=codigo;
+        this.zona=zona;
+        this.hacienda=hacienda;
+        this.exportadora=exportadora;
+        this.compania=compania;
+        this.cliente=cliente;
+        this.semana=semana;
+        this.fecha=fecha;
+        this.magap=magap;
+        this.marcaCaja=marcaCaja;
+        this.tipoEmpaque=tipoEmpaque;
+        this.destino=destino;
+        this.totalCajas=totalCajas;
+        this.calidaCamp=calidaCamp;
+        this.horaIni=horaIni;
+        this.horaTermi=horaTermi;
+        this.contenedor=contenedor;
+        this.sellosnav=sellosnav;
+        this.selloVerificadora=selloVerificadora;
+        this.termografo=termografo;
+        this.placaCarro=placaCarro;
+        this.puertEmbarq=puertEmbarq;
+
     }
 
 
