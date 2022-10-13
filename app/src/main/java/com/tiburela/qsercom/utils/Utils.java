@@ -451,4 +451,28 @@ return
     }
 
 
+
+
+    public static  TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allArrayViewsTextIMPUTe,int idViewSearch ){
+
+        TextInputEditText textInputEditText=null;
+        Log.i("midata","hay en totak "+allArrayViewsTextIMPUTe.length + "textimput editext");
+
+
+        for(int indice=0; indice<allArrayViewsTextIMPUTe.length ; indice++){  //iteramos el mapa
+
+            Log.i("midata","el id de este view es es "+allArrayViewsTextIMPUTe[indice].getId());
+
+            if(allArrayViewsTextIMPUTe[indice].getId()==idViewSearch){
+
+
+                textInputEditText= allArrayViewsTextIMPUTe[indice];
+                break;
+            }
+
+        }
+
+        return textInputEditText;
+    }
+
 }

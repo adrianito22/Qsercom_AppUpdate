@@ -617,11 +617,13 @@ private TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allAr
 
                       //  setDatosProcesODataInViews(Variables.mimapaDatosProcesMapCurrent);
 
-                       setDaataOfViews(packingListMap,Variables.currenReportPackinList);
 
 
                     }
                 }
+
+                setDaataOfViews(packingListMap,Variables.currenReportPackinList);
+
 
             }
 

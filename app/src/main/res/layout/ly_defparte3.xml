@@ -47,6 +47,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="6"
+                        android:enabled="false"
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +65,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="7"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -83,6 +86,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:text="8"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -99,6 +104,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="9"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -115,6 +122,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="10"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -131,6 +140,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="11"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -154,12 +165,13 @@
                     android:gravity="center_horizontal">
 
                     <com.google.android.material.textfield.TextInputEditText
-
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="0"
+
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -175,6 +187,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -192,6 +206,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="4"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -211,6 +227,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:text="6"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -227,6 +245,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="8"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -243,6 +263,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="0"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -258,6 +280,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -274,6 +298,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="4"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -292,6 +318,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="6"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -309,6 +337,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="8"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -326,6 +356,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -341,6 +373,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -357,6 +391,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="4"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -373,6 +409,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="6"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -389,6 +427,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="8"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -405,6 +445,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -421,6 +463,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -437,6 +481,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="4"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -453,92 +499,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="6"
-                        android:textSize="14sp" />
+                        android:enabled="false"
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="65dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_horizontal">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="8"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="65dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_horizontal">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="65dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_horizontal">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="65dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_horizontal">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="4"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="65dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_horizontal">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="6"
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -556,6 +518,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="8"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -573,6 +537,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -590,6 +556,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -607,6 +575,105 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="4"
+                        android:enabled="false"
+
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="6"
+
+                        android:enabled="false"
+
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="8"
+                        android:enabled="false"
+
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:enabled="false"
+
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:enabled="false"
+
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -624,6 +691,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="6"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -642,6 +711,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="8"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -659,6 +730,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TOTAL"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -676,6 +749,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="PROMEDIO"
+                        android:enabled="false"
+
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>

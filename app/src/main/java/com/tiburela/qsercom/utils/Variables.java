@@ -2,6 +2,7 @@ package com.tiburela.qsercom.utils;
 
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -74,6 +75,8 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static ReportCamionesyCarretas currenReportCamionesyCarretas;
     public static    ColorCintasSemns  currentColorCIntas;
     public static CuadroMuestreo currentcuadroMuestreo;
+    public static ControlCalidad currenControlCalReport;
+
 
     public static String KEYEXTRAPREVIEW= "estacontent";
     public static String KEYEXTRA_CONTEN_EN_ACP= "estacontentXCC";

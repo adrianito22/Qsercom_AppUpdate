@@ -1,7 +1,5 @@
 package com.tiburela.qsercom.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -13,20 +11,31 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.models.EstateFieldView;
-import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.PackingListMod;
+import com.tiburela.qsercom.utils.Utils;
+import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
-public class FormularioControlCalidad extends AppCompatActivity implements View.OnClickListener {
+public class FormularioControlCalidadPreview extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
 
     TextView textView;
     boolean[] selectedLanguage;
+    HashMap <String, String>hasmapMap;
 
     TextView textView48;
 
@@ -306,18 +315,9 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ly_defectos);
-        // assign variable
-       // textView = findViewById(R.id.textView);
+        setContentView(R.layout.ly_defectos_preview);
         findviewsIds();
         addListnners();
-
-
-     //   String[] albums = getResources().getStringArray(R.array.array_defectos_fruta);
-          //INICLIAMOS POSICIONES SON 10 LISTAS
-      //  List<String> listDefectos = Arrays.asList();
-
-
 
 
        arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
@@ -369,18 +369,140 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     }
     //determinar que posicion pulso o si pusla este hacer esto
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+      //  getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+
+        ///
+
+    }
+
+
+
+    //aqui ya deberiamos pasarle los dos objetos una vez descargados
+    private void setDataInViews(HashMap <String,String>miMapa, ControlCalidad controlCalidad){
+
+        TextInputEditText ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
+        ediObservacioneszszz.setText(controlCalidad.getObservaciones());
+
+        TextInputEditText arrayAllFields[] =  {
+
+                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+                ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
+                ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
+                ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
+                ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
+                ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
+                ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
+                ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+                edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
+                edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
+                edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
+                edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
+                edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
+                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
+                edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
+                edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
+                , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
+                ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
+                ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+                edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
+                edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+
+
+        } ;
+
+        for (Map.Entry<String, String > entry : miMapa.entrySet()) {
+            String keyAndIdOfView = entry.getKey();
+            String valueOfItem = entry.getValue();
+
+            TextInputEditText currenTextImput= Utils.getTexImputEditextByidORkey(arrayAllFields,Integer.parseInt(keyAndIdOfView));
+
+            if(currenTextImput==null){ //si es nulo
+
+                Log.i("midata","este teximputeditext es nulo" +keyAndIdOfView);
+
+                return;
+
+
+            }else{
+
+                currenTextImput.setText(valueOfItem);
+
+
+            }
+
+
+            //Agregamos este valor en este edi text
+
+        }
+
+
+
+    }
+
+
+
+    private void getPakinkListMap (String nodeLocateHasmapControlC){
+
+        Log.i("hameha","el NODEKey es : "+nodeLocateHasmapControlC);
+
+        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("ControlCalidadHasmaps").child(nodeLocateHasmapControlC).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                hasmapMap=new HashMap<>();
+
+
+                for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                    String key = dss.getKey();
+
+                    String  fieldData =dss.getValue(String.class);
+
+                    //   HashMap packinKey = dss.getValue( String.class);
+
+                    //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
+                    Log.i("hameha","el key es "+key);
+
+
+                    if (fieldData!=null) {///
+
+                        hasmapMap.put(key,fieldData);
+
+                    }
+                }
+
+                setDataInViews(hasmapMap,Variables.currenControlCalReport);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("misadhd","el error es "+ databaseError.getMessage());
+
+
+
+            }
+        });
+
+
+
+
+    }
+
+
     private void findviewsIds() {
 
-        ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
-        ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
-        ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
-        ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
-        ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
-        ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
-        ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
-        ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
-        ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
-        ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
 
         imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
          imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
@@ -472,27 +594,9 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         ediNdedoXclust2=findViewById(R.id.ediNdedoXclust2);
          ediNdedoXclust3=findViewById(R.id.ediNdedoXclust3) ;
        ediNdedoXclust4=findViewById(R.id.ediNdedoXclust3);
-        ediNdedoXclust5=findViewById(R.id.ediNdedoXclust5)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        ;
+        ediNdedoXclust5=findViewById(R.id.ediNdedoXclust5);
        ediNdedoXclust6=findViewById(R.id.ediNdedoXclust6);
-        ediNdedoXclust7=findViewById(R.id.ediNdedoXclust7)         ;
+        ediNdedoXclust7=findViewById(R.id.ediNdedoXclust7);
         ediNdedoXclust8=findViewById(R.id.ediNdedoXclust8);
         ediNdedoXclust9=findViewById(R.id.ediNdedoXclust9);
         ediNdedoXclust10=findViewById(R.id.ediNdedoXclust10);
@@ -639,6 +743,18 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         edif2Calib20=findViewById(R.id.edif2Calib20);
         edif2Calib21=findViewById(R.id.edif2Calib21);
         edif2Calib22=findViewById(R.id.edif2Calib22);
+
+
+        ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
+        ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
+        ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
+        ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
+        ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
+        ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
+        ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
+        ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
+        ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
+        ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
 
 
     }
@@ -985,7 +1101,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
      void showDialogx(boolean[] selectedLanguage,int posicionListOfLIST) {
 
         // Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidad.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidadPreview.this);
 
         // set title
         builder.setTitle("Selecciones Defectos");
@@ -1067,7 +1183,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     void showDialogx2(boolean[] selectedLanguage,int posicionListOfLIST) {
 
         // Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidad.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidadPreview.this);
 
         // set title
         builder.setTitle("Seleccione Defectos");
@@ -1175,7 +1291,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
         // time picker dialog
-        TimePickerDialog picker = new TimePickerDialog(FormularioControlCalidad.this,
+        TimePickerDialog picker = new TimePickerDialog(FormularioControlCalidadPreview.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
