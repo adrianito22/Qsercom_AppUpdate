@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import android.widget.TimePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.collection.LLRBNode;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 
@@ -28,14 +30,13 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
     TextView textView;
     boolean[] selectedLanguage;
-
+    Button btnSaveControlC;
     TextView textView48;
-
     HashMap<String, String> hasHmapFieldsRecha;
     HashMap<String, String> hahasMapitemsSelecPosic;
 
 
-
+    private TextInputEditText ediObservacioneszszz;
     // fist fields
     private TextInputEditText mEdiVaporzz;
     private TextInputEditText mEdiProductorzz;
@@ -408,7 +409,9 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
     private void findviewsIds() {
    //first views fields
+        ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
 
+        btnSaveControlC=findViewById(R.id.btnSaveControlC);
         mEdiVaporzz = findViewById(R.id.ediVaporzz);
         mEdiProductorzz = findViewById(R.id.ediProductorzz);
         mEdiCodigozz = findViewById(R.id.ediCodigozz);
@@ -1468,14 +1471,14 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
 
-    private void cheakAndUploadFormulario() {
+    private boolean cheakIfInfoIsComplete() {
 
         if(mEdiVaporzz.getText().toString().trim().isEmpty()){
             mEdiVaporzz.requestFocus() ;
             mEdiVaporzz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
         if(mEdiProductorzz.getText().toString().trim().isEmpty()){
@@ -1483,7 +1486,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiProductorzz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1492,7 +1495,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiCodigozz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1502,7 +1505,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiZonazz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1511,8 +1514,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiHaciendazz.requestFocus() ;
             mEdiHaciendazz.setError("Este espacio es necesario") ;
 
-
-            return;
+            return false;
         }
 
 
@@ -1522,7 +1524,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiExportadorazz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1532,7 +1534,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiCompaniazz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1542,7 +1544,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiClientezz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1551,7 +1553,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiZemanazz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1561,7 +1563,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiFechazz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1571,7 +1573,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiMagapzz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1581,7 +1583,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiMarcaCajazz.setError("Este espacio es necesario") ;
 
 
-            return;
+            return false;
         }
 
 
@@ -1589,7 +1591,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         if(mEdiTipoEmpazz.getText().toString().trim().isEmpty()){
             mEdiTipoEmpazz.requestFocus() ;
             mEdiTipoEmpazz.setError("Este espacio es necesario") ;
-            return;
+            return false;
         }
 
 
@@ -1597,7 +1599,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         if(mEdiDestinzz.getText().toString().trim().isEmpty()){
             mEdiDestinzz.requestFocus() ;
             mEdiDestinzz.setError("Este espacio es necesario") ;
-            return;
+            return false;
         }
 
 
@@ -1605,7 +1607,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         if(mEdiTotalCajaszz.getText().toString().trim().isEmpty()){
             mEdiTotalCajaszz.requestFocus() ;
             mEdiTotalCajaszz.setError("Este espacio es necesario") ;
-            return;
+            return false;
         }
 
 
@@ -1614,7 +1616,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdioCalidaCampzz.requestFocus() ;
             mEdioCalidaCampzz.setError("Este espacio es necesario") ;
 
-            return;
+            return false;
         }
 
 
@@ -1623,7 +1625,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiHoraInizz.requestFocus() ;
             mEdiHoraInizz.setError("Este espacio es necesario") ;
 
-            return;
+            return false;
         }
 
 
@@ -1632,7 +1634,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiHoraTermizz.requestFocus() ;
             mEdiHoraTermizz.setError("Este espacio es necesario") ;
 
-            return;
+            return false;
         }
 
 
@@ -1640,7 +1642,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiContenedorzz.requestFocus() ;
             mEdiContenedorzz.setError("Este espacio es necesario") ;
 
-            return;
+            return false;
         }
 
 
@@ -1649,7 +1651,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiSellosnavzz.requestFocus() ;
             mEdiSellosnavzz.setError("Este espacio es necesario") ;
 
-            return;
+            return false;
         }
 
 
@@ -1659,7 +1661,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             mEdiSelloVerzz.requestFocus() ;
             mEdiSelloVerzz.setError("Este espacio es necesario") ;
 
-            return;
+            return false;
         }
 
 
@@ -1668,7 +1670,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         if(mEdiTermografozz.getText().toString().trim().isEmpty()){
             mEdiTermografozz.requestFocus() ;
             mEdiTermografozz.setError("Este espacio es necesario") ;
-            return;
+            return false;
         }
 
 
@@ -1677,20 +1679,52 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         if(mEdiPlacaCarrzz.getText().toString().trim().isEmpty()){
             mEdiPlacaCarrzz.requestFocus() ;
             mEdiPlacaCarrzz.setError("Este espacio es necesario") ;
-            return;
+            return false;
         }
 
 
         if(mEdiPuertEmbzz.getText().toString().trim().isEmpty()){
             mEdiPuertEmbzz.requestFocus() ;
             mEdiPuertEmbzz.setError("Este espacio es necesario") ;
-            return;
+            return false;
         }
+
+
+return true;
+
+    }
+
+
+
+    private void eventoBtnSaveFomrulario() {
+
+        btnSaveControlC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //
+
+            }
+        });
+
+    }
+
+
+    private void creaNuevoFormulario(){
+
+        ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
+                mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(),mEdiCodigozz.getText().toString(),
+                mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
+                mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdiSemanazz.getText().toString()),
+                 mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
+                mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
+                mEdioCalidaCampzz.getText().toString(),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
+                mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
+                mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
 
 
 
 
     }
-
 
 }
