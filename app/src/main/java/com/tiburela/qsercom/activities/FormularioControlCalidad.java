@@ -15,11 +15,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.collection.LLRBNode;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.ControlCalidad;
-import com.tiburela.qsercom.models.EstateFieldView;
-import com.tiburela.qsercom.models.ImagenReport;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,7 +43,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     private TextInputEditText mEdiExportadorazz;
     private TextInputEditText mEdiCompaniazz;
     private TextInputEditText mEdiClientezz;
-    private TextInputEditText mEdiZemanazz;
+    private TextInputEditText mEdisemanazz;
     private TextInputEditText mEdiFechazz;
     private TextInputEditText mEdiMagapzz;
     private TextInputEditText mEdiMarcaCajazz;
@@ -420,7 +417,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         mEdiExportadorazz = findViewById(R.id.ediExportadorazz);
         mEdiCompaniazz = findViewById(R.id.ediCompaniazz);
         mEdiClientezz = findViewById(R.id.ediClientezz);
-        mEdiZemanazz = findViewById(R.id.ediZemanazz);
+        mEdisemanazz = findViewById(R.id.ediSemanazz);
         mEdiFechazz = findViewById(R.id.ediFechazz);
         mEdiMagapzz = findViewById(R.id.ediMagapzz);
         mEdiMarcaCajazz = findViewById(R.id.ediMarcaCajazz);
@@ -1548,9 +1545,9 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         }
 
 
-        if(mEdiZemanazz.getText().toString().trim().isEmpty()){
-            mEdiZemanazz.requestFocus() ;
-            mEdiZemanazz.setError("Este espacio es necesario") ;
+        if(mEdisemanazz.getText().toString().trim().isEmpty()){
+            mEdisemanazz.requestFocus() ;
+            mEdisemanazz.setError("Este espacio es necesario") ;
 
 
             return false;
@@ -1715,16 +1712,13 @@ return true;
         ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
                 mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(),mEdiCodigozz.getText().toString(),
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
-                mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdiSemanazz.getText().toString()),
+                mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()),
                  mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
                 mEdioCalidaCampzz.getText().toString(),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
                 mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
-
-
-
-
     }
+
 
 }

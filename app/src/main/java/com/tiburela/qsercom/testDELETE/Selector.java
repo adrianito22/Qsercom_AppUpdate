@@ -46,7 +46,7 @@ public class Selector extends AppCompatActivity {
         mEdiExportadorazz = findViewById(R.id.ediExportadorazz);
         mEdiCompaniazz = findViewById(R.id.ediCompaniazz);
         mEdiClientezz = findViewById(R.id.ediClientezz);
-        mEdiZemanazz = findViewById(R.id.ediZemanazz);
+        mEdiZemanazz = findViewById(R.id.ediSemanazz);
         mEdiFechazz = findViewById(R.id.ediFechazz);
         mEdiMagapzz = findViewById(R.id.ediMagapzz);
         mEdiMarcaCajazz = findViewById(R.id.ediMarcaCajazz);
