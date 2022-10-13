@@ -539,6 +539,12 @@ return object;
     }
 
 
+    //crea un mapa con las posiciones en true
+    //el mapa debe tener 10 valores
+    //cada valor debe tener un key el imgview id....
+    //
+
+
 
 
 }

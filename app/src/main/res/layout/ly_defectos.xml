@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -14,6 +14,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <include
+                layout="@layout/ly_defect_part1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -21,7 +26,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#404040"
+                        android:padding="10dp"
+                        android:text="Defectos"
+                        android:textColor="@android:color/white" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -40,49 +57,57 @@
                         <TextView
                             android:id="@+id/textView44"
                             android:layout_width="75dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:gravity="center_horizontal"
+                            android:gravity="center|center_horizontal"
                             android:text="HORA"
                             android:textColor="#E91E63" />
 
                         <TextView
                             android:id="@+id/textView45"
                             android:layout_width="75dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:gravity="center_horizontal"
+                            android:gravity="center"
                             android:text="Peso Lbs." />
 
                         <TextView
                             android:id="@+id/textView46"
                             android:layout_width="75dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginLeft="10dp"
-                            android:gravity="center_horizontal"
+                            android:gravity="center|center_horizontal"
                             android:text="PH" />
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView47"
+                                android:layout_width="75dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="top"
+                                android:text="Num  Cluster Inspecc    " />
+                        </LinearLayout>
+
                         <TextView
-                            android:id="@+id/textView47"
-                            android:layout_width="75dp"
-                            android:layout_height="match_parent"
+                            android:id="@+id/textView56"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:gravity="center_horizontal"
-                            android:text="Num  Cluster Inspecc" />
+                            android:text="SELECION" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                        <TextView
+                            android:id="@+id/textView57"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
-
-                        <ImageView
-                            android:id="@+id/img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:text="EMPAQUE" />
 
                         <TextView
                             android:id="@+id/textView48"
@@ -92,12 +117,19 @@
                             android:background="#DC3232"
                             android:text="TOTAL" />
 
-                        <TextView
-                            android:id="@+id/textView49"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="Def Caja linea" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView49"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="Def Caja linea" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -105,6 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -187,21 +220,21 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <TextView
                             android:id="@+id/txtTotal1"
-                            android:layout_width="40dp"
+                            android:layout_width="42dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp" />
 
@@ -214,9 +247,12 @@
 
                     <LinearLayout
 
+                        android:id="@+id/comtainer"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -301,15 +337,15 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
@@ -329,6 +365,8 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
+                        android:gravity="center"
+
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:orientation="horizontal">
@@ -415,14 +453,14 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc3"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque3"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
@@ -443,6 +481,8 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
+                        android:gravity="center"
+
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:orientation="horizontal">
@@ -529,14 +569,14 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
@@ -557,6 +597,7 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:orientation="horizontal">
@@ -641,14 +682,14 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc5"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque5"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
@@ -669,6 +710,8 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
+                        android:gravity="center"
+
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:orientation="horizontal">
@@ -752,14 +795,15 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc6"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
+
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque6"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
@@ -780,6 +824,8 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
+                        android:gravity="center"
+
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:orientation="horizontal">
@@ -864,14 +910,15 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc7"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
+
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque7"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
@@ -892,6 +939,7 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:orientation="horizontal">
@@ -974,14 +1022,15 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc8"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
+
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque8"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
@@ -1002,6 +1051,8 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
+                        android:gravity="center"
+
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:orientation="horizontal">
@@ -1082,14 +1133,14 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc9"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque9"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
@@ -1109,9 +1160,11 @@
 
                     <LinearLayout
 
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -1195,14 +1248,14 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc10"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque10"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_baseline_post_add_24" />
@@ -1223,6 +1276,7 @@
                     <LinearLayout
 
                         android:id="@+id/tttttttt"
+                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"

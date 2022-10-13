@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.collection.LLRBNode;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -31,6 +32,17 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     TextView textView48;
 
     HashMap<String, String> hasHmapFieldsRecha;
+    HashMap<String, String> hahasMapitemsSelecPosic;
+
+
+
+    //
+
+
+
+
+
+
 
     //Imageviews defects
     ImageView imgSelecDefc1;
@@ -54,6 +66,8 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
      TextInputEditText ediTimeHoraxx8;
      TextInputEditText ediTimeHoraxx9;
      TextInputEditText ediTimeHoraxx10;
+
+
 
     TextInputEditText ediPesoL1;
     TextInputEditText ediPesoL2;
@@ -310,6 +324,9 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         // assign variable
        // textView = findViewById(R.id.textView);
         findviewsIds();
+
+        sumarNumeros();
+
         addListnners();
 
 
@@ -371,16 +388,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
     private void findviewsIds() {
 
-        ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
-        ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
-        ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
-        ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
-        ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
-        ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
-        ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
-        ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
-        ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
-        ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
+
 
         imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
          imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
@@ -472,27 +480,25 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         ediNdedoXclust2=findViewById(R.id.ediNdedoXclust2);
          ediNdedoXclust3=findViewById(R.id.ediNdedoXclust3) ;
        ediNdedoXclust4=findViewById(R.id.ediNdedoXclust3);
-        ediNdedoXclust5=findViewById(R.id.ediNdedoXclust5)
+        ediNdedoXclust5=findViewById(R.id.ediNdedoXclust5);
 
 
 
 
+        ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
+        ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
+        ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
+        ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
+        ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
+        ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
+        ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
+        ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
+        ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
+        ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
 
 
-
-
-
-
-
-
-
-
-
-
-
-        ;
        ediNdedoXclust6=findViewById(R.id.ediNdedoXclust6);
-        ediNdedoXclust7=findViewById(R.id.ediNdedoXclust7)         ;
+        ediNdedoXclust7=findViewById(R.id.ediNdedoXclust7);
         ediNdedoXclust8=findViewById(R.id.ediNdedoXclust8);
         ediNdedoXclust9=findViewById(R.id.ediNdedoXclust9);
         ediNdedoXclust10=findViewById(R.id.ediNdedoXclust10);
@@ -765,6 +771,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
                  estates =listToAarray(listOfLISTState.get(0));
                 showDialogx(estates,0);
+
 
                 break;
 
@@ -1325,6 +1332,90 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     }
 
 
+
+    private String [] converTextToArray(String texto) {
+
+
+        //procurar que el texto tenga commas..
+
+        String [] converTextToArrayX =texto.split(","); //
+
+
+
+
+        return  converTextToArrayX;
+
+    }
+
+
+
+    private String  converArayToText(String [] miarray ) {
+
+        String textoToDevolver="";
+
+        for(int i =0; i<miarray.length; i++) { //debe tener size uno al menos..
+
+            textoToDevolver = textoToDevolver +"," +miarray[i];
+        }
+
+        //aqui devolvemos un texto con commmas..
+
+        return  textoToDevolver ;
+
+
+    }
+
+
+
+    private void addItemsSelect() {
+
+        ImageView  [] imgSelecArray= {imgSelecDefc1,imgSelecDefc2,imgSelecDefc3,imgSelecDefc4,imgSelecDefc5,imgSelecDefc6,
+                imgSelecDefc7,imgSelecDefc8, imgSelecDefc9,imgSelecDefc10} ;
+
+        hahasMapitemsSelecPosic = new HashMap<>();
+
+        for (int i = 0; i <listOfLISTState.size(); i++) {
+            ArrayList<Boolean> currentList = listOfLISTState.get(i);
+
+            String value="";
+
+            for (int j = 0; j < currentList.size(); j++) {  //recorreemos la lista
+
+                if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
+
+                    value=value+","+j;
+
+                }
+                //agregamos valors a esta lista
+            }
+
+            //AGREGAMOS ESTA LETRA AL MAP:
+
+            hahasMapitemsSelecPosic.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+
+
+        }
+
+
+    }
+
+
+
+
+
+    void sumarNumeros(){
+       int valor1=5;
+       int valor2=2;
+
+
+       int resultado= valor1+valor2;
+
+
+       Log.i("muestradd",String.valueOf(resultado));
+
+
+
+    }
 
 
 
