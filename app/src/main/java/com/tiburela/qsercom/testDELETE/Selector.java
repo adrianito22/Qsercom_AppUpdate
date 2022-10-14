@@ -9,92 +9,95 @@ import com.tiburela.qsercom.R;
 
 public class Selector extends AppCompatActivity {
 
+    //FILA 1
 
-    private TextView mTextView54;
-    private TextInputLayout mLasdtwwe;
     private TextInputEditText mEdiLargDeds1;
     private TextInputEditText mEdiLargDeds2;
-    private TextInputLayout mTdf;
     private TextInputEditText mEdiLargDeds3;
     private TextInputEditText mEdiLargDeds4;
     private TextInputEditText mEdiLargDeds5;
+
+
     private TextInputEditText mEdiLargDeds6;
     private TextInputEditText mEdiLargDeds7;
     private TextInputEditText mEdiLargDeds8;
     private TextInputEditText mEdiLargDeds9;
     private TextInputEditText mEdiLargDeds10;
+
     private TextInputEditText mEdiLargDeds11;
     private TextInputEditText mEdiLargDeds12;
     private TextInputEditText mEdiLargDeds13;
     private TextInputEditText mEdiLargDeds14;
     private TextInputEditText mEdiLargDeds15;
+
     private TextInputEditText mEdiLargDeds16;
     private TextInputEditText mEdiLargDeds17;
     private TextInputEditText mEdiLargDeds18;
     private TextInputEditText mEdiLargDeds19;
     private TextInputEditText mEdiLargDeds20;
+
     private TextInputEditText mEdiLargDeds21;
     private TextInputEditText mEdiLargDeds22;
     private TextInputEditText mEdiLargDeds23;
     private TextInputEditText mEdiLargDeds24;
     private TextInputEditText mEdiLargDeds25;
+
     private TextInputEditText mEdiLargDeds26;
     private TextInputEditText mEdiLargDeds27;
     private TextInputEditText mEdiLargDeds28;
     private TextInputEditText mEdiLargDeds29;
-    private TextInputLayout mLast2;
     private TextInputEditText mEdiLargDeds30;
-    private TextInputEditText mEdiTotalFila1;
-    private TextInputEditText mEdiPromFila1;
-    private TextInputLayout mLast2234;
-    private LinearLayout mLy2mm;
+
+
+
+    //fila 2
     private TextInputEditText mEdif2LrgD1;
     private TextInputEditText mEdif2LrgD2;
     private TextInputEditText mEdif2LrgD3;
     private TextInputEditText mEdif2LrgD4;
     private TextInputEditText mEdif2LrgD5;
+
+
     private TextInputEditText mEdif2LrgD6;
     private TextInputEditText mEdif2LrgD7;
     private TextInputEditText mEdif2LrgD8;
     private TextInputEditText mEdif2LrgD9;
     private TextInputEditText mEdif2LrgD10;
+
     private TextInputEditText mEdif2LrgD11;
     private TextInputEditText mEdif2LrgD12;
     private TextInputEditText mEdif2LrgD13;
     private TextInputEditText mEdif2LrgD14;
     private TextInputEditText mEdif2LrgD15;
+
     private TextInputEditText mEdif2LrgD16;
     private TextInputEditText mEdif2LrgD17;
     private TextInputEditText mEdif2LrgD18;
     private TextInputEditText mEdif2LrgD19;
     private TextInputEditText mEdif2LrgD20;
+
     private TextInputEditText mEdif2LrgD21;
     private TextInputEditText mEdif2LrgD22;
     private TextInputEditText mEdif2LrgD23;
     private TextInputEditText mEdif2LrgD24;
     private TextInputEditText mEdif2LrgD25;
+
     private TextInputEditText mEdif2LrgD26;
     private TextInputEditText mEdif2LrgD27;
     private TextInputEditText mEdif2LrgD28;
     private TextInputEditText mEdif2LrgD29;
-    private TextInputLayout mLast;
     private TextInputEditText mEdif2LrgD30;
-    private TextInputEditText mEdiTotalFila2;
-    private TextInputEditText mEdiPromFila2;
-    private TextInputLayout mLasteer;
-    private LinearLayout mLycontainer1;
-    private TextView mAfftertext;
-    private TextInputEditText mEdiObservacioneszszz;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.super_test);
-        mTextView54 = findViewById(R.id.textView54);
-        mLasdtwwe = findViewById(R.id.lasdtwwe);
+
+
         mEdiLargDeds1 = findViewById(R.id.ediLargDeds1);
         mEdiLargDeds2 = findViewById(R.id.ediLargDeds2);
-        mTdf = findViewById(R.id.tdf);
         mEdiLargDeds3 = findViewById(R.id.ediLargDeds3);
         mEdiLargDeds4 = findViewById(R.id.ediLargDeds4);
         mEdiLargDeds5 = findViewById(R.id.ediLargDeds5);
@@ -122,12 +125,7 @@ public class Selector extends AppCompatActivity {
         mEdiLargDeds27 = findViewById(R.id.ediLargDeds27);
         mEdiLargDeds28 = findViewById(R.id.ediLargDeds28);
         mEdiLargDeds29 = findViewById(R.id.ediLargDeds29);
-        mLast2 = findViewById(R.id.last2);
         mEdiLargDeds30 = findViewById(R.id.ediLargDeds30);
-        mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
-        mEdiPromFila1 = findViewById(R.id.ediPromFila1);
-        mLast2234 = findViewById(R.id.last2234);
-        mLy2mm = findViewById(R.id.ly2mm);
         mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
         mEdif2LrgD2 = findViewById(R.id.edif2LrgD2);
         mEdif2LrgD3 = findViewById(R.id.edif2LrgD3);
@@ -157,13 +155,7 @@ public class Selector extends AppCompatActivity {
         mEdif2LrgD27 = findViewById(R.id.edif2LrgD27);
         mEdif2LrgD28 = findViewById(R.id.edif2LrgD28);
         mEdif2LrgD29 = findViewById(R.id.edif2LrgD29);
-        mLast = findViewById(R.id.last);
         mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
-        mEdiTotalFila2 = findViewById(R.id.ediTotalFila2);
-        mEdiPromFila2 = findViewById(R.id.ediPromFila2);
-        mLasteer = findViewById(R.id.lasteer);
-        mLycontainer1 = findViewById(R.id.lycontainer1);
-        mAfftertext = findViewById(R.id.afftertext);
-        mEdiObservacioneszszz = findViewById(R.id.ediObservacioneszszz);
+
     }
 }

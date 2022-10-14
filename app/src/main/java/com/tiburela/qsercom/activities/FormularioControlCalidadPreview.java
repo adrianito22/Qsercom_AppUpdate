@@ -383,10 +383,23 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         TextInputEditText ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
         ediObservacioneszszz.setText(controlCalidad.getObservaciones());
+        ediTimeHoraxx2.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx2.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx3.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx4.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx5.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx6.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx7.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx8.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx9.setText(controlCalidad.getCalidaCamp());
+        ediTimeHoraxx10.setText(controlCalidad.getCalidaCamp());
 
-        TextInputEditText arrayAllFields[] =  {
 
-                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+
+
+        TextInputEditText arrayAllFields[] = {
+
+                ediTimeHoraxx2, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
                 ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
                 ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
                 ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
@@ -405,18 +418,16 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
                 edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
-                ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
-                , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
-                ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-                ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
-                ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+                ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 ,ediNdedoXclustXc7,
+                ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 , ediNdedoXclustXc14 ,
+                ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 , ediNdedoXclustXc19,ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , edif2NdedoXclust27 , ediCalByA21 ,
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
                 edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
 
-
-        } ;
+        };
 
         for (Map.Entry<String, String > entry : miMapa.entrySet()) {
             String keyAndIdOfView = entry.getKey();

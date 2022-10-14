@@ -26,6 +26,75 @@ import java.util.HashMap;
 public class FormularioControlCalidad extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
 
+
+    private TextInputEditText mEdiLargDeds1;
+    private TextInputEditText mEdiLargDeds2;
+    private TextInputEditText mEdiLargDeds3;
+    private TextInputEditText mEdiLargDeds4;
+    private TextInputEditText mEdiLargDeds5;
+    private TextInputEditText mEdiLargDeds6;
+    private TextInputEditText mEdiLargDeds7;
+    private TextInputEditText mEdiLargDeds8;
+    private TextInputEditText mEdiLargDeds9;
+    private TextInputEditText mEdiLargDeds10;
+    private TextInputEditText mEdiLargDeds11;
+    private TextInputEditText mEdiLargDeds12;
+    private TextInputEditText mEdiLargDeds13;
+    private TextInputEditText mEdiLargDeds14;
+    private TextInputEditText mEdiLargDeds15;
+    private TextInputEditText mEdiLargDeds16;
+    private TextInputEditText mEdiLargDeds17;
+    private TextInputEditText mEdiLargDeds18;
+    private TextInputEditText mEdiLargDeds19;
+    private TextInputEditText mEdiLargDeds20;
+    private TextInputEditText mEdiLargDeds21;
+    private TextInputEditText mEdiLargDeds22;
+    private TextInputEditText mEdiLargDeds23;
+    private TextInputEditText mEdiLargDeds24;
+    private TextInputEditText mEdiLargDeds25;
+    private TextInputEditText mEdiLargDeds26;
+    private TextInputEditText mEdiLargDeds27;
+    private TextInputEditText mEdiLargDeds28;
+    private TextInputEditText mEdiLargDeds29;
+    private TextInputEditText mEdiLargDeds30;
+
+    private TextInputEditText mEdiTotalFila1;
+    private TextInputEditText mEdiPromFila1;
+    private TextInputEditText mEdif2LrgD1;
+    private TextInputEditText mEdif2LrgD2;
+    private TextInputEditText mEdif2LrgD3;
+    private TextInputEditText mEdif2LrgD4;
+    private TextInputEditText mEdif2LrgD5;
+    private TextInputEditText mEdif2LrgD6;
+    private TextInputEditText mEdif2LrgD7;
+    private TextInputEditText mEdif2LrgD8;
+    private TextInputEditText mEdif2LrgD9;
+    private TextInputEditText mEdif2LrgD10;
+    private TextInputEditText mEdif2LrgD11;
+    private TextInputEditText mEdif2LrgD12;
+    private TextInputEditText mEdif2LrgD13;
+    private TextInputEditText mEdif2LrgD14;
+    private TextInputEditText mEdif2LrgD15;
+    private TextInputEditText mEdif2LrgD16;
+    private TextInputEditText mEdif2LrgD17;
+    private TextInputEditText mEdif2LrgD18;
+    private TextInputEditText mEdif2LrgD19;
+    private TextInputEditText mEdif2LrgD20;
+    private TextInputEditText mEdif2LrgD21;
+    private TextInputEditText mEdif2LrgD22;
+    private TextInputEditText mEdif2LrgD23;
+    private TextInputEditText mEdif2LrgD24;
+    private TextInputEditText mEdif2LrgD25;
+    private TextInputEditText mEdif2LrgD26;
+    private TextInputEditText mEdif2LrgD27;
+    private TextInputEditText mEdif2LrgD28;
+    private TextInputEditText mEdif2LrgD29;
+    private TextInputEditText mEdif2LrgD30;
+
+
+
+
+
     TextView textView;
     boolean[] selectedLanguage;
     Button btnSaveControlC;
@@ -716,9 +785,71 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         edif2Calib21=findViewById(R.id.edif2Calib21);
         edif2Calib22=findViewById(R.id.edif2Calib22);
 
+        mEdiLargDeds1 = findViewById(R.id.ediLargDeds1);
+        mEdiLargDeds2 = findViewById(R.id.ediLargDeds2);
+        mEdiLargDeds3 = findViewById(R.id.ediLargDeds3);
+        mEdiLargDeds4 = findViewById(R.id.ediLargDeds4);
+        mEdiLargDeds5 = findViewById(R.id.ediLargDeds5);
+        mEdiLargDeds6 = findViewById(R.id.ediLargDeds6);
+        mEdiLargDeds7 = findViewById(R.id.ediLargDeds7);
+        mEdiLargDeds8 = findViewById(R.id.ediLargDeds8);
+        mEdiLargDeds9 = findViewById(R.id.ediLargDeds9);
+        mEdiLargDeds10 = findViewById(R.id.ediLargDeds10);
+        mEdiLargDeds11 = findViewById(R.id.ediLargDeds11);
+        mEdiLargDeds12 = findViewById(R.id.ediLargDeds12);
+        mEdiLargDeds13 = findViewById(R.id.ediLargDeds13);
+        mEdiLargDeds14 = findViewById(R.id.ediLargDeds14);
+        mEdiLargDeds15 = findViewById(R.id.ediLargDeds15);
+        mEdiLargDeds16 = findViewById(R.id.ediLargDeds16);
+        mEdiLargDeds17 = findViewById(R.id.ediLargDeds17);
+        mEdiLargDeds18 = findViewById(R.id.ediLargDeds18);
+        mEdiLargDeds19 = findViewById(R.id.ediLargDeds19);
+        mEdiLargDeds20 = findViewById(R.id.ediLargDeds20);
+        mEdiLargDeds21 = findViewById(R.id.ediLargDeds21);
+        mEdiLargDeds22 = findViewById(R.id.ediLargDeds22);
+        mEdiLargDeds23 = findViewById(R.id.ediLargDeds23);
+        mEdiLargDeds24 = findViewById(R.id.ediLargDeds24);
+        mEdiLargDeds25 = findViewById(R.id.ediLargDeds25);
+        mEdiLargDeds26 = findViewById(R.id.ediLargDeds26);
+        mEdiLargDeds27 = findViewById(R.id.ediLargDeds27);
+        mEdiLargDeds28 = findViewById(R.id.ediLargDeds28);
+        mEdiLargDeds29 = findViewById(R.id.ediLargDeds29);
+        mEdiLargDeds30 = findViewById(R.id.ediLargDeds30);
+        mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
+        mEdiPromFila1 = findViewById(R.id.ediPromFila1);
+        mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
+        mEdif2LrgD2 = findViewById(R.id.edif2LrgD2);
+        mEdif2LrgD3 = findViewById(R.id.edif2LrgD3);
+        mEdif2LrgD4 = findViewById(R.id.edif2LrgD4);
+        mEdif2LrgD5 = findViewById(R.id.edif2LrgD5);
+        mEdif2LrgD6 = findViewById(R.id.edif2LrgD6);
+        mEdif2LrgD7 = findViewById(R.id.edif2LrgD7);
+        mEdif2LrgD8 = findViewById(R.id.edif2LrgD8);
+        mEdif2LrgD9 = findViewById(R.id.edif2LrgD9);
+        mEdif2LrgD10 = findViewById(R.id.edif2LrgD10);
+        mEdif2LrgD11 = findViewById(R.id.edif2LrgD11);
+        mEdif2LrgD12 = findViewById(R.id.edif2LrgD12);
+        mEdif2LrgD13 = findViewById(R.id.edif2LrgD13);
+        mEdif2LrgD14 = findViewById(R.id.edif2LrgD14);
+        mEdif2LrgD15 = findViewById(R.id.edif2LrgD15);
+        mEdif2LrgD16 = findViewById(R.id.edif2LrgD16);
+        mEdif2LrgD17 = findViewById(R.id.edif2LrgD17);
+        mEdif2LrgD18 = findViewById(R.id.edif2LrgD18);
+        mEdif2LrgD19 = findViewById(R.id.edif2LrgD19);
+        mEdif2LrgD20 = findViewById(R.id.edif2LrgD20);
+        mEdif2LrgD21 = findViewById(R.id.edif2LrgD21);
+        mEdif2LrgD22 = findViewById(R.id.edif2LrgD22);
+        mEdif2LrgD23 = findViewById(R.id.edif2LrgD23);
+        mEdif2LrgD24 = findViewById(R.id.edif2LrgD24);
+        mEdif2LrgD25 = findViewById(R.id.edif2LrgD25);
+        mEdif2LrgD26 = findViewById(R.id.edif2LrgD26);
+        mEdif2LrgD27 = findViewById(R.id.edif2LrgD27);
+        mEdif2LrgD28 = findViewById(R.id.edif2LrgD28);
+        mEdif2LrgD29 = findViewById(R.id.edif2LrgD29);
+        mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
 
 
-         imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
+        imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
          imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
          imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
 
@@ -1078,17 +1209,22 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             case R.id.imgUpdateCalibBasalYapical:
                     getCalibraEntreBasalYapiclProduct();
 
+                getlargoDedosPulgaPulpaApulpa();
+
                 break;
 
             case R.id.imgUpdateNumClusterxCaja:
                 getNumeroClusterxCajaProduct();
+                getlargoDedosPulgaPulpaApulpa();
+
 
                 break;
 
 
             case R.id.imgUpdateNumDedxClust:
-
                 setResultNumClusteroManoProduct();
+                getlargoDedosPulgaPulpaApulpa();
+
                 break;
 
 
@@ -1823,8 +1959,6 @@ return true;
 
      private void setResultNumClusteroManoProduct() {
 
-        //3-30
-
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26,27,28,29,30  } ;
 
@@ -2006,75 +2140,150 @@ return true;
 
     private void getlargoDedosPulgaPulpaApulpa() {
 
+        int [] arraydIGITS = { 6,7,8,9,10,11 } ;
 
-         //array bidimensional de editex...
+        int [][] datsNumsFila2Array = {
 
+                {0,2,4,6,8},
+                {0,2,4,6,8},
+                {0,2,4,6,8},
+                {0,2,4,6,8},
+                {0,2,4,6,8},
+                {0,2,4,6,8},
+                {0,2,4,6,8},
 
-      //   TextInputEditText [][] arrayBidimens = {nEdiLargDeds1,
-
-
-
-         };
-
-
-        //entero   //multiplica numero de fila 3 por fila 1..del mismo grupo..
-        //decimal es) valor de ls fila 3*2
-     //   16. decimal
-
+        } ;
 
 
-        /***falta esto > views y mas data */
 
-        final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
+        TextInputEditText [][] arrayBidimensfILA1 = {
 
+                {mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5},
+                {mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10},
+                {mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15},
+                {mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20},
+                {mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25},
+                {mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30},
 
-        TextInputEditText [] arrayEditsFilaArriba = { ediCalByA1	,
-                ediCalByA2	, ediCalByA3	, ediCalByA4	, ediCalByA5	, ediCalByA6	,
-                ediCalByA7	, ediCalByA8	, ediCalByA9	, ediCalByA10	, ediCalByA11	,
-                ediCalByA12	, ediCalByA13	, ediCalByA14	, ediCalByA15	, ediCalByA16	,
-                ediCalByA17	, ediCalByA18	, ediCalByA19	, ediCalByA20	,
-
-
-        };
+        } ;
 
 
-        TextInputEditText [] arrayEditsFilaAbajo = {
-                edif2Calib1	, edif2Calib2, edif2Calib3,edif2Calib4,
-                edif2Calib5	, edif2Calib6, edif2Calib7, edif2Calib8	,
-                edif2Calib9	, edif2Calib10, edif2Calib11, edif2Calib12	,
-                edif2Calib13, edif2Calib14, edif2Calib15, edif2Calib16	,
-                edif2Calib17, edif2Calib18, edif2Calib19, edif2Calib20	,
+        TextInputEditText [][] arrayBidimensfILA2MostarText = {
+
+                {mEdif2LrgD1,mEdif2LrgD2,mEdif2LrgD3,mEdif2LrgD4,mEdif2LrgD5},
+                {mEdif2LrgD6,mEdif2LrgD7,mEdif2LrgD8,mEdif2LrgD9,mEdif2LrgD10},
+                {mEdif2LrgD11,mEdif2LrgD12,mEdif2LrgD13,mEdif2LrgD14,mEdif2LrgD15},
+                {mEdif2LrgD16,mEdif2LrgD17,mEdif2LrgD18,mEdif2LrgD19,mEdif2LrgD20},
+                {mEdif2LrgD21,mEdif2LrgD22,mEdif2LrgD23,mEdif2LrgD24,mEdif2LrgD25},
+                {mEdif2LrgD26,mEdif2LrgD27,mEdif2LrgD28,mEdif2LrgD29,mEdif2LrgD30},
+
+        } ;
 
 
-        };
+
+        for (int i = 0; i <arrayBidimensfILA1.length; i++) {
+
+            TextInputEditText [] amiarrayCurrent= arrayBidimensfILA1[i];
+            TextInputEditText [] amiarrayfILA2= arrayBidimensfILA2MostarText[i];
+            int [] currenArrayFila2=datsNumsFila2Array[i];
 
 
-        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
 
-            int productResult =0;
 
-            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+            for (int indice = 0; indice <amiarrayCurrent.length; indice++) {
+             //se ejecutar 5 veces..
+                int productResult =0;
 
-                arrayEditsFilaAbajo [i].getText().clear();
+                if(amiarrayCurrent[indice].getText().toString().trim().isEmpty() )  { //si esta vacio
+                    amiarrayCurrent[indice].getText().clear();
+
+                }
+
+
+                else { //si no esta vacio
+
+                    int numeroPrincipal = arraydIGITS[i]; //NUEMR DE ARRIBA
+                    int numeroFila2 = currenArrayFila2[i];
+                    int currentNumeroFila3 = Integer.parseInt(amiarrayCurrent[indice].getText().toString());
+
+                    Log.i("holaas", "el valor de numeroFila2 " + numeroFila2);
+                    Log.i("holaas", "el valor de currentNumeroFila3 " + currentNumeroFila3);
+                    Log.i("holaas", "el valor de numeroPrincipal " + numeroPrincipal);
+
+
+                    /****OPERACION
+                     *
+                     * ***/
+
+                    productResult = currentNumeroFila3 * numeroPrincipal;
+                    Log.i("holaas", "el valor de productResult " + productResult);
+
+                    int otrovalor = currentNumeroFila3 * numeroFila2;
+
+
+                    double dall = otrovalor / 10;
+                    Log.i("holaas","el otro valor convertido dall es  "+dall);
+
+
+
+
+                    otrovalor =otrovalor/10;
+
+
+
+                    double resutDecimalOtroValor=otrovalor/10;
+
+                    double numReondeadoOFresutDecimalOtroValor;
+
+
+                    if(String.valueOf(resutDecimalOtroValor).contains("0")) { //cuando no es cero
+                        numReondeadoOFresutDecimalOtroValor=  Math.floor(resutDecimalOtroValor);
+                       //  Log.i("holaas","result es "+numReondeadoOFresutDecimalOtroValor);
+                        double  resulFinal= numReondeadoOFresutDecimalOtroValor;
+                        Log.i("holaas","resulFinal es "+resulFinal);
+
+                    }
+
+
+                    {
+
+
+
+
+                        double  resulFinalElse=   resutDecimalOtroValor+productResult;
+                        Log.i("holaas","resulFinal else es "+resulFinalElse);
+
+
+                    }
+
+
+
+
+
+
+                 //  double resulFinal=numReondeadoOFresutDecimalOtroValor+productResult;
+
+
+                  //  amiarrayfILA2 [i].setText(String.valueOf(productResult));
+
+
+
+                }
+
+
 
             }
 
-
-            else {
-
-
-                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
-                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
-            }
-
-
-
+            //6 veces
 
 
         }
 
 
-    }
 
+
+
+
+}
 
 }
