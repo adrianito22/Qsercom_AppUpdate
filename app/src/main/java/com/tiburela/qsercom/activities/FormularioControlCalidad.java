@@ -31,7 +31,8 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     Button btnSaveControlC;
     TextView textView48;
     HashMap<String, String> hasHmapFieldsRecha;
-    HashMap<String, String> hahasMapitemsSelecPosic;
+    HashMap<String, String> hahasMapitemsSelecPosicRechaz;
+    HashMap<String, String> hahasMapitemsSelecPosicDefcEmpq;
 
 
     private TextInputEditText ediObservacioneszszz;
@@ -75,7 +76,15 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     ImageView imgSelecDefc9;
     ImageView imgSelecDefc10;
 
-     TextInputEditText ediTimeHoraxx1;
+
+
+    ImageView imgUpdateNumDedxClust;
+    ImageView imgUpdateNumClusterxCaja;
+    ImageView imgUpdateCalibBasalYapical;
+
+
+
+    TextInputEditText ediTimeHoraxx1;
      TextInputEditText ediTimeHoraxx2;;
      TextInputEditText ediTimeHoraxx3;
      TextInputEditText ediTimeHoraxx4;
@@ -537,7 +546,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
          ediNdedoXclust1=findViewById(R.id.ediNdedoXclust1);
         ediNdedoXclust2=findViewById(R.id.ediNdedoXclust2);
          ediNdedoXclust3=findViewById(R.id.ediNdedoXclust3) ;
-       ediNdedoXclust4=findViewById(R.id.ediNdedoXclust3);
+       ediNdedoXclust4=findViewById(R.id.ediNdedoXclust4);
         ediNdedoXclust5=findViewById(R.id.ediNdedoXclust5);
 
 
@@ -708,6 +717,14 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         edif2Calib22=findViewById(R.id.edif2Calib22);
 
 
+
+         imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
+         imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
+         imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
+
+
+
+
     }
 
 
@@ -716,6 +733,16 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         imgSelecDefc1.setOnClickListener(this);
         imgSelecDefc2.setOnClickListener(this);
         imgSelecDefc3.setOnClickListener(this);
+
+
+        imgUpdateNumDedxClust.setOnClickListener(this);
+        imgUpdateNumClusterxCaja.setOnClickListener(this);
+        imgUpdateCalibBasalYapical.setOnClickListener(this);
+
+
+
+
+
 
         imgSelecDefc4.setOnClickListener(this);
         imgSelecDefc5.setOnClickListener(this);
@@ -1045,6 +1072,27 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                 muestraResultado();
 
                 break;
+
+
+
+            case R.id.imgUpdateCalibBasalYapical:
+                    getCalibraEntreBasalYapiclProduct();
+
+                break;
+
+            case R.id.imgUpdateNumClusterxCaja:
+                getNumeroClusterxCajaProduct();
+
+                break;
+
+
+            case R.id.imgUpdateNumDedxClust:
+
+                setResultNumClusteroManoProduct();
+                break;
+
+
+
         }
 
     }
@@ -1339,7 +1387,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     //alamacenara datos Styring...
 
 
-    private void createMapInfo() {
+    private void createMapInBYothersTextimpuEdFields() {
 
         hasHmapFieldsRecha= new HashMap<>();
 
@@ -1400,13 +1448,12 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
 
-
-    private void addItemsSelect() {
+    private void createInfoToHashmapRechazaSelec() {
 
         ImageView  [] imgSelecArray= {imgSelecDefc1,imgSelecDefc2,imgSelecDefc3,imgSelecDefc4,imgSelecDefc5,imgSelecDefc6,
                 imgSelecDefc7,imgSelecDefc8, imgSelecDefc9,imgSelecDefc10} ;
 
-        hahasMapitemsSelecPosic = new HashMap<>();
+        hahasMapitemsSelecPosicRechaz = new HashMap<>();
 
         for (int i = 0; i <listOfLISTState.size(); i++) {
             ArrayList<Boolean> currentList = listOfLISTState.get(i);
@@ -1414,10 +1461,43 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             String value="";
 
             for (int j = 0; j < currentList.size(); j++) {  //recorreemos la lista
-
                 if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
 
                     value=value+","+j;
+
+                }
+                //agregamos valors a esta lista
+
+            }
+            hahasMapitemsSelecPosicRechaz.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+        }
+
+        hahasMapitemsSelecPosicRechaz.put("0","EMPTY");
+
+    }
+
+    private void createItemsSelectDefectsEmpq() {
+
+        ImageView  [] imgSelecArray= {imvEmpaque1,imvEmpaque2,imvEmpaque3,imvEmpaque4,imvEmpaque5,imvEmpaque6,
+                imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10} ;
+
+        for (int i = 0; i <listOfLISTState2.size(); i++) {
+            ArrayList<Boolean> currentList = listOfLISTState2.get(i);
+
+              String value="";
+
+            for (int j = 0; j < currentList.size(); j++) {  //recorreemos la lista  ///
+
+                if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
+
+                    if(value.equals("")){
+                        value=value+j;
+
+                    }else {
+                        value=value+","+j;
+
+                    }
+
 
                 }
                 //agregamos valors a esta lista
@@ -1425,16 +1505,13 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
             //AGREGAMOS ESTA LETRA AL MAP:
 
-            hahasMapitemsSelecPosic.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+            hahasMapitemsSelecPosicRechaz.put(String.valueOf(imgSelecArray[i].getId()) ,value);
 
 
         }
 
 
     }
-
-
-
 
 
     void sumarNumeros(){
@@ -1692,22 +1769,33 @@ return true;
                 }
 
 
-
-                createMapInfo();
+                createMapInBYothersTextimpuEdFields();
+                createInfoToHashmapRechazaSelec();
+                createItemsSelectDefectsEmpq();
 
                 RealtimeDB.initDatabasesRootOnly();
                 String keyDondeEstaraHasmap=RealtimeDB.rootDatabaseReference.push().getKey();
+                String keyDondeEstaraHasmapDefecSelec=RealtimeDB.rootDatabaseReference.push().getKey();
 
                 ControlCalidad obecjControlCalidad=creaNuevoFormularioByTxtImputEditext();
+
+                //aqctualizamos la ubicacion de los hashmaps en el objeto control calidad
                 obecjControlCalidad.setKeyWhereLocateasHmapFieldsRecha(keyDondeEstaraHasmap);
+                obecjControlCalidad.setKeyDondeEstaraHasmapDefecSelec(keyDondeEstaraHasmapDefecSelec);
 
 
-                RealtimeDB.UploadControlcalidadInforms(obecjControlCalidad);
+                RealtimeDB.UploadControlcalidadInform(obecjControlCalidad);
                 RealtimeDB.addNewHashMapControlCalidad(hasHmapFieldsRecha,keyDondeEstaraHasmap);
+                RealtimeDB.uploadHasmapDefectSelec(hahasMapitemsSelecPosicRechaz,keyDondeEstaraHasmapDefecSelec);
 
-                //subimos en la base de datos...un informe y un hasmap usando los demas fields opcionales
 
-                //
+
+
+
+
+
+
+
 
             }
         });
@@ -1731,6 +1819,262 @@ return true;
                }
 
 
+
+
+     private void setResultNumClusteroManoProduct() {
+
+        //3-30
+
+        final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
+                22,23,24,25,26,27,28,29,30  } ;
+
+          TextInputEditText [] arrayEditsFilaArriba = { ediNdedoXclust1,	ediNdedoXclust2,
+                  ediNdedoXclust3,	ediNdedoXclust4,	ediNdedoXclust5,ediNdedoXclust6,ediNdedoXclust7
+                  ,	ediNdedoXclust8,	ediNdedoXclust9,ediNdedoXclust10,	ediNdedoXclust11
+                  ,	ediNdedoXclust12,	ediNdedoXclust13,ediNdedoXclust14,	ediNdedoXclust15
+                  ,	ediNdedoXclust16,	ediNdedoXclust17,ediNdedoXclust18,	ediNdedoXclust19
+                  ,	ediNdedoXclust20,	ediNdedoXclust21,ediNdedoXclust22,	ediNdedoXclust23,
+                  ediNdedoXclust24,	ediNdedoXclust25,	ediNdedoXclust26,	ediNdedoXclust27,
+                  ediNdedoXclust28,ediNdedoXclust29, ediNdedoXclust30 };
+
+
+         TextInputEditText [] arrayEditsFilaAbajo = {
+                 edif2NdedoXclust1	, edif2NdedoXclust2	, edif2NdedoXclust3	, edif2NdedoXclust4	,
+                 edif2NdedoXclust5	, edif2NdedoXclust6	, edif2NdedoXclust7	, edif2NdedoXclust8	,
+                 edif2NdedoXclust9	, edif2NdedoXclust10, edif2NdedoXclust11, edif2NdedoXclust12,
+                 edif2NdedoXclust13	, edif2NdedoXclust14, edif2NdedoXclust15, edif2NdedoXclust16,
+                 edif2NdedoXclust17	, edif2NdedoXclust18, edif2NdedoXclust19, edif2NdedoXclust20,
+                 edif2NdedoXclust21	, edif2NdedoXclust22, edif2NdedoXclust23, edif2NdedoXclust24,
+                 edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28,
+                 edif2NdedoXclust29	, edif2NdedoXclust30,
+
+         };
+
+
+         for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+             int productResult =0;
+
+             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                 arrayEditsFilaAbajo [i].getText().clear();
+
+             }
+
+
+             else {
+
+
+                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+             }
+
+
+
+         }
+
+     }
+
+    private void getNumeroClusterxCajaProduct() {
+
+        //9-26
+
+        final int [] arrayNJumsTOmult = {9,10,11,12,13,14,15,16,17,18,19,20,21,
+                22,23,24,25,26  } ;
+
+        TextInputEditText [] arrayEditsFilaArriba = { edif2NdedoXclustxC1	, edif2NdedoXclustxC2	, edif2NdedoXclustxC3	,
+                edif2NdedoXclustxC4	, edif2NdedoXclustxC5, edif2NdedoXclustxC6	, edif2NdedoXclustxC7	,
+                edif2NdedoXclustxC8	, edif2NdedoXclustxC9, edif2NdedoXclustxC10, edif2NdedoXclustxC11, edif2NdedoXclustxC12,
+                edif2NdedoXclustxC13, edif2NdedoXclustxC14, edif2NdedoXclustxC15, edif2NdedoXclustxC16,
+                edif2NdedoXclustxC17, edif2NdedoXclustxC18
+        };
+
+
+        TextInputEditText [] arrayEditsFilaAbajo = {
+                ediNdedoXclustXc1, ediNdedoXclustXc2, ediNdedoXclustXc3	, ediNdedoXclustXc4	,ediNdedoXclustXc5,
+                ediNdedoXclustXc6, ediNdedoXclustXc7, ediNdedoXclustXc8	, ediNdedoXclustXc9	,ediNdedoXclustXc10
+                , ediNdedoXclustXc11, ediNdedoXclustXc12, ediNdedoXclustXc13, ediNdedoXclustXc14
+                , ediNdedoXclustXc15, ediNdedoXclustXc16, ediNdedoXclustXc17, ediNdedoXclustXc18
+
+        };
+
+
+        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+            int productResult =0;
+
+
+            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                arrayEditsFilaAbajo [i].getText().clear();
+
+            }
+
+
+            else {
+
+
+                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+            }
+
+
+
+
+
+
+
+
+
+
+        }
+
+
+    }
+
+    private void getCalibraEntreBasalYapiclProduct() {
+
+        //9-26
+
+        final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
+
+
+        TextInputEditText [] arrayEditsFilaArriba = { ediCalByA1	,
+                ediCalByA2	,
+                ediCalByA3	,
+                ediCalByA4	,
+                ediCalByA5	,
+                ediCalByA6	,
+                ediCalByA7	,
+                ediCalByA8	,
+                ediCalByA9	,
+                ediCalByA10	,
+                ediCalByA11	,
+                ediCalByA12	,
+                ediCalByA13	,
+                ediCalByA14	,
+                ediCalByA15	,
+                ediCalByA16	,
+                ediCalByA17	,
+                ediCalByA18	,
+                ediCalByA19	,
+                ediCalByA20	,
+
+
+        };
+
+
+        TextInputEditText [] arrayEditsFilaAbajo = {
+                edif2Calib1	, edif2Calib2, edif2Calib3,edif2Calib4,
+                edif2Calib5	, edif2Calib6, edif2Calib7, edif2Calib8	,
+                edif2Calib9	, edif2Calib10, edif2Calib11, edif2Calib12	,
+                edif2Calib13, edif2Calib14, edif2Calib15, edif2Calib16	,
+                edif2Calib17, edif2Calib18, edif2Calib19, edif2Calib20	,
+
+
+        };
+
+
+        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+            int productResult =0;
+
+            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                arrayEditsFilaAbajo [i].getText().clear();
+
+            }
+
+
+            else {
+
+
+                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+            }
+
+
+
+
+
+        }
+
+
+    }
+
+
+
+    private void getlargoDedosPulgaPulpaApulpa() {
+
+
+         //array bidimensional de editex...
+
+
+      //   TextInputEditText [][] arrayBidimens = {nEdiLargDeds1,
+
+
+
+         };
+
+
+        //entero   //multiplica numero de fila 3 por fila 1..del mismo grupo..
+        //decimal es) valor de ls fila 3*2
+     //   16. decimal
+
+
+
+        /***falta esto > views y mas data */
+
+        final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
+
+
+        TextInputEditText [] arrayEditsFilaArriba = { ediCalByA1	,
+                ediCalByA2	, ediCalByA3	, ediCalByA4	, ediCalByA5	, ediCalByA6	,
+                ediCalByA7	, ediCalByA8	, ediCalByA9	, ediCalByA10	, ediCalByA11	,
+                ediCalByA12	, ediCalByA13	, ediCalByA14	, ediCalByA15	, ediCalByA16	,
+                ediCalByA17	, ediCalByA18	, ediCalByA19	, ediCalByA20	,
+
+
+        };
+
+
+        TextInputEditText [] arrayEditsFilaAbajo = {
+                edif2Calib1	, edif2Calib2, edif2Calib3,edif2Calib4,
+                edif2Calib5	, edif2Calib6, edif2Calib7, edif2Calib8	,
+                edif2Calib9	, edif2Calib10, edif2Calib11, edif2Calib12	,
+                edif2Calib13, edif2Calib14, edif2Calib15, edif2Calib16	,
+                edif2Calib17, edif2Calib18, edif2Calib19, edif2Calib20	,
+
+
+        };
+
+
+        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+            int productResult =0;
+
+            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                arrayEditsFilaAbajo [i].getText().clear();
+
+            }
+
+
+            else {
+
+
+                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+            }
+
+
+
+
+
+        }
+
+
+    }
 
 
 }

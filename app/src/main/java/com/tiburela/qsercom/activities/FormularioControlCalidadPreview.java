@@ -32,13 +32,10 @@ import java.util.Map;
 
 public class FormularioControlCalidadPreview extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
-
     TextView textView;
     boolean[] selectedLanguage;
     HashMap <String, String>hasmapMap;
-
     TextView textView48;
-
     HashMap<String, String> hasHmapFieldsRecha;
 
     //Imageviews defects

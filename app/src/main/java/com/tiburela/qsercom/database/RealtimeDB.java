@@ -721,7 +721,7 @@ static  public  DatabaseReference mibasedataPathImages;
     }
 
 
-    public static void UploadControlcalidadInforms( ControlCalidad producto) {
+    public static void UploadControlcalidadInform(ControlCalidad producto) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listControCalidad");
         String keyDonDeEstaraThisInform=mibasedata.push().getKey();
         producto.setKeyDondeEstarThisInform(keyDonDeEstaraThisInform);
@@ -754,6 +754,16 @@ static  public  DatabaseReference mibasedataPathImages;
         mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapControlCalid);  //subimos el packing list mapa
 
         //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
+
+
+    }
+
+
+    public static void uploadHasmapDefectSelec(HashMap <String ,String > hasmapDefectsSelec,String dondeEstaraThisHasmap) {
+
+        DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("DefectoSelecionadosHashmap");
+
+        mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapDefectsSelec);  //subimos el packing list mapa
 
 
     }

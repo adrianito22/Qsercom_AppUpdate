@@ -9,6 +9,19 @@ public class ControlCalidad {
 
     private String uniqueId;
     private String simpleDate;
+    private String keyDondeEstaraHasmapDefecSelec;
+
+    public String getKeyDondeEstaraHasmapDefecSelec2Emp() {
+        return keyDondeEstaraHasmapDefecSelec2Emp;
+    }
+
+    public void setKeyDondeEstaraHasmapDefecSelec2Emp(String keyDondeEstaraHasmapDefecSelec2Emp) {
+        this.keyDondeEstaraHasmapDefecSelec2Emp = keyDondeEstaraHasmapDefecSelec2Emp;
+    }
+
+    private String keyDondeEstaraHasmapDefecSelec2Emp;
+
+
     private double timeDateMillis;
 
     public String getKeyDondeEstarThisInform() {
@@ -303,12 +316,19 @@ public class ControlCalidad {
     }
 
 
+    public String getKeyDondeEstaraHasmapDefecSelec() {
+        return keyDondeEstaraHasmapDefecSelec;
+    }
 
-    public ControlCalidad( String observaciones, String nodekeyLocation,String keyWhereLocateasHmapFieldsRecha,String vapor,
-                           String productor, String codigo, String zona, String hacienda, String exportadora, String compania,
-                           String cliente, int semana, String fecha, String magap, String marcaCaja, String tipoEmpaque,
-                           String destino, int totalCajas, String calidaCamp, String horaIni, String horaTermi, String contenedor,
-                           String sellosnav, String selloVerificadora, String termografo, String placaCarro, String puertEmbarq) {
+    public void setKeyDondeEstaraHasmapDefecSelec(String keyDondeEstaraHasmapDefecSelec) {
+        this.keyDondeEstaraHasmapDefecSelec = keyDondeEstaraHasmapDefecSelec;
+    }
+
+    public ControlCalidad(String observaciones, String nodekeyLocation, String keyWhereLocateasHmapFieldsRecha, String vapor,
+                          String productor, String codigo, String zona, String hacienda, String exportadora, String compania,
+                          String cliente, int semana, String fecha, String magap, String marcaCaja, String tipoEmpaque,
+                          String destino, int totalCajas, String calidaCamp, String horaIni, String horaTermi, String contenedor,
+                          String sellosnav, String selloVerificadora, String termografo, String placaCarro, String puertEmbarq) {
 
         uniqueId = UUID.randomUUID().toString();
         timeDateMillis = new Date().getTime();
@@ -318,6 +338,8 @@ public class ControlCalidad {
         this.observaciones = observaciones;
         this.nodekeyLocation = nodekeyLocation;
         this.keyWhereLocateasHmapFieldsRecha=keyWhereLocateasHmapFieldsRecha;
+        keyDondeEstaraHasmapDefecSelec= "";
+       // keyDondeEstaraHasmapDefecSelec2Emp="";
         this.vapor=vapor;
         this.productor=productor;
         this.codigo=codigo;
