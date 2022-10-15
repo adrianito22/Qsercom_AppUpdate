@@ -745,6 +745,32 @@ static  public  DatabaseReference mibasedataPathImages;
     }
 
 
+    public static void UpdateControlcalidadInform(ControlCalidad producto, String keyDondeActualizarEsteInform) {
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listControCalidad");
+        //SUBE MAPA
+        mibasedata.child(keyDondeActualizarEsteInform).setValue(producto).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+
+
+
+
     public static void addNewHashMapControlCalidad(HashMap <String ,String > hasmapControlCalid,String dondeEstaraThisHasmap) {
 
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("ControCalidHasmap");
@@ -759,11 +785,34 @@ static  public  DatabaseReference mibasedataPathImages;
     }
 
 
+    public static void updateHashMapControlCalidad(HashMap <String ,String > hasmapControlCalid,String dondeActualizarThishasmap) {
+
+        DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("ControCalidHasmap");
+        // String nododDondeEstaraEsteHasmap = mibasedata2.push().getKey();
+        // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
+
+        mibasedata2.child(dondeActualizarThishasmap).setValue(hasmapControlCalid);  //subimos el packing list mapa
+
+        //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
+
+
+    }
+
+
     public static void uploadHasmapDefectSelec(HashMap <String ,String > hasmapDefectsSelec,String dondeEstaraThisHasmap) {
 
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("DefectoSelecionadosHashmap");
 
         mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapDefectsSelec);  //subimos el packing list mapa
+
+
+    }
+
+    public static void updateHasmapDefectSelec(HashMap <String ,String > hasmapDefectsSelec,String dondeRemplzar) {
+
+        DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("DefectoSelecionadosHashmap");
+
+        mibasedata2.child(dondeRemplzar).setValue(hasmapDefectsSelec);  //subimos el packing list mapa
 
 
     }

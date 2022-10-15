@@ -60,6 +60,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
     private TextInputEditText mEdiTotalFila1;
     private TextInputEditText mEdiPromFila1;
+
     private TextInputEditText mEdif2LrgD1;
     private TextInputEditText mEdif2LrgD2;
     private TextInputEditText mEdif2LrgD3;
@@ -100,8 +101,8 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     Button btnSaveControlC;
     TextView textView48;
     HashMap<String, String> hasHmapFieldsRecha;
-    HashMap<String, String> hahasMapitemsSelecPosicRechaz;
-    HashMap<String, String> hahasMapitemsSelecPosicDefcEmpq;
+    HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
+    HashMap<String, String> hahasMapitemsSelecPosicDefcEmpqtoUpload;
 
 
     private TextInputEditText ediObservacioneszszz;
@@ -777,7 +778,8 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         mEdiLargDeds30 = findViewById(R.id.ediLargDeds30);
         mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
         mEdiPromFila1 = findViewById(R.id.ediPromFila1);
-        mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
+
+       mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
         mEdif2LrgD2 = findViewById(R.id.edif2LrgD2);
         mEdif2LrgD3 = findViewById(R.id.edif2LrgD3);
         mEdif2LrgD4 = findViewById(R.id.edif2LrgD4);
@@ -1181,7 +1183,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                     //cuando selecione une ...obtenemos la poisicion..
                     //
 
-                    HashMapOfListWhitStatesCHeckb.get(keyCurrentListOFmap).set(i,true);
+                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,true);
 
 
                     // when checkbox selected
@@ -1193,7 +1195,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                     // when checkbox unselected
                     // Remove position from langList
 
-                    HashMapOfListWhitStatesCHeckb.get(keyCurrentListOFmap).set(i,false);
+                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,false);
 
                     //  langList.remove(Integer.valueOf(i));
                 }
@@ -1432,47 +1434,76 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
 
-    private void createInfoToHashmapRechazaSelec() {
+    private void createInfoToHashmapRechazaSelecToUpload() {
 
         ImageView  [] imgSelecArray= {imgSelecDefc1,imgSelecDefc2,imgSelecDefc3,imgSelecDefc4,imgSelecDefc5,imgSelecDefc6,
                 imgSelecDefc7,imgSelecDefc8, imgSelecDefc9,imgSelecDefc10} ;
 
-        hahasMapitemsSelecPosicRechaz = new HashMap<>();
+        hasMapitemsSelecPosicRechazToUpload = new HashMap<>();
 
-        for (int i = 0; i <listOfLISTState.size(); i++) {
-            ArrayList<Boolean> currentList = listOfLISTState.get(i);
+
+        for (int i = 0; i<10; i++) {
+
+            ArrayList<Boolean> currentList =  HashMapOfListWhitStatesCHeckb.get(String.valueOf(imgSelecArray[i].getId()));
 
             String value="";
 
-            for (int j = 0; j < currentList.size(); j++) {  //recorreemos la lista
-                if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
 
-                    value=value+","+j;
+            for (int j = 0; j < currentList.size(); j++) {  //iteramos cada elemento del hasm,ap q es una lista
+                if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
+                    Log.i("adirnir","encontro value ttr ");
+
+                    if(value.equals("")){
+
+                        value=value+j;
+
+                    }else {
+                        value=value+","+j;
+                    }
+
 
                 }
-                //agregamos valors a esta lista
 
             }
-            hahasMapitemsSelecPosicRechaz.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+
+
+            if((!value.equals(""))) {
+                Log.i("adirnir","encontro value "+value);
+
+                hasMapitemsSelecPosicRechazToUpload.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+
+            }
+
+
         }
 
-        hahasMapitemsSelecPosicRechaz.put("0","EMPTY");
+        if(hasMapitemsSelecPosicRechazToUpload.size() ==0 ){
+
+            hasMapitemsSelecPosicRechazToUpload.put("0","EMPTY");
+
+
+        }
+
 
     }
 
-    private void createItemsSelectDefectsEmpq() {
 
-        ImageView  [] imgSelecArray= {imvEmpaque1,imvEmpaque2,imvEmpaque3,imvEmpaque4,imvEmpaque5,imvEmpaque6,
+    private void createItemsSelectDefectsEmpqTOuPLOAD() {
+
+        ImageView  [] imgSelecArray= {
+                imvEmpaque1,imvEmpaque2,imvEmpaque3,imvEmpaque4,imvEmpaque5,imvEmpaque6,
                 imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10} ;
 
-        for (int i = 0; i <listOfLISTState2.size(); i++) {
-            ArrayList<Boolean> currentList = listOfLISTState2.get(i);
+        for (int i = 0; i <10 ; i++) {
 
-              String value="";
+            ArrayList<Boolean> currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(imgSelecArray[i].getId()));
+
+            String value="";
 
             for (int j = 0; j < currentList.size(); j++) {  //recorreemos la lista  ///
 
                 if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
+
 
                     if(value.equals("")){
                         value=value+j;
@@ -1482,20 +1513,35 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
                     }
 
-
                 }
                 //agregamos valors a esta lista
             }
 
             //AGREGAMOS ESTA LETRA AL MAP:
 
-            hahasMapitemsSelecPosicRechaz.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+
+            if(!value.equals("")){
+
+                Log.i("adirnir","el value es "+value);
+
+                hasMapitemsSelecPosicRechazToUpload.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+
+
+            }
+
 
 
         }
 
 
+        if(hasMapitemsSelecPosicRechazToUpload.size() ==0 ){
+
+            hasMapitemsSelecPosicRechazToUpload.put("0","EMPTY");
+        }
+
     }
+
+
 
 
     void sumarNumeros(){
@@ -1747,19 +1793,22 @@ return true;
             @Override
             public void onClick(View view) {
 
+
                 if(!cheakIfInfoIsComplete()) {
                     return;
 
                 }
 
-
                 createMapInBYothersTextimpuEdFields();
-                createInfoToHashmapRechazaSelec();
-                createItemsSelectDefectsEmpq();
+                createInfoToHashmapRechazaSelecToUpload(); // RECHZADOS Y PAQUETErRCHZADOS
+                createItemsSelectDefectsEmpqTOuPLOAD();
+
+
 
                 RealtimeDB.initDatabasesRootOnly();
                 String keyDondeEstaraHasmap=RealtimeDB.rootDatabaseReference.push().getKey();
                 String keyDondeEstaraHasmapDefecSelec=RealtimeDB.rootDatabaseReference.push().getKey();
+
 
                 ControlCalidad obecjControlCalidad=creaNuevoFormularioByTxtImputEditext();
 
@@ -1770,11 +1819,7 @@ return true;
 
                 RealtimeDB.UploadControlcalidadInform(obecjControlCalidad);
                 RealtimeDB.addNewHashMapControlCalidad(hasHmapFieldsRecha,keyDondeEstaraHasmap);
-                RealtimeDB.uploadHasmapDefectSelec(hahasMapitemsSelecPosicRechaz,keyDondeEstaraHasmapDefecSelec);
-
-
-
-
+                RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
 
 
 
@@ -2042,13 +2087,25 @@ return true;
 
                 }
 
-
-                else { //si no esta vacio
-
+                else {
 
                     double result= currentDecimalArray[indice] * Integer.parseInt(currentArrayofContainsDataNums[indice].getText().toString());
 
-                   Log.i("sidmd","el data result es "+result);
+
+                    if(String.valueOf(result).length() >5)  {
+                        double roundDbl = Math.round(result*100.0)/100.0;
+                        result= roundDbl;
+                    }
+                    Log.i("dfgdf","el value es sssss "+String.valueOf(result))  ;
+
+
+                    if((result % 1) == 0){
+
+                        result =Math.floor(result);
+                        Log.i("dfgdf","el value convert "+result)  ;
+
+                    }
+
 
                     arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
 
@@ -2076,6 +2133,15 @@ return true;
 
     private void inicialiceListOfListChekedItems () {
 
+          ImageView  [] miArrayImgSelecs = {
+                  imgSelecDefc1,imgSelecDefc2,imgSelecDefc3,imgSelecDefc4,imgSelecDefc5,
+                  imgSelecDefc6, imgSelecDefc7,imgSelecDefc8, imgSelecDefc9,imgSelecDefc10 } ;
+
+
+        ImageView  [] arrayImgsSelect2 = {
+                imvEmpaque1,imvEmpaque2,imvEmpaque3,imvEmpaque4,imvEmpaque5,
+                imvEmpaque6, imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10 } ;
+
 
         arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
         arrayDefect2 = getResources().getStringArray(R.array.array_defectos_empaque2);
@@ -2090,14 +2156,11 @@ return true;
 
                 listItem.add(false);
                 //agregamos valors a esta lista
-
-            }
-
+                }
 
 
-
-            listOfLISTState.add(listItem);
-
+            HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
+          ///  listOfLISTState.add(listItem);
 
         }
 
@@ -2107,22 +2170,18 @@ return true;
 
             ArrayList<Boolean> listItem2 = new ArrayList<>(); //serian unas dies listas...
 
-
             for (int j = 0; j < arrayDefect2.length; j++) {
 
                 listItem2.add(false);
                 //agregamos valors a esta lista
             }
 
-            listOfLISTState2.add(listItem2);
-
+            HashMapOfListWhitStatesCHeckb2.put(String.valueOf(arrayImgsSelect2[i].getId()),listItem2);
 
         }
 
 
 
-        // initialize selected language array
-        //  selectedLanguage = new boolean[arrayDefect1.length];
     }
 
 

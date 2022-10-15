@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
-import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -34,9 +34,73 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     // initialize variables
     TextView textView;
     boolean[] selectedLanguage;
-    HashMap <String, String>hasmapMap;
+    HashMap <String, String> hasmapMapControlCalid;
+    Button btnSaveControlC;
     TextView textView48;
     HashMap<String, String> hasHmapFieldsRecha;
+    HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
+    private TextInputEditText mEdif2LrgD1;
+    private TextInputEditText mEdif2LrgD2;
+    private TextInputEditText mEdif2LrgD3;
+    private TextInputEditText mEdif2LrgD4;
+    private TextInputEditText mEdif2LrgD5;
+    private TextInputEditText mEdif2LrgD6;
+    private TextInputEditText mEdif2LrgD7;
+    private TextInputEditText mEdif2LrgD8;
+    private TextInputEditText mEdif2LrgD9;
+    private TextInputEditText mEdif2LrgD10;
+    private TextInputEditText mEdif2LrgD11;
+    private TextInputEditText mEdif2LrgD12;
+    private TextInputEditText mEdif2LrgD13;
+    private TextInputEditText mEdif2LrgD14;
+    private TextInputEditText mEdif2LrgD15;
+    private TextInputEditText mEdif2LrgD16;
+    private TextInputEditText mEdif2LrgD17;
+    private TextInputEditText mEdif2LrgD18;
+    private TextInputEditText mEdif2LrgD19;
+    private TextInputEditText mEdif2LrgD20;
+    private TextInputEditText mEdif2LrgD21;
+    private TextInputEditText mEdif2LrgD22;
+    private TextInputEditText mEdif2LrgD23;
+    private TextInputEditText mEdif2LrgD24;
+    private TextInputEditText mEdif2LrgD25;
+    private TextInputEditText mEdif2LrgD26;
+    private TextInputEditText mEdif2LrgD27;
+    private TextInputEditText mEdif2LrgD28;
+    private TextInputEditText mEdif2LrgD29;
+    private TextInputEditText mEdif2LrgD30;
+
+
+    private TextInputEditText mEdiLargDeds1;
+    private TextInputEditText mEdiLargDeds2;
+    private TextInputEditText mEdiLargDeds3;
+    private TextInputEditText mEdiLargDeds4;
+    private TextInputEditText mEdiLargDeds5;
+    private TextInputEditText mEdiLargDeds6;
+    private TextInputEditText mEdiLargDeds7;
+    private TextInputEditText mEdiLargDeds8;
+    private TextInputEditText mEdiLargDeds9;
+    private TextInputEditText mEdiLargDeds10;
+    private TextInputEditText mEdiLargDeds11;
+    private TextInputEditText mEdiLargDeds12;
+    private TextInputEditText mEdiLargDeds13;
+    private TextInputEditText mEdiLargDeds14;
+    private TextInputEditText mEdiLargDeds15;
+    private TextInputEditText mEdiLargDeds16;
+    private TextInputEditText mEdiLargDeds17;
+    private TextInputEditText mEdiLargDeds18;
+    private TextInputEditText mEdiLargDeds19;
+    private TextInputEditText mEdiLargDeds20;
+    private TextInputEditText mEdiLargDeds21;
+    private TextInputEditText mEdiLargDeds22;
+    private TextInputEditText mEdiLargDeds23;
+    private TextInputEditText mEdiLargDeds24;
+    private TextInputEditText mEdiLargDeds25;
+    private TextInputEditText mEdiLargDeds26;
+    private TextInputEditText mEdiLargDeds27;
+    private TextInputEditText mEdiLargDeds28;
+    private TextInputEditText mEdiLargDeds29;
+    private TextInputEditText mEdiLargDeds30;
 
 
     private TextInputEditText ediObservacioneszszz;
@@ -67,6 +131,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     private TextInputEditText mEdiPuertEmbzz;
 
 
+
+    HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb = new HashMap<>(); //serian unas dies listas...
+    HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb2 = new HashMap<>(); //serian unas dies listas...
 
 
     //Imageviews defects
@@ -346,11 +413,29 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         setContentView(R.layout.ly_defectos_preview);
         findviewsIds();
         addListnners();
-
+        eventoUploadFormulario();
 
        arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
         arrayDefect2 = getResources().getStringArray(R.array.array_defectos_empaque2);
 
+
+
+    }
+
+    private void inicialiceListOfListChekedItems () {
+
+        ImageView  [] miArrayImgSelecs = {
+                imgSelecDefc1,imgSelecDefc2,imgSelecDefc3,imgSelecDefc4,imgSelecDefc5,
+                imgSelecDefc6, imgSelecDefc7,imgSelecDefc8, imgSelecDefc9,imgSelecDefc10 } ;
+
+
+        ImageView  [] arrayImgsSelect2 = {
+                imvEmpaque1,imvEmpaque2,imvEmpaque3,imvEmpaque4,imvEmpaque5,
+                imvEmpaque6, imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10 } ;
+
+
+        arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
+        arrayDefect2 = getResources().getStringArray(R.array.array_defectos_empaque2);
 
 
         for (int i = 0; i <10; i++) {
@@ -362,11 +447,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                 listItem.add(false);
                 //agregamos valors a esta lista
-
             }
 
-            listOfLISTState.add(listItem);
 
+            HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
+            ///  listOfLISTState.add(listItem);
 
         }
 
@@ -376,34 +461,106 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
             ArrayList<Boolean> listItem2 = new ArrayList<>(); //serian unas dies listas...
 
-
             for (int j = 0; j < arrayDefect2.length; j++) {
 
                 listItem2.add(false);
                 //agregamos valors a esta lista
-
             }
 
-            listOfLISTState2.add(listItem2);
-
+            HashMapOfListWhitStatesCHeckb2.put(String.valueOf(arrayImgsSelect2[i].getId()),listItem2);
 
         }
 
 
 
-
-        // initialize selected language array
-        selectedLanguage = new boolean[arrayDefect1.length];
     }
+
+   void  configInitialHashasmapsChekedItemsWhitDowload(HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb ,
+                                            HashMap<String , ArrayList<Boolean>>  HashMapOfListWhitStatesCHeckb2,
+                                            HashMap<String , String>  HashMapDowload) {
+
+
+
+        //iteramos el hasmap descragado ....
+
+           for (Map.Entry<String, String> entry : HashMapDowload.entrySet()) {
+           String key = entry.getKey();
+           String  value = entry.getValue();
+
+               String posicionesEditarArray  []= value.split(",") ;
+
+               if(HashMapOfListWhitStatesCHeckb.containsKey(key)){
+
+
+               for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
+
+                   int currrentPoscionParaCambiar=Integer.parseInt(posicionesEditarArray[indice2]);
+
+                   HashMapOfListWhitStatesCHeckb.get(key).set(currrentPoscionParaCambiar,true);
+
+               }
+
+               //editamos este valor
+
+
+
+           }else if(HashMapOfListWhitStatesCHeckb2.containsKey(key)) {
+
+                   for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
+
+                       int currrentPoscionParaCambiar=Integer.parseInt(posicionesEditarArray[indice2]);
+
+                       HashMapOfListWhitStatesCHeckb2.get(key).set(currrentPoscionParaCambiar,true);
+
+                   }
+
+
+
+
+
+               }
+
+           //BUSCAMOS EN EL ARRAY PRIMERO
+
+
+           //BUSCMAOS EN SL OTRO ARRAY
+
+
+
+       }
+
+
+
+
+
+    }
+
+
+
+
     //determinar que posicion pulso o si pusla este hacer esto
 
     @Override
     protected void onStart() {
         super.onStart();
 
-      //  getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+        inicialiceListOfListChekedItems();
 
-        ///
+        RealtimeDB.initDatabasesRootOnly();
+
+        Log.i("sibmba","el text es "+Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+
+
+        dowloadCoontrolClidadMapAndCallSetDATAINviews(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+
+        dowloadAllSelectDefectosPosiciones(Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
+
+       // getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+
+
+
+        ///////
+
 
     }
 
@@ -421,7 +578,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdiExportadorazz.setText(controlCalidad.getExportadora());
         mEdiCompaniazz .setText(controlCalidad.getCompania());
         mEdiClientezz .setText(controlCalidad.getCliente());
-        mEdisemanazz.setText(controlCalidad.getSemana());
+        mEdisemanazz.setText(String.valueOf(controlCalidad.getSemana()));
         mEdiFechazz .setText(controlCalidad.getFecha());
         mEdiMagapzz.setText(controlCalidad.getMagap());
         mEdiMarcaCajazz .setText(controlCalidad.getMarcaCaja());
@@ -506,11 +663,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         Log.i("hameha","el NODEKey es : "+nodeLocateHasmapControlC);
 
-        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("ControlCalidadHasmaps").child(nodeLocateHasmapControlC).addValueEventListener(new ValueEventListener() {
+        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("ControlCalidadHasmaps").
+                child(nodeLocateHasmapControlC).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                hasmapMap=new HashMap<>();
+                hasmapMapControlCalid =new HashMap<>();
 
 
                 for (DataSnapshot dss : dataSnapshot.getChildren()) {
@@ -526,12 +684,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                     if (fieldData!=null) {///
 
-                        hasmapMap.put(key,fieldData);
+                        hasmapMapControlCalid.put(key,fieldData);
 
                     }
                 }
 
-                setDataInViews(hasmapMap,Variables.currenControlCalReport);
+                setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
 
 
             }
@@ -551,7 +709,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     }
 
 
-    private void dowloadSelectDefectosPosiciones(String nodeLocateHasmapDefectSelecc){
+    private void dowloadAllSelectDefectosPosiciones(String nodeLocateHasmapDefectSelecc){
+
+        HashMap<String, String> hasmapMapControlCalidxDowload= new HashMap<>();
 
         Log.i("hameha","el NODEKey es : "+nodeLocateHasmapDefectSelecc);
 
@@ -559,28 +719,28 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                hasmapMap=new HashMap<>();
-
 
                 for (DataSnapshot dss : dataSnapshot.getChildren()) {
                     String key = dss.getKey();
 
                     String  fieldData =dss.getValue(String.class);
 
-                    //   HashMap packinKey = dss.getValue( String.class);
-
-                    //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
                     Log.i("hameha","el key es "+key);
+                    Log.i("hameha"," y el fiel data es "+fieldData);
 
 
-                    if (fieldData!=null) {///
+                    if (fieldData!=null && ! fieldData.equals("EMPTY")) {///
 
-                        hasmapMap.put(key,fieldData);
+                        hasmapMapControlCalidxDowload.put(key,fieldData);
 
                     }
                 }
 
-                setDataInViews(hasmapMap,Variables.currenControlCalReport);
+
+
+                configInitialHashasmapsChekedItemsWhitDowload(HashMapOfListWhitStatesCHeckb,HashMapOfListWhitStatesCHeckb2,hasmapMapControlCalidxDowload);
+
+             //   setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
 
 
             }
@@ -596,15 +756,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
-
     }
 
 
     private void findviewsIds() {
+        //first views fields
         ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
 
-        //=findViewById(R.id.btnSaveControlC);
-
+        btnSaveControlC=findViewById(R.id.btnSaveControlC);
         mEdiVaporzz = findViewById(R.id.ediVaporzz);
         mEdiProductorzz = findViewById(R.id.ediProductorzz);
         mEdiCodigozz = findViewById(R.id.ediCodigozz);
@@ -631,27 +790,29 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdiPuertEmbzz = findViewById(R.id.ediPuertEmbzz);
 
 
-        imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
-         imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
-         imgSelecDefc3=findViewById(R.id.imgSelecDefc3);
-         imgSelecDefc4=findViewById(R.id.imgSelecDefc4);
-         imgSelecDefc5=findViewById(R.id.imgSelecDefc5);
-         imgSelecDefc6=findViewById(R.id.imgSelecDefc6);
-         imgSelecDefc7=findViewById(R.id.imgSelecDefc7);
-         imgSelecDefc8=findViewById(R.id.imgSelecDefc8);
-         imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
-         imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
 
-         imvEmpaque1=findViewById(R.id.imvEmpaque1);
-         imvEmpaque2=findViewById(R.id.imvEmpaque2);
-         imvEmpaque3=findViewById(R.id.imvEmpaque3);
-         imvEmpaque4=findViewById(R.id.imvEmpaque4);
-         imvEmpaque5=findViewById(R.id.imvEmpaque5);
-         imvEmpaque6=findViewById(R.id.imvEmpaque6);
-         imvEmpaque7=findViewById(R.id.imvEmpaque7);
-         imvEmpaque8=findViewById(R.id.imvEmpaque8);
-         imvEmpaque9=findViewById(R.id.imvEmpaque9);
-         imvEmpaque10=findViewById(R.id.imvEmpaque10);
+
+        imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
+        imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
+        imgSelecDefc3=findViewById(R.id.imgSelecDefc3);
+        imgSelecDefc4=findViewById(R.id.imgSelecDefc4);
+        imgSelecDefc5=findViewById(R.id.imgSelecDefc5);
+        imgSelecDefc6=findViewById(R.id.imgSelecDefc6);
+        imgSelecDefc7=findViewById(R.id.imgSelecDefc7);
+        imgSelecDefc8=findViewById(R.id.imgSelecDefc8);
+        imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
+        imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
+
+        imvEmpaque1=findViewById(R.id.imvEmpaque1);
+        imvEmpaque2=findViewById(R.id.imvEmpaque2);
+        imvEmpaque3=findViewById(R.id.imvEmpaque3);
+        imvEmpaque4=findViewById(R.id.imvEmpaque4);
+        imvEmpaque5=findViewById(R.id.imvEmpaque5);
+        imvEmpaque6=findViewById(R.id.imvEmpaque6);
+        imvEmpaque7=findViewById(R.id.imvEmpaque7);
+        imvEmpaque8=findViewById(R.id.imvEmpaque8);
+        imvEmpaque9=findViewById(R.id.imvEmpaque9);
+        imvEmpaque10=findViewById(R.id.imvEmpaque10);
 
 
         spinnerDef1=findViewById(R.id.spinnerDef1);
@@ -717,12 +878,28 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         ediNumClusInsp10=findViewById(R.id.ediNumClusInsp10 );
 
 
-         ediNdedoXclust1=findViewById(R.id.ediNdedoXclust1);
+        ediNdedoXclust1=findViewById(R.id.ediNdedoXclust1);
         ediNdedoXclust2=findViewById(R.id.ediNdedoXclust2);
-         ediNdedoXclust3=findViewById(R.id.ediNdedoXclust3) ;
-       ediNdedoXclust4=findViewById(R.id.ediNdedoXclust3);
+        ediNdedoXclust3=findViewById(R.id.ediNdedoXclust3) ;
+        ediNdedoXclust4=findViewById(R.id.ediNdedoXclust4);
         ediNdedoXclust5=findViewById(R.id.ediNdedoXclust5);
-       ediNdedoXclust6=findViewById(R.id.ediNdedoXclust6);
+
+
+
+
+        ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
+        ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
+        ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
+        ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
+        ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
+        ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
+        ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
+        ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
+        ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
+        ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
+
+
+        ediNdedoXclust6=findViewById(R.id.ediNdedoXclust6);
         ediNdedoXclust7=findViewById(R.id.ediNdedoXclust7);
         ediNdedoXclust8=findViewById(R.id.ediNdedoXclust8);
         ediNdedoXclust9=findViewById(R.id.ediNdedoXclust9);
@@ -746,6 +923,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         ediNdedoXclust27=findViewById(R.id.ediNdedoXclust27);
         ediNdedoXclust28=findViewById(R.id.ediNdedoXclust28);
         ediNdedoXclust29=findViewById(R.id.ediNdedoXclust29);
+        ediNdedoXclust30=findViewById(R.id.ediNdedoXclust30);
 
 
         edif2NdedoXclust1=findViewById(R.id.edif2NdedoXclust1);
@@ -777,6 +955,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         edif2NdedoXclust27=findViewById(R.id.edif2NdedoXclust27);
         edif2NdedoXclust28=findViewById(R.id.edif2NdedoXclust28);
         edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
+        edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
+
 
         edif2NdedoXclustxC1=findViewById(R.id.edif2NdedoXclustxC1);
         edif2NdedoXclustxC2=findViewById(R.id.edif2NdedoXclustxC2);
@@ -871,17 +1051,76 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         edif2Calib21=findViewById(R.id.edif2Calib21);
         edif2Calib22=findViewById(R.id.edif2Calib22);
 
+        mEdiLargDeds1 = findViewById(R.id.ediLargDeds1);
+        mEdiLargDeds2 = findViewById(R.id.ediLargDeds2);
+        mEdiLargDeds3 = findViewById(R.id.ediLargDeds3);
+        mEdiLargDeds4 = findViewById(R.id.ediLargDeds4);
+        mEdiLargDeds5 = findViewById(R.id.ediLargDeds5);
+        mEdiLargDeds6 = findViewById(R.id.ediLargDeds6);
+        mEdiLargDeds7 = findViewById(R.id.ediLargDeds7);
+        mEdiLargDeds8 = findViewById(R.id.ediLargDeds8);
+        mEdiLargDeds9 = findViewById(R.id.ediLargDeds9);
+        mEdiLargDeds10 = findViewById(R.id.ediLargDeds10);
+        mEdiLargDeds11 = findViewById(R.id.ediLargDeds11);
+        mEdiLargDeds12 = findViewById(R.id.ediLargDeds12);
+        mEdiLargDeds13 = findViewById(R.id.ediLargDeds13);
+        mEdiLargDeds14 = findViewById(R.id.ediLargDeds14);
+        mEdiLargDeds15 = findViewById(R.id.ediLargDeds15);
+        mEdiLargDeds16 = findViewById(R.id.ediLargDeds16);
+        mEdiLargDeds17 = findViewById(R.id.ediLargDeds17);
+        mEdiLargDeds18 = findViewById(R.id.ediLargDeds18);
+        mEdiLargDeds19 = findViewById(R.id.ediLargDeds19);
+        mEdiLargDeds20 = findViewById(R.id.ediLargDeds20);
+        mEdiLargDeds21 = findViewById(R.id.ediLargDeds21);
+        mEdiLargDeds22 = findViewById(R.id.ediLargDeds22);
+        mEdiLargDeds23 = findViewById(R.id.ediLargDeds23);
+        mEdiLargDeds24 = findViewById(R.id.ediLargDeds24);
+        mEdiLargDeds25 = findViewById(R.id.ediLargDeds25);
+        mEdiLargDeds26 = findViewById(R.id.ediLargDeds26);
+        mEdiLargDeds27 = findViewById(R.id.ediLargDeds27);
+        mEdiLargDeds28 = findViewById(R.id.ediLargDeds28);
+        mEdiLargDeds29 = findViewById(R.id.ediLargDeds29);
+        mEdiLargDeds30 = findViewById(R.id.ediLargDeds30);
+       // mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
+      //  mEdiPromFila1 = findViewById(R.id.ediPromFila1);
 
-        ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
-        ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
-        ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
-        ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
-        ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
-        ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
-        ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
-        ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
-        ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
-        ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
+        mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
+        mEdif2LrgD2 = findViewById(R.id.edif2LrgD2);
+        mEdif2LrgD3 = findViewById(R.id.edif2LrgD3);
+        mEdif2LrgD4 = findViewById(R.id.edif2LrgD4);
+        mEdif2LrgD5 = findViewById(R.id.edif2LrgD5);
+        mEdif2LrgD6 = findViewById(R.id.edif2LrgD6);
+        mEdif2LrgD7 = findViewById(R.id.edif2LrgD7);
+        mEdif2LrgD8 = findViewById(R.id.edif2LrgD8);
+        mEdif2LrgD9 = findViewById(R.id.edif2LrgD9);
+        mEdif2LrgD10 = findViewById(R.id.edif2LrgD10);
+        mEdif2LrgD11 = findViewById(R.id.edif2LrgD11);
+        mEdif2LrgD12 = findViewById(R.id.edif2LrgD12);
+        mEdif2LrgD13 = findViewById(R.id.edif2LrgD13);
+        mEdif2LrgD14 = findViewById(R.id.edif2LrgD14);
+        mEdif2LrgD15 = findViewById(R.id.edif2LrgD15);
+        mEdif2LrgD16 = findViewById(R.id.edif2LrgD16);
+        mEdif2LrgD17 = findViewById(R.id.edif2LrgD17);
+        mEdif2LrgD18 = findViewById(R.id.edif2LrgD18);
+        mEdif2LrgD19 = findViewById(R.id.edif2LrgD19);
+        mEdif2LrgD20 = findViewById(R.id.edif2LrgD20);
+        mEdif2LrgD21 = findViewById(R.id.edif2LrgD21);
+        mEdif2LrgD22 = findViewById(R.id.edif2LrgD22);
+        mEdif2LrgD23 = findViewById(R.id.edif2LrgD23);
+        mEdif2LrgD24 = findViewById(R.id.edif2LrgD24);
+        mEdif2LrgD25 = findViewById(R.id.edif2LrgD25);
+        mEdif2LrgD26 = findViewById(R.id.edif2LrgD26);
+        mEdif2LrgD27 = findViewById(R.id.edif2LrgD27);
+        mEdif2LrgD28 = findViewById(R.id.edif2LrgD28);
+        mEdif2LrgD29 = findViewById(R.id.edif2LrgD29);
+        mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
+
+
+      //  imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
+      //  imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
+      //  imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
+
+
 
 
     }
@@ -1000,154 +1239,36 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     @Override
     public void onClick(View view) {
         boolean[] estates;
+
+        String keyOrViewID=String.valueOf(view.getId());
+
+        //di esl alguno de estos clicks
+        int idPulsado=view.getId();
+        if(idPulsado== R.id.imgSelecDefc1 || idPulsado== R.id.imgSelecDefc2  || idPulsado== R.id.imgSelecDefc3  ||  idPulsado== R.id.imgSelecDefc4  ||
+                idPulsado== R.id.imgSelecDefc5  || idPulsado== R.id.imgSelecDefc6   || idPulsado== R.id.imgSelecDefc7  ||
+                idPulsado== R.id.imgSelecDefc8   ||  idPulsado== R.id.imgSelecDefc9   ||  idPulsado== R.id.imgSelecDefc10 ){
+
+            estates =listToAarray(HashMapOfListWhitStatesCHeckb.get(keyOrViewID));
+            showDialogx(estates,keyOrViewID);
+
+
+        }
+
+
+        if(idPulsado== R.id.imvEmpaque1 || idPulsado== R.id.imvEmpaque2  || idPulsado== R.id.imvEmpaque3  ||  idPulsado== R.id.imvEmpaque4  ||
+                idPulsado== R.id.imvEmpaque5  || idPulsado== R.id.imvEmpaque6   || idPulsado== R.id.imvEmpaque7  ||
+                idPulsado== R.id.imvEmpaque8   ||  idPulsado== R.id.imvEmpaque9   ||  idPulsado== R.id.imvEmpaque10 ){
+
+            estates =listToAarray(HashMapOfListWhitStatesCHeckb2.get(keyOrViewID));
+            showDialogx2(estates,keyOrViewID);
+
+
+        }
+
+
+
+
         switch (view.getId()) {
-            case R.id.imgSelecDefc1:
-                //  boolean [] estatesCurrentItem = new Boolean [listOfLISTState.get(0).size()];
-                //resultArray = list.toArray(resultArray);
-                // String[] strings = listOfLISTState.get(0).toArray(Boolean[]::new);
-
-                 estates =listToAarray(listOfLISTState.get(0));
-                showDialogx(estates,0);
-
-                break;
-
-
-            case R.id.imgSelecDefc2:
-              //  showDialogx(1);
-                 estates =listToAarray(listOfLISTState.get(1));
-                showDialogx(estates,1);
-                break;
-
-
-
-            case R.id.imgSelecDefc3:
-              //  showDialogx(2);
-                 estates =listToAarray(listOfLISTState.get(2));
-                showDialogx(estates,2);
-                break;
-
-
-            case R.id.imgSelecDefc4:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(3));
-                showDialogx(estates,3);
-                break;
-
-
-
-            case R.id.imgSelecDefc5:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(4));
-                showDialogx(estates,4);
-                break;
-
-
-            case R.id.imgSelecDefc6:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(5));
-                showDialogx(estates,5);
-                break;
-
-
-            case R.id.imgSelecDefc7:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(6));
-                showDialogx(estates,6);
-                break;
-
-
-            case R.id.imgSelecDefc8:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(7));
-                showDialogx(estates,7);
-                break;
-
-
-            case R.id.imgSelecDefc9:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(8));
-                showDialogx(estates,8);
-                break;
-
-
-            case R.id.imgSelecDefc10:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(9));
-                showDialogx(estates,9);
-                break;
-
-
-              //para los otros defectos
-
-
-            case R.id.imvEmpaque1:
-                  estates =listToAarray(listOfLISTState2.get(0));
-                showDialogx2(estates,0);
-
-
-                break;
-            case R.id.imvEmpaque2:
-                estates =listToAarray(listOfLISTState2.get(1));
-                showDialogx2(estates,1);
-
-                break;
-
-            case R.id.imvEmpaque3:
-                estates =listToAarray(listOfLISTState2.get(2));
-                showDialogx2(estates,2);
-
-                break;
-
-            case R.id.imvEmpaque4:
-                estates =listToAarray(listOfLISTState2.get(3));
-                showDialogx2(estates,3);
-
-                break;
-
-
-            case R.id.imvEmpaque5:
-                estates =listToAarray(listOfLISTState2.get(4));
-                showDialogx2(estates,4);
-
-                break;
-
-
-            case R.id.imvEmpaque6:
-                estates =listToAarray(listOfLISTState2.get(5));
-                showDialogx2(estates,5);
-
-                break;
-
-            case R.id.imvEmpaque7:
-                estates =listToAarray(listOfLISTState2.get(6));
-                showDialogx2(estates,6);
-
-                break;
-
-            case R.id.imvEmpaque8:
-                estates =listToAarray(listOfLISTState2.get(7));
-                showDialogx2(estates,7);
-
-                break;
-
-            case R.id.imvEmpaque9:
-                estates =listToAarray(listOfLISTState2.get(8));
-                showDialogx2(estates,8);
-
-                break;
-
-
-            case R.id.imvEmpaque10:
-                estates =listToAarray(listOfLISTState2.get(9));
-                showDialogx2(estates,9);
-
-                break;
-
-
-
-
-
-
 
 
             case R.id.ediTimeHoraxx1:
@@ -1220,12 +1341,37 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                 muestraResultado();
 
                 break;
+
+
+
+            case R.id.imgUpdateCalibBasalYapical:
+                getCalibraEntreBasalYapiclProduct();
+
+                getlargoDedosPulgaPulpaApulpa();
+
+                break;
+
+            case R.id.imgUpdateNumClusterxCaja:
+                getNumeroClusterxCajaProduct();
+                getlargoDedosPulgaPulpaApulpa();
+
+
+                break;
+
+
+            case R.id.imgUpdateNumDedxClust:
+                setResultNumClusteroManoProduct();
+                getlargoDedosPulgaPulpaApulpa();
+
+                break;
+
+
+
         }
 
     }
 
-
-     void showDialogx(boolean[] selectedLanguage,int posicionListOfLIST) {
+    void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
 
         // Initialize alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidadPreview.this);
@@ -1236,98 +1382,16 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         // set dialog non cancelable
         builder.setCancelable(false);
 
-        builder.setMultiChoiceItems(arrayDefect1, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(arrayDefect1, estatesCurrentListItem, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                 // check condition
                 if (b) {
                     //cuando selecione une ...obtenemos la poisicion..
-                    //
+                    //j
 
-                    listOfLISTState.get(posicionListOfLIST).set(i,true);
-
-
-                    // when checkbox selected
-                    // Add position  in lang list
-                  //  langList.add(i);
-                    // Sort array list
-                 //   Collections.sort(langList);
-                } else {  //CUANDO LO DESELECIONA
-                    // when checkbox unselected
-                    // Remove position from langList
-
-                    listOfLISTState.get(posicionListOfLIST).set(i,false);
-
-                  //  langList.remove(Integer.valueOf(i));
-                }
-            }
-        });
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Initialize string builder
-                dialogInterface.dismiss();
-
-            }
-        });
-
-
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // dismiss dialog
-                dialogInterface.dismiss();
-            }
-        });
-
-
-        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // use for loop
-
-                for (int j = 0; j < listOfLISTState.get(posicionListOfLIST).size(); j++) {
-
-                    listOfLISTState.get(posicionListOfLIST).set(j,false);
-
-                }
-
-
-
-
-            }
-        });
-        // show dialog
-        builder.show();
-
-
-
-    }
-
-
-    void showDialogx2(boolean[] selectedLanguage,int posicionListOfLIST) {
-
-        // Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidadPreview.this);
-
-        // set title
-        builder.setTitle("Seleccione Defectos");
-
-        // set dialog non cancelable
-        builder.setCancelable(false);
-
-        builder.setMultiChoiceItems(arrayDefect2, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                // check condition
-                if (b) {
-                    //cuando selecione une ...obtenemos la poisicion..
-                    //
-
-                    listOfLISTState2.get(posicionListOfLIST).set(i,true);
-
+                    // listOfLISTState.get(posicionListOfLIST).set(i,true);
+                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,true);
 
                     // when checkbox selected
                     // Add position  in lang list
@@ -1338,7 +1402,8 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                     // when checkbox unselected
                     // Remove position from langList
 
-                    listOfLISTState2.get(posicionListOfLIST).set(i,false);
+                    // listOfLISTState.get(posicionListOfLIST).set(i,false);
+                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,false);
 
                     //  langList.remove(Integer.valueOf(i));
                 }
@@ -1370,9 +1435,97 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             public void onClick(DialogInterface dialogInterface, int i) {
                 // use for loop
 
-                for (int j = 0; j < listOfLISTState2.get(posicionListOfLIST).size(); j++) {
+                //aqui necesitamos obtener el hasmapa
 
-                    listOfLISTState2.get(posicionListOfLIST).set(j,false);
+                for (int j = 0; j < HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).size(); j++) {
+
+                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(j,false);
+
+                    //listOfLISTState.get(posicionListOfLIST).set(j,false);
+
+                }
+
+
+
+
+            }
+        });
+        // show dialog
+        builder.show();
+
+
+
+    }
+
+
+    void showDialogx2(boolean[] itemsChekeds,String keyCurrentListOFmap) {
+
+        // Initialize alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidadPreview.this);
+
+        // set title
+        builder.setTitle("Seleccione Defectos");
+
+        // set dialog non cancelable
+        builder.setCancelable(false);
+
+        builder.setMultiChoiceItems(arrayDefect2, itemsChekeds, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                // check condition
+                if (b) {
+                    //cuando selecione une ...obtenemos la poisicion..
+                    //
+
+                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,true);
+
+
+                    // when checkbox selected
+                    // Add position  in lang list
+                    //  langList.add(i);
+                    // Sort array list
+                    //   Collections.sort(langList);
+                } else {  //CUANDO LO DESELECIONA
+                    // when checkbox unselected
+                    // Remove position from langList
+
+                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,false);
+
+                    //  langList.remove(Integer.valueOf(i));
+                }
+            }
+        });
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Initialize string builder
+                dialogInterface.dismiss();
+
+            }
+        });
+
+
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // dismiss dialog
+                dialogInterface.dismiss();
+            }
+        });
+
+
+        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // use for loop
+
+                for (int j = 0; j < HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).size(); j++) {
+
+                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(j,false);
+
+                    //listOfLISTState.get(posicionListOfLIST).set(j,false);
 
                 }
 
@@ -1568,9 +1721,737 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     }
 
 
+    private void createItemsSelectDefectsEmpqTOuPLOAD() {
+
+        ImageView  [] imgSelecArray= {
+                imvEmpaque1,imvEmpaque2,imvEmpaque3,imvEmpaque4,imvEmpaque5,imvEmpaque6,
+                imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10} ;
+
+        for (int i = 0; i <10 ; i++) {
+
+            ArrayList<Boolean> currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(imgSelecArray[i].getId()));
+
+            String value="";
+
+            for (int j = 0; j < currentList.size(); j++) {  //recorreemos la lista  ///
+
+                if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
+
+
+                    if(value.equals("")){
+                        value=value+j;
+
+                    }else {
+                        value=value+","+j;
+
+                    }
+
+                }
+                //agregamos valors a esta lista
+            }
+
+            //AGREGAMOS ESTA LETRA AL MAP:
+
+
+            if(!value.equals("")){
+
+                Log.i("adirnir","el value es "+value);
+
+                hasMapitemsSelecPosicRechazToUpload.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+
+
+            }
+
+
+
+        }
+
+
+        if(hasMapitemsSelecPosicRechazToUpload.size() ==0 ){
+
+            hasMapitemsSelecPosicRechazToUpload.put("0","EMPTY");
+        }
+
+    }
+
+
+
+    private void createInfoToHashmapRechazaSelecToUpload() {
+
+        ImageView  [] imgSelecArray= {imgSelecDefc1,imgSelecDefc2,imgSelecDefc3,imgSelecDefc4,imgSelecDefc5,imgSelecDefc6,
+                imgSelecDefc7,imgSelecDefc8, imgSelecDefc9,imgSelecDefc10} ;
+
+        hasMapitemsSelecPosicRechazToUpload = new HashMap<>();
+
+
+        for (int i = 0; i<10; i++) {
+
+            ArrayList<Boolean> currentList =  HashMapOfListWhitStatesCHeckb.get(String.valueOf(imgSelecArray[i].getId()));
+
+            String value="";
+
+
+            for (int j = 0; j < currentList.size(); j++) {  //iteramos cada elemento del hasm,ap q es una lista
+                if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
+                    Log.i("adirnir","encontro value ttr ");
+
+                    if(value.equals("")){
+
+                        value=value+j;
+
+                    }else {
+                        value=value+","+j;
+                    }
+
+
+                }
+
+            }
+
+
+            if((!value.equals(""))) {
+                Log.i("adirnir","encontro value "+value);
+
+                hasMapitemsSelecPosicRechazToUpload.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+
+            }
+
+
+        }
+
+        if(hasMapitemsSelecPosicRechazToUpload.size() ==0 ){
+
+            hasMapitemsSelecPosicRechazToUpload.put("0","EMPTY");
+
+
+        }
+
+
+    }
+
+    private void setResultNumClusteroManoProduct() {
+
+        final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
+                22,23,24,25,26,27,28,29,30  } ;
+
+        TextInputEditText [] arrayEditsFilaArriba = { ediNdedoXclust1,	ediNdedoXclust2,
+                ediNdedoXclust3,	ediNdedoXclust4,	ediNdedoXclust5,ediNdedoXclust6,ediNdedoXclust7
+                ,	ediNdedoXclust8,	ediNdedoXclust9,ediNdedoXclust10,	ediNdedoXclust11
+                ,	ediNdedoXclust12,	ediNdedoXclust13,ediNdedoXclust14,	ediNdedoXclust15
+                ,	ediNdedoXclust16,	ediNdedoXclust17,ediNdedoXclust18,	ediNdedoXclust19
+                ,	ediNdedoXclust20,	ediNdedoXclust21,ediNdedoXclust22,	ediNdedoXclust23,
+                ediNdedoXclust24,	ediNdedoXclust25,	ediNdedoXclust26,	ediNdedoXclust27,
+                ediNdedoXclust28,ediNdedoXclust29, ediNdedoXclust30 };
+
+
+        TextInputEditText [] arrayEditsFilaAbajo = {
+                edif2NdedoXclust1	, edif2NdedoXclust2	, edif2NdedoXclust3	, edif2NdedoXclust4	,
+                edif2NdedoXclust5	, edif2NdedoXclust6	, edif2NdedoXclust7	, edif2NdedoXclust8	,
+                edif2NdedoXclust9	, edif2NdedoXclust10, edif2NdedoXclust11, edif2NdedoXclust12,
+                edif2NdedoXclust13	, edif2NdedoXclust14, edif2NdedoXclust15, edif2NdedoXclust16,
+                edif2NdedoXclust17	, edif2NdedoXclust18, edif2NdedoXclust19, edif2NdedoXclust20,
+                edif2NdedoXclust21	, edif2NdedoXclust22, edif2NdedoXclust23, edif2NdedoXclust24,
+                edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28,
+                edif2NdedoXclust29	, edif2NdedoXclust30,
+
+        };
+
+
+        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+            int productResult =0;
+
+            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                arrayEditsFilaAbajo [i].getText().clear();
+
+            }
+
+
+            else {
+
+
+                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+            }
+
+
+
+        }
+
+    }
+
+    private void getNumeroClusterxCajaProduct() {
+
+        //9-26
+
+        final int [] arrayNJumsTOmult = {9,10,11,12,13,14,15,16,17,18,19,20,21,
+                22,23,24,25,26  } ;
+
+        TextInputEditText [] arrayEditsFilaArriba = { edif2NdedoXclustxC1	, edif2NdedoXclustxC2	, edif2NdedoXclustxC3	,
+                edif2NdedoXclustxC4	, edif2NdedoXclustxC5, edif2NdedoXclustxC6	, edif2NdedoXclustxC7	,
+                edif2NdedoXclustxC8	, edif2NdedoXclustxC9, edif2NdedoXclustxC10, edif2NdedoXclustxC11, edif2NdedoXclustxC12,
+                edif2NdedoXclustxC13, edif2NdedoXclustxC14, edif2NdedoXclustxC15, edif2NdedoXclustxC16,
+                edif2NdedoXclustxC17, edif2NdedoXclustxC18
+        };
+
+
+        TextInputEditText [] arrayEditsFilaAbajo = {
+                ediNdedoXclustXc1, ediNdedoXclustXc2, ediNdedoXclustXc3	, ediNdedoXclustXc4	,ediNdedoXclustXc5,
+                ediNdedoXclustXc6, ediNdedoXclustXc7, ediNdedoXclustXc8	, ediNdedoXclustXc9	,ediNdedoXclustXc10
+                , ediNdedoXclustXc11, ediNdedoXclustXc12, ediNdedoXclustXc13, ediNdedoXclustXc14
+                , ediNdedoXclustXc15, ediNdedoXclustXc16, ediNdedoXclustXc17, ediNdedoXclustXc18
+
+        };
+
+
+        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+            int productResult =0;
+
+
+            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                arrayEditsFilaAbajo [i].getText().clear();
+
+            }
+
+
+            else {
+
+
+                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+            }
 
 
 
 
 
+
+
+
+
+
+        }
+
+
+    }
+
+    private void getCalibraEntreBasalYapiclProduct() {
+
+        //9-26
+
+        final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
+
+
+        TextInputEditText [] arrayEditsFilaArriba = { ediCalByA1	,
+                ediCalByA2	,
+                ediCalByA3	,
+                ediCalByA4	,
+                ediCalByA5	,
+                ediCalByA6	,
+                ediCalByA7	,
+                ediCalByA8	,
+                ediCalByA9	,
+                ediCalByA10	,
+                ediCalByA11	,
+                ediCalByA12	,
+                ediCalByA13	,
+                ediCalByA14	,
+                ediCalByA15	,
+                ediCalByA16	,
+                ediCalByA17	,
+                ediCalByA18	,
+                ediCalByA19	,
+                ediCalByA20	,
+
+
+        };
+
+
+        TextInputEditText [] arrayEditsFilaAbajo = {
+                edif2Calib1	, edif2Calib2, edif2Calib3,edif2Calib4,
+                edif2Calib5	, edif2Calib6, edif2Calib7, edif2Calib8	,
+                edif2Calib9	, edif2Calib10, edif2Calib11, edif2Calib12	,
+                edif2Calib13, edif2Calib14, edif2Calib15, edif2Calib16	,
+                edif2Calib17, edif2Calib18, edif2Calib19, edif2Calib20	,
+
+
+        };
+
+
+        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+            int productResult =0;
+
+            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                arrayEditsFilaAbajo [i].getText().clear();
+
+            }
+
+
+            else {
+
+
+                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+            }
+
+
+
+
+
+        }
+
+
+    }
+
+    private void getlargoDedosPulgaPulpaApulpa() {
+
+
+        double [][] decimalsToMultiplicar = {
+
+                {6.0,  6.2, 6.4, 6.6, 6.8},
+                {7.0,  7.2, 7.4, 7.6, 7.8},
+                {8.0,  8.2, 8.4, 8.6, 8.8},
+                {9.0,  9.2, 9.4, 9.6, 9.8},
+                {10.0,  10.2, 10.4, 10.6, 10.8},
+                {11.0,  11.2, 11.4, 11.6, 11.8},
+
+
+        } ;
+
+
+
+        TextInputEditText [][] arrayBidimensfILA1ContieneTexts = {
+
+                {mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5},
+                {mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10},
+                {mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15},
+                {mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20},
+                {mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25},
+                {mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30},
+
+        } ;
+
+
+        TextInputEditText [][] arrayBidimensfILA2MostarText = {
+
+                {mEdif2LrgD1,mEdif2LrgD2,mEdif2LrgD3,mEdif2LrgD4,mEdif2LrgD5},
+                {mEdif2LrgD6,mEdif2LrgD7,mEdif2LrgD8,mEdif2LrgD9,mEdif2LrgD10},
+                {mEdif2LrgD11,mEdif2LrgD12,mEdif2LrgD13,mEdif2LrgD14,mEdif2LrgD15},
+                {mEdif2LrgD16,mEdif2LrgD17,mEdif2LrgD18,mEdif2LrgD19,mEdif2LrgD20},
+                {mEdif2LrgD21,mEdif2LrgD22,mEdif2LrgD23,mEdif2LrgD24,mEdif2LrgD25},
+                {mEdif2LrgD26,mEdif2LrgD27,mEdif2LrgD28,mEdif2LrgD29,mEdif2LrgD30},
+
+        } ;
+
+
+
+        for (int i = 0; i <arrayBidimensfILA1ContieneTexts.length; i++) {
+
+            TextInputEditText [] currentArrayofContainsDataNums= arrayBidimensfILA1ContieneTexts[i];
+            double [] currentDecimalArray=decimalsToMultiplicar[i];
+
+
+            for (int indice = 0; indice <currentArrayofContainsDataNums.length; indice++) {
+                //se ejecutar 5 veces..
+
+                if(currentArrayofContainsDataNums[indice].getText().toString().trim().isEmpty() )  { //si esta vacio
+                    currentArrayofContainsDataNums[indice].getText().clear();
+
+                }
+
+                else {
+
+                    double result= currentDecimalArray[indice] * Integer.parseInt(currentArrayofContainsDataNums[indice].getText().toString());
+
+
+                    if(String.valueOf(result).length() >5)  {
+                        double roundDbl = Math.round(result*100.0)/100.0;
+                        result= roundDbl;
+                    }
+                    Log.i("dfgdf","el value es sssss "+String.valueOf(result))  ;
+
+
+                    if((result % 1) == 0){
+
+                        result =Math.floor(result);
+                        Log.i("dfgdf","el value convert "+result)  ;
+
+                    }
+
+
+                    arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
+
+                    // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
+                    //colcamos este texto en el editext
+
+
+                }
+
+
+
+            }
+
+            //6 veces
+
+
+        }
+
+
+
+
+
+
+    }
+
+
+
+
+    private void createMapInBYothersTextimpuEdFields() {
+
+        hasHmapFieldsRecha= new HashMap<>();
+
+        TextInputEditText arrayAllFields[] =  {
+
+                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+                ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
+                ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
+                ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
+                ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
+                ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
+                ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
+                ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+                edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
+                edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
+                edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
+                edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
+                edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
+                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
+                edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
+                edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
+                , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
+                ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
+                ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+                edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
+                edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+
+
+        } ;
+
+
+        for(int i = 0; i<arrayAllFields.length; i++) {
+
+
+            TextInputEditText currenTextImput=arrayAllFields[i];
+
+            if(!currenTextImput.getText().toString().trim().isEmpty()) { //si no esta vacio
+
+                String keyOFidView=String.valueOf(currenTextImput.getId());
+
+                hasHmapFieldsRecha.put(keyOFidView,currenTextImput.getText().toString());
+            }
+
+
+        }
+
+        hasHmapFieldsRecha.put("0","EMPTY");
+
+
+    }
+
+    private void eventoUploadFormulario () {
+
+        btnSaveControlC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(!cheakIfInfoIsComplete()) {
+                    return;
+
+                }
+
+
+              Log.i("misdtass","el nodo del objeto current es "+Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+
+
+                createMapInBYothersTextimpuEdFields();
+                createInfoToHashmapRechazaSelecToUpload();
+                createItemsSelectDefectsEmpqTOuPLOAD();
+                ControlCalidad obecjControlCalidad= udpadteFormulario(Variables.currenControlCalReport);
+
+                RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad,Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+                RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsRecha,Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+                RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
+
+
+
+
+
+
+
+
+
+
+            }
+        });
+
+    }
+
+    private boolean cheakIfInfoIsComplete() {
+
+        if(mEdiVaporzz.getText().toString().trim().isEmpty()){
+            mEdiVaporzz.requestFocus() ;
+            mEdiVaporzz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+        if(mEdiProductorzz.getText().toString().trim().isEmpty()){
+            mEdiProductorzz.requestFocus() ;
+            mEdiProductorzz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+        if(mEdiCodigozz.getText().toString().trim().isEmpty()){
+            mEdiCodigozz.requestFocus() ;
+            mEdiCodigozz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+
+        if(mEdiZonazz.getText().toString().trim().isEmpty()){
+            mEdiZonazz.requestFocus() ;
+            mEdiZonazz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+
+        if(mEdiHaciendazz.getText().toString().trim().isEmpty()){
+            mEdiHaciendazz.requestFocus() ;
+            mEdiHaciendazz.setError("Este espacio es necesario") ;
+
+            return false;
+        }
+
+
+
+        if(mEdiExportadorazz.getText().toString().trim().isEmpty()){
+            mEdiExportadorazz.requestFocus() ;
+            mEdiExportadorazz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+
+        if(mEdiCompaniazz.getText().toString().trim().isEmpty()){
+            mEdiCompaniazz.requestFocus() ;
+            mEdiCompaniazz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+
+        if(mEdiClientezz.getText().toString().trim().isEmpty()){
+            mEdiClientezz.requestFocus() ;
+            mEdiClientezz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+        if(mEdisemanazz.getText().toString().trim().isEmpty()){
+            mEdisemanazz.requestFocus() ;
+            mEdisemanazz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+
+        if(mEdiFechazz.getText().toString().trim().isEmpty()){
+            mEdiFechazz.requestFocus() ;
+            mEdiFechazz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+
+        if(mEdiMagapzz.getText().toString().trim().isEmpty()){
+            mEdiMagapzz.requestFocus() ;
+            mEdiMagapzz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+
+        if(mEdiMarcaCajazz.getText().toString().trim().isEmpty()){
+            mEdiMarcaCajazz.requestFocus() ;
+            mEdiMarcaCajazz.setError("Este espacio es necesario") ;
+
+
+            return false;
+        }
+
+
+
+        if(mEdiTipoEmpazz.getText().toString().trim().isEmpty()){
+            mEdiTipoEmpazz.requestFocus() ;
+            mEdiTipoEmpazz.setError("Este espacio es necesario") ;
+            return false;
+        }
+
+
+
+        if(mEdiDestinzz.getText().toString().trim().isEmpty()){
+            mEdiDestinzz.requestFocus() ;
+            mEdiDestinzz.setError("Este espacio es necesario") ;
+            return false;
+        }
+
+
+
+        if(mEdiTotalCajaszz.getText().toString().trim().isEmpty()){
+            mEdiTotalCajaszz.requestFocus() ;
+            mEdiTotalCajaszz.setError("Este espacio es necesario") ;
+            return false;
+        }
+
+
+
+        if(mEdioCalidaCampzz.getText().toString().trim().isEmpty()){
+            mEdioCalidaCampzz.requestFocus() ;
+            mEdioCalidaCampzz.setError("Este espacio es necesario") ;
+
+            return false;
+        }
+
+
+
+        if(mEdiHoraInizz.getText().toString().trim().isEmpty()){
+            mEdiHoraInizz.requestFocus() ;
+            mEdiHoraInizz.setError("Este espacio es necesario") ;
+
+            return false;
+        }
+
+
+
+        if(mEdiHoraTermizz.getText().toString().trim().isEmpty()){
+            mEdiHoraTermizz.requestFocus() ;
+            mEdiHoraTermizz.setError("Este espacio es necesario") ;
+
+            return false;
+        }
+
+
+        if(mEdiContenedorzz.getText().toString().trim().isEmpty()){
+            mEdiContenedorzz.requestFocus() ;
+            mEdiContenedorzz.setError("Este espacio es necesario") ;
+
+            return false;
+        }
+
+
+
+        if(mEdiSellosnavzz.getText().toString().trim().isEmpty()){
+            mEdiSellosnavzz.requestFocus() ;
+            mEdiSellosnavzz.setError("Este espacio es necesario") ;
+
+            return false;
+        }
+
+
+
+
+        if(mEdiSelloVerzz.getText().toString().trim().isEmpty()){
+            mEdiSelloVerzz.requestFocus() ;
+            mEdiSelloVerzz.setError("Este espacio es necesario") ;
+
+            return false;
+        }
+
+
+
+
+        if(mEdiTermografozz.getText().toString().trim().isEmpty()){
+            mEdiTermografozz.requestFocus() ;
+            mEdiTermografozz.setError("Este espacio es necesario") ;
+            return false;
+        }
+
+
+
+
+        if(mEdiPlacaCarrzz.getText().toString().trim().isEmpty()){
+            mEdiPlacaCarrzz.requestFocus() ;
+            mEdiPlacaCarrzz.setError("Este espacio es necesario") ;
+            return false;
+        }
+
+
+        if(mEdiPuertEmbzz.getText().toString().trim().isEmpty()){
+            mEdiPuertEmbzz.requestFocus() ;
+            mEdiPuertEmbzz.setError("Este espacio es necesario") ;
+            return false;
+        }
+
+
+        return true;
+
+    }
+
+    private ControlCalidad udpadteFormulario(ControlCalidad antiguoControlCal){
+
+        ControlCalidad  controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
+                mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(),mEdiCodigozz.getText().toString(),
+                mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
+                mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
+                mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
+                mEdioCalidaCampzz.getText().toString(),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
+                mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
+                mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
+
+
+
+        //aqctualizamos ALGUNOS DATOS
+        controlCaL .setKeyWhereLocateasHmapFieldsRecha(antiguoControlCal.getKeyWhereLocateasHmapFieldsRecha());
+        controlCaL.setKeyDondeEstaraHasmapDefecSelec(antiguoControlCal.getKeyDondeEstaraHasmapDefecSelec());
+        controlCaL.setSimpleDate(antiguoControlCal.getSimpleDate());
+        controlCaL.setKeyDondeEstarThisInform(antiguoControlCal.getKeyDondeEstarThisInform());
+
+
+        return controlCaL;
+
+    }
 }
