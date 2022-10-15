@@ -35,6 +35,10 @@ LinearLayout ly_conte_en_acopio;
 LinearLayout ly_camy_carretas;
 LinearLayout ly_packing_list;
 LinearLayout ly_cuadro_Muestreo_caly_rechaz;
+LinearLayout ly_controlCalidad;
+
+
+
 Button btnInInformes;
 TextView txtAdviser,txtAdviser2;
     private static final int PERMISSION_REQUEST_CODE=100;
@@ -63,8 +67,15 @@ TextView txtAdviser,txtAdviser2;
          ly_packing_list=findViewById(R.id.ly_packing_list);
          ly_cuadro_Muestreo_caly_rechaz=findViewById(R.id.ly_cuadro_Muestreo_caly_rechaz);
 
+        ly_controlCalidad=findViewById(R.id.ly_controlCalidad);
+        ly_controlCalidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                startActivity(new Intent(ActivityMenu.this,FormularioControlCalidad.class));
 
+            }
+        });
 
         ly_camy_carretas.setOnClickListener(new View.OnClickListener() {
             @Override

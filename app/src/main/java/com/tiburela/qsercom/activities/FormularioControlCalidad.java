@@ -100,7 +100,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
   //  boolean[] selectedLanguage;
     Button btnSaveControlC;
     TextView textView48;
-    HashMap<String, String> hasHmapFieldsRecha;
+    HashMap<String, String> hasHmapOtherFieldsEditxs;
     HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
     HashMap<String, String> hahasMapitemsSelecPosicDefcEmpqtoUpload;
 
@@ -1375,9 +1375,10 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
     private void createMapInBYothersTextimpuEdFields() {
 
-        hasHmapFieldsRecha= new HashMap<>();
+        hasHmapOtherFieldsEditxs = new HashMap<>();
 
        TextInputEditText arrayAllFields[] =  {
+
 
                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
                ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
@@ -1409,6 +1410,15 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
 
 
+               mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
+               mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
+               mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
+               mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
+               mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
+               mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,
+
+
+
        } ;
 
 
@@ -1421,13 +1431,13 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
                 String keyOFidView=String.valueOf(currenTextImput.getId());
 
-                hasHmapFieldsRecha.put(keyOFidView,currenTextImput.getText().toString());
+                hasHmapOtherFieldsEditxs.put(keyOFidView,currenTextImput.getText().toString());
             }
 
 
     }
 
-        hasHmapFieldsRecha.put("0","EMPTY");
+        hasHmapOtherFieldsEditxs.put("0","EMPTY");
 
 
     }
@@ -1818,7 +1828,7 @@ return true;
 
 
                 RealtimeDB.UploadControlcalidadInform(obecjControlCalidad);
-                RealtimeDB.addNewHashMapControlCalidad(hasHmapFieldsRecha,keyDondeEstaraHasmap);
+                RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxs,keyDondeEstaraHasmap);
                 RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
 
 
@@ -2101,13 +2111,20 @@ return true;
 
                     if((result % 1) == 0){
 
-                        result =Math.floor(result);
+                        int numentero = (int) Math.floor(result);
                         Log.i("dfgdf","el value convert "+result)  ;
+
+                        arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(numentero));
+
+
+
+                    }else{
+
+                        arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
 
                     }
 
 
-                    arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
 
                    // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
                    //colcamos este texto en el editext
