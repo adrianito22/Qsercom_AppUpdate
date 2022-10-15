@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -14,6 +14,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+            <include
+                layout="@layout/ly_defect_part1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -21,7 +27,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#404040"
+                        android:padding="10dp"
+                        android:text="Defectos"
+                        android:textColor="@android:color/white" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -40,49 +58,57 @@
                         <TextView
                             android:id="@+id/textView44"
                             android:layout_width="75dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:gravity="center_horizontal"
+                            android:gravity="center|center_horizontal"
                             android:text="HORA"
                             android:textColor="#E91E63" />
 
                         <TextView
                             android:id="@+id/textView45"
                             android:layout_width="75dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:gravity="center_horizontal"
+                            android:gravity="center"
                             android:text="Peso Lbs." />
 
                         <TextView
                             android:id="@+id/textView46"
                             android:layout_width="75dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginLeft="10dp"
-                            android:gravity="center_horizontal"
+                            android:gravity="center|center_horizontal"
                             android:text="PH" />
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView47"
+                                android:layout_width="75dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="top"
+                                android:text="Num  Cluster Inspecc    " />
+                        </LinearLayout>
+
                         <TextView
-                            android:id="@+id/textView47"
-                            android:layout_width="75dp"
-                            android:layout_height="match_parent"
+                            android:id="@+id/textView56"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:gravity="center_horizontal"
-                            android:text="Num  Cluster Inspecc" />
+                            android:text="SELECION" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                        <TextView
+                            android:id="@+id/textView57"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
-
-                        <ImageView
-                            android:id="@+id/img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:text="EMPAQUE" />
 
                         <TextView
                             android:id="@+id/textView48"
@@ -92,12 +118,20 @@
                             android:background="#DC3232"
                             android:text="TOTAL" />
 
-                        <TextView
-                            android:id="@+id/textView49"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="Def Caja linea" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView49"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="Def Caja linea" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -105,10 +139,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -116,7 +150,6 @@
                             android:text="1" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -140,7 +173,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPesoL1"
                                 android:layout_width="match_parent"
@@ -159,6 +193,8 @@
 
                             <com.google.android.material.textfield.TextInputEditText
 
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPH1"
                                 android:layout_width="match_parent"
@@ -175,33 +211,32 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
-
                                 android:id="@+id/ediNumClusInsp1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
-
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <ImageView
 
                             android:id="@+id/imgSelecDefc1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal1"
-                            android:layout_width="40dp"
+                            android:layout_width="42dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp" />
 
@@ -214,13 +249,15 @@
 
                     <LinearLayout
 
+                        android:id="@+id/comtainer"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -228,7 +265,6 @@
                             android:text="2" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -254,7 +290,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPesoL2"
                                 android:layout_width="match_parent"
@@ -272,7 +309,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPH2"
                                 android:layout_width="match_parent"
@@ -290,10 +328,11 @@
 
                             <com.google.android.material.textfield.TextInputEditText
 
-
                                 android:id="@+id/ediNumClusInsp2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -301,17 +340,17 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal2"
@@ -330,11 +369,12 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -342,7 +382,6 @@
                             android:text="3" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -368,7 +407,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPesoL3"
                                 android:layout_width="match_parent"
@@ -386,7 +426,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPH3"
                                 android:layout_width="match_parent"
@@ -403,11 +444,11 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
-
                                 android:id="@+id/ediNumClusInsp3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -415,17 +456,17 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc3"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque3"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal3"
@@ -444,11 +485,12 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -456,7 +498,6 @@
                             android:text="4" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -482,7 +523,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPesoL4"
                                 android:layout_width="match_parent"
@@ -500,7 +542,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPH4"
                                 android:layout_width="match_parent"
@@ -517,11 +560,11 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
-
                                 android:id="@+id/ediNumClusInsp4"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -529,17 +572,17 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal4"
@@ -559,10 +602,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -570,7 +613,6 @@
                             android:text="5" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -594,7 +636,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPesoL5"
                                 android:layout_width="match_parent"
@@ -612,7 +655,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPH5"
                                 android:layout_width="match_parent"
@@ -629,11 +673,11 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
-
                                 android:id="@+id/ediNumClusInsp5"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -641,17 +685,17 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc5"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque5"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal5"
@@ -670,11 +714,12 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -682,7 +727,6 @@
                             android:text="6" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -708,7 +752,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
                                 android:id="@+id/ediPesoL6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -726,7 +771,8 @@
 
                             <com.google.android.material.textfield.TextInputEditText
 
-
+                                android:digits="0123456789."
+                                android:inputType="number"
                                 android:id="@+id/ediPH6"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -745,6 +791,8 @@
                                 android:id="@+id/ediNumClusInsp6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -752,17 +800,18 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc6"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
+
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque6"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal6"
@@ -781,7 +830,9 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -793,7 +844,6 @@
                             android:text="7" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tdf"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
@@ -820,7 +870,8 @@
 
                             <com.google.android.material.textfield.TextInputEditText
 
-
+                                android:digits="0123456789."
+                                android:inputType="number"
                                 android:id="@+id/ediPesoL7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -837,7 +888,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
                                 android:id="@+id/ediPH7"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -857,6 +909,8 @@
                                 android:id="@+id/ediNumClusInsp7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -864,17 +918,18 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc7"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
+
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque7"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal7"
@@ -894,6 +949,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -929,7 +985,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
 
                                 android:id="@+id/ediPesoL8"
                                 android:layout_width="match_parent"
@@ -947,7 +1004,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
                                 android:id="@+id/ediPH8"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -967,6 +1025,8 @@
                                 android:id="@+id/ediNumClusInsp8"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -974,17 +1034,18 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc8"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
+
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque8"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal8"
@@ -1003,7 +1064,9 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -1038,7 +1101,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
                                 android:id="@+id/ediPesoL9"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1055,7 +1119,8 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
+                                android:digits="0123456789."
+                                android:inputType="number"
                                 android:id="@+id/ediPH9"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -1071,10 +1136,11 @@
                             android:gravity="center_horizontal">
 
                             <com.google.android.material.textfield.TextInputEditText
-
                                 android:id="@+id/ediNumClusInsp9"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1082,17 +1148,17 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc9"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque9"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal9"
@@ -1109,13 +1175,14 @@
 
                     <LinearLayout
 
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/delete"
                             android:layout_width="10dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -1149,7 +1216,8 @@
 
                             <com.google.android.material.textfield.TextInputEditText
 
-
+                                android:digits="0123456789."
+                                android:inputType="number"
                                 android:id="@+id/ediPesoL10"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1188,6 +1256,8 @@
                                 android:id="@+id/ediNumClusInsp10"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1195,17 +1265,17 @@
                         <ImageView
 
                             android:id="@+id/imgSelecDefc10"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <ImageView
                             android:id="@+id/imvEmpaque10"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_baseline_post_add_24" />
+                            android:src="@drawable/ic_baseline_check_box_24" />
 
                         <TextView
                             android:id="@+id/txtTotal10"
@@ -1227,6 +1297,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
 
@@ -1249,7 +1320,13 @@
 
 
                 </LinearLayout>
+
+
             </HorizontalScrollView>
+
+
+
+
 
             <include
                 layout="@layout/ly_num_deds_x_cluster"
@@ -1263,19 +1340,15 @@
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnSaveControlC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="Actualizar Formulario" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:text="Guardar Formulario"
+                android:textAllCaps="true" />
 
         </LinearLayout>
     </ScrollView>

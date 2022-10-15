@@ -38,6 +38,37 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     TextView textView48;
     HashMap<String, String> hasHmapFieldsRecha;
 
+
+    private TextInputEditText ediObservacioneszszz;
+    // fist fields
+    private TextInputEditText mEdiVaporzz;
+    private TextInputEditText mEdiProductorzz;
+    private TextInputEditText mEdiCodigozz;
+    private TextInputEditText mEdiZonazz;
+    private TextInputEditText mEdiHaciendazz;
+    private TextInputEditText mEdiExportadorazz;
+    private TextInputEditText mEdiCompaniazz;
+    private TextInputEditText mEdiClientezz;
+    private TextInputEditText mEdisemanazz;
+    private TextInputEditText mEdiFechazz;
+    private TextInputEditText mEdiMagapzz;
+    private TextInputEditText mEdiMarcaCajazz;
+    private TextInputEditText mEdiTipoEmpazz;
+    private TextInputEditText mEdiDestinzz;
+    private TextInputEditText mEdiTotalCajaszz;
+    private TextInputEditText mEdioCalidaCampzz;
+    private TextInputEditText mEdiHoraInizz;
+    private TextInputEditText mEdiHoraTermizz;
+    private TextInputEditText mEdiContenedorzz;
+    private TextInputEditText mEdiSellosnavzz;
+    private TextInputEditText mEdiSelloVerzz;
+    private TextInputEditText mEdiTermografozz;
+    private TextInputEditText mEdiPlacaCarrzz;
+    private TextInputEditText mEdiPuertEmbzz;
+
+
+
+
     //Imageviews defects
     ImageView imgSelecDefc1;
     ImageView imgSelecDefc2;
@@ -381,19 +412,31 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     //aqui ya deberiamos pasarle los dos objetos una vez descargados
     private void setDataInViews(HashMap <String,String>miMapa, ControlCalidad controlCalidad){
 
-        TextInputEditText ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
+        mEdiVaporzz.setText(controlCalidad.getVapor());
         ediObservacioneszszz.setText(controlCalidad.getObservaciones());
-        ediTimeHoraxx2.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx2.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx3.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx4.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx5.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx6.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx7.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx8.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx9.setText(controlCalidad.getCalidaCamp());
-        ediTimeHoraxx10.setText(controlCalidad.getCalidaCamp());
-
+        mEdiProductorzz.setText(controlCalidad.getProductor());
+        mEdiCodigozz .setText(controlCalidad.getCodigo());
+        mEdiZonazz .setText(controlCalidad.getZona());
+        mEdiHaciendazz .setText(controlCalidad.getHacienda());
+        mEdiExportadorazz.setText(controlCalidad.getExportadora());
+        mEdiCompaniazz .setText(controlCalidad.getCompania());
+        mEdiClientezz .setText(controlCalidad.getCliente());
+        mEdisemanazz.setText(controlCalidad.getSemana());
+        mEdiFechazz .setText(controlCalidad.getFecha());
+        mEdiMagapzz.setText(controlCalidad.getMagap());
+        mEdiMarcaCajazz .setText(controlCalidad.getMarcaCaja());
+        mEdiTipoEmpazz .setText(controlCalidad.getTipoEmpaque());
+        mEdiDestinzz .setText(controlCalidad.getDestino());
+        mEdiTotalCajaszz.setText(String.valueOf(controlCalidad.getTotalCajas()));
+        mEdioCalidaCampzz .setText(controlCalidad.getCalidaCamp());
+        mEdiHoraInizz .setText(controlCalidad.getHoraIni());
+        mEdiHoraTermizz .setText(controlCalidad.getHoraTermi());
+        mEdiContenedorzz .setText(controlCalidad.getContenedor());
+        mEdiSellosnavzz.setText(controlCalidad.getSellosnav());
+        mEdiSelloVerzz .setText(controlCalidad.getSelloVerificadora());
+        mEdiTermografozz.setText(controlCalidad.getTermografo());
+        mEdiPlacaCarrzz .setText(controlCalidad.getPlacaCarro());
+        mEdiPuertEmbzz .setText(controlCalidad.getPuertEmbarq());
 
 
 
@@ -450,7 +493,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             }
 
 
-            //Agregamos este valor en este edi text
 
         }
 
@@ -460,7 +502,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
-    private void getPakinkListMap (String nodeLocateHasmapControlC){
+    private void dowloadCoontrolClidadMapAndCallSetDATAINviews (String nodeLocateHasmapControlC){
 
         Log.i("hameha","el NODEKey es : "+nodeLocateHasmapControlC);
 
@@ -509,7 +551,84 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     }
 
 
+    private void dowloadSelectDefectosPosiciones(String nodeLocateHasmapDefectSelecc){
+
+        Log.i("hameha","el NODEKey es : "+nodeLocateHasmapDefectSelecc);
+
+        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("DefectoSelecionadosHashmap").child(nodeLocateHasmapDefectSelecc).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                hasmapMap=new HashMap<>();
+
+
+                for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                    String key = dss.getKey();
+
+                    String  fieldData =dss.getValue(String.class);
+
+                    //   HashMap packinKey = dss.getValue( String.class);
+
+                    //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
+                    Log.i("hameha","el key es "+key);
+
+
+                    if (fieldData!=null) {///
+
+                        hasmapMap.put(key,fieldData);
+
+                    }
+                }
+
+                setDataInViews(hasmapMap,Variables.currenControlCalReport);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("misadhd","el error es "+ databaseError.getMessage());
+
+
+
+            }
+        });
+
+
+
+
+    }
+
+
     private void findviewsIds() {
+        ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
+
+        //=findViewById(R.id.btnSaveControlC);
+
+        mEdiVaporzz = findViewById(R.id.ediVaporzz);
+        mEdiProductorzz = findViewById(R.id.ediProductorzz);
+        mEdiCodigozz = findViewById(R.id.ediCodigozz);
+        mEdiZonazz = findViewById(R.id.ediZonazz);
+        mEdiHaciendazz = findViewById(R.id.ediHaciendazz);
+        mEdiExportadorazz = findViewById(R.id.ediExportadorazz);
+        mEdiCompaniazz = findViewById(R.id.ediCompaniazz);
+        mEdiClientezz = findViewById(R.id.ediClientezz);
+        mEdisemanazz = findViewById(R.id.ediSemanazz);
+        mEdiFechazz = findViewById(R.id.ediFechazz);
+        mEdiMagapzz = findViewById(R.id.ediMagapzz);
+        mEdiMarcaCajazz = findViewById(R.id.ediMarcaCajazz);
+        mEdiTipoEmpazz = findViewById(R.id.ediTipoEmpazz);
+        mEdiDestinzz = findViewById(R.id.ediDestinzz);
+        mEdiTotalCajaszz = findViewById(R.id.ediTotalCajaszz);
+        mEdioCalidaCampzz = findViewById(R.id.edioCalidaCampzz);
+        mEdiHoraInizz = findViewById(R.id.ediHoraInizz);
+        mEdiHoraTermizz = findViewById(R.id.ediHoraTermizz);
+        mEdiContenedorzz = findViewById(R.id.ediContenedorzz);
+        mEdiSellosnavzz = findViewById(R.id.ediSellosnavzz);
+        mEdiSelloVerzz = findViewById(R.id.ediSelloVerzz);
+        mEdiTermografozz = findViewById(R.id.ediTermografozz);
+        mEdiPlacaCarrzz = findViewById(R.id.ediPlacaCarrzz);
+        mEdiPuertEmbzz = findViewById(R.id.ediPuertEmbzz);
 
 
         imgSelecDefc1=findViewById(R.id.imgSelecDefc1);

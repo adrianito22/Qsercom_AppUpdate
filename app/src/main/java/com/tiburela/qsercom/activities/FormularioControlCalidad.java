@@ -96,7 +96,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
 
     TextView textView;
-    boolean[] selectedLanguage;
+  //  boolean[] selectedLanguage;
     Button btnSaveControlC;
     TextView textView48;
     HashMap<String, String> hasHmapFieldsRecha;
@@ -404,6 +404,11 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
     ArrayList<ArrayList<Boolean>> listOfLISTState = new ArrayList<>(); //serian unas dies listas...
 
+    HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb = new HashMap<>(); //serian unas dies listas...
+    HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb2 = new HashMap<>(); //serian unas dies listas...
+
+
+
     ArrayList<ArrayList<Boolean>> listOfLISTState2 = new ArrayList<>(); //serian unas dies listas...
 
 
@@ -432,55 +437,10 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
       //  List<String> listDefectos = Arrays.asList();
 
 
+           inicialiceListOfListChekedItems();
 
-
-       arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
-        arrayDefect2 = getResources().getStringArray(R.array.array_defectos_empaque2);
-
-
-
-        for (int i = 0; i <10; i++) {
-
-            ArrayList<Boolean> listItem = new ArrayList<>(); //serian unas dies listas...
-
-
-            for (int j = 0; j < arrayDefect1.length; j++) {
-
-                listItem.add(false);
-                //agregamos valors a esta lista
-
-            }
-
-            listOfLISTState.add(listItem);
-
-
-        }
-
-
-
-        for (int i = 0; i <10; i++) {
-
-            ArrayList<Boolean> listItem2 = new ArrayList<>(); //serian unas dies listas...
-
-
-            for (int j = 0; j < arrayDefect2.length; j++) {
-
-                listItem2.add(false);
-                //agregamos valors a esta lista
-
-            }
-
-            listOfLISTState2.add(listItem2);
-
-
-        }
-
-
-
-
-        // initialize selected language array
-        selectedLanguage = new boolean[arrayDefect1.length];
     }
+
 
     @Override
     protected void onStart() {
@@ -982,155 +942,36 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     @Override
     public void onClick(View view) {
         boolean[] estates;
+
+        String keyOrViewID=String.valueOf(view.getId());
+
+        //di esl alguno de estos clicks
+        int idPulsado=view.getId();
+        if(idPulsado== R.id.imgSelecDefc1 || idPulsado== R.id.imgSelecDefc2  || idPulsado== R.id.imgSelecDefc3  ||  idPulsado== R.id.imgSelecDefc4  ||
+            idPulsado== R.id.imgSelecDefc5  || idPulsado== R.id.imgSelecDefc6   || idPulsado== R.id.imgSelecDefc7  ||
+                idPulsado== R.id.imgSelecDefc8   ||  idPulsado== R.id.imgSelecDefc9   ||  idPulsado== R.id.imgSelecDefc10 ){
+
+            estates =listToAarray(HashMapOfListWhitStatesCHeckb.get(keyOrViewID));
+            showDialogx(estates,keyOrViewID);
+
+
+        }
+
+
+        if(idPulsado== R.id.imvEmpaque1 || idPulsado== R.id.imvEmpaque2  || idPulsado== R.id.imvEmpaque3  ||  idPulsado== R.id.imvEmpaque4  ||
+                idPulsado== R.id.imvEmpaque5  || idPulsado== R.id.imvEmpaque6   || idPulsado== R.id.imvEmpaque7  ||
+                idPulsado== R.id.imvEmpaque8   ||  idPulsado== R.id.imvEmpaque9   ||  idPulsado== R.id.imvEmpaque10 ){
+
+            estates =listToAarray(HashMapOfListWhitStatesCHeckb2.get(keyOrViewID));
+            showDialogx2(estates,keyOrViewID);
+
+
+        }
+
+
+
+
         switch (view.getId()) {
-            case R.id.imgSelecDefc1:
-                //  boolean [] estatesCurrentItem = new Boolean [listOfLISTState.get(0).size()];
-                //resultArray = list.toArray(resultArray);
-                // String[] strings = listOfLISTState.get(0).toArray(Boolean[]::new);
-
-                 estates =listToAarray(listOfLISTState.get(0));
-                showDialogx(estates,0);
-
-
-                break;
-
-
-            case R.id.imgSelecDefc2:
-              //  showDialogx(1);
-                 estates =listToAarray(listOfLISTState.get(1));
-                showDialogx(estates,1);
-                break;
-
-
-
-            case R.id.imgSelecDefc3:
-              //  showDialogx(2);
-                 estates =listToAarray(listOfLISTState.get(2));
-                showDialogx(estates,2);
-                break;
-
-
-            case R.id.imgSelecDefc4:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(3));
-                showDialogx(estates,3);
-                break;
-
-
-
-            case R.id.imgSelecDefc5:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(4));
-                showDialogx(estates,4);
-                break;
-
-
-            case R.id.imgSelecDefc6:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(5));
-                showDialogx(estates,5);
-                break;
-
-
-            case R.id.imgSelecDefc7:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(6));
-                showDialogx(estates,6);
-                break;
-
-
-            case R.id.imgSelecDefc8:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(7));
-                showDialogx(estates,7);
-                break;
-
-
-            case R.id.imgSelecDefc9:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(8));
-                showDialogx(estates,8);
-                break;
-
-
-            case R.id.imgSelecDefc10:
-                //  showDialogx(2);
-                estates =listToAarray(listOfLISTState.get(9));
-                showDialogx(estates,9);
-                break;
-
-
-              //para los otros defectos
-
-
-            case R.id.imvEmpaque1:
-                  estates =listToAarray(listOfLISTState2.get(0));
-                showDialogx2(estates,0);
-
-
-                break;
-            case R.id.imvEmpaque2:
-                estates =listToAarray(listOfLISTState2.get(1));
-                showDialogx2(estates,1);
-
-                break;
-
-            case R.id.imvEmpaque3:
-                estates =listToAarray(listOfLISTState2.get(2));
-                showDialogx2(estates,2);
-
-                break;
-
-            case R.id.imvEmpaque4:
-                estates =listToAarray(listOfLISTState2.get(3));
-                showDialogx2(estates,3);
-
-                break;
-
-
-            case R.id.imvEmpaque5:
-                estates =listToAarray(listOfLISTState2.get(4));
-                showDialogx2(estates,4);
-
-                break;
-
-
-            case R.id.imvEmpaque6:
-                estates =listToAarray(listOfLISTState2.get(5));
-                showDialogx2(estates,5);
-
-                break;
-
-            case R.id.imvEmpaque7:
-                estates =listToAarray(listOfLISTState2.get(6));
-                showDialogx2(estates,6);
-
-                break;
-
-            case R.id.imvEmpaque8:
-                estates =listToAarray(listOfLISTState2.get(7));
-                showDialogx2(estates,7);
-
-                break;
-
-            case R.id.imvEmpaque9:
-                estates =listToAarray(listOfLISTState2.get(8));
-                showDialogx2(estates,8);
-
-                break;
-
-
-            case R.id.imvEmpaque10:
-                estates =listToAarray(listOfLISTState2.get(9));
-                showDialogx2(estates,9);
-
-                break;
-
-
-
-
-
-
 
 
             case R.id.ediTimeHoraxx1:
@@ -1234,7 +1075,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     }
 
 
-     void showDialogx(boolean[] selectedLanguage,int posicionListOfLIST) {
+     void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
 
         // Initialize alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidad.this);
@@ -1245,16 +1086,16 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         // set dialog non cancelable
         builder.setCancelable(false);
 
-        builder.setMultiChoiceItems(arrayDefect1, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(arrayDefect1, estatesCurrentListItem, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                 // check condition
                 if (b) {
                     //cuando selecione une ...obtenemos la poisicion..
-                    //
+                    //j
 
-                    listOfLISTState.get(posicionListOfLIST).set(i,true);
-
+                  // listOfLISTState.get(posicionListOfLIST).set(i,true);
+                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,true);
 
                     // when checkbox selected
                     // Add position  in lang list
@@ -1265,7 +1106,8 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                     // when checkbox unselected
                     // Remove position from langList
 
-                    listOfLISTState.get(posicionListOfLIST).set(i,false);
+                   // listOfLISTState.get(posicionListOfLIST).set(i,false);
+                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,false);
 
                   //  langList.remove(Integer.valueOf(i));
                 }
@@ -1297,9 +1139,13 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             public void onClick(DialogInterface dialogInterface, int i) {
                 // use for loop
 
-                for (int j = 0; j < listOfLISTState.get(posicionListOfLIST).size(); j++) {
+                 //aqui necesitamos obtener el hasmapa
 
-                    listOfLISTState.get(posicionListOfLIST).set(j,false);
+                for (int j = 0; j < HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).size(); j++) {
+
+                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(j,false);
+
+                    //listOfLISTState.get(posicionListOfLIST).set(j,false);
 
                 }
 
@@ -1316,7 +1162,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     }
 
 
-    void showDialogx2(boolean[] selectedLanguage,int posicionListOfLIST) {
+    void showDialogx2(boolean[] itemsChekeds,String keyCurrentListOFmap) {
 
         // Initialize alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidad.this);
@@ -1327,7 +1173,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         // set dialog non cancelable
         builder.setCancelable(false);
 
-        builder.setMultiChoiceItems(arrayDefect2, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(arrayDefect2, itemsChekeds, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                 // check condition
@@ -1335,7 +1181,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                     //cuando selecione une ...obtenemos la poisicion..
                     //
 
-                    listOfLISTState2.get(posicionListOfLIST).set(i,true);
+                    HashMapOfListWhitStatesCHeckb.get(keyCurrentListOFmap).set(i,true);
 
 
                     // when checkbox selected
@@ -1347,7 +1193,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                     // when checkbox unselected
                     // Remove position from langList
 
-                    listOfLISTState2.get(posicionListOfLIST).set(i,false);
+                    HashMapOfListWhitStatesCHeckb.get(keyCurrentListOFmap).set(i,false);
 
                     //  langList.remove(Integer.valueOf(i));
                 }
@@ -1379,9 +1225,11 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             public void onClick(DialogInterface dialogInterface, int i) {
                 // use for loop
 
-                for (int j = 0; j < listOfLISTState2.get(posicionListOfLIST).size(); j++) {
+                for (int j = 0; j < HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).size(); j++) {
 
-                    listOfLISTState2.get(posicionListOfLIST).set(j,false);
+                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(j,false);
+
+                    //listOfLISTState.get(posicionListOfLIST).set(j,false);
 
                 }
 
@@ -2140,23 +1988,22 @@ return true;
 
     private void getlargoDedosPulgaPulpaApulpa() {
 
-        int [] arraydIGITS = { 6,7,8,9,10,11 } ;
 
-        int [][] datsNumsFila2Array = {
+        double [][] decimalsToMultiplicar = {
 
-                {0,2,4,6,8},
-                {0,2,4,6,8},
-                {0,2,4,6,8},
-                {0,2,4,6,8},
-                {0,2,4,6,8},
-                {0,2,4,6,8},
-                {0,2,4,6,8},
+                {6.0,  6.2, 6.4, 6.6, 6.8},
+                {7.0,  7.2, 7.4, 7.6, 7.8},
+                {8.0,  8.2, 8.4, 8.6, 8.8},
+                {9.0,  9.2, 9.4, 9.6, 9.8},
+                {10.0,  10.2, 10.4, 10.6, 10.8},
+                {11.0,  11.2, 11.4, 11.6, 11.8},
+
 
         } ;
 
 
 
-        TextInputEditText [][] arrayBidimensfILA1 = {
+        TextInputEditText [][] arrayBidimensfILA1ContieneTexts = {
 
                 {mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5},
                 {mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10},
@@ -2181,91 +2028,32 @@ return true;
 
 
 
-        for (int i = 0; i <arrayBidimensfILA1.length; i++) {
+        for (int i = 0; i <arrayBidimensfILA1ContieneTexts.length; i++) {
 
-            TextInputEditText [] amiarrayCurrent= arrayBidimensfILA1[i];
-            TextInputEditText [] amiarrayfILA2= arrayBidimensfILA2MostarText[i];
-            int [] currenArrayFila2=datsNumsFila2Array[i];
-
+            TextInputEditText [] currentArrayofContainsDataNums= arrayBidimensfILA1ContieneTexts[i];
+            double [] currentDecimalArray=decimalsToMultiplicar[i];
 
 
-
-            for (int indice = 0; indice <amiarrayCurrent.length; indice++) {
+            for (int indice = 0; indice <currentArrayofContainsDataNums.length; indice++) {
              //se ejecutar 5 veces..
-                int productResult =0;
 
-                if(amiarrayCurrent[indice].getText().toString().trim().isEmpty() )  { //si esta vacio
-                    amiarrayCurrent[indice].getText().clear();
+                if(currentArrayofContainsDataNums[indice].getText().toString().trim().isEmpty() )  { //si esta vacio
+                    currentArrayofContainsDataNums[indice].getText().clear();
 
                 }
 
 
                 else { //si no esta vacio
 
-                    int numeroPrincipal = arraydIGITS[i]; //NUEMR DE ARRIBA
-                    int numeroFila2 = currenArrayFila2[i];
-                    int currentNumeroFila3 = Integer.parseInt(amiarrayCurrent[indice].getText().toString());
 
-                    Log.i("holaas", "el valor de numeroFila2 " + numeroFila2);
-                    Log.i("holaas", "el valor de currentNumeroFila3 " + currentNumeroFila3);
-                    Log.i("holaas", "el valor de numeroPrincipal " + numeroPrincipal);
+                    double result= currentDecimalArray[indice] * Integer.parseInt(currentArrayofContainsDataNums[indice].getText().toString());
 
+                   Log.i("sidmd","el data result es "+result);
 
-                    /****OPERACION
-                     *
-                     * ***/
+                    arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
 
-                    productResult = currentNumeroFila3 * numeroPrincipal;
-                    Log.i("holaas", "el valor de productResult " + productResult);
-
-                    int otrovalor = currentNumeroFila3 * numeroFila2;
-
-
-                    double dall = otrovalor / 10;
-                    Log.i("holaas","el otro valor convertido dall es  "+dall);
-
-
-
-
-                    otrovalor =otrovalor/10;
-
-
-
-                    double resutDecimalOtroValor=otrovalor/10;
-
-                    double numReondeadoOFresutDecimalOtroValor;
-
-
-                    if(String.valueOf(resutDecimalOtroValor).contains("0")) { //cuando no es cero
-                        numReondeadoOFresutDecimalOtroValor=  Math.floor(resutDecimalOtroValor);
-                       //  Log.i("holaas","result es "+numReondeadoOFresutDecimalOtroValor);
-                        double  resulFinal= numReondeadoOFresutDecimalOtroValor;
-                        Log.i("holaas","resulFinal es "+resulFinal);
-
-                    }
-
-
-                    {
-
-
-
-
-                        double  resulFinalElse=   resutDecimalOtroValor+productResult;
-                        Log.i("holaas","resulFinal else es "+resulFinalElse);
-
-
-                    }
-
-
-
-
-
-
-                 //  double resulFinal=numReondeadoOFresutDecimalOtroValor+productResult;
-
-
-                  //  amiarrayfILA2 [i].setText(String.valueOf(productResult));
-
+                   // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
+                   //colcamos este texto en el editext
 
 
                 }
@@ -2285,5 +2073,79 @@ return true;
 
 
 }
+
+    private void inicialiceListOfListChekedItems () {
+
+
+        arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
+        arrayDefect2 = getResources().getStringArray(R.array.array_defectos_empaque2);
+
+
+        for (int i = 0; i <10; i++) {
+
+            ArrayList<Boolean> listItem = new ArrayList<>(); //serian unas dies listas...
+
+
+            for (int j = 0; j < arrayDefect1.length; j++) {
+
+                listItem.add(false);
+                //agregamos valors a esta lista
+
+            }
+
+
+
+
+            listOfLISTState.add(listItem);
+
+
+        }
+
+
+
+        for (int i = 0; i <10; i++) {
+
+            ArrayList<Boolean> listItem2 = new ArrayList<>(); //serian unas dies listas...
+
+
+            for (int j = 0; j < arrayDefect2.length; j++) {
+
+                listItem2.add(false);
+                //agregamos valors a esta lista
+            }
+
+            listOfLISTState2.add(listItem2);
+
+
+        }
+
+
+
+        // initialize selected language array
+        //  selectedLanguage = new boolean[arrayDefect1.length];
+    }
+
+
+
+
+    private void actualizaStatesCEHECKEDofListOfLIST(){
+
+        ///ahora que descragamos el hasmap
+
+        //ietramos el hasmap i usamos el id de las imagenes...
+
+        ///asi que dame la info del hasmap (key de view la primera imagen)
+
+        //String hasmao del primero...
+        //convertimos esto en un  array by (,)
+        //el leng del for sera el lengt del array creado...
+        //entoces iteramos en en for...  dame la posicion[i].set
+
+
+
+
+
+    }
+
 
 }

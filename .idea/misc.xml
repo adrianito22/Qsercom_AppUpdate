@@ -56,10 +56,11 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_preview.xml" value="0.33979885057471265" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_reporte_calidad_camionesy_carretas.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_see_reports.xml" value="0.264" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_selector.xml" value="0.536" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_selector.xml" value="0.4" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/bottom_sheet_confirmChanges.xml" value="0.4" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/bottom_sheet_edit_cpn.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/bottom_sheet_selector.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/control_calid_activity.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/deletexx.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/form_datos_contene_acopio.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/form_datos_contene_acopio_prev.xml" value="0.2" />
@@ -75,6 +76,7 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_datos_transportistato_carretas_y_camiones.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_datosgenerales.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_datoshacienda_2.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defect_part1.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defectos.xml" value="0.4" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defectos_preview.xml" value="0.2" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defparte3.xml" value="0.2" />
@@ -88,6 +90,7 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/packing_list2.xml" value="0.2" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/report_calidad_camio_carret.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/report_calidad_camio_carret_pewv.xml" value="0.2" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/super_test.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/vapor_a_estribor.xml" value="0.24635416666666668" />
       </map>
     </option>
