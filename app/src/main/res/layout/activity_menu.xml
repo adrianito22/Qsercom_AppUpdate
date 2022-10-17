@@ -204,31 +204,6 @@
                             android:text="Muestro ,Rechazados" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/ly_controlCalidad"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imgControlCalidad"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="center"
-                            app:srcCompat="@drawable/icon_menu" />
-
-                        <TextView
-                            android:id="@+id/sfdf"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/m_medium"
-                            android:gravity="center_horizontal"
-                            android:text="Control Calidad" />
-                    </LinearLayout>
-
-
                 </LinearLayout>
             </LinearLayout>
         </HorizontalScrollView>
