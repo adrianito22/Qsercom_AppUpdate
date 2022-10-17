@@ -7,13 +7,21 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.ActivityMenu;
+import com.tiburela.qsercom.activities.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.FormularioControlCalidadPreview;
+import com.tiburela.qsercom.activities.PackingListPreviewActivity;
+import com.tiburela.qsercom.activities.PreviewCalidadCamionesyCarretas;
+import com.tiburela.qsercom.activities.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.callbacks.CallBtoActityCamnsYcarretas;
 import com.tiburela.qsercom.callbacks.CallBtoActityConteEnAcop;
 import com.tiburela.qsercom.callbacks.CallBtoActityContenedor;
 import com.tiburela.qsercom.callbacks.CallBtoActityFormControlCalid;
 import com.tiburela.qsercom.callbacks.CallBtoActityMuestreoRechaz;
 import com.tiburela.qsercom.callbacks.CallBtoActityPakingList;
+import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
+import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 
 public class DialogoConfirm {
 
@@ -63,32 +71,32 @@ public class DialogoConfirm {
                 }
 
                 else  if(tipoFormulario==Variables.FormPreviewContenedores){
+                    callBtoActityContenedor= new ActivityContenedoresPrev();
+                    callBtoActityContenedor.confirmChangs(true);
 
 
                 }
                 else  if(tipoFormulario==Variables.FormatDatsContAcopi){
 
-
+                    callBtoActityConteEnAcop =new  PreviewsFormDatSContersEnAc();
                 }
+
                 else  if(tipoFormulario==Variables.FormCamionesyCarretasActivity){//
 
-
+                    callBtoActityCamnsYcarretas=new PreviewCalidadCamionesyCarretas();
                 }
 
                 else  if(tipoFormulario==Variables.FormPackingList){
 
+                    callBtoActityPakingList=new PackingListPreviewActivity();
 
                 }
 
                 else  if(tipoFormulario==Variables.FormMuestreoRechaz){
 
+                  callBtoActityMuestreoRechaz = new CuadMuestreoCalibAndRechazPrev();
 
                 }
-
-
-
-
-
 
 
 
@@ -99,6 +107,49 @@ public class DialogoConfirm {
 
 
                // finish(); //lamaos el calback aqui
+
+            }
+        });
+
+
+
+        btnNo.setOnClickListener(new View.OnClickListener() {  //activar switch
+            @Override
+            public void onClick(View v) {
+
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+
+        bottomSheetDialog.show();
+    }
+
+
+    public static   void showBottomSheetDialogConfirmMenu(Context context) {
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_confirm_changes);
+
+        Button btnSi=bottomSheetDialog.findViewById(R.id.btnSi);
+        Button btnNo=bottomSheetDialog.findViewById(R.id.btnNo);
+
+
+        btnSi.setOnClickListener(new View.OnClickListener() { //revisar
+
+            @Override
+            public void onClick(View v) {
+
+                CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
+
+
+
+                bottomSheetDialog.dismiss();
+
+
+
+                // finish(); //lamaos el calback aqui
 
             }
         });

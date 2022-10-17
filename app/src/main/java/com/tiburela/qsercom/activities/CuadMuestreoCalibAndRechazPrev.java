@@ -19,16 +19,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
+import com.tiburela.qsercom.callbacks.CallBtoActityMuestreoRechaz;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity {
+public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity implements CallBtoActityMuestreoRechaz {
 
     RecyclerView mireciclerv;
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
@@ -144,29 +146,7 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity {
 
                 if(chekeadDataListIsReady()){
 
-                    //creamos un objeto
-                    RealtimeDB.initDatabasesRootOnly();
-                    String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
-
-
-                    CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),
-                            ediVaporx.getText().toString(), ediProductoras.getText().toString(),ediCodigoxs.getText().toString(),
-                            ediEnfundex.getText().toString(),keyDondeEstaraHashmap,
-                            ediExtCalidad.getText().toString(), ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
-
-
-                    ///LE AGREGAMOS OTROS DATOS A ESTE OBJETO
-                    addRechazadosData(objec);
-                   /// objec.setSimpleDateFormat();
-
-                    RealtimeDB.addNewCuadroMuestreoObject(objec); //subimos un cuadro de muestreo object
-
-                    RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
-
-
-                    Toast.makeText(CuadMuestreoCalibAndRechazPrev.this, "Se Actualizo Informe", Toast.LENGTH_SHORT).show();
-
-                   // Log.i("saber"," se subio la data ");
+                    DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(CuadMuestreoCalibAndRechazPrev.this, Variables.FormMuestreoRechaz);
 
 
                 }
@@ -537,6 +517,42 @@ return object;
 
         return  sum_of_values;
 
+
+    }
+
+    @Override
+    public void confirmChangs(boolean esSavCambios) {
+
+        if(esSavCambios){
+
+
+
+            //creamos un objeto
+            RealtimeDB.initDatabasesRootOnly();
+            String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
+
+
+            CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),
+                    ediVaporx.getText().toString(), ediProductoras.getText().toString(),ediCodigoxs.getText().toString(),
+                    ediEnfundex.getText().toString(),keyDondeEstaraHashmap,
+                    ediExtCalidad.getText().toString(), ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
+
+
+            ///LE AGREGAMOS OTROS DATOS A ESTE OBJETO
+            addRechazadosData(objec);
+            /// objec.setSimpleDateFormat();
+
+            RealtimeDB.addNewCuadroMuestreoObject(objec); //subimos un cuadro de muestreo object
+
+            RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
+
+
+            Toast.makeText(CuadMuestreoCalibAndRechazPrev.this, "Se Actualizo Informe", Toast.LENGTH_SHORT).show();
+
+            // Log.i("saber"," se subio la data ");
+
+
+        }
 
     }
 

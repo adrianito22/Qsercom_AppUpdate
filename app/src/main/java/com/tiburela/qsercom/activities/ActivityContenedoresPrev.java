@@ -67,6 +67,7 @@ import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
+import com.tiburela.qsercom.callbacks.CallBtoActityContenedor;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -76,6 +77,7 @@ import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Permisionx;
@@ -93,7 +95,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class ActivityContenedoresPrev extends AppCompatActivity implements  CallBtoActityContenedor ,View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     ProductPostCosecha productxGlobal=null;
@@ -1905,30 +1907,7 @@ void checkDataFields(){ //
     }
 
 
-    Log.i("test001","toda la data esta completa HUrra ");
-
-
-    pd = new ProgressDialog(ActivityContenedoresPrev.this);
-    pd.setMessage("Actualizando data ");
-    pd.show();
-
-    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
-
-
-    createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
-
-
-    for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
-
-        geTidAndDelete(Variables.listImagesToDelete.get(i));
-
-
-    }
-
-    //aliminamos cambios
-
-
+    DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(ActivityContenedoresPrev.this,Variables.FormPreviewContenedores);
 
 
 }
@@ -4351,7 +4330,7 @@ private void checkModeVisualitY(){
 
         }
 
-        ///vamos con los datos de semananas y eso
+        ///vamos con los datos de semananas y esoRe
 
 
 
@@ -4366,4 +4345,40 @@ private void checkModeVisualitY(){
         return true;
     }
 
+    @Override
+    public void confirmChangs(boolean esSavCambios) {
+
+
+        if(esSavCambios){
+
+            Log.i("test001","toda la data esta completa HUrra ");
+
+
+            pd = new ProgressDialog(ActivityContenedoresPrev.this);
+            pd.setMessage("Actualizando data ");
+            pd.show();
+
+            uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+
+            //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+
+
+            for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
+
+                geTidAndDelete(Variables.listImagesToDelete.get(i));
+
+
+            }
+
+            //aliminamos cambios
+
+
+
+            createObjcInformeAndUpload();
+        }
+
+
+    }
 }

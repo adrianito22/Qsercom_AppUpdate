@@ -4,39 +4,44 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.models.EstateFieldView;
-import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
-public class ActivityMenu extends AppCompatActivity {
+public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation {
     LinearLayout ly_contenedores;
     LinearLayout ly_conte_en_acopio;
     LinearLayout ly_camy_carretas;
     LinearLayout ly_packing_list;
     LinearLayout ly_cuadro_Muestreo_caly_rechaz;
     LinearLayout ly_controlCalidad;
-
+    Intent currentIntent;
 
 
     Button btnInInformes;
@@ -72,7 +77,16 @@ public class ActivityMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(ActivityMenu.this,FormularioControlCalidad.class));
+                currentIntent =new Intent(ActivityMenu.this,FormularioControlCalidad.class);
+                if(checkIfExisteFormIcompleto(SharePref.KEY_CONTROL_CALIDAD)){
+
+
+                }else{
+                    startActivity(new Intent(ActivityMenu.this,FormularioControlCalidad.class));
+                }
+
+
+
 
             }
         });
@@ -80,6 +94,7 @@ public class ActivityMenu extends AppCompatActivity {
         ly_camy_carretas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentIntent =new Intent(ActivityMenu.this,ReporteCalidadCamionesyCarretas.class);
 
                 startActivity(new Intent(ActivityMenu.this, ReporteCalidadCamionesyCarretas.class));
 
@@ -90,6 +105,7 @@ public class ActivityMenu extends AppCompatActivity {
         ly_packing_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentIntent =new Intent(ActivityMenu.this,PackingListActivity.class);
 
                 startActivity(new Intent(ActivityMenu.this, PackingListActivity.class));
 
@@ -101,6 +117,7 @@ public class ActivityMenu extends AppCompatActivity {
         ly_conte_en_acopio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentIntent =new Intent(ActivityMenu.this,FormDatosContersEnAcopio.class);
                 startActivity(new Intent(ActivityMenu.this, FormDatosContersEnAcopio.class));
 
             }
@@ -110,6 +127,8 @@ public class ActivityMenu extends AppCompatActivity {
         ly_contenedores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentIntent =new Intent(ActivityMenu.this,ActivityContenedores.class);
+
                 startActivity(new Intent(ActivityMenu.this,ActivityContenedores.class ));
 
 
@@ -120,6 +139,7 @@ public class ActivityMenu extends AppCompatActivity {
         ly_cuadro_Muestreo_caly_rechaz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentIntent =new Intent(ActivityMenu.this,CuadMuestreoCalibAndRechaz.class);
                 startActivity(new Intent(ActivityMenu.this,CuadMuestreoCalibAndRechaz.class ));
 
 
@@ -308,4 +328,82 @@ public class ActivityMenu extends AppCompatActivity {
         showDataByMode();
 
     }
+
+
+    private void muestraDialog2Opciones(){
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Hay un formulario Incompleto deseas continuar");
+
+        alertDialogBuilder.setPositiveButton(" Si Continuar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                // add widget
+            }
+        });
+
+
+
+        alertDialogBuilder.setNegativeButton("Crear uno Nuevo ",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                //le mostramos un sheet diciendole si esta seguro de esto...
+
+                DialogoConfirm.showBottomSheetDialogConfirmMenu(ActivityMenu.this);
+
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
+
+    }
+
+    @Override
+    public void confirmNuevoFormulario(boolean selecionoCrearNuevoForm) {
+
+        if(selecionoCrearNuevoForm){
+
+            //dedicio crear uno nuevo
+
+            if(currentIntent !=null){
+                startActivity(currentIntent);
+
+            }
+
+
+            //vamos a crear un nuevo fomrulario....
+
+        }
+
+    }
+
+
+
+
+    private boolean checkIfExisteFormIcompleto( String keyFormulario){
+        Map<String,String>mimap= SharePref.loadMap(ActivityMenu.this,keyFormulario);
+
+        if(mimap!=null){ //si no es nulo
+
+            Log.i("chekenadoPREFE"," NO ES NULO HURRA");
+
+        }else{ //si es nulo
+            Log.i("chekenadoPREFE","  ES NULO, NO HAY UN MAPA EN PREFRENCIAS");
+
+
+        }
+
+
+
+        return true;
+    }
+
+
 }

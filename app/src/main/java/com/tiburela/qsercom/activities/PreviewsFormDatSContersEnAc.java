@@ -62,6 +62,7 @@ import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
+import com.tiburela.qsercom.callbacks.CallBtoActityConteEnAcop;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
@@ -69,6 +70,7 @@ import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -86,7 +88,7 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener, CallBtoActityConteEnAcop {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -96,7 +98,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     boolean copiamosDatax;
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
-
+    String keyNodeActualizar="";
     TextInputEditText ediFechaInicio;
     TextInputEditText fechDetermino;
     TextInputEditText ediExpSolicitante;
@@ -1579,7 +1581,8 @@ void checkDataFields(){ //
 
     }
 
-    String keyNodeActualizar =Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(); //que que cotienen este nodo
+
+     keyNodeActualizar =Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(); //que que cotienen este nodo
 
 
     if(! creaAcMapDatosProcesoAndCheck(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(),keyNodeActualizar)){
@@ -1594,28 +1597,9 @@ void checkDataFields(){ //
     }
 
 
+    DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(PreviewsFormDatSContersEnAc.this,Variables.FormatDatsContAcopi);
 
 
-    Log.i("test001","toda la data esta completa HUrra ");
-    Log.i("test001","actualizamosd data proceso en el nodo "+keyNodeActualizar);
-
-
-    RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);
-
-
-    createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
-
-
-
-    for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
-
-        geTidAndDelete(Variables.listImagesToDelete.get(i));
-
-
-    }
-
-    //aliminamos c
 
 }
 
@@ -3569,4 +3553,27 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
+    @Override
+    public void confirmChangs(boolean esSavCambios) {
+        if(esSavCambios){
+
+            RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);
+
+
+            createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+
+
+
+            for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
+
+                geTidAndDelete(Variables.listImagesToDelete.get(i));
+
+
+            }
+
+
+        }
+
+    }
 }

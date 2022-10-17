@@ -2163,7 +2163,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 }
 
 
-                DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(FormularioControlCalidadPreview.this,1);
+                DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(FormularioControlCalidadPreview.this,Variables.FormCantrolCalidad);
 
 
 

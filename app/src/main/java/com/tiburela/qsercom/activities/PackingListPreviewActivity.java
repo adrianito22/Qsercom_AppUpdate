@@ -16,15 +16,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.callbacks.CallBtoActityPakingList;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
+import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PackingListPreviewActivity extends AppCompatActivity {
+public class PackingListPreviewActivity extends AppCompatActivity implements CallBtoActityPakingList {
 
     HashMap<String, String> packingListMap;
     Button btnSavePacking;
@@ -132,7 +134,8 @@ public class PackingListPreviewActivity extends AppCompatActivity {
 
                      if(packingListMap.size()>0){//si el packing list es mayor 0
 
-                         showBottomSheetDialogConfirmAndCallUpdate();
+
+                         DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(PackingListPreviewActivity.this, Variables.FormPackingList);
 
                          //debe haber al menos un datao en el paking list
 
@@ -632,53 +635,28 @@ private TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allAr
 
 
 
-    private  void showBottomSheetDialogConfirmAndCallUpdate( ) {
-
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(PackingListPreviewActivity.this);
-
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_confirm_changes);
-
-        Button btnSi=bottomSheetDialog.findViewById(R.id.btnSi);
-        Button btnNo=bottomSheetDialog.findViewById(R.id.btnNo);
 
 
-        btnSi.setOnClickListener(new View.OnClickListener() { //revisar
+    @Override
+    public void confirmChangs(boolean esSavCambios) {
 
-            @Override
-            public void onClick(View v) {
+        if(esSavCambios){
 
-                PackingListMod objePackingList=new PackingListMod(Integer.parseInt(mEdiTotalCajas.getText().toString()),mEdiContenedorxzz.getText().toString());
-                objePackingList.setTimeCurrenMillisecds(Variables.currenReportPackinList.getTimeCurrenMillisecds());
-                objePackingList.setSimpledatFormt(Variables.currenReportPackinList.getSimpledatFormt());
+            PackingListMod objePackingList=new PackingListMod(Integer.parseInt(mEdiTotalCajas.getText().toString()),mEdiContenedorxzz.getText().toString());
+            objePackingList.setTimeCurrenMillisecds(Variables.currenReportPackinList.getTimeCurrenMillisecds());
+            objePackingList.setSimpledatFormt(Variables.currenReportPackinList.getSimpledatFormt());
 
-                //actualizamos data
-                RealtimeDB.updateNewPackingListHasMap(packingListMap,Variables.currenReportPackinList);
-                RealtimeDB.updatePackingListObject(objePackingList,Variables.currenReportPackinList);
-
-
-                Toast.makeText(PackingListPreviewActivity.this, "Hecho", Toast.LENGTH_SHORT).show();
-                 finish();
-                bottomSheetDialog.dismiss();
+            //actualizamos data
+            RealtimeDB.updateNewPackingListHasMap(packingListMap,Variables.currenReportPackinList);
+            RealtimeDB.updatePackingListObject(objePackingList,Variables.currenReportPackinList);
 
 
-            }
-        });
+            Toast.makeText(PackingListPreviewActivity.this, "Hecho", Toast.LENGTH_SHORT).show();
+            finish();
 
+        }
 
-
-        btnNo.setOnClickListener(new View.OnClickListener() {  //activar switch
-            @Override
-            public void onClick(View v) {
-
-                bottomSheetDialog.dismiss();
-            }
-        });
-
-
-        bottomSheetDialog.show();
     }
-
-
 }
 
 
