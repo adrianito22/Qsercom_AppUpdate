@@ -48,6 +48,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -247,38 +248,44 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         Auth.signInAnonymously(ActivityContenedores.this);
 
 
-        if(hayUnformularioIcompleto){
 
-             TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
-
-            Utils.addDataOfPrefrencesInView(arrayEditex);
-
-            Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
+        if(Variables.hayUnFormIncompleto){
 
 
-            ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
+            AddDataFormOfSharePrefe() ;
 
-
-              //if el formulario no es nulo
-
-            if(listImagesToSaVE!=null ) {
-
-                addInfotomap(listImagesToSaVE);
-                createlistsForReciclerviewsImages(listImagesToSaVE);
-
-            }
-
-
-
-
+            //
+            Variables.hayUnFormIncompleto=false;
 
         }
 
 
 
-        // Check if user is signed in (non-null) and update UI accordingly.
-       // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
-      //  updateUI(currentUs bver)
+    }
+
+    private void AddDataFormOfSharePrefe() {
+
+        TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
+        Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
+
+
+
+/*
+         //descrgamos info de imagenes //todavia no muy lista aun
+        Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
+        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
+
+        //if el formulario no es nulo
+
+        if(listImagesToSaVE!=null ) {
+
+            addInfotomap(listImagesToSaVE);
+            createlistsForReciclerviewsImages(listImagesToSaVE);
+
+        }
+
+*/
+
 
     }
 
@@ -1236,9 +1243,16 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
                             Log.i("miodata","el state ediPPC/someProductPostCosecha esta lleno ");
 
-
                             actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-                             Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",ActivityContenedores.this);
+
+
+                            //add VALUES IN TO MAP
+                              Variables.currentMapPreferences.put(String.valueOf(view.getId()),editText.getText().toString());
+
+                             //lo guardamos en esa key
+                              SharePref.saveMapPreferFields(Variables.currentMapPreferences,SharePref.KEY_CONTENEDORES);
+
+                           //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",ActivityContenedores.this);
 
 
                         }
@@ -1269,7 +1283,13 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
                     actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
 
-                    Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",ActivityContenedores.this);
+
+                    //add VALUES IN TO MAP
+                    Variables.currentMapPreferences.put(String.valueOf(view.getId()),editText.getText().toString());
+
+                    //lo guardamos en esa key
+                    SharePref.saveMapPreferFields(Variables.currentMapPreferences,SharePref.KEY_CONTENEDORES);
+
 
 
                 }

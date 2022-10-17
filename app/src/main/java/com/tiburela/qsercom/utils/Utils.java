@@ -314,7 +314,7 @@ public class Utils {
         }
     }
 
- public static  void addDataOfPrefrencesInView(TextInputEditText[] arraytxtImpEditext) {
+ public static  void addDataOfPrefrencesInView(TextInputEditText[] arraytxtImpEditext, HashMap<String, String> hashMaPDePrefer) {
 
         //recorremos el array de editext
 
@@ -324,9 +324,9 @@ public class Utils {
 
             String key =String.valueOf(currentTxImpEditext.getId());
 
-            if(dataFieldsPreferencias.get(key) != null)  {
+            if(hashMaPDePrefer.get(key) != null)  {
 
-                currentTxImpEditext.setText(dataFieldsPreferencias.get(key));
+                currentTxImpEditext.setText(hashMaPDePrefer.get(key));
 
             }
 

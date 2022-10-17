@@ -31,7 +31,7 @@ public class SharePref {
     }
 
 
-    public static void saveMapPreferFields(Map<String, String> inputMap, Context context,String KeyTOsAVE) {
+    public static void saveMapPreferFields(Map<String, String> inputMap,String KeyTOsAVE) {
       //  SharedPreferences pSharedPref = context.getSharedPreferences("MyVariables", Context.MODE_PRIVATE);
         if (mSharedPrefUniqueObjc != null) {
             JSONObject jsonObject = new JSONObject(inputMap);

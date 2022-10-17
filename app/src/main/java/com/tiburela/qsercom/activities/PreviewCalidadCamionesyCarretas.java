@@ -260,7 +260,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
             TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
 
-            Utils.addDataOfPrefrencesInView(arrayEditex);
+           // Utils.addDataOfPrefrencesInView(arrayEditex);
 
             Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(PreviewCalidadCamionesyCarretas.this);
 

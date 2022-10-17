@@ -261,8 +261,6 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
             TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
 
-            Utils.addDataOfPrefrencesInView(arrayEditex);
-
             Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ReporteCalidadCamionesyCarretas.this);
 
 

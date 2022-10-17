@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 
 public class DialogoConfirm {
 
-
+  // public static   BottomSheetDialog bottomSheetDialog;
     static CallBtoActityFormControlCalid callbackControlCalidad;
     static CallBtoActityMuestreoRechaz callBtoActityMuestreoRechaz;
     static CallBtoActityPakingList callBtoActityPakingList;
@@ -55,8 +56,7 @@ public class DialogoConfirm {
 
                 //actualizamos data
               //  RealtimeDB.updateNewPackingListHasMap(packingListMap,Variables.currenReportPackinList);
-              //  RealtimeDB.updatePackingListObject(objePackingList,Variables.currenReportPackinList);
-
+              //  RealtimeDB.updatePackingListObject(objePackingList,Variables.currenReportPackinList)
 
                 // finish(); //lamaos el calback aqui
 
@@ -65,7 +65,6 @@ public class DialogoConfirm {
                     CallBtoActityFormControlCalid callbacClaseiImplement= new FormularioControlCalidadPreview();
                     callbackControlCalidad =callbacClaseiImplement;
                     callbacClaseiImplement.confirmChangs(true);
-
 
 
                 }
@@ -126,14 +125,16 @@ public class DialogoConfirm {
     }
 
 
-    public static   void showBottomSheetDialogConfirmMenu(Context context) {
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
 
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_confirm_changes);
+    public  void showBottomSheetDialogConfirmMenu(Context context) {
 
-        Button btnSi=bottomSheetDialog.findViewById(R.id.btnSi);
-        Button btnNo=bottomSheetDialog.findViewById(R.id.btnNo);
+        BottomSheetDialog   bottomSheetDialog = new BottomSheetDialog(context);
+
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_confirm_new_form);
+
+        Button btnSi=bottomSheetDialog.findViewById(R.id.btnSix);
+        Button btnNo=bottomSheetDialog.findViewById(R.id.btnNox);
 
 
         btnSi.setOnClickListener(new View.OnClickListener() { //revisar
@@ -142,11 +143,11 @@ public class DialogoConfirm {
             public void onClick(View v) {
 
                 CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
+                callbackDialogConfirmCreation.confirmNuevoFormulario(true);
 
+                 Log.i("comprobacionzz","onclick en si y call form dialogcoonfirm class ");
 
-
-                bottomSheetDialog.dismiss();
-
+               // bottomSheetDialog.dismiss();
 
 
                 // finish(); //lamaos el calback aqui
@@ -159,6 +160,10 @@ public class DialogoConfirm {
         btnNo.setOnClickListener(new View.OnClickListener() {  //activar switch
             @Override
             public void onClick(View v) {
+                CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
+                callbackDialogConfirmCreation.confirmNuevoFormulario(false);
+                Log.i("comprobacionzz","onclick en no y call form dialogcoonfirm class ");
+
 
                 bottomSheetDialog.dismiss();
             }

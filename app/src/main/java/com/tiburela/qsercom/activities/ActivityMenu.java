@@ -3,6 +3,8 @@ package com.tiburela.qsercom.activities;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import static com.tiburela.qsercom.utils.Variables.currentFormSelect;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,10 +26,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
+import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -42,7 +51,25 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     LinearLayout ly_cuadro_Muestreo_caly_rechaz;
     LinearLayout ly_controlCalidad;
     Intent currentIntent;
+    Context context = this;
 
+  private  AlertDialog alertDialog=null;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.i("ciclelife","onStop call");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.i("ciclelife","onDestroy call");
+
+    }
 
     Button btnInInformes;
     TextView txtAdviser,txtAdviser2;
@@ -54,8 +81,20 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+      //  Variables.actividad =ActivityMenu;
+        Variables.activity=this;
+
+        if(Variables.activity!=null ){
+
+            Log.i("miactivity","no es nulo") ;
+
+        }
+
+
+
         Utils.dataFieldsPreferencias=new HashMap<String,String>();
         Utils.listImagesToSaVE=new ArrayList<>();
+      Variables.contexto=this;
 
 
         EstateFieldView.adddataListsStateFields();
@@ -77,15 +116,17 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
-                currentIntent =new Intent(ActivityMenu.this,FormularioControlCalidad.class);
                 if(checkIfExisteFormIcompleto(SharePref.KEY_CONTROL_CALIDAD)){
 
+                   currentFormSelect=Variables.FormCantrolCalidad;
+                    muestraDialog2Opciones();
 
-                }else{
-                    startActivity(new Intent(ActivityMenu.this,FormularioControlCalidad.class));
                 }
+                else{
 
+                    startActivity(new Intent(ActivityMenu.this,FormularioControlCalidad.class));
 
+                }
 
 
             }
@@ -94,9 +135,19 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         ly_camy_carretas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentIntent =new Intent(ActivityMenu.this,ReporteCalidadCamionesyCarretas.class);
 
-                startActivity(new Intent(ActivityMenu.this, ReporteCalidadCamionesyCarretas.class));
+                if(checkIfExisteFormIcompleto(SharePref.KEY_CALIDAD_CAMIONESY_CARRETAS)){
+
+                    currentFormSelect=Variables.FormCamionesyCarretasActivity;
+
+                    muestraDialog2Opciones();
+
+                }
+                else{
+
+                    startActivity(new Intent(ActivityMenu.this, ReporteCalidadCamionesyCarretas.class));
+
+                }
 
 
             }
@@ -105,9 +156,20 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         ly_packing_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentIntent =new Intent(ActivityMenu.this,PackingListActivity.class);
 
-                startActivity(new Intent(ActivityMenu.this, PackingListActivity.class));
+                if(checkIfExisteFormIcompleto(SharePref.KEY_PACKING_LIST)){
+
+                    currentFormSelect=Variables.FormPackingList;
+
+                    muestraDialog2Opciones();
+
+                }
+                else{
+
+                    startActivity(new Intent(ActivityMenu.this, PackingListActivity.class));
+
+                }
+
 
 
             }
@@ -117,8 +179,20 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         ly_conte_en_acopio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentIntent =new Intent(ActivityMenu.this,FormDatosContersEnAcopio.class);
-                startActivity(new Intent(ActivityMenu.this, FormDatosContersEnAcopio.class));
+
+
+                if(checkIfExisteFormIcompleto(SharePref.KEY_CONTENEDORES_EN_ACOPIO)){
+                    currentFormSelect=Variables.FormatDatsContAcopi;
+
+                    muestraDialog2Opciones();
+
+                }
+                else{
+                    startActivity(new Intent(ActivityMenu.this, FormDatosContersEnAcopio.class));
+
+                }
+
+
 
             }
         });
@@ -127,9 +201,20 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         ly_contenedores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentIntent =new Intent(ActivityMenu.this,ActivityContenedores.class);
 
-                startActivity(new Intent(ActivityMenu.this,ActivityContenedores.class ));
+
+                if(checkIfExisteFormIcompleto(SharePref.KEY_CONTENEDORES)){
+
+                    currentFormSelect=Variables.FormPreviewContenedores;
+
+                    muestraDialog2Opciones();
+
+                }
+                else{
+
+                    startActivity(new Intent(ActivityMenu.this, ActivityContenedores.class));
+
+                }
 
 
             }
@@ -139,8 +224,18 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         ly_cuadro_Muestreo_caly_rechaz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentIntent =new Intent(ActivityMenu.this,CuadMuestreoCalibAndRechaz.class);
-                startActivity(new Intent(ActivityMenu.this,CuadMuestreoCalibAndRechaz.class ));
+
+                if(checkIfExisteFormIcompleto(SharePref.KEY_MUESTRO_RECHAZDOS)){
+                    currentFormSelect=Variables.FormMuestreoRechaz;
+
+                    muestraDialog2Opciones();
+
+                }
+                else{
+
+                    startActivity(new Intent(ActivityMenu.this,CuadMuestreoCalibAndRechaz.class ));
+
+                }
 
 
             }
@@ -209,6 +304,14 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         }
 
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        Log.i("ciclelife","onrestar call");
 
     }
 
@@ -325,7 +428,21 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         super.onStart();
 
+        Log.i("ciclelife","onstart call");
+        Variables.currentMapPreferences  =new HashMap<>();
         showDataByMode();
+
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        Log.i("ciclelife","onresume call");
+
+        //  Variables.currentMapPreferences  =new HashMap<>();
+      //  showDataByMode();
 
     }
 
@@ -333,13 +450,18 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     private void muestraDialog2Opciones(){
 
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityMenu.this);
         alertDialogBuilder.setMessage("Hay un formulario Incompleto deseas continuar");
+
+     //   AlertDialog alertDialog=null;
+
 
         alertDialogBuilder.setPositiveButton(" Si Continuar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                // add widget
+                createAndGoActivity(currentFormSelect);
+
+
             }
         });
 
@@ -349,16 +471,26 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-
                 //le mostramos un sheet diciendole si esta seguro de esto...
 
-                DialogoConfirm.showBottomSheetDialogConfirmMenu(ActivityMenu.this);
+
+            //  DialogoConfirm OBJEC= new DialogoConfirm();
+
+
+              //  DialogoConfirm.showBottomSheetDialogConfirmMenu(ActivityMenu.this);
+
+
+               // OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this);
+
+                // alertDialog.dismiss();
+
+                showBottomSheetDialogConfirmMenu(ActivityMenu.this);
 
 
             }
         });
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+         alertDialog=alertDialogBuilder.create();
         alertDialog.show();
 
 
@@ -369,16 +501,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     public void confirmNuevoFormulario(boolean selecionoCrearNuevoForm) {
 
         if(selecionoCrearNuevoForm){
+            Variables.hayUnFormIncompleto =false;
 
-            //dedicio crear uno nuevo
+         //   DialogoConfirm.bottomSheetDialog.dismiss();
 
-            if(currentIntent !=null){
-                startActivity(currentIntent);
-
-            }
-
-
-            //vamos a crear un nuevo fomrulario....
+            createAndGoActivity(currentFormSelect);
 
         }
 
@@ -386,23 +513,159 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
 
+    private void createAndGoActivity(int tipoFormulario){
 
-    private boolean checkIfExisteFormIcompleto( String keyFormulario){
-        Map<String,String>mimap= SharePref.loadMap(ActivityMenu.this,keyFormulario);
 
-        if(mimap!=null){ //si no es nulo
 
-            Log.i("chekenadoPREFE"," NO ES NULO HURRA");
+        if(tipoFormulario==Variables.FormCantrolCalidad){
 
-        }else{ //si es nulo
-            Log.i("chekenadoPREFE","  ES NULO, NO HAY UN MAPA EN PREFRENCIAS");
+            startActivity(new Intent(ActivityMenu.this, ControlCalidad.class)) ;
+        }
+
+        else  if(tipoFormulario==Variables.FormPreviewContenedores){
+
+            if(Variables.activity!=null)  {
+
+                Log.i("miactivity","tambiene s difrenete");
+
+            }
+
+
+
+
+            try
+            {
+               // startActivity(new Intent( getApplicationContext(),ActivityContenedores.class));
+
+
+               Intent intent = new Intent(ActivityMenu.this, ActivityContenedores.class);
+               startActivity(intent);//
+
+                //  Intent mIntent = new Intent(getActivity(),MusicHome.class);
+               // mIntent.putExtra("SigninFragment.user_details", bundle);
+            }
+            catch (Exception e) {
+                Log.i("cilcovid","error es  "+e.getMessage());
+
+                e.printStackTrace();
+            }
+
+            /*
+
+            Log.i("cilcovid","form preview contened call");
+
+            Intent intent = new Intent( ActivityMenu.this, ActivityContenedores.class);
+
+            startActivity(intent) ;
+
+*/
+
+        }
+        else  if(tipoFormulario==Variables.FormatDatsContAcopi){
+            startActivity(new Intent(ActivityMenu.this, ContenedoresEnAcopio.class)) ;
+
+        }
+
+        else  if(tipoFormulario==Variables.FormCamionesyCarretasActivity){//
+            startActivity(new Intent(ActivityMenu.this, ReportCamionesyCarretas.class)) ;
+
+        }
+
+        else  if(tipoFormulario==Variables.FormPackingList){
+            startActivity(new Intent(ActivityMenu.this, PackingListActivity.class)) ;
+
+
+        }
+
+        else  if(tipoFormulario==Variables.FormMuestreoRechaz){
+            startActivity(new Intent(ActivityMenu.this, CuadMuestreoCalibAndRechaz.class)) ;
 
 
         }
 
 
 
-        return true;
+
+
+
+
+
+
+
+    }
+
+
+
+
+    private boolean checkIfExisteFormIcompleto( String keyFormulario){
+        SharePref.init(getApplicationContext());
+
+        Map<String,String>mimap= SharePref.loadMap(ActivityMenu.this,keyFormulario);
+
+        if(mimap!=null && mimap.size()>0){ //si no es nulo
+            Log.i("chekenadoPREFE"," NO ES NULO y hay contenido  HURRA");
+            Log.i("chekenadoPREFE"," EL SIZE ES "+mimap.size());
+
+           Variables.currentMapPreferences= (HashMap<String, String>) mimap;
+            Variables.hayUnFormIncompleto =true;
+            return true;
+        }
+
+        else{ //si es nulo
+            Log.i("chekenadoPREFE","  ES NULO O  NO HAY UN MAPA EN PREFRENCIAS");
+
+            return false;
+        }
+
+    }
+
+    public  void showBottomSheetDialogConfirmMenu(Context context) {
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_confirm_new_form);
+
+        Button btnSi=bottomSheetDialog.findViewById(R.id.btnSix);
+        Button btnNo=bottomSheetDialog.findViewById(R.id.btnNox);
+
+
+        btnSi.setOnClickListener(new View.OnClickListener() { //revisar
+
+            @Override
+            public void onClick(View v) {
+
+               // CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
+              //  callbackDialogConfirmCreation.confirmNuevoFormulario(true);
+
+                Log.i("comprobacionzz","onclick en si y call form dialogcoonfirm class ");
+
+                // bottomSheetDialog.dismiss();-
+
+                Intent intent = new Intent(ActivityMenu.this, ActivityContenedores.class);
+                startActivity(intent);//
+
+
+                // finish(); //lamaos el calback aqui
+
+            }
+        });
+
+
+
+        btnNo.setOnClickListener(new View.OnClickListener() {  //activar switch
+            @Override
+            public void onClick(View v) {
+                CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
+                callbackDialogConfirmCreation.confirmNuevoFormulario(false);
+                Log.i("comprobacionzz","onclick en no y call form dialogcoonfirm class ");
+
+
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+
+        bottomSheetDialog.show();
     }
 
 

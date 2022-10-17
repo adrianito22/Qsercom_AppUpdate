@@ -126,11 +126,13 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".activities.FormularioActivity"
+            android:name=".activities.ActivityContenedores"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".splashScreen.SplashScreen"
             android:configChanges="orientation"
