@@ -2,40 +2,20 @@ package com.tiburela.qsercom.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.ActivitySeeReports;
-import com.tiburela.qsercom.activities.FormDatosContersEnAcopio;
-import com.tiburela.qsercom.activities.FormularioActivity;
-import com.tiburela.qsercom.activities.PreviewActivity;
-import com.tiburela.qsercom.activities.PreviewCalidadCamionesyCarretas;
-import com.tiburela.qsercom.activities.PreviewsFormDatSContersEnAc;
-import com.tiburela.qsercom.activities.ReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.ColorCintasSemns;
-import com.tiburela.qsercom.storage.StorageData;
-import com.tiburela.qsercom.utils.HelperImage;
-import com.tiburela.qsercom.utils.Utils;
-import com.tiburela.qsercom.utils.Variables;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapterColorCintSem extends RecyclerView.Adapter<RecyclerViewAdapterColorCintSem.RecyclerViewHolder>  implements   View.OnClickListener  {

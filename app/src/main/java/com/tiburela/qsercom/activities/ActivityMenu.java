@@ -110,7 +110,7 @@ public class ActivityMenu extends AppCompatActivity {
         ly_contenedores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActivityMenu.this,FormularioActivity.class ));
+                startActivity(new Intent(ActivityMenu.this,ActivityContenedores.class ));
 
 
             }
@@ -145,7 +145,7 @@ public class ActivityMenu extends AppCompatActivity {
 
                 }else {  //si es inspector de campo
 
-                    Intent intencion = new Intent(ActivityMenu.this,FormularioActivity.class);
+                    Intent intencion = new Intent(ActivityMenu.this,ActivityContenedores.class);
 
                     intencion.putExtra("ActivitymenuKey",hayUnformulariAmediasPorSubir);
                     startActivity(intencion);

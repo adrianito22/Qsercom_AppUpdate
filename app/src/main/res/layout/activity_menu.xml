@@ -109,7 +109,7 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
-                            android:text="Contenedores" />
+                            android:text="Contenedores " />
                     </LinearLayout>
 
                     <LinearLayout

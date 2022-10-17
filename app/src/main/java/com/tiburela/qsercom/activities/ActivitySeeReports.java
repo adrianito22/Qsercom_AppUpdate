@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.ReportsAllModel;
@@ -40,19 +41,20 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ActivitySeeReports extends AppCompatActivity {
-RecyclerView recyclerVReports;
-Spinner  spinnerDatesSelector;
+    RecyclerView recyclerVReports;
+    Spinner  spinnerDatesSelector;
     ArrayList<SetInformEmbarque1> reportsListPart1;
     ProgressDialog pd;
     DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
 
-    public final int REPORTE_CONTENEDORES_EN_HCDA=1200;
+    public final int REPORTE_CONTENEDORES_EN_HCDA=1100;
     public final int CONTENEDORES=1200;
     public final int PACKINGLIST=1201;
     public final int OTRO_REPORTE=1202;
     public final int REPORTE_CONTENEDORES_EN_ACOPIO=1203;
     public final int REPORTE_CAMIONES_y_CARRETAS=1204;
+    public final int REPORT_CONTROL_CALIDAD=1205;
 
 
 
@@ -90,7 +92,7 @@ Spinner  spinnerDatesSelector;
 
         try {
             if(Variables.VienedePreview) {
-                 pd.dismiss();
+                pd.dismiss();
                 Variables.VienedePreview =false;
             }
 
@@ -104,8 +106,8 @@ Spinner  spinnerDatesSelector;
 
     void findViewsIDs() {
 
-         recyclerVReports=findViewById(R.id.recyclerVReports);
-          spinnerDatesSelector=findViewById(R.id.spinnerDatesSelector);
+        recyclerVReports=findViewById(R.id.recyclerVReports);
+        spinnerDatesSelector=findViewById(R.id.spinnerDatesSelector);
         txtConfirmExitenciaData=findViewById(R.id.txtConfirmExitenciaData);
 
 
@@ -122,7 +124,7 @@ Spinner  spinnerDatesSelector;
                 String fechaToSearch="";
 
 
-              //  ediZona.setText("Zona "+zonaEelejida+" ");
+                //  ediZona.setText("Zona "+zonaEelejida+" ");
                 if(timeSelecionado.equals("HOY")){
 
                     fechaToSearch=generaFechaToSearch(Variables.HOY);
@@ -137,7 +139,7 @@ Spinner  spinnerDatesSelector;
 
                     fechaToSearch=generaFechaToSearch(Variables.AYER);
                     dowloadinformesby_CONTENEDORES(fechaToSearch);
-                   // dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+                    // dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
 
                 }
@@ -154,7 +156,7 @@ Spinner  spinnerDatesSelector;
                     String fecheEspecifica ="14-09-2022";//aqui va la fecha que obtengamos
 
                     dowloadinformesby_CONTENEDORES(fecheEspecifica);
-                   // dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
+                    // dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
 
 
@@ -177,7 +179,7 @@ Spinner  spinnerDatesSelector;
     void dowloadinformesby_CONTENEDORES(String dateSelecionado){
         allReportFiltB=new ArrayList<>();
 
-       // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
         //reportsListPart1 = new ArrayList<>();
 
@@ -189,7 +191,7 @@ Spinner  spinnerDatesSelector;
 
                     SetInformEmbarque1 informEmbarque1=ds.getValue(SetInformEmbarque1.class);
 
-                  //  reportsListPart1.add(informEmbarque1);
+                    //  reportsListPart1.add(informEmbarque1);
 
 
                     allReportFiltB.add(new ReportsAllModel(CONTENEDORES,false,false,false,"Contenedores"
@@ -199,7 +201,7 @@ Spinner  spinnerDatesSelector;
 
 
                 dowloadinformesby_CONTENEDORES_EN_ACOPIO(dateSelecionado);
-                   Log.i("sellamos","se llamo dowload more info data ");
+                Log.i("sellamos","se llamo dowload more info data ");
                 //setAdapaterDataAndShow(reportsListPart1);
 
             }
@@ -224,7 +226,7 @@ Spinner  spinnerDatesSelector;
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("contenedoresAcopio").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
-    //    reportsListPart1 = new ArrayList<>();
+        //    reportsListPart1 = new ArrayList<>();
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -233,7 +235,7 @@ Spinner  spinnerDatesSelector;
 
                     ContenedoresEnAcopio contenedoresEnAcopio=ds.getValue(ContenedoresEnAcopio.class);
 
-                  //  reportsListPart1.add(informEmbarque1);
+                    //  reportsListPart1.add(informEmbarque1);
 
                     allReportFiltB.add(new ReportsAllModel(REPORTE_CONTENEDORES_EN_ACOPIO,false,false,false,"Contenedores Acopio"
                             , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme()));
@@ -329,8 +331,52 @@ Spinner  spinnerDatesSelector;
                 }
 
                 Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
-              ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
+                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
                 //setAdapaterDataAndShow(reportsListPart1);
+
+                dowloadinformesby_ControlCalidad(dateSelecionado);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+
+    void dowloadinformesby_ControlCalidad(String dateSelecionado){
+        /*   DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
+
+        Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);*/
+
+        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
+        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
+
+
+
+        Query query = rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
+                    allReportFiltB.add(new ReportsAllModel(REPORT_CONTROL_CALIDAD,false,false,false,"Control Calidad",
+                            controlcalidad.getSimpleDate(),controlcalidad.getUniqueId()));
+                }
+
+                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
+                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
+                //setAdapaterDataAndShow(reportsListPart1);
+
 
                 setAdapaterDataAndShow(allReportFiltB);
 
@@ -349,6 +395,9 @@ Spinner  spinnerDatesSelector;
     }
 
 
+
+
+
     void setAdapaterDataAndShow(ArrayList<ReportsAllModel>reports ) {
 
 
@@ -360,7 +409,7 @@ Spinner  spinnerDatesSelector;
         {txtConfirmExitenciaData.setVisibility(TextView.VISIBLE);
         }
 
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivitySeeReports.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivitySeeReports.this);
 
         RecyclerVAdapterReportsList  adapter = new RecyclerVAdapterReportsList(reports,ActivitySeeReports.this);
 
@@ -383,7 +432,7 @@ Spinner  spinnerDatesSelector;
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
 
-               // Variables.CurrenReportPart1=  reportsListPart1.get(position);
+                // Variables.CurrenReportPart1=  reportsListPart1.get(position);
 
                 showBottomSheetDialog(allReportFiltB.get(position).getReporteTipo(),allReportFiltB.get(position).getIdInforme());
 
@@ -400,54 +449,54 @@ Spinner  spinnerDatesSelector;
 
     private void DowloadReportPart1(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
 
-            //to fetch all the users of firebase Auth app
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        //to fetch all the users of firebase Auth app
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
-            DatabaseReference usersdRef = rootRef.child("Informes").child("listInformes");
+        DatabaseReference usersdRef = rootRef.child("Informes").child("listInformes");
 
         Query query = usersdRef.orderByChild("uniqueIDinforme").equalTo(uniqeuIDiNFORME);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                   // DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
-                  //  String key = nodeShot.getKey();
-
-
-
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        SetInformEmbarque1 currentObect= ds.getValue(SetInformEmbarque1.class);
-
-                        if(currentObect!=null){
-                            Variables.CurrenReportPart1=currentObect;
-                           break;
-
-                        }
+                // DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                //  String key = nodeShot.getKey();
 
 
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    SetInformEmbarque1 currentObect= ds.getValue(SetInformEmbarque1.class);
+
+                    if(currentObect!=null){
+                        Variables.CurrenReportPart1=currentObect;
+                        break;
 
                     }
 
-                    Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
-
-
-
-
-                 //   Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
-
-                    dowloadSecondPART_ReportAndGetActivity(Variables.CurrenReportPart1.getUniqueIDinforme(),modoReporte);//y despues vamos a a la activity preview
-
 
 
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.i("isclkiel","el error es  "+ error.getMessage());
+                Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
 
 
-                }
-            } );
+
+
+                //   Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
+
+                dowloadSecondPART_ReportAndGetActivity(Variables.CurrenReportPart1.getUniqueIDinforme(),modoReporte);//y despues vamos a a la activity preview
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("isclkiel","el error es  "+ error.getMessage());
+
+
+            }
+        } );
 
 
 
@@ -547,13 +596,13 @@ Spinner  spinnerDatesSelector;
 
                     ContenedoresEnAcopio informe=ds.getValue(ContenedoresEnAcopio.class);
 
-                        if(informe!=null){
-                            Variables.CurrenReportContensEnACp=informe;
-                            Log.i("verdura","el value es "+ Variables.CurrenReportContensEnACp.getAgenciaNaviera());
+                    if(informe!=null){
+                        Variables.CurrenReportContensEnACp=informe;
+                        Log.i("verdura","el value es "+ Variables.CurrenReportContensEnACp.getAgenciaNaviera());
 
-                            break;
+                        break;
 
-                        }
+                    }
 
 
                 }
@@ -606,11 +655,8 @@ Spinner  spinnerDatesSelector;
 
 
 
-    private void DowloadPackingList(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
+    private void DowloadPackingList(String uniqeuIDiNFORME,int modoReporte){
 
-        //        Query query = rootDatabaseReference.child("Informes").child("PackingListDescripcion").orderByChild("simpledatFormt").equalTo(dateSelecionado);
-
-        //to fetch all the users of firebase Auth app
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
         DatabaseReference usersdRef = rootRef.child("Informes").child("PackingListDescripcion");
@@ -636,6 +682,75 @@ Spinner  spinnerDatesSelector;
                 }
 
                 Intent intencion= new Intent(ActivitySeeReports.this, PackingListPreviewActivity.class);
+
+
+                if(modoReporte==Variables.MODO_EDICION ){
+
+                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
+
+                    Log.i("verdura","ahora se llamo intent");
+
+                    startActivity(intencion);
+
+
+                }else{
+
+
+                    intencion.putExtra(Variables.KEY_PACKING_LIST,false);
+
+                    Log.i("verdura","ahora se llamo intent");
+
+                    startActivity(intencion);
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
+
+
+    }
+
+
+
+    private void DowloadControlCalidad(String uniqueId,int modoReporte){
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
+
+        Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    ControlCalidad informe=ds.getValue(ControlCalidad.class);
+
+                    if(informe!=null){
+
+                        Variables.currenControlCalReport=informe;
+
+                        //  Log.i("verdura","el value es "+ currenControlCalReport);
+
+                        break;
+
+                    }
+
+
+                }
+
+                Intent intencion= new Intent(ActivitySeeReports.this, FormularioControlCalidadPreview.class);
 
 
                 if(modoReporte==Variables.MODO_EDICION ){
@@ -682,15 +797,8 @@ Spinner  spinnerDatesSelector;
 
 
 
-
-
-
-
-
-
-
     String  generaFechaToSearch( int dateId) {
-             String fecha="";
+        String fecha="";
         if    (dateId == Variables.HOY) {
 
             fecha= toDate(0);
@@ -715,7 +823,7 @@ Spinner  spinnerDatesSelector;
 
 
 
-return fecha;
+        return fecha;
 
     }
 
@@ -742,7 +850,7 @@ return fecha;
 
 
     void dowloadSecondPART_ReportAndGetActivity(String reportUNIQUEidtoSEARCH,int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
-         pd = new ProgressDialog(ActivitySeeReports.this);
+        pd = new ProgressDialog(ActivitySeeReports.this);
         pd.setMessage("Obteniendo Data");
         pd.show();
 
@@ -764,14 +872,14 @@ return fecha;
 
                     }
 
-                  ///  Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinforme());
+                    ///  Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinforme());
                 }
 
 
                 Log.i("midaclick","es resporte Conetenedores vamos "+Variables.CurrenReportPart2.getUniqueIDinforme());
 
 
-                Intent intencion= new Intent(ActivitySeeReports.this, PreviewActivity.class);
+                Intent intencion= new Intent(ActivitySeeReports.this, ActivityContenedoresPrev.class);
 
 
                 if(modo==Variables.MODO_EDICION ){
@@ -793,8 +901,8 @@ return fecha;
                     Log.i("verdura","ahora se llamo intent");
 
                     startActivity(intencion);
-                   // pd.dismiss();
-                   // finish();
+                    // pd.dismiss();
+                    // finish();
 
 
 
@@ -804,7 +912,7 @@ return fecha;
 
 
                 //debemos tener data en el report chekemaos
-                   //VAmos al activity preview...
+                //VAmos al activity preview...
 
 
 
@@ -871,6 +979,13 @@ return fecha;
 
                 }
 
+                else if(reportTipo==REPORT_CONTROL_CALIDAD){
+
+                    DowloadControlCalidad(idReport,Variables.MODO_VISUALIZACION);
+                    //Descargamos un objeto contenedores object...
+
+                }
+
 
 
 
@@ -912,6 +1027,16 @@ return fecha;
 
 
                     DowloadReportCamionesYcarretas(idReport,Variables.MODO_EDICION);
+                    //Descargamos un objeto contenedores object...
+
+
+                }
+
+
+                else if(reportTipo==REPORT_CONTROL_CALIDAD){
+
+
+                    DowloadControlCalidad(idReport,Variables.MODO_EDICION);
                     //Descargamos un objeto contenedores object...
 
 

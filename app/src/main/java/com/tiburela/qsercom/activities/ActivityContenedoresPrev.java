@@ -93,7 +93,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class PreviewActivity extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     ProductPostCosecha productxGlobal=null;
@@ -257,8 +257,8 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
         Variables.VienedePreview=true;
 
-        Auth.initAuth(PreviewActivity.this);
-        Auth.signInAnonymously(PreviewActivity.this);
+        Auth.initAuth(ActivityContenedoresPrev.this);
+        Auth.signInAnonymously(ActivityContenedoresPrev.this);
 
 
 
@@ -370,7 +370,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
         // time picker dialog
-        TimePickerDialog  picker = new TimePickerDialog(PreviewActivity.this,
+        TimePickerDialog  picker = new TimePickerDialog(ActivityContenedoresPrev.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
@@ -444,7 +444,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
         int mes = cldr.get(Calendar.MONTH);
 
         // time picker dialog
-        DatePickerDialog  picker = new DatePickerDialog(PreviewActivity.this,
+        DatePickerDialog  picker = new DatePickerDialog(ActivityContenedoresPrev.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -1044,7 +1044,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     private void generateAnDowloadPdf(SetInformEmbarque1 objPrimeraParte, SetInformEmbarque2 objSegundaParte, ProductPostCosecha productPost) {
         //generamos el pdf usnado el objeto 1 y 2
 
-        PdfMaker.generatePdfReport1(PreviewActivity.this,objPrimeraParte,objSegundaParte,productPost);
+        PdfMaker.generatePdfReport1(ActivityContenedoresPrev.this,objPrimeraParte,objSegundaParte,productPost);
 
 
 
@@ -1057,7 +1057,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
     private void takepickNow() {
 
-        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, PreviewActivity.this);
+        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, ActivityContenedoresPrev.this);
 
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
@@ -1066,7 +1066,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
             values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
 
-             cam_uri = PreviewActivity.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+             cam_uri = ActivityContenedoresPrev.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
 
@@ -1096,7 +1096,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
                            // showImageByUri(cam_uri);
 
                             //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(PreviewActivity.this,cam_uri));
+                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(ActivityContenedoresPrev.this,cam_uri));
 
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -1428,7 +1428,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
                             for(int indice=0; indice<result.size(); indice++){
 
-                                ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(PreviewActivity.this,result.get(indice)));
+                                ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)));
 
                                 ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
                                 Log.i("mispiggi","el size de la  lists  el key del value es "+imagenReportObjc.getUniqueIdNamePic());
@@ -1908,7 +1908,7 @@ void checkDataFields(){ //
     Log.i("test001","toda la data esta completa HUrra ");
 
 
-    pd = new ProgressDialog(PreviewActivity.this);
+    pd = new ProgressDialog(ActivityContenedoresPrev.this);
     pd.setMessage("Actualizando data ");
     pd.show();
 
@@ -2098,7 +2098,7 @@ private void createObjcInformeAndUpload(){
 
             Log.i("elfile","alguno o toos son diferentes images llamaos metodo filtra");
 
-            StorageData.uploadImage(PreviewActivity.this, Utils.creaHahmapNoDuplicado());
+            StorageData.uploadImage(ActivityContenedoresPrev.this, Utils.creaHahmapNoDuplicado());
 
 
 
@@ -2253,8 +2253,8 @@ private void createObjcInformeAndUpload(){
         if (SDK_INT >= Build.VERSION_CODES.R) {
             return Environment.isExternalStorageManager();
         } else {
-            int result = ContextCompat.checkSelfPermission(PreviewActivity.this, READ_EXTERNAL_STORAGE);
-            int result1 = ContextCompat.checkSelfPermission(PreviewActivity.this, WRITE_EXTERNAL_STORAGE);
+            int result = ContextCompat.checkSelfPermission(ActivityContenedoresPrev.this, READ_EXTERNAL_STORAGE);
+            int result1 = ContextCompat.checkSelfPermission(ActivityContenedoresPrev.this, WRITE_EXTERNAL_STORAGE);
             return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
         }
     }
@@ -3217,7 +3217,7 @@ return true;
         Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
 
-        startActivity(new Intent(PreviewActivity.this,ActivitySeeReports.class));
+        startActivity(new Intent(ActivityContenedoresPrev.this,ActivitySeeReports.class));
 
     }
 

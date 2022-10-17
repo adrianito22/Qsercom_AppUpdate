@@ -20,8 +20,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.callbacks.CallBtoActityFormControlCalid;
+import com.tiburela.qsercom.callbacks.CallBtoActityFormulario;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -30,7 +33,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FormularioControlCalidadPreview extends AppCompatActivity implements View.OnClickListener {
+public class FormularioControlCalidadPreview extends AppCompatActivity implements View.OnClickListener , CallBtoActityFormControlCalid {
     // initialize variables
     TextView textView;
     boolean[] selectedLanguage;
@@ -2161,22 +2164,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 }
 
 
-                Log.i("misdtass","el nodo del objeto current es "+Variables.currenControlCalReport.getKeyDondeEstarThisInform());
-                // hasHmapFieldsOtherViews
-
-                createMapInBYothersTextimpuEdFields();
-                createInfoToHashmapRechazaSelecToUpload();
-                createItemsSelectDefectsEmpqTOuPLOAD();
-                ControlCalidad obecjControlCalidad= udpadteFormulario(Variables.currenControlCalReport);
-
-                RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad,Variables.currenControlCalReport.getKeyDondeEstarThisInform());
-                RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews,Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
-                RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
-
-
-
-
-
+                DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(FormularioControlCalidadPreview.this,1);
 
 
 
@@ -2431,6 +2419,32 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
         return controlCaL;
+
+    }
+
+    @Override
+    public void confirmChangs(boolean esSavCambios) {
+
+        if(esSavCambios) {
+
+            Log.i("misdtass", "el nodo del objeto current es " + Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+            // hasHmapFieldsOtherViews
+
+            createMapInBYothersTextimpuEdFields();
+            createInfoToHashmapRechazaSelecToUpload();
+            createItemsSelectDefectsEmpqTOuPLOAD();
+            ControlCalidad obecjControlCalidad = udpadteFormulario(Variables.currenControlCalReport);
+
+            RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+            RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+            RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload, Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
+
+
+        }
+
+
+
+
 
     }
 }

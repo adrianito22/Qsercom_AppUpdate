@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tiburela.qsercom.activities.ActivityMenu;
-import com.tiburela.qsercom.activities.FormularioActivity;
+import com.tiburela.qsercom.activities.ActivityContenedores;
 
 import com.tiburela.qsercom.R;
 

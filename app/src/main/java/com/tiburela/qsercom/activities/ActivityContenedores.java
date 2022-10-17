@@ -75,7 +75,7 @@ import java.util.UUID;
 import com.tiburela.qsercom.R;
 
 
-public class FormularioActivity extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
 
@@ -243,8 +243,8 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     protected void onStart() {
         super.onStart();
 
-        Auth.initAuth(FormularioActivity.this);
-        Auth.signInAnonymously(FormularioActivity.this);
+        Auth.initAuth(ActivityContenedores.this);
+        Auth.signInAnonymously(ActivityContenedores.this);
 
 
         if(hayUnformularioIcompleto){
@@ -253,7 +253,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
             Utils.addDataOfPrefrencesInView(arrayEditex);
 
-            Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(FormularioActivity.this);
+            Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
 
 
             ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
@@ -338,7 +338,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
         // time picker dialog
-        TimePickerDialog  picker = new TimePickerDialog(FormularioActivity.this,
+        TimePickerDialog  picker = new TimePickerDialog(ActivityContenedores.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
@@ -409,7 +409,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         int mes = cldr.get(Calendar.MONTH);
 
         // time picker dialog
-        DatePickerDialog  picker = new DatePickerDialog(FormularioActivity.this,
+        DatePickerDialog  picker = new DatePickerDialog(ActivityContenedores.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -820,7 +820,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                break; //
 
            case R.id.ediCajas7:
-              // Utils.closeKeyboard(FormularioActivity.this);
+              // Utils.closeKeyboard(ActivityContenedores.this);
 
                selecionaFecha();
 
@@ -829,38 +829,38 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
 
            case R.id.ediHoraInicio:
-              // Utils.closeKeyboard(FormularioActivity.this);
+              // Utils.closeKeyboard(ActivityContenedores.this);
 
                showingTimePicker(view);
 
                break; //
 
            case R.id.ediHoraTermino:
-             // Utils.closeKeyboard(FormularioActivity.this);
+             // Utils.closeKeyboard(ActivityContenedores.this);
                showingTimePicker(view);
 
                break; //
            case R.id.ediHoraSalidaContenedor:
-               // Utils.closeKeyboard(FormularioActivity.this);
+               // Utils.closeKeyboard(ActivityContenedores.this);
                showingTimePicker(view);
 
                break; //
 
 
            case R.id.ediHoraLLegadaContenedor:
-               // Utils.closeKeyboard(FormularioActivity.this);
+               // Utils.closeKeyboard(ActivityContenedores.this);
                showingTimePicker(view);
 
                break; //
 
            case R.id.ediTipoEmp2:
-               // Utils.closeKeyboard(FormularioActivity.this);
+               // Utils.closeKeyboard(ActivityContenedores.this);
                showingTimePicker(view);
 
                break; //
 
            case R.id.ediHoraEncendido2:
-               // Utils.closeKeyboard(FormularioActivity.this);
+               // Utils.closeKeyboard(ActivityContenedores.this);
                showingTimePicker(view);
 
                break; //
@@ -972,14 +972,14 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
     private void takepickNow() {
 
-        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, FormularioActivity.this);
+        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, ActivityContenedores.this);
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
             ContentValues values = new ContentValues();
             values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
             values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
-             cam_uri = FormularioActivity.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+             cam_uri = ActivityContenedores.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
 
@@ -1007,12 +1007,12 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                            // showImageByUri(cam_uri);
 
                             //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(FormularioActivity.this,cam_uri)));
+                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri)));
 
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
-                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,FormularioActivity.this);
+                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1238,7 +1238,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
 
                             actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-                             Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",FormularioActivity.this);
+                             Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",ActivityContenedores.this);
 
 
                         }
@@ -1269,7 +1269,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
 
                     actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
 
-                    Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",FormularioActivity.this);
+                    Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",ActivityContenedores.this);
 
 
                 }
@@ -1423,14 +1423,14 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
                         for(int indice=0; indice<result.size(); indice++){
 
 
-//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(FormularioActivity.this,cam_uri)));
-                            ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(FormularioActivity.this,result.get(indice))));
+//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri)));
+                            ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))));
 
                           Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
 
                             ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
-                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,FormularioActivity.this);
+                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
 
                         }
 
@@ -2044,9 +2044,9 @@ private void createObjcInformeAndUpload(){
 
     //agr5egamos la data finalemente
 
-    RealtimeDB.addNewInforme(FormularioActivity.this,informe);
+    RealtimeDB.addNewInforme(ActivityContenedores.this,informe);
 
-    RealtimeDB.addNewInforme(FormularioActivity.this,informe2);
+    RealtimeDB.addNewInforme(ActivityContenedores.this,informe2);
 
     RealtimeDB.addNewInforme(informe3);
 
@@ -2076,7 +2076,7 @@ private void createObjcInformeAndUpload(){
 
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,FormularioActivity.this);
+                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
 
 
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
@@ -2111,7 +2111,7 @@ private void createObjcInformeAndUpload(){
         //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
 
         //aqui subimos
-       StorageData.uploadImage(FormularioActivity.this, ImagenReport.hashMapImagesData);
+       StorageData.uploadImage(ActivityContenedores.this, ImagenReport.hashMapImagesData);
 
     }
 
@@ -2143,13 +2143,13 @@ private void createObjcInformeAndUpload(){
 
 
 
-      //  startActivity(new Intent(FormularioActivity.this,PdfPreviewActivity.class));
+      //  startActivity(new Intent(ActivityContenedores.this,PdfPreviewActivity.class));
 
         //generamos un pdf con la data que tenemos()
 
         /*
 
-        PdfMaker.generatePdfReport1(FormularioActivity.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
+        PdfMaker.generatePdfReport1(ActivityContenedores.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
                 ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
                 ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
                 ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
@@ -2242,8 +2242,8 @@ private void createObjcInformeAndUpload(){
         if (SDK_INT >= Build.VERSION_CODES.R) {
             return Environment.isExternalStorageManager();
         } else {
-            int result = ContextCompat.checkSelfPermission(FormularioActivity.this, READ_EXTERNAL_STORAGE);
-            int result1 = ContextCompat.checkSelfPermission(FormularioActivity.this, WRITE_EXTERNAL_STORAGE);
+            int result = ContextCompat.checkSelfPermission(ActivityContenedores.this, READ_EXTERNAL_STORAGE);
+            int result1 = ContextCompat.checkSelfPermission(ActivityContenedores.this, WRITE_EXTERNAL_STORAGE);
             return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
         }
     }

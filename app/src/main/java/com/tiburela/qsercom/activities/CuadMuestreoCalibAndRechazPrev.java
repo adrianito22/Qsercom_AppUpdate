@@ -157,7 +157,7 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity {
 
                     ///LE AGREGAMOS OTROS DATOS A ESTE OBJETO
                     addRechazadosData(objec);
-
+                   /// objec.setSimpleDateFormat();
 
                     RealtimeDB.addNewCuadroMuestreoObject(objec); //subimos un cuadro de muestreo object
 

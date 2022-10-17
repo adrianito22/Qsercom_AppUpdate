@@ -8,15 +8,13 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.FormularioControlCalidadPreview;
-import com.tiburela.qsercom.activities.PackingListPreviewActivity;
-import com.tiburela.qsercom.callbacks.CallbackDialogConfirm;
-import com.tiburela.qsercom.database.RealtimeDB;
-import com.tiburela.qsercom.models.PackingListMod;
+import com.tiburela.qsercom.callbacks.CallBtoActityFormControlCalid;
+import com.tiburela.qsercom.callbacks.CallBtoActityFormulario;
 
 public class DialogoConfirm {
 
 
-   static  CallbackDialogConfirm callbackDialogConfirm;
+   static CallBtoActityFormControlCalid callBtoActityFormularioPreview;
 
 
     public static   void showBottomSheetDialogConfirmAndCallUpdate(Context context,int tipoFormulario) {
@@ -48,18 +46,19 @@ public class DialogoConfirm {
                 if(tipoFormulario==1){
 
                 //...CREAMOS UN OBJETO DE ESTA CLASE
-                   // callbackDialogConfirm=
+                   // callBtoActityFormularioPreview=
 
                  //1 creamos la interfa de la clase que implmenta usamdo el constructor de la clase que implmenta
 
-                    CallbackDialogConfirm callbacClaseiImplement= new FormularioControlCalidadPreview();
-                    callbackDialogConfirm=callbacClaseiImplement;
-                    callbacClaseiImplement.ConfirmChangsForActivityPrev(true);
+                    CallBtoActityFormControlCalid callbacClaseiImplement= new FormularioControlCalidadPreview();
+                    callBtoActityFormularioPreview =callbacClaseiImplement;
+
+                    callbacClaseiImplement.confirmChangs(true);
 
                  //
                     //
                     //
-                    //   callbackDialogConfirm=
+                    //   callBtoActityFormularioPreview=
 
 
 

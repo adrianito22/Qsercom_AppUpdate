@@ -22,8 +22,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.activities.ActivitySeeReports;
 import com.tiburela.qsercom.activities.FormDatosContersEnAcopio;
-import com.tiburela.qsercom.activities.FormularioActivity;
-import com.tiburela.qsercom.activities.PreviewActivity;
+import com.tiburela.qsercom.activities.ActivityContenedores;
+import com.tiburela.qsercom.activities.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.activities.ReporteCalidadCamionesyCarretas;
@@ -100,12 +100,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 }else if(Variables.activityCurrent==Variables.FormaFormularyActivity) { //si es previews
-                    inputStream = FormularioActivity.context.getContentResolver().openInputStream(uri);
+                    inputStream = ActivityContenedores.context.getContentResolver().openInputStream(uri);
 
 
                 }
                 else if(Variables.activityCurrent==Variables.FormPreviewFormularioActivity){ //es preview
-                    inputStream = PreviewActivity.context.getContentResolver().openInputStream(uri);
+                    inputStream = ActivityContenedoresPrev.context.getContentResolver().openInputStream(uri);
 
                 }
 

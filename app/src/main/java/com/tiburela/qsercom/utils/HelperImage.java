@@ -1,8 +1,5 @@
 package com.tiburela.qsercom.utils;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,27 +9,19 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.helper.widget.MotionEffect;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
-import com.tiburela.qsercom.PdfMaker.PdfMaker;
-import com.tiburela.qsercom.activities.ActivitySeeReports;
-import com.tiburela.qsercom.activities.PreviewActivity;
-import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
+import com.tiburela.qsercom.activities.ActivityContenedoresPrev;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.storage.StorageData;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -191,7 +180,7 @@ public class HelperImage {
                 public void onSuccess(Uri uri) {
                     try {
 
-                        Bitmap  bitmap = Glide.with(PreviewActivity.context).asBitmap().load(uri).submit().get();
+                        Bitmap  bitmap = Glide.with(ActivityContenedoresPrev.context).asBitmap().load(uri).submit().get();
                         String horientacionImg=devuelveHorientacionImg(bitmap);
 
 

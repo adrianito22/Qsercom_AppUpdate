@@ -56,7 +56,7 @@
             android:backgroundTint="#E10147"
             android:paddingRight="20dp"
             android:text="SI"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnNo"
@@ -68,7 +68,7 @@
             android:background="@drawable/btn"
             android:backgroundTint="#E10147"
             android:text="NO"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

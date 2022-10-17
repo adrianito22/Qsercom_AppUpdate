@@ -97,7 +97,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PreviewActivity"
+            android:name=".activities.ActivityContenedoresPrev"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
