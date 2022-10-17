@@ -318,7 +318,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
 
-        Variables.activityCurrent=Variables.FormPreviewFormularioActivity;
+        Variables.activityCurrent=Variables.FormPreviewContenedores;
 
 
         /*

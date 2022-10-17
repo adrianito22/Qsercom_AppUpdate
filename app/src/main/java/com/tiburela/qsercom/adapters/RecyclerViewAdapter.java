@@ -99,12 +99,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     inputStream = FormDatosContersEnAcopio.context.getContentResolver().openInputStream(uri);
 
 
-                }else if(Variables.activityCurrent==Variables.FormaFormularyActivity) { //si es previews
+                }else if(Variables.activityCurrent==Variables.FormContenedores) { //si es previews
                     inputStream = ActivityContenedores.context.getContentResolver().openInputStream(uri);
 
 
                 }
-                else if(Variables.activityCurrent==Variables.FormPreviewFormularioActivity){ //es preview
+                else if(Variables.activityCurrent==Variables.FormPreviewContenedores){ //es preview
                     inputStream = ActivityContenedoresPrev.context.getContentResolver().openInputStream(uri);
 
                 }

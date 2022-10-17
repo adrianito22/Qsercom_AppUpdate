@@ -288,7 +288,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
         context=getApplicationContext();
-        Variables.activityCurrent=Variables.FormaFormularyActivity;
+        Variables.activityCurrent=Variables.FormContenedores;
 
 
         Bundle extras = getIntent().getExtras();

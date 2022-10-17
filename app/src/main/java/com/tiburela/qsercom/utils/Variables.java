@@ -25,14 +25,19 @@ public static String  paqueteName="com.tiburela.qsercom";
 
 
     public static String nodoDondeEstaHashMapQueReciensubimos;
+
+
     public static final int   FormatDatsContAcopi=10067;
-    public static final int   FormaFormularyActivity=10066;
-    public static final int   FormPreviewFormularioActivity=10060;
     public static final int   FormatDatsContAcopiPREVIEW=10069;
     public static final int   FormCamionesyCarretasActivity=10070;
-
     public static final int   FormCamionesyCarretasActivityPreview=10071;
 
+    public static final int   FormContenedores =10066;
+    public static final int   FormPreviewContenedores =10060;
+    public static final int   FormCantrolCalidad=10072;
+    public static final int   FormPackingList=10073;
+
+    public static final int   FormMuestreoRechaz=10074;
 
 
     public static  int   tipoDeFoto;

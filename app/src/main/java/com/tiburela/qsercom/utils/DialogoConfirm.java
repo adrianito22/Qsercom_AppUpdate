@@ -8,13 +8,22 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.FormularioControlCalidadPreview;
+import com.tiburela.qsercom.callbacks.CallBtoActityCamnsYcarretas;
+import com.tiburela.qsercom.callbacks.CallBtoActityConteEnAcop;
+import com.tiburela.qsercom.callbacks.CallBtoActityContenedor;
 import com.tiburela.qsercom.callbacks.CallBtoActityFormControlCalid;
-import com.tiburela.qsercom.callbacks.CallBtoActityFormulario;
+import com.tiburela.qsercom.callbacks.CallBtoActityMuestreoRechaz;
+import com.tiburela.qsercom.callbacks.CallBtoActityPakingList;
 
 public class DialogoConfirm {
 
 
-   static CallBtoActityFormControlCalid callBtoActityFormularioPreview;
+    static CallBtoActityFormControlCalid callbackControlCalidad;
+    static CallBtoActityMuestreoRechaz callBtoActityMuestreoRechaz;
+    static CallBtoActityPakingList callBtoActityPakingList;
+    static CallBtoActityCamnsYcarretas callBtoActityCamnsYcarretas;
+    static CallBtoActityConteEnAcop callBtoActityConteEnAcop;
+    static CallBtoActityContenedor callBtoActityContenedor;
 
 
     public static   void showBottomSheetDialogConfirmAndCallUpdate(Context context,int tipoFormulario) {
@@ -43,29 +52,44 @@ public class DialogoConfirm {
 
                 // finish(); //lamaos el calback aqui
 
-                if(tipoFormulario==1){
-
-                //...CREAMOS UN OBJETO DE ESTA CLASE
-                   // callBtoActityFormularioPreview=
-
-                 //1 creamos la interfa de la clase que implmenta usamdo el constructor de la clase que implmenta
+                if(tipoFormulario==Variables.FormCantrolCalidad){
 
                     CallBtoActityFormControlCalid callbacClaseiImplement= new FormularioControlCalidadPreview();
-                    callBtoActityFormularioPreview =callbacClaseiImplement;
-
+                    callbackControlCalidad =callbacClaseiImplement;
                     callbacClaseiImplement.confirmChangs(true);
 
-                 //
-                    //
-                    //
-                    //   callBtoActityFormularioPreview=
-
-
-
-                }else  if(tipoFormulario==2){
 
 
                 }
+
+                else  if(tipoFormulario==Variables.FormPreviewContenedores){
+
+
+                }
+                else  if(tipoFormulario==Variables.FormatDatsContAcopi){
+
+
+                }
+                else  if(tipoFormulario==Variables.FormCamionesyCarretasActivity){//
+
+
+                }
+
+                else  if(tipoFormulario==Variables.FormPackingList){
+
+
+                }
+
+                else  if(tipoFormulario==Variables.FormMuestreoRechaz){
+
+
+                }
+
+
+
+
+
+
 
 
 
