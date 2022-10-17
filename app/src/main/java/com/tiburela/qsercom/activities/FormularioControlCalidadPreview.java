@@ -37,7 +37,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     HashMap <String, String> hasmapMapControlCalid;
     Button btnSaveControlC;
     TextView textView48;
-    HashMap<String, String> hasHmapFieldsRecha;
+    HashMap<String, String> hasHmapFieldsOtherViews= new HashMap<>();
     HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
     private TextInputEditText mEdif2LrgD1;
     private TextInputEditText mEdif2LrgD2;
@@ -148,16 +148,16 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     ImageView imgSelecDefc9;
     ImageView imgSelecDefc10;
 
-     TextInputEditText ediTimeHoraxx1;
-     TextInputEditText ediTimeHoraxx2;;
-     TextInputEditText ediTimeHoraxx3;
-     TextInputEditText ediTimeHoraxx4;
-     TextInputEditText ediTimeHoraxx5;
-     TextInputEditText ediTimeHoraxx6;
-     TextInputEditText ediTimeHoraxx7;
-     TextInputEditText ediTimeHoraxx8;
-     TextInputEditText ediTimeHoraxx9;
-     TextInputEditText ediTimeHoraxx10;
+    TextInputEditText ediTimeHoraxx1;
+    TextInputEditText ediTimeHoraxx2;;
+    TextInputEditText ediTimeHoraxx3;
+    TextInputEditText ediTimeHoraxx4;
+    TextInputEditText ediTimeHoraxx5;
+    TextInputEditText ediTimeHoraxx6;
+    TextInputEditText ediTimeHoraxx7;
+    TextInputEditText ediTimeHoraxx8;
+    TextInputEditText ediTimeHoraxx9;
+    TextInputEditText ediTimeHoraxx10;
 
     TextInputEditText ediPesoL1;
     TextInputEditText ediPesoL2;
@@ -415,7 +415,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         addListnners();
         eventoUploadFormulario();
 
-       arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
+        arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
         arrayDefect2 = getResources().getStringArray(R.array.array_defectos_empaque2);
 
 
@@ -475,59 +475,59 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     }
 
-   void  configInitialHashasmapsChekedItemsWhitDowload(HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb ,
-                                            HashMap<String , ArrayList<Boolean>>  HashMapOfListWhitStatesCHeckb2,
-                                            HashMap<String , String>  HashMapDowload) {
+    void  configInitialHashasmapsChekedItemsWhitDowload(HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb ,
+                                                        HashMap<String , ArrayList<Boolean>>  HashMapOfListWhitStatesCHeckb2,
+                                                        HashMap<String , String>  HashMapDowload) {
 
 
 
         //iteramos el hasmap descragado ....
 
-           for (Map.Entry<String, String> entry : HashMapDowload.entrySet()) {
-           String key = entry.getKey();
-           String  value = entry.getValue();
+        for (Map.Entry<String, String> entry : HashMapDowload.entrySet()) {
+            String key = entry.getKey();
+            String  value = entry.getValue();
 
-               String posicionesEditarArray  []= value.split(",") ;
+            String posicionesEditarArray  []= value.split(",") ;
 
-               if(HashMapOfListWhitStatesCHeckb.containsKey(key)){
-
-
-               for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
-
-                   int currrentPoscionParaCambiar=Integer.parseInt(posicionesEditarArray[indice2]);
-
-                   HashMapOfListWhitStatesCHeckb.get(key).set(currrentPoscionParaCambiar,true);
-
-               }
-
-               //editamos este valor
+            if(HashMapOfListWhitStatesCHeckb.containsKey(key)){
 
 
+                for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
 
-           }else if(HashMapOfListWhitStatesCHeckb2.containsKey(key)) {
+                    int currrentPoscionParaCambiar=Integer.parseInt(posicionesEditarArray[indice2]);
 
-                   for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
+                    HashMapOfListWhitStatesCHeckb.get(key).set(currrentPoscionParaCambiar,true);
 
-                       int currrentPoscionParaCambiar=Integer.parseInt(posicionesEditarArray[indice2]);
+                }
 
-                       HashMapOfListWhitStatesCHeckb2.get(key).set(currrentPoscionParaCambiar,true);
-
-                   }
+                //editamos este valor
 
 
 
+            }else if(HashMapOfListWhitStatesCHeckb2.containsKey(key)) {
+
+                for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
+
+                    int currrentPoscionParaCambiar=Integer.parseInt(posicionesEditarArray[indice2]);
+
+                    HashMapOfListWhitStatesCHeckb2.get(key).set(currrentPoscionParaCambiar,true);
+
+                }
 
 
-               }
-
-           //BUSCAMOS EN EL ARRAY PRIMERO
-
-
-           //BUSCMAOS EN SL OTRO ARRAY
 
 
 
-       }
+            }
+
+            //BUSCAMOS EN EL ARRAY PRIMERO
+
+
+            //BUSCMAOS EN SL OTRO ARRAY
+
+
+
+        }
 
 
 
@@ -555,7 +555,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         dowloadAllSelectDefectosPosiciones(Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
 
-       // getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+        // getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
 
 
 
@@ -627,6 +627,15 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
                 edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
 
+
+
+                mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
+                mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
+                mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
+                mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
+                mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
+                mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,
+
         };
 
         for (Map.Entry<String, String > entry : miMapa.entrySet()) {
@@ -663,45 +672,54 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         Log.i("hameha","el NODEKey es : "+nodeLocateHasmapControlC);
 
-        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("ControlCalidadHasmaps").
+        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("ControCalidHasmap").
                 child(nodeLocateHasmapControlC).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                hasmapMapControlCalid =new HashMap<>();
-
-
-                for (DataSnapshot dss : dataSnapshot.getChildren()) {
-                    String key = dss.getKey();
-
-                    String  fieldData =dss.getValue(String.class);
-
-                    //   HashMap packinKey = dss.getValue( String.class);
-
-                    //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
-                    Log.i("hameha","el key es "+key);
+                        hasmapMapControlCalid =new HashMap<>();
 
 
-                    if (fieldData!=null) {///
+                        for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                            String key = dss.getKey();
 
-                        hasmapMapControlCalid.put(key,fieldData);
+                            String  fieldData =dss.getValue(String.class);
+
+                            //   HashMap packinKey = dss.getValue( String.class);
+
+                            //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
+                            Log.i("hameha","el key es "+key);
+
+
+                            if (fieldData!=null) {///
+
+                                hasmapMapControlCalid.put(key,fieldData);
+
+                            }
+                        }
+
+                        setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
+
+
+
+
+                        //realizamos la opreacion con la info de los editext
+                        showResultNumClusteroManoProduct();
+                        showResultNumeroClusterxCajaProduct();
+                        showResultOfCalibraEntreBasalYapiclProduct();
+                        showResultlargoDedosPulgaPulpaApulpa();
+
 
                     }
-                }
 
-                setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i("misadhd","el error es "+ databaseError.getMessage());
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.i("misadhd","el error es "+ databaseError.getMessage());
 
 
 
-            }
-        });
+                    }
+                });
 
 
 
@@ -711,7 +729,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     private void dowloadAllSelectDefectosPosiciones(String nodeLocateHasmapDefectSelecc){
 
-        HashMap<String, String> hasmapMapControlCalidxDowload= new HashMap<>();
+        HashMap<String, String> hasmapMapdEFECTOSchekeed= new HashMap<>();
 
         Log.i("hameha","el NODEKey es : "+nodeLocateHasmapDefectSelecc);
 
@@ -731,16 +749,16 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                     if (fieldData!=null && ! fieldData.equals("EMPTY")) {///
 
-                        hasmapMapControlCalidxDowload.put(key,fieldData);
+                        hasmapMapdEFECTOSchekeed.put(key,fieldData);
 
                     }
                 }
 
 
 
-                configInitialHashasmapsChekedItemsWhitDowload(HashMapOfListWhitStatesCHeckb,HashMapOfListWhitStatesCHeckb2,hasmapMapControlCalidxDowload);
+                configInitialHashasmapsChekedItemsWhitDowload(HashMapOfListWhitStatesCHeckb,HashMapOfListWhitStatesCHeckb2,hasmapMapdEFECTOSchekeed);
 
-             //   setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
+                //   setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
 
 
             }
@@ -757,6 +775,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
     }
+
 
 
     private void findviewsIds() {
@@ -1081,8 +1100,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdiLargDeds28 = findViewById(R.id.ediLargDeds28);
         mEdiLargDeds29 = findViewById(R.id.ediLargDeds29);
         mEdiLargDeds30 = findViewById(R.id.ediLargDeds30);
-       // mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
-      //  mEdiPromFila1 = findViewById(R.id.ediPromFila1);
+        // mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
+        //  mEdiPromFila1 = findViewById(R.id.ediPromFila1);
 
         mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
         mEdif2LrgD2 = findViewById(R.id.edif2LrgD2);
@@ -1116,9 +1135,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
 
 
-      //  imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
-      //  imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
-      //  imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
+        //  imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
+        //  imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
+        //  imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
 
 
 
@@ -1172,7 +1191,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     void muestraResultado()  {
 
-      ArrayList <Integer> result10 = new ArrayList<Integer>();
+        ArrayList <Integer> result10 = new ArrayList<Integer>();
 
         int resultadoSuMA;
 
@@ -1202,14 +1221,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
-int resultadotodo=0;
+        int resultadotodo=0;
         for(int indice=0; indice<result10.size(); indice++){  //recorremos la lista actual
 
 
             resultadotodo=resultadotodo+result10.get(indice);
 
 
-Log.i("sumarr","el valor es "+result10.get(indice));
+            Log.i("sumarr","el valor es "+result10.get(indice));
 
 
         }
@@ -1345,23 +1364,23 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
             case R.id.imgUpdateCalibBasalYapical:
-                getCalibraEntreBasalYapiclProduct();
+                showResultOfCalibraEntreBasalYapiclProduct();
 
-                getlargoDedosPulgaPulpaApulpa();
+                showResultlargoDedosPulgaPulpaApulpa();
 
                 break;
 
             case R.id.imgUpdateNumClusterxCaja:
-                getNumeroClusterxCajaProduct();
-                getlargoDedosPulgaPulpaApulpa();
+                showResultNumeroClusterxCajaProduct();
+                showResultlargoDedosPulgaPulpaApulpa();
 
 
                 break;
 
 
             case R.id.imgUpdateNumDedxClust:
-                setResultNumClusteroManoProduct();
-                getlargoDedosPulgaPulpaApulpa();
+                showResultNumClusteroManoProduct();
+                showResultlargoDedosPulgaPulpaApulpa();
 
                 break;
 
@@ -1667,58 +1686,6 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     //alamacenara datos Styring...
 
 
-    private void createMapInfo() {
-
-        hasHmapFieldsRecha= new HashMap<>();
-
-       TextInputEditText arrayAllFields[] =  {
-
-               ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
-               ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
-               ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
-               ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
-               ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
-               ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
-               ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
-               ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
-               ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
-               edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
-               edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
-               edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
-               edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
-               edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-               edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
-               edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
-               edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
-               edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-               edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
-               ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
-               , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
-               ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-               ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
-               ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-               ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
-               edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
-               edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-               edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
-
-
-       } ;
-
-
-        for(int i = 0; i<arrayAllFields.length; i++) {
-        TextInputEditText currenTextImput=arrayAllFields[i];
-
-        if(!currenTextImput.getText().toString().trim().isEmpty()) { //si no esta vacio
-
-            String keyOFidView=String.valueOf(currenTextImput.getTag());
-
-             hasHmapFieldsRecha.put(keyOFidView,currenTextImput.getText().toString());
-        }
-
-    }
-
-    }
 
 
     private void createItemsSelectDefectsEmpqTOuPLOAD() {
@@ -1829,7 +1796,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
     }
 
-    private void setResultNumClusteroManoProduct() {
+    private void showResultNumClusteroManoProduct() {
 
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26,27,28,29,30  } ;
@@ -1881,7 +1848,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
     }
 
-    private void getNumeroClusterxCajaProduct() {
+    private void showResultNumeroClusterxCajaProduct() {
 
         //9-26
 
@@ -1938,7 +1905,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
     }
 
-    private void getCalibraEntreBasalYapiclProduct() {
+    private void showResultOfCalibraEntreBasalYapiclProduct() {
 
         //9-26
 
@@ -2008,7 +1975,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
     }
 
-    private void getlargoDedosPulgaPulpaApulpa() {
+    private void showResultlargoDedosPulgaPulpaApulpa() {
 
 
         double [][] decimalsToMultiplicar = {
@@ -2078,13 +2045,19 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
                     if((result % 1) == 0){
 
-                        result =Math.floor(result);
+                        int numentero = (int) Math.floor(result);
                         Log.i("dfgdf","el value convert "+result)  ;
+
+                        arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(numentero));
+
+
+                    }else {
+                        arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
+
 
                     }
 
 
-                    arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
 
                     // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
                     //colcamos este texto en el editext
@@ -2109,11 +2082,9 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     }
 
 
-
-
     private void createMapInBYothersTextimpuEdFields() {
 
-        hasHmapFieldsRecha= new HashMap<>();
+        hasHmapFieldsOtherViews = new HashMap<>();
 
         TextInputEditText arrayAllFields[] =  {
 
@@ -2146,6 +2117,14 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
                 edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
 
+                mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
+                mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
+                mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
+                mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
+                mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
+                mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,
+
+
 
         } ;
 
@@ -2159,13 +2138,13 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
                 String keyOFidView=String.valueOf(currenTextImput.getId());
 
-                hasHmapFieldsRecha.put(keyOFidView,currenTextImput.getText().toString());
+                hasHmapFieldsOtherViews.put(keyOFidView,currenTextImput.getText().toString());
             }
 
 
         }
 
-        hasHmapFieldsRecha.put("0","EMPTY");
+        hasHmapFieldsOtherViews.put("0","EMPTY");
 
 
     }
@@ -2182,8 +2161,8 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                 }
 
 
-              Log.i("misdtass","el nodo del objeto current es "+Variables.currenControlCalReport.getKeyDondeEstarThisInform());
-
+                Log.i("misdtass","el nodo del objeto current es "+Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+                // hasHmapFieldsOtherViews
 
                 createMapInBYothersTextimpuEdFields();
                 createInfoToHashmapRechazaSelecToUpload();
@@ -2191,7 +2170,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                 ControlCalidad obecjControlCalidad= udpadteFormulario(Variables.currenControlCalReport);
 
                 RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad,Variables.currenControlCalReport.getKeyDondeEstarThisInform());
-                RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsRecha,Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+                RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews,Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
                 RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
 
 

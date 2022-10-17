@@ -97,10 +97,10 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
 
     TextView textView;
-  //  boolean[] selectedLanguage;
+    //  boolean[] selectedLanguage;
     Button btnSaveControlC;
     TextView textView48;
-    HashMap<String, String> hasHmapFieldsRecha;
+    HashMap<String, String> hasHmapOtherFieldsEditxs;
     HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
     HashMap<String, String> hahasMapitemsSelecPosicDefcEmpqtoUpload;
 
@@ -155,15 +155,15 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
 
     TextInputEditText ediTimeHoraxx1;
-     TextInputEditText ediTimeHoraxx2;;
-     TextInputEditText ediTimeHoraxx3;
-     TextInputEditText ediTimeHoraxx4;
-     TextInputEditText ediTimeHoraxx5;
-     TextInputEditText ediTimeHoraxx6;
-     TextInputEditText ediTimeHoraxx7;
-     TextInputEditText ediTimeHoraxx8;
-     TextInputEditText ediTimeHoraxx9;
-     TextInputEditText ediTimeHoraxx10;
+    TextInputEditText ediTimeHoraxx2;;
+    TextInputEditText ediTimeHoraxx3;
+    TextInputEditText ediTimeHoraxx4;
+    TextInputEditText ediTimeHoraxx5;
+    TextInputEditText ediTimeHoraxx6;
+    TextInputEditText ediTimeHoraxx7;
+    TextInputEditText ediTimeHoraxx8;
+    TextInputEditText ediTimeHoraxx9;
+    TextInputEditText ediTimeHoraxx10;
 
 
 
@@ -425,7 +425,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.control_calid_activity);
         // assign variable
-       // textView = findViewById(R.id.textView);
+        // textView = findViewById(R.id.textView);
         findviewsIds();
 
         sumarNumeros();
@@ -433,12 +433,12 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         addListnners();
 
 
-     //   String[] albums = getResources().getStringArray(R.array.array_defectos_fruta);
-          //INICLIAMOS POSICIONES SON 10 LISTAS
-      //  List<String> listDefectos = Arrays.asList();
+        //   String[] albums = getResources().getStringArray(R.array.array_defectos_fruta);
+        //INICLIAMOS POSICIONES SON 10 LISTAS
+        //  List<String> listDefectos = Arrays.asList();
 
 
-           inicialiceListOfListChekedItems();
+        inicialiceListOfListChekedItems();
 
     }
 
@@ -455,7 +455,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     //determinar que posicion pulso o si pusla este hacer esto
 
     private void findviewsIds() {
-   //first views fields
+        //first views fields
         ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
 
         btnSaveControlC=findViewById(R.id.btnSaveControlC);
@@ -488,26 +488,26 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
 
         imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
-         imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
-         imgSelecDefc3=findViewById(R.id.imgSelecDefc3);
-         imgSelecDefc4=findViewById(R.id.imgSelecDefc4);
-         imgSelecDefc5=findViewById(R.id.imgSelecDefc5);
-         imgSelecDefc6=findViewById(R.id.imgSelecDefc6);
-         imgSelecDefc7=findViewById(R.id.imgSelecDefc7);
-         imgSelecDefc8=findViewById(R.id.imgSelecDefc8);
-         imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
-         imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
+        imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
+        imgSelecDefc3=findViewById(R.id.imgSelecDefc3);
+        imgSelecDefc4=findViewById(R.id.imgSelecDefc4);
+        imgSelecDefc5=findViewById(R.id.imgSelecDefc5);
+        imgSelecDefc6=findViewById(R.id.imgSelecDefc6);
+        imgSelecDefc7=findViewById(R.id.imgSelecDefc7);
+        imgSelecDefc8=findViewById(R.id.imgSelecDefc8);
+        imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
+        imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
 
-         imvEmpaque1=findViewById(R.id.imvEmpaque1);
-         imvEmpaque2=findViewById(R.id.imvEmpaque2);
-         imvEmpaque3=findViewById(R.id.imvEmpaque3);
-         imvEmpaque4=findViewById(R.id.imvEmpaque4);
-         imvEmpaque5=findViewById(R.id.imvEmpaque5);
-         imvEmpaque6=findViewById(R.id.imvEmpaque6);
-         imvEmpaque7=findViewById(R.id.imvEmpaque7);
-         imvEmpaque8=findViewById(R.id.imvEmpaque8);
-         imvEmpaque9=findViewById(R.id.imvEmpaque9);
-         imvEmpaque10=findViewById(R.id.imvEmpaque10);
+        imvEmpaque1=findViewById(R.id.imvEmpaque1);
+        imvEmpaque2=findViewById(R.id.imvEmpaque2);
+        imvEmpaque3=findViewById(R.id.imvEmpaque3);
+        imvEmpaque4=findViewById(R.id.imvEmpaque4);
+        imvEmpaque5=findViewById(R.id.imvEmpaque5);
+        imvEmpaque6=findViewById(R.id.imvEmpaque6);
+        imvEmpaque7=findViewById(R.id.imvEmpaque7);
+        imvEmpaque8=findViewById(R.id.imvEmpaque8);
+        imvEmpaque9=findViewById(R.id.imvEmpaque9);
+        imvEmpaque10=findViewById(R.id.imvEmpaque10);
 
 
         spinnerDef1=findViewById(R.id.spinnerDef1);
@@ -573,10 +573,10 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         ediNumClusInsp10=findViewById(R.id.ediNumClusInsp10 );
 
 
-         ediNdedoXclust1=findViewById(R.id.ediNdedoXclust1);
+        ediNdedoXclust1=findViewById(R.id.ediNdedoXclust1);
         ediNdedoXclust2=findViewById(R.id.ediNdedoXclust2);
-         ediNdedoXclust3=findViewById(R.id.ediNdedoXclust3) ;
-       ediNdedoXclust4=findViewById(R.id.ediNdedoXclust4);
+        ediNdedoXclust3=findViewById(R.id.ediNdedoXclust3) ;
+        ediNdedoXclust4=findViewById(R.id.ediNdedoXclust4);
         ediNdedoXclust5=findViewById(R.id.ediNdedoXclust5);
 
 
@@ -594,7 +594,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
 
 
-       ediNdedoXclust6=findViewById(R.id.ediNdedoXclust6);
+        ediNdedoXclust6=findViewById(R.id.ediNdedoXclust6);
         ediNdedoXclust7=findViewById(R.id.ediNdedoXclust7);
         ediNdedoXclust8=findViewById(R.id.ediNdedoXclust8);
         ediNdedoXclust9=findViewById(R.id.ediNdedoXclust9);
@@ -779,7 +779,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
         mEdiPromFila1 = findViewById(R.id.ediPromFila1);
 
-       mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
+        mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
         mEdif2LrgD2 = findViewById(R.id.edif2LrgD2);
         mEdif2LrgD3 = findViewById(R.id.edif2LrgD3);
         mEdif2LrgD4 = findViewById(R.id.edif2LrgD4);
@@ -812,8 +812,8 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
 
         imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
-         imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
-         imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
+        imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
+        imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
 
 
 
@@ -877,7 +877,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
     void muestraResultado()  {
 
-      ArrayList <Integer> result10 = new ArrayList<Integer>();
+        ArrayList <Integer> result10 = new ArrayList<Integer>();
 
         int resultadoSuMA;
 
@@ -907,14 +907,14 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
 
 
 
-int resultadotodo=0;
+        int resultadotodo=0;
         for(int indice=0; indice<result10.size(); indice++){  //recorremos la lista actual
 
 
             resultadotodo=resultadotodo+result10.get(indice);
 
 
-Log.i("sumarr","el valor es "+result10.get(indice));
+            Log.i("sumarr","el valor es "+result10.get(indice));
 
 
         }
@@ -950,7 +950,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         //di esl alguno de estos clicks
         int idPulsado=view.getId();
         if(idPulsado== R.id.imgSelecDefc1 || idPulsado== R.id.imgSelecDefc2  || idPulsado== R.id.imgSelecDefc3  ||  idPulsado== R.id.imgSelecDefc4  ||
-            idPulsado== R.id.imgSelecDefc5  || idPulsado== R.id.imgSelecDefc6   || idPulsado== R.id.imgSelecDefc7  ||
+                idPulsado== R.id.imgSelecDefc5  || idPulsado== R.id.imgSelecDefc6   || idPulsado== R.id.imgSelecDefc7  ||
                 idPulsado== R.id.imgSelecDefc8   ||  idPulsado== R.id.imgSelecDefc9   ||  idPulsado== R.id.imgSelecDefc10 ){
 
             estates =listToAarray(HashMapOfListWhitStatesCHeckb.get(keyOrViewID));
@@ -1050,7 +1050,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
             case R.id.imgUpdateCalibBasalYapical:
-                    getCalibraEntreBasalYapiclProduct();
+                getCalibraEntreBasalYapiclProduct();
 
                 getlargoDedosPulgaPulpaApulpa();
 
@@ -1077,7 +1077,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
     }
 
 
-     void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
+    void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
 
         // Initialize alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidad.this);
@@ -1096,22 +1096,22 @@ Log.i("sumarr","el valor es "+result10.get(indice));
                     //cuando selecione une ...obtenemos la poisicion..
                     //j
 
-                  // listOfLISTState.get(posicionListOfLIST).set(i,true);
+                    // listOfLISTState.get(posicionListOfLIST).set(i,true);
                     HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,true);
 
                     // when checkbox selected
                     // Add position  in lang list
-                  //  langList.add(i);
+                    //  langList.add(i);
                     // Sort array list
-                 //   Collections.sort(langList);
+                    //   Collections.sort(langList);
                 } else {  //CUANDO LO DESELECIONA
                     // when checkbox unselected
                     // Remove position from langList
 
-                   // listOfLISTState.get(posicionListOfLIST).set(i,false);
+                    // listOfLISTState.get(posicionListOfLIST).set(i,false);
                     HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,false);
 
-                  //  langList.remove(Integer.valueOf(i));
+                    //  langList.remove(Integer.valueOf(i));
                 }
             }
         });
@@ -1141,7 +1141,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
             public void onClick(DialogInterface dialogInterface, int i) {
                 // use for loop
 
-                 //aqui necesitamos obtener el hasmapa
+                //aqui necesitamos obtener el hasmapa
 
                 for (int j = 0; j < HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).size(); j++) {
 
@@ -1375,59 +1375,69 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
     private void createMapInBYothersTextimpuEdFields() {
 
-        hasHmapFieldsRecha= new HashMap<>();
+        hasHmapOtherFieldsEditxs = new HashMap<>();
 
-       TextInputEditText arrayAllFields[] =  {
-
-               ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
-               ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
-               ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
-               ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
-               ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
-               ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
-               ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
-               ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
-               ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
-               edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
-               edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
-               edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
-               edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
-               edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-               edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
-               edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
-               edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
-               edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-               edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
-               ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
-               , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
-               ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-               ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
-               ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-               ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
-               edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
-               edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-               edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+        TextInputEditText arrayAllFields[] =  {
 
 
-       } ;
+                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+                ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
+                ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
+                ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
+                ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
+                ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
+                ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
+                ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+                edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
+                edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
+                edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
+                edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
+                edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
+                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
+                edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
+                edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
+                , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
+                ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
+                ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+                edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
+                edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+
+
+                mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
+                mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
+                mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
+                mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
+                mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
+                mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,
+
+
+
+        } ;
 
 
         for(int i = 0; i<arrayAllFields.length; i++) {
 
 
-        TextInputEditText currenTextImput=arrayAllFields[i];
+            TextInputEditText currenTextImput=arrayAllFields[i];
 
             if(!currenTextImput.getText().toString().trim().isEmpty()) { //si no esta vacio
 
                 String keyOFidView=String.valueOf(currenTextImput.getId());
 
-                hasHmapFieldsRecha.put(keyOFidView,currenTextImput.getText().toString());
+                hasHmapOtherFieldsEditxs.put(keyOFidView,currenTextImput.getText().toString());
             }
 
 
-    }
+        }
 
-        hasHmapFieldsRecha.put("0","EMPTY");
+        hasHmapOtherFieldsEditxs.put("0","EMPTY");
 
 
     }
@@ -1545,14 +1555,14 @@ Log.i("sumarr","el valor es "+result10.get(indice));
 
 
     void sumarNumeros(){
-       int valor1=5;
-       int valor2=2;
+        int valor1=5;
+        int valor2=2;
 
 
-       int resultado= valor1+valor2;
+        int resultado= valor1+valor2;
 
 
-       Log.i("muestradd",String.valueOf(resultado));
+        Log.i("muestradd",String.valueOf(resultado));
 
 
 
@@ -1781,7 +1791,7 @@ Log.i("sumarr","el valor es "+result10.get(indice));
         }
 
 
-return true;
+        return true;
 
     }
 
@@ -1818,7 +1828,7 @@ return true;
 
 
                 RealtimeDB.UploadControlcalidadInform(obecjControlCalidad);
-                RealtimeDB.addNewHashMapControlCalidad(hasHmapFieldsRecha,keyDondeEstaraHasmap);
+                RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxs,keyDondeEstaraHasmap);
                 RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
 
 
@@ -1834,7 +1844,7 @@ return true;
 
     private ControlCalidad creaNuevoFormularioByTxtImputEditext(){
 
-                ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
+        ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
                 mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(),mEdiCodigozz.getText().toString(),
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
                 mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
@@ -1843,64 +1853,64 @@ return true;
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
                 mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
 
-             return controlCaL;
+        return controlCaL;
 
-               }
-
-
+    }
 
 
-     private void setResultNumClusteroManoProduct() {
+
+
+    private void setResultNumClusteroManoProduct() {
 
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26,27,28,29,30  } ;
 
-          TextInputEditText [] arrayEditsFilaArriba = { ediNdedoXclust1,	ediNdedoXclust2,
-                  ediNdedoXclust3,	ediNdedoXclust4,	ediNdedoXclust5,ediNdedoXclust6,ediNdedoXclust7
-                  ,	ediNdedoXclust8,	ediNdedoXclust9,ediNdedoXclust10,	ediNdedoXclust11
-                  ,	ediNdedoXclust12,	ediNdedoXclust13,ediNdedoXclust14,	ediNdedoXclust15
-                  ,	ediNdedoXclust16,	ediNdedoXclust17,ediNdedoXclust18,	ediNdedoXclust19
-                  ,	ediNdedoXclust20,	ediNdedoXclust21,ediNdedoXclust22,	ediNdedoXclust23,
-                  ediNdedoXclust24,	ediNdedoXclust25,	ediNdedoXclust26,	ediNdedoXclust27,
-                  ediNdedoXclust28,ediNdedoXclust29, ediNdedoXclust30 };
+        TextInputEditText [] arrayEditsFilaArriba = { ediNdedoXclust1,	ediNdedoXclust2,
+                ediNdedoXclust3,	ediNdedoXclust4,	ediNdedoXclust5,ediNdedoXclust6,ediNdedoXclust7
+                ,	ediNdedoXclust8,	ediNdedoXclust9,ediNdedoXclust10,	ediNdedoXclust11
+                ,	ediNdedoXclust12,	ediNdedoXclust13,ediNdedoXclust14,	ediNdedoXclust15
+                ,	ediNdedoXclust16,	ediNdedoXclust17,ediNdedoXclust18,	ediNdedoXclust19
+                ,	ediNdedoXclust20,	ediNdedoXclust21,ediNdedoXclust22,	ediNdedoXclust23,
+                ediNdedoXclust24,	ediNdedoXclust25,	ediNdedoXclust26,	ediNdedoXclust27,
+                ediNdedoXclust28,ediNdedoXclust29, ediNdedoXclust30 };
 
 
-         TextInputEditText [] arrayEditsFilaAbajo = {
-                 edif2NdedoXclust1	, edif2NdedoXclust2	, edif2NdedoXclust3	, edif2NdedoXclust4	,
-                 edif2NdedoXclust5	, edif2NdedoXclust6	, edif2NdedoXclust7	, edif2NdedoXclust8	,
-                 edif2NdedoXclust9	, edif2NdedoXclust10, edif2NdedoXclust11, edif2NdedoXclust12,
-                 edif2NdedoXclust13	, edif2NdedoXclust14, edif2NdedoXclust15, edif2NdedoXclust16,
-                 edif2NdedoXclust17	, edif2NdedoXclust18, edif2NdedoXclust19, edif2NdedoXclust20,
-                 edif2NdedoXclust21	, edif2NdedoXclust22, edif2NdedoXclust23, edif2NdedoXclust24,
-                 edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28,
-                 edif2NdedoXclust29	, edif2NdedoXclust30,
+        TextInputEditText [] arrayEditsFilaAbajo = {
+                edif2NdedoXclust1	, edif2NdedoXclust2	, edif2NdedoXclust3	, edif2NdedoXclust4	,
+                edif2NdedoXclust5	, edif2NdedoXclust6	, edif2NdedoXclust7	, edif2NdedoXclust8	,
+                edif2NdedoXclust9	, edif2NdedoXclust10, edif2NdedoXclust11, edif2NdedoXclust12,
+                edif2NdedoXclust13	, edif2NdedoXclust14, edif2NdedoXclust15, edif2NdedoXclust16,
+                edif2NdedoXclust17	, edif2NdedoXclust18, edif2NdedoXclust19, edif2NdedoXclust20,
+                edif2NdedoXclust21	, edif2NdedoXclust22, edif2NdedoXclust23, edif2NdedoXclust24,
+                edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28,
+                edif2NdedoXclust29	, edif2NdedoXclust30,
 
-         };
-
-
-         for (int i = 0; i < arrayNJumsTOmult.length; i++) {
-
-             int productResult =0;
-
-             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
-
-                 arrayEditsFilaAbajo [i].getText().clear();
-
-             }
+        };
 
 
-             else {
+        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+            int productResult =0;
+
+            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                arrayEditsFilaAbajo [i].getText().clear();
+
+            }
 
 
-                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
-                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
-             }
+            else {
+
+
+                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+            }
 
 
 
-         }
+        }
 
-     }
+    }
 
     private void getNumeroClusterxCajaProduct() {
 
@@ -2080,7 +2090,7 @@ return true;
 
 
             for (int indice = 0; indice <currentArrayofContainsDataNums.length; indice++) {
-             //se ejecutar 5 veces..
+                //se ejecutar 5 veces..
 
                 if(currentArrayofContainsDataNums[indice].getText().toString().trim().isEmpty() )  { //si esta vacio
                     currentArrayofContainsDataNums[indice].getText().clear();
@@ -2101,16 +2111,23 @@ return true;
 
                     if((result % 1) == 0){
 
-                        result =Math.floor(result);
+                        int numentero = (int) Math.floor(result);
                         Log.i("dfgdf","el value convert "+result)  ;
+
+                        arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(numentero));
+
+
+
+                    }else{
+
+                        arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
 
                     }
 
 
-                    arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
 
-                   // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
-                   //colcamos este texto en el editext
+                    // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
+                    //colcamos este texto en el editext
 
 
                 }
@@ -2129,13 +2146,13 @@ return true;
 
 
 
-}
+    }
 
     private void inicialiceListOfListChekedItems () {
 
-          ImageView  [] miArrayImgSelecs = {
-                  imgSelecDefc1,imgSelecDefc2,imgSelecDefc3,imgSelecDefc4,imgSelecDefc5,
-                  imgSelecDefc6, imgSelecDefc7,imgSelecDefc8, imgSelecDefc9,imgSelecDefc10 } ;
+        ImageView  [] miArrayImgSelecs = {
+                imgSelecDefc1,imgSelecDefc2,imgSelecDefc3,imgSelecDefc4,imgSelecDefc5,
+                imgSelecDefc6, imgSelecDefc7,imgSelecDefc8, imgSelecDefc9,imgSelecDefc10 } ;
 
 
         ImageView  [] arrayImgsSelect2 = {
@@ -2156,11 +2173,11 @@ return true;
 
                 listItem.add(false);
                 //agregamos valors a esta lista
-                }
+            }
 
 
             HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
-          ///  listOfLISTState.add(listItem);
+            ///  listOfLISTState.add(listItem);
 
         }
 

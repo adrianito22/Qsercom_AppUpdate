@@ -307,8 +307,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
 
 
                    esFirstCharge=false;
-
-               }
+}
 
 
     }
@@ -1954,13 +1953,8 @@ private void createObjcInformeAndUpload(){
             ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
             ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
     informe.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
-
-
-
-
-
-
-
+    informe.setSimpleDataFormat(Variables.CurrenReportPart1.getSimpleDataFormat());
+    informe.setFechaCreacionInf(Variables.CurrenReportPart1.getFechaCreacionInf());
 
 
     SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
@@ -3760,7 +3754,7 @@ return true;
         ediPemarque.setText(info1Object.getPemarque());
                 ediZona.setText(info1Object.getZona());
         ediHoraInicio.setText(info1Object.getHoraInicio());
-
+        ediNumContenedor.setText(info1Object.getNumcionContenedor());
                 ediHoraTermino.setText(info1Object.getHoraTermino());
         ediHoraLLegadaContenedor.setText(info1Object.getHoraLlegadaContenedor());
 

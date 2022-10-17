@@ -30,15 +30,19 @@ import java.util.HashMap;
 
 
 public class ActivityMenu extends AppCompatActivity {
-LinearLayout ly_contenedores;
-LinearLayout ly_conte_en_acopio;
-LinearLayout ly_camy_carretas;
-LinearLayout ly_packing_list;
-LinearLayout ly_cuadro_Muestreo_caly_rechaz;
-Button btnInInformes;
-TextView txtAdviser,txtAdviser2;
+    LinearLayout ly_contenedores;
+    LinearLayout ly_conte_en_acopio;
+    LinearLayout ly_camy_carretas;
+    LinearLayout ly_packing_list;
+    LinearLayout ly_cuadro_Muestreo_caly_rechaz;
+    LinearLayout ly_controlCalidad;
+
+
+
+    Button btnInInformes;
+    TextView txtAdviser,txtAdviser2;
     private static final int PERMISSION_REQUEST_CODE=100;
-     private boolean hayUnformulariAmediasPorSubir =false;
+    private boolean hayUnformulariAmediasPorSubir =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +61,21 @@ TextView txtAdviser,txtAdviser2;
 
 
 
-         ly_contenedores=findViewById(R.id.ly_contenedores);
-         ly_conte_en_acopio=findViewById(R.id.ly_conte_en_acopio);
-         ly_camy_carretas=findViewById(R.id.ly_camy_carretas);
-         ly_packing_list=findViewById(R.id.ly_packing_list);
-         ly_cuadro_Muestreo_caly_rechaz=findViewById(R.id.ly_cuadro_Muestreo_caly_rechaz);
+        ly_contenedores=findViewById(R.id.ly_contenedores);
+        ly_conte_en_acopio=findViewById(R.id.ly_conte_en_acopio);
+        ly_camy_carretas=findViewById(R.id.ly_camy_carretas);
+        ly_packing_list=findViewById(R.id.ly_packing_list);
+        ly_cuadro_Muestreo_caly_rechaz=findViewById(R.id.ly_cuadro_Muestreo_caly_rechaz);
 
+        ly_controlCalidad=findViewById(R.id.ly_controlCalidad);
+        ly_controlCalidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                startActivity(new Intent(ActivityMenu.this,FormularioControlCalidad.class));
 
+            }
+        });
 
         ly_camy_carretas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,13 +108,13 @@ TextView txtAdviser,txtAdviser2;
 
 
         ly_contenedores.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 startActivity(new Intent(ActivityMenu.this,FormularioActivity.class ));
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityMenu.this,FormularioActivity.class ));
 
 
-             }
-         });
+            }
+        });
 
 
         ly_cuadro_Muestreo_caly_rechaz.setOnClickListener(new View.OnClickListener() {
@@ -120,31 +131,31 @@ TextView txtAdviser,txtAdviser2;
 
 
 
-         btnInInformes.setOnClickListener(new View.OnClickListener() {
-             @RequiresApi(api = Build.VERSION_CODES.M)
-             @Override
-             public void onClick(View view) {
+        btnInInformes.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
 
 
-                 if(Variables.tipoDeUser ==Variables.CALIFICADOR_OFICINA) {
+                if(Variables.tipoDeUser ==Variables.CALIFICADOR_OFICINA) {
 
-                      startActivity(new Intent(ActivityMenu.this, ActivitySeeReports.class));
-
-
-
-                 }else {  //si es inspector de campo
-
-                     Intent intencion = new Intent(ActivityMenu.this,FormularioActivity.class);
-
-                     intencion.putExtra("ActivitymenuKey",hayUnformulariAmediasPorSubir);
-                      startActivity(intencion);
-
-                 }
+                    startActivity(new Intent(ActivityMenu.this, ActivitySeeReports.class));
 
 
 
-             }
-         });
+                }else {  //si es inspector de campo
+
+                    Intent intencion = new Intent(ActivityMenu.this,FormularioActivity.class);
+
+                    intencion.putExtra("ActivitymenuKey",hayUnformulariAmediasPorSubir);
+                    startActivity(intencion);
+
+                }
+
+
+
+            }
+        });
     }
 
 
@@ -154,11 +165,11 @@ TextView txtAdviser,txtAdviser2;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void callgeneratePdf(){
-           //ad data to object
+        //ad data to object
         generateObjc();
 
 
-       // PdfMaker.generatePdfReport1(ActivityMenu.this,informeObjct);
+        // PdfMaker.generatePdfReport1(ActivityMenu.this,informeObjct);
 
     }
 
@@ -166,7 +177,7 @@ TextView txtAdviser,txtAdviser2;
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void generateObjc(){
         //    public SetInformEmbarque1(String codeInforme, int ediNhojaEvaluacion, String zona, String productor, String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte, String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana, String empacadora, String contenedor, String cbservacion) {
-       // informeObjct = new SetInformEmbarque1("aaad01","testxz",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
+        // informeObjct = new SetInformEmbarque1("aaad01","testxz",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
 
         if(!checkPermission()){
 
@@ -234,16 +245,16 @@ TextView txtAdviser,txtAdviser2;
 
                 //*CHEKEAMOS SI TIENE DATA
                 if( Utils.dataFieldsPreferencias.size()>0) {
-                   //verificamos si ya lo lleno, si no lo lleno ,quiere decir que introduciremos data en los fileds usando el mapa y un array de editexts...
+                    //verificamos si ya lo lleno, si no lo lleno ,quiere decir que introduciremos data en los fileds usando el mapa y un array de editexts...
 
                     if(Utils.dataFieldsPreferencias.get("estaSubido").equals("no")) {
                         hayUnformulariAmediasPorSubir=true;
 
-                         //SACTUALIZAMOS VIEWS
+                        //SACTUALIZAMOS VIEWS
                         btnInInformes.setText("Completa el Informe");
                         txtAdviser.setText("Tienes 1 formulario Incompleto");
                         txtAdviser2.setText("Tienes Tarea");
-                    //mostramos data...Hay un formulario a medias....
+                        //mostramos data...Hay un formulario a medias....
                     }else{
                         btnInInformes.setText("Nuevo informe");
                         txtAdviser.setText("Agrega un nuevo informe");

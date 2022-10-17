@@ -38,9 +38,9 @@ import java.util.UUID;
 
 public class RealtimeDB {
 
- static  public DatabaseReference rootDatabaseReference ;
+    static  public DatabaseReference rootDatabaseReference ;
 
-static  public  DatabaseReference mibasedataPathImages;
+    static  public  DatabaseReference mibasedataPathImages;
 
 
 
@@ -61,7 +61,7 @@ static  public  DatabaseReference mibasedataPathImages;
 
         rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
 
-       // mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImagesData");
+        // mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImagesData");
 
 
     }
@@ -79,7 +79,7 @@ static  public  DatabaseReference mibasedataPathImages;
 
         informeObjct.setKeyFirebase(PuskEY);
         informeObjct.setUniqueIDinforme(uniqUEid);
-       // Map<String, Object> mapValues = informeObjct.toMap();
+        // Map<String, Object> mapValues = informeObjct.toMap();
 
 
 
@@ -134,11 +134,11 @@ static  public  DatabaseReference mibasedataPathImages;
     public static void addNewInforme(Context context, SetInformEmbarque1 informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
 
-           //agregamos la propiedad keyFirebase a al objeto
+        //agregamos la propiedad keyFirebase a al objeto
         String PuskEY = mibasedata.push().getKey();
 
         informeObjct.setKeyFirebase(PuskEY);
-            Map<String, Object> mapValues = informeObjct.toMap();
+        Map<String, Object> mapValues = informeObjct.toMap();
 
 
 
@@ -151,7 +151,7 @@ static  public  DatabaseReference mibasedataPathImages;
                 if (task.isSuccessful()) {
 
 
-                   // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
 
@@ -205,7 +205,7 @@ static  public  DatabaseReference mibasedataPathImages;
         //agregamos la propiedad keyFirebase a al objeto
         String PuskEY = mibasedata.push().getKey();
         informeObjct.setKeyFirebase(PuskEY);
-     //   Map<String, Object> mapValues = informeObjct.toMap();
+        //   Map<String, Object> mapValues = informeObjct.toMap();
 
         mibasedata.child(PuskEY).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
@@ -382,7 +382,7 @@ static  public  DatabaseReference mibasedataPathImages;
 
         //agregamos la propiedad keyFirebase a al objeto
         String PuskEY = mibasedata.push().getKey();
-       // informeObjct.setKeyFirebase(PuskEY);
+        // informeObjct.setKeyFirebase(PuskEY);
         //   Map<String, Object> mapValues = informeObjct.toMap();
 
         mibasedata.child(PuskEY).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -495,7 +495,7 @@ static  public  DatabaseReference mibasedataPathImages;
                     //lo borramos...
 
                     try {
-                       Utils.deleteMap(context);
+                        Utils.deleteMap(context);
 
 
                     } catch (Exception e) {
@@ -521,11 +521,11 @@ static  public  DatabaseReference mibasedataPathImages;
 
         //    DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
         //agregamos la propiedad keyFirebase a al objeto
-      //  String PuskEY = mibasedata.push().getKey();
+        //  String PuskEY = mibasedata.push().getKey();
 
-      //  datosProcesoMap.put("keyfirebase","sfgd").setKeyFirebase(PuskEY);
+        //  datosProcesoMap.put("keyfirebase","sfgd").setKeyFirebase(PuskEY);
 
-     //   Map<String, Object> mapValues = informeObjct.toMap();
+        //   Map<String, Object> mapValues = informeObjct.toMap();
 
         //SUBE MAPA
         mibasedata.child(Pushkey).setValue(datosProcesoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -536,7 +536,7 @@ static  public  DatabaseReference mibasedataPathImages;
                     //lo borramos...
 
                     try {
-                       // Utils.deleteMap(context);
+                        // Utils.deleteMap(context);
 
 
                     } catch (Exception e) {
@@ -562,14 +562,14 @@ static  public  DatabaseReference mibasedataPathImages;
 
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("PackingListMaps");
         String nododDondeEstaraEsteHasmap = mibasedata2.push().getKey();
-       // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
+        // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
 
         mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list mapa
 
 
-            Variables.nodoDondeEstaHashMapQueReciensubimos=nododDondeEstaraEsteHasmap;
+        Variables.nodoDondeEstaHashMapQueReciensubimos=nododDondeEstaraEsteHasmap;
 
-     //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
+        //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
 
 
     }
@@ -627,14 +627,14 @@ static  public  DatabaseReference mibasedataPathImages;
     public static void UpadateDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,String keYNodeData) {
 
 
-             if(datosProcesoMap ==null || datosProcesoMap.size()==0){
-                  Log.i("saer","el data es nuell o es 0");
+        if(datosProcesoMap ==null || datosProcesoMap.size()==0){
+            Log.i("saer","el data es nuell o es 0");
 
-                 return;
+            return;
 
-             }
+        }
 
-      //  Log.i("saer","el size del mapa es "+datosProcesoMap.size());
+        //  Log.i("saer","el size del mapa es "+datosProcesoMap.size());
 
         Log.i("saer","el node key data es "+keYNodeData);
 
@@ -665,10 +665,10 @@ static  public  DatabaseReference mibasedataPathImages;
 
     public static void addNewSetPicsInforme(Context context, ImagenReport objecImageReport ) {
 
-       if(mibasedataPathImages==null ) {
-           initDatabasesReferenceImagesData();
+        if(mibasedataPathImages==null ) {
+            initDatabasesReferenceImagesData();
 
-       }
+        }
 
 
         Map<String, Object> mapValues = objecImageReport.toMap();
@@ -697,7 +697,7 @@ static  public  DatabaseReference mibasedataPathImages;
     public static void UploadProductosPostCosecha( ProductPostCosecha producto) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listProductosPostCosecha");
-       // Map<String, Object> mapValues = informeObjct.toMap();
+        // Map<String, Object> mapValues = informeObjct.toMap();
         String PuskEY = mibasedata.push().getKey();
 
         producto.keyFirebase=PuskEY;
@@ -774,7 +774,7 @@ static  public  DatabaseReference mibasedataPathImages;
     public static void addNewHashMapControlCalidad(HashMap <String ,String > hasmapControlCalid,String dondeEstaraThisHasmap) {
 
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("ControCalidHasmap");
-       // String nododDondeEstaraEsteHasmap = mibasedata2.push().getKey();
+        // String nododDondeEstaraEsteHasmap = mibasedata2.push().getKey();
         // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
 
         mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapControlCalid);  //subimos el packing list mapa
@@ -904,15 +904,15 @@ static  public  DatabaseReference mibasedataPathImages;
 
                         String KeyNodeFatheroFObject = snapshot.getKey(); // will be efg
 
-                         if(KeyNodeFatheroFObject !=null){
+                        if(KeyNodeFatheroFObject !=null){
 
-                             ///editamos el objeto
+                            ///editamos el objeto
 
-                             editValue(KeyNodeFatheroFObject,nuevaDescripcion);
+                            editValue(KeyNodeFatheroFObject,nuevaDescripcion);
 
 
 
-                         }
+                        }
 
 
                     }
@@ -924,7 +924,7 @@ static  public  DatabaseReference mibasedataPathImages;
 
 
                 });
-}
+    }
 
 
 
@@ -934,39 +934,39 @@ static  public  DatabaseReference mibasedataPathImages;
 
     public static void actualizaDescripcionIms(ArrayList<String>listKeyTosearch){
 
-      try {
+        try {
 
-          for(int indice=0; indice<listKeyTosearch.size(); indice++){
+            for(int indice=0; indice<listKeyTosearch.size(); indice++){
 
-              String[] array = listKeyTosearch.get(indice).split("@");
-
-
-              Log.i("samasu","el texto es "+listKeyTosearch.get(indice));
+                String[] array = listKeyTosearch.get(indice).split("@");
 
 
-              String keyCurrentToEdit=array[0]; //key primero /depsues el content
-              String contentDescripcion=array[1];
-
-            //  getKeyOfImagenDataObjecRTD();
-
-               //si esta key esta esta en la lista copia start
-
-              if(Variables.hashMapImagesStart.containsKey(keyCurrentToEdit)){ ///si esta en esta lista esta en la db
-
-                  getkeyActualizaDescripcion(keyCurrentToEdit,contentDescripcion);
-
-              }
+                Log.i("samasu","el texto es "+listKeyTosearch.get(indice));
 
 
+                String keyCurrentToEdit=array[0]; //key primero /depsues el content
+                String contentDescripcion=array[1];
 
-          }
+                //  getKeyOfImagenDataObjecRTD();
 
-      } catch (Exception e) {
-          Log.i("samasu","el excepcion es "+e.getMessage().toString());
+                //si esta key esta esta en la lista copia start
+
+                if(Variables.hashMapImagesStart.containsKey(keyCurrentToEdit)){ ///si esta en esta lista esta en la db
+
+                    getkeyActualizaDescripcion(keyCurrentToEdit,contentDescripcion);
+
+                }
 
 
-          e.printStackTrace();
-      }
+
+            }
+
+        } catch (Exception e) {
+            Log.i("samasu","el excepcion es "+e.getMessage().toString());
+
+
+            e.printStackTrace();
+        }
 
 
 
@@ -1010,7 +1010,7 @@ static  public  DatabaseReference mibasedataPathImages;
                 String key = nodeShot.getKey();
                 //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
 
-               // String KeyNodeFatheroFObject = snapshot.getKey(); // will be efg
+                // String KeyNodeFatheroFObject = snapshot.getKey(); // will be efg
 
                 if(key !=null){
 

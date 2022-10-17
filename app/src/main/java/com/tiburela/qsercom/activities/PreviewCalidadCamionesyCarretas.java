@@ -1923,12 +1923,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         ) ;
 
+        //agregamos algunas propiedades unicas que ya tenia este informe omo faceha,etc
+        informe.setSimpleDataFormat(Variables.currenReportCamionesyCarretas.getSimpleDataFormat());
+        informe.setFechaCreacionInf(Variables.currenReportCamionesyCarretas.getFechaCreacionInf());
 
-        //iniciamos root base de datos
-
-        //Agregamos un nuevo informe
-
-        //agr5egamos la data finalemente
         RealtimeDB.updateCalidaCamionCarrretas(informe,Variables.currenReportCamionesyCarretas);
 
         addCalibracionFutaC_enfAndUpload();

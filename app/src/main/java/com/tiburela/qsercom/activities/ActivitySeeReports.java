@@ -26,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
-import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.ReportsAllModel;
@@ -48,13 +47,12 @@ Spinner  spinnerDatesSelector;
     DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
 
-    public final int REPORTE_CONTENEDORES_EN_HCDA=1100;
+    public final int REPORTE_CONTENEDORES_EN_HCDA=1200;
     public final int CONTENEDORES=1200;
     public final int PACKINGLIST=1201;
     public final int OTRO_REPORTE=1202;
     public final int REPORTE_CONTENEDORES_EN_ACOPIO=1203;
     public final int REPORTE_CAMIONES_y_CARRETAS=1204;
-    public final int REPORT_CONTROL_CALIDAD=1205;
 
 
 
@@ -334,50 +332,6 @@ Spinner  spinnerDatesSelector;
               ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
                 //setAdapaterDataAndShow(reportsListPart1);
 
-                dowloadinformesby_ControlCalidad(dateSelecionado);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-
-    void dowloadinformesby_ControlCalidad(String dateSelecionado){
-        /*   DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
-
-        Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);*/
-
-        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
-        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
-
-
-
-        Query query = rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
-                    allReportFiltB.add(new ReportsAllModel(REPORT_CONTROL_CALIDAD,false,false,false,"Control Calidad",
-                            controlcalidad.getSimpleDate(),controlcalidad.getUniqueId()));
-                }
-
-                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
-                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
-                //setAdapaterDataAndShow(reportsListPart1);
-
-
                 setAdapaterDataAndShow(allReportFiltB);
 
 
@@ -393,9 +347,6 @@ Spinner  spinnerDatesSelector;
 
 
     }
-
-
-
 
 
     void setAdapaterDataAndShow(ArrayList<ReportsAllModel>reports ) {
@@ -655,8 +606,11 @@ Spinner  spinnerDatesSelector;
 
 
 
-    private void DowloadPackingList(String uniqeuIDiNFORME,int modoReporte){
+    private void DowloadPackingList(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
 
+        //        Query query = rootDatabaseReference.child("Informes").child("PackingListDescripcion").orderByChild("simpledatFormt").equalTo(dateSelecionado);
+
+        //to fetch all the users of firebase Auth app
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
         DatabaseReference usersdRef = rootRef.child("Informes").child("PackingListDescripcion");
@@ -682,75 +636,6 @@ Spinner  spinnerDatesSelector;
                 }
 
                 Intent intencion= new Intent(ActivitySeeReports.this, PackingListPreviewActivity.class);
-
-
-                if(modoReporte==Variables.MODO_EDICION ){
-
-                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
-
-                    Log.i("verdura","ahora se llamo intent");
-
-                    startActivity(intencion);
-
-
-                }else{
-
-
-                    intencion.putExtra(Variables.KEY_PACKING_LIST,false);
-
-                    Log.i("verdura","ahora se llamo intent");
-
-                    startActivity(intencion);
-
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("misdata","el error es  "+ error.getMessage());
-
-
-            }
-        } );
-
-
-
-
-    }
-
-
-
-    private void DowloadControlCalidad(String uniqueId,int modoReporte){
-
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-
-        DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
-
-        Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot ds : snapshot.getChildren()) {
-
-                    ControlCalidad informe=ds.getValue(ControlCalidad.class);
-
-                    if(informe!=null){
-
-                        Variables.currenControlCalReport=informe;
-
-                      //  Log.i("verdura","el value es "+ currenControlCalReport);
-
-                        break;
-
-                    }
-
-
-                }
-
-                Intent intencion= new Intent(ActivitySeeReports.this, FormularioControlCalidadPreview.class);
 
 
                 if(modoReporte==Variables.MODO_EDICION ){
@@ -794,6 +679,13 @@ Spinner  spinnerDatesSelector;
 
 
     }
+
+
+
+
+
+
+
 
 
 
@@ -979,13 +871,6 @@ return fecha;
 
                 }
 
-                else if(reportTipo==REPORT_CONTROL_CALIDAD){
-
-                    DowloadControlCalidad(idReport,Variables.MODO_VISUALIZACION);
-                    //Descargamos un objeto contenedores object...
-
-                }
-
 
 
 
@@ -1027,16 +912,6 @@ return fecha;
 
 
                     DowloadReportCamionesYcarretas(idReport,Variables.MODO_EDICION);
-                    //Descargamos un objeto contenedores object...
-
-
-                }
-
-
-                else if(reportTipo==REPORT_CONTROL_CALIDAD){
-
-
-                    DowloadControlCalidad(idReport,Variables.MODO_EDICION);
                     //Descargamos un objeto contenedores object...
 
 

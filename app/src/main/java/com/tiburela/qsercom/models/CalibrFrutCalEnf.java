@@ -27,6 +27,8 @@ public class CalibrFrutCalEnf {
 
 
 
+
+
     public String getColorSemana13() {
         return colorSemana13;
     }
@@ -134,6 +136,9 @@ public class CalibrFrutCalEnf {
 
     }
 
+
+
+
     public CalibrFrutCalEnf(String idPertenece){
         this.idPertenece=idPertenece;
         colorSemana14="";
@@ -150,9 +155,6 @@ public class CalibrFrutCalEnf {
         numeracionRacimosSem10=0;
         numeracionRacimosSem9=0;
          keyFirebase="";
-
-
-
     }
 
 
@@ -160,6 +162,10 @@ public class CalibrFrutCalEnf {
     public String getColorSemana14() {
         return colorSemana14;
     }
+
+
+
+
 
     public void setColorSemana14(String colorSemana14) {
         this.colorSemana14 = colorSemana14;

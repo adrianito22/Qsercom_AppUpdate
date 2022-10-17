@@ -458,7 +458,6 @@ public class ReportCamionesyCarretas {
                                    , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc,String nodoQueContieneMapPesoBrutoCloster2y3l) {
 
         keyFirebase="";
-
         this.uniqueIDinforme=uniqueIDinforme;
         this.codeInforme = codeInforme;
         esVisually = true;

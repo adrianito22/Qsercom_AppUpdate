@@ -119,18 +119,20 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 CuadroMuestreo objec= new CuadroMuestreo(0,"","",""
                         ,"", "","","",
                         "", ""
                 );
 
+
                 ///editamos los otos datos de la cantidad de rechzados..
-                CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
+                objec=addRechazadosData(objec);  //A ESTE OBJETO LE AGRGAMOS MAS DATA
 
 
-                String totalRechazados=String.valueOf(obtenTotaLrechazados(objectWhitMoreData));
+                String totalRechazados=String.valueOf(obtenTotaLrechazados(objec));
                 txtTotalRechazados.setText(totalRechazados);
+
+
 
 
             }
@@ -153,11 +155,11 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity {
                             ediExtCalidad.getText().toString(), ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
 
 
-                    ///editamos los otros datos de la cantidad de rechzados..
-                    CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
+                    ///LE AGREGAMOS OTROS DATOS A ESTE OBJETO
+                    addRechazadosData(objec);
 
 
-                    RealtimeDB.addNewCuadroMuestreoObject(objectWhitMoreData); //subimos un cuadro de muestreo object
+                    RealtimeDB.addNewCuadroMuestreoObject(objec); //subimos un cuadro de muestreo object
 
                     RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 

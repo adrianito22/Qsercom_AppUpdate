@@ -2004,8 +2004,6 @@ void checkDataFields(){ //
 
 private void createObjcInformeAndUpload(){
 
-
-
 //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
 

@@ -1888,12 +1888,12 @@ private void createObjcInformeAndUpload(){
 
     informe.setDatosProcesoContenAcopioKEYFather(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
     informe.setKeyFirebase(Variables.CurrenReportContensEnACp.getKeyFirebase());
+    informe.setSimpleDataFormat(Variables.CurrenReportContensEnACp.getSimpleDataFormat());
+    informe.setFechaUploadMilliseconds(Variables.CurrenReportContensEnACp.getFechaUploadMilliseconds());
+
     RealtimeDB.updateInformContenresAcopio(informe);
 
     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
-
-
-
 
 
 

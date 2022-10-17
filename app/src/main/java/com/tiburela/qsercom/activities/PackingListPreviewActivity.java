@@ -570,23 +570,11 @@ private TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allAr
 
 
 
-//getPakinkListMap
 
     private void getPakinkListMap (String nodeKePackinGList){
         Log.i("hameha","el NODEKey es : "+nodeKePackinGList);
 
-        ValueEventListener seenListener;
-
-
-
-//        /
-        //
-       // DatabaseReference usersdRef = rootRef.child("Informes").child("PackingListMaps");
-
-       /// Query query = usersdRef.orderByChild("uniqueIDinforme").equalTo(uniqeuIDiNFORME);
-
-
-        seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("PackingListMaps").child(nodeKePackinGList).addValueEventListener(new ValueEventListener() {
+        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("PackingListMaps").child(nodeKePackinGList).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -642,6 +630,8 @@ private TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allAr
     }
 
 
+
+
     private  void showBottomSheetDialogConfirmAndCallUpdate( ) {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(PackingListPreviewActivity.this);
@@ -657,14 +647,13 @@ private TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allAr
             @Override
             public void onClick(View v) {
 
-
                 PackingListMod objePackingList=new PackingListMod(Integer.parseInt(mEdiTotalCajas.getText().toString()),mEdiContenedorxzz.getText().toString());
                 objePackingList.setTimeCurrenMillisecds(Variables.currenReportPackinList.getTimeCurrenMillisecds());
+                objePackingList.setSimpledatFormt(Variables.currenReportPackinList.getSimpledatFormt());
 
                 //actualizamos data
                 RealtimeDB.updateNewPackingListHasMap(packingListMap,Variables.currenReportPackinList);
                 RealtimeDB.updatePackingListObject(objePackingList,Variables.currenReportPackinList);
-                //guardamos data...
 
 
                 Toast.makeText(PackingListPreviewActivity.this, "Hecho", Toast.LENGTH_SHORT).show();
