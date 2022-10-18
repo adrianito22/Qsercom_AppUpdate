@@ -35,6 +35,7 @@ import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.utils.DialogoConfirm;
+import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -51,7 +52,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     LinearLayout ly_cuadro_Muestreo_caly_rechaz;
     LinearLayout ly_controlCalidad;
     Intent currentIntent;
-    Context context = this;
+    Context contetext;
 
   private  AlertDialog alertDialog=null;
 
@@ -68,6 +69,12 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         super.onDestroy();
 
         Log.i("ciclelife","onDestroy call");
+
+    }
+
+
+   public  ActivityMenu(){
+       contetext=this;
 
     }
 
@@ -430,6 +437,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         Log.i("ciclelife","onstart call");
         Variables.currentMapPreferences  =new HashMap<>();
+        PerecentHelp.estateForm= new HashMap<>();
         showDataByMode();
 
     }
@@ -474,17 +482,17 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 //le mostramos un sheet diciendole si esta seguro de esto...
 
 
-            //  DialogoConfirm OBJEC= new DialogoConfirm();
+              DialogoConfirm OBJEC= new DialogoConfirm();
 
 
-              //  DialogoConfirm.showBottomSheetDialogConfirmMenu(ActivityMenu.this);
+               //DialogoConfirm.gotofragment(ActivityMenu.this);
 
 
-               // OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this);
+               OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityContenedores.class);
 
-                // alertDialog.dismiss();
+                //alertDialog.dismiss();
 
-                showBottomSheetDialogConfirmMenu(ActivityMenu.this);
+               // showBottomSheetDialogConfirmMenu(ActivityMenu.this);
 
 
             }
@@ -507,9 +515,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
             createAndGoActivity(currentFormSelect);
 
+
         }
 
     }
+
 
 
 
@@ -519,46 +529,16 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         if(tipoFormulario==Variables.FormCantrolCalidad){
 
-            startActivity(new Intent(ActivityMenu.this, ControlCalidad.class)) ;
+            ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, ControlCalidad.class)) ;
         }
 
         else  if(tipoFormulario==Variables.FormPreviewContenedores){
 
-            if(Variables.activity!=null)  {
+           // ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, ControlCalidad.class)) ;
 
-                Log.i("miactivity","tambiene s difrenete");
-
-            }
-
-
-
-
-            try
-            {
-               // startActivity(new Intent( getApplicationContext(),ActivityContenedores.class));
-
-
-               Intent intent = new Intent(ActivityMenu.this, ActivityContenedores.class);
-               startActivity(intent);//
-
-                //  Intent mIntent = new Intent(getActivity(),MusicHome.class);
-               // mIntent.putExtra("SigninFragment.user_details", bundle);
-            }
-            catch (Exception e) {
-                Log.i("cilcovid","error es  "+e.getMessage());
-
-                e.printStackTrace();
-            }
-
-            /*
-
-            Log.i("cilcovid","form preview contened call");
-
-            Intent intent = new Intent( ActivityMenu.this, ActivityContenedores.class);
-
-            startActivity(intent) ;
-
-*/
+            Intent myintent = new Intent(ActivityMenu.this,ActivityContenedores.class);
+            ActivityMenu.this.startActivity(myintent);
+            finish();
 
         }
         else  if(tipoFormulario==Variables.FormatDatsContAcopi){
@@ -582,14 +562,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         }
-
-
-
-
-
-
-
-
 
 
     }
@@ -655,8 +627,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         btnNo.setOnClickListener(new View.OnClickListener() {  //activar switch
             @Override
             public void onClick(View v) {
-                CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
-                callbackDialogConfirmCreation.confirmNuevoFormulario(false);
+             //   CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
+              //  callbackDialogConfirmCreation.confirmNuevoFormulario(false);
                 Log.i("comprobacionzz","onclick en no y call form dialogcoonfirm class ");
 
 

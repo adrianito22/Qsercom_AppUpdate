@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -127,7 +128,7 @@ public class DialogoConfirm {
 
 
 
-    public  void showBottomSheetDialogConfirmMenu(Context context) {
+    public  void showBottomSheetDialogConfirmMenu(Context context, Class<?> cls) {
 
         BottomSheetDialog   bottomSheetDialog = new BottomSheetDialog(context);
 
@@ -141,13 +142,16 @@ public class DialogoConfirm {
 
             @Override
             public void onClick(View v) {
+                goActivity(context, cls);
 
-                CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
-                callbackDialogConfirmCreation.confirmNuevoFormulario(true);
+                      //este callback funciona binen
+
+                // CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
+              //  callbackDialogConfirmCreation.confirmNuevoFormulario(true);
 
                  Log.i("comprobacionzz","onclick en si y call form dialogcoonfirm class ");
 
-               // bottomSheetDialog.dismiss();
+               bottomSheetDialog.dismiss();
 
 
                 // finish(); //lamaos el calback aqui
@@ -160,10 +164,12 @@ public class DialogoConfirm {
         btnNo.setOnClickListener(new View.OnClickListener() {  //activar switch
             @Override
             public void onClick(View v) {
-                CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
-                callbackDialogConfirmCreation.confirmNuevoFormulario(false);
-                Log.i("comprobacionzz","onclick en no y call form dialogcoonfirm class ");
+             //  CallbackDialogConfirmCreation callbackDialogConfirmCreation= new ActivityMenu();
 
+              //  callbackDialogConfirmCreation.confirmNuevoFormulario(false);
+              //  Log.i("comprobacionzz","onclick en no y call form dialogcoonfirm class ");
+
+                goActivity(context, cls);
 
                 bottomSheetDialog.dismiss();
             }
@@ -173,6 +179,13 @@ public class DialogoConfirm {
         bottomSheetDialog.show();
     }
 
+
+
+
+    private void goActivity(Context contexto, Class<?> cls){
+        Intent intemcion= new Intent(contexto,cls);
+        contexto.startActivity(intemcion);
+    }
 
 
 }

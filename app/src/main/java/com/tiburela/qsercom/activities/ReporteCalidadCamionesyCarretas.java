@@ -49,6 +49,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -59,6 +60,7 @@ import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
+import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -1270,9 +1272,8 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
                         Log.i("miodata","el state ediPPC/someProductPostCosecha esta lleno ");
 
-
-                        actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-                        Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",ReporteCalidadCamionesyCarretas.this);
+                        Variables.currentMapPreferences.put(String.valueOf(view.getId()),editText.getText().toString());
+                        SharePref.saveMapPreferFields(Variables.currentMapPreferences,SharePref.KEY_CALIDAD_CAMIONESY_CARRETAS);
 
 
                     }
@@ -1282,18 +1283,12 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
             else if(editText.getText().toString().isEmpty()) {
 
-
                 Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta vacio");
-
-
                 actualizaListStateView(view.getResources().getResourceName(view.getId()),false) ;
 
+                PerecentHelp.addValueOrEditItemHasMap(String.valueOf(view.getId()),false);
+
             }
-
-
-
-
-            ////si existe lo cambiamos a tru
 
 
 
@@ -1302,17 +1297,15 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
                 Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta lleno");
 
                 actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
+                PerecentHelp.addValueOrEditItemHasMap(String.valueOf(view.getId()),true);
 
-                Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",ReporteCalidadCamionesyCarretas.this);
 
+                Variables.currentMapPreferences.put(String.valueOf(view.getId()),editText.getText().toString());
+                SharePref.saveMapPreferFields(Variables.currentMapPreferences,SharePref.KEY_CALIDAD_CAMIONESY_CARRETAS);
 
             }
 
-
-
         }
-
-
 
 
         else if (view.getResources().getResourceName(view.getId()).contains("imbAtach")  ||  view.getResources().getResourceName(view.getId()).contains("imbTakePic")){ //imBtakePic
@@ -1323,12 +1316,14 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
                 actualizaListStateView("imbAtach/imbTakePic",true) ;
 
                 Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
+                PerecentHelp.addValueOrEditItemHasMap(String.valueOf(view.getId()),true);
 
 
             }else {
 
                 actualizaListStateView("imbAtach/imbTakePic",false) ;
                 Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y no contiene fotos");
+                PerecentHelp.addValueOrEditItemHasMap(String.valueOf(view.getId()),false);
 
 
 
@@ -1338,15 +1333,15 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         }
 
 
-
-
-
-
         //seran mas comprobacion para verificar si imagenes por ejemplo fiueron completadas..
         //otra para radiobutton y otr para otro tipo de view..tec
 
 
         actualizaProgressBar();
+
+        int porcentajeForm=PerecentHelp.generatePercetProgress(Variables.FormCamionesyCarretasActivity);
+
+        Log.i("juebesd","el porcentaje es "+porcentajeForm);
 
     }
 
