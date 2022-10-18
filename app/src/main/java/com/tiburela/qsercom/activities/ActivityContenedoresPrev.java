@@ -67,8 +67,8 @@ import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.callbacks.CallBtoActityContenedor;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
@@ -77,7 +77,6 @@ import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
-import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Permisionx;
@@ -95,11 +94,12 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ActivityContenedoresPrev extends AppCompatActivity implements  CallBtoActityContenedor ,View.OnClickListener , View.OnTouchListener {
+public class ActivityContenedoresPrev extends AppCompatActivity implements
+        View.OnClickListener , View.OnTouchListener{
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     ProductPostCosecha productxGlobal=null;
-    ProgressDialog pd;
+    ProgressDialog pdialogff;
     public static Context context;
     private int contadorIterador;
     private boolean isModEdicionFields=false;
@@ -107,6 +107,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements  Call
    private Switch swAguaCorrida,switchLavdoRacimos;
     private static int currentTypeImage=0;
     ProgressBar progressBarFormulario;
+    private Context mContext;
 
    Button btnDowlPdf;
     FloatingActionButton fab ;
@@ -319,6 +320,9 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements  Call
         super.onCreate(savedInstanceState);
        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
+
+        mContext=this;
+
 
         Variables.activityCurrent=Variables.FormPreviewContenedores;
 
@@ -1907,9 +1911,19 @@ void checkDataFields(){ //
     }
 
 
-    DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(ActivityContenedoresPrev.this,Variables.FormPreviewContenedores);
+
+   // DialogConfirmCreateNewForm.showBottomSheetDialogConfirmAndCallUpdate(ActivityContenedoresPrev.this,Variables.FormPreviewContenedores);
 
 
+    openBottomSheet();
+
+}
+
+
+private void openBottomSheet(){
+
+    DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(Variables.FormPreviewContenedores);
+    addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
 }
 
 
@@ -3191,7 +3205,7 @@ return true;
         RealtimeDB.UpdateProductosPostCosecha(producto);
 
 
-        pd.dismiss();
+        pdialogff.dismiss();
 
         Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
@@ -4345,18 +4359,15 @@ private void checkModeVisualitY(){
         return true;
     }
 
-    @Override
-    public void confirmChangs(boolean esSavCambios) {
 
 
-        if(esSavCambios){
+    public void saveInfo(){
 
             Log.i("test001","toda la data esta completa HUrra ");
 
-
-            pd = new ProgressDialog(ActivityContenedoresPrev.this);
-            pd.setMessage("Actualizando data ");
-            pd.show();
+               pdialogff = new ProgressDialog(ActivityContenedoresPrev.this);
+             pdialogff.setMessage("Actualizando data ");
+             pdialogff.show();
 
             uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
@@ -4364,21 +4375,18 @@ private void checkModeVisualitY(){
             //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
 
-
             for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
 
                 geTidAndDelete(Variables.listImagesToDelete.get(i));
-
 
             }
 
             //aliminamos cambios
 
-
-
             createObjcInformeAndUpload();
-        }
-
 
     }
+
+
+
 }

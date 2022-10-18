@@ -2,6 +2,7 @@ package com.tiburela.qsercom.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -10,13 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
+import com.tiburela.qsercom.utils.PerecentHelp;
+import com.tiburela.qsercom.utils.Utils;
+import com.tiburela.qsercom.utils.Variables;
 
 import java.util.HashMap;
 
-public class PackingListActivity extends AppCompatActivity {
+public class PackingListActivity extends AppCompatActivity implements View.OnTouchListener {
 
     HashMap<String, String> packingListMap;
     Button btnSavePacking;
@@ -169,8 +174,69 @@ public class PackingListActivity extends AppCompatActivity {
         super.onStart();
 
 
+        if(Variables.hayUnFormIncompleto){
+
+
+            AddDataFormOfSharePrefe() ;
+
+            //
+            Variables.hayUnFormIncompleto=false;
+
+        }
+
     }
 
+
+    private void AddDataFormOfSharePrefe() {
+
+        TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
+        Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
+
+
+
+/*
+         //descrgamos info de imagenes //todavia no muy lista aun
+        Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
+        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
+
+        //if el formulario no es nulo
+
+        if(listImagesToSaVE!=null ) {
+
+            addInfotomap(listImagesToSaVE);
+            createlistsForReciclerviewsImages(listImagesToSaVE);
+
+        }
+
+*/
+
+
+    }
+
+
+    private TextInputEditText[] creaArryOfTextInputEditText() {
+        TextInputEditText [] arrayEditex = {
+                mEdiTotalCajas, mEdiContenedorxzz, mEdiFechaHere,
+
+                mEdinumbox1,  mEdinumbox2, mEdinumbox3, mEdinumbox4, mEdinumbox5, mEdinumbox6, mEdinumbox7, mEdinumbox8, mEdinumbox9, mEdinumbox10, mEdinumbox11,
+                mEdinumbox12, mEdinumbox13, mEdinumbox14, mEdinumbox15, mEdinumbox16, mEdinumbox17, mEdinumbox18, mEdinumbox19, mEdinumbox20,
+
+    mEdiDescripcion1, mEdiDescripcion2, mEdiDescripcion3, mEdiDescripcion4, mEdiDescripcion5, mEdiDescripcion6, mEdiDescripcion7, mEdiDescripcion8,
+            mEdiDescripcion9, mEdiDescripcion10, mEdiDescripcion11, mEdiDescripcion12, mEdiDescripcion13, mEdiDescripcion14,
+            mEdiDescripcion15, mEdiDescripcion16,
+            mEdiDescripcion17, mEdiDescripcion18, mEdiDescripcion19, mEdiDescripcion20,
+
+                mEdiProductor1, mEdiProductor2, mEdiProductor3, mEdiProductor4, mEdiProductor5, mEdiProductor6, mEdiProductor7, mEdiProductor8, mEdiProductor9, mEdiProductor10,
+
+            mEdiCajas1, mEdiCajas2, mEdiCajas3, mEdiCajas4, mEdiCajas5, mEdiCajas6, mEdiCajas7, mEdiCajas8, mEdiCajas9, mEdiCajas10,
+
+            mEdiCodigoN1, mEdiCodigoN2, mEdiCodigoN3, mEdiCodigoN4, mEdiCodigoN5, mEdiCodigoN6, mEdiCodigoN7, mEdiCodigoN8,
+            mEdiCodigoN9, mEdiCodigoN10
+
+            };
+
+        return arrayEditex;
+    }
     private boolean CheckData(){
 
         if(mEdiTotalCajas.getText().toString().isEmpty()){
@@ -209,8 +275,7 @@ public class PackingListActivity extends AppCompatActivity {
 
 
    private void findviewsIDS(){
-       btnSavePacking=findViewById(R.id.btnSavePacking);
-
+        btnSavePacking=findViewById(R.id.btnSavePacking);
          mEdiTotalCajas=findViewById(R.id.ediTotalCajas);
          mEdiContenedorxzz=findViewById(R.id.ediContenedorxzz);
          mEdiFechaHere=findViewById(R.id.ediFechaHere);
@@ -529,13 +594,29 @@ private boolean checkAndCreateAllPackinListMap() {
     }
 
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        if(motionEvent.getAction()==MotionEvent.ACTION_DOWN ){
+
+            PerecentHelp.listViewsClickedUser.add(view);
+
+            Log.i("casnasd","el size de la lista es "+ PerecentHelp.listViewsClickedUser.size());
+
+            if( PerecentHelp.listViewsClickedUser.size()>1) {
+                //obtenemos la lista anterior y verficamos si esta completada;
+                View vistFieldAnterior = PerecentHelp.getVistaAnteriorClick();
+                //  checkeamosSiFieldViewIScompleted(vistFieldAnterior);
+                PerecentHelp.checkeamosSiFieldViewIScompletedAndSavePref(vistFieldAnterior, SharePref.KEY_CONTENEDORES);
+
+            }
 
 
+        }
 
 
-
-
-
+        return false;
+    }
 }
 
 

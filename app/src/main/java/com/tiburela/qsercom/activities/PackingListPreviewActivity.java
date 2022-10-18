@@ -4,29 +4,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.callbacks.CallBtoActityPakingList;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
-import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PackingListPreviewActivity extends AppCompatActivity implements CallBtoActityPakingList {
+public class PackingListPreviewActivity extends AppCompatActivity  {
 
     HashMap<String, String> packingListMap;
     Button btnSavePacking;
@@ -134,8 +131,9 @@ public class PackingListPreviewActivity extends AppCompatActivity implements Cal
 
                      if(packingListMap.size()>0){//si el packing list es mayor 0
 
+                         openBottomSheetConfirmCreateNew(Variables.FormPackingList);
 
-                         DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(PackingListPreviewActivity.this, Variables.FormPackingList);
+                       //  DialogConfirmCreateNewForm.showBottomSheetDialogConfirmAndCallUpdate(PackingListPreviewActivity.this, Variables.FormPackingList);
 
                          //debe haber al menos un datao en el paking list
 
@@ -158,6 +156,12 @@ public class PackingListPreviewActivity extends AppCompatActivity implements Cal
 
     }
 
+
+
+    private void openBottomSheetConfirmCreateNew(int tipoFormulario){
+        DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(tipoFormulario);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
+    }
 
 
 private boolean CheckData(){
@@ -634,29 +638,23 @@ private TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allAr
 
 
 
+   public void   saveInfo( ) {
+       PackingListMod objePackingList=new PackingListMod(Integer.parseInt(mEdiTotalCajas.getText().toString()),mEdiContenedorxzz.getText().toString());
+       objePackingList.setTimeCurrenMillisecds(Variables.currenReportPackinList.getTimeCurrenMillisecds());
+       objePackingList.setSimpledatFormt(Variables.currenReportPackinList.getSimpledatFormt());
+
+       //actualizamos data
+       RealtimeDB.updateNewPackingListHasMap(packingListMap,Variables.currenReportPackinList);
+       RealtimeDB.updatePackingListObject(objePackingList,Variables.currenReportPackinList);
 
 
+       Toast.makeText(PackingListPreviewActivity.this, "Hecho", Toast.LENGTH_SHORT).show();
+       finish();
 
-    @Override
-    public void confirmChangs(boolean esSavCambios) {
-
-        if(esSavCambios){
-
-            PackingListMod objePackingList=new PackingListMod(Integer.parseInt(mEdiTotalCajas.getText().toString()),mEdiContenedorxzz.getText().toString());
-            objePackingList.setTimeCurrenMillisecds(Variables.currenReportPackinList.getTimeCurrenMillisecds());
-            objePackingList.setSimpledatFormt(Variables.currenReportPackinList.getSimpledatFormt());
-
-            //actualizamos data
-            RealtimeDB.updateNewPackingListHasMap(packingListMap,Variables.currenReportPackinList);
-            RealtimeDB.updatePackingListObject(objePackingList,Variables.currenReportPackinList);
-
-
-            Toast.makeText(PackingListPreviewActivity.this, "Hecho", Toast.LENGTH_SHORT).show();
-            finish();
-
-        }
 
     }
+
+
 }
 
 

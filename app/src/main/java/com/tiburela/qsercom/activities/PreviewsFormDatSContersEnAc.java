@@ -62,15 +62,14 @@ import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.callbacks.CallBtoActityConteEnAcop;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.storage.StorageData;
-import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -88,7 +87,7 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener, CallBtoActityConteEnAcop {
+public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -1597,11 +1596,21 @@ void checkDataFields(){ //
     }
 
 
-    DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(PreviewsFormDatSContersEnAc.this,Variables.FormatDatsContAcopi);
+
+
+    openBottomSheetConfirmCreateNew(Variables.FormatDatsContAcopi);
+   // DialogConfirmCreateNewForm.showBottomSheetDialogConfirmAndCallUpdate(PreviewsFormDatSContersEnAc.this,Variables.FormatDatsContAcopi);
 
 
 
 }
+
+
+    private void openBottomSheetConfirmCreateNew(int tipoFormulario){
+
+        DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(tipoFormulario);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
+    }
 
 
     private void geTidAndDelete( String idUniqueToDelete){ //busca el que tenga esa propieda y obtiene el id node child
@@ -3553,27 +3562,19 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
-    @Override
-    public void confirmChangs(boolean esSavCambios) {
-        if(esSavCambios){
 
-            RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);
-
-
-            createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+    public void saveInfo() {
+        RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);
+        createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
 
+        for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
 
-
-            for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
-
-                geTidAndDelete(Variables.listImagesToDelete.get(i));
-
-
-            }
-
-
-        }
+            geTidAndDelete(Variables.listImagesToDelete.get(i));
 
     }
+
+
+    }
+
 }

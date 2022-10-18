@@ -259,26 +259,11 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         Auth.signInAnonymously(ReporteCalidadCamionesyCarretas.this);
 
 
-        if(hayUnformularioIcompleto){
+        if(Variables.hayUnFormIncompleto){
+            AddDataFormOfSharePrefe() ;
 
-            TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
-
-            Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ReporteCalidadCamionesyCarretas.this);
-
-
-            ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
-
-
-            //if el formulario no es nulo
-
-            if(listImagesToSaVE!=null ) {
-
-                addInfotomap(listImagesToSaVE);
-                createlistsForReciclerviewsImages(listImagesToSaVE);
-
-            }
-
-
+            //
+            Variables.hayUnFormIncompleto=false;
 
 
 
@@ -289,6 +274,38 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         // Check if user is signed in (non-null) and update UI accordingly.
         // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
         //  updateUI(currentUs bver)
+
+    }
+    private void AddDataFormOfSharePrefe() {
+
+        TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
+        Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
+
+      //  TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
+
+       // Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ReporteCalidadCamionesyCarretas.this);
+
+
+     //   ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
+
+
+
+
+/*
+         //descrgamos info de imagenes //todavia no muy lista aun
+        Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
+        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
+
+        //if el formulario no es nulo
+
+        if(listImagesToSaVE!=null ) {
+
+            addInfotomap(listImagesToSaVE);
+            createlistsForReciclerviewsImages(listImagesToSaVE);
+
+        }
+
+*/
 
     }
 
@@ -1073,7 +1090,12 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
                 //obtenemos la lista anterior y verficamos si esta completada;
                 View vistFieldAnterior = getVistaAnteriorClick();
                 checkeamosSiFieldViewIScompleted(vistFieldAnterior);
-                //actualizamos
+
+
+
+                //actualizamos progress bar
+                int porcentajeForm=PerecentHelp.generatePercetProgress(Variables.FormCamionesyCarretasActivity);
+                progressBarFormulario.setProgress(porcentajeForm);
 
 
             }
@@ -1240,10 +1262,6 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
             listViewsClickedUser.remove(0);   //ya no queremoes el primer objeto de la lista siempre y cuando la lista contnega 3 objetos
 
         }
-        Log.i("casnasd","el size aqui en metodo es "+listViewsClickedUser.size());
-
-
-
 
         View vistAnterior = listViewsClickedUser.get(0);
         //  Log.i("soeobjetc","el objeto anterioR TAG ES "+vistAnterior.getTag().toString());
@@ -1337,11 +1355,9 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
         //otra para radiobutton y otr para otro tipo de view..tec
 
 
-        actualizaProgressBar();
 
-        int porcentajeForm=PerecentHelp.generatePercetProgress(Variables.FormCamionesyCarretasActivity);
 
-        Log.i("juebesd","el porcentaje es "+porcentajeForm);
+       // Log.i("juebesd","el porcentaje es "+porcentajeForm);
 
     }
 
@@ -1382,43 +1398,10 @@ public class ReporteCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
     private void actualizaProgressBar(){
-
-        int numero_itemsCompletados=0;
-
-        final int NUMERO_FIELDS_TOTAL=EstateFieldView.listEstateViewField.size(); // 19  ahora items emn total de completar 19,, algunos son opcionales...pero siempre deben haber 19 para que todos esten llenos
-
-
-        for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
-
-            if(EstateFieldView.listEstateViewField.get(i).isEstaLleno()){
-
-                numero_itemsCompletados =numero_itemsCompletados+1;
-
-
-            }
-
-        }
-
-        Log.i("idCheck","el NUMERO ITEMScOMPLETADOS ES "+numero_itemsCompletados);
-
-
-        //buscamos el porecntaje
-
-        //int porcentajeDeProgreso= numero_itemsCompletados*NUMERO_FIELDS_TOTAL/100;
-
-
-
-        int porcentajeDeProgreso= numero_itemsCompletados*100/NUMERO_FIELDS_TOTAL;
-
-        progressBarFormulario.setProgress(porcentajeDeProgreso);
-
-
-
-        Log.i("maswiso","el porciento es "+porcentajeDeProgreso);
+        int porcentajeForm=PerecentHelp.generatePercetProgress(Variables.FormCamionesyCarretasActivity);
+        progressBarFormulario.setProgress(porcentajeForm);
+        Log.i("maswiso","el porciento es "+porcentajeForm);
         //un item opcional vale
-
-
-
     }
 
 

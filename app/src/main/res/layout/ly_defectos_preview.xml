@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="#605F5F"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:text="CONTROL CALIDAD"
+        android:textColor="@android:color/white" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

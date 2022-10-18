@@ -20,10 +20,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.callbacks.CallBtoActityFormControlCalid;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
-import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -32,7 +31,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FormularioControlCalidadPreview extends AppCompatActivity implements View.OnClickListener , CallBtoActityFormControlCalid {
+public class FormularioControlCalidadPreview extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
     TextView textView;
     boolean[] selectedLanguage;
@@ -2134,6 +2133,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         for(int i = 0; i<arrayAllFields.length; i++) {
 
 
+            Log.i("indicenull","el indice null es "+i);
+
             TextInputEditText currenTextImput=arrayAllFields[i];
 
             if(!currenTextImput.getText().toString().trim().isEmpty()) { //si no esta vacio
@@ -2162,8 +2163,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                 }
 
+                openBottomSheetConfirmCreateNew();
 
-                DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(FormularioControlCalidadPreview.this,Variables.FormCantrolCalidad);
+
+              ///  DialogConfirmCreateNewForm.showBottomSheetDialogConfirmAndCallUpdate(FormularioControlCalidadPreview.this,Variables.FormCantrolCalidad);
 
 
 
@@ -2172,6 +2175,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             }
         });
 
+    }
+
+    private void openBottomSheetConfirmCreateNew(){
+
+        DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(Variables.FormCantrolCalidad);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
     }
 
     private boolean cheakIfInfoIsComplete() {
@@ -2421,29 +2430,23 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     }
 
-    @Override
-    public void confirmChangs(boolean esSavCambios) {
-
-        if(esSavCambios) {
-
-            Log.i("misdtass", "el nodo del objeto current es " + Variables.currenControlCalReport.getKeyDondeEstarThisInform());
-            // hasHmapFieldsOtherViews
-
-            createMapInBYothersTextimpuEdFields();
-            createInfoToHashmapRechazaSelecToUpload();
-            createItemsSelectDefectsEmpqTOuPLOAD();
-            ControlCalidad obecjControlCalidad = udpadteFormulario(Variables.currenControlCalReport);
-
-            RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
-            RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
-            RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload, Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
-
-
-        }
 
 
 
+    public void saveInfo() {
 
+        Log.i("misdtass", "el nodo del objeto current es " + Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+        // hasHmapFieldsOtherViews
+        createMapInBYothersTextimpuEdFields();
+        createInfoToHashmapRechazaSelecToUpload();
+        createItemsSelectDefectsEmpqTOuPLOAD();
+        ControlCalidad obecjControlCalidad = udpadteFormulario(Variables.currenControlCalReport);
+
+        RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+        RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+        RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload, Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
 
     }
+
+
 }

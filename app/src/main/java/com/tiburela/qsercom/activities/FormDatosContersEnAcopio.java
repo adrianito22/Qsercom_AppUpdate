@@ -47,6 +47,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -56,6 +57,7 @@ import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
+import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -180,6 +182,19 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         Auth.initAuth(FormDatosContersEnAcopio.this);
         Auth.signInAnonymously(FormDatosContersEnAcopio.this);
 
+
+
+        if(Variables.hayUnFormIncompleto){
+
+
+            AddDataFormOfSharePrefe() ;
+
+            //
+            Variables.hayUnFormIncompleto=false;
+
+        }
+
+
 /*
         if(hayUnformularioIcompleto){
 
@@ -215,6 +230,35 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
       //  updateUI(currentUs bver)
 
     }
+
+
+
+    private void AddDataFormOfSharePrefe() {
+
+        TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
+        Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
+
+
+
+/*
+         //descrgamos info de imagenes //todavia no muy lista aun
+        Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
+        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
+
+        //if el formulario no es nulo
+
+        if(listImagesToSaVE!=null ) {
+
+            addInfotomap(listImagesToSaVE);
+            createlistsForReciclerviewsImages(listImagesToSaVE);
+
+        }
+
+*/
+
+
+    }
+
 
 
     @Override
@@ -903,28 +947,23 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
 
         if(motionEvent.getAction()==MotionEvent.ACTION_DOWN ){
 
-            //agregamos esta vista clickada a la lista
+            PerecentHelp.listViewsClickedUser.add(view);
 
-            Log.i("casnasd","se llamo on touch ");
+            Log.i("casnasd","el size de la lista es "+ PerecentHelp.listViewsClickedUser.size());
 
-            listViewsClickedUser.add(view);
-
-
-            Log.i("casnasd","el size de la lista es "+listViewsClickedUser.size());
-
-            if(listViewsClickedUser.size()>1) {
+            if( PerecentHelp.listViewsClickedUser.size()>1) {
                 //obtenemos la lista anterior y verficamos si esta completada;
-                View vistFieldAnterior = getVistaAnteriorClick();
-                checkeamosSiFieldViewIScompleted(vistFieldAnterior);
-                //actualizamos
-
+                View vistFieldAnterior = PerecentHelp.getVistaAnteriorClick();
+                //  checkeamosSiFieldViewIScompleted(vistFieldAnterior);
+                PerecentHelp.checkeamosSiFieldViewIScompletedAndSavePref(vistFieldAnterior, SharePref.KEY_CONTENEDORES);
 
             }
 
 
-
         }
         return false;
+
+
     }
 
 
@@ -937,21 +976,11 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         ediNguiaRemision.setOnTouchListener(this);
         ediNtargetaEmbarque.setOnTouchListener(this);
         spinnerSelectZona.setOnTouchListener(this);
-
-//          imBatach.setOnTouchListener(this);
-
-     //   imBtakePic.setOnTouchListener(this);
-
-
-
-
-
         ediHoraLLegadaContenedor.setOnTouchListener(this);
         ediHoraSalidaContenedor.setOnTouchListener(this);
         ediDestino.setOnTouchListener(this);
 
         ediVapor.setOnTouchListener(this);
-    //HAST AQUI.setOnTouchListener(this);
         ediTare.setOnTouchListener(this);
         ediBooking.setOnTouchListener(this);
         ediMaxGross.setOnTouchListener(this);
@@ -985,7 +1014,6 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         esiSelloAdhNaviera.setOnTouchListener(this);
 
 
-
         ediCompaniaTransporte.setOnTouchListener(this);
         ediNombreChofer.setOnTouchListener(this);
         ediCedula.setOnTouchListener(this);
@@ -994,11 +1022,6 @@ public class FormDatosContersEnAcopio extends AppCompatActivity implements View.
         ediPLaca.setOnTouchListener(this);
         ediMarcaCabezal.setOnTouchListener(this);
         ediColorCabezal.setOnTouchListener(this);
-
-
-
-
-
 
 
 

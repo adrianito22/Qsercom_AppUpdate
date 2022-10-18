@@ -64,8 +64,8 @@ import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.callbacks.CallBtoActityCamnsYcarretas;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -73,7 +73,6 @@ import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.storage.StorageData;
-import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -93,7 +92,7 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener , CallBtoActityCamnsYcarretas {
+public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener  {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -1887,10 +1886,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
-
-
-
-        DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(PreviewCalidadCamionesyCarretas.this,Variables.FormCamionesyCarretasActivity);
+        openBottomSheetConfirmCreateNew(Variables.FormCamionesyCarretasActivity);
 
 
 
@@ -1898,6 +1894,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
     }
+    private void openBottomSheetConfirmCreateNew(int tipoFormulario){
+
+        DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(tipoFormulario);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
+    }
+
+
 
 
     private void createObjcInformeAndUpdate(){
@@ -4219,17 +4222,19 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
     }
 
 
-    @Override
-    public void confirmChangs(boolean esSavCambios) {
-        if(esSavCambios){
 
-            RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
+    public void saveInfo() {
 
-            uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+        RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
-            createObjcInformeAndUpdate(); //CREAMOS LOS IN
+        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+        createObjcInformeAndUpdate(); //CREAMOS LOS IN
 
 
-        }
     }
+
+
+
+
 }

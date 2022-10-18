@@ -61,6 +61,7 @@ import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
+import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -79,9 +80,9 @@ import com.tiburela.qsercom.R;
 public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
-
     boolean hayUnformularioIcompleto ;
     public static Context context;
+
 
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
@@ -220,7 +221,6 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     Switch switchLavdoRacimos;
     Switch swAguaCorrida;
 
-    ArrayList<View> listViewsClickedUser;
 
     ImageView imBatach;
     ActivityResultLauncher activityResultLauncher;
@@ -321,8 +321,6 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
         findViewsIds();
         configCertainSomeViewsAliniciar();
-        listViewsClickedUser=new ArrayList<>();
-
         addClickListeners();
         resultatachImages();
         listennersSpinners();
@@ -1033,28 +1031,20 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
-
         if(motionEvent.getAction()==MotionEvent.ACTION_DOWN ){
 
-            //agregamos esta vista clickada a la lista
 
-            Log.i("casnasd","se llamo on touch ");
+            PerecentHelp.listViewsClickedUser.add(view);
 
-            listViewsClickedUser.add(view);
+            Log.i("casnasd","el size de la lista es "+ PerecentHelp.listViewsClickedUser.size());
 
-
-            Log.i("casnasd","el size de la lista es "+listViewsClickedUser.size());
-
-            if(listViewsClickedUser.size()>1) {
+            if( PerecentHelp.listViewsClickedUser.size()>1) {
                 //obtenemos la lista anterior y verficamos si esta completada;
-                View vistFieldAnterior = getVistaAnteriorClick();
-                checkeamosSiFieldViewIScompleted(vistFieldAnterior);
-                //actualizamos
-
+                View vistFieldAnterior = PerecentHelp.getVistaAnteriorClick();
+              //  checkeamosSiFieldViewIScompleted(vistFieldAnterior);
+                PerecentHelp.checkeamosSiFieldViewIScompletedAndSavePref(vistFieldAnterior,SharePref.KEY_CONTENEDORES);
 
             }
-
-
 
         }
         return false;
@@ -1088,18 +1078,11 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
          spinnerubicacionBalanza.setOnTouchListener(this);
 
 
-
-
-
-
         switchContenedor.setOnTouchListener(this);
         ediEmpacadora.setOnTouchListener(this);
           imBatach.setOnTouchListener(this);
 
         imBtakePic.setOnTouchListener(this);
-
-
-
 
         ediPPC01.setOnTouchListener(this);
         ediPPC02.setOnTouchListener(this);
@@ -1197,35 +1180,11 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         ediRacimProces.setOnTouchListener(this);
 
 
-
-
-
-
     }
 
 
-    private View getVistaAnteriorClick() { //el estado puede ser lleno o vacio isEstaLleno
 
-
-        if(listViewsClickedUser.size() ==3) { //SOLO GUARDAMOS DOS NUMEROS para ahorra memoria
-            listViewsClickedUser.remove(0);   //ya no queremoes el primer objeto de la lista siempre y cuando la lista contnega 3 objetos
-
-        }
-        Log.i("casnasd","el size aqui en metodo es "+listViewsClickedUser.size());
-
-
-
-
-        View vistAnterior = listViewsClickedUser.get(0);
-      //  Log.i("soeobjetc","el objeto anterioR TAG ES "+vistAnterior.getTag().toString());
-
-
-
-        return   vistAnterior;
-
-    }
-
-
+/*
     private void checkeamosSiFieldViewIScompleted(View view ) {
 
         //revismaos si el usuario lleno el file o completo la tarea solictada
@@ -1243,7 +1202,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
                             Log.i("miodata","el state ediPPC/someProductPostCosecha esta lleno ");
 
-                            actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
+                          //  actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
 
 
                             //add VALUES IN TO MAP
@@ -1336,7 +1295,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
             }
 
-
+*/
 
     private void actualizaListStateView(String idSearch,boolean isEstaLleno){
 ///
@@ -1392,30 +1351,19 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
         Log.i("idCheck","el NUMERO ITEMScOMPLETADOS ES "+numero_itemsCompletados);
 
-
             //buscamos el porecntaje
 
         //int porcentajeDeProgreso= numero_itemsCompletados*NUMERO_FIELDS_TOTAL/100;
-
-
 
         int porcentajeDeProgreso= numero_itemsCompletados*100/NUMERO_FIELDS_TOTAL;
 
         progressBarFormulario.setProgress(porcentajeDeProgreso);
 
-
-
            Log.i("maswiso","el porciento es "+porcentajeDeProgreso);
             //un item opcional vale
 
 
-
         }
-
-
-
-
-
 
 
     private void selecImages(){
@@ -1514,9 +1462,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoBoquilla.setText("");
-                actualizaListStateView("spTipoBoquilla",false) ;
+               // actualizaListStateView("spTipoBoquilla",false) ;
             }else {
-                actualizaListStateView("spTipoBoquilla",true) ;
+               // actualizaListStateView("spTipoBoquilla",true) ;
             }
 
         }
@@ -1536,9 +1484,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediFumigacionClin1.setText("");
-                actualizaListStateView("spFumigaCorL1",false) ;
+              //  actualizaListStateView("spFumigaCorL1",false) ;
             }else {
-                actualizaListStateView("spFumigaCorL1",true) ;
+              //  actualizaListStateView("spFumigaCorL1",true) ;
             }
 
         }
@@ -1559,9 +1507,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediFuenteAgua.setText("");
-                actualizaListStateView("spFuenteAgua",false) ;
+              //  actualizaListStateView("spFuenteAgua",false) ;
             }else {
-                actualizaListStateView("spFuenteAgua",true) ;
+              //  actualizaListStateView("spFuenteAgua",true) ;
             }
 
         }
@@ -1588,9 +1536,9 @@ private void listennersSpinners() {
                     //actualizamos
                     Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                     ediZona.setText("");
-                    actualizaListStateView("spinnerZona",false) ;
+                 //   actualizaListStateView("spinnerZona",false) ;
                 }else {
-                    actualizaListStateView("spinnerZona",true) ;
+                  //  actualizaListStateView("spinnerZona",true) ;
                 }
 
             }
@@ -1611,9 +1559,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediCondicionBalanza.setText("");
-                actualizaListStateView("ediCondicionBalanza",false) ;
+              //  actualizaListStateView("ediCondicionBalanza",false) ;
             }else {
-                actualizaListStateView("ediCondicionBalanza",true) ;
+              //  actualizaListStateView("ediCondicionBalanza",true) ;
             }
 
         }
@@ -1636,9 +1584,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipodeCaja.setText("");
-                actualizaListStateView("ediTipodeCaja",false) ;
+               // actualizaListStateView("ediTipodeCaja",false) ;
             }else {
-                actualizaListStateView("ediTipodeCaja",true) ;
+               // actualizaListStateView("ediTipodeCaja",true) ;
             }
 
         }
@@ -1659,9 +1607,11 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoPlastico.setText("");
-                actualizaListStateView("ediTipoPlastico",false) ;
+               // actualizaListStateView("ediTipoPlastico",false) ;
             }else {
-                actualizaListStateView("ediTipoPlastico",true) ;
+
+              //  actualizaListStateView("ediTipoPlastico",true) ;
+
             }
 
         }
@@ -1681,9 +1631,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoBalanza.setText("");
-                actualizaListStateView("ediTipoBalanza",false) ;
+              //  actualizaListStateView("ediTipoBalanza",false) ;
             }else {
-                actualizaListStateView("ediTipoBalanza",true) ;
+               // actualizaListStateView("ediTipoBalanza",true) ;
             }
 
         }
@@ -1728,9 +1678,9 @@ private void listennersSpinners() {
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediUbicacionBalanza.setText("");
-                actualizaListStateView("ediUbicacionBalanza",false) ;
+               // actualizaListStateView("ediUbicacionBalanza",false) ;
             }else {
-                actualizaListStateView("ediUbicacionBalanza",true) ;
+              ///  actualizaListStateView("ediUbicacionBalanza",true) ;
             }
 
         }

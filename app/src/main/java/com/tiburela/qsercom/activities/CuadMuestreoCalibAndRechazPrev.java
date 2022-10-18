@@ -19,18 +19,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
-import com.tiburela.qsercom.callbacks.CallBtoActityMuestreoRechaz;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
-import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity implements CallBtoActityMuestreoRechaz {
+public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
 
     RecyclerView mireciclerv;
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
@@ -146,7 +145,8 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity implements
 
                 if(chekeadDataListIsReady()){
 
-                    DialogoConfirm.showBottomSheetDialogConfirmAndCallUpdate(CuadMuestreoCalibAndRechazPrev.this, Variables.FormMuestreoRechaz);
+
+                    openBottomSheetConfirmCreateNew(Variables.FormMuestreoRechaz);
 
 
                 }
@@ -165,39 +165,16 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity implements
       //  setDataInViews(Variables.currentcuadroMuestreo);
 
 
-        btnSaveCambios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(chekeadDataListIsReady()){
-
-                    //creamos un objeto
-                    String keyDondeEstaraHashmap=Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap();
-
-                    CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),ediVaporx.getText().toString(),ediProductoras.getText().toString()
-                            ,ediCodigoxs.getText().toString(), ediEnfundex.getText().toString(),keyDondeEstaraHashmap,ediExtCalidad.getText().toString(),
-                            ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
-
-
-                    ///editamos los otros datos de la cantidad de rechzados..
-                    CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
-
-
-                    RealtimeDB.updateCuadroMuestreoObject(objectWhitMoreData,Variables.currentcuadroMuestreo); //subimos un cuadro de muestreo object
-
-                    RealtimeDB.updateCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
-
-
-
-                }
-
-
-            }
-        });
 
 
 
     }
+
+    private void openBottomSheetConfirmCreateNew(int tipoFormulario){
+        DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(tipoFormulario);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
+    }
+
 
     private void setRECICLERdata(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList ) {
 
@@ -520,42 +497,33 @@ return object;
 
     }
 
-    @Override
-    public void confirmChangs(boolean esSavCambios) {
 
-        if(esSavCambios){
+    public void   saveInfo( ) {
 
 
 
-            //creamos un objeto
-            RealtimeDB.initDatabasesRootOnly();
-            String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
+        //creamos un objeto
+        RealtimeDB.initDatabasesRootOnly();
+        String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
 
+        CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),
+                ediVaporx.getText().toString(), ediProductoras.getText().toString(),ediCodigoxs.getText().toString(),
+                ediEnfundex.getText().toString(),keyDondeEstaraHashmap,
+                ediExtCalidad.getText().toString(), ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
 
-            CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),
-                    ediVaporx.getText().toString(), ediProductoras.getText().toString(),ediCodigoxs.getText().toString(),
-                    ediEnfundex.getText().toString(),keyDondeEstaraHashmap,
-                    ediExtCalidad.getText().toString(), ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
+        ///LE AGREGAMOS OTROS DATOS A ESTE OBJETO
+        addRechazadosData(objec);
+        /// objec.setSimpleDateFormat();
 
+        RealtimeDB.addNewCuadroMuestreoObject(objec); //subimos un cuadro de muestreo object
 
-            ///LE AGREGAMOS OTROS DATOS A ESTE OBJETO
-            addRechazadosData(objec);
-            /// objec.setSimpleDateFormat();
+        RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 
-            RealtimeDB.addNewCuadroMuestreoObject(objec); //subimos un cuadro de muestreo object
+        Toast.makeText(CuadMuestreoCalibAndRechazPrev.this, "Se Actualizo Informe", Toast.LENGTH_SHORT).show();
+        // Log.i(
 
-            RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
-
-
-            Toast.makeText(CuadMuestreoCalibAndRechazPrev.this, "Se Actualizo Informe", Toast.LENGTH_SHORT).show();
-
-            // Log.i("saber"," se subio la data ");
-
-
-        }
 
     }
-
 
     //crea un mapa con las posiciones en true
     //el mapa debe tener 10 valores
@@ -566,3 +534,26 @@ return object;
 
 
 }
+
+/*
+*   if(chekeadDataListIsReady()){
+
+            //creamos un objeto
+            String keyDondeEstaraHashmap=Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap();
+
+            CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),ediVaporx.getText().toString(),ediProductoras.getText().toString()
+                    ,ediCodigoxs.getText().toString(), ediEnfundex.getText().toString(),keyDondeEstaraHashmap,ediExtCalidad.getText().toString(),
+                    ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
+
+
+            ///editamos los otros datos de la cantidad de rechzados..
+            objec objec=addRechazadosData(objec);
+
+
+            RealtimeDB.updateCuadroMuestreoObject(objectWhitMoreData,Variables.currentcuadroMuestreo); //subimos un cuadro de muestreo object
+
+            RealtimeDB.updateCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
+
+
+
+        }*/

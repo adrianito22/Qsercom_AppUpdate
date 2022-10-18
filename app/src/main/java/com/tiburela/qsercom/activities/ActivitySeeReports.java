@@ -543,7 +543,7 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     startActivity(intencion);
 
-                    //pd.dismiss();
+                    //pdialogff.dismiss();
 
                     //finish();
                 }else{
@@ -554,7 +554,7 @@ public class ActivitySeeReports extends AppCompatActivity {
                     Log.i("verdura","ahora se llamo intent");
 
                     startActivity(intencion);
-                    // pd.dismiss();
+                    // pdialogff.dismiss();
                     // finish();
 
 
@@ -618,7 +618,7 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     startActivity(intencion);
 
-                    //pd.dismiss();
+                    //pdialogff.dismiss();
 
                     //finish();
                 }else{
@@ -629,7 +629,7 @@ public class ActivitySeeReports extends AppCompatActivity {
                     Log.i("verdura","ahora se llamo intent");
 
                     startActivity(intencion);
-                    // pd.dismiss();
+                    // pdialogff.dismiss();
                     // finish();
 
 
@@ -761,7 +761,7 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     startActivity(intencion);
 
-                    //pd.dismiss();
+                    //pdialogff.dismiss();
 
                     //finish();
                 }else{
@@ -772,7 +772,7 @@ public class ActivitySeeReports extends AppCompatActivity {
                     Log.i("verdura","ahora se llamo intent");
 
                     startActivity(intencion);
-                    // pd.dismiss();
+                    // pdialogff.dismiss();
                     // finish();
 
 
@@ -890,7 +890,7 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     startActivity(intencion);
 
-                    //pd.dismiss();
+                    //pdialogff.dismiss();
 
                     //finish();
                 }else{
@@ -901,7 +901,7 @@ public class ActivitySeeReports extends AppCompatActivity {
                     Log.i("verdura","ahora se llamo intent");
 
                     startActivity(intencion);
-                    // pd.dismiss();
+                    // pdialogff.dismiss();
                     // finish();
 
 

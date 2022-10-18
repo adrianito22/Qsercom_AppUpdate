@@ -25,6 +25,8 @@ public class Variables {
 
 public static String  paqueteName="com.tiburela.qsercom";
 
+    public static String currentKeyShareToDelete="";
+
 
     public static  int   activityCurrent;
 

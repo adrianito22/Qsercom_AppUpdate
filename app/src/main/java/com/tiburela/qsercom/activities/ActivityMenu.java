@@ -12,8 +12,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,11 +28,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
-import com.tiburela.qsercom.utils.DialogoConfirm;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -126,7 +124,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(checkIfExisteFormIcompleto(SharePref.KEY_CONTROL_CALIDAD)){
 
                    currentFormSelect=Variables.FormCantrolCalidad;
-                    muestraDialog2Opciones();
+                    muestraDialog2Opciones(SharePref.KEY_CONTROL_CALIDAD);
 
                 }
                 else{
@@ -147,7 +145,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                     currentFormSelect=Variables.FormCamionesyCarretasActivity;
 
-                    muestraDialog2Opciones();
+                    muestraDialog2Opciones(SharePref.KEY_CALIDAD_CAMIONESY_CARRETAS);
 
                 }
                 else{
@@ -168,7 +166,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                     currentFormSelect=Variables.FormPackingList;
 
-                    muestraDialog2Opciones();
+                    muestraDialog2Opciones(SharePref.KEY_PACKING_LIST);
 
                 }
                 else{
@@ -191,7 +189,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(checkIfExisteFormIcompleto(SharePref.KEY_CONTENEDORES_EN_ACOPIO)){
                     currentFormSelect=Variables.FormatDatsContAcopi;
 
-                    muestraDialog2Opciones();
+                    muestraDialog2Opciones(SharePref.KEY_CONTENEDORES_EN_ACOPIO);
 
                 }
                 else{
@@ -214,7 +212,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                     currentFormSelect=Variables.FormPreviewContenedores;
 
-                    muestraDialog2Opciones();
+                    muestraDialog2Opciones(SharePref.KEY_CONTENEDORES);
 
                 }
                 else{
@@ -235,7 +233,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(checkIfExisteFormIcompleto(SharePref.KEY_MUESTRO_RECHAZDOS)){
                     currentFormSelect=Variables.FormMuestreoRechaz;
 
-                    muestraDialog2Opciones();
+                    muestraDialog2Opciones(SharePref.KEY_MUESTRO_RECHAZDOS);
 
                 }
                 else{
@@ -438,6 +436,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Log.i("ciclelife","onstart call");
         Variables.currentMapPreferences  =new HashMap<>();
         PerecentHelp.estateForm= new HashMap<>();
+        PerecentHelp.listViewsClickedUser =new ArrayList<>();
         showDataByMode();
 
     }
@@ -455,13 +454,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     }
 
 
-    private void muestraDialog2Opciones(){
-
+    private void muestraDialog2Opciones(String keyShareDelete){
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityMenu.this);
-        alertDialogBuilder.setMessage("Hay un formulario Incompleto deseas continuar");
-
-     //   AlertDialog alertDialog=null;
+        alertDialogBuilder.setMessage("Hay un formulario Incompleto deseas continuarlo");
 
 
         alertDialogBuilder.setPositiveButton(" Si Continuar", new DialogInterface.OnClickListener() {
@@ -482,17 +478,16 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 //le mostramos un sheet diciendole si esta seguro de esto...
 
 
-              DialogoConfirm OBJEC= new DialogoConfirm();
+              DialogConfirmCreateNewForm OBJEC= new DialogConfirmCreateNewForm();
 
 
-               //DialogoConfirm.gotofragment(ActivityMenu.this);
+               //DialogConfirmCreateNewForm.gotofragment(ActivityMenu.this);
 
 
-               OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityContenedores.class);
 
-                //alertDialog.dismiss();
+               OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityContenedores.class,keyShareDelete);
 
-               // showBottomSheetDialogConfirmMenu(ActivityMenu.this);
+
 
 
             }
@@ -511,7 +506,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         if(selecionoCrearNuevoForm){
             Variables.hayUnFormIncompleto =false;
 
-         //   DialogoConfirm.bottomSheetDialog.dismiss();
+         //   DialogConfirmCreateNewForm.bottomSheetDialog.dismiss();
 
             createAndGoActivity(currentFormSelect);
 
@@ -525,12 +520,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
     private void createAndGoActivity(int tipoFormulario){
 
-
-
         if(tipoFormulario==Variables.FormCantrolCalidad){
 
-            ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, ControlCalidad.class)) ;
+            ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, FormularioControlCalidad.class)) ;
         }
+
 
         else  if(tipoFormulario==Variables.FormPreviewContenedores){
 
@@ -539,17 +533,20 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             Intent myintent = new Intent(ActivityMenu.this,ActivityContenedores.class);
             ActivityMenu.this.startActivity(myintent);
             finish();
-
         }
+
+
         else  if(tipoFormulario==Variables.FormatDatsContAcopi){
-            startActivity(new Intent(ActivityMenu.this, ContenedoresEnAcopio.class)) ;
+            startActivity(new Intent(ActivityMenu.this, FormDatosContersEnAcopio.class)) ;
 
         }
+
 
         else  if(tipoFormulario==Variables.FormCamionesyCarretasActivity){//
-            startActivity(new Intent(ActivityMenu.this, ReportCamionesyCarretas.class)) ;
+            startActivity(new Intent(ActivityMenu.this, ReporteCalidadCamionesyCarretas.class)) ;
 
         }
+
 
         else  if(tipoFormulario==Variables.FormPackingList){
             startActivity(new Intent(ActivityMenu.this, PackingListActivity.class)) ;
@@ -557,10 +554,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         }
 
+
         else  if(tipoFormulario==Variables.FormMuestreoRechaz){
             startActivity(new Intent(ActivityMenu.this, CuadMuestreoCalibAndRechaz.class)) ;
-
-
         }
 
 
@@ -595,7 +591,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
 
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_confirm_new_form);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_confirm_changesxml);
 
         Button btnSi=bottomSheetDialog.findViewById(R.id.btnSix);
         Button btnNo=bottomSheetDialog.findViewById(R.id.btnNox);
