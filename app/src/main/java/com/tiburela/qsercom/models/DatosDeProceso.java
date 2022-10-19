@@ -2,7 +2,7 @@ package com.tiburela.qsercom.models;
 
 public class DatosDeProceso {
 
-    //pertenecienta la actividad y clase FormDatosContersEnAcopio
+    //pertenecienta la actividad y clase ActivityDatosContersEnAcopio
     private int numProd;
 
     public int getNumProd() {

@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.othersActivits;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
+import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivity;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;

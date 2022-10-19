@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.formulariosPrev;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -65,6 +65,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -3210,7 +3211,7 @@ return true;
         Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
 
-        startActivity(new Intent(ActivityContenedoresPrev.this,ActivitySeeReports.class));
+        startActivity(new Intent(ActivityContenedoresPrev.this, ActivitySeeReports.class));
 
     }
 

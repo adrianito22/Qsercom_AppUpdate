@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.formulariosPrev;
 
 import android.os.Bundle;
 import android.util.Log;

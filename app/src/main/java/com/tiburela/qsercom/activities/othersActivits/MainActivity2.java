@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.othersActivits;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

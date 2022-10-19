@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.utils.Utils;
@@ -63,7 +64,46 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
          //si el valor es diferente de 0..
 
 
-        Log.i("debugeoxc","call here");
+
+
+             if(Variables.hayUnFormIcompletoTOrEYCLER){
+                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum9.getId()))){
+                     holder.ediColum9.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum9.getId())));
+
+                 }
+
+
+                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum10.getId()))){
+                     holder.ediColum10.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum10.getId())));
+
+                 }
+
+
+                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum11.getId()))){
+                     holder.ediColum11.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum11.getId())));
+
+                 }
+
+
+                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum12.getId()))){
+                     holder.ediColum12.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum12.getId())));
+
+                 }
+
+
+                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum13.getId()))){
+                     holder.ediColum13.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum13.getId())));
+
+                 }
+
+                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum14.getId()))){
+                     holder.ediColum14.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum14.getId())));
+
+                 }
+
+
+             }
+
 
 
 
@@ -258,8 +298,13 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
          }
 
+            SharePref.mihashMapFieldsToRecycler.put(String.valueOf(position),"currentText");
+
+
 
             ColorCintasSemns objec=listSemns.get(position);
+
+
 
 
 View fockview=activity.getCurrentFocus();

@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.othersActivits;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -20,13 +20,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.StorageReference;
-import com.tiburela.qsercom.activities.ActivitySeeReports;
-import com.tiburela.qsercom.activities.FormDatosContersEnAcopio;
-import com.tiburela.qsercom.activities.ActivityContenedores;
-import com.tiburela.qsercom.activities.ActivityContenedoresPrev;
-import com.tiburela.qsercom.activities.PreviewCalidadCamionesyCarretas;
-import com.tiburela.qsercom.activities.PreviewsFormDatSContersEnAc;
-import com.tiburela.qsercom.activities.ReporteCalidadCamionesyCarretas;
+import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
+import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
+import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.ImagenReport;
 
 import java.io.InputStream;
@@ -96,7 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 if(Variables.activityCurrent==Variables.FormatDatsContAcopi){
-                    inputStream = FormDatosContersEnAcopio.context.getContentResolver().openInputStream(uri);
+                    inputStream = ActivityDatosContersEnAcopio.context.getContentResolver().openInputStream(uri);
 
 
                 }else if(Variables.activityCurrent==Variables.FormContenedores) { //si es previews
@@ -117,7 +117,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivity){ //es preview
-                    inputStream = ReporteCalidadCamionesyCarretas.context.getContentResolver().openInputStream(uri);
+                    inputStream = ActivityReporteCalidadCamionesyCarretas.context.getContentResolver().openInputStream(uri);
 
                 }
 

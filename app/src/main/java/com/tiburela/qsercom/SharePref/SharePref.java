@@ -20,6 +20,10 @@ public class SharePref {
     public static final String KEY_CONTENEDORES_EN_ACOPIO="KEY_CONTENEDORES_EN_ACOPIO";
     public static final String KEY_MUESTRO_RECHAZDOS="KEY_MUESTRO_RECHZDOS";
     public static final String KEY_CONTROL_CALIDAD="KEY_CONTROL_CALIDAD";
+    public static final String KEY_CUADRO_MUESTRA_CALIB_RECHAZDS="KEY_CUADRO_MUESTRA_CALIB_RECHAZDS";
+
+    public static Map<String, String>mihashMapFieldsToRecycler=new HashMap<>();
+
 
     private static SharedPreferences mSharedPrefUniqueObjc;
 

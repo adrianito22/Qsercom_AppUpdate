@@ -13,12 +13,12 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.ActivityContenedoresPrev;
-import com.tiburela.qsercom.activities.CuadMuestreoCalibAndRechazPrev;
-import com.tiburela.qsercom.activities.FormularioControlCalidadPreview;
-import com.tiburela.qsercom.activities.PackingListPreviewActivity;
-import com.tiburela.qsercom.activities.PreviewCalidadCamionesyCarretas;
-import com.tiburela.qsercom.activities.PreviewsFormDatSContersEnAc;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
+import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivity;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.utils.Variables;
 
 public class DialogConfirmChanges extends BottomSheetDialogFragment implements View.OnClickListener {

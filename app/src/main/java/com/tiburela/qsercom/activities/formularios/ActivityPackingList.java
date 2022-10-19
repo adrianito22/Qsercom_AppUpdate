@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.formularios;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +21,7 @@ import com.tiburela.qsercom.utils.Variables;
 
 import java.util.HashMap;
 
-public class PackingListActivity extends AppCompatActivity implements View.OnTouchListener {
+public class ActivityPackingList extends AppCompatActivity implements View.OnTouchListener {
 
     HashMap<String, String> packingListMap;
     Button btnSavePacking;
@@ -151,7 +151,7 @@ public class PackingListActivity extends AppCompatActivity implements View.OnTou
                          Log.i("misdatas","no hay datoseen e; packing list");
 
 
-                         Toast.makeText(PackingListActivity.this, "No tienes datosen el packing list ", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(ActivityPackingList.this, "No tienes datosen el packing list ", Toast.LENGTH_SHORT).show();
 
 
                          //probablemente mostrar un sheet here..

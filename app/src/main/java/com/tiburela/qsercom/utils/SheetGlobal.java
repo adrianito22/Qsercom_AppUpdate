@@ -7,7 +7,6 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.ActivitySeeReports;
 
 public class SheetGlobal {
 

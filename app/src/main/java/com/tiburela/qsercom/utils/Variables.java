@@ -3,8 +3,6 @@ package com.tiburela.qsercom.utils;
 import android.app.Activity;
 import android.content.Context;
 
-import com.tiburela.qsercom.activities.ActivityContenedores;
-import com.tiburela.qsercom.activities.ActivityMenu;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -147,6 +145,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static HashMap<String, String> currentMapPreferences=new HashMap<>();
 
     public static boolean hayUnFormIncompleto =false;
+    public static boolean hayUnFormIcompletoTOrEYCLER =false;
 
 
     public static int currentFormSelect=0;

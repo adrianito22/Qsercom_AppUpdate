@@ -5,14 +5,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.tiburela.qsercom.SharePref.SharePref;
-import com.tiburela.qsercom.activities.ActivityContenedoresPrev;
-import com.tiburela.qsercom.activities.CuadMuestreoCalibAndRechazPrev;
-import com.tiburela.qsercom.activities.FormularioControlCalidadPreview;
-import com.tiburela.qsercom.activities.PackingListPreviewActivity;
-import com.tiburela.qsercom.activities.PreviewCalidadCamionesyCarretas;
-import com.tiburela.qsercom.activities.PreviewsFormDatSContersEnAc;
-import com.tiburela.qsercom.callbacks.CallBtoActityFormControlCalid;
-import com.tiburela.qsercom.models.ImagenReport;
 
 import java.util.ArrayList;
 import java.util.HashMap;

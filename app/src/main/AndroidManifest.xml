@@ -26,7 +26,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="s">
         <activity
-            android:name=".activities.FormularioControlCalidad"
+            android:name=".activities.formularios.ActivityControlCalidad"
             android:exported="true" >
 
 
@@ -40,7 +40,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".activities.FormularioControlCalidadPreview"
+            android:name=".activities.formulariosPrev.FormularioControlCalidadPreview"
             android:exported="true" >
 
 
@@ -54,27 +54,27 @@
 
 
         <activity
-            android:name=".activities.PreviewCalidadCamionesyCarretas"
+            android:name=".activities.formulariosPrev.PreviewCalidadCamionesyCarretas"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.CuadMuestreoCalibAndRechazPrev"
+            android:name=".activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ReporteCalidadCamionesyCarretas"
+            android:name=".activities.formularios.ActivityReporteCalidadCamionesyCarretas"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PackingListActivity"
+            android:name=".activities.formularios.ActivityPackingList"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.CuadMuestreoCalibAndRechaz"
+            android:name=".activities.formularios.ActivityCuadMuestCalibAndRechaz"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -82,53 +82,53 @@
 
         </activity>
         <activity
-            android:name=".activities.ActivitySeeReports"
+            android:name=".activities.othersActivits.ActivitySeeReports"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PackingListPreviewActivity"
+            android:name=".activities.formulariosPrev.PackingListPreviewActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PreviewsFormDatSContersEnAc"
+            android:name=".activities.formulariosPrev.PreviewsFormDatSContersEnAc"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ActivityContenedoresPrev"
+            android:name=".activities.formulariosPrev.ActivityContenedoresPrev"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ActivityMenu"
+            android:name=".activities.othersActivits.ActivityMenu"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PieChartActivity"
+            android:name=".activities.othersActivits.PieChartActivity"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.CharActivity"
+            android:name=".activities.othersActivits.CharActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PdfPreviewActivity"
+            android:name=".activities.othersActivits.PdfPreviewActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.FormDatosContersEnAcopio"
+            android:name=".activities.formularios.ActivityDatosContersEnAcopio"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activities.ActivityContenedores"
+            android:name=".activities.formularios.ActivityContenedores"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
@@ -139,17 +139,17 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ActivityGoogleDrive"
+            android:name=".activities.othersActivits.ActivityGoogleDrive"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.MainActivity2"
+            android:name=".activities.othersActivits.MainActivity2"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.othersActivits.MainActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />

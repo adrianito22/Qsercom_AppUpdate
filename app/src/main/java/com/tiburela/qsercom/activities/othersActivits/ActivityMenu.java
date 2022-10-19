@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.othersActivits;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -27,12 +27,15 @@ import android.widget.TextView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
+import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
+import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
+import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
+import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
+import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
-import com.tiburela.qsercom.models.ContenedoresEnAcopio;
-import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
-import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -129,7 +132,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this,FormularioControlCalidad.class));
+                    startActivity(new Intent(ActivityMenu.this, ActivityControlCalidad.class));
 
                 }
 
@@ -150,7 +153,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this, ReporteCalidadCamionesyCarretas.class));
+                    startActivity(new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class));
 
                 }
 
@@ -171,7 +174,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this, PackingListActivity.class));
+                    startActivity(new Intent(ActivityMenu.this, ActivityPackingList.class));
 
                 }
 
@@ -193,7 +196,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                 }
                 else{
-                    startActivity(new Intent(ActivityMenu.this, FormDatosContersEnAcopio.class));
+                    startActivity(new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class));
 
                 }
 
@@ -230,17 +233,27 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
-                if(checkIfExisteFormIcompleto(SharePref.KEY_MUESTRO_RECHAZDOS)){
-                    currentFormSelect=Variables.FormMuestreoRechaz;
+                if(checkIfExisteMapTOrecycler(SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS)){
 
+                }
+
+
+                if(checkIfExisteFormIcompleto(SharePref.KEY_MUESTRO_RECHAZDOS) ){
+                    currentFormSelect=Variables.FormMuestreoRechaz;
                     muestraDialog2Opciones(SharePref.KEY_MUESTRO_RECHAZDOS);
 
                 }
+
+
+
+
+
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this,CuadMuestreoCalibAndRechaz.class ));
+                    startActivity(new Intent(ActivityMenu.this, ActivityCuadMuestCalibAndRechaz.class ));
 
                 }
+
 
 
             }
@@ -522,7 +535,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         if(tipoFormulario==Variables.FormCantrolCalidad){
 
-            ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, FormularioControlCalidad.class)) ;
+            ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, ActivityControlCalidad.class)) ;
         }
 
 
@@ -537,26 +550,26 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         else  if(tipoFormulario==Variables.FormatDatsContAcopi){
-            startActivity(new Intent(ActivityMenu.this, FormDatosContersEnAcopio.class)) ;
+            startActivity(new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class)) ;
 
         }
 
 
         else  if(tipoFormulario==Variables.FormCamionesyCarretasActivity){//
-            startActivity(new Intent(ActivityMenu.this, ReporteCalidadCamionesyCarretas.class)) ;
+            startActivity(new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class)) ;
 
         }
 
 
         else  if(tipoFormulario==Variables.FormPackingList){
-            startActivity(new Intent(ActivityMenu.this, PackingListActivity.class)) ;
+            startActivity(new Intent(ActivityMenu.this, ActivityPackingList.class)) ;
 
 
         }
 
 
         else  if(tipoFormulario==Variables.FormMuestreoRechaz){
-            startActivity(new Intent(ActivityMenu.this, CuadMuestreoCalibAndRechaz.class)) ;
+            startActivity(new Intent(ActivityMenu.this, ActivityCuadMuestCalibAndRechaz.class)) ;
         }
 
 
@@ -586,6 +599,32 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         }
 
     }
+
+
+
+    private boolean checkIfExisteMapTOrecycler( String keyFormulario){
+
+        Map<String,String>mimap= SharePref.loadMap(ActivityMenu.this,keyFormulario);
+
+        if(mimap!=null && mimap.size()>0){ //si no es nulo
+
+            SharePref.mihashMapFieldsToRecycler= mimap;
+            Variables.hayUnFormIcompletoTOrEYCLER =true;
+            return true;
+        }
+
+
+
+        else{ //si es nulo
+            Log.i("chekenadoPREFE","  ES NULO O  NO HAY UN MAPA EN PREFRENCIAS");
+
+            return false;
+        }
+
+    }
+
+
+
 
     public  void showBottomSheetDialogConfirmMenu(Context context) {
 

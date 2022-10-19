@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.formulariosPrev;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -815,7 +815,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 break; //
 
             case R.id.ediCajas7:
-                // Utils.closeKeyboard(ReporteCalidadCamionesyCarretas.this);
+                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
 
                 selecionaFecha();
 
@@ -824,14 +824,14 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
             case R.id.ediHoraInicio:
-                // Utils.closeKeyboard(ReporteCalidadCamionesyCarretas.this);
+                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
 
                 showingTimePicker(view);
 
                 break; //
 
             case R.id.ediHoraTermino:
-                // Utils.closeKeyboard(ReporteCalidadCamionesyCarretas.this);
+                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
                 showingTimePicker(view);
 
                 break; //
@@ -840,13 +840,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
             case R.id.ediTipoEmp2:
-                // Utils.closeKeyboard(ReporteCalidadCamionesyCarretas.this);
+                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
                 showingTimePicker(view);
 
                 break; //
 
             case R.id.ediHoraEncendido2:
-                // Utils.closeKeyboard(ReporteCalidadCamionesyCarretas.this);
+                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
                 showingTimePicker(view);
 
                 break; //
@@ -1325,7 +1325,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                             for(int indice=0; indice<result.size(); indice++){
 
 
-//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(ReporteCalidadCamionesyCarretas.this,cam_uri)));
+//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(ActivityReporteCalidadCamionesyCarretas.this,cam_uri)));
                                 ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,result.get(indice))));
 
                                 Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
@@ -2044,13 +2044,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
-        //  startActivity(new Intent(ReporteCalidadCamionesyCarretas.this,PdfPreviewActivity.class));
+        //  startActivity(new Intent(ActivityReporteCalidadCamionesyCarretas.this,PdfPreviewActivity.class));
 
         //generamos un pdf con la data que tenemos()
 
         /*
 
-        PdfMaker.generatePdfReport1(ReporteCalidadCamionesyCarretas.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
+        PdfMaker.generatePdfReport1(ActivityReporteCalidadCamionesyCarretas.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
                 ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
                 ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
                 ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),

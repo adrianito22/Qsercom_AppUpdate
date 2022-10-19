@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities;
+package com.tiburela.qsercom.activities.formularios;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class FormularioControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
+public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
     // initialize variables
 
 
@@ -1095,7 +1095,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
 
         // Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidad.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityControlCalidad.this);
 
         // set title
         builder.setTitle("Selecciones Defectos");
@@ -1182,7 +1182,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
     void showDialogx2(boolean[] itemsChekeds,String keyCurrentListOFmap) {
 
         // Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(FormularioControlCalidad.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityControlCalidad.this);
 
         // set title
         builder.setTitle("Seleccione Defectos");
@@ -1292,7 +1292,7 @@ public class FormularioControlCalidad extends AppCompatActivity implements View.
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
         // time picker dialog
-        TimePickerDialog picker = new TimePickerDialog(FormularioControlCalidad.this,
+        TimePickerDialog picker = new TimePickerDialog(ActivityControlCalidad.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
