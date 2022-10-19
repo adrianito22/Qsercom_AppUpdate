@@ -133,6 +133,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
+
+
     HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb = new HashMap<>(); //serian unas dies listas...
     HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb2 = new HashMap<>(); //serian unas dies listas...
 
@@ -148,6 +150,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     ImageView imgSelecDefc8;
     ImageView imgSelecDefc9;
     ImageView imgSelecDefc10;
+
+
+    private ImageView  imgUpdateNumDedxClust;
+    private ImageView  imgUpdateNumClusterxCaja;
+    private ImageView  imgUpdateCalibBasalYapical;
+
+    ImageView imgUpdateNumPulpaApulpa;
+
 
     TextInputEditText ediTimeHoraxx1;
     TextInputEditText ediTimeHoraxx2;;
@@ -600,7 +610,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         TextInputEditText arrayAllFields[] = {
 
-                ediTimeHoraxx2, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
                 ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
                 ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
                 ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
@@ -628,8 +638,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
                 edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
 
-
-
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
                 mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
                 mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
@@ -637,27 +645,32 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
                 mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,
 
+
+
         };
+
+
 
         for (Map.Entry<String, String > entry : miMapa.entrySet()) {
             String keyAndIdOfView = entry.getKey();
             String valueOfItem = entry.getValue();
 
-            TextInputEditText currenTextImput= Utils.getTexImputEditextByidORkey(arrayAllFields,Integer.parseInt(keyAndIdOfView));
+            TextInputEditText currenTextImput ;
+            if(! keyAndIdOfView.equals("0")){
+                 currenTextImput= Utils.getTexImputEditextByidORkey(arrayAllFields,Integer.parseInt(keyAndIdOfView));
 
-            if(currenTextImput==null){ //si es nulo
+                if(currenTextImput!=null){ //si es nulo
+                    currenTextImput.setText(valueOfItem);
 
-                Log.i("midata","este teximputeditext es nulo" +keyAndIdOfView);
-
-                return;
-
-
-            }else{
-
-                currenTextImput.setText(valueOfItem);
-
+                }
 
             }
+
+
+
+
+
+
 
 
 
@@ -689,7 +702,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                             //   HashMap packinKey = dss.getValue( String.class);
 
                             //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
-                            Log.i("hameha","el key es "+key);
+                            Log.i("hameha","el key es "+key +"y el; field data es "+fieldData );
 
 
                             if (fieldData!=null) {///
@@ -699,16 +712,18 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                             }
                         }
 
+                        Log.i("solater","el size de hasmap es "+hasmapMapControlCalid.size());
+
+
                         setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
 
 
 
-
                         //realizamos la opreacion con la info de los editext
-                        showResultNumClusteroManoProduct();
+                         showResultNumClusteroManoProduct();
                         showResultNumeroClusterxCajaProduct();
                         showResultOfCalibraEntreBasalYapiclProduct();
-                        showResultlargoDedosPulgaPulpaApulpa();
+                       showResultlargoDedosPulgaPulpaApulpa();
 
 
                     }
@@ -833,6 +848,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         imvEmpaque8=findViewById(R.id.imvEmpaque8);
         imvEmpaque9=findViewById(R.id.imvEmpaque9);
         imvEmpaque10=findViewById(R.id.imvEmpaque10);
+
+
+         imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
 
 
         spinnerDef1=findViewById(R.id.spinnerDef1);
@@ -1136,9 +1154,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
 
 
-        //  imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
-        //  imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
-        //  imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
+
+
+
+          imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
+          imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
+          imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
 
 
 
@@ -1151,6 +1172,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         imgSelecDefc1.setOnClickListener(this);
         imgSelecDefc2.setOnClickListener(this);
         imgSelecDefc3.setOnClickListener(this);
+
+
+         imgUpdateNumDedxClust.setOnClickListener(this);
+           imgUpdateNumClusterxCaja.setOnClickListener(this);
+           imgUpdateCalibBasalYapical.setOnClickListener(this);
+        imgUpdateNumPulpaApulpa.setOnClickListener(this);
+
 
         imgSelecDefc4.setOnClickListener(this);
         imgSelecDefc5.setOnClickListener(this);
@@ -1367,13 +1395,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             case R.id.imgUpdateCalibBasalYapical:
                 showResultOfCalibraEntreBasalYapiclProduct();
 
-                showResultlargoDedosPulgaPulpaApulpa();
 
                 break;
 
             case R.id.imgUpdateNumClusterxCaja:
                 showResultNumeroClusterxCajaProduct();
-                showResultlargoDedosPulgaPulpaApulpa();
 
 
                 break;
@@ -1381,15 +1407,128 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
             case R.id.imgUpdateNumDedxClust:
                 showResultNumClusteroManoProduct();
-                showResultlargoDedosPulgaPulpaApulpa();
+                break;
+
+
+            case R.id.imgUpdateNumPulpaApulpa:
+                getlargoDedosPulgaPulpaApulpa();
 
                 break;
+
 
 
 
         }
 
     }
+
+    private void getlargoDedosPulgaPulpaApulpa() {
+
+
+        double [][] decimalsToMultiplicar = {
+
+                {6.0,  6.2, 6.4, 6.6, 6.8},
+                {7.0,  7.2, 7.4, 7.6, 7.8},
+                {8.0,  8.2, 8.4, 8.6, 8.8},
+                {9.0,  9.2, 9.4, 9.6, 9.8},
+                {10.0,  10.2, 10.4, 10.6, 10.8},
+                {11.0,  11.2, 11.4, 11.6, 11.8},
+
+
+        } ;
+
+
+
+        TextInputEditText [][] arrayBidimensfILA1ContieneTexts = {
+
+                {mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5},
+                {mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10},
+                {mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15},
+                {mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20},
+                {mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25},
+                {mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30},
+
+        } ;
+
+
+        TextInputEditText [][] arrayBidimensfILA2MostarText = {
+
+                {mEdif2LrgD1,mEdif2LrgD2,mEdif2LrgD3,mEdif2LrgD4,mEdif2LrgD5},
+                {mEdif2LrgD6,mEdif2LrgD7,mEdif2LrgD8,mEdif2LrgD9,mEdif2LrgD10},
+                {mEdif2LrgD11,mEdif2LrgD12,mEdif2LrgD13,mEdif2LrgD14,mEdif2LrgD15},
+                {mEdif2LrgD16,mEdif2LrgD17,mEdif2LrgD18,mEdif2LrgD19,mEdif2LrgD20},
+                {mEdif2LrgD21,mEdif2LrgD22,mEdif2LrgD23,mEdif2LrgD24,mEdif2LrgD25},
+                {mEdif2LrgD26,mEdif2LrgD27,mEdif2LrgD28,mEdif2LrgD29,mEdif2LrgD30},
+
+        } ;
+
+
+
+        for (int i = 0; i <arrayBidimensfILA1ContieneTexts.length; i++) {
+
+            TextInputEditText [] currentArrayofContainsDataNums= arrayBidimensfILA1ContieneTexts[i];
+            double [] currentDecimalArray=decimalsToMultiplicar[i];
+
+
+            for (int indice = 0; indice <currentArrayofContainsDataNums.length; indice++) {
+                //se ejecutar 5 veces..
+
+                if(currentArrayofContainsDataNums[indice].getText().toString().trim().isEmpty() )  { //si esta vacio
+                    currentArrayofContainsDataNums[indice].getText().clear();
+
+                }
+
+                else {
+
+                    double result= currentDecimalArray[indice] * Integer.parseInt(currentArrayofContainsDataNums[indice].getText().toString());
+
+
+                    if(String.valueOf(result).length() >5)  {
+                        double roundDbl = Math.round(result*100.0)/100.0;
+                        result= roundDbl;
+                    }
+                    Log.i("dfgdf","el value es sssss "+String.valueOf(result))  ;
+
+
+                    if((result % 1) == 0){
+
+                        int numentero = (int) Math.floor(result);
+                        Log.i("dfgdf","el value convert "+result)  ;
+
+                        arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(numentero));
+
+
+
+                    }else{
+
+                        arrayBidimensfILA2MostarText[i][indice].setText(String.valueOf(result));
+
+                    }
+
+
+
+                    // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
+                    //colcamos este texto en el editext
+
+
+                }
+
+
+
+            }
+
+            //6 veces
+
+
+        }
+
+
+
+
+
+
+    }
+
 
     void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
 

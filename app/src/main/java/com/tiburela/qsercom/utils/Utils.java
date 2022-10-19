@@ -459,12 +459,14 @@ return
         Log.i("midata","hay en totak "+allArrayViewsTextIMPUTe.length + "textimput editext");
 
 
+
         for(int indice=0; indice<allArrayViewsTextIMPUTe.length ; indice++){  //iteramos el mapa
 
             Log.i("midata","el id de este view es es "+allArrayViewsTextIMPUTe[indice].getId());
 
             if(allArrayViewsTextIMPUTe[indice].getId()==idViewSearch){
 
+                Log.i("midata","se cumplio ss");
 
                 textInputEditText= allArrayViewsTextIMPUTe[indice];
                 break;

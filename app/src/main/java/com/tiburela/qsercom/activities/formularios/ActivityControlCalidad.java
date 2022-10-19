@@ -30,8 +30,6 @@ import java.util.HashMap;
 
 public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
     // initialize variables
-
-
     private TextInputEditText mEdiLargDeds1;
     private TextInputEditText mEdiLargDeds2;
     private TextInputEditText mEdiLargDeds3;
@@ -156,7 +154,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     ImageView imgUpdateNumDedxClust;
     ImageView imgUpdateNumClusterxCaja;
     ImageView imgUpdateCalibBasalYapical;
-
+    ImageView imgUpdateNumPulpaApulpa;
 
 
     TextInputEditText ediTimeHoraxx1;
@@ -513,6 +511,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
         imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
 
+        imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
+
         imvEmpaque1=findViewById(R.id.imvEmpaque1);
         imvEmpaque2=findViewById(R.id.imvEmpaque2);
         imvEmpaque3=findViewById(R.id.imvEmpaque3);
@@ -846,7 +846,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         imgUpdateNumDedxClust.setOnClickListener(this);
         imgUpdateNumClusterxCaja.setOnClickListener(this);
         imgUpdateCalibBasalYapical.setOnClickListener(this);
-
+        imgUpdateNumPulpaApulpa.setOnClickListener(this);
 
 
 
@@ -1063,17 +1063,14 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 break;
 
 
-
             case R.id.imgUpdateCalibBasalYapical:
                 getCalibraEntreBasalYapiclProduct();
 
-                getlargoDedosPulgaPulpaApulpa();
 
                 break;
 
             case R.id.imgUpdateNumClusterxCaja:
                 getNumeroClusterxCajaProduct();
-                getlargoDedosPulgaPulpaApulpa();
 
 
                 break;
@@ -1081,9 +1078,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
             case R.id.imgUpdateNumDedxClust:
                 setResultNumClusteroManoProduct();
+
+                break;
+
+
+
+            case R.id.imgUpdateNumPulpaApulpa:
                 getlargoDedosPulgaPulpaApulpa();
 
                 break;
+
 
 
 
@@ -1392,7 +1396,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         hasHmapOtherFieldsEditxs = new HashMap<>();
 
-        TextInputEditText arrayAllFields[] =  {
+        TextInputEditText[] arrayAllFields =  {
 
                 ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
                 ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
@@ -1437,7 +1441,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
         for(int i = 0; i<arrayAllFields.length; i++) {
-
 
             TextInputEditText currenTextImput=arrayAllFields[i];
 
@@ -1877,18 +1880,17 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 }
 
+
                 createMapInBYothersTextimpuEdFields();
                 createInfoToHashmapRechazaSelecToUpload(); // RECHZADOS Y PAQUETErRCHZADOS
                 createItemsSelectDefectsEmpqTOuPLOAD();
-
-
 
                 RealtimeDB.initDatabasesRootOnly();
                 String keyDondeEstaraHasmap=RealtimeDB.rootDatabaseReference.push().getKey();
                 String keyDondeEstaraHasmapDefecSelec=RealtimeDB.rootDatabaseReference.push().getKey();
 
-
                 ControlCalidad obecjControlCalidad=creaNuevoFormularioByTxtImputEditext();
+
 
                 //aqctualizamos la ubicacion de los hashmaps en el objeto control calidad
                 obecjControlCalidad.setKeyWhereLocateasHmapFieldsRecha(keyDondeEstaraHasmap);
@@ -1898,8 +1900,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 RealtimeDB.UploadControlcalidadInform(obecjControlCalidad);
                 RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxs,keyDondeEstaraHasmap);
                 RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
-
-
 
 
 
@@ -2372,6 +2372,14 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         }
 
+
+
+        ///AHORA AGREGA
+
+
+
+
+    ///OTHER
 
 
 

@@ -196,9 +196,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
         Log.i("debugeoxc","call here set recicler ");
 
-
         RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem(ColorCintasSemnsArrayList,this, ActivityCuadMuestCalibAndRechaz.this);
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityCuadMuestCalibAndRechaz.this);
 
         mireciclerv.setNestedScrollingEnabled(false);

@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
+//package com.tiburela.qsercom.activities.formularios;
 public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation {
     LinearLayout ly_contenedores;
     LinearLayout ly_conte_en_acopio;
@@ -234,6 +234,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             public void onClick(View view) {
 
                 if(checkIfExisteMapTOrecycler(SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS)){
+                    Log.i("midatashare","existe data hey");
 
                 }
 
@@ -241,6 +242,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(checkIfExisteFormIcompleto(SharePref.KEY_MUESTRO_RECHAZDOS) ){
                     currentFormSelect=Variables.FormMuestreoRechaz;
                     muestraDialog2Opciones(SharePref.KEY_MUESTRO_RECHAZDOS);
+
 
                 }
 

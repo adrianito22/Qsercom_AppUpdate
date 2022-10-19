@@ -62,48 +62,87 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
         ColorCintasSemns objectCurrent = listSemns.get(position);
          //si el valor es diferente de 0..
+        Log.i("adinaiot","la posicion en obinbiewholder "+position);
+
+
+        //holder.ediColum9.setTag(position);
+        holder.ediColum9.setTag(R.id.ediColum9, position);
+        holder.ediColum10.setTag(R.id.ediColum10, position);
+        holder.ediColum11.setTag(R.id.ediColum11, position);
+        holder.ediColum12.setTag(R.id.ediColum12, position);
+        holder.ediColum13.setTag(R.id.ediColum13, position);
+        holder.ediColum14.setTag(R.id.ediColum14, position);
+
+
+        holder.ediColum9.addTextChangedListener(new MyCustomEditTextListener(position,holder.ediColum9));
+        holder.ediColum10.addTextChangedListener(new MyCustomEditTextListener(position,holder.ediColum10));
+        holder.ediColum11.addTextChangedListener(new MyCustomEditTextListener(position,holder.ediColum11));
+        holder.ediColum12.addTextChangedListener(new MyCustomEditTextListener(position,holder.ediColum12));
+        holder.ediColum13.addTextChangedListener(new MyCustomEditTextListener(position,holder.ediColum13));
+        holder.ediColum14.addTextChangedListener(new MyCustomEditTextListener(position,holder.ediColum14));
+
+
+       // holder.ediColum9.addTextChangedListener(new MyCustomEditTextListener(position));
+    //    holder.ediColum10.addTextChangedListener(new MyCustomEditTextListener(position));
+        String keyCurrent="";
+
+
+        if(Variables.hayUnFormIcompletoTOrEYCLER){
+            if(SharePref.mihashMapFieldsToRecycler.containsKey(position+","+holder.ediColum9.getId())){
+                keyCurrent=position+","+holder.ediColum9.getId();
+
+                holder.ediColum9.setText(SharePref.mihashMapFieldsToRecycler.get(keyCurrent));
+            }
+
+
+
+            if(SharePref.mihashMapFieldsToRecycler.containsKey(position+","+holder.ediColum10.getId())){
+
+                keyCurrent=position+","+holder.ediColum10.getId();
+
+                holder.ediColum10.setText(SharePref.mihashMapFieldsToRecycler.get(keyCurrent));
+            }
 
 
 
 
-             if(Variables.hayUnFormIcompletoTOrEYCLER){
-                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum9.getId()))){
-                     holder.ediColum9.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum9.getId())));
+            if(SharePref.mihashMapFieldsToRecycler.containsKey(position+","+holder.ediColum11.getId())){
 
-                 }
+                keyCurrent=position+","+holder.ediColum11.getId();
 
-
-                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum10.getId()))){
-                     holder.ediColum10.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum10.getId())));
-
-                 }
+                holder.ediColum11.setText(SharePref.mihashMapFieldsToRecycler.get(keyCurrent));
+            }
 
 
-                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum11.getId()))){
-                     holder.ediColum11.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum11.getId())));
 
-                 }
+            if(SharePref.mihashMapFieldsToRecycler.containsKey(position+","+holder.ediColum12.getId())){
 
+                keyCurrent=position+","+holder.ediColum12.getId();
 
-                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum12.getId()))){
-                     holder.ediColum12.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum12.getId())));
-
-                 }
+                holder.ediColum12.setText(SharePref.mihashMapFieldsToRecycler.get(keyCurrent));
+            }
 
 
-                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum13.getId()))){
-                     holder.ediColum13.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum13.getId())));
 
-                 }
+            if(SharePref.mihashMapFieldsToRecycler.containsKey(position+","+holder.ediColum13.getId())){
 
-                 if(SharePref.mihashMapFieldsToRecycler.containsKey(String.valueOf(holder.ediColum14.getId()))){
-                     holder.ediColum14.setText(SharePref.mihashMapFieldsToRecycler.get(String.valueOf(holder.ediColum14.getId())));
+                keyCurrent=position+","+holder.ediColum13.getId();
 
-                 }
+                holder.ediColum13.setText(SharePref.mihashMapFieldsToRecycler.get(keyCurrent));
+            }
+
+
+
+            if(SharePref.mihashMapFieldsToRecycler.containsKey(position+","+holder.ediColum14.getId())){
+
+                keyCurrent=position+","+holder.ediColum14.getId();
+
+                holder.ediColum14.setText(SharePref.mihashMapFieldsToRecycler.get(keyCurrent));
+            }
+
 
 
              }
-
 
 
 
@@ -154,12 +193,12 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
         //ad atags
        // holder.semnNum.setTag("semnNum");
-        holder.ediColum9.setTag("ediColum9");
-        holder.ediColum10.setTag("ediColum10");
-        holder.ediColum11.setTag("ediColum11");
-        holder.ediColum12.setTag("ediColum12");
-        holder.ediColum13.setTag("ediColum13");
-        holder.ediColum14.setTag("ediColum14");
+     //   holder.ediColum9.setTag("ediColum9");
+    //    holder.ediColum10.setTag("ediColum10");
+    //    holder.ediColum11.setTag("ediColum11");
+     //   holder.ediColum12.setTag("ediColum12");
+     //   holder.ediColum13.setTag("ediColum13");
+      //  holder.ediColum14.setTag("ediColum14");
 
 
        // holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
@@ -218,16 +257,35 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
             ediColum11 = itemView.findViewById(R.id.ediColum11);
             ediColum12 = itemView.findViewById(R.id.ediColum12);
             ediColum13 = itemView.findViewById(R.id.ediColum13);
-            ediColum13 = itemView.findViewById(R.id.ediColum13);
             ediColum14 = itemView.findViewById(R.id.ediColum14);
 
+          //  MyCustomEditTextListener textWatcher9 =  new MyCustomEditTextListener(ediColum9);
+          //  MyCustomEditTextListener textWatcher10 = new MyCustomEditTextListener(ediColum10);
+         //   MyCustomEditTextListener textWatcher11 = new MyCustomEditTextListener(ediColum11);
+           // MyCustomEditTextListener textWatcher12 = new MyCustomEditTextListener(ediColum12);
+          // MyCustomEditTextListener textWatcher13 = new MyCustomEditTextListener(ediColum13);
+          //  MyCustomEditTextListener textWatcher14 = new MyCustomEditTextListener(ediColum14);
 
-            this.ediColum9.addTextChangedListener(myCustomEditTextListener);
+
+// (EditText editMyCustomEditTextListenerText)
+           // this.ediColum9.addTextChangedListener(new myCustomEditTextListener(ediColum13));
+
+
+          ///  this.ediColum9.addTextChangedListener(textWatcher9);
+           // ediColum10.addTextChangedListener(textWatcher10);
+           // ediColum11.addTextChangedListener(textWatcher11);
+           // ediColum12.addTextChangedListener(textWatcher12);
+          //  ediColum13.addTextChangedListener(textWatcher13);
+          //  ediColum14.addTextChangedListener(textWatcher14);
+
+/*
+            //  this.ediColum9.addTextChangedListener(myCustomEditTextListener);
             this.ediColum10.addTextChangedListener(myCustomEditTextListener);
             this.ediColum11.addTextChangedListener(myCustomEditTextListener);
             this.ediColum12.addTextChangedListener(myCustomEditTextListener);
             this.ediColum13.addTextChangedListener(myCustomEditTextListener);
             this.ediColum14.addTextChangedListener(myCustomEditTextListener);
+     */
 
 
         }
@@ -238,9 +296,7 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
         }
 
-
     }
-
 
     public void setOnItemClickListener(ClickListener clickListener) {
         RecyclerVAdapterColorCintSem.clickListener = clickListener;
@@ -256,15 +312,28 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
     }
 
 
-
-
-
     private class MyCustomEditTextListener implements TextWatcher {
         private int position;
         private String tag;
       //  Activity activity;
+       // private EditText editText;
+
+        private EditText editTextx;
+
+        private int mPos;
+
+        public MyCustomEditTextListener(int position,EditText editText) {
+            editTextx=editText;
+            mPos = position;
+        }
 
 
+        public MyCustomEditTextListener(EditText editText) {
+            this.editTextx = editText;
+        }
+
+        public MyCustomEditTextListener() {
+        }
 
         public void updatePosition(int position) {
             this.position = position;
@@ -286,10 +355,37 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
            // mDataset[position] = charSequence.toString();
+          //  int position = (int) editText.getTag();
 
-            Log.i("eltex","el texto es "+charSequence.toString());
+            try {
 
-         String currentText=charSequence.toString();
+                int position9 = (int) editTextx.getTag(R.id.ediColum9);
+                int position10 = (int) editTextx.getTag(R.id.ediColum10);
+                int position11 = (int) editTextx.getTag(R.id.ediColum11);
+                int position12 = (int) editTextx.getTag(R.id.ediColum12);
+                int position13 = (int) editTextx.getTag(R.id.ediColum13);
+                int position14 = (int) editTextx.getTag(R.id.ediColum14);
+
+                Log.i("eltex","el texto position 9 y el tag es es "+position9+" "+editTextx.getTag());
+                Log.i("eltex","el texto position 10 es "+position10);
+                Log.i("eltex","el texto position 11 es "+position11);
+                Log.i("eltex","el texto position 12 es "+position12);
+                Log.i("eltex","el texto position 13 es "+position13);
+                Log.i("eltex","el texto position 14 es "+position14);
+
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+
+                Log.i("eltex","el problem es "+e.getMessage());
+
+            }
+
+
+          //  Log.i("eltex","el texto es "+charSequence.toString());
+
+            String currentText=charSequence.toString();
 
 
          if(!Utils.isNumeric(currentText)) {
@@ -298,108 +394,33 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
          }
 
-            SharePref.mihashMapFieldsToRecycler.put(String.valueOf(position),"currentText");
+
+      //    Log.i("adinaiot","la posici tiene tag  "+editTextx.getId());
+       ///   Log.i("adinaiot","la posicion methjod 2 e  "+mPos);
+           // Log.i("adinaiot","la posicion en obinbiewholder "+position);
+
+            //aqui va el terxto
 
 
+            Log.i("adinaiot","la posici tiene tag  "+editTextx.getId());
+            Log.i("adinaiot","la posicion methjod 2 e  "+mPos);
 
-            ColorCintasSemns objec=listSemns.get(position);
-
-
-
-
-View fockview=activity.getCurrentFocus();
+            SharePref.mihashMapFieldsToRecycler.put(String.valueOf(mPos+","+editTextx.getId()),currentText);
+            SharePref.saveMapPreferFields(SharePref.mihashMapFieldsToRecycler,SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS);
 
 
-/*
-if(fockview!=null){
-    EditText ediColum14=(EditText) fockview.findViewById(R.id.ediColum14);
-    EditText ediColum13=(EditText) fockview.findViewById(R.id.ediColum13);
-    EditText ediColum12=(EditText) fockview.findViewById(R.id.ediColum12);
-    EditText ediColum11=(EditText) fockview.findViewById(R.id.ediColum11);
-    EditText ediColum10=(EditText) fockview.findViewById(R.id.ediColum10);
-    EditText ediColum9=(EditText) fockview.findViewById(R.id.ediColum9);
-
-
-    if(ediColum14!=null){
-
-
-
-        objec.setColumFieldNUm14(Integer.parseInt(currentText));
-        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
-
-       // String d=ediColum14.getTag().toString();
-        Log.i("eltex","el position es : "+position);
-    }
-
-
-    if(ediColum13!=null){
-
-         objec=listSemns.get(position);
-        objec.setColumFieldNUm13(Integer.parseInt(currentText));
-        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
-
-        String d=ediColum13.getTag().toString();
-        Log.i("eltex","el position es : "+position);
-    }
-
-
-    if(ediColum12!=null){
-
-         objec=listSemns.get(position);
-        objec.setColumFieldNUm12(Integer.parseInt(currentText));
-        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
-        Log.i("eltex","el position es : "+position);
-
-    }
-
-
-    if(ediColum11!=null){
-
-         objec=listSemns.get(position);
-        objec.setColumFieldNUm11(Integer.parseInt(currentText));
-        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
-
-        String d=ediColum11.getTag().toString();
-        Log.i("eltex","el position es : "+position);
-
-    }
-
-
-    if(ediColum10!=null){
-        Log.i("eltex","el position es : "+position);
-
-
-         objec=listSemns.get(position);
-        objec.setColumFieldNUm10(Integer.parseInt(currentText));
-        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
-
-        String d=ediColum10.getTag().toString();
-        Log.i("eltex","el position es : "+position);
-    }
-
-
-    if(ediColum9!=null){
-        String d=ediColum9.getTag().toString();
-
-           objec=listSemns.get(position);
-          objec.setColumFieldNUm9(Integer.parseInt(currentText));
-        Variables.mapColorCintasSemanas.put(listSemns.get(position).getUniqueId(),objec);
-
-        Log.i("eltex","el position es : "+position);
-    }
+             //lo guardamos...
 
 
 
 
-    //si el tag es este
+            //aqui el valro
 
 
 
-}
 
-*/
-
-
+           // ColorCintasSemns objec=listSemns.get(position);
+//View fockview=activity.getCurrentFocus();
 
 
         }
