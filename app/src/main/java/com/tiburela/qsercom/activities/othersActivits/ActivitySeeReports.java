@@ -35,6 +35,7 @@ import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.ReportsAllModel;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.Variables;
@@ -489,7 +490,7 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                 //   Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
 
-                dowloadSecondPART_ReportAndGetActivity(Variables.CurrenReportPart1.getUniqueIDinforme(),modoReporte);//y despues vamos a a la activity preview
+                dowloadSecondPART_Report(Variables.CurrenReportPart1.getUniqueIDinforme(),modoReporte);//y despues vamos a a la activity preview
 
 
 
@@ -854,19 +855,21 @@ public class ActivitySeeReports extends AppCompatActivity {
 
 
 
-    void dowloadSecondPART_ReportAndGetActivity(String reportUNIQUEidtoSEARCH,int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
+    void dowloadSecondPART_Report(String reportUNIQUEidtoSEARCH, int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
         pd = new ProgressDialog(ActivitySeeReports.this);
         pd.setMessage("Obteniendo Data");
         pd.show();
 
+        Log.i("secondInform","el curren report id es "+reportUNIQUEidtoSEARCH);
+
+
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
-        Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinforme").equalTo(reportUNIQUEidtoSEARCH);
+        Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinformePart2").equalTo(reportUNIQUEidtoSEARCH);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     SetInformEmbarque2 informEmbarque2= ds.getValue(SetInformEmbarque2.class);
@@ -874,15 +877,64 @@ public class ActivitySeeReports extends AppCompatActivity {
                     if(informEmbarque2!=null){
                         Variables.CurrenReportPart2=informEmbarque2;
                         break;
+                    }
+                }
+                Log.i("secondInform","el id del secon resport es "+Variables.CurrenReportPart2.getUniqueIDinformePart2());
+                Log.i("secondInform","el CANDAO ES "+Variables.CurrenReportPart2.getCandadoQsercom());
+
+
+                dowloadThirdReportAngoActivity(reportUNIQUEidtoSEARCH,modo);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+    void dowloadThirdReportAngoActivity(String reportUNIQUEidtoSEARCH,int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
+        pd = new ProgressDialog(ActivitySeeReports.this);
+        pd.setMessage("Obteniendo Data");
+        pd.show();
+
+        Log.i("secondInform","el curren report id es "+reportUNIQUEidtoSEARCH);
+
+
+
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinformeDatsHda").equalTo(reportUNIQUEidtoSEARCH);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    SetInformDatsHacienda inform= ds.getValue(SetInformDatsHacienda.class);
+
+                    if(inform!=null){
+                        Variables.CurrenReportPart3=inform;
+                        break;
 
                     }
 
-                    ///  Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinforme());
+
+                    ///  Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinformePart2());
                 }
 
+                Log.i("CurrenReportPart3","la fuente a es "+ Variables.CurrenReportPart3.getFuenteAgua());
 
-                Log.i("midaclick","es resporte Conetenedores vamos "+Variables.CurrenReportPart2.getUniqueIDinforme());
 
+
+                //  Log.i("secondInform","el id del secon resport es "+Variables.CurrenReportPart3.getUniqueIDinformePart2());
+
+              //  Log.i("secondInform","el CANDAO ES "+Variables.CurrenReportPart3.getCandadoQsercom());
 
                 Intent intencion= new Intent(ActivitySeeReports.this, ActivityContenedoresPrev.class);
 
@@ -933,6 +985,9 @@ public class ActivitySeeReports extends AppCompatActivity {
 
 
     }
+
+
+
     private void showBottomSheetDialog(int reportTipo,String idReport) {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivitySeeReports.this);

@@ -29,7 +29,21 @@ public class ContenedoresEnAcopio {
         this.datosProcesoContenAcopioKEYFather = datosProcesoContenAcopioKEYFather;
     }
 
-    public ContenedoresEnAcopio(String uniqueIDinforme, String fechaInicio, String fechadeTermino, String exportSolicitante, String exportProcesada, String puerto, String zona, String marca, String horaInicio, String horaDetermino, String guiaDeRemision, String tarjaDeEmbarque, String destino, String vapor, String numContenedor, String horaDeLlegada, String horaDeSalida, String agenciaNaviera, String sellosPlasticoNaviera, String stickerDeVentolExternn1, String numSerieFunda, String cableRastreoLlegada, String booking, String maxGross, String tare, String otrosCandados, String termografoN1, String termogragoN2, String candadoDeQsercon, String selloDeNaviera, String cableDeNaviera, String selloPlastico, String candadodeBotella, String cableExportadora, String selloAdhesivoExportadora, String selloAdhesivoNaviera, String otrosSellos, String companiaTranportista, String nombredeChofer, String cedula, String celular, String placa, String marcaCabezal, String colorCabezal) {
+    public ContenedoresEnAcopio(String uniqueIDinforme, String fechaInicio, String fechadeTermino, String exportSolicitante,
+                                String exportProcesada, String puerto, String zona, String marca, String horaInicio,
+                                String horaDetermino, String guiaDeRemision, String tarjaDeEmbarque, String destino,
+                                String vapor, String numContenedor, String horaDeLlegada, String horaDeSalida,
+                                String agenciaNaviera, String sellosPlasticoNaviera, String stickerDeVentolExternn1,
+                                String numSerieFunda, String cableRastreoLlegada, String booking, String maxGross,
+                                String tare, String otrosCandados, String termografoN1, String termogragoN2, String candadoDeQsercon,
+                                String selloDeNaviera, String cableDeNaviera, String selloPlastico, String candadodeBotella,
+                                String cableExportadora, String selloAdhesivoExportadora, String selloAdhesivoNaviera,
+                                String otrosSellos, String companiaTranportista, String nombredeChofer, String cedula,
+                                String celular, String placa, String marcaCabezal, String colorCabezal,
+
+                                 int cajasProcesadasDespachadas, String inspectorAcopio, int cedulaIdenti) {
+
+
         this.uniqueIDinforme = uniqueIDinforme;
         this.fechaInicio = fechaInicio;
         this.fechadeTermino = fechadeTermino;
@@ -80,7 +94,12 @@ public class ContenedoresEnAcopio {
         simpleDataFormat = formatter.format(fechaUploadMilliseconds);
         datosProcesoContenAcopioKEYFather="";
 
-   }
+         this.cajasProcesadasDespachadas=cajasProcesadasDespachadas;
+        this. inspectorAcopio=inspectorAcopio;
+        this. cedulaIdenti=cedulaIdenti;
+
+
+        }
 
     public double getFechaUploadMilliseconds() {
         return fechaUploadMilliseconds;
@@ -513,6 +532,36 @@ private String exportSolicitante;
     private String colorCabezal;
 
 
+    //3 values mas
+
+   private int cajasProcesadasDespachadas;
+
+    public int getCajasProcesadasDespachadas() {
+        return cajasProcesadasDespachadas;
+    }
+
+    public void setCajasProcesadasDespachadas(int cajasProcesadasDespachadas) {
+        this.cajasProcesadasDespachadas = cajasProcesadasDespachadas;
+    }
+
+    public String getInspectorAcopio() {
+        return inspectorAcopio;
+    }
+
+    public void setInspectorAcopio(String inspectorAcopio) {
+        this.inspectorAcopio = inspectorAcopio;
+    }
+
+    public int getCedulaIdenti() {
+        return cedulaIdenti;
+    }
+
+    public void setCedulaIdenti(int cedulaIdenti) {
+        this.cedulaIdenti = cedulaIdenti;
+    }
+
+    private String inspectorAcopio;
+    private int cedulaIdenti;
 
 
 

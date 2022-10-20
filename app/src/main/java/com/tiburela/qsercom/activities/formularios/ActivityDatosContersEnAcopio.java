@@ -86,8 +86,11 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     TextInputEditText ediMarca;
     TextInputEditText ediPuerto;
     TextInputEditText ediAgenciaNav;
-    TextInputEditText ediInspectorAcopio;
     TextInputEditText ediCedulaI;
+
+    TextInputEditText ediCjasProcesDespacha;
+    TextInputEditText ediInspectorAcopio;
+
 
     TextInputEditText ediZona;
     TextInputEditText ediHoraInicio;
@@ -466,6 +469,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
         ediAgenciaNav=findViewById(R.id.ediAgenciaNav);
 
         ediInspectorAcopio=findViewById(R.id.ediInspectorAcopio);
+        ediCjasProcesDespacha=findViewById(R.id.ediCjasProcesDespacha);
         ediCedulaI=findViewById(R.id.ediCedulaI);
 
 
@@ -1467,9 +1471,6 @@ void checkDataFields(){ //
         Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
 
         return;
-    }else{
-
-        Log.i("test001","si  esta lleno  checkDatosContenedorIsLleno");
     }
 
 
@@ -1477,11 +1478,6 @@ void checkDataFields(){ //
         Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
 
         return;
-    }else{
-
-        Log.i("test001","si  esta lleno  checkDataSellosLlegadaIsLleno");
-
-
     }
 
 
@@ -1489,11 +1485,6 @@ void checkDataFields(){ //
         Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
 
         return;
-    }else{
-
-        Log.i("test001","si  esta lleno  checkSellosInstaladosIsLleno");
-
-
     }
 
 
@@ -1501,32 +1492,41 @@ void checkDataFields(){ //
         Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
 
         return;
-    }else{
-
-        Log.i("test001","si  esta lleno  checkDatosTransportistaIsLleno");
-
-
     }
 
     if(! checkaDatosProcesoISllENO()){
         Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
 
         return;
-    }else{
+    }
 
-        Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
+    if(ediCjasProcesDespacha.getText().toString().trim().isEmpty()){
+        ediCjasProcesDespacha.requestFocus();
+        ediCjasProcesDespacha.setError("Este espacio es obligatorio");
 
-
+        return;
     }
 
 
+    if(ediInspectorAcopio.getText().toString().trim().isEmpty()){
+        ediInspectorAcopio.requestFocus();
+        ediInspectorAcopio.setError("Este espacio es obligatorio");
+
+        return;
+    }
+
+    if(ediCedulaI.getText().toString().trim().isEmpty()){
+        ediCedulaI.requestFocus();
+        ediCedulaI.setError("Este espacio es obligatorio");
+
+        return;
+    }
 
     Log.i("test001","toda la data esta completa HUrra ");
 
     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
     createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
 
 
 
@@ -1546,7 +1546,6 @@ private boolean checkaDatosProcesoISllENO(){
 
 private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY, DatabaseReference mibasedata){
 
-        TextInputEditText ediCjasProcesDespacha;
 
     TextInputEditText ediNombProd1;
     TextInputEditText ediNombProd2;
@@ -1730,7 +1729,9 @@ private void createObjcInformeAndUpload(){
             ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),ediSelloPlastico.getText().toString()
             ,ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString()
             ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
-            ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString());
+            ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
+            Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString() )
+    );
 
 
 

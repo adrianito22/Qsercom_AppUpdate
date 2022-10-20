@@ -106,12 +106,19 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
     private boolean isModEdicionFields=false;
     private boolean esFirstCharge=true;
    private Switch swAguaCorrida,switchLavdoRacimos;
+   private Spinner spFuenteAgua;
+   private Spinner spFumigaCorL1;
+
+   private Spinner spTipoBoquilla;
     private static int currentTypeImage=0;
     ProgressBar progressBarFormulario;
     private Context mContext;
 
    Button btnDowlPdf;
     FloatingActionButton fab ;
+
+    TextInputEditText ediCjasProcesDespacha;
+    TextInputEditText  ediInspectorAcopio;
 
     TextInputEditText ediSemana;
     TextInputEditText ediFecha;
@@ -334,7 +341,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
         context = getApplicationContext();
 
 
-        UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinforme();
+        UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinformePart2();
 
 
       // FirebaseApp.initializeApp(this);
@@ -512,7 +519,13 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
         btnDowlPdf=findViewById(R.id.btnDowlPdf);
 
+        spFumigaCorL1=findViewById(R.id.spFumigaCorL1);
 
+          ediCjasProcesDespacha=findViewById(R.id.ediCjasProcesDespacha);
+          ediInspectorAcopio=findViewById(R.id.ediInspectorAcopio);
+        spTipoBoquilla=findViewById(R.id.spTipoBoquilla);
+
+        spFuenteAgua =findViewById(R.id.spFuenteAgua);
          ediSemana=findViewById(R.id.ediCajas3);
          ediFecha=findViewById(R.id.ediCajas7);
          ediProductor=findViewById(R.id.ediCodigoN2);
@@ -2033,7 +2046,7 @@ private void createObjcInformeAndUpload(){
                 ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
                 switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
-        informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+                 informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
         //Agregamos un nuevo informe
@@ -3678,7 +3691,8 @@ return true;
 
 
 
-    private  void addDataENfiledsoTHERviews(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object) {
+    private  void addDataENfiledsoTHERviews(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object
+            ,SetInformDatsHacienda info3Object) {
 
 
 
@@ -3692,6 +3706,15 @@ return true;
         selectValue(spinnertipodeBlanza,info2Object.getTipoDeBalanza()) ;
         selectValue(spinnertipodeBlanzaRepeso,info2Object.getTipoDeBalanzaRepeso()) ;
         selectValue(spinnerubicacionBalanza,info2Object.getUbicacionBalanza()) ;
+
+        selectValue(spFuenteAgua,info3Object.getFuenteAgua()) ;
+        selectValue(spFumigaCorL1,info3Object.getFumigacionClin1()) ;
+        selectValue(spTipoBoquilla,info3Object.getEdiTipoBoquilla()) ;
+
+
+        swAguaCorrida.setChecked(info3Object.isHayAguaCorrida());
+        switchLavdoRacimos.setChecked(info3Object.isHayLavadoRacimos());
+
 
 
         if(info1Object.getContenedor().equals(" SI ")) {
@@ -3731,7 +3754,7 @@ return true;
     }
 
 
-    private  void addDataEnFields(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object)  {
+    private  void addDataEnFields(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object,SetInformDatsHacienda info3Object)  {
         //usamos los 2 objetos para establecer esta data..
 
         Log.i("jamisama","la semana es "+info1Object.getSemana());
@@ -3797,6 +3820,10 @@ return true;
         ediHoraEncendido2.setText(info2Object.getTermografo2HoraEncendido());
         ediUbicacion2.setText(info2Object.getUbicacionPalletN2());
         ediRuma2.setText(info2Object.getRumaPalletN2());
+
+        Log.i("objec2searcg","el value es "+info2Object.getCandadoQsercom());
+
+
         ediCandadoqsercon.setText(info2Object.getCandadoQsercom());
         ediSelloNaviera.setText(info2Object.getSelloNaviera());
         ediCableNaviera.setText(info2Object.getCableNaviera());
@@ -3808,6 +3835,10 @@ return true;
         ediOtherSellos.setText(info2Object.getOtrosSellosEspecif());
 
 
+        ediCajasProcDesp.setText(info3Object.getEdiCajasProcDesp());
+        ediRacimosCosech.setText(info3Object.getEdiRacimosCosech());
+        ediRacimosRecha.setText(info3Object.getEdiRacimosRecha());
+        ediRacimProces.setText(info3Object.getEdiRacimProces());
 
 
 
@@ -3842,12 +3873,16 @@ private void checkModeVisualitY(){
 
      Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
     //AGREGMOS LA DATA EN LOS FILEDS
-    addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+    addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
+
+
+    /////vamos a descargar otro..
+
 
     Log.i("isclkiel","el data es "+ Variables.CurrenReportPart1.getContenedor());
 
 
-    addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2);
+    addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
 
 
 

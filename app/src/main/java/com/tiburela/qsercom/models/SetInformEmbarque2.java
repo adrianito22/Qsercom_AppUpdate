@@ -14,7 +14,7 @@ public class SetInformEmbarque2 {
     private String termografo2HoraEncendido;
     private String ubicacionPalletN1;
 
-    private  String uniqueIDinforme;
+    private  String uniqueIDinformePart2;
     private String ubicacionPalletN2;
     private String rumaPalletN1;
     private String rumaPalletN2;
@@ -333,8 +333,8 @@ public class SetInformEmbarque2 {
     }
 
 
-    public String getUniqueIDinforme() {
-        return uniqueIDinforme;
+    public String getUniqueIDinformePart2() {
+        return uniqueIDinformePart2;
     }
 
     public SetInformEmbarque2() {
@@ -342,7 +342,7 @@ public class SetInformEmbarque2 {
 
     }
 
-    public SetInformEmbarque2(String uniqueIDinforme ,String termografo1, String termografo2, String termografo1HoraEncendido,
+    public SetInformEmbarque2(String uniqueIDinformePart2, String termografo1, String termografo2, String termografo1HoraEncendido,
                               String termografo2HoraEncendido, String ubicacionPalletN1,
                               String ubicacionPalletN2, String rumaPalletN1, String rumaPalletN2,
                               String candadoQsercom, String selloNaviera, String cableNaviera,
@@ -351,10 +351,10 @@ public class SetInformEmbarque2 {
                               String companiaTranporte, String nombreChofer, String cedulaChofer, String celularChofer,
                               String placaChofer, String marcaCaebzalChofer, String colorCAbezal, String condicionBalanza,
                               String tipoCaja, boolean hayBalanza, boolean hayExcelnsuchado, String tipoPlastico,
-                              boolean hayBalanzaRepeso, String ubicacionBalanza,String tipoDeBalanza,String tipoDeBalanzaRepeso) {
+                              boolean hayBalanzaRepeso, String ubicacionBalanza, String tipoDeBalanza, String tipoDeBalanzaRepeso) {
 
 
-        this.uniqueIDinforme = uniqueIDinforme;
+        this.uniqueIDinformePart2 = uniqueIDinformePart2;
         this.termografo1 = termografo1;
         this.termografo2 = termografo2;
         this.termografo1HoraEncendido = termografo1HoraEncendido;
@@ -396,7 +396,7 @@ public class SetInformEmbarque2 {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("uniqueIDinforme", uniqueIDinforme);
+        result.put("uniqueIDinformePart2", uniqueIDinformePart2);
         result.put("termografo1", termografo1);
         result.put("termografo2", termografo2);
         result.put("termografo1HoraEncendido", termografo1HoraEncendido);

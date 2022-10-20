@@ -27,19 +27,6 @@ public class HelperEditAndPreviewmode {
             View view=arrayViews[indice];
 
 
-            //si el view es nulo
-            if(view==null){
-
-
-
-                Log.i("cabron", "la posicion en el array es  "+indice);
-            }
-
-
-
-
-
-
             if (view instanceof TextInputEditText) { //asi es un editex compobamos si esta lleno
 
                 TextInputEditText editText = (TextInputEditText) view; //asi lo convertimos

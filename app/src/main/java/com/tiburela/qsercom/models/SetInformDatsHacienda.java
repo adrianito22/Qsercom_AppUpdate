@@ -45,12 +45,12 @@ public class SetInformDatsHacienda {
         return keyFirebase;
     }
 
-    public String getUniqueIDinforme() {
-        return uniqueIDinforme;
+    public String getUniqueIDinformeDatsHda() {
+        return uniqueIDinformeDatsHda;
     }
 
     private String keyFirebase;
-    private String uniqueIDinforme;
+    private String uniqueIDinformeDatsHda;
 
 
 
@@ -247,13 +247,19 @@ public class SetInformDatsHacienda {
     }
 
 
+    public SetInformDatsHacienda() {
+
+
+    }
+
+
     public void setKeyFirebase(String keyFirebase) {
         this.keyFirebase = keyFirebase;
     }
 
     public SetInformDatsHacienda(String fuenteAgua, boolean hayAguaCorrida, boolean lavadoRacimos, String fumigacionClin1,
                                  String ediTipoBoquilla, String ediCajasProcDesp, String ediRacimosCosech,
-                                 String ediRacimosRecha, String ediRacimProces, String uniqueIDinforme ){
+                                 String ediRacimosRecha, String ediRacimProces, String uniqueIDinformeDatsHda){
 
    this. fuenteAgua=fuenteAgua;
     this.hayAguaCorrida = hayAguaCorrida;
@@ -284,7 +290,7 @@ this.ediRacimProces=ediRacimProces;
     porc11="";
     porc10="";
 
-   this.uniqueIDinforme =uniqueIDinforme;
+   this.uniqueIDinformeDatsHda = uniqueIDinformeDatsHda;
 
 }
 
@@ -320,7 +326,7 @@ this.ediRacimProces=ediRacimProces;
         result.put("porc11", porc11);
         result.put("porc10", porc10);
         result.put("keyFirebase", keyFirebase);
-        result.put("uniqueIDinforme", uniqueIDinforme);
+        result.put("uniqueIDinformeDatsHda", uniqueIDinformeDatsHda);
 
 
 

@@ -107,6 +107,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     TextInputEditText ediAgenciaNav;
     TextInputEditText ediInspectorAcopio;
     TextInputEditText ediCedulaI;
+    TextInputEditText ediCjasProcesDespacha;
 
     TextInputEditText ediZona;
     TextInputEditText ediHoraInicio;
@@ -454,6 +455,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         spinnerSelectZona = findViewById(R.id.spinnerZona);
         ediFotosLlegada=findViewById(R.id.ediFotosLlegada);
 
+        ediCjasProcesDespacha=findViewById(R.id.ediCjasProcesDespacha);
 
 
          fechDetermino=findViewById(R.id.fechDetermino);
@@ -462,7 +464,6 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
          ediMarca =findViewById(R.id.ediMarca);
          ediPuerto =findViewById(R.id.ediPuerto);
         ediAgenciaNav=findViewById(R.id.ediAgenciaNav);
-
         ediInspectorAcopio=findViewById(R.id.ediInspectorAcopio);
         ediCedulaI=findViewById(R.id.ediCedulaI);
 
@@ -654,7 +655,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                //cambiamos al modo visualizacion
                isModEdicionFields=false;
                activateModePreview();
-
+               activateModePreviewMoreViews();
 
            }else{ //SI NO ES MODO VISUZALIZACION
                fab.setImageResource(R.drawable.ic_baseline_preview_24jhj);
@@ -662,6 +663,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
                isModEdicionFields=true;
                activateModeEdit();
+               activateModeEditMoreViews();
 
 
                //CAMABIAMOS EL MODO
@@ -1584,6 +1586,44 @@ void checkDataFields(){ //
      keyNodeActualizar =Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(); //que que cotienen este nodo
 
 
+    if(ediCjasProcesDespacha.getText().toString().trim().isEmpty()){
+        ediCjasProcesDespacha.requestFocus();
+        ediCjasProcesDespacha.setError("Este espacio es obligatorio");
+
+        return;
+    }else{
+
+        Log.i("caramba","si  esta lleno  todo en orden");
+
+
+    }
+
+
+    if(ediInspectorAcopio.getText().toString().trim().isEmpty()){
+        ediInspectorAcopio.requestFocus();
+        ediInspectorAcopio.setError("Este espacio es obligatorio");
+
+        return;
+    }else{
+
+        Log.i("caramba","si  esta lleno  todo en orden");
+
+//
+    }
+
+    if(ediCedulaI.getText().toString().trim().isEmpty()){
+        ediCedulaI.requestFocus();
+        ediCedulaI.setError("Este espacio es obligatorio");
+
+        return;
+    }else{
+
+        Log.i("caramba","si  esta lleno  todo en orden");
+
+//ediCedulaI
+    }
+
+
     if(! creaAcMapDatosProcesoAndCheck(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(),keyNodeActualizar)){
         Log.i("caramba","no esta en orden ");
 
@@ -1676,7 +1716,6 @@ private boolean checkaDatosProcesoISllENO(){
 
 private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String PuskEY){
  boolean isReady=true;
-        TextInputEditText ediCjasProcesDespacha;
 
     TextInputEditText ediNombProd1;
     TextInputEditText ediNombProd2;
@@ -1870,7 +1909,10 @@ private void createObjcInformeAndUpload(){
             ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),ediSelloPlastico.getText().toString()
             ,ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString()
             ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
-            ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString());
+            ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
+            Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString() )
+
+            );
 
 
 
@@ -3068,7 +3110,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     private void setDatosProcesODataInViews(HashMap<String, DatosDeProceso> mimapaDatosProcesMapCurrent) {
 
 
-        TextInputEditText ediCjasProcesDespacha;
 
         TextInputEditText ediNombProd1;
         TextInputEditText ediNombProd2;
@@ -3226,8 +3267,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
         if(isModEdicionFields){
-            TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
+            TextView txtModeAdviser=findViewById(R.id.txtModeAdviser2);
             activateModeEdit();
+            activateModeEditMoreViews();
             txtModeAdviser.setText("Modo Edicion ");
 
             Log.i("moder","es modoedicion, de");
@@ -3237,6 +3279,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         else{
             activateModePreview();
+            activateModePreviewMoreViews();
            fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
             Log.i("moder","es modo preview");
 
@@ -3254,9 +3297,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         //inicializamos STORAGE..
         StorageData.initStorageReference();
-     //   dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinforme());
+     //   dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinformePart2());
 
-      //  dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinforme());
+      //  dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinformePart2());
 
 
 
@@ -3267,7 +3310,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         //vamos a probar ocn varios
 
-        View [] misViewsArray={ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediExpProcesada,    ediMarca,    ediPuerto,    ediAgenciaNav,
+        View [] misViewsArray={ediCjasProcesDespacha,ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediExpProcesada,    ediMarca,    ediPuerto,    ediAgenciaNav,
                 ediInspectorAcopio,    ediCedulaI,    ediZona,    ediHoraInicio,    ediHoraTermino,    ediHoraLLegadaContenedor,
                 ediHoraSalidaContenedor,    ediNguiaRemision,    ediNtargetaEmbarque,    ediFotosLlegada,    ediDestino,    ediVapor,
                 ediFotoContenedor,    ediFotosPposcosecha,    ediNumContenedor,    ediCompaniaTransporte,    ediNombreChofer,    ediCedula,
@@ -3289,10 +3332,172 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
         //Buttons
-        Button  btnCheck=findViewById(R.id.btnCheck);
+      //  Button  btnCheck=findViewById(R.id.btnCheck);
       ///  activateViewsByTypeView( btnCheck);
 
     }
+
+
+
+    private void activateModeEditMoreViews() {
+        TextInputEditText     ediNombProd1=findViewById(R.id.ediNombProd1);
+        TextInputEditText     ediNombProd2=findViewById(R.id.ediNombProd2);
+        TextInputEditText     ediNombProd3=findViewById(R.id.ediNombProd3);
+        TextInputEditText     ediNombProd4=findViewById(R.id.ediNombProd4);
+        TextInputEditText     ediNombProd5=findViewById(R.id.ediNombProd5);
+        TextInputEditText     ediNombProd6=findViewById(R.id.ediNombProd6);
+        TextInputEditText     ediNombProd7=findViewById(R.id.ediNombProd7);
+        TextInputEditText     ediNombProd8=findViewById(R.id.ediNombProd8);
+        TextInputEditText      ediTipoEmp1=findViewById(R.id.ediTipoEmp1);
+        TextInputEditText      ediTipoEmp2=findViewById(R.id.ediTipoEmp2);
+        TextInputEditText      ediTipoEmp3=findViewById(R.id.ediTipoEmp3);
+        TextInputEditText      ediTipoEmp4=findViewById(R.id.ediTipoEmp4);
+        TextInputEditText      ediTipoEmp5=findViewById(R.id.ediTipoEmp5);
+        TextInputEditText      ediTipoEmp6=findViewById(R.id.ediTipoEmp6);
+        TextInputEditText      ediTipoEmp7=findViewById(R.id.ediTipoEmp7);
+        TextInputEditText      ediTipoEmp8=findViewById(R.id.ediTipoEmp8);
+        TextInputEditText      ediCod1=findViewById(R.id.ediCod1);
+        TextInputEditText      ediCod2=findViewById(R.id.ediCod2);
+        TextInputEditText      ediCod3=findViewById(R.id.ediCod3);
+        TextInputEditText      ediCod4=findViewById(R.id.ediCod4);
+        TextInputEditText      ediCod5=findViewById(R.id.ediCod5);
+        TextInputEditText      ediCod6=findViewById(R.id.ediCod6);
+        TextInputEditText      ediCod7=findViewById(R.id.ediCod7);
+        TextInputEditText      ediCod8=findViewById(R.id.ediCod8);
+        TextInputEditText      edinCajas1=findViewById(R.id.edinCajas1);
+        TextInputEditText      edinCajas2=findViewById(R.id.edinCajas2);
+        TextInputEditText      edinCajas3=findViewById(R.id.edinCajas3);
+        TextInputEditText      edinCajas4=findViewById(R.id.edinCajas4);
+        TextInputEditText      edinCajas5=findViewById(R.id.edinCajas5);
+        TextInputEditText      edinCajas6=findViewById(R.id.edinCajas6);
+        TextInputEditText      edinCajas7=findViewById(R.id.edinCajas7);
+        TextInputEditText      edinCajas8=findViewById(R.id.edinCajas8);
+
+
+        Variables.isClickable=true;
+        //Creamos un array de todos los objetos..
+
+        //vamos a probar ocn varios
+
+        View [] misViewsArray={
+                ediNombProd1,
+                ediNombProd2,
+                ediNombProd3,
+                ediNombProd4,
+                ediNombProd5,
+                ediNombProd6,
+                ediNombProd7,
+                ediNombProd8,
+
+                ediTipoEmp1,
+                ediTipoEmp2,
+                ediTipoEmp3,
+                ediTipoEmp4,
+                ediTipoEmp5,
+                ediTipoEmp6,
+                ediTipoEmp7,
+                ediTipoEmp8,
+
+                ediCod1,
+                ediCod2,
+                ediCod3,
+                ediCod4,
+                ediCod5,
+                ediCod6,
+                ediCod7,
+                ediCod8,
+                edinCajas1,
+                edinCajas2,
+                edinCajas3,
+                edinCajas4,
+                edinCajas5,
+                edinCajas6,
+                edinCajas7,
+                edinCajas8,
+
+
+
+
+        };
+
+
+
+
+        HelperEditAndPreviewmode.activateViewsByTypeView(misViewsArray);
+
+
+        //Buttons
+        //  Button  btnCheck=findViewById(R.id.btnCheck);
+        ///  activateViewsByTypeView( btnCheck);
+
+    }
+
+    private void activateModePreviewMoreViews() {
+        TextInputEditText     ediNombProd1=findViewById(R.id.ediNombProd1);
+        TextInputEditText     ediNombProd2=findViewById(R.id.ediNombProd2);
+        TextInputEditText     ediNombProd3=findViewById(R.id.ediNombProd3);
+        TextInputEditText     ediNombProd4=findViewById(R.id.ediNombProd4);
+        TextInputEditText     ediNombProd5=findViewById(R.id.ediNombProd5);
+        TextInputEditText     ediNombProd6=findViewById(R.id.ediNombProd6);
+        TextInputEditText     ediNombProd7=findViewById(R.id.ediNombProd7);
+        TextInputEditText     ediNombProd8=findViewById(R.id.ediNombProd8);
+        TextInputEditText      ediTipoEmp1=findViewById(R.id.ediTipoEmp1);
+        TextInputEditText      ediTipoEmp2=findViewById(R.id.ediTipoEmp2);
+        TextInputEditText      ediTipoEmp3=findViewById(R.id.ediTipoEmp3);
+        TextInputEditText      ediTipoEmp4=findViewById(R.id.ediTipoEmp4);
+        TextInputEditText      ediTipoEmp5=findViewById(R.id.ediTipoEmp5);
+        TextInputEditText      ediTipoEmp6=findViewById(R.id.ediTipoEmp6);
+        TextInputEditText      ediTipoEmp7=findViewById(R.id.ediTipoEmp7);
+        TextInputEditText      ediTipoEmp8=findViewById(R.id.ediTipoEmp8);
+        TextInputEditText      ediCod1=findViewById(R.id.ediCod1);
+        TextInputEditText      ediCod2=findViewById(R.id.ediCod2);
+        TextInputEditText      ediCod3=findViewById(R.id.ediCod3);
+        TextInputEditText      ediCod4=findViewById(R.id.ediCod4);
+        TextInputEditText      ediCod5=findViewById(R.id.ediCod5);
+        TextInputEditText      ediCod6=findViewById(R.id.ediCod6);
+        TextInputEditText      ediCod7=findViewById(R.id.ediCod7);
+        TextInputEditText      ediCod8=findViewById(R.id.ediCod8);
+        TextInputEditText      edinCajas1=findViewById(R.id.edinCajas1);
+        TextInputEditText      edinCajas2=findViewById(R.id.edinCajas2);
+        TextInputEditText      edinCajas3=findViewById(R.id.edinCajas3);
+        TextInputEditText      edinCajas4=findViewById(R.id.edinCajas4);
+        TextInputEditText      edinCajas5=findViewById(R.id.edinCajas5);
+        TextInputEditText      edinCajas6=findViewById(R.id.edinCajas6);
+        TextInputEditText      edinCajas7=findViewById(R.id.edinCajas7);
+        TextInputEditText      edinCajas8=findViewById(R.id.edinCajas8);
+
+
+        Variables.isClickable=false;
+        //Creamos un array de todos los objetos..
+
+        //vamos a probar ocn varios
+
+        View [] misViewsArray={
+                ediNombProd1,
+                ediNombProd2, ediNombProd3, ediNombProd4, ediNombProd5, ediNombProd6, ediNombProd7, ediNombProd8,
+                ediTipoEmp1, ediTipoEmp2, ediTipoEmp3, ediTipoEmp4, ediTipoEmp5, ediTipoEmp6, ediTipoEmp7,
+                ediTipoEmp8, ediCod1, ediCod2, ediCod3, ediCod4, ediCod5, ediCod6, ediCod7, ediCod8, edinCajas1,
+                edinCajas2, edinCajas3, edinCajas4, edinCajas5, edinCajas6, edinCajas7, edinCajas8,
+
+
+
+
+        };
+
+
+
+
+        HelperEditAndPreviewmode.diseableViewsByTipe(misViewsArray);
+
+
+        //Buttons
+        //  Button  btnCheck=findViewById(R.id.btnCheck);
+        ///  activateViewsByTypeView( btnCheck);
+
+    }
+
+
+
 
     private void activateModePreview() {
         Variables.isClickable=false;
@@ -3300,7 +3505,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         //vamos a probar ocn varios
 
-        View [] misViewsArray={ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediExpProcesada,    ediMarca,    ediPuerto,    ediAgenciaNav,
+        View [] misViewsArray={ediCjasProcesDespacha,ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediExpProcesada,    ediMarca,    ediPuerto,    ediAgenciaNav,
                 ediInspectorAcopio,    ediCedulaI,    ediZona,    ediHoraInicio,    ediHoraTermino,    ediHoraLLegadaContenedor,
                 ediHoraSalidaContenedor,    ediNguiaRemision,    ediNtargetaEmbarque,    ediFotosLlegada,    ediDestino,    ediVapor,
                 ediFotoContenedor,    ediFotosPposcosecha,    ediNumContenedor,    ediCompaniaTransporte,    ediNombreChofer,    ediCedula,
@@ -3316,19 +3521,8 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         };
 
 
-        View [] misViewsArray2OtherVIEWS={ediFechaInicio,
-
-
-        };
-
-
-                //CREAMOS DATA
         HelperEditAndPreviewmode.diseableViewsByTipe(misViewsArray);
 
-
-        //Buttons
-        Button  btnCheck=findViewById(R.id.btnCheck);
-        ///  activateViewsByTypeView( btnCheck);
 
     }
 
@@ -3421,6 +3615,13 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         ediOtherSellos.setText(currentInform.getOtrosSellos());
 
         selectValue(spinnerSelectZona,Variables.CurrenReportContensEnACp.getZona()) ;
+
+
+        ediCjasProcesDespacha.setText(String.valueOf(currentInform.getCajasProcesadasDespachadas()));
+        ediInspectorAcopio.setText(currentInform.getInspectorAcopio());
+        ediCedulaI.setText(String.valueOf(currentInform.getCedulaIdenti()));
+
+
 
 
         // selectValue(spFumigaCorL1,Variables.CurrenReportContensEnACp.fum) ;
