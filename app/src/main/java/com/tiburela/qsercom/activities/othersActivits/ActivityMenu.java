@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
@@ -453,6 +454,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         PerecentHelp.estateForm= new HashMap<>();
         PerecentHelp.listViewsClickedUser =new ArrayList<>();
         showDataByMode();
+
+      PdfMaker. generaPdFtEST(ActivityMenu.this);
+
+
 
     }
 

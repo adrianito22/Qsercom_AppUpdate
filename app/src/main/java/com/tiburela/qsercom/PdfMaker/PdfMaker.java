@@ -28,11 +28,13 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.models.Celda;
 import com.tiburela.qsercom.models.DataToPDF;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.models.TableFifi;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PdfMakerHelper;
 import com.tiburela.qsercom.utils.Utils;
@@ -75,7 +77,45 @@ public class PdfMaker {
     public static int currentPosicionLastYcanvasElement = 0;
 
 
+      public static void generaPdFtEST(Context context){
+          pdfDocument = new PdfDocument();
 
+          /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth y pgae number que ahora es 1 */
+          PdfDocument.PageInfo mypageInfo1 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+
+          // below line is used for setting
+          // start page for our PDF file.
+          /***creamos e iniclizamos un objeto   PdfDocument.Page  Y le gramos la confirguracion o el objeto  mypageInfo */
+          PdfDocument.Page myPage1 = pdfDocument.startPage(mypageInfo1);
+          initPaintObject();
+
+          /*** creating a variable for canvas */
+          Canvas canvas = myPage1.getCanvas();
+
+          addImageHeaderFootterPDF( canvas,context);
+
+          TableFifi.geenraBitmapTest(2,2,2,mipaintLines);
+
+          Bitmap bitm=TableFifi.getBitmap(context,);
+
+       //   Bitmap bim= Bitmap.createBitmap(C elda.micanvasBitmp);
+
+          canvas.drawBitmap(Celda.miBitmap,0,0,mipaintLines);
+
+         // Bitmap mi=Bitmap.draw(canvas);
+
+        //  canvas.setBitmap(myBitmap)
+
+          pdfDocument.finishPage(myPage1); //finalziamos la  pagina 2
+
+
+          //canvas.drawCanvas()
+
+           exportPdxFZ(pdfDocument, context);
+
+
+
+      }
 
     public static void generatePdfReport1(Context context, SetInformEmbarque1 informe1, SetInformEmbarque2 informe2, ProductPostCosecha productPostC) {
          pdfDocument = new PdfDocument();
@@ -100,6 +140,10 @@ public class PdfMaker {
         /****productos poscosecha utilizados  */
 
         int posicionYdondeStartDibujamos = 220;
+
+
+       // exportPdxFZ(pdfDocument, context);
+
 
         //AGREGAMOS LAS TABLAS EN EL CANVAS
 
