@@ -125,10 +125,16 @@ public class PdfMaker {
 
 
 
-        TableFifi table1=new TableFifi(1,3,TableFifi.MATCHSIZE_DOCUEMENTO,percent,10,20,mipaintLines);
+        TableFifi table1=new TableFifi(TableFifi.MATCHSIZE_DOCUEMENTO,2,TableFifi.MATCHSIZE_DOCUEMENTO,percent,10,20,mipaintLines);
 
 
-        table1.DrawTableInCanvasaAndSetText(table1,canvas);
+
+        table1.DrawTableInCanvasaAndSetText(table1,canvas,50,50);
+
+
+
+
+
 
         pdfDocument.finishPage(myPage1); //finalziamos la  pagina 2
 

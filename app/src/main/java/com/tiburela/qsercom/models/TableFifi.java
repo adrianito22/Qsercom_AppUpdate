@@ -7,24 +7,27 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 public class TableFifi {
 
-    //
+    //le cambairemos el size usando marging
+
+    private static  int marginLeft;
+    private static  int marginRigth;
+
+
     private final int UNDER_OF=100;
     private final int LEF_OF=101;
     public static  final int  ANCHO_DOCUEMENTO=595;
-
     public static  final int  MATCHSIZE_DOCUEMENTO=595;
-
-
 
     //RECIBE UN OBJETO ANTERIOR...
 
-    private int ultimaPOsicionXEnd=30; //EN ESTA SPOCIONES VA EMPEZAR LOS DIBUJOS
-    private int ultimaPOsicionYEnd=100; //EN CASO QUE EMPEZCEMOS CON UNA TABLA..
+    private int ultimaPOsicionXEnd=0; //EN ESTA SPOCIONES VA EMPEZAR LOS DIBUJOS
+    private int ultimaPOsicionYEnd=220; //EN CASO QUE EMPEZCEMOS CON UNA TABLA..
 
 
 
@@ -159,10 +162,15 @@ public class TableFifi {
         this.altoCelda=altoCelda;
         this.lines=lines;
         posicionxUlimoElementObj = 0;
-        lisContenidos=new ArrayList<>();
         backgroundCeldFather=new Celda(0,0,0,0);
         list=new ArrayList<>();
+        lisContenidos=new ArrayList<>();
 
+        for(int indice=0; indice<12; indice++){  //TEST PRUEBA
+
+            lisContenidos.add("text Here "+indice);
+
+        }
 
     }
 
@@ -185,22 +193,28 @@ public class TableFifi {
 
 
 
-    public void DrawTableInCanvasaAndSetText (TableFifi tablaObject,Canvas canvas){/// ///EL largo puede ser default...
+    public void DrawTableInCanvasaAndSetText (TableFifi tablaObject,Canvas canvas,int marginLeft,int marginRigth){/// ///EL largo puede ser default...
 
 
         int anchoOcuparaTabla=0;
         double operacion=0;
+        Log.i("debugMaximo","se llamo metodo");
 
 
         /*** creating a variable for canvas */
 
-        if(tablaObject.whitModoTable==1){ // ES 1
+        if(tablaObject.whitModoTable==TableFifi.ANCHO_DOCUEMENTO){ // ES 1 ///la tabla ucpara todo el ancho..
+
+            ultimaPOsicionXEnd=ultimaPOsicionXEnd+marginLeft;
+            anchoOcuparaTabla=ANCHO_DOCUEMENTO-marginRigth-marginLeft;
+           // anchoOcuparaTabla=ANCHO_DOCUEMENTO-marginRigth;
+            Log.i("debugMaximox","el ancho que icupara tabla es : "+anchoOcuparaTabla);
 
 
-            anchoOcuparaTabla=ANCHO_DOCUEMENTO;
+                    //el estart le suamos
 
         }
-        else if(tablaObject.whitModoTable==2) {
+        else if(tablaObject.whitModoTable==2) { //si es dos ocupara solo la mita
 
             operacion=ANCHO_DOCUEMENTO/2;
 
@@ -215,52 +229,115 @@ public class TableFifi {
 
         }
 
+       // int enchoTabla=tablaObject.anchoTable-20; //el - 20 sera el margin derecho...
 
-        Celda celdabackgroundContainer=new Celda(ultimaPOsicionXEnd, anchoOcuparaTabla ,ultimaPOsicionYEnd,tablaObject.list.size()*tablaObject.altoCelda);
 
 
+        ///el numero de filas +1
+
+        Log.i("debugMaximo","el numero de columnas es: "+tablaObject.numColumnas);
+
+        int numeroFilas=tablaObject.lisContenidos.size()/tablaObject.numColumnas;
+
+         Log.i("debugMaximo","el numero de filas es: "+numeroFilas);
+
+          //el seize de esta tabla...//el tercer paraemtro estaba en
+
+        Celda celdabackgroundContainer=new Celda(ultimaPOsicionXEnd, anchoOcuparaTabla ,ultimaPOsicionYEnd,ultimaPOsicionYEnd+ (numeroFilas*tablaObject.altoCelda));
         Paint paintBacdkground= new Paint();
         paintBacdkground.setColor(Color.parseColor("#FFBB86FC"));
-
-
-        //establcer una funciona para deterrminar el ancho position
-
-        canvas.drawRect(ultimaPOsicionXEnd, ultimaPOsicionYEnd,ultimaPOsicionXEnd+ anchoOcuparaTabla, tablaObject.list.size()*tablaObject.altoCelda, paintBacdkground);
-
-
         //actualizamos el ancho que ocupara esta tabla.
         tablaObject.setBackgroundCeldFather(celdabackgroundContainer);
 
 
 
 
-        ArrayList <Celda> celdasList= new ArrayList<>();
+
+    for(int indice=0; indice<numeroFilas+1; indice++){ ///cre lines horizintales
 
 
-
-   /*
-    for(int indice=0; indice<tablaObject.lisContenidos.size(); indice++){
-
-        canvas.drawLine(ultimaPOsicionXEnd,ultimaPOsicionYEnd,ultimaPOsicionXEnd + anchoOcuparaTabla,0,tablaObject.lines);
+        Log.i("debugMaximo","crear lineas horiziontales se ejecuto : "+indice+" veces");
 
 
-        ///linea horizontal
-        canvas.drawLine(0,0,150,0,tablaObject.lines);
+        canvas.drawLine(ultimaPOsicionXEnd,ultimaPOsicionYEnd,anchoOcuparaTabla+50,ultimaPOsicionYEnd,tablaObject.lines);
 
-
-
-        Celda celdabackgroundContainer2=new Celda(ultimaPOsicionXEnd, anchoOcuparaTabla ,ultimaPOsicionYEnd,tablaObject.list.size()*tablaObject.altoCelda);
-        celdasList.add(celdabackgroundContainer2);
-
-
-    }
-
-    */
-
+        ultimaPOsicionYEnd=ultimaPOsicionYEnd+tablaObject.getAltoCelda(); ///con esto basta
 
     }
 
 
+
+
+
+
+        for(int indice=0; indice<tablaObject.numColumnas+1; indice++){ ///crea lineas vertiacles o clumnas
+
+
+            ///linea vertical
+            canvas.drawLine(ultimaPOsicionXEnd,tablaObject.backgroundCeldFather.getStartY(),
+                    ultimaPOsicionXEnd,celdabackgroundContainer.getEndY(),tablaObject.lines);
+
+            Log.i("debugMaximo","dibujamos para el nuemro "+ultimaPOsicionXEnd);
+
+
+            //si como redondiamos nos sale esto... va
+
+            ultimaPOsicionXEnd=ultimaPOsicionXEnd + (anchoOcuparaTabla/numColumnas);
+
+            Log.i("debugMaximo","la ultima posicion x es  "+ultimaPOsicionXEnd);
+
+
+
+
+        }
+
+
+
+        ArrayList<Celda>listCeldas=new ArrayList<>();
+
+        ultimaPOsicionXEnd=celdabackgroundContainer.getStartX();
+        ultimaPOsicionYEnd=celdabackgroundContainer.getStartY();
+
+        for(int indice=0; indice<tablaObject.numColumnas*numeroFilas; indice++){ ///crea values of celdas data..
+
+          //si contien1 12 celdas...
+            Celda celdaObject= new Celda(ultimaPOsicionXEnd,ultimaPOsicionXEnd+(anchoOcuparaTabla/numColumnas),ultimaPOsicionYEnd,ultimaPOsicionYEnd+altoCelda);
+
+            //actializamos las x....
+
+                     listCeldas.add(celdaObject);
+
+                    ultimaPOsicionXEnd=ultimaPOsicionXEnd+(anchoOcuparaTabla/numColumnas);
+
+
+            if(indice % numColumnas==0){ //si es multiplo
+
+                ultimaPOsicionXEnd=celdabackgroundContainer.getStartX();  //x regres a la osicion inicial
+                ultimaPOsicionYEnd=ultimaPOsicionYEnd+tablaObject.altoCelda; //y le sumamos el aalto
+
+
+            }
+
+
+
+        }
+
+
+
+        Log.i("sabums","la lista size es"+listCeldas.size());
+
+
+        ///ACTUALIZAMOS VALOR DE BACGROUND=AUNQUE YA ESTA ECHO ARRIBA
+
+
+
+    }
+
+private void addText(String texto,Canvas canvas,Paint paintText,){
+
+canvas.drawText("",0,2,paintText);
+
+}
 
 
 

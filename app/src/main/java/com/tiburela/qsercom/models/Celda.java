@@ -69,7 +69,7 @@ public class Celda {
         this.endX=endX;
         this.startY=startY;
         this.endY=endY;
-        anchoSize=endX-startX;
+        anchoSize=endX-startX; //CON ESTO OBTENEMOS EL ANCHO DE CADA DIBUJO MAS NO BIEN SITUAMOS...para situar debemos suma end +start..
         altoSize=endY-startY;
     }
 
