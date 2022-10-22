@@ -337,6 +337,7 @@ private void addText(String texto,Canvas canvas,Paint paintText,){
 
 canvas.drawText("",0,2,paintText);
 
+
 }
 
 
