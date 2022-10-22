@@ -1,10 +1,13 @@
 package com.tiburela.qsercom.models;
 
+import static android.view.Gravity.CENTER;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
 import android.util.Log;
@@ -12,6 +15,11 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class TableFifi {
+//align
+    private final int   CENTER_ALIGN=200;
+    private final int   LEFT_ALIGN  =201;
+
+
 
     //le cambairemos el size usando marging
 
@@ -30,9 +38,15 @@ public class TableFifi {
     private int ultimaPOsicionYEnd=220; //EN CASO QUE EMPEZCEMOS CON UNA TABLA..
 
 
+    public ArrayList<Celda> getListCeldas() {
+        return listCeldas;
+    }
 
+    public void setListCeldas(ArrayList<Celda> listCeldas) {
+        this.listCeldas = listCeldas;
+    }
 
-    private ArrayList<Celda> list;
+    private ArrayList<Celda> listCeldas;
 
     public ArrayList<String> getLisContenidos() {
         return lisContenidos;
@@ -134,7 +148,7 @@ public class TableFifi {
                      int numColumnas, int anchoTable, int arrayWidtPercentColums [], int numFilas,
                      int altoCelda, Paint lines) {
 
-        this.list=  listCeldas;
+        this.listCeldas =  listCeldas;
         this.backgroundCeldFather = backgroundCeldFather; //la celda que contien las demas celdas, el cuadro grande
         this.whitModoTable=whitModoTable ;
         this.numColumnas=numColumnas;
@@ -163,7 +177,7 @@ public class TableFifi {
         this.lines=lines;
         posicionxUlimoElementObj = 0;
         backgroundCeldFather=new Celda(0,0,0,0);
-        list=new ArrayList<>();
+        listCeldas =new ArrayList<>();
         lisContenidos=new ArrayList<>();
 
         for(int indice=0; indice<12; indice++){  //TEST PRUEBA
@@ -251,13 +265,9 @@ public class TableFifi {
 
 
 
-
-
     for(int indice=0; indice<numeroFilas+1; indice++){ ///cre lines horizintales
 
-
         Log.i("debugMaximo","crear lineas horiziontales se ejecuto : "+indice+" veces");
-
 
         canvas.drawLine(ultimaPOsicionXEnd,ultimaPOsicionYEnd,anchoOcuparaTabla+50,ultimaPOsicionYEnd,tablaObject.lines);
 
@@ -266,65 +276,69 @@ public class TableFifi {
     }
 
 
-
-
-
-
         for(int indice=0; indice<tablaObject.numColumnas+1; indice++){ ///crea lineas vertiacles o clumnas
 
-
-            ///linea vertical
-            canvas.drawLine(ultimaPOsicionXEnd,tablaObject.backgroundCeldFather.getStartY(),
-                    ultimaPOsicionXEnd,celdabackgroundContainer.getEndY(),tablaObject.lines);
-
-            Log.i("debugMaximo","dibujamos para el nuemro "+ultimaPOsicionXEnd);
-
-
-            //si como redondiamos nos sale esto... va
+            canvas.drawLine(ultimaPOsicionXEnd,tablaObject.backgroundCeldFather.getStartY(), ultimaPOsicionXEnd,celdabackgroundContainer.getEndY(),tablaObject.lines);
 
             ultimaPOsicionXEnd=ultimaPOsicionXEnd + (anchoOcuparaTabla/numColumnas);
 
             Log.i("debugMaximo","la ultima posicion x es  "+ultimaPOsicionXEnd);
 
-
-
-
         }
 
 
 
-        ArrayList<Celda>listCeldas=new ArrayList<>();
 
         ultimaPOsicionXEnd=celdabackgroundContainer.getStartX();
         ultimaPOsicionYEnd=celdabackgroundContainer.getStartY();
 
+        ArrayList<Celda>listCeldaCreate=new ArrayList<>();
+
+        int indiceX=1;
+
         for(int indice=0; indice<tablaObject.numColumnas*numeroFilas; indice++){ ///crea values of celdas data..
 
-          //si contien1 12 celdas...
             Celda celdaObject= new Celda(ultimaPOsicionXEnd,ultimaPOsicionXEnd+(anchoOcuparaTabla/numColumnas),ultimaPOsicionYEnd,ultimaPOsicionYEnd+altoCelda);
 
-            //actializamos las x....
 
-                     listCeldas.add(celdaObject);
-
-                    ultimaPOsicionXEnd=ultimaPOsicionXEnd+(anchoOcuparaTabla/numColumnas);
+            Log.i("coquerop","el SIZE DE ESTE LEEMNTO ES "+celdaObject.getAltoSize());
 
 
-            if(indice % numColumnas==0){ //si es multiplo
+            listCeldaCreate.add(celdaObject);
+            tablaObject.listCeldas=listCeldaCreate;
+
+            addTextInCanvas(tablaObject.lisContenidos.get(indice),canvas,lines,celdaObject,CENTER_ALIGN);
+
+            ultimaPOsicionXEnd=ultimaPOsicionXEnd+(anchoOcuparaTabla/numColumnas);
+
+
+            if(indiceX % numColumnas==0 &&  indice!=0){ //se debe ejecutar al menos 3 veces
+
 
                 ultimaPOsicionXEnd=celdabackgroundContainer.getStartX();  //x regres a la osicion inicial
                 ultimaPOsicionYEnd=ultimaPOsicionYEnd+tablaObject.altoCelda; //y le sumamos el aalto
 
+                Log.i("coquerop","es multiplo el valor de y es  "+ultimaPOsicionYEnd);
+
 
             }
+            indiceX++;
 
-
+            Log.i("sabCELDEBUms","ultima posicicion x es  "+ultimaPOsicionXEnd);
 
         }
 
 
 
-        Log.i("sabums","la lista size es"+listCeldas.size());
+
+
+        for(int indice=0; indice<listCeldas.size(); indice++){
+
+
+            Log.i("haberta","el contenido es "+listCeldas.get(indice).getStartX());
+
+        }
+
 
 
         ///ACTUALIZAMOS VALOR DE BACGROUND=AUNQUE YA ESTA ECHO ARRIBA
@@ -333,12 +347,72 @@ public class TableFifi {
 
     }
 
-private void addText(String texto,Canvas canvas,Paint paintText,){
-
-canvas.drawText("",0,2,paintText);
 
 
-}
+    private void addTextInCanvas(String text,Canvas canvas, Paint paintText,Celda celdaWhereEstaraText ,int tipoAlineacionText){
+
+        Rect bounds = new Rect();
+
+        int sizeAltoCelda =celdaWhereEstaraText.getAltoSize();
+        int text_height = 0;
+        int text_width = 0;
+
+        // paint.setTypeface(Typeface.DEFAULT);// your preference here
+        // paint.setTextSize(25);// have this the same as your text size
+
+        paintText.getTextBounds(text, 0, text.length(), bounds);
+
+        text_height =  bounds.height();
+        text_width =  bounds.width();
+
+        Paint painCentterna = new Paint();
+        painCentterna.setTextAlign(Paint.Align.CENTER);
+
+        int xPos = (canvas.getWidth() / 2);
+        int yPos = (int) ((canvas.getHeight() / 2) - ((painCentterna.descent() + painCentterna.ascent()) / 2)) ;
+        //((textPaint.descent() + textPaint.ascent()) / 2) is the distance from the baseline to the center.
+
+
+        if(tipoAlineacionText==CENTER_ALIGN) {
+         //canvas.drawText(text,celdaWhereEstaraText.getStartX(),celdaWhereEstaraText.getEndX(),celdaWhereEstaraText.getStartX()+10,celdaWhereEstaraText.getStartY(),painCentterna);
+
+          // painCentterna.getTextBounds(text, 0, text.length(), bounds);
+
+            int xPosZ = celdaWhereEstaraText.getStartX() - (int)(painCentterna.measureText(text)/2);
+            int yPosZ = (int) (celdaWhereEstaraText.getStartY() - ((painCentterna.descent() + painCentterna.ascent()) / 2)) ;
+
+            canvas.drawText(text, xPosZ, yPosZ, painCentterna);
+
+
+
+           // canvas.drawText(text, xPos, yPos, painCentterna);
+
+
+        }
+
+
+
+        else if(tipoAlineacionText==CENTER) {
+
+            canvas.drawText(text,celdaWhereEstaraText.getStartX()+10,celdaWhereEstaraText.getStartY()+text_height+(celdaWhereEstaraText.getAltoSize()/4),paintText);
+
+        }
+
+
+
+
+
+
+        Log.i("saeeer","el heigth celda es "+sizeAltoCelda);
+
+        Log.i("saeeer","textHeigth "+text_height);
+
+        Log.i("saeeer","text_width "+text_width);
+
+    }
+
+
+
 
 
 
@@ -473,7 +547,7 @@ canvas.drawText("",0,2,paintText);
         celdasList.add(celdabackgroundContainer);
 
 
-        //   public TableFifi(Canvas tableCanvas,ArrayList<Celda> list,Celda backgroundCeldFather){
+        //   public TableFifi(Canvas tableCanvas,ArrayList<Celda> listCeldas,Celda backgroundCeldFather){
 
 
 

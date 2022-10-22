@@ -2,6 +2,7 @@ package com.tiburela.qsercom.models;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 public class Celda {
 
@@ -63,14 +64,15 @@ public class Celda {
 
 
 
-
     public Celda(int startX, int endX , int startY, int endY){
         this.startX=startX;
         this.endX=endX;
         this.startY=startY;
         this.endY=endY;
         anchoSize=endX-startX; //CON ESTO OBTENEMOS EL ANCHO DE CADA DIBUJO MAS NO BIEN SITUAMOS...para situar debemos suma end +start..
-        altoSize=endY-startY;
+        altoSize=endY -startY;
+
+        Log.i("debuginCewlda","el altosize es "+altoSize);
     }
 
 }
