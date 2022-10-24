@@ -64,6 +64,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
+import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -769,7 +770,10 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
        switch (view.getId()) {
 
            case R.id.btnDowlPdf:
-               createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
+              // createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
+
+               startActivity(new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class));
+
                break;
 
 

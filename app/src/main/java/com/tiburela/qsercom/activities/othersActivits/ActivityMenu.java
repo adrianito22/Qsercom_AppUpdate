@@ -455,7 +455,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         PerecentHelp.listViewsClickedUser =new ArrayList<>();
         showDataByMode();
 
-      PdfMaker. generaPdFtEST(ActivityMenu.this);
+   ///   PdfMaker. generaPdFtEST(ActivityMenu.this);
 
 
 
