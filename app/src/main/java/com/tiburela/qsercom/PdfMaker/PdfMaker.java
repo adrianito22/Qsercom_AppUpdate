@@ -112,7 +112,6 @@ public class PdfMaker {
 //                     int altoCelda, Paint lines) {
 
 
-        ArrayList<Celda> list=new ArrayList<>();
 
         // int whitModoTable , int numColumnas, int anchoTable, int arrayWidtPercentColums [], int numFilas,
         //                     int altoCelda, Paint lines)
@@ -125,11 +124,11 @@ public class PdfMaker {
 
 
 
-        TableFifi table1=new TableFifi(TableFifi.MATCHSIZE_DOCUEMENTO,2,TableFifi.MATCHSIZE_DOCUEMENTO,percent,10,20,mipaintLines);
+      //  TableFifi table1=new TableFifi(TableFifi.MATCHSIZE_DOCUEMENTO,3,TableFifi.MATCHSIZE_DOCUEMENTO,percent,10,20,mipaintLines);
 
 
 
-        table1.DrawTableInCanvasaAndSetText(table1,canvas,50,50);
+      //  table1.DrawTableInCanvasaAndSetText(table1,canvas,50,50);
 
 
 

@@ -1,10 +1,14 @@
 package com.tiburela.qsercom.utils;
 
+import static android.view.Gravity.CENTER;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
@@ -13,19 +17,239 @@ import android.util.Log;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tiburela.qsercom.models.Celda;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.TableFifi;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class Utils {
+
+
+    //aqui agudaremos el alto con el que tendremos que dibujar cada fila..
+
+    public  static ArrayList<Float>  generaAlturaDeFIlaByText(TableFifi objecTableFifi, Paint paintText,int marginTopAndBotton ) {
+
+        ArrayList<Float> altosCurrentFila = new ArrayList<>();
+        ArrayList<Float> altoDeFilas = new ArrayList<>();
+
+        int indiceX = 1;
+        float text_height;
+        for (int indice = 0; indice < objecTableFifi.getLisContenidos().size(); indice++) {
+            Rect bounds = new Rect();
+
+
+            paintText.getTextBounds(objecTableFifi.getLisContenidos().get(indice), 0, objecTableFifi.getLisContenidos().get(indice).length(), bounds);
+
+            if ((paintText.measureText(objecTableFifi.getLisContenidos().get(indice)) + 10 < objecTableFifi.getAnchoTable() / objecTableFifi.getNumColumnas())) {
+
+                String[] textArray = objecTableFifi.getLisContenidos().get(indice).split(" ");
+
+                if (textArray.length == 2) { ////EL SIZE SERA menor...al size que ya esta le restamos -4
+
+                    text_height = bounds.height();
+
+                    altosCurrentFila.add((text_height + text_height)+ 10  );
+
+                    Log.i("slamanra", "se eejcuto cod0033 el alto de este texto sera de" +(text_height + 10 + text_height));
+
+                }
+
+
+               else if (textArray.length == 3) { //si hay dos paabras -6 ejempo de formula al reucior text size
+                    if (paintText.measureText(textArray[0] + " " + textArray[1]) - 10 > objecTableFifi.getAnchoTable() / objecTableFifi.getNumColumnas()) {
+                        ///entonces size mas pequeno y una en cada fila..
+                        //uno en cada fila....
+                        text_height = bounds.height();
+                        altosCurrentFila.add(text_height + 10 + text_height);
+                        Log.i("slamanra", " se exceuto cod 0001 el alto de este texto sera de" +(text_height + 10 + text_height));
+
+
+                    } else {
+                        text_height = bounds.height();
+                        altosCurrentFila.add(text_height + 10 + text_height + 10 + text_height);
+                        Log.i("suma", "el valor de text_height es "+text_height);
+
+                        Log.i("slamanra", "se ejcuto codd0022el alto de este texto sera de" +(text_height + 10 + text_height + 10 + text_height));
+
+
+                    }
+
+
+                }
+
+
+
+
+            }else{
+
+                    text_height =  bounds.height();
+
+                Log.i("slamanra", " se exceuto cod 00555 el alto de este texto sera de" +text_height);
+
+                altosCurrentFila.add(text_height);
+            }
+
+            if (indiceX % objecTableFifi.getNumColumnas() == 0 && indice != 0) { //se debe ejecutar al menos 3 veces
+                Comparator<Float> comparador = Collections.reverseOrder();
+                Collections.sort(altosCurrentFila, comparador);
+                float numFilMasAlta = altosCurrentFila.get(0); //agregamos el numero mayor del alto que ocpuran cada texto
+                altoDeFilas.add(numFilMasAlta + marginTopAndBotton);
+                altosCurrentFila = new ArrayList<>();
+              //  Log.i("slamanra", "la altura de esta fila es  " + numFilMasAlta);
+
+              //  Log.i("slamanra", "el num fila mas alta es " +numFilMasAlta);
+
+            }
+
+            indiceX++;
+
+
+        }
+
+
+        Log.i("slamanraxx", " el size de list es " +altoDeFilas.size());
+
+        return  altoDeFilas;
+    }
+
+
+    public  static ArrayList<Float>  generaAlturaYaNCHODeFIlaByText(TableFifi objecTableFifi, Paint paintText,int marginTopAndBotton ) {
+
+        ArrayList<Float> aNCHOSCurrentFila = new ArrayList<>();
+        ArrayList<Float> altoDeFilas = new ArrayList<>();
+
+        int indiceX = 1;
+        float text_height;
+        for (int indice = 0; indice < objecTableFifi.getLisContenidos().size(); indice++) {
+            Rect bounds = new Rect();
+
+
+            paintText.getTextBounds(objecTableFifi.getLisContenidos().get(indice), 0, objecTableFifi.getLisContenidos().get(indice).length(), bounds);
+
+            if ((paintText.measureText(objecTableFifi.getLisContenidos().get(indice)) + 10 < objecTableFifi.getAnchoTable() / objecTableFifi.getNumColumnas())) {
+
+                String[] textArray = objecTableFifi.getLisContenidos().get(indice).split(" ");
+
+                if (textArray.length == 2) { ////EL SIZE SERA menor...al size que ya esta le restamos -4
+
+                    text_height = bounds.height();
+
+                    aNCHOSCurrentFila.add((text_height + text_height)+ 10  );
+
+                    Log.i("slamanra", "se eejcuto cod0033 el alto de este texto sera de" +(text_height + 10 + text_height));
+
+                }
+
+
+                else if (textArray.length == 3) { //si hay dos paabras -6 ejempo de formula al reucior text size
+                    if (paintText.measureText(textArray[0] + " " + textArray[1]) - 10 > objecTableFifi.getAnchoTable() / objecTableFifi.getNumColumnas()) {
+                        ///entonces size mas pequeno y una en cada fila..
+                        //uno en cada fila....
+                        text_height = bounds.height();
+                        aNCHOSCurrentFila.add(text_height + 10 + text_height);
+                        Log.i("slamanra", " se exceuto cod 0001 el alto de este texto sera de" +(text_height + 10 + text_height));
+
+
+                    } else {
+                        text_height = bounds.height();
+                        aNCHOSCurrentFila.add(text_height + 10 + text_height + 10 + text_height);
+                        Log.i("suma", "el valor de text_height es "+text_height);
+
+                        Log.i("slamanra", "se ejcuto codd0022el alto de este texto sera de" +(text_height + 10 + text_height + 10 + text_height));
+
+
+                    }
+
+
+                }
+
+
+
+
+            }else{
+
+                text_height =  bounds.height();
+
+                Log.i("slamanra", " se exceuto cod 00555 el alto de este texto sera de" +text_height);
+
+                aNCHOSCurrentFila.add(text_height);
+            }
+
+            if (indiceX % objecTableFifi.getNumColumnas() == 0 && indice != 0) { //se debe ejecutar al menos 3 veces
+                Comparator<Float> comparador = Collections.reverseOrder();
+                Collections.sort(aNCHOSCurrentFila, comparador);
+                float numFilMasAlta = aNCHOSCurrentFila.get(0); //agregamos el numero mayor del alto que ocpuran cada texto
+                altoDeFilas.add(numFilMasAlta + marginTopAndBotton);
+                aNCHOSCurrentFila = new ArrayList<>();
+                //  Log.i("slamanra", "la altura de esta fila es  " + numFilMasAlta);
+
+                //  Log.i("slamanra", "el num fila mas alta es " +numFilMasAlta);
+
+            }
+
+            indiceX++;
+
+
+        }
+
+
+        Log.i("slamanraxx", " el size de list es " +altoDeFilas.size());
+
+        return  altoDeFilas;
+    }
+
+
+    public static int generaAnchoColumna(TableFifi objecTableFifi){
+        //num columnas
+         //texto
+
+
+
+
+
+
+
+        return 0;
+     }
+
+public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila){
+
+        float altoTabl=0;
+
+    Log.i("slamanraxxx", "el size de list here es " + altoQueContendraCadaFila.size());
+
+
+    for(int indice=0; indice<altoQueContendraCadaFila.size(); indice++ ){
+
+        altoTabl=altoTabl+altoQueContendraCadaFila.get(indice);
+
+        Log.i("slamanraxxx", "la altura de esta fila es  " + altoQueContendraCadaFila.get(indice));
+
+
+    }
+
+      return altoTabl;
+}
+
+
+
+
+
+
+
+
+
 
   public static final String KEY_IIMAGES_SHARE ="MIMAGEKEYSAHRE";
 
