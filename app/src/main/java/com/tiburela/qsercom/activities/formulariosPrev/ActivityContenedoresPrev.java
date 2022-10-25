@@ -4065,6 +4065,8 @@ private void checkModeVisualitY(){
 
 
                          if(productxGlobal!=null){
+
+                             Variables.currenProductPostCosecha=productxGlobal;
                              setProductosPostcosecha(productxGlobal);
 
                          }
@@ -4413,7 +4415,6 @@ private void checkModeVisualitY(){
 
 
             //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
 
             for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
 

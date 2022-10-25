@@ -11,6 +11,7 @@ import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.PackingListMod;
+import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
@@ -125,7 +126,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static  final int VERTICAL =1200 ;
     public static  final int HORIZONTAL =12001 ;
     public static   int orientacionImagen ;
-
+    public static ProductPostCosecha currenProductPostCosecha;
 
 
     //imagenes pdf ubicaciones POR FILAS

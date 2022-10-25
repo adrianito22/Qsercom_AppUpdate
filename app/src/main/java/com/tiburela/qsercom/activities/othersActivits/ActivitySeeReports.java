@@ -30,6 +30,7 @@ import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivit
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
+import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.PackingListMod;
@@ -83,6 +84,8 @@ public class ActivitySeeReports extends AppCompatActivity {
         listenenrSpinner();
 
         Variables.listImagesToDelete=new ArrayList<String>();
+
+        RealtimeDB.initDatabasesRootOnly();
 
         rootDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
