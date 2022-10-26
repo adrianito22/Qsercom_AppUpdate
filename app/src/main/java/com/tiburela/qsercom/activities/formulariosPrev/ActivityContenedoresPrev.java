@@ -94,6 +94,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements
@@ -309,12 +310,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
 
                    configCertainSomeViewsAliniciar();
 
-
-
-
-                   // Check if user is signed in (non-null) and update UI accordingly.
-                   // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
-                    //  updateUI(currentUs bver)
 
 
 
@@ -1917,11 +1912,13 @@ void checkDataFields(){ //
     }
 
 
-    if(! checkDataCalibFrutaCalEnfn()){
+    if(! checkQueexistminim()){
         Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
 
         return;
-    }else{
+    }else
+
+    {
 
         Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
 
@@ -1995,6 +1992,10 @@ private void createObjcInformeAndUpload(){
 
     //agr5egamos la data finalemente
 
+
+    updateCaledarioEnfunde(informe3);
+
+    //checkQueexistminim();
 
     RealtimeDB.actualizaInformePart1(informe);
     RealtimeDB.actualizaInformePart2(informe2);
@@ -2325,7 +2326,7 @@ private void createObjcInformeAndUpload(){
 
         LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
 
-        if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(Objects.requireNonNull(ediSemana.getText()).toString().isEmpty()){ //chekamos que no este vacia
             ediSemana.requestFocus();
             ediSemana.setError("Este espacio es obligatorio");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
@@ -3878,7 +3879,7 @@ private void checkModeVisualitY(){
      Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
     //AGREGMOS LA DATA EN LOS FILEDS
     addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
-
+    addatainviewsMOREviews(Variables.CurrenReportPart3);
 
     /////vamos a descargar otro..
 
@@ -4395,8 +4396,8 @@ private void checkModeVisualitY(){
 
     }
 
-    private boolean checkDataCalibFrutaCalEnfn(){
 
+    private boolean checkDataCalibFrutaCalEnfn(){
         //le decimos que esta todo bien y omitiremos estos datos....
         return true;
     }
@@ -4427,6 +4428,338 @@ private void checkModeVisualitY(){
             createObjcInformeAndUpload();
 
     }
+
+
+    private boolean checkQueexistminim() {
+
+        TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        TextInputEditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        TextInputEditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        TextInputEditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        TextInputEditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+
+        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
+        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
+        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
+        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
+        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+
+
+        TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
+                ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
+                ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
+
+
+          int indice=0;
+
+
+        for(int i=0; i<array.length; i++){
+
+            TextInputEditText current =array [i];
+
+            if(!current.getText().toString().trim().isEmpty()){
+                String value=current.getText().toString();
+                indice++;
+
+                switch(current.getId()){
+                    case R.id.ediColortSem14:
+                        break;
+
+                    case R.id.ediColortSem13:
+                        break;
+
+                    case R.id.ediColortSem12:
+                        break;
+
+
+                    case R.id.ediColortSem11:
+                        break;
+
+
+                    case R.id.ediColortSem10:
+
+                        break;
+
+
+                    case R.id.ediColortSem9:
+
+                        break;
+
+
+
+                    case R.id.ediNumRcim14:
+                        break;
+
+
+                    case R.id.ediNumRcim13:
+
+                        break;
+
+                    case R.id.ediNumRcim12:
+                        break;
+
+
+                    case R.id.ediNumRcim11:
+                        break;
+
+                    case R.id.ediNumRcim10:
+                        break;
+
+                    case R.id.ediNumRac9:
+                        break;
+
+                    ////ediPorc14
+                    case R.id.ediPorc14:
+                        break;
+
+                    case R.id.ediPorc13:
+                        break;
+
+                    case R.id.ediPorc12:
+                        break;
+
+                    case R.id.ediPorc11:
+                        break;
+
+                    case R.id.ediPorc10:
+                        break;
+
+                    case R.id.ediPsgddsorc9:
+                        break;
+
+
+
+
+                }
+
+            }
+
+        }
+
+if(indice>2) {
+   return true;
+
+}else{
+    ediPsgddsorc9.requestFocus();
+    ediPsgddsorc9.setError("Inserte al menos un valor en este cuadro");
+
+    return false;
+
+}
+
+    }
+
+
+    private boolean updateCaledarioEnfunde(SetInformDatsHacienda informe) {
+
+        TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        TextInputEditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        TextInputEditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        TextInputEditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        TextInputEditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+
+        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
+        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
+        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
+        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
+        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+
+
+        TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
+                ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
+                ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
+
+
+        int indice=0;
+
+
+        for(int i=0; i<array.length; i++){
+
+            TextInputEditText current =array [i];
+
+            if(!current.getText().toString().trim().isEmpty()){
+                String value=current.getText().toString();
+                indice++;
+
+                switch(current.getId()){
+                    case R.id.ediColortSem14:
+                        informe.setColortSem14(value);
+                        break;
+
+                    case R.id.ediColortSem13:
+                        informe.setColortSem13(value);
+                        break;
+
+                    case R.id.ediColortSem12:
+                        informe.setColortSem12(value);
+                        break;
+
+
+                    case R.id.ediColortSem11:
+                        informe.setColortSem11(value);
+                        break;
+
+
+                    case R.id.ediColortSem10:
+                        informe.setColortSem10(value);
+
+                        break;
+
+
+                    case R.id.ediColortSem9:
+                        informe.setColortSem9(value);
+
+                        break;
+
+
+
+                    case R.id.ediNumRcim14:
+                        informe.setNumRcim14(value);
+                        break;
+
+
+                    case R.id.ediNumRcim13:
+
+                        informe.setNumRcim13(value);
+                        break;
+
+                    case R.id.ediNumRcim12:
+                        informe.setNumRcim12(value);
+                        break;
+
+
+                    case R.id.ediNumRcim11:
+                        informe.setNumRcim11(value);
+                        break;
+
+                    case R.id.ediNumRcim10:
+                        informe.setNumRcim10(value);
+                        break;
+
+                    case R.id.ediNumRac9:
+                        informe.setNumRcim9(value);
+                        break;
+
+                    ////ediPorc14
+                    case R.id.ediPorc14:
+                        informe.setPorc14(value);
+                        break;
+
+                    case R.id.ediPorc13:
+                        informe.setPorc13(value);
+                        break;
+
+                    case R.id.ediPorc12:
+                        informe.setPorc12(value);
+                        break;
+
+                    case R.id.ediPorc11:
+                        informe.setPorc11(value);
+                        break;
+
+                    case R.id.ediPorc10:
+                        informe.setPorc10(value);
+                        break;
+
+                    case R.id.ediPsgddsorc9:
+                        informe.setPorc9(value);
+                        break;
+
+
+
+
+                }
+
+            }
+
+        }
+
+        if(indice>2) {
+            return true;
+
+        }else{
+            ediPsgddsorc9.requestFocus();
+            ediPsgddsorc9.setError("Inserte al menos un valor en este cuadro");
+
+            return false;
+
+        }
+
+    }
+
+
+    private void addatainviewsMOREviews(SetInformDatsHacienda informe) {
+
+        TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        TextInputEditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        TextInputEditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        TextInputEditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        TextInputEditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+
+        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
+        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
+        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
+        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
+        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+
+
+
+        ediColortSem14.setText(informe.getColortSem14());
+        ediColortSem13.setText(informe.getColortSem13());
+        ediColortSem12 .setText(informe.getColortSem11());
+        ediColortSem11 .setText(informe.getColortSem11());
+        ediColortSem10 .setText(informe.getColortSem11());
+        ediColortSem9.setText(informe.getColortSem9());
+
+        ediNumRcim14.setText(informe.getNumRcim14());
+        ediNumRcim13.setText(informe.getNumRcim13());
+        ediNumRcim12.setText(informe.getNumRcim12());
+        ediNumRcim11.setText(informe.getNumRcim11());
+        ediNumRcim10.setText(informe.getNumRcim10());
+        ediNumRac9.setText(informe.getNumRcim9());
+
+
+        ediPorc14.setText(informe.getPorc14());
+        ediPorc13.setText(informe.getPorc13());
+        ediPorc12.setText(informe.getPorc12());
+        ediPorc11.setText(informe.getPorc11());
+        ediPorc10.setText(informe.getPorc10());
+        ediPsgddsorc9.setText(informe.getPorc9());
+
+
+
+    }
+
 
 
 

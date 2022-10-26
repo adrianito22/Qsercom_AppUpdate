@@ -1946,16 +1946,19 @@ void checkDataFields(){ //
     }
 
 
-    if(! checkDataCalibFrutaCalEnfn()){
+    if(! checkQueexistminim()){
         Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
 
         return;
-    }else{
+    }else
+
+    {
 
         Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
 
 
     }
+
 
 
 
@@ -2018,11 +2021,11 @@ private void createObjcInformeAndUpload(){
 
     RealtimeDB.addNewInforme(ActivityContenedores.this,informe2);
 
+    updateCaledarioEnfunde(informe3);
+
     RealtimeDB.addNewInforme(informe3);
 
-
     addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
-
 
 
 }
@@ -2044,7 +2047,6 @@ private void createObjcInformeAndUpload(){
 
                 Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
-
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
                 Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
 
@@ -2052,13 +2054,6 @@ private void createObjcInformeAndUpload(){
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
                 showImagesPicShotOrSelectUpdateView(true);
-
-
-
-
-
-                //   Log.i("dtaas","switch a" + "ctivate is "+Variables.currentCuponObjectGlob.isEsActivateCupon());
-                //  Log.i("dtaas","switch destacado  is "+Variables.currentCuponObjectGlob.isEsDestacadoCupon());
 
 
             }
@@ -3526,5 +3521,284 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     }
+
+
+    private boolean checkQueexistminim() {
+
+        TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        TextInputEditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        TextInputEditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        TextInputEditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        TextInputEditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+
+        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
+        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
+        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
+        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
+        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+
+
+        TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
+                ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
+                ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
+
+
+        int indice=0;
+
+
+        for(int i=0; i<array.length; i++){
+
+            TextInputEditText current =array [i];
+
+            if(!current.getText().toString().trim().isEmpty()){
+                String value=current.getText().toString();
+                indice++;
+
+                switch(current.getId()){
+                    case R.id.ediColortSem14:
+                        break;
+
+                    case R.id.ediColortSem13:
+                        break;
+
+                    case R.id.ediColortSem12:
+                        break;
+
+
+                    case R.id.ediColortSem11:
+                        break;
+
+
+                    case R.id.ediColortSem10:
+
+                        break;
+
+
+                    case R.id.ediColortSem9:
+
+                        break;
+
+
+
+                    case R.id.ediNumRcim14:
+                        break;
+
+
+                    case R.id.ediNumRcim13:
+
+                        break;
+
+                    case R.id.ediNumRcim12:
+                        break;
+
+
+                    case R.id.ediNumRcim11:
+                        break;
+
+                    case R.id.ediNumRcim10:
+                        break;
+
+                    case R.id.ediNumRac9:
+                        break;
+
+                    ////ediPorc14
+                    case R.id.ediPorc14:
+                        break;
+
+                    case R.id.ediPorc13:
+                        break;
+
+                    case R.id.ediPorc12:
+                        break;
+
+                    case R.id.ediPorc11:
+                        break;
+
+                    case R.id.ediPorc10:
+                        break;
+
+                    case R.id.ediPsgddsorc9:
+                        break;
+
+
+
+
+                }
+
+            }
+
+        }
+
+        if(indice>2) {
+            return true;
+
+        }else{
+            ediPsgddsorc9.requestFocus();
+            ediPsgddsorc9.setError("Inserte al menos un valor en este cuadro");
+
+            return false;
+
+        }
+
+    }
+
+    private boolean updateCaledarioEnfunde(SetInformDatsHacienda informe) {
+
+        TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        TextInputEditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        TextInputEditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        TextInputEditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        TextInputEditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+
+        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
+        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
+        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
+        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
+        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+
+
+        TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
+                ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
+                ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
+
+
+        int indice=0;
+
+
+        for(int i=0; i<array.length; i++){
+
+            TextInputEditText current =array [i];
+
+            if(!current.getText().toString().trim().isEmpty()){
+                String value=current.getText().toString();
+                indice++;
+
+                switch(current.getId()){
+                    case R.id.ediColortSem14:
+                        informe.setColortSem14(value);
+                        break;
+
+                    case R.id.ediColortSem13:
+                        informe.setColortSem13(value);
+                        break;
+
+                    case R.id.ediColortSem12:
+                        informe.setColortSem12(value);
+                        break;
+
+
+                    case R.id.ediColortSem11:
+                        informe.setColortSem11(value);
+                        break;
+
+
+                    case R.id.ediColortSem10:
+                        informe.setColortSem10(value);
+
+                        break;
+
+
+                    case R.id.ediColortSem9:
+                        informe.setColortSem9(value);
+
+                        break;
+
+
+
+                    case R.id.ediNumRcim14:
+                        informe.setNumRcim14(value);
+                        break;
+
+
+                    case R.id.ediNumRcim13:
+
+                        informe.setNumRcim13(value);
+                        break;
+
+                    case R.id.ediNumRcim12:
+                        informe.setNumRcim12(value);
+                        break;
+
+
+                    case R.id.ediNumRcim11:
+                        informe.setNumRcim11(value);
+                        break;
+
+                    case R.id.ediNumRcim10:
+                        informe.setNumRcim10(value);
+                        break;
+
+                    case R.id.ediNumRac9:
+                        informe.setNumRcim9(value);
+                        break;
+
+                    ////ediPorc14
+                    case R.id.ediPorc14:
+                        informe.setPorc14(value);
+                        break;
+
+                    case R.id.ediPorc13:
+                        informe.setPorc13(value);
+                        break;
+
+                    case R.id.ediPorc12:
+                        informe.setPorc12(value);
+                        break;
+
+                    case R.id.ediPorc11:
+                        informe.setPorc11(value);
+                        break;
+
+                    case R.id.ediPorc10:
+                        informe.setPorc10(value);
+                        break;
+
+                    case R.id.ediPsgddsorc9:
+                        informe.setPorc9(value);
+                        break;
+
+
+
+
+                }
+
+            }
+
+        }
+
+        if(indice>2) {
+            return true;
+
+        }else{
+            ediPsgddsorc9.requestFocus();
+            ediPsgddsorc9.setError("Inserte al menos un valor en este cuadro");
+
+            return false;
+
+        }
+
+    }
+
+
 
 }

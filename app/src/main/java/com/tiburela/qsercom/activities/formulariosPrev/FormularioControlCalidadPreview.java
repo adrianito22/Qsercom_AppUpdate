@@ -23,6 +23,7 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -2584,6 +2585,141 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
         RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
         RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload, Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
+
+    }
+
+
+    private void updateDatosHdaEnfunde(SetInformDatsHacienda informe) {
+
+
+
+        TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        TextInputEditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        TextInputEditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        TextInputEditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        TextInputEditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+
+        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
+        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
+        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
+        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
+        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+
+
+        TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
+                ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
+                ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
+
+
+           for(int i=0; i<array.length; i++){
+
+               TextInputEditText current =array [i];
+
+               if(!current.getText().toString().trim().isEmpty()){
+                   String value=current.getText().toString();
+                   switch(current.getId()){
+                       case R.id.ediColortSem14:
+                           informe.setColortSem14(value);
+                           break;
+
+                       case R.id.ediColortSem13:
+                           informe.setColortSem13(value);
+                           break;
+
+                       case R.id.ediColortSem12:
+                           informe.setColortSem12(value);
+                           break;
+
+
+                       case R.id.ediColortSem11:
+                           informe.setColortSem11(value);
+                           break;
+
+
+                       case R.id.ediColortSem10:
+                           informe.setColortSem10(value);
+
+                           break;
+
+
+                       case R.id.ediColortSem9:
+                           informe.setColortSem9(value);
+
+                           break;
+
+
+
+                       case R.id.ediNumRcim14:
+                           informe.setNumRcim14(value);
+                           break;
+
+
+                       case R.id.ediNumRcim13:
+
+                           informe.setNumRcim13(value);
+                           break;
+
+                       case R.id.ediNumRcim12:
+                           informe.setNumRcim12(value);
+                           break;
+
+
+                       case R.id.ediNumRcim11:
+                           informe.setNumRcim11(value);
+                           break;
+
+                       case R.id.ediNumRcim10:
+                           informe.setNumRcim10(value);
+                           break;
+
+                       case R.id.ediNumRac9:
+                           informe.setNumRcim9(value);
+                           break;
+
+                           ////ediPorc14
+                       case R.id.ediPorc14:
+                           informe.setPorc14(value);
+                           break;
+
+                       case R.id.ediPorc13:
+                           informe.setPorc13(value);
+                           break;
+
+                       case R.id.ediPorc12:
+                           informe.setPorc12(value);
+                           break;
+
+                       case R.id.ediPorc11:
+                           informe.setPorc11(value);
+                           break;
+
+                       case R.id.ediPorc10:
+                           informe.setPorc10(value);
+                           break;
+
+                       case R.id.ediPsgddsorc9:
+                           informe.setPorc9(value);
+                           break;
+
+
+
+
+                   }
+
+               }
+
+           }
+
 
     }
 

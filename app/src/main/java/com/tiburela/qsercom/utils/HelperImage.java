@@ -120,7 +120,7 @@ public class HelperImage {
 
 
 
-    public static ArrayList<ImagesToPdf> createImagesSet(ArrayList<ImagesToPdf>allImagesData,int categoriaBuscar) {
+    public static ArrayList<ImagesToPdf> getImagesWhitthisCATEGORY(ArrayList<ImagesToPdf>allImagesData, int categoriaBuscar) {
         ArrayList<ImagesToPdf> imAGESpdfSet = new ArrayList<ImagesToPdf>();
 
 

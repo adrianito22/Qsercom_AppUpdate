@@ -2,7 +2,6 @@ package com.tiburela.qsercom.PdfMaker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,13 +27,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.models.Celda;
 import com.tiburela.qsercom.models.DataToPDF;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.models.TableFifi;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PdfMakerHelper;
 import com.tiburela.qsercom.utils.Utils;
@@ -223,7 +220,7 @@ public class PdfMaker {
 
         currentCanvasObjec= currentPagePdfObjec.getCanvas();
         //obtenbemos solo una lista que contenga fotos llegada...
-        currentListImagesSeccion= HelperImage.createImagesSet(HelperImage.imAGESpdfSetGlobal,Variables.FOTO_LLEGADA);
+        currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORY(HelperImage.imAGESpdfSetGlobal,Variables.FOTO_LLEGADA);
         //agregamos fotos llegada
         Log.i("contabur","el SIZE DE ESTA SECCION  ES "+currentListImagesSeccion.size());
         addImageHeaderFootterPDF(currentCanvasObjec,context);

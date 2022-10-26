@@ -29,6 +29,7 @@ public static String  paqueteName="com.tiburela.qsercom";
 
     public static  int   activityCurrent;
 
+    public static final  int   PROCESO_FRUT_IN_FINCA=13000;
 
     public static String nodoDondeEstaHashMapQueReciensubimos;
 

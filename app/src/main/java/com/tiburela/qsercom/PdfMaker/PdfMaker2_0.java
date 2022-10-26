@@ -303,28 +303,159 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-          /**DATOS DE PROCESO*/
+          /**DATOS DE PROCESO parte 1 */
 
-          //Tendra 9 values..
+        float sizeColumns7[]= {1,2,2,2,2,2,2,2,2};
+        table1=  new Table(sizeColumns7);
 
 
-        DeviceRgb dvolor= new DeviceRgb(255, 255, 255);
-     //   table.setStrokeColor(dvolor);
-      //  SolidBorder ADDD= new SolidBorder(dvolor, 3);
-        Border boder2= new GrooveBorder(dvolor, 3);
-        Cell cell= new Cell();
 
-      //  table.addCell(new Cell().add(fgf).setBorderTop(ADDD));
-       // table.addCell(new Cell().add(fgf).setBorderTop(ADDD));
-              //table.addCell(new Cell().add(fgf));
-        //      table.addHeaderCell(pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.logopdf),PdfMaker2_0.this));
-            //  table.addCell(new Cell().add(fgf));
-          //  table.addCell(new Cell().add(pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.logopdf),PdfMaker2_0.this)));
-          //  table.setBorder(boder2);
-        // table.setBackgroundColor(dvolor);
-      // Paragraph mipara= new Paragraph("sdfsdsd");
-      //  table.setBorder(boder2);
-      //  midocumento.add(table);
+        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+
+        cell0.setBackgroundColor(rgbColor); //editamos el color
+        table1.addCell(cell0);
+
+
+       table1 =    HelperPdf.createTable2(table1,rgbColor,Variables.CurrenReportPart2) ;
+
+
+        table1.setWidth(pageSize.getWidth()-120f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginLeft(60f);
+        table1.setMarginRight(20f);
+        table1.setMarginTop(5f);
+        midocumentotoAddData.add(table1);
+
+
+
+        /**DATOS DE PROCESO parte 2 */
+
+        float sizeColumns8[]= {1,2,2,2,2};
+        table1=  new Table(sizeColumns8);
+
+
+        table1 =    HelperPdf.createTable3(table1,rgbColor,Variables.CurrenReportPart2) ;
+        table1.setWidth(pageSize.getWidth()-120f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginLeft(60f);
+        table1.setMarginRight(20f);
+        table1.setMarginTop(0f);
+        midocumentotoAddData.add(table1);
+
+
+
+        //CREMOASPRIMERATABLA tipo plastricoy tipo de caja     ,
+
+        /**DATOS DE PROCESO parte 1 */
+
+        float sizeColumns9[]= {1,1,1,1,1,1,1,1,1};
+        table1=  new Table(sizeColumns9);
+
+
+
+        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+
+        cell0.setBackgroundColor(rgbColor); //editamos el color
+        table1.addCell(cell0);
+
+
+        table1 =    HelperPdf.createTable2(table1,rgbColor,Variables.CurrenReportPart2) ;
+
+
+        table1.setWidth(pageSize.getWidth()-120f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginLeft(60f);
+        table1.setMarginRight(20f);
+        table1.setMarginTop(5f);
+        midocumentotoAddData.add(table1);
+
+
+
+        /**DATOS DE PROCESO parte 3 */
+
+        float sizeColumns10[]= {1,1,1,1,1,1,1};
+        table1=  new Table(sizeColumns10);
+
+
+        table1 =HelperPdf.createTbale6(table1,Variables.CurrenReportPart3,rgbColor) ;
+        table1.setWidth(pageSize.getWidth()-120f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginLeft(60f);
+        table1.setMarginRight(20f);
+        table1.setMarginTop(0f);
+        midocumentotoAddData.add(table1);
+
+        /**CONTROL DE GANCHOI**/
+
+
+
+        float araycolum[]= {1,2};
+        table1=  new Table(araycolum);
+
+        Cell cellHeader2= new Cell(1,2).setBackgroundColor(rgbColor);
+        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        table1.addCell(cellHeader2);
+
+        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,8,Variables.currenProductPostCosecha);
+
+
+        Log.i("debugtablesss","el size de dataTOtable2 es "+dataTOtable2.size());
+
+        listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
+
+        Log.i("debugtablesss","el size de listCellsToTabCurrentTab2 es "+listCellsToTabCurrentTab2.size());
+
+
+        addCellsInTable(listCellsToTabCurrentTab2,table1);
+
+
+        table1.setWidth(pageSize.getWidth()-120f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginLeft(60f);
+        table1.setMarginRight(20f);
+        table1.setMarginTop(0f);
+        midocumentotoAddData.add(table1);
+
+
+
+        /**Calibracion de fruta calnedario de enfunde*/
+
+         table1= HelperPdf.createTABLEcalendarioEnfude(table1,rgbColor,Variables.CurrenReportPart3);
+
+        table1.setWidth(pageSize.getWidth()-120f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginLeft(60f);
+        table1.setMarginRight(20f);
+        table1.setMarginTop(0f);
+        midocumentotoAddData.add(table1);
+
+
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+
+   /**descripcion de defectos de fruta*/
+
+   //agregamos el hedaer
+        /**add header imagen*/
+        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),PdfMaker2_0.this,5);
+        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
+        float araycolumzz[]= {1,1,1,1,1,1};
+        table1=  new Table(araycolumzz);
+
+        table1=HelperPdf.descripciondEFECXTOSFRUTA(table1);
+
+        table1.setWidth(pageSize.getWidth()-120f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginLeft(60f);
+        table1.setMarginRight(20f);
+        table1.setMarginTop(8f);
+        midocumentotoAddData.add(table1);
+
+
+        /**Agregamos anexos*/
+
 
 
         midocumentotoAddData.close();
@@ -378,6 +509,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
     }
 */
+
+
 
 
 }

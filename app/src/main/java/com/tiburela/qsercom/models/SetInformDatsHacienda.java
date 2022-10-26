@@ -25,6 +25,32 @@ public class SetInformDatsHacienda {
     private String colortSem11;
     private String colortSem10;
 
+    public String getColortSem9() {
+        return colortSem9;
+    }
+
+    public void setColortSem9(String colortSem9) {
+        this.colortSem9 = colortSem9;
+    }
+
+    public String getNumRcim9() {
+        return numRcim9;
+    }
+
+    public void setNumRcim9(String numRcim9) {
+        this.numRcim9 = numRcim9;
+    }
+
+    public String getPorc9() {
+        return porc9;
+    }
+
+    public void setPorc9(String porc9) {
+        this.porc9 = porc9;
+    }
+
+    private String colortSem9;
+
 
 
     //digamos q son las ultimas 5 semanas...
@@ -34,12 +60,15 @@ public class SetInformDatsHacienda {
     private String numRcim12;  //antepenultimo
     private String numRcim11;  //trasantepenúltimo
     private String numRcim10;  //
+    private String numRcim9;
 
     private String porc14;
     private String porc13;
     private String porc12;
     private String porc11;
     private String porc10;
+    private String porc9;
+
 
     public String getKeyFirebase() {
         return keyFirebase;
@@ -279,16 +308,22 @@ this.ediRacimProces=ediRacimProces;
     colortSem12="";
     colortSem11="";
     colortSem10="";
+    colortSem9="";
+
     numRcim14  ="";
     numRcim13  ="";
     numRcim12  ="";
     numRcim11  ="";
     numRcim10  ="";
-    porc14="";
+        numRcim9  ="";
+
+
+        porc14="";
     porc13="";
     porc12="";
     porc11="";
     porc10="";
+    porc9="";
 
    this.uniqueIDinformeDatsHda = uniqueIDinformeDatsHda;
 
