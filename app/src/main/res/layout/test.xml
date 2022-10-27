@@ -36,7 +36,7 @@
                         android:textColor="@android:color/white" />
 
                     <ImageView
-                        android:id="@+id/imageGupdate"
+                        android:id="@+id/imgupdateInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
@@ -1316,7 +1316,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="100dp"
+                        android:layout_width="95dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:gravity="center_horizontal">
@@ -1340,7 +1340,7 @@
                         android:gravity="center_horizontal">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediTotalPesoL1"
+                            android:id="@+id/ediTotalPesoLAll"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="14sp" />
@@ -1384,8 +1384,21 @@
                             android:inputType="number"
                             android:textSize="14sp" />
 
+
+
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <Space
+                        android:layout_width="185dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtTotalDefect"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="0"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
@@ -1395,7 +1408,7 @@
                     android:id="@+id/tttttttt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:gravity="left"
                     android:orientation="horizontal">
@@ -1403,9 +1416,10 @@
 
                     <TextView
                         android:id="@+id/textView50"
-                        android:layout_width="85dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
+                        android:gravity="center"
                         android:text="%"
                         android:textSize="20sp" />
 

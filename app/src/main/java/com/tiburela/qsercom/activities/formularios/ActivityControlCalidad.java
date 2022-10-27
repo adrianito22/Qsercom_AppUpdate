@@ -156,6 +156,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     ImageView imgUpdateCalibBasalYapical;
     ImageView imgUpdateNumPulpaApulpa;
 
+    ImageView imgupdateInfo;
 
     TextInputEditText ediTimeHoraxx1;
     TextInputEditText ediTimeHoraxx2;;
@@ -406,14 +407,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     ArrayList<Integer> langList = new ArrayList<>();
 
-    ArrayList<ArrayList<Boolean>> listOfLISTState = new ArrayList<>(); //serian unas dies listas...
 
     HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb = new HashMap<>(); //serian unas dies listas...
     HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb2 = new HashMap<>(); //serian unas dies listas...
 
 
 
-    ArrayList<ArrayList<Boolean>> listOfLISTState2 = new ArrayList<>(); //serian unas dies listas...
 
 
     String[] arrayDefect1;
@@ -513,6 +512,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
 
+        imgupdateInfo= findViewById(R.id.imgupdateInfo);
+
         imvEmpaque1=findViewById(R.id.imvEmpaque1);
         imvEmpaque2=findViewById(R.id.imvEmpaque2);
         imvEmpaque3=findViewById(R.id.imvEmpaque3);
@@ -551,7 +552,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         textView48=findViewById(R.id.textView48);
 
-        txtTotal=findViewById(R.id.txttotal);
+      //  txtTotal=findViewById(R.id.txttotal);
 
         ediPesoL1=findViewById(R.id. ediPesoL1);
         ediPesoL2=findViewById(R.id. ediPesoL2);
@@ -848,7 +849,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         imgUpdateCalibBasalYapical.setOnClickListener(this);
         imgUpdateNumPulpaApulpa.setOnClickListener(this);
 
-
+        imgupdateInfo.setOnClickListener(this);
 
 
 
@@ -892,61 +893,61 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     void muestraResultado()  {
 
-        ArrayList <Integer> result10 = new ArrayList<Integer>();
 
-        int resultadoSuMA;
-
-        for(int indice2=0; indice2<listOfLISTState.size(); indice2++){  //lista de listas
-            resultadoSuMA=0;
-
-            for(int indice=0; indice<listOfLISTState.get(indice2).size(); indice++){  //recorremos la lista actual
+        int keysToAddData1[] ={R.id.imgSelecDefc1,R.id.imgSelecDefc2,R.id.imgSelecDefc3,R.id.imgSelecDefc4,R.id.imgSelecDefc5,
+                R.id.imgSelecDefc6,R.id.imgSelecDefc7 ,R.id.imgSelecDefc8,R.id.imgSelecDefc9,R.id.imgSelecDefc10} ;
 
 
-                if(listOfLISTState.get(indice2).get(indice)){
-                    resultadoSuMA=resultadoSuMA+1;
+        int keysToAddData2[] ={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,R.id.imvEmpaque5,
+                R.id.imvEmpaque6, R.id.imvEmpaque7,R.id.imvEmpaque8,R.id.imvEmpaque9,R.id.imvEmpaque10} ;
+
+
+        TextView ararYTEXVIEWS[] ={txtTotal1,txtTotal2,txtTotal3,txtTotal4,txtTotal5,
+                txtTotal6,txtTotal7,txtTotal8,txtTotal9, txtTotal10} ;
+
+        int contadorCheked;
+
+
+        for(int indice2=0; indice2<ararYTEXVIEWS.length; indice2++){  //lista de listas
+            contadorCheked=0;
+
+            if (HashMapOfListWhitStatesCHeckb.containsKey(String.valueOf(keysToAddData1[indice2]))) {
+
+                ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb.get(String.valueOf(keysToAddData1[indice2]));
+                for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
+
+                    if(currentList.get(indice)){ //si es verdadero
+                        contadorCheked++;
+
+                    }
 
                 }
-
-
-
 
             }
 
 
-            result10.add(resultadoSuMA);
-            //aqui ya debemos tener el resultado
+            //par hasmpa2
+            if (HashMapOfListWhitStatesCHeckb2.containsKey(String.valueOf(String.valueOf(keysToAddData2[indice2])))) {
+
+                ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(String.valueOf(keysToAddData2[indice2])));
+                for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
+
+                    if(currentList.get(indice)){ //si es verdadero
+                        contadorCheked++;
+
+                    }
+
+                }
+
+            }
+
+            ararYTEXVIEWS[indice2].setText(String.valueOf(contadorCheked));
 
 
         }
 
 
 
-
-        int resultadotodo=0;
-        for(int indice=0; indice<result10.size(); indice++){  //recorremos la lista actual
-
-
-            resultadotodo=resultadotodo+result10.get(indice);
-
-
-            Log.i("sumarr","el valor es "+result10.get(indice));
-
-
-        }
-
-        txtTotal.setText(String.valueOf(resultadotodo));
-
-
-        txtTotal1.setText(String.valueOf(result10.get(0)));
-        txtTotal2.setText(String.valueOf(result10.get(1)));
-        txtTotal3.setText(String.valueOf(result10.get(2)));
-        txtTotal4.setText(String.valueOf(result10.get(3)));
-        txtTotal5.setText(String.valueOf(result10.get(4)));
-        txtTotal6.setText(String.valueOf(result10.get(5)));
-        txtTotal7.setText(String.valueOf(result10.get(6)));
-        txtTotal8.setText(String.valueOf(result10.get(7)));
-        txtTotal9.setText(String.valueOf(result10.get(8)));
-        txtTotal10.setText(String.valueOf(result10.get(9)));
 
 
 
@@ -1056,13 +1057,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-            case R.id.textView48:
-
-                muestraResultado();
-
-                break;
-
-
             case R.id.imgUpdateCalibBasalYapical:
                 getCalibraEntreBasalYapiclProduct();
 
@@ -1089,11 +1083,80 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 break;
 
 
+            case R.id.imgupdateInfo:
+
+                muestraaLLResults();
+                muestraResultado();
+
+                break;
 
 
         }
 
     }
+
+
+     void muestraaLLResults() {
+
+        TextInputEditText ediTotalPesoLAll=findViewById(R.id.ediTotalPesoLAll);
+        TextInputEditText ediNumClusInspAll=findViewById(R.id.ediNumClusInspAll);
+
+         TextInputEditText ediPromedioPorc=findViewById(R.id.ediAllPesoLibraPorcent);
+         TextInputEditText alNumClustPercent =findViewById(R.id.alNumClustPercent);
+         TextView txtTotalDefect   =findViewById(R.id.txtTotalDefect);
+
+
+
+         float allPesoLibras =0;
+         int  numeroClustersInspecc=0;
+
+         int  contadorValoresPeso=0;
+         int  contadorValrsCloseterIns=0;
+
+         TextInputEditText [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
+
+         TextInputEditText [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+                 ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+
+
+
+          for(int i=0;i<arrayPesoS.length;i++) {
+
+              if(! arrayPesoS [i].getText().toString().trim().isEmpty()){
+                  allPesoLibras =allPesoLibras+ Float.parseFloat(arrayPesoS [i].getText().toString());
+
+                  contadorValoresPeso++ ;
+
+              }
+
+
+              if( !arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty()){
+                  numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayPesoS [i].getText().toString());
+
+                  contadorValrsCloseterIns++ ;
+              }
+          }
+
+
+try {
+    ediTotalPesoLAll.setText(String.valueOf(allPesoLibras));
+    ediNumClusInspAll.setText(String.valueOf(numeroClustersInspecc));
+
+    ediPromedioPorc.setText(String.valueOf((int)allPesoLibras/contadorValoresPeso));
+    alNumClustPercent.setText(String.valueOf(numeroClustersInspecc/contadorValrsCloseterIns));
+
+}
+catch (Exception e) {
+
+    e.printStackTrace();
+
+
+
+}
+
+
+
+     }
 
 
     void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
@@ -1115,7 +1178,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     //cuando selecione une ...obtenemos la poisicion..
                     //j
 
-                    // listOfLISTState.get(posicionListOfLIST).set(i,true);
                     HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,true);
 
                     // when checkbox selected
@@ -1127,7 +1189,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     // when checkbox unselected
                     // Remove position from langList
 
-                    // listOfLISTState.get(posicionListOfLIST).set(i,false);
                     HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,false);
 
                     //  langList.remove(Integer.valueOf(i));
@@ -1166,7 +1227,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(j,false);
 
-                    //listOfLISTState.get(posicionListOfLIST).set(j,false);
 
                 }
 
@@ -1250,7 +1310,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(j,false);
 
-                    //listOfLISTState.get(posicionListOfLIST).set(j,false);
 
                 }
 
@@ -2245,7 +2304,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
             HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
-            ///  listOfLISTState.add(listItem);
 
         }
 
