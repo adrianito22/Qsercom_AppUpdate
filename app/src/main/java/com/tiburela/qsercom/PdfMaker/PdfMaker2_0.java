@@ -14,6 +14,7 @@ import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -65,29 +66,29 @@ public class PdfMaker2_0 extends AppCompatActivity {
             e.printStackTrace();
 
             Log.i("debbdf","la excepcion es "+e.getMessage());
-       }
+        }
 
     }
 
 
 
     public void createPDF() throws FileNotFoundException {
-         String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+        String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         //doble chekeo si la current canvas object no fue terminada la finalizamos
         // pdfDocument.finishPage(currentPagePdfObjec) ;
         File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File file = new File(directory, UUID.randomUUID().toString() + ".pdf");
-           //chekear si existe si es asi sobrescribirlo
+        //chekear si existe si es asi sobrescribirlo
 
 
-             OutputStream estrema =new FileOutputStream(file);
-             PdfWriter writer = new PdfWriter(file); //le pasmaos el file
+        OutputStream estrema =new FileOutputStream(file);
+        PdfWriter writer = new PdfWriter(file); //le pasmaos el file
 
-            PdfDocument miPFDocumentkernel= new PdfDocument(writer);
-               PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
-              PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
-             Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
-             midocumentotoAddData.setMargins(0, 0, 0, 0);
+        PdfDocument miPFDocumentkernel= new PdfDocument(writer);
+        PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
+        PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
+        Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
+        midocumentotoAddData.setMargins(0, 0, 0, 0);
 
 
 
@@ -96,15 +97,20 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         /**add header imagen*/
-        Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),PdfMaker2_0.this,5);
-       // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
+        Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER)
         midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+        Rectangle remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+        float y = remaining.getTop();
+        Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() en logo es ES "+y);
 
+
+        float position = midocumentotoAddData.getRenderer().getCurrentArea().getBBox().getTop();
+        Log.i("miodatr","el mi logoqsercom "+position);
 
 
         //float sizeColumnsTableTitle[]= {1};
-       Table tableTitle=  new Table(1);
+        Table tableTitle=  new Table(1);
 
         /**TABLE TITULO EXPORTADORA SOLICTADA y procesada*/
         Cell cell1= new Cell().add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
@@ -127,26 +133,26 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**EMPEZAMOS CON LAS TABLAS*/
         float sizeColumns[]= {1,3};
         Table table1=  new Table(sizeColumns);
-       // table1.
+        // table1.
 
         DeviceRgb rgbColor= new DeviceRgb(153, 255, 229); //color verde claro
 
 
-            /**add primer cuadro..*/
-            //crea list de celds...y add values...
-            ArrayList<NameAndValue>dataTOtable1=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,1,Variables.currenProductPostCosecha);
-            HashMap<String,Cell> listCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable1,50,0);
+        /**add primer cuadro..*/
+        //crea list de celds...y add values...
+        ArrayList<NameAndValue>dataTOtable1=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,1,Variables.currenProductPostCosecha);
+        HashMap<String,Cell> listCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable1,50,0);
 
 
 
         //editamos la tabla 1
-            listCellsToTabCurrentTab.get("0name").setBackgroundColor(rgbColor);
-            listCellsToTabCurrentTab.get("0value").setBackgroundColor(rgbColor);
+        listCellsToTabCurrentTab.get("0name").setBackgroundColor(rgbColor);
+        listCellsToTabCurrentTab.get("0value").setBackgroundColor(rgbColor);
 
-            ///productos postcosecha
+        ///productos postcosecha
 
-            addCellsInTable(listCellsToTabCurrentTab,table1);
-          table1.setWidth(pageSize.getWidth()-100f);
+        addCellsInTable(listCellsToTabCurrentTab,table1);
+        table1.setWidth(pageSize.getWidth()-100f);
         table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
         table1.setMarginLeft(40f);
         table1.setMarginRight(20f);
@@ -155,10 +161,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-       /**productos postosecha*/
+        /**productos postosecha*/
 
         float sizeColumns2[]= {1,1};
-         table1=  new Table(sizeColumns2);
+        table1=  new Table(sizeColumns2);
 
         Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
 
@@ -180,7 +186,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1.setMarginRight(20f);
         midocumentotoAddData.add(table1);
 
-       // table1.setMarginTop(10f);
+        // table1.setMarginTop(10f);
 
         /**DATOS  DE CONTENEDOR***/
 
@@ -194,7 +200,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,3,Variables.currenProductPostCosecha);
+        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,3,Variables.currenProductPostCosecha);
         listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
         ///LA POSICION 5 LA EDITAMOS
         listCellsToTabCurrentTab2.get("2value").setBackgroundColor(rgbColor); //editamos el color
@@ -232,7 +238,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1.setMarginRight(20f);
         midocumentotoAddData.add(table1);
 
-         /**SELLLOS INSTALADOS*/
+        /**SELLLOS INSTALADOS*/
 
 
         float sizeColumns5[]= {1,2,1,1};
@@ -263,18 +269,18 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-          //agregamos el header
+        //agregamos el header
 
 
 
-           /**DATOS DE TRANSPORTISTA */
+        /**DATOS DE TRANSPORTISTA */
 
         /**add header imagen*/
-         imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),PdfMaker2_0.this,5);
-        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
-           ///AGREGAMOS LA IMAGEN HEADER AQUI
+         imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+         midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
+        ///AGREGAMOS LA IMAGEN HEADER AQUI
 
 
         float sizeColumns6[]= {4,5};
@@ -290,7 +296,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
 
         //editamos otras columnas 10
-       // listCellsToTabCurrentTab2.get("10value"); //editamos el color
+        // listCellsToTabCurrentTab2.get("10value"); //editamos el color
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
@@ -303,7 +309,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-          /**DATOS DE PROCESO parte 1 */
+        /**DATOS DE PROCESO parte 1 */
 
         float sizeColumns7[]= {1,2,2,2,2,2,2,2,2};
         table1=  new Table(sizeColumns7);
@@ -316,7 +322,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1.addCell(cell0);
 
 
-       table1 =    HelperPdf.createTable2(table1,rgbColor,Variables.CurrenReportPart2) ;
+        table1 =    HelperPdf.createTable2(table1,rgbColor,Variables.CurrenReportPart2) ;
 
 
         table1.setWidth(pageSize.getWidth()-120f);
@@ -420,7 +426,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**Calibracion de fruta calnedario de enfunde*/
 
-         table1= HelperPdf.createTABLEcalendarioEnfude(table1,rgbColor,Variables.CurrenReportPart3);
+        table1= HelperPdf.createTABLEcalendarioEnfude(table1,rgbColor,Variables.CurrenReportPart3);
 
         table1.setWidth(pageSize.getWidth()-120f);
         table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -433,11 +439,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
 
-   /**descripcion de defectos de fruta*/
+        /**descripcion de defectos de fruta*/
 
-   //agregamos el hedaer
+        //agregamos el hedaer
         /**add header imagen*/
-        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),PdfMaker2_0.this,5);
+
+        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
         // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
         midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
@@ -453,9 +460,52 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1.setMarginTop(8f);
         midocumentotoAddData.add(table1);
 
+        float ancho=pageSize.getWidth();   //MAS O MENOS EL DE LA ULTIMA TABLA
+        float alto=pageSize.getHeight();
+
+
+        Log.i("miodatr","el ancho del doc es "+ancho);
+        Log.i("miodatr","el alto  del doc es "+alto);
+
+
+
+
+        /**Agregamos Certificacion texto*/
+
+        Paragraph title= new Paragraph("CERTIFICACION").setFontSize(12f);
+
+        midocumentotoAddData.add(title);
+        midocumentotoAddData.add(new Paragraph("Estimados").setFontSize(9f).setMarginTop(5f));
+        midocumentotoAddData.add(new Paragraph("Certifico la calidsd y porcentaje de calidad semana 35, marca del monte").setFontSize(9f).setMarginTop(5f));
+        midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f));
+        midocumentotoAddData.add(new Paragraph("Tabla1.-Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f));
+
+        float sizeColumnsx[]= {2,1,2,2};
+        table1=  new Table(sizeColumnsx);
+        //aqyi agrega la data y despues agrega esto...
+
+
+        ///algoritimo crea
+
+
+        midocumentotoAddData.close();
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+
+         /////
+
+
 
         /**Agregamos anexos*/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        //agregamaos el header
+        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
+
+        /**FOTOS LLEGADA */
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA,"FRUTAS EN FINCA",midocumentotoAddData,pageSize,PdfMaker2_0.this);
 
 
         midocumentotoAddData.close();
@@ -467,25 +517,25 @@ public class PdfMaker2_0 extends AppCompatActivity {
     private void addCellsInTable(HashMap<String,Cell >hasmpa, Table table){
         for(int indice=0; indice<hasmpa.size(); indice++) {
 
-           if(hasmpa.containsKey(indice+"name")){
-               Log.i("mismundo","si hay  name");
+            if(hasmpa.containsKey(indice+"name")){
+                Log.i("mismundo","si hay  name");
 
-               table.addCell(hasmpa.get(indice+"name"));
-           }else{
+                table.addCell(hasmpa.get(indice+"name"));
+            }else{
 
-               Log.i("mismundo","no contiene name");
-           }
+                Log.i("mismundo","no contiene name");
+            }
 
-           if(hasmpa.containsKey(indice+"value")){
-               table.addCell(hasmpa.get(indice+"value"));
-
-
-           }
-           else{
-               Log.i("mismundo","no contiene value");
+            if(hasmpa.containsKey(indice+"value")){
+                table.addCell(hasmpa.get(indice+"value"));
 
 
-           }
+            }
+            else{
+                Log.i("mismundo","no contiene value");
+
+
+            }
 
 
 

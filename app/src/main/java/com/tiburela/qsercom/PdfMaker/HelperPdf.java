@@ -35,24 +35,24 @@ import java.util.HashMap;
 
 public class HelperPdf {
 
-   public static  ArrayList<ArrayList<String>> listOFlist = new ArrayList<>();
+    public static  ArrayList<ArrayList<String>> listOFlist = new ArrayList<>();
 
 
 
 
     public  Image  createInfoImgtoPDF(Drawable mIDrawable, Context conetxt,int i){
-       // mIDrawable= conetxt.getDrawable(R.drawable.logopdf);
-          Bitmap miBitmap= ((BitmapDrawable)mIDrawable).getBitmap();
+        // mIDrawable= conetxt.getDrawable(R.drawable.logopdf);
+        Bitmap miBitmap= ((BitmapDrawable)mIDrawable).getBitmap();
         ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-         miBitmap.compress(Bitmap.CompressFormat.PNG,100,stream1);
-         byte[] bitmapData1= stream1.toByteArray();
+        miBitmap.compress(Bitmap.CompressFormat.PNG,100,stream1);
+        byte[] bitmapData1= stream1.toByteArray();
         ImageData imageData= ImageDataFactory.create(bitmapData1);
 
-       Image image =new Image(imageData);
+        Image image =new Image(imageData);
         image.setWidth(100f);
 
 
-return  image;
+        return  image;
 
 
     }
@@ -67,7 +67,7 @@ return  image;
         ImageData imageData= ImageDataFactory.create(bitmapData1);
 
         Image image =new Image(imageData);
-       //image.setWidth(826f);
+        //image.setWidth(826f);
 
 
         return  image;
@@ -84,7 +84,7 @@ return  image;
         ImageData imageData= ImageDataFactory.create(bitmapData1);
 
         Image image =new Image(imageData);
-        image.setWidth(100f);
+       // image.setWidth(100f);
 
         return  image;
     }
@@ -96,91 +96,91 @@ return  image;
 
 
         Log.i("mismussndo","el lineacion es "+alineacion);
-         HashMap<String,Cell> hasmpaDevolver= new HashMap<>();
+        HashMap<String,Cell> hasmpaDevolver= new HashMap<>();
 
-         if(alineacion==50){ //alinea a la izquiera
+        if(alineacion==50){ //alinea a la izquiera
 
-             for(int i=0;i<list.size();i++){
+            for(int i=0;i<list.size();i++){
 
-                 Cell cell1;
-
-
-                 Log.i("mismussndo","el name es "+list.get(i).getNameFields());
-                 Log.i("mismussndo","el value es "+list.get(i).getValueContent());
-                 Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.5f);
-                         cell1= new Cell().add(paragraph1).setPaddingLeft(10f)
-                                 .setHeight(10f);  //era 10.5
+                Cell cell1;
 
 
-
-
-
-                 Paragraph paragraph2;
-                 if(list.get(i).getValueContent()==null){
-                     paragraph2=new Paragraph("");
-
-                 }else{
-
-                     paragraph2= new Paragraph(list.get(i).getValueContent());
-
-                 }
-
-
-                 Cell cell2;
-
-                 if(TableID==600 && i==4 || i== 5 || i==6 || i==7|| i==8 ||i==9 ||i==10||i==11||i==12){//si es ;a tabla sellos instalados
-                         cell2= new Cell(1,4).add(paragraph2).setPaddingLeft(10f).setFontSize(7.5f).setHeight(10f); ///le agragmos un span
-
-
-
-                 }else{
-
-                     cell2= new Cell().add(paragraph2).setPaddingLeft(10f).setFontSize(7.5f).setHeight(10f); //normal
-
-                 }
+                Log.i("mismussndo","el name es "+list.get(i).getNameFields());
+                Log.i("mismussndo","el value es "+list.get(i).getValueContent());
+                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.5f);
+                cell1= new Cell().add(paragraph1).setPaddingLeft(10f)
+                        .setHeight(10f);  //era 10.5
 
 
 
 
-                 Log.i("mismussndo","estamo en el indice "+i);
 
-                 hasmpaDevolver.put(i+"name",cell1);
-                 hasmpaDevolver.put(i+"value",cell2);
-             }
-         }
+                Paragraph paragraph2;
+                if(list.get(i).getValueContent()==null){
+                    paragraph2=new Paragraph("");
 
-         else if(alineacion==100){  //alinea en el centro...
-             Log.i("mismussndo","el lineacion es "+alineacion);
+                }else{
 
-             for(int i=0;i<list.size();i++){
+                    paragraph2= new Paragraph(list.get(i).getValueContent());
 
-                 Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.5f);
-                 Cell cell1= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(10f);
+                }
 
 
-                 Paragraph paragraph2;
-                 if(list.get(i).getValueContent()==null){
-                     paragraph2=new Paragraph("");
+                Cell cell2;
 
-                 }else{
-
-                     paragraph2=new Paragraph(list.get(i).getValueContent()).setFontSize(7.5f);
-
-
-                 }
-
-
-                 Cell cell2= new Cell().add(paragraph2).setTextAlignment(TextAlignment.CENTER).setHeight(10f);
-
-                 hasmpaDevolver.put(i+"name",cell1);
-                 hasmpaDevolver.put(i+"value",cell2);
-             }
-
-         }
+                if(TableID==600 && i==4 || i== 5 || i==6 || i==7|| i==8 ||i==9 ||i==10||i==11||i==12){//si es ;a tabla sellos instalados
+                    cell2= new Cell(1,4).add(paragraph2).setPaddingLeft(10f).setFontSize(7.5f).setHeight(10f); ///le agragmos un span
 
 
 
-          return hasmpaDevolver;
+                }else{
+
+                    cell2= new Cell().add(paragraph2).setPaddingLeft(10f).setFontSize(7.5f).setHeight(10f); //normal
+
+                }
+
+
+
+
+                Log.i("mismussndo","estamo en el indice "+i);
+
+                hasmpaDevolver.put(i+"name",cell1);
+                hasmpaDevolver.put(i+"value",cell2);
+            }
+        }
+
+        else if(alineacion==100){  //alinea en el centro...
+            Log.i("mismussndo","el lineacion es "+alineacion);
+
+            for(int i=0;i<list.size();i++){
+
+                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.5f);
+                Cell cell1= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(10f);
+
+
+                Paragraph paragraph2;
+                if(list.get(i).getValueContent()==null){
+                    paragraph2=new Paragraph("");
+
+                }else{
+
+                    paragraph2=new Paragraph(list.get(i).getValueContent()).setFontSize(7.5f);
+
+
+                }
+
+
+                Cell cell2= new Cell().add(paragraph2).setTextAlignment(TextAlignment.CENTER).setHeight(10f);
+
+                hasmpaDevolver.put(i+"name",cell1);
+                hasmpaDevolver.put(i+"value",cell2);
+            }
+
+        }
+
+
+
+        return hasmpaDevolver;
 
     }
 
@@ -212,8 +212,8 @@ return  image;
         }
 
 
-     else   if(tableInfo==2){ /**la segunda tabla productos postocosecha*/
-              ///si contienen data
+        else   if(tableInfo==2){ /**la segunda tabla productos postocosecha*/
+            ///si contienen data
             if(!product.acido_citrico.trim().isEmpty()){
                 listTOrETURN1.add(new NameAndValue("ACIDO CITRICO",product.acido_citrico));
             }
@@ -328,7 +328,7 @@ return  image;
 
 
 
-             else if(tableInfo==7){/**datos De proceso */
+        else if(tableInfo==7){/**datos De proceso */
 
 
 
@@ -442,7 +442,7 @@ return  image;
         miTable.addCell(cellbanavacX);
 
 
-       // miTable.addCell(cellbanavac.add(new Paragraph("BANAVAC").setFontSize(6.5f))) ;
+        // miTable.addCell(cellbanavac.add(new Paragraph("BANAVAC").setFontSize(6.5f))) ;
 
 
         miTable.addCell(cellTipPlasbagS.add(new Paragraph("BAGS").setFontSize(6.5f))) ;
@@ -459,7 +459,7 @@ return  image;
 
 
 
-         /**tipo de cja */
+        /**tipo de cja */
 
         miTable.addCell(celltipodEcAJA.add(new Paragraph("TIPO DE CAJA").setFontSize(7.5f))) ;
         miTable.addCell(cell22Xu.add(new Paragraph("22xU").setFontSize(6.5f))) ;
@@ -544,9 +544,9 @@ return  image;
         table1.addCell(cellx2);
 
         if(object.getFuenteAgua().equalsIgnoreCase("AGUA POTABLE")) {
-             micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
-             table1.addCell(micelda);
+            table1.addCell(micelda);
 
 
         }else{
@@ -592,7 +592,7 @@ return  image;
         }
 
 
-       //2DA FILA DE DATOS DE HACIENDA...
+        //2DA FILA DE DATOS DE HACIENDA...
 
         table1.addCell(new Paragraph("AGUA CORRIDA").setFontSize(7.5f));
 
@@ -600,7 +600,7 @@ return  image;
 
 
         if(object.isHayAguaCorrida()) {
-          //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor).setFontSize(7.5f));
+            //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor).setFontSize(7.5f));
 
             micelda = new Cell(1,1).setBackgroundColor(rgbColor).add(paragrapMarcado);
             table1.addCell(micelda);
@@ -636,7 +636,7 @@ return  image;
         table1.addCell(new Paragraph("SI").setFontSize(7.5f));
 
         if(object.isHayLavadoRacimos()) {
-          //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor));
+            //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor));
             micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
@@ -738,7 +738,7 @@ return  image;
         ///cellPolituboX.setBackgroundColor(rgbColor) ; //MNARCAR LA X CON BACVGROUND VERDE
 
         //FALTA AGREGAR A LAS TABLAS
-      //  miTable.addCell(new Cell().add(new Paragraph("TIPO DE PLASTICO").setFontSize(7.5f))) ;
+        //  miTable.addCell(new Cell().add(new Paragraph("TIPO DE PLASTICO").setFontSize(7.5f))) ;
 
 
         miTable.addCell(new Cell().add(new Paragraph("ENSUCHADO").setFontSize(7.5f).setPaddingLeft(10f))) ;
@@ -928,7 +928,7 @@ return  image;
 
 
 
- ///QUEDAMOS EN DATOS DE HACIENDA..
+        ///QUEDAMOS EN DATOS DE HACIENDA..
 
         return miTable;
 
@@ -1042,7 +1042,7 @@ return  image;
     }
 
     public static Table descripciondEFECXTOSFRUTA(Table table){
-         ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<String>();
         list.add("sr,estropeo");
         list.add("tc,moquillo");
         list.add("lp,larga plana");
@@ -1079,7 +1079,7 @@ return  image;
         list.add("sc,rasguño");
         list.add("dt,fruta sucia");  //34
 
-       // defectos de empaque //////////
+        // defectos de empaque //////////
 
         list.add("sre,estropeo empaque");
         list.add("bre,daño empaque");

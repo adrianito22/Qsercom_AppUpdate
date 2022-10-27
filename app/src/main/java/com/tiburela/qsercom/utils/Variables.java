@@ -2,6 +2,7 @@ package com.tiburela.qsercom.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -26,6 +27,7 @@ public static String  paqueteName="com.tiburela.qsercom";
 
     public static String currentKeyShareToDelete="";
 
+    public static float currentPoscion;
 
     public static  int   activityCurrent;
 

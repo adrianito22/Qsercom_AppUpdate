@@ -2382,5 +2382,4 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     ///OTHER
 
 
-
 }

@@ -127,6 +127,7 @@ public class HelperImage {
         for (int i = 0; i < allImagesData.size(); i++) {
 
            int  categoryCurrentImg=allImagesData.get(i).tipoImagenCategory;
+            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
 
             if (categoryCurrentImg == categoriaBuscar) {
                 imAGESpdfSet.add(allImagesData.get(i));
@@ -134,7 +135,7 @@ public class HelperImage {
 
         }
 
-        Log.i("contabur","el SIZE DE createImagesSet es "+imAGESpdfSet.size());
+        Log.i("xamil","el SIZE DE createImagesSet es "+imAGESpdfSet.size());
 
 
         return  imAGESpdfSet;
@@ -306,8 +307,6 @@ public class HelperImage {
                   if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
                       contadorImgVertical++;
                       imagesSetToCurrentFila.add(list.get(i));
-
-
 
                       if(contadorImgVertical==3){
                           valorDevolver= Variables.TRES_IMGS_VERTCLES ;
