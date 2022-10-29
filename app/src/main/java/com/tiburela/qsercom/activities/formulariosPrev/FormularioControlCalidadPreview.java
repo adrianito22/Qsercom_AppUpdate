@@ -23,6 +23,7 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -140,6 +141,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb = new HashMap<>(); //serian unas dies listas...
     HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb2 = new HashMap<>(); //serian unas dies listas...
+
+
+    ///recorremos ambos hasmpas........
+    //itremaos cada lista... y suamaos 1 si el primer valor esta chjekeado...eso para ....
+    ///la suma dde defecto la guardmaops  en un hasmap...
 
 
     //Imageviews defects
@@ -486,6 +492,45 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
+    }
+
+
+     void  generatePercent(int numeroClustersInspecc)  {
+
+         int porcetDefectFruta[] ={0,0,0,0,0,0,0,0,0,0,
+                 0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+         int porcetDefectEmpq[] ={0,0,0,0,0,0,0};
+         int value =0;
+
+
+         for(ArrayList<Boolean> listArray: HashMapOfListWhitStatesCHeckb.values()){
+                 for(int indice2=0; indice2<listArray.size(); indice2++){  //lista de listas
+                     if(listArray.get(indice2)) { //si es verdadero
+                         value =1;
+                     }else{
+                         value =0;
+                     }
+
+                     porcetDefectFruta[indice2] =porcetDefectFruta[indice2]+value;
+
+                 }
+             }
+
+            int indice=0;
+
+
+
+            for(int valuex :porcetDefectFruta ) {
+
+                //ACTUALIZAMOS LOS RPOICENTAJES
+                int porcentajeThisValue =  valuex*100/numeroClustersInspecc;
+
+                porcetDefectFruta[indice]=porcentajeThisValue;
+
+                Log.i("saludo","el porcentaje es "+porcentajeThisValue);
+                indice++;
+            }
     }
 
     void  configInitialHashasmapsChekedItemsWhitDowload(HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb ,

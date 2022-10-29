@@ -4,9 +4,19 @@ import static com.tiburela.qsercom.activities.formularios.ActivityReporteCalidad
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -37,6 +47,7 @@ import com.tiburela.qsercom.R;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +58,58 @@ import io.opencensus.resource.Resource;
 public class Test2 extends AppCompatActivity {
 BarChart barChart;
 
+Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.char_layout);
 
         barChart=findViewById(R.id.chart);
+
+         ImageView imageView3 =findViewById(R.id.imageView3);
+        imageView3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                File file = new File(path, "new Line chart.png");
+
+                if( file.exists()){
+                    // File myFile = new File("/scard/myfolder");
+                    Uri myUri = Uri.fromFile(file);
+
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), myUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                        Log.i("hagyaua","el error es es "+e.getMessage());
+                    }
+                    imageView3.setImageBitmap(bitmap);
+
+                }else{
+                    Log.i("hagyaua","no existe ");
+
+
+                }
+
+
+            }
+        });
+
+
+        button =findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                adrianoi(barChart);
+
+            }
+        });
+
        // final String[] quarters = new String[] { "Q1", "Q2", "Q3", "Q4" ,"bd","sdf"};
         barChart.getXAxis().setDrawGridLines(false);
 
@@ -200,14 +257,39 @@ BarChart barChart;
 
 
         xAxis.setTextSize(7/*textSize*/);
+
+       // barChart.getDraw
         //Bitmap bitmap = Bitmap.createBitmap(barChart.getWidth(), barChart.getHeight(), Bitmap.Config.ARGB_8888);
-        barChart.saveToGallery("test.png", 50);
+      //  barChart.saveToGallery("test.png", 50);
        /// barChart
 
 
     }
 
+/*
+    public static Bitmap getBitmapFromView(View graph) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(graph.getWidth(), graph.getHeight(), Bitmap.Config.ARGB_8888);
 
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable = graph.getBackground();
+
+        if (bgDrawable != null)
+            bgDrawable.draw(canvas);
+
+        else
+            canvas.drawColor(Color.WHITE);
+            view.draw(canvas);
+        return returnedBitmap;
+
+    }
+
+
+ */
+   private void adrianoi(BarChart barChart) {
+
+       barChart.saveToGallery("new Line chart", 85);
+       barChart.setSaveEnabled(true);
+   }
 
 
     public void createPDF() throws FileNotFoundException {
