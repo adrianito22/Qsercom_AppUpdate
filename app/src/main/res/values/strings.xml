@@ -138,6 +138,32 @@
     </string-array>
 
 
+    <string-array name="array_defectos_frutax">
+        <item>SRC</item>
+        <item>BR</item>
+        <item>CT</item>
+        <item>ML</item>
+        <item>NL</item>
+        <item>BM</item>
+        <item>TS</item>
+        <item>RE</item>
+        <item>AB</item>
+        <item>MF</item>
+        <item>TF</item>
+        <item>FR</item>
+        <item>TC</item>
+        <item>FF</item>
+        <item>IG</item>
+        <item>IS</item>
+        <item>US</item>
+        <item>OG</item>
+        <item>FL</item>
+        <item>RR</item>
+        <item>WI</item>
+        <item>SM</item>
+        <item>SK</item>
+    </string-array>
+
     <string-array name="array_defectos_empaque">
         <item>LP: LARGA PLANA</item>
         <item>LC: LARGA CURVA</item>

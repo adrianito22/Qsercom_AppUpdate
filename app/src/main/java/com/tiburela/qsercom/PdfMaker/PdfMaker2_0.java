@@ -23,6 +23,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 //write here which class not found and wirte whee you want to use i timport com.itextpdf.layout.element.Cell;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.extgstate.PdfExtGState;
+import com.itextpdf.kernel.utils.PageRange;
+import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.GrooveBorder;
@@ -89,8 +91,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
         PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
         Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
         midocumentotoAddData.setMargins(0, 0, 0, 0);
-
-
 
         HelperPdf pdfHelper= new HelperPdf();
 
@@ -544,6 +544,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
     }
+
+
+
+    ///tratando de dibujar en can vas
 
 
     /*

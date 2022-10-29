@@ -1,14 +1,25 @@
 package com.tiburela.qsercom.testDELETE;
 
+import static com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas.context;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.MPPointF;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -31,62 +42,167 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import io.opencensus.resource.Resource;
+
 public class Test2 extends AppCompatActivity {
-BarChart chart;
+BarChart barChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.char_layout);
 
-        chart=findViewById(R.id.chart);
+        barChart=findViewById(R.id.chart);
+       // final String[] quarters = new String[] { "Q1", "Q2", "Q3", "Q4" ,"bd","sdf"};
+        barChart.getXAxis().setDrawGridLines(false);
 
+        final String [] quarters=  getResources().getStringArray(R.array.array_defectos_frutax);
+        ///
+       // barChart.setBackground(getDrawable(R.drawable.bacgroundsercom));
 
-        List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0f, 30f));
-        entries.add(new BarEntry(1f, 80f));
-        entries.add(new BarEntry(2f, 60f));
-        entries.add(new BarEntry(3f, 50f));
-        // gap of 2f
-        entries.add(new BarEntry(5f, 70f));
-        entries.add(new BarEntry(6f, 60f));
-        BarDataSet set = new BarDataSet(entries, "BarDataSet");
+        ValueFormatter formatter = new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return quarters[(int) value];
+            }
+        };
+        /*
 
-        BarData data = new BarData(set);
-        data.addDataSet("dfg",1);
-        data.setBarWidth(0.9f); // set custom bar width
+        ArrayList NoOfEmp = new ArrayList();
+
+        NoOfEmp.add(new BarEntry(945f, 0));
+        NoOfEmp.add(new BarEntry(1040f, 1));
+        NoOfEmp.add(new BarEntry(1133f, 2));
+        NoOfEmp.add(new BarEntry(1240f, 3));
+        NoOfEmp.add(new BarEntry(1369f, 4));
+        NoOfEmp.add(new BarEntry(1487f, 5));
+        NoOfEmp.add(new BarEntry(1501f, 6));
+        NoOfEmp.add(new BarEntry(1645f, 7));
+        NoOfEmp.add(new BarEntry(1578f, 8));
+        NoOfEmp.add(new BarEntry(1695f, 9));
+
+        ArrayList year = new ArrayList();
+
+        year.add("2008");
+        year.add("2009");
+        year.add("2010");
+        year.add("2011");
+        year.add("2012");
+        year.add("2013");
+        year.add("2014");
+        year.add("2015");
+        year.add("2016");
+        year.add("2017");
+
+       // IBarDataSet HOLA= new BarDataSet( new BarEntry(),"");
+
+        BarDataSet bardataset = new BarDataSet(NoOfEmp, "No Of Employee");
+        chart.animateY(5000);
+        BarData data = new BarData(bardataset, bardataset);
+        bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
         chart.setData(data);
-        chart.setFitBars(true); // make the x-axis fit exactly all bars
-        chart.invalidate();
+
+
+
+
+*/
 
 
 /*
-        YourData[] dataObjects = ...;
-        List<Entry> entries = new ArrayList<Entry>();
-        for (YourData data : dataObjects) {
-            // turn your data into Entry objects
-            entries.add(new Entry(data.getValueX(), data.getValueY()));
-        }
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(0f,30f));
+        barEntries.add(new BarEntry(1f,80f));
+        barEntries.add(new BarEntry(2f,60f));
+        barEntries.add(new BarEntry(3f,50f));
+        barEntries.add(new BarEntry(4f,70f));
+        barEntries.add(new BarEntry(5f,60f));
+
     */
 
 
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(0f,30f));
+        barEntries.add(new BarEntry(1f,80f));
+        barEntries.add(new BarEntry(2f,60f));
+        barEntries.add(new BarEntry(3f,50f));
+        barEntries.add(new BarEntry(4f,70f));
+
+        barEntries.add(new BarEntry(5f,35f));
+        barEntries.add(new BarEntry(6f,85f));
+        barEntries.add(new BarEntry(7f,65f));
+        barEntries.add(new BarEntry(8f,55f));
+        barEntries.add(new BarEntry(9f,75f));
 
 
-/*
-        YourData[] group1 = ...;
-        YourData[] group2 = ...;
-        List<BarEntry> entriesGroup1 = new ArrayList<>();
-        List<BarEntry> entriesGroup2 = new ArrayList<>();
-// fill the lists
-        for(int i = 0; i < group1.length; i++) {
-            entriesGroup1.add(new BarEntry(i, group1.getValue()));
-            entriesGroup2.add(new BarEntry(i, group2.getValue()));
-        }
-        BarDataSet set1 = new BarDataSet(entriesGroup1, "Group 1");
-        BarDataSet set2 = new BarDataSet(entriesGroup2, "Group 2");
+        barEntries.add(new BarEntry(10f,40f));
+        barEntries.add(new BarEntry(11f,90f));
+        barEntries.add(new BarEntry(12f,70f));
+        barEntries.add(new BarEntry(13f,60f));
+        barEntries.add(new BarEntry(14f,75f));
 
-        */
 
+        barEntries.add(new BarEntry(15f,30f));
+        barEntries.add(new BarEntry(16f,80f));
+        barEntries.add(new BarEntry(17f,60f));
+        barEntries.add(new BarEntry(18f,50f));
+        barEntries.add(new BarEntry(19f,70f));
+
+
+        barEntries.add(new BarEntry(20f,30f));
+        barEntries.add(new BarEntry(21f,80f));
+        barEntries.add(new BarEntry(22f,60f));
+
+
+
+
+
+        BarDataSet barDataSet = new BarDataSet(barEntries,"Defectos");
+        barDataSet.setValueTextSize(10f);
+        barDataSet.setFormSize(9f);
+        //barDataSet.setDrawIcons(true);
+
+
+        ArrayList<String> theDates = new ArrayList<>();
+        theDates.add("April");
+        theDates.add("MAy");
+        theDates.add("June");
+        theDates.add("July");
+        theDates.add("August");
+        theDates.add("September");
+
+        BarData theData = new BarData(barDataSet);
+        theData.setBarWidth(0.9f);
+        barChart.setData(theData);
+        //barChart.setTouchEnabled(true);
+       // barChart.set
+        //barChart.setDragEnabled(true);
+       // barChart.setScaleEnabled(true);
+        barChart.setFitBars(true);
+       // barChart
+        barChart.setDrawGridBackground(false);
+
+        barDataSet.setColors(new int[]{
+                R.color.durazon , R.color.durazon
+
+
+        } , Test2.this);
+
+
+
+
+        //  barChart.setDescription("hola");
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(formatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelCount(23);
+       // Bitmap b = getChartBitmap();
+
+
+        xAxis.setTextSize(7/*textSize*/);
+        //Bitmap bitmap = Bitmap.createBitmap(barChart.getWidth(), barChart.getHeight(), Bitmap.Config.ARGB_8888);
+        barChart.saveToGallery("test.png", 50);
+       /// barChart
 
 
     }
