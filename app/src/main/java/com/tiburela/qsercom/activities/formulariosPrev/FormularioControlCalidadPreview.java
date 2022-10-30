@@ -2824,10 +2824,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
             if( !arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty() && !arrayNumeroCLUSTERinspec [i].getText().toString().equals(" ") ){
+
                 if( android.text.TextUtils.isDigitsOnly(arrayNumeroCLUSTERinspec [i].getText().toString())) {
                     numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayPesoS [i].getText().toString());
                     contadorValrsCloseterIns++ ;
-                       }
+                }
 
             }
         }
