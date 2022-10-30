@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,13 +24,11 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
-import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import org.apache.commons.codec.binary.StringUtils;
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -76,7 +75,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     private TextInputEditText mEdif2LrgD29;
     private TextInputEditText mEdif2LrgD30;
 
-    TextView txtTotalDefect;
+    TextView txtTotalDefectSelect;
     ImageView imgupdateInfo;
 
     private TextInputEditText mEdiLargDeds1;
@@ -389,15 +388,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     ImageView imvEmpaque10;
 
     Spinner spinnerDef1;
-    Spinner spinnerDef2;
-    Spinner spinnerDef3;
-    Spinner spinnerDef4;
-    Spinner spinnerDef5;
-    Spinner spinnerDef6;
-    Spinner spinnerDef7;
-    Spinner spinnerDef8;
-    Spinner spinnerDef9;
-    Spinner spinnerDef10;
 
 
     TextView txtTotal1;
@@ -411,15 +401,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     TextView txtTotal9;
     TextView txtTotal10;
 
-    TextView txtTotal;
 
-
-
-
-    ArrayList<Integer> langList = new ArrayList<>();
-
-
-    ArrayList<ArrayList<Boolean>> listOfLISTState2 = new ArrayList<>(); //serian unas dies listas...
 
 
     String[] arrayDefect1;
@@ -434,6 +416,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ly_defectos_preview);
         findviewsIds();
+
+
         addListnners();
         eventoUploadFormulario();
 
@@ -498,7 +482,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     }
 
 
-     void  generatePercent(int numeroClustersInspecc)  {
+     void generatePercentAndCountValuesCheked(int numeroClustersInspecc)  {
 
          int porcetDefectFruta[] ={0,0,0,0,0,0,0,0,0,0,
                  0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -506,11 +490,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
          int porcetDefectEmpq[] ={0,0,0,0,0,0,0};
          int value =0;
 
+         int contadorDefectosAll=0;
 
          for(ArrayList<Boolean> listArray: HashMapOfListWhitStatesCHeckb.values()){
                  for(int indice2=0; indice2<listArray.size(); indice2++){  //lista de listas
                      if(listArray.get(indice2)) { //si es verdadero
                          value =1;
+                         contadorDefectosAll++;
                      }else{
                          value =0;
                      }
@@ -520,21 +506,83 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                  }
              }
 
+
+
+
+
+         for(ArrayList<Boolean> listArray: HashMapOfListWhitStatesCHeckb2.values()){
+             for(int indice2=0; indice2<listArray.size(); indice2++){  //lista de listas
+                 if(listArray.get(indice2)) { //si es verdadero
+                     value =1;
+                     contadorDefectosAll++;
+                 }else{
+                     value =0;
+                 }
+
+                 porcetDefectEmpq[indice2] =porcetDefectEmpq[indice2]+value;
+
+             }
+         }
+
+
+
             int indice=0;
 
 
+         Log.i("saludo","el numeroClustersInspecc es "+numeroClustersInspecc);
 
-            for(int valuex :porcetDefectFruta ) {
+            for(int valuex :porcetDefectFruta ) {  //el numero de cluster inspeccion es 18
 
                 //ACTUALIZAMOS LOS RPOICENTAJES
+
+                Log.i("saludo","el valor alamcendado en el array es "+valuex);
+
+                         //el valor piemr es 1
+
                 int porcentajeThisValue =  valuex*100/numeroClustersInspecc;
 
-                porcetDefectFruta[indice]=porcentajeThisValue;
+                    porcetDefectFruta[indice]=porcentajeThisValue;
 
-                Log.i("saludo","el porcentaje es "+porcentajeThisValue);
+                    Log.i("saludo","el porcentaje de la posicion "+indice +"es : " +porcentajeThisValue);
+
+
+
                 indice++;
+
             }
-    }
+
+
+
+
+         int indice2z=0;
+
+         for(int valuex :porcetDefectFruta ) {  //el numero de cluster inspeccion es 18
+
+             //ACTUALIZAMOS LOS RPOICENTAJES
+
+             Log.i("saludo","el valor alamcendado en el array es "+valuex);
+
+             //el valor piemr es 1
+
+             int porcentajeThisValue =  valuex*100/numeroClustersInspecc;
+
+             porcetDefectFruta[indice2z]=porcentajeThisValue;
+
+             Log.i("saludo","el porcentaje de la posicion "+indice2z +"es : " +porcentajeThisValue);
+
+
+
+             indice2z++;
+
+         }
+
+
+
+         Log.i("saludo","se ejecuto :"+indice+" veces");
+
+         txtTotalDefectSelect.setText(String.valueOf(contadorDefectosAll));
+
+     }
 
     void  configInitialHashasmapsChekedItemsWhitDowload(HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb ,
                                                         HashMap<String , ArrayList<Boolean>>  HashMapOfListWhitStatesCHeckb2,
@@ -594,9 +642,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
-        txtTotalDefect.setText(String.valueOf(numsValuesSelec));
+        txtTotalDefectSelect.setText(String.valueOf(numsValuesSelec));
 
-
+        muestraResultado();
 
 
 
@@ -611,6 +659,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     protected void onStart() {
         super.onStart();
 
+
+
         inicialiceListOfListChekedItems();
 
         RealtimeDB.initDatabasesRootOnly();
@@ -619,14 +669,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
         dowloadCoontrolClidadMapAndCallSetDATAINviews(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
-
-        dowloadAllSelectDefectosPosiciones(Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
-
-        // getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+       //  getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
 
 
 
-        ///////
 
 
     }
@@ -780,7 +826,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                         showResultNumeroClusterxCajaProduct();
                         showResultOfCalibraEntreBasalYapiclProduct();
                        showResultlargoDedosPulgaPulpaApulpa();
-
+                        configCertainSomeViewsAliniciar();
+                        dowloadAllSelectDefectosPosiciones(Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
 
                     }
 
@@ -857,10 +904,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
     private void findviewsIds() {
+
         //first views fields
         ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
         imgupdateInfo= findViewById(R.id.imgupdateInfo);
-        txtTotalDefect=findViewById(R.id.txtTotalDefect);
+        txtTotalDefectSelect =findViewById(R.id.txtTotalDefectSelect);
         btnSaveControlC=findViewById(R.id.btnSaveControlC);
         mEdiVaporzz = findViewById(R.id.ediVaporzz);
         mEdiProductorzz = findViewById(R.id.ediProductorzz);
@@ -916,6 +964,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
          imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
 
 
+
+
         spinnerDef1=findViewById(R.id.spinnerDef1);
         spinnerDef1=findViewById(R.id.spinnerDef2);
         spinnerDef1=findViewById(R.id.spinnerDef3);
@@ -932,23 +982,31 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         txtTotal2=findViewById(R.id.txtTotal2);
         txtTotal3=findViewById(R.id.txtTotal3);
         txtTotal4=findViewById(R.id.txtTotal4);
+
+
+
+
         txtTotal5=findViewById(R.id.txtTotal5);
         txtTotal6=findViewById(R.id.txtTotal6);
         txtTotal7=findViewById(R.id.txtTotal7);
         txtTotal8=findViewById(R.id.txtTotal8);
         txtTotal9=findViewById(R.id.txtTotal9);
         txtTotal10=findViewById(R.id.txtTotal10);
+    textView48=findViewById(R.id.textView48);
 
 
-        textView48=findViewById(R.id.textView48);
 
-       // txtTotal=findViewById(R.id.txttotal);
+   ediPesoL1=findViewById(R.id. ediPesoL1);
+      ediPesoL2=findViewById(R.id. ediPesoL2);  ///parece     que esta por aqui
 
-        ediPesoL1=findViewById(R.id. ediPesoL1);
-        ediPesoL2=findViewById(R.id. ediPesoL2);
+
+
         ediPesoL3=findViewById(R.id. ediPesoL3);
         ediPesoL4=findViewById(R.id. ediPesoL4);
         ediPesoL5=findViewById(R.id. ediPesoL5);
+
+
+
         ediPesoL6=findViewById(R.id. ediPesoL6);
         ediPesoL7=findViewById(R.id. ediPesoL7);
         ediPesoL8=findViewById(R.id. ediPesoL8);
@@ -1084,6 +1142,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
+
         ediNdedoXclustXc1=findViewById(R.id.ediNdedoXclustXc1);
         ediNdedoXclustXc2=findViewById(R.id.ediNdedoXclustXc2);
         ediNdedoXclustXc3=findViewById(R.id.ediNdedoXclustXc3);
@@ -1182,10 +1241,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdiLargDeds28 = findViewById(R.id.ediLargDeds28);
         mEdiLargDeds29 = findViewById(R.id.ediLargDeds29);
         mEdiLargDeds30 = findViewById(R.id.ediLargDeds30);
-        // mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
-        //  mEdiPromFila1 = findViewById(R.id.ediPromFila1);
 
-        mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
+
+
+        mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);   //vamos hasta la mitda
         mEdif2LrgD2 = findViewById(R.id.edif2LrgD2);
         mEdif2LrgD3 = findViewById(R.id.edif2LrgD3);
         mEdif2LrgD4 = findViewById(R.id.edif2LrgD4);
@@ -1202,6 +1261,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdif2LrgD15 = findViewById(R.id.edif2LrgD15);
         mEdif2LrgD16 = findViewById(R.id.edif2LrgD16);
         mEdif2LrgD17 = findViewById(R.id.edif2LrgD17);
+
+
+
+
         mEdif2LrgD18 = findViewById(R.id.edif2LrgD18);
         mEdif2LrgD19 = findViewById(R.id.edif2LrgD19);
         mEdif2LrgD20 = findViewById(R.id.edif2LrgD20);
@@ -1217,14 +1280,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
 
 
-
-
-
           imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
           imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
           imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
-
-
 
 
     }
@@ -1484,7 +1542,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                 muestraaLLResults();
                 muestraResultado();
-                generatePercent(numeroClustersInspecc);
+                generatePercentAndCountValuesCheked(numeroClustersInspecc);
 
                 break;
 
@@ -1797,20 +1855,31 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         final Calendar cldr = Calendar.getInstance();
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
+
+
         // time picker dialog
         TimePickerDialog picker = new TimePickerDialog(FormularioControlCalidadPreview.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+                        String AM_PM ;
+                        if(sHour < 12) {
+                            AM_PM = "am";
+                        } else {
+                            AM_PM = "pm";
+                        }
+
+
+
                         if(vista.getId()==R.id.ediTimeHoraxx1) {
-                            ediTimeHoraxx1.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx1.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx2) {
-                            ediTimeHoraxx2.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx2.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -1818,7 +1887,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx3) {
-                            ediTimeHoraxx3.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx3.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -1826,14 +1895,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx4) {
-                            ediTimeHoraxx4.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx4.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx5) {
-                            ediTimeHoraxx5.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx5.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -1841,20 +1910,20 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx6) {
-                            ediTimeHoraxx6.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx6.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
 
                         else if (vista.getId()== R.id.ediTimeHoraxx7) {
-                            ediTimeHoraxx7.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx7.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx8) {
-                            ediTimeHoraxx8.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx8.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -1863,7 +1932,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx9) {
-                            ediTimeHoraxx9.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx9.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -1871,7 +1940,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx10) {
-                            ediTimeHoraxx10.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx10.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -2609,6 +2678,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         }
 
 
+        if(!chekeaQueSIsEKECIONAdEFECTOSExistaCantidad()){
+
+            return false;
+
+        }
+
+
         return true;
 
     }
@@ -2796,17 +2872,24 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         TextInputEditText ediPromedioPorc=findViewById(R.id.ediAllPesoLibraPorcent);
         TextInputEditText alNumClustPercent =findViewById(R.id.alNumClustPercent);
-        TextView txtTotalDefect   =findViewById(R.id.txtTotalDefect);
+       TextInputEditText allPerPh=findViewById(R.id.allPerPh);
 
 
 
-        float allPesoLibras =0;
-        int  numeroClustersInspecc=0;
+
+        double allPesoLibras =0;
+        double allPhsSuma =0;
+
+        numeroClustersInspecc=0;
 
         int  contadorValoresPeso=0;
         int  contadorValrsCloseterIns=0;
+        int contadorPh=0;
 
         TextInputEditText [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
+
+        TextInputEditText [] arrayPhs = {ediPH1,ediPH2,ediPH3,ediPH4,ediPH5,ediPH6,ediPH7,ediPH7,ediPH8,ediPH9,ediPH10};
+
 
         TextInputEditText [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
                 ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
@@ -2815,41 +2898,62 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         for(int i=0;i<arrayPesoS.length;i++) {
 
-            if(! arrayPesoS [i].getText().toString().trim().isEmpty()){
-                allPesoLibras =allPesoLibras+ Float.parseFloat(arrayPesoS [i].getText().toString());
+            if(! arrayPesoS [i].getText().toString().trim().isEmpty() ){
+                allPesoLibras =allPesoLibras+ Double.parseDouble(arrayPesoS [i].getText().toString() );
 
                 contadorValoresPeso++ ;
 
             }
 
 
-            if( !arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty() && !arrayNumeroCLUSTERinspec [i].getText().toString().equals(" ") ){
 
-                if( android.text.TextUtils.isDigitsOnly(arrayNumeroCLUSTERinspec [i].getText().toString())) {
-                    numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayPesoS [i].getText().toString());
-                    contadorValrsCloseterIns++ ;
-                }
+               //
+            if(!arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty() ){  //si esta vacio
+
+                contadorValrsCloseterIns++;
+                numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayNumeroCLUSTERinspec [i].getText().toString());
 
             }
+
+
+            //ph
+            if(! arrayPhs [i].getText().toString().trim().isEmpty() ){
+                allPhsSuma =allPhsSuma+ Double.parseDouble(arrayPhs [i].getText().toString() );
+                contadorPh++;
+            }
+
+
+
         }
 
 
 
         try {
-            ediTotalPesoLAll.setText(String.valueOf(allPesoLibras));
+
+            Log.i("pesilonbras","el al peso libras es "+allPesoLibras);
+
+            DecimalFormat df = new DecimalFormat("#.#");
+            String pesoLibras= df.format(allPesoLibras);
+
+            Log.i("pesilonbras","el al peso libras es "+allPesoLibras);
+            ediTotalPesoLAll.setText(pesoLibras);
             ediNumClusInspAll.setText(String.valueOf(numeroClustersInspecc));
 
+            String percenTpesoLibras= df.format(allPesoLibras/contadorValoresPeso);
+            ediPromedioPorc.setText(percenTpesoLibras);
 
+            String clusPercent= df.format(numeroClustersInspecc/contadorValrsCloseterIns);
+            alNumClustPercent.setText(clusPercent);
 
-            ediPromedioPorc.setText(String.valueOf((int)allPesoLibras/contadorValoresPeso));
-            alNumClustPercent.setText(String.valueOf(numeroClustersInspecc/contadorValrsCloseterIns));
+             String phPromedio=df.format(allPhsSuma/contadorPh);
+              allPerPh.setText(phPromedio);
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        numeroClustersInspecc=  contadorValrsCloseterIns;
 
 
 
@@ -2857,7 +2961,62 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
+    private void disableEditText(EditText editText) {
+
+        // editText.setFocusable(false);
+        // editText.setEnabled(false);
+        editText.setCursorVisible(false);
+        editText.setKeyListener(null);
+        //  editText.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+    private void configCertainSomeViewsAliniciar( ) { //configuraremos algos views al iniciar
+
+        disableEditText(ediTimeHoraxx1);
+        disableEditText(ediTimeHoraxx2);
+        disableEditText(ediTimeHoraxx3);
+
+        disableEditText(ediTimeHoraxx4);
+        disableEditText(ediTimeHoraxx5);
+
+        disableEditText(ediTimeHoraxx6);
+        disableEditText(ediTimeHoraxx7);
+        disableEditText(ediTimeHoraxx8);
+        disableEditText(ediTimeHoraxx9);
+        disableEditText(ediTimeHoraxx10);
+
+    }
 
 
 
+
+    private boolean chekeaQueSIsEKECIONAdEFECTOSExistaCantidad(){
+        TextView [] miAarrayTextviewsShowSelectItems={txtTotal1,txtTotal2,txtTotal3,txtTotal4,txtTotal5,txtTotal6,txtTotal7,txtTotal8,txtTotal9,txtTotal10};
+
+        TextInputEditText [] miarrayTextEdiNumsClusters={ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,ediNumClusInsp6
+               , ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+
+
+
+        for (int indice=0; indice<miAarrayTextviewsShowSelectItems.length; indice++){
+
+            if(!miAarrayTextviewsShowSelectItems[indice].getText().toString().trim().isEmpty()){ //si conteine uno selecionado
+
+                if(Integer.parseInt(miAarrayTextviewsShowSelectItems[indice].getText().toString())>0 && miarrayTextEdiNumsClusters[indice].getText().toString().trim().isEmpty() ){ //si conteine uno selecionado
+
+                    miarrayTextEdiNumsClusters[indice].requestFocus();
+                    miarrayTextEdiNumsClusters[indice].setError("Numero Requerido");
+
+                    return false;
+
+                }
+            }
+
+
+
+
+        }
+
+        return true;
+    }
 }

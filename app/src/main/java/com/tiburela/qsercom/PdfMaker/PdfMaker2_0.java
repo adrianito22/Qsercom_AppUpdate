@@ -1,17 +1,26 @@
 package com.tiburela.qsercom.PdfMaker;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 //import androidx.compose.ui.text.Paragraph;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 
 
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
@@ -21,13 +30,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 //import com.itextpdf.kernel.layout.element.Table; //???? der any probllem?
 
 //write here which class not found and wirte whee you want to use i timport com.itextpdf.layout.element.Cell;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.kernel.pdf.extgstate.PdfExtGState;
-import com.itextpdf.kernel.utils.PageRange;
-import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.borders.GrooveBorder;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
@@ -40,8 +44,9 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.VerticalAlignment;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.NameAndValue;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -508,6 +513,19 @@ public class PdfMaker2_0 extends AppCompatActivity {
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA,"FRUTAS EN FINCA",midocumentotoAddData,pageSize,PdfMaker2_0.this);
 
 
+
+
+        /**AGREGAMOS GRAFICOS ESTADISTICOS...*/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        //agregamaos el header
+        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
+        dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
+
+
+
         midocumentotoAddData.close();
 
 
@@ -564,6 +582,133 @@ public class PdfMaker2_0 extends AppCompatActivity {
     }
 */
 
+
+    void dowloaDinformControlCalidAndGeneratePICsATATICITIS(String idReporActivityContenedores){
+        /*   DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
+
+        Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);*/
+      //  Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
+      //  Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
+
+        RealtimeDB.initDatabasesRootOnly();
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("idDelInformePeretenece").equalTo(idReporActivityContenedores);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ControlCalidad controlcalidad=null;
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                     controlcalidad=ds.getValue(ControlCalidad.class);
+
+
+                }
+
+                if(controlcalidad!=null){
+                    createChar(controlcalidad);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+
+    private void createChar(ControlCalidad controlCalidad){
+
+
+        BarChart barChart=findViewById(R.id.chart);
+        barChart.getXAxis().setDrawGridLines(false);  //ocultamos algunas lineas
+
+        final String [] quarters=  getResources().getStringArray(R.array.array_defectos_frutax);
+        ///
+        // barChart.setBackground(getDrawable(R.drawable.bacgroundsercom));
+
+        ValueFormatter formatter = new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return quarters[(int) value];
+            }
+        };
+
+
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(0f,30f));
+        barEntries.add(new BarEntry(1f,80f));
+        barEntries.add(new BarEntry(2f,60f));
+        barEntries.add(new BarEntry(3f,50f));
+        barEntries.add(new BarEntry(4f,70f));
+        barEntries.add(new BarEntry(5f,35f));
+        barEntries.add(new BarEntry(6f,85f));
+        barEntries.add(new BarEntry(7f,65f));
+        barEntries.add(new BarEntry(8f,55f));
+        barEntries.add(new BarEntry(9f,75f));
+        barEntries.add(new BarEntry(10f,40f));
+        barEntries.add(new BarEntry(11f,90f));
+        barEntries.add(new BarEntry(12f,70f));
+        barEntries.add(new BarEntry(13f,60f));
+        barEntries.add(new BarEntry(14f,75f));
+        barEntries.add(new BarEntry(15f,30f));
+        barEntries.add(new BarEntry(16f,80f));
+        barEntries.add(new BarEntry(17f,60f));
+        barEntries.add(new BarEntry(18f,50f));
+        barEntries.add(new BarEntry(19f,70f));
+        barEntries.add(new BarEntry(20f,30f));
+        barEntries.add(new BarEntry(21f,80f));
+        barEntries.add(new BarEntry(22f,60f));
+
+
+        BarDataSet barDataSet = new BarDataSet(barEntries,"Defectos");
+        barDataSet.setValueTextSize(10f);
+        barDataSet.setFormSize(9f);
+        //barDataSet.setDrawIcons(true);
+
+
+        BarData theData = new BarData(barDataSet);
+        theData.setBarWidth(0.9f);
+        barChart.setData(theData);
+        //barChart.setTouchEnabled(true);
+        // barChart.set
+        //barChart.setDragEnabled(true);
+        // barChart.setScaleEnabled(true);
+        barChart.setFitBars(true);
+        // barChart
+        barChart.setDrawGridBackground(false);
+
+        barDataSet.setColors(new int[]{
+                R.color.durazon , R.color.durazon
+
+
+        } , PdfMaker2_0.this);
+
+
+
+
+        //  barChart.setDescription("hola");
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(formatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelCount(23);
+        // Bitmap b = getChartBitmap();
+
+
+        xAxis.setTextSize(7/*textSize*/);
+
+
+    }
 
 
 

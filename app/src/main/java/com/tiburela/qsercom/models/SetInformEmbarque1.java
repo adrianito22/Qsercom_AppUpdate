@@ -22,7 +22,6 @@ public class SetInformEmbarque1 {
     private long fechaCreacionInf;
     private String  numcionContenedor;
 
-
     private String uniqueIDinforme;
 
     public String getKeyFirebase() {

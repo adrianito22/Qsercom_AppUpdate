@@ -24,6 +24,7 @@ import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -98,7 +99,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-
+  int numeroClustersInspecc=0;
     TextView textView;
     //  boolean[] selectedLanguage;
     Button btnSaveControlC;
@@ -1087,6 +1088,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 muestraaLLResults();
                 muestraResultado();
+                generatePercent(numeroClustersInspecc);
 
                 break;
 
@@ -1094,69 +1096,146 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
     }
+    void  generatePercent(int numeroClustersInspecc)  {
+
+        int porcetDefectFruta[] ={0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+        int porcetDefectEmpq[] ={0,0,0,0,0,0,0};
+        int value =0;
 
 
-     void muestraaLLResults() {
+        for(ArrayList<Boolean> listArray: HashMapOfListWhitStatesCHeckb.values()){
+            for(int indice2=0; indice2<listArray.size(); indice2++){  //lista de listas
+                if(listArray.get(indice2)) { //si es verdadero
+                    value =1;
+                }else{
+                    value =0;
+                }
+
+                porcetDefectFruta[indice2] =porcetDefectFruta[indice2]+value;
+
+            }
+        }
+
+        int indice=0;
+
+
+        Log.i("saludo","el numeroClustersInspecc es "+numeroClustersInspecc);
+
+        for(int valuex :porcetDefectFruta ) {
+
+            //ACTUALIZAMOS LOS RPOICENTAJES
+
+            int porcentajeThisValue =  valuex*100/numeroClustersInspecc;
+
+            porcetDefectFruta[indice]=porcentajeThisValue;
+
+            Log.i("saludo","el porcentaje es "+porcentajeThisValue);
+
+
+
+            indice++;
+
+        }
+    }
+
+
+    void muestraaLLResults() {
 
         TextInputEditText ediTotalPesoLAll=findViewById(R.id.ediTotalPesoLAll);
         TextInputEditText ediNumClusInspAll=findViewById(R.id.ediNumClusInspAll);
 
-         TextInputEditText ediPromedioPorc=findViewById(R.id.ediAllPesoLibraPorcent);
-         TextInputEditText alNumClustPercent =findViewById(R.id.alNumClustPercent);
-         TextView txtTotalDefect   =findViewById(R.id.txtTotalDefect);
+        TextInputEditText ediPromedioPorc=findViewById(R.id.ediAllPesoLibraPorcent);
+        TextInputEditText alNumClustPercent =findViewById(R.id.alNumClustPercent);
+        TextView txtTotalDefect   =findViewById(R.id.txtTotalDefectSelect);
+        TextInputEditText allPerPh=findViewById(R.id.allPerPh);
 
 
 
-         float allPesoLibras =0;
-         int  numeroClustersInspecc=0;
 
-         int  contadorValoresPeso=0;
-         int  contadorValrsCloseterIns=0;
+        double allPesoLibras =0;
+        double allPhsSuma =0;
 
-         TextInputEditText [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
+        numeroClustersInspecc=0;
 
-         TextInputEditText [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
-                 ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+        int  contadorValoresPeso=0;
+        int  contadorValrsCloseterIns=0;
+        int contadorPh=0;
 
+        TextInputEditText [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
 
-
-          for(int i=0;i<arrayPesoS.length;i++) {
-
-              if(! arrayPesoS [i].getText().toString().trim().isEmpty()){
-                  allPesoLibras =allPesoLibras+ Float.parseFloat(arrayPesoS [i].getText().toString());
-
-                  contadorValoresPeso++ ;
-
-              }
+        TextInputEditText [] arrayPhs = {ediPH1,ediPH2,ediPH3,ediPH4,ediPH5,ediPH6,ediPH7,ediPH7,ediPH8,ediPH9,ediPH10};
 
 
-              if( !arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty()){
-                  numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayPesoS [i].getText().toString());
-
-                  contadorValrsCloseterIns++ ;
-              }
-          }
-
-
-try {
-    ediTotalPesoLAll.setText(String.valueOf(allPesoLibras));
-    ediNumClusInspAll.setText(String.valueOf(numeroClustersInspecc));
-
-    ediPromedioPorc.setText(String.valueOf((int)allPesoLibras/contadorValoresPeso));
-    alNumClustPercent.setText(String.valueOf(numeroClustersInspecc/contadorValrsCloseterIns));
-
-}
-catch (Exception e) {
-
-    e.printStackTrace();
+        TextInputEditText [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+                ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
 
 
 
-}
+        for(int i=0;i<arrayPesoS.length;i++) {
+
+            if(! arrayPesoS [i].getText().toString().trim().isEmpty() ){
+                allPesoLibras =allPesoLibras+ Double.parseDouble(arrayPesoS [i].getText().toString() );
+
+                contadorValoresPeso++ ;
+
+            }
 
 
 
-     }
+            //
+            if(!arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty() ){  //si esta vacio
+
+                contadorValrsCloseterIns++;
+                numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayNumeroCLUSTERinspec [i].getText().toString());
+
+            }
+
+
+            //ph
+            if(! arrayPhs [i].getText().toString().trim().isEmpty() ){
+                allPhsSuma =allPhsSuma+ Double.parseDouble(arrayPhs [i].getText().toString() );
+                contadorPh++;
+            }
+
+
+
+        }
+
+
+
+        try {
+
+            Log.i("pesilonbras","el al peso libras es "+allPesoLibras);
+
+            DecimalFormat df = new DecimalFormat("#.#");
+            String pesoLibras= df.format(allPesoLibras);
+
+            Log.i("pesilonbras","el al peso libras es "+allPesoLibras);
+            ediTotalPesoLAll.setText(pesoLibras);
+            ediNumClusInspAll.setText(String.valueOf(numeroClustersInspecc));
+
+            String percenTpesoLibras= df.format(allPesoLibras/contadorValoresPeso);
+            ediPromedioPorc.setText(percenTpesoLibras);
+
+            String clusPercent= df.format(numeroClustersInspecc/contadorValrsCloseterIns);
+            alNumClustPercent.setText(clusPercent);
+
+            String phPromedio=df.format(allPhsSuma/contadorPh);
+            allPerPh.setText(phPromedio);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+
 
 
     void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
@@ -1343,10 +1422,6 @@ catch (Exception e) {
 
 
     }
-
-
-
-
 
 
     void showingTimePicker( View vista){

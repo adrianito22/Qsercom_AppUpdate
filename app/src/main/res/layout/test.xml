@@ -163,7 +163,7 @@
                             android:id="@+id/ediTimeHoraxx1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -281,7 +281,7 @@
                             android:id="@+id/ediTimeHoraxx2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -399,7 +399,7 @@
                             android:id="@+id/ediTimeHoraxx3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -516,7 +516,7 @@
                             android:id="@+id/ediTimeHoraxx4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -630,7 +630,7 @@
                             android:id="@+id/ediTimeHoraxx5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -747,7 +747,7 @@
                             android:id="@+id/ediTimeHoraxx6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -865,7 +865,7 @@
                             android:id="@+id/ediTimeHoraxx7"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -982,7 +982,7 @@
                             android:id="@+id/ediTimeHoraxx8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -1099,7 +1099,7 @@
                             android:id="@+id/ediTimeHoraxx9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -1215,7 +1215,7 @@
                             android:id="@+id/ediTimeHoraxx10"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -1326,6 +1326,7 @@
                             android:id="@+id/editotalHere"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="false"
                             android:hint="TOTAL"
                             android:textSize="14sp" />
 
@@ -1343,6 +1344,7 @@
                             android:id="@+id/ediTotalPesoLAll"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -1361,6 +1363,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="0123456789"
+                            android:enabled="false"
                             android:inputType="number"
                             android:textSize="14sp" />
 
@@ -1381,6 +1384,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="0123456789"
+                            android:enabled="false"
                             android:inputType="number"
                             android:textSize="14sp" />
 
@@ -1393,7 +1397,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/txtTotalDefect"
+                        android:id="@+id/txtTotalDefectSelect"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
@@ -1435,6 +1439,7 @@
                             android:id="@+id/ediAllPesoLibraPorcent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="false"
                             android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -1452,6 +1457,7 @@
                             android:id="@+id/allPerPh"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="false"
                             android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -1468,6 +1474,7 @@
                             android:id="@+id/alNumClustPercent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="false"
                             android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>

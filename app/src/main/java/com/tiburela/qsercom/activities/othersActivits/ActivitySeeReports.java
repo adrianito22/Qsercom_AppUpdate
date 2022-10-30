@@ -364,7 +364,6 @@ public class ActivitySeeReports extends AppCompatActivity {
         /*   DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
 
         Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);*/
-
         Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
         Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
 

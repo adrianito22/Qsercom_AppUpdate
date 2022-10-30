@@ -8,6 +8,17 @@ import java.util.UUID;
 public class ControlCalidad {
 
     private String uniqueId;
+
+    public String getIdDelInformePeretenece() {
+        return idDelInformePeretenece;
+    }
+
+    public void setIdDelInformePeretenece(String idDelInformePeretenece) {
+        this.idDelInformePeretenece = idDelInformePeretenece;
+    }
+
+    private String idDelInformePeretenece; //por lo visto un control de calidad informe esta cinculado con otro informe
+
     private String simpleDate;
     private String keyDondeEstaraHasmapDefecSelec;
 
@@ -365,6 +376,7 @@ public class ControlCalidad {
         this.placaCarro=placaCarro;
         this.puertEmbarq=puertEmbarq;
         keyDondeEstarThisInform="";
+        idDelInformePeretenece="";
 
     }
 
