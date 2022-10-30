@@ -28,6 +28,8 @@ import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import org.apache.commons.codec.binary.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -40,6 +42,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     HashMap <String, String> hasmapMapControlCalid;
     Button btnSaveControlC;
     TextView textView48;
+    int numeroClustersInspecc=0;
     HashMap<String, String> hasHmapFieldsOtherViews= new HashMap<>();
     HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
     private TextInputEditText mEdif2LrgD1;
@@ -1481,6 +1484,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                 muestraaLLResults();
                 muestraResultado();
+                generatePercent(numeroClustersInspecc);
 
                 break;
 
@@ -2819,10 +2823,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             }
 
 
-            if( !arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty()){
-                numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayPesoS [i].getText().toString());
+            if( !arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty() && !arrayNumeroCLUSTERinspec [i].getText().toString().equals(" ") ){
+                if( android.text.TextUtils.isDigitsOnly(arrayNumeroCLUSTERinspec [i].getText().toString())) {
+                    numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayPesoS [i].getText().toString());
+                    contadorValrsCloseterIns++ ;
+                       }
 
-                contadorValrsCloseterIns++ ;
             }
         }
 
@@ -2840,6 +2846,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        numeroClustersInspecc=  contadorValrsCloseterIns;
 
 
 
