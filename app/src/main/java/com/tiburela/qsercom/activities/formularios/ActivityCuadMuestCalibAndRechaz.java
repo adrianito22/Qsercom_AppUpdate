@@ -177,13 +177,8 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
         for(int indice=0; indice<31; indice++){
 
-
-
-            ColorCintasSemns    object= new ColorCintasSemns(0,0,0,0,0,0,0);
-
+            ColorCintasSemns    object= new ColorCintasSemns(indice+1,0,0,0,0,0,0);
             ColorCintasSemnsArrayList.add(object);
-
-
 
         }
 

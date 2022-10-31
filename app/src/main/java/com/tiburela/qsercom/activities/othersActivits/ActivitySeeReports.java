@@ -5,14 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -55,6 +62,8 @@ public class ActivitySeeReports extends AppCompatActivity {
     DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
 
+    private ProgressDialog progress;
+
     public final int REPORTE_CONTENEDORES_EN_HCDA=1100;
     public final int CONTENEDORES=1200;
     public final int PACKINGLIST=1201;
@@ -62,9 +71,6 @@ public class ActivitySeeReports extends AppCompatActivity {
     public final int REPORTE_CONTENEDORES_EN_ACOPIO=1203;
     public final int REPORTE_CAMIONES_y_CARRETAS=1204;
     public final int REPORT_CONTROL_CALIDAD=1205;
-
-
-
 
     ArrayList<ReportsAllModel>allReportFiltB;
 
@@ -100,6 +106,10 @@ public class ActivitySeeReports extends AppCompatActivity {
 
 
         try {
+
+        progress.dismiss();
+
+
             if(Variables.VienedePreview) {
                 pd.dismiss();
                 Variables.VienedePreview =false;
@@ -159,17 +169,19 @@ public class ActivitySeeReports extends AppCompatActivity {
                     dowloadinformesby_CONTENEDORES(fechaToSearch);
                     //dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
-
-                }else if (timeSelecionado.equals("FECHA ESPECIFICA")){
-
-                    String fecheEspecifica ="14-09-2022";//aqui va la fecha que obtengamos
-
-                    dowloadinformesby_CONTENEDORES(fecheEspecifica);
-                    // dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
-
+                    // Log.i("sumares","la fecha to search es "+fechaToSearch);
 
 
                 }
+
+                else if (timeSelecionado.equals("FECHA ESPECIFICA")){
+
+                    selecionaFecha();
+
+                }
+
+
+
 
 
             }
@@ -485,14 +497,40 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                 }
 
-                Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
+
+                Intent intencion= new Intent(ActivitySeeReports.this, ActivityContenedoresPrev.class);
+
+
+                if(modoReporte==Variables.MODO_EDICION ){
+
+                    intencion.putExtra(Variables.KEYEXTRAPREVIEW,true);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    // startActivity(intencion);
+
+                    showPRogress(intencion);
+
+                    //pdialogff.dismiss();
+
+                    //finish();
+                }else{
+
+
+                    intencion.putExtra(Variables.KEYEXTRAPREVIEW,false);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+
+                    // startActivity(intencion);
+                    // pdialogff.dismiss();
+                    // finish();
+                    showPRogress(intencion);
 
 
 
+                }
 
-                //   Log.i("isclkiel","el data es cc "+ Variables.CurrenReportPart1.getContenedor());
-
-                dowloadSecondPART_Report(Variables.CurrenReportPart1.getUniqueIDinforme(),modoReporte);//y despues vamos a a la activity preview
 
 
 
@@ -549,7 +587,8 @@ public class ActivitySeeReports extends AppCompatActivity {
                     //si queremos deciion le ponemos true;
                     Log.i("verdura","ahora se llamo intent");
 
-                    startActivity(intencion);
+                   // startActivity(intencion);
+                    showPRogress(intencion);
 
                     //pdialogff.dismiss();
 
@@ -561,9 +600,10 @@ public class ActivitySeeReports extends AppCompatActivity {
                     //si queremos deciion le ponemos true;
                     Log.i("verdura","ahora se llamo intent");
 
-                    startActivity(intencion);
+                  //  startActivity(intencion);
                     // pdialogff.dismiss();
                     // finish();
+                    showPRogress(intencion);
 
 
 
@@ -624,7 +664,8 @@ public class ActivitySeeReports extends AppCompatActivity {
                     //si queremos deciion le ponemos true;
                     Log.i("verdura","ahora se llamo intent");
 
-                    startActivity(intencion);
+                   // startActivity(intencion);
+                    showPRogress(intencion);
 
                     //pdialogff.dismiss();
 
@@ -636,10 +677,11 @@ public class ActivitySeeReports extends AppCompatActivity {
                     //si queremos deciion le ponemos true;
                     Log.i("verdura","ahora se llamo intent");
 
-                    startActivity(intencion);
+                  //  startActivity(intencion);
                     // pdialogff.dismiss();
                     // finish();
 
+                    showPRogress(intencion);
 
 
                 }
@@ -698,7 +740,9 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     Log.i("verdura","ahora se llamo intent");
 
-                    startActivity(intencion);
+                   // startActivity(intencion);
+
+                    showPRogress(intencion);
 
 
                 }else{
@@ -708,7 +752,10 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     Log.i("verdura","ahora se llamo intent");
 
-                    startActivity(intencion);
+                  //  startActivity(intencion);
+
+                    showPRogress(intencion);
+
 
                 }
 
@@ -765,9 +812,12 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
                     //si queremos deciion le ponemos true;
-                    Log.i("verdura","ahora se llamo intent");
+                    Log.i("csamirrs","se llamo ciotnrocalida");
 
-                    startActivity(intencion);
+                 //   startActivity(intencion);
+
+                    showPRogress(intencion);
+
 
                     //pdialogff.dismiss();
 
@@ -777,9 +827,12 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     intencion.putExtra(Variables.KEY_PACKING_LIST,false);
                     //si queremos deciion le ponemos true;
-                    Log.i("verdura","ahora se llamo intent");
+                    Log.i("csamirrs","ahora se llamo intent");
 
-                    startActivity(intencion);
+                    showPRogress(intencion);
+
+
+                  //  startActivity(intencion);
                     // pdialogff.dismiss();
                     // finish();
 
@@ -947,7 +1000,9 @@ public class ActivitySeeReports extends AppCompatActivity {
                     //si queremos deciion le ponemos true;
                     Log.i("verdura","ahora se llamo intent");
 
-                    startActivity(intencion);
+                   // startActivity(intencion);
+
+                    showPRogress(intencion);
 
                     //pdialogff.dismiss();
 
@@ -959,9 +1014,11 @@ public class ActivitySeeReports extends AppCompatActivity {
                     //si queremos deciion le ponemos true;
                     Log.i("verdura","ahora se llamo intent");
 
-                    startActivity(intencion);
+
+                   // startActivity(intencion);
                     // pdialogff.dismiss();
                     // finish();
+                    showPRogress(intencion);
 
 
 
@@ -1126,6 +1183,105 @@ public class ActivitySeeReports extends AppCompatActivity {
         });
 
         bottomSheetDialog.show();
+    }
+
+
+    private void showPRogress(Intent i) {
+        progress =new ProgressDialog(ActivitySeeReports.this);
+
+        progress.setMessage("Cargando Datos....");
+       // progress.setProgressStyle(ProgressDialog.THEME_HOLO_LIGHT);
+       progress.setIndeterminate(true);
+        progress.show();
+
+
+        new Thread ( new Runnable()
+        {
+            public void run()
+            {
+                  startActivity(i);
+                  finish();
+
+               // progress.dismiss();
+
+            }
+        }).start();
+
+        @SuppressLint("HandlerLeak") Handler progressHandler = new Handler()
+        {
+
+            public void handleMessage(Message msg1)
+            {
+
+                progress.dismiss();
+            }
+        };
+
+
+}
+
+    void selecionaFecha( ){
+
+        final Calendar cldr = Calendar.getInstance();
+        int year = cldr.get(Calendar.YEAR);
+        int daySemana = cldr.get(Calendar.DAY_OF_WEEK);
+        int mes = cldr.get(Calendar.MONTH);
+
+        // time picker dialog
+        DatePickerDialog picker = new DatePickerDialog(ActivitySeeReports.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                     //   ediFecha.setText(daySemana+"/"+mes+"/"+year);
+
+                        Log.i("datesdf","el date picker 1 es "+i+" "+i1+" "+i2);
+
+                        //02-10-2022
+
+                        //convertimos a mili
+
+                        String dia =String.valueOf(i2);
+                        String mes =String.valueOf(i1);
+                         i1++;
+
+                        Log.i("sumares","el mes es :  "+i1);
+
+
+                        if(i2<10){ //dia es menor a 10
+                            dia = "0"+i2;
+
+                        }
+                        else{
+                            dia =  String.valueOf(i2);
+
+                        }
+
+
+                        if(i1<10){ //mes
+                            mes = "0"+i1;
+
+                        }else{
+                            mes =  String.valueOf(i1);
+
+                        }
+
+
+
+                        String fechaToSearch= dia+"-"+mes+"-"+i;
+
+                        Log.i("sumares","el date picker to search es "+fechaToSearch);
+
+                        dowloadinformesby_CONTENEDORES(fechaToSearch);
+
+
+                    }
+                }, year,  mes, daySemana);
+
+        picker.setButton(DialogInterface.BUTTON_POSITIVE, "OK", picker);
+        picker.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", picker);
+
+
+        picker.show();
     }
 
 }

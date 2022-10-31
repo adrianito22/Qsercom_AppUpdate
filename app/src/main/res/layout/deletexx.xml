@@ -79,6 +79,7 @@
                                 android:layout_height="wrap_content"
 
                                 android:digits="0123456789."
+                                android:enabled="false"
                                 android:gravity="center_horizontal"
                                 android:inputType="number"
                                 android:text="14" />
@@ -100,6 +101,7 @@
                                 android:layout_height="wrap_content"
 
                                 android:digits="0123456789."
+                                android:enabled="false"
                                 android:gravity="center_horizontal"
                                 android:inputType="number"
                                 android:text="13" />
@@ -121,6 +123,7 @@
                                 android:layout_height="wrap_content"
 
                                 android:digits="0123456789."
+                                android:enabled="false"
                                 android:gravity="center_horizontal"
                                 android:inputType="number"
                                 android:text="12" />
@@ -142,6 +145,7 @@
                                 android:layout_height="wrap_content"
 
                                 android:digits="0123456789."
+                                android:enabled="false"
                                 android:gravity="center_horizontal"
                                 android:inputType="number"
                                 android:text="11" />
@@ -162,6 +166,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
 
+                                android:enabled="false"
                                 android:gravity="center_horizontal"
                                 android:inputType="text"
                                 android:text="10" />
@@ -183,6 +188,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
 
+                                android:enabled="false"
                                 android:gravity="center_horizontal"
                                 android:inputType="text"
                                 android:text="9" />

@@ -27,22 +27,35 @@
         tools:targetApi="s">
         <activity
             android:name=".PdfMaker.PdfMaker2_0"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Canvas.CanvasActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activities.formularios.ActivityControlCalidad"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".testDELETE.Selector"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".testDELETE.Test2"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.formulariosPrev.FormularioControlCalidadPreview"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.formulariosPrev.PreviewCalidadCamionesyCarretas"
             android:configChanges="orientation"
@@ -50,8 +63,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev"
-            android:configChanges="orientation"
             android:exported="true"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.formularios.ActivityReporteCalidadCamionesyCarretas"

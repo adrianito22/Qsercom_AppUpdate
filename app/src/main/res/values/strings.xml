@@ -78,6 +78,8 @@
         <item>HOY</item>
         <item>AYER</item>
         <item>ANTEAYER </item>
+        <item>FECHA ESPECIFICA</item>
+
     </string-array>
 
     <string-array name="fuentesAguaArray">

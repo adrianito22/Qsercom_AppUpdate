@@ -12,12 +12,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
@@ -37,6 +40,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamione
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
 import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -55,6 +59,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     LinearLayout ly_controlCalidad;
     Intent currentIntent;
     Context contetext;
+    private ProgressDialog progress;
+
 
   private  AlertDialog alertDialog=null;
 
@@ -133,7 +139,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this, ActivityControlCalidad.class));
+                  //  startActivity(new Intent(ActivityMenu.this, ActivityControlCalidad.class));
+
+                    Intent intencion=new Intent(ActivityMenu.this,ActivityControlCalidad.class);
+                    showPRogressAndStartActivity(intencion);
 
                 }
 
@@ -154,7 +163,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class));
+                  //  startActivity(new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class));
+
+                    Intent intencion=new Intent(ActivityMenu.this,ActivityReporteCalidadCamionesyCarretas.class);
+                    showPRogressAndStartActivity(intencion);
+
 
                 }
 
@@ -175,8 +188,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this, ActivityPackingList.class));
+                  //  startActivity(new Intent(ActivityMenu.this, ActivityPackingList.class));
 
+                    Intent intencion=new Intent(ActivityMenu.this,ActivityPackingList.class);
+                    showPRogressAndStartActivity(intencion);
                 }
 
 
@@ -197,8 +212,13 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                 }
                 else{
-                    startActivity(new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class));
+                   // startActivity(new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class));
 
+
+
+
+                    Intent intencion=new Intent(ActivityMenu.this,ActivityDatosContersEnAcopio.class);
+                    showPRogressAndStartActivity(intencion);
                 }
 
 
@@ -221,7 +241,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this, ActivityContenedores.class));
+                   // startActivity(new Intent(ActivityMenu.this, ActivityContenedores.class));
+                    Intent intencion=new Intent(ActivityMenu.this,ActivityContenedores.class);
+                    showPRogressAndStartActivity(intencion);
 
                 }
 
@@ -253,7 +275,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                 else{
 
-                    startActivity(new Intent(ActivityMenu.this, ActivityCuadMuestCalibAndRechaz.class ));
+                 //   startActivity(new Intent(ActivityMenu.this, ActivityCuadMuestCalibAndRechaz.class ));
+
+                    Intent intencion=new Intent(ActivityMenu.this,ActivityCuadMuestCalibAndRechaz.class);
+                    showPRogressAndStartActivity(intencion);
 
                 }
 
@@ -455,6 +480,26 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         PerecentHelp.listViewsClickedUser =new ArrayList<>();
         showDataByMode();
 
+        try {
+            progress.dismiss();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+
+            HelperImage.imAGESpdfSetGlobal.clear();
+            HelperImage.imAGESpdfSetGlobal=new ArrayList<>();
+            HelperImage.ImagesToPdfMap.clear();
+            HelperImage.ImagesToPdfMap=new HashMap<>();
+            Variables.CurrenReportPart1=null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
    ///   PdfMaker. generaPdFtEST(ActivityMenu.this);
 
 
@@ -542,7 +587,12 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         if(tipoFormulario==Variables.FormCantrolCalidad){
 
-            ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, ActivityControlCalidad.class)) ;
+        //    ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, ActivityControlCalidad.class)) ;
+
+              Intent intencion=  new Intent(ActivityMenu.this, ActivityControlCalidad.class);
+            showPRogressAndStartActivity(intencion);
+
+
         }
 
 
@@ -551,32 +601,50 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
            // ActivityMenu.this.startActivity(new Intent(ActivityMenu.this, ControlCalidad.class)) ;
 
             Intent myintent = new Intent(ActivityMenu.this,ActivityContenedores.class);
-            ActivityMenu.this.startActivity(myintent);
-            finish();
+            showPRogressAndStartActivity(myintent);
+
+
+          //  finish();
         }
 
 
         else  if(tipoFormulario==Variables.FormatDatsContAcopi){
-            startActivity(new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class)) ;
+          //  startActivity(new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class)) ;
+
+            Intent intencion=new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class);
+
+            showPRogressAndStartActivity(intencion);
+
 
         }
 
 
         else  if(tipoFormulario==Variables.FormCamionesyCarretasActivity){//
-            startActivity(new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class)) ;
+          //  startActivity(new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class)) ;
+
+            Intent intencion=new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class);
+
+            showPRogressAndStartActivity(intencion);
 
         }
 
 
         else  if(tipoFormulario==Variables.FormPackingList){
-            startActivity(new Intent(ActivityMenu.this, ActivityPackingList.class)) ;
+          //  startActivity(new Intent(ActivityMenu.this, ActivityPackingList.class)) ;
+            Intent intencion=new Intent(ActivityMenu.this, ActivityPackingList.class);
 
+            showPRogressAndStartActivity(intencion);
 
         }
 
 
         else  if(tipoFormulario==Variables.FormMuestreoRechaz){
-            startActivity(new Intent(ActivityMenu.this, ActivityCuadMuestCalibAndRechaz.class)) ;
+           // startActivity(new Intent(ActivityMenu.this, ActivityCuadMuestCalibAndRechaz.class)) ;
+            Intent intencion=new Intent(ActivityMenu.this, ActivityCuadMuestCalibAndRechaz.class);
+
+            showPRogressAndStartActivity(intencion);
+
+
         }
 
 
@@ -680,6 +748,41 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         bottomSheetDialog.show();
+    }
+
+
+    private void showPRogressAndStartActivity(Intent i) {
+        progress =new ProgressDialog(ActivityMenu.this);
+
+        progress.setMessage("Cargando Formulario....");
+        // progress.setProgressStyle(ProgressDialog.THEME_HOLO_LIGHT);
+        progress.setIndeterminate(true);
+        progress.show();
+
+
+        new Thread ( new Runnable()
+        {
+            public void run()
+            {
+                startActivity(i);
+               // finish();
+
+                // progress.dismiss();
+
+            }
+        }).start();
+
+        @SuppressLint("HandlerLeak") Handler progressHandler = new Handler()
+        {
+
+            public void handleMessage(Message msg1)
+            {
+
+                progress.dismiss();
+            }
+        };
+
+
     }
 
 

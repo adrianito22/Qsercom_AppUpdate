@@ -88,9 +88,11 @@ import com.tiburela.qsercom.utils.Variables;
 import java.io.File;
 import java.io.IOException;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,10 +113,15 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
    private Spinner spFuenteAgua;
    private Spinner spFumigaCorL1;
 
+   private     long millisDateSelect=0;
+
    private Spinner spTipoBoquilla;
     private static int currentTypeImage=0;
     ProgressBar progressBarFormulario;
     private Context mContext;
+
+    SetInformEmbarque2  CurrenReportPart2x;
+   SetInformDatsHacienda CurrenReportPart3x;
 
    Button btnDowlPdf;
     FloatingActionButton fab ;
@@ -447,7 +454,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
     @RequiresApi(api = Build.VERSION_CODES.N)
     void selecionaFecha(){
 
-
         final Calendar cldr = Calendar.getInstance();
         int year = cldr.get(Calendar.YEAR);
         int daySemana = cldr.get(Calendar.DAY_OF_WEEK);
@@ -459,7 +465,21 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-                        ediFecha.setText(daySemana+"/"+mes+"/"+year);
+                          String dateSelec=i2+"/"+i1+"/"+i;
+
+                        ediFecha.setText(dateSelec);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+
+                        Date date = null;
+                        try {
+                            date = sdf.parse(dateSelec);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        millisDateSelect = date.getTime();
+
 
                     }
                 }, year,  mes, daySemana);
@@ -1946,8 +1966,6 @@ private void createObjcInformeAndUpload(){
 
         //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
-
-
     SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
             Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
             ,ediProductor.getText().toString(),ediCodigo.getText().toString()
@@ -1961,8 +1979,19 @@ private void createObjcInformeAndUpload(){
             ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
             ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
     informe.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
-    informe.setSimpleDataFormat(Variables.CurrenReportPart1.getSimpleDataFormat());
-    informe.setFechaCreacionInf(Variables.CurrenReportPart1.getFechaCreacionInf());
+
+    if(millisDateSelect >0){
+
+        ////CONVERTIMOS A SIMPLE DATE FORMAT
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaString = formatter.format(Variables.CurrenReportPart1.getFechaCreacionInf());
+        informe.setSimpleDataFormat(fechaString);
+        informe.setFechaCreacionInf(millisDateSelect);
+
+
+    }
+
+
 
 
     SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
@@ -1977,7 +2006,7 @@ private void createObjcInformeAndUpload(){
             ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
             switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
-    informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+    informe2.setKeyFirebase( CurrenReportPart2x.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
 
@@ -1985,7 +2014,7 @@ private void createObjcInformeAndUpload(){
             ediFumigacionClin1.getText().toString(),ediTipoBoquilla.getText().toString(),ediCajasProcDesp.getText().toString(),
             ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME);
 
-    informe3.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+    informe3.setKeyFirebase( CurrenReportPart2x.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
     RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
@@ -2029,6 +2058,7 @@ private void createObjcInformeAndUpload(){
                 ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
                 ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
 
+
         informe.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
@@ -2051,7 +2081,7 @@ private void createObjcInformeAndUpload(){
                 ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
                 switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
-                 informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+                 informe2.setKeyFirebase( CurrenReportPart2x.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
         //Agregamos un nuevo informe
@@ -3767,6 +3797,10 @@ return true;
         ediSemana.setText(info1Object.getSemana());
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
         String fechaString = formatter.format(info1Object.getFechaCreacionInf());
+
+        Log.i("holabaser","el fecha string ers "+fechaString);
+
+
         ediFecha.setText(fechaString);
 
         ediProductor.setText(info1Object.getProductor());
@@ -3877,20 +3911,10 @@ private void checkModeVisualitY(){
 
 
      Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
-    //AGREGMOS LA DATA EN LOS FILEDS
-    addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
-    addatainviewsMOREviews(Variables.CurrenReportPart3);
-
-    /////vamos a descargar otro..
 
 
-    Log.i("isclkiel","el data es "+ Variables.CurrenReportPart1.getContenedor());
-
-
-    addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
-
-
-
+    //aqui llamadmosasg
+    dowloadSecondPART_Report(Variables.CurrenReportPart1.getUniqueIDinforme(),1);
     //inicializamos STORAGE..
     StorageData.initStorageReference();
     dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinforme());
@@ -4240,6 +4264,7 @@ private void checkModeVisualitY(){
                         String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                         ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId,descripcionImage);
+
                         HelperImage.imAGESpdfSetGlobal.add(imgsObect);
                         HelperImage.ImagesToPdfMap.put(uniqueId,imgsObect);
 
@@ -4761,6 +4786,91 @@ if(indice>2) {
     }
 
 
+    void dowloadSecondPART_Report(String reportUNIQUEidtoSEARCH, int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
 
+        Log.i("secondInform","el curren report id es "+reportUNIQUEidtoSEARCH);
+         RealtimeDB.initDatabasesRootOnly();
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinformePart2").equalTo(reportUNIQUEidtoSEARCH);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    SetInformEmbarque2 informEmbarque2= ds.getValue(SetInformEmbarque2.class);
+
+                    if(informEmbarque2!=null){
+                        CurrenReportPart2x=informEmbarque2;
+                        break;
+                    }
+                }
+                Log.i("secondInform","el id del secon resport es "+CurrenReportPart2x.getUniqueIDinformePart2());
+                Log.i("secondInform","el CANDAO ES "+CurrenReportPart2x.getCandadoQsercom());
+
+
+                dowloadThirdReportAndCallSetData(reportUNIQUEidtoSEARCH,modo);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+    void dowloadThirdReportAndCallSetData(String reportUNIQUEidtoSEARCH,int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
+
+        Log.i("secondInform","el curren report id es "+reportUNIQUEidtoSEARCH);
+
+
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinformeDatsHda").equalTo(reportUNIQUEidtoSEARCH);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    SetInformDatsHacienda inform= ds.getValue(SetInformDatsHacienda.class);
+
+                    if(inform!=null){
+                        CurrenReportPart3x=inform;
+                        break;
+
+                    }
+
+
+                }
+
+                //AGREGMOS LA DATA EN LOS FILEDS
+                addDataEnFields(Variables.CurrenReportPart1,CurrenReportPart2x,CurrenReportPart3x);
+                addatainviewsMOREviews(CurrenReportPart3x);
+                addDataENfiledsoTHERviews(Variables.CurrenReportPart1,CurrenReportPart2x,CurrenReportPart3x);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+       finish();
+    }
 
 }
