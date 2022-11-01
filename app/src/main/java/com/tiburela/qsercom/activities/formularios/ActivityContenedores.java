@@ -24,6 +24,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -47,12 +49,17 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
-import com.tiburela.qsercom.models.CalibrFrutCalEnf;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -72,6 +79,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 import com.tiburela.qsercom.R;
@@ -82,7 +90,9 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
     public static Context context;
+    ArrayList<ControlCalidad>listForms=new ArrayList<>();
 
+     ImageView imgAtachVinculacion;
 
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
@@ -469,6 +479,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     private void findViewsIds( ) { //configuraremos algos views al iniciar
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
 
+        imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
+
          ediSemana=findViewById(R.id.ediCajas3);
          ediFecha=findViewById(R.id.ediCajas7);
          ediProductor=findViewById(R.id.ediCodigoN2);
@@ -654,6 +666,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
+
+        imgAtachVinculacion.setOnClickListener(this);
 
          imbAtach_transportista.setOnClickListener(this);
          imbTakePicTransportista.setOnClickListener(this);
@@ -964,13 +978,476 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
                break;
 
 
+           case R.id.imgAtachVinculacion:
 
+               addControlcALIDAD(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
+
+               break;
 
 
 
        }
 
         //aqui o
+
+
+    }
+
+    private void showReportControLcalidOfSelectsAndDesmark(Context context, ArrayList<ControlCalidad>list) {
+
+          String initialStringVinculados=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+
+            bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atach);
+
+            Button btnDesvincular = bottomSheetDialog.findViewById(R.id.btnDesvincular);
+
+        CheckBox checkBx1 = bottomSheetDialog.findViewById(R.id.checkBx1);
+        CheckBox checkBx2 = bottomSheetDialog.findViewById(R.id.checkBx2);
+        CheckBox checkBx3 = bottomSheetDialog.findViewById(R.id.checkBx3);
+        CheckBox checkBx4 = bottomSheetDialog.findViewById(R.id.checkBx4);
+        CheckBox checkBx5 = bottomSheetDialog.findViewById(R.id.checkBx5);
+        CheckBox checkBx6 = bottomSheetDialog.findViewById(R.id.checkBx6);
+
+        LinearLayout ly01= bottomSheetDialog.findViewById(R.id.ly01);
+        LinearLayout ly02= bottomSheetDialog.findViewById(R.id.ly02);
+        LinearLayout ly03= bottomSheetDialog.findViewById(R.id.ly03);
+        LinearLayout ly04= bottomSheetDialog.findViewById(R.id.ly04);
+        LinearLayout ly05= bottomSheetDialog.findViewById(R.id.ly05);
+        LinearLayout ly06= bottomSheetDialog.findViewById(R.id.ly06);
+
+        TextView txtDataFirst1= bottomSheetDialog.findViewById(R.id.txtDataFirst1);
+        TextView txtDataFirst2= bottomSheetDialog.findViewById(R.id.txtDataFirst2);
+        TextView txtDataFirst3= bottomSheetDialog.findViewById(R.id.txtDataFirst3);
+        TextView txtDataFirst4= bottomSheetDialog.findViewById(R.id.txtDataFirst4);
+        TextView txtDataFirst5= bottomSheetDialog.findViewById(R.id.txtDataFirst5);
+        TextView txtDataFirst6= bottomSheetDialog.findViewById(R.id.txtDataFirst6);
+
+
+        TextView txtDataSecond1= bottomSheetDialog.findViewById(R.id.txtDataSecond1);
+        TextView txtDataSecond2= bottomSheetDialog.findViewById(R.id.txtDataSecond2);
+        TextView txtDataSecond3= bottomSheetDialog.findViewById(R.id.txtDataSecond3);
+        TextView txtDataSecond4= bottomSheetDialog.findViewById(R.id.txtDataSecond4);
+        TextView txtDataSecond5= bottomSheetDialog.findViewById(R.id.txtDataSecond5);
+        TextView txtDataSecond6= bottomSheetDialog.findViewById(R.id.txtDataSecond6);
+
+
+        ImageView imgSee1= bottomSheetDialog.findViewById(R.id.imgSee1);
+        ImageView imgSee2= bottomSheetDialog.findViewById(R.id.imgSee2);
+        ImageView imgSee3= bottomSheetDialog.findViewById(R.id.imgSee3);
+        ImageView imgSee4= bottomSheetDialog.findViewById(R.id.imgSee4);
+        ImageView imgSee5= bottomSheetDialog.findViewById(R.id.imgSee5);
+        ImageView imgSee6= bottomSheetDialog.findViewById(R.id.imgSee6);
+
+
+
+        LinearLayout arraylayouts[] = {ly01,ly02,ly03,ly04,ly05,ly06} ;
+        CheckBox arrayCheckBox[] = {checkBx1,checkBx1,checkBx1,checkBx1,checkBx1,checkBx1} ;
+
+        TextView arraytextViwsFila1[] = {txtDataFirst1,txtDataFirst2,txtDataFirst3,txtDataFirst4,txtDataFirst5,txtDataFirst6} ;
+        TextView arraytextViwsFila2[] = {txtDataSecond1,txtDataSecond2,txtDataSecond3,txtDataSecond4,txtDataSecond5,txtDataSecond6} ;
+
+        SHOWamGHidenByNumsReportsVinculados(list,arraylayouts,arrayCheckBox,arraytextViwsFila1,arraytextViwsFila2);
+
+
+
+        btnDesvincular.setOnClickListener(new View.OnClickListener() { //editar
+                @Override
+                public void onClick(View v) {
+
+
+                    StringJoiner joiner = new StringJoiner(",");
+                    if(checkBx1.isChecked()){  //si esta chekeado.....
+                        joiner.add(checkBx1.getTag().toString());
+                    }
+
+                    if(checkBx2.isChecked()){
+                        joiner.add(checkBx2.getTag().toString());
+
+                    }
+
+                    if(checkBx3.isChecked()){
+                        joiner.add(checkBx3.getTag().toString());
+
+                    }
+
+                    if(checkBx4.isChecked()){
+                        joiner.add(checkBx4.getTag().toString());
+
+                    }
+                    if(checkBx5.isChecked()){
+                        joiner.add(checkBx5.getTag().toString());
+
+                    }
+
+                    if(checkBx6.isChecked()){
+                        joiner.add(checkBx6.getTag().toString());
+
+                    }
+
+                    String joinedString = joiner.toString(); // "01,02,03"
+
+                    if(!initialStringVinculados.equals(joinedString)){  //si no son iguales quiere decir que hay modificaciones y lo gaurdamos
+///guartdamos este nuevo...
+
+                    }
+
+
+                    bottomSheetDialog.dismiss();
+
+
+                }
+            });
+
+            bottomSheetDialog.show();
+
+            //cremaos un nuevo string solo con los chekeados....
+
+
+
+    }
+
+    private void showReportCcalidadToSelected(Context context) {
+
+        String inicialStringCheked ="";
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atach);
+
+        Button btnDesvincular = bottomSheetDialog.findViewById(R.id.btnDesvincular);
+        CheckBox checkBx1 = bottomSheetDialog.findViewById(R.id.checkBx1);
+        CheckBox checkBx2 = bottomSheetDialog.findViewById(R.id.checkBx2);
+        CheckBox checkBx3 = bottomSheetDialog.findViewById(R.id.checkBx3);
+        CheckBox checkBx4 = bottomSheetDialog.findViewById(R.id.checkBx4);
+        CheckBox checkBx5 = bottomSheetDialog.findViewById(R.id.checkBx5);
+        CheckBox checkBx6 = bottomSheetDialog.findViewById(R.id.checkBx6);
+
+        LinearLayout ly01= bottomSheetDialog.findViewById(R.id.ly01);
+        LinearLayout ly02= bottomSheetDialog.findViewById(R.id.ly02);
+        LinearLayout ly03= bottomSheetDialog.findViewById(R.id.ly03);
+        LinearLayout ly04= bottomSheetDialog.findViewById(R.id.ly04);
+        LinearLayout ly05= bottomSheetDialog.findViewById(R.id.ly05);
+        LinearLayout ly06= bottomSheetDialog.findViewById(R.id.ly06);
+
+
+        LinearLayout arraylayouts[] = {ly01,ly02,ly03,ly04,ly05,ly06} ;
+      // SHOWamGHidenByNumsReportsVinculados(3,arraylayouts);
+
+
+
+        btnDesvincular.setOnClickListener(new View.OnClickListener() { //editar
+            @Override
+            public void onClick(View v) {
+
+                bottomSheetDialog.dismiss();
+
+
+            }
+        });
+
+        bottomSheetDialog.show();
+
+        //cremaos un nuevo string solo con los chekeados....
+
+        StringJoiner joiner = new StringJoiner(",");
+        if(checkBx1.isChecked()){  //si esta chekeado.....
+            joiner.add(checkBx1.getTag().toString());
+        }
+
+        if(checkBx2.isChecked()){
+            joiner.add(checkBx2.getTag().toString());
+
+        }
+
+        if(checkBx3.isChecked()){
+            joiner.add(checkBx3.getTag().toString());
+
+        }
+
+        if(checkBx4.isChecked()){
+            joiner.add(checkBx4.getTag().toString());
+
+        }
+        if(checkBx5.isChecked()){
+            joiner.add(checkBx5.getTag().toString());
+
+        }
+
+        if(checkBx6.isChecked()){
+            joiner.add(checkBx6.getTag().toString());
+
+        }
+
+        String joinedString = joiner.toString(); // "01,02,03"
+
+        if(!inicialStringCheked.equals(joinedString)){  //si no son iguales quiere decir que hay modificaciones y lo gaurdamos
+///guartdamos este nuevo...
+
+        }
+
+
+
+    }
+
+
+    private void addControlcALIDAD(String idInformesVinculadosContCald ) {
+
+        String inicialStringCheked =idInformesVinculadosContCald;
+
+        String [] miarrayiNFORMESvinc = inicialStringCheked.split(",");
+        RealtimeDB.initDatabasesRootOnly();
+
+        //reocorremos
+        for(String idCurrentElement : miarrayiNFORMESvinc){
+
+            addnewInformToLISTcONTROLcalidad(idCurrentElement,miarrayiNFORMESvinc.length);
+
+        }
+
+
+    }
+
+
+    private void addnewInformToLISTcONTROLcalidad(String reportidToSearch, int SizeArray ) {
+
+
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").child(reportidToSearch);
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    ControlCalidad  user=ds.getValue(ControlCalidad.class);
+
+                    listForms.add(user);
+
+                }
+
+                //cuando las descrague todos
+                if(listForms.size() ==SizeArray){
+
+                    showReportControLcalidOfSelectsAndDesmark(ActivityContenedores.this,listForms);
+
+                    ///LLAMOS SHOW.....
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        usersdRef.addValueEventListener(eventListener);
+
+
+
+    }
+
+
+    private void SHOWamGHidenByNumsReportsVinculados(ArrayList<ControlCalidad>list, LinearLayout arraylayouts[],
+                                                     CheckBox arrayCheckBox[],TextView arraytextViwsFila1x[],TextView arraytextViwsFila2x[]){
+
+
+      int numReportsVinculads =list.size();
+
+
+        if(numReportsVinculads==0){ //ocultamos los otros 5 restantes
+            arraylayouts[0].setVisibility(View.GONE);
+            arraylayouts[1].setVisibility(View.GONE);
+            arraylayouts[2].setVisibility(View.GONE);
+            arraylayouts[3].setVisibility(View.GONE);
+            arraylayouts[4].setVisibility(View.GONE);
+            arraylayouts[5].setVisibility(View.GONE);
+
+
+        }
+
+
+
+        if(numReportsVinculads==1){ //ocultamos los otros 5 restantes
+            arrayCheckBox[0].setChecked(true);
+            arrayCheckBox[0].setText(""+"Control Calidad"+"Export.. :"+ list.get(0).getExportadora());
+            arraytextViwsFila1x[0].setText(""+"FECHA: "+ list.get(0).getFecha());
+            arraytextViwsFila2x[0].setText(""+"HDA Proc: "+ list.get(0).getHacienda());
+
+            //colocamos el primer value..
+
+
+
+            arraylayouts[1].setVisibility(View.GONE);
+            arraylayouts[2].setVisibility(View.GONE);
+            arraylayouts[3].setVisibility(View.GONE);
+            arraylayouts[4].setVisibility(View.GONE);
+            arraylayouts[5].setVisibility(View.GONE);
+
+
+        }
+
+
+
+        else if(numReportsVinculads==2){
+
+            arrayCheckBox[0].setChecked(true);
+            arrayCheckBox[0].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[0].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[0].setText(""+"HDA Proc: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[1].setChecked(true);
+            arrayCheckBox[1].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[1].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[1].setText(""+"HDA Proc: "+ list.get(1).getHacienda());
+
+
+
+            arraylayouts[2].setVisibility(View.GONE);
+            arraylayouts[3].setVisibility(View.GONE);
+            arraylayouts[4].setVisibility(View.GONE);
+            arraylayouts[5].setVisibility(View.GONE);
+
+        }
+
+        else if(numReportsVinculads==3){
+
+
+            arrayCheckBox[0].setChecked(true);
+            arrayCheckBox[0].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[0].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[0].setText(""+"HDA Proce: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[1].setChecked(true);
+            arrayCheckBox[1].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[1].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[1].setText(""+"HDA Proce: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[2].setChecked(true);
+            arrayCheckBox[2].setText(""+"Control Calidad"+"Export.. :"+ list.get(2).getExportadora());
+            arraytextViwsFila1x[2].setText(""+"FECHA: "+ list.get(2).getFecha());
+            arraytextViwsFila2x[2].setText(""+"HDA Proce: "+ list.get(2).getHacienda());
+
+
+
+
+            arraylayouts[3].setVisibility(View.GONE);
+            arraylayouts[4].setVisibility(View.GONE);
+            arraylayouts[5].setVisibility(View.GONE);
+
+        }
+
+        else if(numReportsVinculads==4){
+
+            arrayCheckBox[0].setChecked(true);
+            arrayCheckBox[0].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[0].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[0].setText(""+"HDA Proce: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[1].setChecked(true);
+            arrayCheckBox[1].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[1].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[1].setText(""+"HDA Proce: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[2].setChecked(true);
+            arrayCheckBox[2].setText(""+"Control Calidad"+"Export.. :"+ list.get(2).getExportadora());
+            arraytextViwsFila1x[2].setText(""+"FECHA: "+ list.get(2).getFecha());
+            arraytextViwsFila2x[2].setText(""+"HDA Proce: "+ list.get(2).getHacienda());
+
+
+
+            arrayCheckBox[3].setChecked(true);
+            arrayCheckBox[3].setText(""+"Control Calidad"+"Export.. :"+ list.get(3).getExportadora());
+            arraytextViwsFila1x[3].setText(""+"FECHA: "+ list.get(3).getFecha());
+            arraytextViwsFila2x[3].setText(""+"HDA Proce: "+ list.get(3).getHacienda());
+
+
+
+
+            arraylayouts[4].setVisibility(View.GONE);
+            arraylayouts[5].setVisibility(View.GONE);
+        }
+
+        else if(numReportsVinculads==5){
+
+            arrayCheckBox[0].setChecked(true);
+            arrayCheckBox[0].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[0].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[0].setText(""+"HDA Proce: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[1].setChecked(true);
+            arrayCheckBox[1].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[1].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[1].setText(""+"HDA Proce: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[2].setChecked(true);
+            arrayCheckBox[2].setText(""+"Control Calidad"+"Export.. :"+ list.get(2).getExportadora());
+            arraytextViwsFila1x[2].setText(""+"FECHA: "+ list.get(2).getFecha());
+            arraytextViwsFila2x[2].setText(""+"HDA Proce: "+ list.get(2).getHacienda());
+
+
+
+            arrayCheckBox[3].setChecked(true);
+            arrayCheckBox[3].setText(""+"Control Calidad"+"Export.. :"+ list.get(3).getExportadora());
+            arraytextViwsFila1x[3].setText(""+"FECHA: "+ list.get(3).getFecha());
+            arraytextViwsFila2x[3].setText(""+"HDA Proce: "+ list.get(3).getHacienda());
+
+
+            arrayCheckBox[4].setChecked(true);
+            arrayCheckBox[4].setText(""+"Control Calidad"+"Export.. :"+ list.get(4).getExportadora());
+            arraytextViwsFila1x[4].setText(""+"FECHA: "+ list.get(4).getFecha());
+            arraytextViwsFila2x[4].setText(""+"HDA Proce: "+ list.get(4).getHacienda());
+
+
+
+            arraylayouts[5].setVisibility(View.GONE);
+
+        }
+
+        else if(numReportsVinculads==6){  //NJO OLCUTAMOS NINGUNO...
+
+
+            arrayCheckBox[0].setChecked(true);
+            arrayCheckBox[0].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[0].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[0].setText(""+"HDA Proce: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[1].setChecked(true);
+            arrayCheckBox[1].setText(""+"Control Calidad"+"Export.. :"+ list.get(1).getExportadora());
+            arraytextViwsFila1x[1].setText(""+"FECHA: "+ list.get(1).getFecha());
+            arraytextViwsFila2x[1].setText(""+"HDA Proce: "+ list.get(1).getHacienda());
+
+            arrayCheckBox[2].setChecked(true);
+            arrayCheckBox[2].setText(""+"Control Calidad"+"Export.. :"+ list.get(2).getExportadora());
+            arraytextViwsFila1x[2].setText(""+"FECHA: "+ list.get(2).getFecha());
+            arraytextViwsFila2x[2].setText(""+"HDA Proce: "+ list.get(2).getHacienda());
+
+
+
+            arrayCheckBox[3].setChecked(true);
+            arrayCheckBox[3].setText(""+"Control Calidad"+"Export.. :"+ list.get(3).getExportadora());
+            arraytextViwsFila1x[3].setText(""+"FECHA: "+ list.get(3).getFecha());
+            arraytextViwsFila2x[3].setText(""+"HDA Proce: "+ list.get(3).getHacienda());
+
+
+            arrayCheckBox[4].setChecked(true);
+            arrayCheckBox[4].setText(""+"Control Calidad"+"Export.. :"+ list.get(4).getExportadora());
+            arraytextViwsFila1x[4].setText(""+"FECHA: "+ list.get(4).getFecha());
+            arraytextViwsFila2x[4].setText(""+"HDA Proce: "+ list.get(4).getHacienda());
+
+            arrayCheckBox[5].setChecked(true);
+            arrayCheckBox[5].setText(""+"Control Calidad"+"Export.. :"+ list.get(5).getExportadora());
+            arraytextViwsFila1x[5].setText(""+"FECHA: "+ list.get(5).getFecha());
+            arraytextViwsFila2x[5].setText(""+"HDA Proce: "+ list.get(5).getHacienda());
+
+        }
+
+
+
+
+
 
 
     }

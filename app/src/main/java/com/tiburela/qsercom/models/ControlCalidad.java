@@ -9,6 +9,17 @@ public class ControlCalidad {
 
     private String uniqueId;
 
+    public boolean isEstaCheckeed() {
+        return estaCheckeed;
+    }
+
+    public void setEstaCheckeed(boolean estaCheckeed) {
+        this.estaCheckeed = estaCheckeed;
+    }
+
+    private boolean estaCheckeed;
+
+
     public String getIdDelInformePeretenece() {
         return idDelInformePeretenece;
     }
@@ -17,7 +28,17 @@ public class ControlCalidad {
         this.idDelInformePeretenece = idDelInformePeretenece;
     }
 
-    private String idDelInformePeretenece; //por lo visto un control de calidad informe esta cinculado con otro informe
+    private String idDelInformePeretenece;
+
+    public String getIdInformesVinculadosContCald() {
+        return idInformesVinculadosContCald;
+    }
+
+    public void setIdInformesVinculadosContCald(String idInformesVinculadosContCald) {
+        this.idInformesVinculadosContCald = idInformesVinculadosContCald;
+    }
+
+    private String idInformesVinculadosContCald;
 
     private String simpleDate;
     private String keyDondeEstaraHasmapDefecSelec;
@@ -377,6 +398,8 @@ public class ControlCalidad {
         this.puertEmbarq=puertEmbarq;
         keyDondeEstarThisInform="";
         idDelInformePeretenece="";
+        idInformesVinculadosContCald ="";
+        estaCheckeed =false;
 
     }
 

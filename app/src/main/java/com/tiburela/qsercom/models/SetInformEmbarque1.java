@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 
 public class SetInformEmbarque1 {
 
@@ -15,6 +16,17 @@ public class SetInformEmbarque1 {
     /***Propiedades del informe*/
 
     private String codeInforme;
+
+    public String getAtachControCalidadInfrms() {
+        return atachControCalidadInfrms;
+    }
+
+    public void setAtachControCalidadInfrms(String atachControCalidadInfrms) {
+        this.atachControCalidadInfrms = atachControCalidadInfrms;
+    }
+
+    private String atachControCalidadInfrms;
+
     private String simpleDataFormat;
     private boolean esVisually; //si aun se puede visualizar
     private boolean esEditableNow; //si aun se puede editar
@@ -110,6 +122,10 @@ public class SetInformEmbarque1 {
         this.otroSelloLlegadaEspec = otroSelloLlegadaEspec;
 
         keyFirebase="";
+        atachControCalidadInfrms="";
+
+
+
 
     }
 

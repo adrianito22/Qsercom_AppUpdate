@@ -716,4 +716,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
+    ////aqui recibimos un intent con el id int del tipo de formulario a crear....
+    //una array list con los items contor calidad..
+    //el formulario object o la data con el que craemos el reporte unclyendo las imagenes...
+    //para ahorara memoria destruimos el activity anterior....
+    ///
+
 }

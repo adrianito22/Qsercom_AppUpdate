@@ -17,7 +17,7 @@ public class SheetGlobal {
 
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_edit_cpn);
 
-        LinearLayout lyRevisar = bottomSheetDialog.findViewById(R.id.lyRevisar);
+        LinearLayout lyRevisar = bottomSheetDialog.findViewById(R.id.lyhh);
         LinearLayout lyEditar = bottomSheetDialog.findViewById(R.id.lyEditar);
         LinearLayout layOtherOpcion = bottomSheetDialog.findViewById(R.id.layOtherOpcion);
 
