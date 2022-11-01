@@ -79,6 +79,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
+
+
+
+
     public void createPDF() throws FileNotFoundException {
         String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         //doble chekeo si la current canvas object no fue terminada la finalizamos

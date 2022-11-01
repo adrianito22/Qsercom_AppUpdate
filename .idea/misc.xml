@@ -3,7 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/activity_formulario.xml" value="0.18" />
+        <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/activity_formulario.xml" value="0.21" />
         <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/activity_menu.xml" value="0.22" />
         <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/activity_preview.xml" value="0.33" />
         <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/activity_see_reports.xml" value="0.16462642465175178" />
@@ -15,6 +15,7 @@
         <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_datoshacienda_2.xml" value="0.25" />
         <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_defectos_preview.xml" value="0.14" />
         <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_defparte3.xml" value="0.1" />
+        <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_num_deds_x_cluster.xml" value="0.16462642465175178" />
         <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_racimos_recha.xml" value="0.18" />
         <entry key="..\:/Users/CAPSULE/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/test.xml" value="0.21" />
         <entry key="..\:/Users/CAPSULE/Documents/Qsercom_App/app/src/main/res/drawable-v24/shadomw.xml" value="0.1415" />

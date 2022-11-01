@@ -185,7 +185,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="DANO DE ANIMAL"
+            android:hint="DAÑO DE ANIMAL"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText

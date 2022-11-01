@@ -241,14 +241,14 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
         if(mEdiTotalCajas.getText().toString().isEmpty()){
             mEdiTotalCajas.requestFocus();
-            mEdiTotalCajas.setError("Agrege el total de cajas");
+            mEdiTotalCajas.setError("Agrega el total de cajas");
             Log.i("misdatas","devolvemos false");
 
             return false;
         }
         else if(mEdiContenedorxzz.getText().toString().isEmpty()){
             mEdiContenedorxzz.requestFocus();
-            mEdiContenedorxzz.setError("Este datos es rquerido");
+            mEdiContenedorxzz.setError("Este datos es requerido");
             Log.i("misdatas","devolvemos false");
 
             return false;
