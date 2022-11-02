@@ -1,37 +1,40 @@
 package com.tiburela.qsercom.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.CheckedAndAtatch;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.StringJoiner;
 
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
-    public static ArrayList<ControlCalidad> listControLcalidad;
+    public static ArrayList<CheckedAndAtatch> listCheckedAndAtatch;
     public static ArrayList<String> idsFormsControlCalidVinculados;
 
-    public static String idsFormsVinuclados;
+    public static String idsFormsVinucladosCntres;
+    public static HashMap<String,String>idOFfORMScontrolCaldVds=new HashMap<>();
 
 
     private Context ctx;
 
-    public CustomAdapter(Context ctx, ArrayList<ControlCalidad> listControLcalidad,ArrayList<String >idsFormsControlCalidVinculados) {
+    public CustomAdapter(Context ctx, ArrayList<CheckedAndAtatch> listCheckedAndAtatch,ArrayList<String >idsFormsControlCalidVinculados) {
 
         inflater = LayoutInflater.from(ctx);
-        this.listControLcalidad = listControLcalidad;
+        this.listCheckedAndAtatch = listCheckedAndAtatch;
         this.ctx = ctx;
         this.idsFormsControlCalidVinculados=idsFormsControlCalidVinculados;
    
@@ -51,40 +54,80 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         holder.checkBx.setText("Control Calidad ");
 
-        if(idsFormsControlCalidVinculados.size()>0){
-            if(idsFormsControlCalidVinculados.contains(listControLcalidad.get(position).getUniqueId())){
+
+        if(listCheckedAndAtatch.get(position).isItemChek()){
 
                 holder.checkBx.setChecked(true);
 
-            }  else{
 
-                holder.checkBx.setChecked(false);
+        }else {
 
-            }
+            holder.checkBx.setChecked(false);
+
 
         }
 
 
 
-        holder.txtDataFirst.setText("FECHA:  "+listControLcalidad.get(position).getSimpleDate());
+        holder.txtDataFirst.setText("FECHA:  "+listCheckedAndAtatch.get(position).getDataFirst());
 
-        holder.txtDataSecond.setText("HDA "+listControLcalidad.get(position).getHacienda());
+        holder.txtDataSecond.setText("HDA "+listCheckedAndAtatch.get(position).getDataSecond());
 
         // holder.checkBx.setTag(R.integer.btnplusview, convertView);
-        holder.checkBx.setTag(position);
+      //  holder.checkBx.setTag(position,"");
+
+        holder.checkBx.setTag(R.id.posicion,position);
+        holder.checkBx.setTag(R.id.idOfoBJECT,listCheckedAndAtatch.get(position).getUniqueID());
+
 
 
         holder.checkBx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Integer pos = (Integer) holder.checkBx.getTag();
-              //  Toast.makeText(ctx, listControLcalidad.get(pos).getAnimal() + " clicked!", Toast.LENGTH_SHORT).show();
+                Integer pos = (Integer) holder.checkBx.getTag(R.id.posicion);
+              //  Toast.makeText(ctx, listCheckedAndAtatch.get(pos).getAnimal() + " clicked!", Toast.LENGTH_SHORT).show();
+              //  int adapterPosition = getAdapterPosition();
 
-                if (listControLcalidad.get(pos).isEstaCheckeed()) {
-                    listControLcalidad.get(pos).setEstaCheckeed(false);
+                Log.i("posicion","al posicioon es "+pos);
+
+                if (listCheckedAndAtatch.get(pos).isItemChek()) {
+                    //el anterior estaba en cheked y ahora es falso....lo removemos
+
+                    Log.i("datamapitkka","removemos");
+
+
+                    listCheckedAndAtatch.get(pos).setItemChek(false);
+                    //REMOVE VALUE OF HASMAP
+
+                   // listCheckedAndAtatch.get(adapterPosition).setChecked(false);
+
+
+                    if(idOFfORMScontrolCaldVds.containsKey(String.valueOf(v.getTag(R.id.idOfoBJECT)))) {
+                        idOFfORMScontrolCaldVds.remove(String.valueOf(v.getTag(R.id.idOfoBJECT)));
+
+                        Log.i("comerdd","contiene y lo removemos y el size ahora es: "+idOFfORMScontrolCaldVds.size());
+                        udpdate();
+
+                    }else {
+
+                        Log.i("datamapitkka","no hay nada que quitar");
+
+                    }
+
+
+
+
                 } else {
-                    listControLcalidad.get(pos).setEstaCheckeed(true);
+                    Log.i("comerdd","agregamos");
+
+                    listCheckedAndAtatch.get(pos).setItemChek(true);
+
+
+                    idOFfORMScontrolCaldVds.put(String.valueOf(v.getTag(R.id.idOfoBJECT)),String.valueOf(v.getTag(R.id.idOfoBJECT))); //agregamos o quitamos este del hasmap..
+
+                    udpdate();
+
                 }
             }
         });
@@ -94,7 +137,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return listControLcalidad.size();
+        return listCheckedAndAtatch.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -118,6 +161,49 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     } 
 
+void udpdate() {
 
+    for(CheckedAndAtatch value : listCheckedAndAtatch){
+        Log.i("comerdd","itrando control calida list ye s "+value.isItemChek());
+
+
+    }
+
+        //construimos un string a partir del map
+
+    if(CustomAdapter.idOFfORMScontrolCaldVds.size() >0){
+
+        Log.i("comerdd","hay alñmenos 1 vinculado");
+
+        StringJoiner joiner = new StringJoiner(",");
+
+
+        //iteramos hasmap
+        for(String value : CustomAdapter.idOFfORMScontrolCaldVds.values()){
+            Log.i("datamapitkka","el string valu es  : "+value);
+            joiner.add(value);
+            CustomAdapter.idsFormsVinucladosCntres = joiner.toString(); // "01,02,03"
+
+        }
+        Log.i("datamapitkka","el text final es : "+ CustomAdapter.idsFormsVinucladosCntres);
+
+    }
+    else{ //significa que no hay ninguno vinculado
+        // CustomAdapter.idsFormsVinucladosCntres);
+
+        Log.i("comerdd","no hay ninguno vinculado");
+
+        CustomAdapter.idsFormsVinucladosCntres = null;
+
+        // CustomAdapter.idOFfORMScontrolCaldVds =null;
+
+    }
+
+}
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
 }
