@@ -47,6 +47,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -54,8 +55,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -79,7 +82,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.UUID;
 
 import com.tiburela.qsercom.R;
@@ -91,10 +93,13 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     boolean hayUnformularioIcompleto ;
     public static Context context;
     ArrayList<ControlCalidad>listForms=new ArrayList<>();
-
+     BottomSheetDialog bottomSheetDialog;
      ImageView imgAtachVinculacion;
-
+    RecyclerView reciclerViewBottomSheet;
     private int currentTypeImage=0;
+     int posicionSelectedSpinner=0;
+     TextView    txtAdviseer;
+     TextView txtAdviserDesvicunlar;
     ProgressBar progressBarFormulario;
 
     TextInputEditText ediSemana;
@@ -979,8 +984,35 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
 
            case R.id.imgAtachVinculacion:
+               ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
+               listIdSvINCULADOS=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados);
+               listForms= new ArrayList<>();
 
-               addControlcALIDAD(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
+
+
+               if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
+
+                   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,true);
+
+                        for(String value: listIdSvINCULADOS){
+
+                            dowloadReportsVinucladosAndSetinRecycler(value,listIdSvINCULADOS.size(),listIdSvINCULADOS);
+                        }
+
+
+                }else{
+
+
+                   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,false);
+
+               }
+
+
+
+
+
+
+
 
                break;
 
@@ -993,226 +1025,217 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void showReportControLcalidOfSelectsAndDesmark(Context context, ArrayList<ControlCalidad>list) {
+    private ArrayList<String> generateLISTbyStringVinculados(String ValueLineViculados ){
 
-          String initialStringVinculados=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
-
-            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
-
-            bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atach);
-
-            Button btnDesvincular = bottomSheetDialog.findViewById(R.id.btnDesvincular);
-
-        CheckBox checkBx1 = bottomSheetDialog.findViewById(R.id.checkBx1);
-        CheckBox checkBx2 = bottomSheetDialog.findViewById(R.id.checkBx2);
-        CheckBox checkBx3 = bottomSheetDialog.findViewById(R.id.checkBx3);
-        CheckBox checkBx4 = bottomSheetDialog.findViewById(R.id.checkBx4);
-        CheckBox checkBx5 = bottomSheetDialog.findViewById(R.id.checkBx5);
-        CheckBox checkBx6 = bottomSheetDialog.findViewById(R.id.checkBx6);
-
-        LinearLayout ly01= bottomSheetDialog.findViewById(R.id.ly01);
-        LinearLayout ly02= bottomSheetDialog.findViewById(R.id.ly02);
-        LinearLayout ly03= bottomSheetDialog.findViewById(R.id.ly03);
-        LinearLayout ly04= bottomSheetDialog.findViewById(R.id.ly04);
-        LinearLayout ly05= bottomSheetDialog.findViewById(R.id.ly05);
-        LinearLayout ly06= bottomSheetDialog.findViewById(R.id.ly06);
-
-        TextView txtDataFirst1= bottomSheetDialog.findViewById(R.id.txtDataFirst1);
-        TextView txtDataFirst2= bottomSheetDialog.findViewById(R.id.txtDataFirst2);
-        TextView txtDataFirst3= bottomSheetDialog.findViewById(R.id.txtDataFirst3);
-        TextView txtDataFirst4= bottomSheetDialog.findViewById(R.id.txtDataFirst4);
-        TextView txtDataFirst5= bottomSheetDialog.findViewById(R.id.txtDataFirst5);
-        TextView txtDataFirst6= bottomSheetDialog.findViewById(R.id.txtDataFirst6);
+                 ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
 
 
-        TextView txtDataSecond1= bottomSheetDialog.findViewById(R.id.txtDataSecond1);
-        TextView txtDataSecond2= bottomSheetDialog.findViewById(R.id.txtDataSecond2);
-        TextView txtDataSecond3= bottomSheetDialog.findViewById(R.id.txtDataSecond3);
-        TextView txtDataSecond4= bottomSheetDialog.findViewById(R.id.txtDataSecond4);
-        TextView txtDataSecond5= bottomSheetDialog.findViewById(R.id.txtDataSecond5);
-        TextView txtDataSecond6= bottomSheetDialog.findViewById(R.id.txtDataSecond6);
+                 if(ValueLineViculados!=null){
+                     String [] miarrayiNFORMESvinc = ValueLineViculados.split(",");
+
+                     for(String value : miarrayiNFORMESvinc){
+                         listIdSvINCULADOS.add(value);
+                     }
+
+                 }
 
 
-        ImageView imgSee1= bottomSheetDialog.findViewById(R.id.imgSee1);
-        ImageView imgSee2= bottomSheetDialog.findViewById(R.id.imgSee2);
-        ImageView imgSee3= bottomSheetDialog.findViewById(R.id.imgSee3);
-        ImageView imgSee4= bottomSheetDialog.findViewById(R.id.imgSee4);
-        ImageView imgSee5= bottomSheetDialog.findViewById(R.id.imgSee5);
-        ImageView imgSee6= bottomSheetDialog.findViewById(R.id.imgSee6);
-
-
-
-        LinearLayout arraylayouts[] = {ly01,ly02,ly03,ly04,ly05,ly06} ;
-        CheckBox arrayCheckBox[] = {checkBx1,checkBx1,checkBx1,checkBx1,checkBx1,checkBx1} ;
-
-        TextView arraytextViwsFila1[] = {txtDataFirst1,txtDataFirst2,txtDataFirst3,txtDataFirst4,txtDataFirst5,txtDataFirst6} ;
-        TextView arraytextViwsFila2[] = {txtDataSecond1,txtDataSecond2,txtDataSecond3,txtDataSecond4,txtDataSecond5,txtDataSecond6} ;
-
-        SHOWamGHidenByNumsReportsVinculados(list,arraylayouts,arrayCheckBox,arraytextViwsFila1,arraytextViwsFila2);
-
-
-
-        btnDesvincular.setOnClickListener(new View.OnClickListener() { //editar
-                @Override
-                public void onClick(View v) {
-
-
-                    StringJoiner joiner = new StringJoiner(",");
-                    if(checkBx1.isChecked()){  //si esta chekeado.....
-                        joiner.add(checkBx1.getTag().toString());
-                    }
-
-                    if(checkBx2.isChecked()){
-                        joiner.add(checkBx2.getTag().toString());
-
-                    }
-
-                    if(checkBx3.isChecked()){
-                        joiner.add(checkBx3.getTag().toString());
-
-                    }
-
-                    if(checkBx4.isChecked()){
-                        joiner.add(checkBx4.getTag().toString());
-
-                    }
-                    if(checkBx5.isChecked()){
-                        joiner.add(checkBx5.getTag().toString());
-
-                    }
-
-                    if(checkBx6.isChecked()){
-                        joiner.add(checkBx6.getTag().toString());
-
-                    }
-
-                    String joinedString = joiner.toString(); // "01,02,03"
-
-                    if(!initialStringVinculados.equals(joinedString)){  //si no son iguales quiere decir que hay modificaciones y lo gaurdamos
-///guartdamos este nuevo...
-
-                    }
-
-
-                    bottomSheetDialog.dismiss();
-
-
-                }
-            });
-
-            bottomSheetDialog.show();
-
-            //cremaos un nuevo string solo con los chekeados....
-
-
-
+                   return listIdSvINCULADOS;
     }
 
-    private void showReportCcalidadToSelected(Context context) {
 
-        String inicialStringCheked ="";
+private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList<ControlCalidad>lista,boolean esReportsVinculadosMod){
+    Log.i("samerr","se llamo setDataInRecyclerOfBottomSheet y esl zie es  "+lista.size());
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+   Button  btnSaveCambiosxxx=bottomSheetDialog.findViewById(R.id.btnSaveCambiosxxx);
 
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atach);
+        if(esReportsVinculadosMod && lista.size()==0){
+            txtAdviseer.setText("No hay Reportes Vinculados");
 
-        Button btnDesvincular = bottomSheetDialog.findViewById(R.id.btnDesvincular);
-        CheckBox checkBx1 = bottomSheetDialog.findViewById(R.id.checkBx1);
-        CheckBox checkBx2 = bottomSheetDialog.findViewById(R.id.checkBx2);
-        CheckBox checkBx3 = bottomSheetDialog.findViewById(R.id.checkBx3);
-        CheckBox checkBx4 = bottomSheetDialog.findViewById(R.id.checkBx4);
-        CheckBox checkBx5 = bottomSheetDialog.findViewById(R.id.checkBx5);
-        CheckBox checkBx6 = bottomSheetDialog.findViewById(R.id.checkBx6);
+        }
 
-        LinearLayout ly01= bottomSheetDialog.findViewById(R.id.ly01);
-        LinearLayout ly02= bottomSheetDialog.findViewById(R.id.ly02);
-        LinearLayout ly03= bottomSheetDialog.findViewById(R.id.ly03);
-        LinearLayout ly04= bottomSheetDialog.findViewById(R.id.ly04);
-        LinearLayout ly05= bottomSheetDialog.findViewById(R.id.ly05);
-        LinearLayout ly06= bottomSheetDialog.findViewById(R.id.ly06);
+        if(lista.size()==0){
+
+            txtAdviseer.setVisibility(TextView.VISIBLE);
+            txtAdviseer.setText("No hay Reportes en este periodo, selecione otro");
+
+            txtAdviserDesvicunlar.setVisibility(TextView.GONE);
+            btnSaveCambiosxxx.setVisibility(TextView.GONE);
+
+            Log.i("samerr","se ejeduto el if ");
+
+        }else{
+            Log.i("samerr","se ejeduto el else ");
+            txtAdviserDesvicunlar.setVisibility(TextView.VISIBLE);
+            btnSaveCambiosxxx.setVisibility(TextView.VISIBLE);
+
+            txtAdviseer.setVisibility(TextView.GONE);
+        }
 
 
-        LinearLayout arraylayouts[] = {ly01,ly02,ly03,ly04,ly05,ly06} ;
-      // SHOWamGHidenByNumsReportsVinculados(3,arraylayouts);
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityContenedores.this);
+    CustomAdapter adapter = new CustomAdapter(ActivityContenedores.this,lista,generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados));
+    //  this.adapter.setPlayPauseClickListener(this);
+    reciclerView.setLayoutManager(layoutManager);
+    reciclerView.setAdapter(adapter);
+}
+
+
+    private void showReportsAndSelectOrDeleteVinuclados(Context context,boolean existeValues) {
+
+
+        bottomSheetDialog = new BottomSheetDialog(context);
+
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atachx);
+//        CheckBox checkBx1 = bottomSheetDialog.findViewById(R.id.checkBx1);
+        reciclerViewBottomSheet =bottomSheetDialog.findViewById(R.id.mirecyclerViewAtach);
+        Spinner spinner=bottomSheetDialog.findViewById(R.id.spinnerSelectrodate);
+        // spinner.setSelection(posicionSelectedSpinnerx);
+
+
+        // reciclerView.setHasFixedSize(true);
+           txtAdviseer=bottomSheetDialog.findViewById(R.id.txtAdviseer);
+           txtAdviserDesvicunlar=bottomSheetDialog.findViewById(R.id.txtAdviserDesvicunlar);
+
+
+        if(existeValues){
+            txtAdviseer.setVisibility(TextView.GONE);
+
+        }
 
 
 
-        btnDesvincular.setOnClickListener(new View.OnClickListener() { //editar
+
+        bottomSheetDialog.show();
+
+
+          /////
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selecionado=spinner.getSelectedItem().toString();
+                Calendar cal = Calendar.getInstance();
 
-                bottomSheetDialog.dismiss();
+                Calendar cald2 = Calendar.getInstance();
 
+
+             //   idsFormsControlCalidVinculados=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados);
+
+                if(selecionado.equals("Hoy")) {
+
+                   // long timeCurrent = new Date().getTime();
+                    posicionSelectedSpinner=0;
+                    cal.add(Calendar.DATE, -0);
+                    cald2.add(Calendar.DATE,0);
+
+                  //  dowloadEspecificReprtControCalidadVinculados();
+
+                    /**tambien chekamos que si estan chekeeds...*/
+
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados));
+
+                    //  System.out.println("Date = "+ cal.getTimeInMillis());
+
+                }
+
+               else if(selecionado.equals("Ayer")) {
+                    posicionSelectedSpinner=1;
+
+                    cal.add(Calendar.DATE, -1);
+                    cald2.add(Calendar.DATE,0);
+
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados));
+
+                    //  System.out.println("Date = "+ cal.getTimeInMillis());
+
+                }
+
+
+
+
+
+                else if(selecionado.equals("Ultimos 7 dias")) {
+                    posicionSelectedSpinner=2;
+
+                    cal.add(Calendar.DATE, -7);
+                    cald2.add(Calendar.DATE,0);
+
+
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados));
+
+
+
+                    Log.i("sabemosd","la data "+cal.getTimeInMillis());
+
+                    //  System.out.println("Date = "+ cal.getTimeInMillis());
+
+                }
+
+
+                else if(selecionado.equals("Ultimos 15 dias")) {
+                    posicionSelectedSpinner=3;
+
+                    cal.add(Calendar.DATE, -15);
+                    cald2.add(Calendar.DATE,0);
+
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados));
+
+                    Log.i("sabemosd","la data "+cal.getTimeInMillis());
+
+                }
+
+                else if(selecionado.equals("Ultimos 30 dias")) {
+                    posicionSelectedSpinner=4;
+
+                    cal.add(Calendar.DATE, -30);
+                    cald2.add(Calendar.DATE,0);
+
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados));
+
+                    Log.i("sabemosd","la data "+cal.getTimeInMillis());
+                }
+
+
+                else if(selecionado.equals("Reportes Vinculados")) {
+                    posicionSelectedSpinner=5;
+
+
+                    if(CustomAdapter.idsFormsVinuclados!=null){  //si existen vinuclados DESCRAGAMOS ESTOS Y OTTRO BY DATE
+                        if(CustomAdapter.idsFormsVinuclados.length()>0){
+
+
+                            dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinuclados));
+
+
+                        }
+                    }else{
+                        txtAdviseer.setText("No existe Ningun Reporte Vinculado");
+                        txtAdviseer.setVisibility(TextView.VISIBLE);
+                    }
+
+
+                    Log.i("sabemosd","la data "+cal.getTimeInMillis());
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
 
-        bottomSheetDialog.show();
-
-        //cremaos un nuevo string solo con los chekeados....
-
-        StringJoiner joiner = new StringJoiner(",");
-        if(checkBx1.isChecked()){  //si esta chekeado.....
-            joiner.add(checkBx1.getTag().toString());
-        }
-
-        if(checkBx2.isChecked()){
-            joiner.add(checkBx2.getTag().toString());
-
-        }
-
-        if(checkBx3.isChecked()){
-            joiner.add(checkBx3.getTag().toString());
-
-        }
-
-        if(checkBx4.isChecked()){
-            joiner.add(checkBx4.getTag().toString());
-
-        }
-        if(checkBx5.isChecked()){
-            joiner.add(checkBx5.getTag().toString());
-
-        }
-
-        if(checkBx6.isChecked()){
-            joiner.add(checkBx6.getTag().toString());
-
-        }
-
-        String joinedString = joiner.toString(); // "01,02,03"
-
-        if(!inicialStringCheked.equals(joinedString)){  //si no son iguales quiere decir que hay modificaciones y lo gaurdamos
-///guartdamos este nuevo...
-
-        }
 
 
 
     }
 
 
-    private void addControlcALIDAD(String idInformesVinculadosContCald ) {
 
-        String inicialStringCheked =idInformesVinculadosContCald;
+    private void dowloadReportsVinucladosAndSetinRecycler(String reportidToSearch, int SizeArray, ArrayList<String>listIdSvINCULADOS ) {
 
-        String [] miarrayiNFORMESvinc = inicialStringCheked.split(",");
         RealtimeDB.initDatabasesRootOnly();
-
-        //reocorremos
-        for(String idCurrentElement : miarrayiNFORMESvinc){
-
-            addnewInformToLISTcONTROLcalidad(idCurrentElement,miarrayiNFORMESvinc.length);
-
-        }
-
-
-    }
-
-
-    private void addnewInformToLISTcONTROLcalidad(String reportidToSearch, int SizeArray ) {
-
-
         DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").child(reportidToSearch);
 
         ValueEventListener eventListener = new ValueEventListener() {
@@ -1229,9 +1252,12 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
                 //cuando las descrague todos
                 if(listForms.size() ==SizeArray){
 
-                    showReportControLcalidOfSelectsAndDesmark(ActivityContenedores.this,listForms);
 
-                    ///LLAMOS SHOW.....
+                    //cargamos la info en el sheet cargado
+                    setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet,listForms,true);
+
+
+                  //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,true);
 
                 }
 
@@ -1248,6 +1274,204 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
 
     }
+
+
+    private void dowloadEspecificReprtControCalidadVinculadosONLY(String idInformesVinculadosContCald ) {
+
+        String inicialStringCheked =idInformesVinculadosContCald;
+
+        String [] miarrayiNFORMESvinc = inicialStringCheked.split(",");
+        RealtimeDB.initDatabasesRootOnly();
+
+
+        ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
+
+        //creamos una minilista con los ids vinculados....
+        for( String value: miarrayiNFORMESvinc){
+            listIdSvINCULADOS.add(value);
+
+        }
+
+
+        //reocorremos
+        for(String idCurrentElement : miarrayiNFORMESvinc){
+
+            dowloadReportsVinucladosAndSetinRecycler(idCurrentElement,miarrayiNFORMESvinc.length,listIdSvINCULADOS);
+
+        }
+
+
+    }
+
+
+
+    private void dowloadEspecificReprtControCalidadVinculados(String idInformesVinculadosContCald ,String rangeSearch ) {
+
+        String inicialStringCheked =idInformesVinculadosContCald;
+
+        String [] miarrayiNFORMESvinc = inicialStringCheked.split(",");
+        RealtimeDB.initDatabasesRootOnly();
+
+
+        ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
+
+        //creamos una minilista con los ids vinculados....
+        for( String value: miarrayiNFORMESvinc){
+            listIdSvINCULADOS.add(value);
+
+        }
+
+
+        //reocorremos
+        for(String idCurrentElement : miarrayiNFORMESvinc){
+
+            dowloadReportsVinucladosLISTcONTROLcalidad(idCurrentElement,miarrayiNFORMESvinc.length,listIdSvINCULADOS,rangeSearch);
+
+        }
+
+
+    }
+
+
+    //informes especificos pueden servir para crgar solo unos especificos.......
+    //y si queremos s
+    private void dowloadReportsVinucladosLISTcONTROLcalidad(String reportidToSearch, int SizeArray , ArrayList<String>idsFormsControlCalidVinculados,String selecionado) {
+
+        RealtimeDB.initDatabasesRootOnly();
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").child(reportidToSearch);
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listForms= new ArrayList<>();
+
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    ControlCalidad  user=ds.getValue(ControlCalidad.class);
+
+                    listForms.add(user);
+
+                }
+
+                //cuando las descrague todos
+                if(listForms.size() ==SizeArray){
+
+                //dscrgamos otros de los ultimos 7 dias...
+                    Calendar cal = Calendar.getInstance();
+                    Calendar cald2 = Calendar.getInstance();
+
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        usersdRef.addValueEventListener(eventListener);
+
+
+
+    }
+
+    void dowloadinformesby_EspecificDate(String dateSelecionado,ArrayList<String>idsFormsControlCalidVinculados){
+
+        RealtimeDB.initDatabasesRootOnly();
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
+
+                    if(controlcalidad!=null){
+                        listForms.add(controlcalidad);
+                    }
+
+                }
+
+                     boolean existValues=false;
+
+                    if(listForms.size()>0){
+
+                        existValues=true;
+                    }
+
+              //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,listForms,idsFormsControlCalidVinculados,existValues,posicionSelectedSpinner);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+    void dowloadinformesby_RangeDateAndCallShowSheetB(long desdeFecha, long hastFecha, ArrayList<String>idsFormsControlCalidVinculadosOmit){
+        listForms= new ArrayList<>();
+
+        RealtimeDB.initDatabasesRootOnly();
+       // Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("timeDateMillis").startAt(desdeFecha).endAt(hastFecha);
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
+
+
+                      //agregamos solo los que no esten en esta lista..
+                    if(controlcalidad!=null){
+                        listForms.add(controlcalidad);
+                    }
+
+
+                }
+
+                  //ceramos el anterior ..mostramos este...
+
+                Log.i("samerr","se llamo sedatauncrecicler en dowloadinformesby_RangeDateAndCallShowSheetB ");
+                Log.i("samerr","y el size es  "+listForms.size());
+
+                setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet,listForms,false);
+
+
+
+
+             //   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,existValues);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+    //si queremos solo informes by fecha.............
+      //
 
 
     private void SHOWamGHidenByNumsReportsVinculados(ArrayList<ControlCalidad>list, LinearLayout arraylayouts[],

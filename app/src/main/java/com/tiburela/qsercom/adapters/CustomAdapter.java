@@ -21,13 +21,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private LayoutInflater inflater;
     public static ArrayList<ControlCalidad> listControLcalidad;
+    public static ArrayList<String> idsFormsControlCalidVinculados;
+
+    public static String idsFormsVinuclados;
+
+
     private Context ctx;
 
-    public CustomAdapter(Context ctx, ArrayList<ControlCalidad> listControLcalidad) {
+    public CustomAdapter(Context ctx, ArrayList<ControlCalidad> listControLcalidad,ArrayList<String >idsFormsControlCalidVinculados) {
 
         inflater = LayoutInflater.from(ctx);
         this.listControLcalidad = listControLcalidad;
         this.ctx = ctx;
+        this.idsFormsControlCalidVinculados=idsFormsControlCalidVinculados;
    
     }
 
@@ -45,12 +51,24 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         holder.checkBx.setText("Control Calidad ");
 
-        holder.checkBx.setChecked(listControLcalidad.get(position).isEstaCheckeed());
+        if(idsFormsControlCalidVinculados.size()>0){
+            if(idsFormsControlCalidVinculados.contains(listControLcalidad.get(position).getUniqueId())){
+
+                holder.checkBx.setChecked(true);
+
+            }  else{
+
+                holder.checkBx.setChecked(false);
+
+            }
+
+        }
+
+
 
         holder.txtDataFirst.setText("FECHA:  "+listControLcalidad.get(position).getSimpleDate());
 
         holder.txtDataSecond.setText("HDA "+listControLcalidad.get(position).getHacienda());
-
 
         // holder.checkBx.setTag(R.integer.btnplusview, convertView);
         holder.checkBx.setTag(position);

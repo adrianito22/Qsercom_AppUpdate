@@ -106,11 +106,18 @@
     </string-array>
 
 
-    <string-array name="tipoBoquillas">
-        <item>Ninguna</item>
-        <item>8002</item>
-        <item>8003</item>
+    <string-array name="reportsAjuntados">
+        <item>Reportes Vinculados</item>
+        <item>Hoy</item>
+        <item>Ayer</item>
+        <item>Ultimos 7 dias</item>
+        <item>Ultimos 15 dias</item>
+        <item>Ultimos 30 dias</item>
+
     </string-array>
+
+
+
 
 
     <string-array name="array_defectos_fruta">
