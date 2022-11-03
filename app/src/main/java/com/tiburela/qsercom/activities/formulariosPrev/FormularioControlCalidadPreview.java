@@ -616,17 +616,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             }
             else if(HashMapOfListWhitStatesCHeckb2.containsKey(key)) {
 
-                for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
 
+                for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
                     numsValuesSelec++;
                     int currrentPoscionParaCambiar=Integer.parseInt(posicionesEditarArray[indice2]);
 
                     HashMapOfListWhitStatesCHeckb2.get(key).set(currrentPoscionParaCambiar,true);
-
                 }
-
-
-
 
 
             }
@@ -818,7 +814,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                         setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
-
 
 
                         //realizamos la opreacion con la info de los editext

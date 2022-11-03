@@ -25,6 +25,9 @@ public class Variables {
 
 public static String  paqueteName="com.tiburela.qsercom";
 
+    public static  ArrayList<ControlCalidad>listReprsVinculads=new ArrayList<>();
+
+
     public static String currentKeyShareToDelete="";
 
     public static float currentPoscion;
@@ -45,7 +48,6 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int   FormPreviewContenedores =10060;
     public static final int   FormCantrolCalidad=10072;
     public static final int   FormPackingList=10073;
-
     public static final int   FormMuestreoRechaz=10074;
 
 
@@ -95,6 +97,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static String KEYEXTRAPREVIEW= "estacontent";
     public static String KEYEXTRA_CONTEN_EN_ACP= "estacontentXCC";
     public static String KEY_PACKING_LIST= "MIPAQKICN";
+    public static String KEY_PDF_MAKER= "MIPODFMAKER";
 
     public static String nodoDondeEstaraPesoBruto2y3l;
 

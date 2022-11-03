@@ -20,6 +20,8 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.DefectsCantdad;
 import com.tiburela.qsercom.models.NameAndValue;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
@@ -29,9 +31,11 @@ import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class HelperPdf {
 
@@ -1041,6 +1045,12 @@ public class HelperPdf {
         return table1X;
     }
 
+
+
+
+
+
+
     public static Table descripciondEFECXTOSFRUTA(Table table){
         ArrayList<String> list = new ArrayList<String>();
         list.add("sr,estropeo");
@@ -1146,5 +1156,276 @@ public class HelperPdf {
 
     }
 
+
+
+    /**ESTO CREARA UN TABLE CADA VEZ QUE SE LLAMA**/
+    public static  Table createTableEvaluacionYcondcionFruta(Table table1X,DeviceRgb rgbColor ,ArrayList<ControlCalidad>listControCalidad,HashMap <String, String> hashMapControlCald,HashMap <String, String> hashMapDefctChecked,Context contexto){
+        //aqui creamos la info con esta data.....
+
+        ArrayList<Double>listPesos = new ArrayList<>();
+        ArrayList<Double>listPh = new ArrayList<>();
+        ArrayList<Integer>listNumClustersiNSP = new ArrayList<>();
+        ArrayList<Float>listDefectSelecion= new ArrayList<>();
+        ArrayList<Float>listDefectEmpaque= new ArrayList<>();
+
+        ArrayList<NameAndValue>dataTotable= new ArrayList<>();
+
+        ArrayList<DefectsCantdad>defectsSeleccion= new ArrayList<>();
+        ArrayList<DefectsCantdad>defectsEmpaque= new ArrayList<>();
+
+
+        //DATOS QUE NECESITAMOS OBTENERdoub
+        double PROMEDIO_PESO=0;
+        double CALIDAD_TOTAL=0;
+        double PORCENTAJE_DE_DEFECTOS=0;
+        int NUMERO_DEFECTS=0;
+        String MAYOR_DEFECTO_SELECCION="";
+        String MAYOR_DEFECTO_EMPAQUE="";
+        int NUMERO_DE_CLUSTERS=0;
+        int NUMERO_DE_DEDOS=0;
+        double GRADO_CALIBRE_PROMEDIO=0;
+        double LARGO_DEDOS_PROMEDIO=0;
+        double PH_PROMEDIO=0;
+
+
+
+
+        int  []keyDatPh  ={R.id.ediPH1,R.id.ediPH2,R.id.ediPH3,R.id.ediPH4,R.id.ediPH5,R.id.ediPH6,R.id.ediPH7,
+                R.id.ediPH8,R.id.ediPH9,R.id.ediPH10};
+
+        int  [] keyDatsPeso={R.id.ediPesoL1,R.id.ediPesoL2,R.id.ediPesoL3,R.id.ediPesoL4,R.id.ediPesoL5,R.id.ediPesoL6,R.id.ediPesoL7,
+                R.id.ediPesoL8,R.id.ediPesoL9,R.id.ediPesoL10};
+
+
+        int  [] keyDatsNumClusters={R.id.ediNumClusInsp1,R.id.ediNumClusInsp2,R.id.ediNumClusInsp3,R.id.ediNumClusInsp4,
+                R.id.ediNumClusInsp5,R.id.ediNumClusInsp6,R.id.ediNumClusInsp7, R.id.ediNumClusInsp8,R.id.ediNumClusInsp9,R.id.ediNumClusInsp10};
+
+
+        int  [] keyDatsNumDefectSelecion={R.id.imgSelecDefc1,R.id.imgSelecDefc2,R.id.imgSelecDefc3,R.id.imgSelecDefc4,
+                R.id.imgSelecDefc5,R.id.imgSelecDefc6,R.id.imgSelecDefc7, R.id.imgSelecDefc8,R.id.imgSelecDefc9,R.id.imgSelecDefc10};
+
+
+
+        int  [] keyDatsNumDefectSempqs={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,
+                R.id.imvEmpaque5,R.id.imvEmpaque6,R.id.imvEmpaque7, R.id.imvEmpaque8,R.id.imvEmpaque9,R.id.imvEmpaque10};
+
+
+
+
+
+        ///            listTOrETURN1.add(new NameAndValue("DESTINO",Object1.getDestinoContenedor()));
+
+       /**GENERAMNOS PROMOEDIO PESO*/
+           int numeroItemsEcontrados =0;
+
+        for(int i=0; i<keyDatsPeso.length ;i++) {
+              //keyDatsPesoarray
+              //itremoas
+              String keyCurrent= String.valueOf(keyDatsPeso[i])  ;
+
+              if(hashMapControlCald.containsKey(keyCurrent)){
+
+                  PROMEDIO_PESO=PROMEDIO_PESO + Double.parseDouble(hashMapControlCald.get(keyCurrent));
+                  numeroItemsEcontrados++;
+
+              }
+
+          }
+        //tenemos que redondiar el peso lñibras
+        PROMEDIO_PESO =  PROMEDIO_PESO/numeroItemsEcontrados;
+
+        //DecimalFormat df = new DecimalFormat("#.#");
+       // String pesoLibrastext= df.format(pesoLibras);
+
+
+        //agregamos el peso libras
+       // dataTotable.add(new NameAndValue( "PROMEDIO PESO",pesoLibrastext));
+       // Log.i("ELWEIGTH","EL PESO PROMEDIO  ES "+pesoLibrastext);
+
+
+
+        /**DEFECTOS SELECION*/
+          String  [] arrayuDefectsSeleccNames =contexto.getResources().getStringArray(R.array.array_defectos_fruta);
+
+
+        for(int i=0; i<keyDatsNumDefectSelecion.length ;i++) {
+            //iteramos arry con las keys
+            String keyCurrent= String.valueOf(keyDatsNumDefectSelecion[i])  ;
+
+            if(hashMapDefctChecked.containsKey(keyCurrent)){
+
+                String value =hashMapDefctChecked.get(keyCurrent);
+                //cremoas un array con el valor de ese string..
+                String [] posicionDefectoEncontrados=value.split(",");
+
+                for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
+                         int posicionDefecto=Integer.parseInt(posicionDefectoEncontrados [indice2]);
+                         //posicion 0 y 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
+                    defectsSeleccion.add(new DefectsCantdad(0,arrayuDefectsSeleccNames[posicionDefecto]));
+
+                        }
+            }
+
+        }
+        Log.i("ELWEIGTH","EN TOTAL DEFECTOS SELECION HAY "+defectsSeleccion.size());
+
+
+
+
+        /**DEFECTOS EMPAQUE*/
+
+        String   [] arrayuDefectSeMPAQUENames =contexto.getResources().getStringArray(R.array.array_defectos_empaque);
+
+        for(int i=0; i<keyDatsNumDefectSempqs.length ;i++) {
+            //iteramos arry con las keys
+            String keyCurrent= String.valueOf(keyDatsNumDefectSempqs[i])  ;
+
+            if(hashMapDefctChecked.containsKey(keyCurrent)){
+
+                String value =hashMapDefctChecked.get(keyCurrent);
+                //cremoas un array con el valor de ese string..
+                String [] posicionDefectoEncontrados=value.split(",");
+
+                for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
+
+                    int posicionDefecto=Integer.parseInt(posicionDefectoEncontrados [indice2]);
+                    //posicion 0 y 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
+                    defectsEmpaque.add(new DefectsCantdad(0,arrayuDefectSeMPAQUENames[posicionDefecto]));
+
+                }
+            }
+
+        }
+
+
+        NUMERO_DEFECTS=defectsSeleccion.size()+defectsEmpaque.size();
+
+                Log.i("ELWEIGTH","EN TOTAL TODOS LOS DEFECTOE ES "+NUMERO_DEFECTS);
+
+
+                //los nombre de los defectos que selecionaron
+        ArrayList<String>defectsSelecNames = new ArrayList<>();
+
+        for(int indice2=0; indice2<defectsSeleccion.size() ;indice2++){
+          //obtenemos la lista de defectos..
+
+               if(!defectsSelecNames.contains(defectsSeleccion.get(indice2).getNombreDefect())){
+
+                   defectsSelecNames.add(defectsSeleccion.get(indice2).getNombreDefect());
+
+               }
+
+
+        }
+
+
+                 /***MAYOR DEFECTO SELECION*/
+
+
+
+        int numeroDfectosCurrentDefect;
+        int numeroDefectosMayor=0;
+
+        for(int indice2=0; indice2<defectsSelecNames.size() ;indice2++){
+
+            String currentNombreDefecto =defectsSelecNames.get(indice2);
+
+            numeroDfectosCurrentDefect=0;
+
+
+            for(int indice3=0; indice3<defectsSeleccion.size() ;indice3++){
+                            DefectsCantdad currnetdefc= defectsSeleccion.get(indice2);
+
+                            if(currnetdefc.getNombreDefect().equals(currentNombreDefecto)){
+                                numeroDfectosCurrentDefect++;
+
+                            }
+             }
+
+          //  DefectsCantdad defctCantidad =  new DefectsCantdad(numeroDfectosCurrentDefect,currentNombreDefecto);
+           // numeroDefectosCada1.add(defctCantidad);
+
+            if(numeroDfectosCurrentDefect>=numeroDefectosMayor){
+                numeroDefectosMayor =numeroDfectosCurrentDefect;
+                MAYOR_DEFECTO_SELECCION=currentNombreDefecto;
+
+            }
+
+        }
+
+        Log.i("ELWEIGTH","el defecto mayor en selecion es  es "+MAYOR_DEFECTO_SELECCION);
+
+/*
+
+//CALIDAD TOTAL Y PORCENTAJE DE FDEFECTOS
+        for(int i=0; i<keyDatsPeso.length ;i++) {
+            //keyDatsPesoarray
+            //itremoas
+            String keyCurrent= String.valueOf(keyDatsPeso[i])  ;
+
+            if(hashMapControlCald.containsKey(keyCurrent)){
+
+                pesoLibras=pesoLibras + Double.parseDouble(hashMapControlCald.get(keyCurrent));
+                numeroItemsEcontrados++;
+
+            }
+
+        }
+
+*/
+
+
+        int numClustersInspeccinads=0;
+
+        for(int indice =0; indice <keyDatsNumClusters.length; indice++){
+
+            String keyValue = String.valueOf(keyDatsNumClusters[indice]);
+
+            if(hashMapControlCald.containsKey(keyValue)) {
+                numClustersInspeccinads=numClustersInspeccinads+Integer.parseInt(hashMapControlCald.get(keyValue));
+            }
+
+
+        }
+
+        Log.i("ELWEIGTH","EN TOTAL DE numClustersInspeccinads  ES "+numClustersInspeccinads);
+
+
+
+        /**PESO LIBRAS EM DOUBLES */
+        for(int indice =0; indice <keyDatsPeso.length; indice++){
+            String keyValue = String.valueOf(keyDatsPeso[indice]);
+            if(hashMapControlCald.containsKey(keyValue)) {
+                listPesos.add(Double.parseDouble(hashMapControlCald.get(keyValue)));
+            }
+
+
+        }
+
+        /**PHS */  //SI NO TIENE PH AGREGAMOS 0
+        for(int indice =0; indice <keyDatPh.length; indice++){
+            String keyValue = String.valueOf(keyDatPh[indice]);
+            if(hashMapControlCald.containsKey(keyValue)) {
+                listPh.add(Double.parseDouble(hashMapControlCald.get(keyValue)));
+            }
+
+
+        }
+
+
+
+        float araycolumccc[]= {1,1,1,1};
+        table1X=  new Table(araycolumccc);
+
+
+        Cell cellHeader2= new Cell(1,4).setBackgroundColor(rgbColor);
+        cellHeader2.add(new Paragraph(" CALIBRACION DE FRUTA( CALENDARIO DE ENFUNDE) ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        table1X.addCell(cellHeader2);
+
+
+
+
+        return table1X;
+    }
 
 }

@@ -59,21 +59,61 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class PdfMaker2_0 extends AppCompatActivity {
+    int ActivityFormularioDondeVino;
+    ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
+    ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
+
+
+    HashMap <String, String> hasmapMapControlCalid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_maker20);
 
-        try {
-            createPDF();
-            Log.i("debbdf","exclente create");
+        ActivityFormularioDondeVino = getIntent().getIntExtra(Variables.KEY_PDF_MAKER,0);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
 
-            Log.i("debbdf","la excepcion es "+e.getMessage());
+        Log.i("debbdf","activity donde vino es "+ActivityFormularioDondeVino);
+
+        if(ActivityFormularioDondeVino== Variables.FormPreviewContenedores){
+            Log.i("debbdf","es el primer if");
+              //obtenemos los hasmaps
+
+                 //TENEMOS UNA LISTA CON LSO REPORTES
+
+                for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
+                  //decsrgamos hasmap control calidad
+
+                        String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyWhereLocateasHmapFieldsRecha();
+                    dowloadRecszCcalidadMapAndCallDowloadRechdz(currentlOCATIONwHEREisHAMAP, indice+1);
+
+
+                }
+
+
+
+
+
+                Log.i("debbdf","excelente create");
         }
+
+
+
+        else if(ActivityFormularioDondeVino  == Variables.FormPreviewContenedores){  //completar estos
+
+            Log.i("debbdf","es el segundo if");
+
+        }else if (ActivityFormularioDondeVino  == Variables.FormPreviewContenedores){
+            Log.i("debbdf","es el tercer if");
+
+
+        }
+
+
+
+
+
 
     }
 
@@ -83,7 +123,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-    public void createPDF() throws FileNotFoundException {
+    public void createPDFContenedores() throws FileNotFoundException {
         String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         //doble chekeo si la current canvas object no fue terminada la finalizamos
         // pdfDocument.finishPage(currentPagePdfObjec) ;
@@ -444,8 +484,21 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1.setMarginTop(0f);
         midocumentotoAddData.add(table1);
 
-
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+          /**agregamos tables de control calidad*/
+
+         for(int i=0; i<ListWhitHashMapsControlCalidad.size(); i++ ){
+             
+             HashMap<String,String>currentMap=ListWhitHashMapsControlCalidad.get(i);
+             HashMap<String,String>currentMapDefectsCheked=ListWhitHashMapsRechzadosChekeed.get(i);
+
+             HelperPdf.createTableEvaluacionYcondcionFruta(table1,rgbColor,Variables.listReprsVinculads,currentMap,currentMapDefectsCheked,PdfMaker2_0.this);
+
+         }
+
+
+
 
 
         /**descripcion de defectos de fruta*/
@@ -496,13 +549,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         ///algoritimo crea
 
-
-        midocumentotoAddData.close();
+        // midocumentotoAddData.close();
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-
-         /////
-
 
 
         /**Agregamos anexos*/
@@ -517,8 +565,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA,"FRUTAS EN FINCA",midocumentotoAddData,pageSize,PdfMaker2_0.this);
 
 
-
-
         /**AGREGAMOS GRAFICOS ESTADISTICOS...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         //agregamaos el header
@@ -526,8 +572,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
         midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
-        dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
-
+        //dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
 
 
         midocumentotoAddData.close();
@@ -721,5 +766,155 @@ public class PdfMaker2_0 extends AppCompatActivity {
     //el formulario object o la data con el que craemos el reporte unclyendo las imagenes...
     //para ahorara memoria destruimos el activity anterior....
     ///
+
+    private void dowloadRecszCcalidadMapAndCallDowloadRechdz(String nodeLocateHasmapControlC, int iterador){
+
+        Log.i("comnadaer","el NODEKey es : "+nodeLocateHasmapControlC);
+
+        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("ControCalidHasmap").
+                child(nodeLocateHasmapControlC).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        hasmapMapControlCalid =new HashMap<>();
+
+
+                        for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                            String key = dss.getKey();
+
+                            String  fieldData =dss.getValue(String.class);
+
+                            //   HashMap packinKey = dss.getValue( String.class);
+
+                            //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
+                            Log.i("hameha","el key es "+key +"y el; field data es "+fieldData );
+
+
+                            if (fieldData!=null) {///
+
+                                hasmapMapControlCalid.put(key,fieldData);
+
+                            }
+                        }
+
+
+                        ListWhitHashMapsControlCalidad.add(hasmapMapControlCalid);
+
+
+                        Log.i("comnadaer","el size de hasmap es "+hasmapMapControlCalid.size());
+
+
+                          if(iterador==Variables.listReprsVinculads.size() ){
+
+                              iterateCallDowldRechzadosDefects();
+
+                              Log.i("comnadaer","llamamos a iterateCallDowldRechzadosDefects "+hasmapMapControlCalid.size());
+
+
+                          }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.i("misadhd","el error es "+ databaseError.getMessage());
+
+
+
+                    }
+                });
+
+
+
+    }
+
+
+
+
+    //despues decrgamos los defectos...
+    private void dowloadAllSelectDefectosPosiciones(String nodeLocateHasmapDefectSelecc, int contador){
+
+        Log.i("comnadaer","el key es "+nodeLocateHasmapDefectSelecc);
+
+        HashMap<String, String> hasmapMapdEFECTOSchekeed= new HashMap<>();
+
+
+        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("DefectoSelecionadosHashmap").child(nodeLocateHasmapDefectSelecc).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                    String key = dss.getKey();
+
+                    String  fieldData =dss.getValue(String.class);
+
+                    Log.i("debsumas","el key es "+key);
+                    Log.i("debsumas"," y el fiel data es "+fieldData);
+
+
+                    if (fieldData!=null && ! fieldData.equals("EMPTY")) {///
+
+                        hasmapMapdEFECTOSchekeed.put(key,fieldData);
+
+                    }
+                }
+
+
+                //agregamos
+                ListWhitHashMapsRechzadosChekeed.add(hasmapMapdEFECTOSchekeed);
+
+               // Log.i("debsumas"," el size de  "+hasmapMapdEFECTOSchekeed.size());
+
+                if(contador ==Variables.listReprsVinculads.size()){
+
+
+                    Log.i("comnadaer","llamaor cel size de ListWhitHashMapsControlCalidad es: "+ListWhitHashMapsControlCalidad.size());
+                    Log.i("comnadaer","llamaor el size de ListWhitHashMapsRechzadosChekeed es: "+ListWhitHashMapsRechzadosChekeed.size());
+
+                    Log.i("comnadaer","llamaor crear pdf now"+hasmapMapControlCalid.size());
+
+                    try {
+                        createPDFContenedores() ;
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+
+                    }
+
+
+                    //HEMOS TERMINADO DE DESCRGAR TODOS...
+                }
+
+
+                //   setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("misadhd","el error es "+ databaseError.getMessage());
+
+
+
+            }
+        });
+
+
+
+    }
+
+    private void iterateCallDowldRechzadosDefects() {
+
+        for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
+            //decsrgamos hasmap control calidad
+
+            String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyDondeEstaraHasmapDefecSelec();
+            dowloadAllSelectDefectosPosiciones(currentlOCATIONwHEREisHAMAP,indice+ 1);
+
+
+        }
+
+    }
 
 }

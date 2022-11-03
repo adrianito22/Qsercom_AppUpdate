@@ -68,7 +68,6 @@ import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -133,8 +132,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
     ProgressBar progressBarFormulario;
     private Context mContext;
 
-    SetInformEmbarque2  CurrenReportPart2x;
-   SetInformDatsHacienda CurrenReportPart3x;
 
    Button btnDowlPdf;
     FloatingActionButton fab ;
@@ -799,9 +796,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
        switch (view.getId()) {
 
            case R.id.btnDowlPdf:
-              // createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
-
-               startActivity(new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class));
+               DowloadControlcalidadVinculadosandDecideIRpdfMAKER(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
 
                break;
 
@@ -1383,6 +1378,11 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
 
 
     }
+
+
+
+
+
 
 
     private void takepickNow() {
@@ -2302,7 +2302,7 @@ private void createObjcInformeAndUpload(){
             ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
             switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
-    informe2.setKeyFirebase( CurrenReportPart2x.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+    informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
 
@@ -2317,7 +2317,7 @@ private void createObjcInformeAndUpload(){
             ,ediCajasProcDesp.getText().toString(),
             ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME);
 
-    informe3.setKeyFirebase( CurrenReportPart2x.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+    informe3.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
     RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
@@ -2384,7 +2384,7 @@ private void createObjcInformeAndUpload(){
                 ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
                 switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
-                 informe2.setKeyFirebase( CurrenReportPart2x.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+                 informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
         //Agregamos un nuevo informe
@@ -5108,12 +5108,12 @@ if(indice>2) {
                     SetInformEmbarque2 informEmbarque2= ds.getValue(SetInformEmbarque2.class);
 
                     if(informEmbarque2!=null){
-                        CurrenReportPart2x=informEmbarque2;
+                        Variables.CurrenReportPart2=informEmbarque2;
                         break;
                     }
                 }
-                Log.i("secondInform","el id del secon resport es "+CurrenReportPart2x.getUniqueIDinformePart2());
-                Log.i("secondInform","el CANDAO ES "+CurrenReportPart2x.getCandadoQsercom());
+                Log.i("secondInform","el id del secon resport es "+Variables.CurrenReportPart2.getUniqueIDinformePart2());
+                Log.i("secondInform","el CANDAO ES "+Variables.CurrenReportPart2.getCandadoQsercom());
 
 
                 dowloadThirdReportAndCallSetData(reportUNIQUEidtoSEARCH,modo);
@@ -5148,7 +5148,7 @@ if(indice>2) {
                     SetInformDatsHacienda inform= ds.getValue(SetInformDatsHacienda.class);
 
                     if(inform!=null){
-                        CurrenReportPart3x=inform;
+                        Variables.CurrenReportPart3=inform;
                         break;
 
                     }
@@ -5157,9 +5157,9 @@ if(indice>2) {
                 }
 
                 //AGREGMOS LA DATA EN LOS FILEDS
-                addDataEnFields(Variables.CurrenReportPart1,CurrenReportPart2x,CurrenReportPart3x);
-                addatainviewsMOREviews(CurrenReportPart3x);
-                addDataENfiledsoTHERviews(Variables.CurrenReportPart1,CurrenReportPart2x,CurrenReportPart3x);
+                addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
+                addatainviewsMOREviews(Variables.CurrenReportPart3);
+                addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
 
 
             }
@@ -5268,6 +5268,9 @@ if(indice>2) {
 
 
     }
+
+
+
     private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList<CheckedAndAtatch>lista,boolean esReportsVinculadosMod) {
         Log.i("samerr", "se llamo setDataInRecyclerOfBottomSheet y esl zie es  " + lista.size());
 
@@ -5358,6 +5361,122 @@ if(indice>2) {
 
             }
         });
+
+    }
+
+
+    private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int SizeArray, ArrayList<String>listIdSvINCULADOS ) {
+        Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
+
+        RealtimeDB.initDatabasesRootOnly();
+
+
+        //  Query query = mDatabase2.child("Clientes").orderByChild("userIdUnique").equalTo(userCurrent.getUserIdUnique());
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("uniqueId").equalTo(reportidToSearch);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    ControlCalidad  user=ds.getValue(ControlCalidad.class);
+
+                    if(user != null) {
+                        Variables.listReprsVinculads.add(user);
+
+                    }
+
+                }
+
+
+
+
+                if( Variables.listReprsVinculads.size() ==listIdSvINCULADOS.size()){
+                    Log.i("comnadaer","bien vamos a activity pdf maker");
+
+                    //vamos a  activity
+// createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
+                    Intent intent = new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class);
+                    intent.putExtra(Variables.KEY_PDF_MAKER,Variables.FormPreviewContenedores);
+                    startActivity(intent);
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+                /*
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    ControlCalidad  user=ds.getValue(ControlCalidad.class);
+                    Log.i("salero","encontrado uno ");
+
+                    listForms.add(user);
+
+                }
+
+                //cuando las descrague todos
+                Log.i("salero","el list forms size es "+listForms.size());
+
+                Log.i("salero","el listIdSvINCULADOS size es "+listIdSvINCULADOS.size());
+
+                if(listForms.size() ==listIdSvINCULADOS.size()){
+
+
+                    //cargamos la info en el sheet cargado
+                    setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet,listForms,true);
+
+
+                  //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,true);
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        usersdRef.addValueEventListener(eventListener);
+*/
+
+
+    }
+
+
+
+    private void DowloadControlcalidadVinculadosandDecideIRpdfMAKER(String valueVinculds){
+
+      ArrayList<String> listIdSvINCULADOS= generateLISTbyStringVinculados(valueVinculds);
+
+        if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
+
+          //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
+
+            for(String value: listIdSvINCULADOS){
+
+                Log.i("comnadaer","se ejecuto esto veces");
+                dowloadReportsVinucLADSAndGOcREATEpdf(value,listIdSvINCULADOS.size(),listIdSvINCULADOS);
+            }
+
+
+        }else {
+
+            Toast.makeText(ActivityContenedoresPrev.this, "No Hay reportes vinculados ", Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 

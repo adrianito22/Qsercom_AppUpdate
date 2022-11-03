@@ -420,7 +420,8 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="25dp"
                     android:background="@drawable/btn"
-                    android:text="Subir pdf A Drive" />
+                    android:text="Subir pdf A Drive"
+                    android:visibility="gone" />
 
                 <Space
                     android:layout_width="match_parent"
