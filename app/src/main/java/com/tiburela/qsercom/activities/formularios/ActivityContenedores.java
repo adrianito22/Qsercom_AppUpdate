@@ -58,6 +58,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -101,7 +102,6 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
      ImageView imgAtachVinculacion;
     RecyclerView reciclerViewBottomSheet;
     private int currentTypeImage=0;
-     int posicionSelectedSpinner=0;
      TextView    txtAdviseer;
      TextView txtAdviserDesvicunlar;
     ProgressBar progressBarFormulario;
@@ -315,6 +315,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_formulario);
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
+        CustomAdapter.idsFormsVinucladosCntres=null;//reseteamos
 
 
         Bundle extras = getIntent().getExtras();
@@ -988,8 +989,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
 
            case R.id.imgAtachVinculacion:
-               ArrayList<String>listIdSvINCULADOS;
 
+               ArrayList<String>listIdSvINCULADOS;
                listIdSvINCULADOS=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres);
                listForms= new ArrayList<>();
                listForms2= new ArrayList<>();
@@ -1006,18 +1007,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
 
                 }else{
-
-
                    showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,false);
-
                }
-
-
-
-
-
-
-
 
                break;
 
@@ -1065,33 +1056,33 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     }
 
 
-private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList<CheckedAndAtatch>lista,boolean esReportsVinculadosMod){
-    Log.i("samerr","se llamo setDataInRecyclerOfBottomSheet y esl zie es  "+lista.size());
+private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList<CheckedAndAtatch>lista,boolean esReportsVinculadosMod) {
+    Log.i("samerr", "se llamo setDataInRecyclerOfBottomSheet y esl zie es  " + lista.size());
 
-   //Button  btnSaveCambiosxxx=bottomSheetDialog.findViewById(R.id.btnSaveCambiosxxx);
+    //Button  btnSaveCambiosxxx=bottomSheetDialog.findViewById(R.id.btnSaveCambiosxxx);
 
-        if(esReportsVinculadosMod && lista.size()==0){
-            txtAdviseer.setText("No hay Reportes Vinculados");
+    if (esReportsVinculadosMod && lista.size() == 0) {
+        txtAdviseer.setText("No hay Reportes Vinculados");
 
-        }
+    }
 
-        if(lista.size()==0){
+    if (lista.size() == 0) {
 
-            txtAdviseer.setVisibility(TextView.VISIBLE);
-            txtAdviseer.setText("No hay Reportes en este periodo, selecione otro");
+        txtAdviseer.setVisibility(TextView.VISIBLE);
+        txtAdviseer.setText("No hay Reportes en este periodo, selecione otro");
 
-            txtAdviserDesvicunlar.setVisibility(TextView.GONE);
-          //  btnSaveCambiosxxx.setVisibility(TextView.GONE);
+        txtAdviserDesvicunlar.setVisibility(TextView.GONE);
+        //  btnSaveCambiosxxx.setVisibility(TextView.GONE);
 
-            Log.i("samerr","se ejeduto el if ");
+        Log.i("samerr", "se ejeduto el if ");
 
-        }else{
-            Log.i("samerr","se ejeduto el else ");
-            txtAdviserDesvicunlar.setVisibility(TextView.VISIBLE);
-           // btnSaveCambiosxxx.setVisibility(TextView.VISIBLE);
+    } else {
+        Log.i("samerr", "se ejeduto el else ");
+        txtAdviserDesvicunlar.setVisibility(TextView.VISIBLE);
+        // btnSaveCambiosxxx.setVisibility(TextView.VISIBLE);
 
-            txtAdviseer.setVisibility(TextView.GONE);
-        }
+        txtAdviseer.setVisibility(TextView.GONE);
+    }
 
 /*
     btnSaveCambiosxxx.setOnClickListener(new View.OnClickListener() {
@@ -1137,10 +1128,25 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityContenedores.this);
-    CustomAdapter adapter = new CustomAdapter(ActivityContenedores.this,lista,generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+    CustomAdapter adapter = new CustomAdapter(ActivityContenedores.this, lista, generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
     //  this.adapter.setPlayPauseClickListener(this);
     reciclerView.setLayoutManager(layoutManager);
     reciclerView.setAdapter(adapter);
+
+
+    adapter.setOnItemClickListener(new CustomAdapter.ClickListener() {
+        @Override
+        public void onItemClick(int position, View v) {
+            Variables.currenControlCalReport=listForms.get(position);
+
+      startActivity(new Intent(ActivityContenedores.this, FormularioControlCalidadPreview.class));
+
+
+           bottomSheetDialog.dismiss();
+
+        }
+    });
+
 }
 
 
@@ -1187,7 +1193,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 if(selecionado.equals("Hoy")) {
 
                    // long timeCurrent = new Date().getTime();
-                    posicionSelectedSpinner=0;
                     cal.add(Calendar.DATE, -0);
                     cald2.add(Calendar.DATE,0);
 
@@ -1202,7 +1207,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 }
 
                else if(selecionado.equals("Ayer")) {
-                    posicionSelectedSpinner=1;
 
                     cal.add(Calendar.DATE, -1);
                     cald2.add(Calendar.DATE,0);
@@ -1218,7 +1222,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
                 else if(selecionado.equals("Ultimos 7 dias")) {
-                    posicionSelectedSpinner=2;
 
                     cal.add(Calendar.DATE, -7);
                     cald2.add(Calendar.DATE,0);
@@ -1236,7 +1239,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
                 else if(selecionado.equals("Ultimos 15 dias")) {
-                    posicionSelectedSpinner=3;
 
                     cal.add(Calendar.DATE, -15);
                     cald2.add(Calendar.DATE,0);
@@ -1248,7 +1250,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 }
 
                 else if(selecionado.equals("Ultimos 30 dias")) {
-                    posicionSelectedSpinner=4;
 
                     cal.add(Calendar.DATE, -30);
                     cald2.add(Calendar.DATE,0);
@@ -1260,7 +1261,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
                 else if(selecionado.equals("Reportes Vinculados")) {
-                    posicionSelectedSpinner=5;
 
 
                     if(CustomAdapter.idsFormsVinucladosCntres!=null){  //si existen vinuclados DESCRAGAMOS ESTOS Y OTTRO BY DATE
@@ -4636,6 +4636,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         }
 
     }
+
+
+
 
 
 

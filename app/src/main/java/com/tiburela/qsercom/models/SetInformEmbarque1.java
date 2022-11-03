@@ -528,7 +528,9 @@ public class SetInformEmbarque1 {
         result.put("otroSelloLlegadaEspec", otroSelloLlegadaEspec);
 
         result.put("keyFirebase", keyFirebase);
-          //39
+        result.put("atachControCalidadInfrms", atachControCalidadInfrms);
+
+        //39
 
         return result;
 

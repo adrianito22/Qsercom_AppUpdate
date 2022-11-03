@@ -13,13 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
+import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringJoiner;
 
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>  implements   View.OnClickListener  {
+    private static ClickListener clickListener;
+    private View.OnClickListener listener;
+
 
     private LayoutInflater inflater;
     public static ArrayList<CheckedAndAtatch> listCheckedAndAtatch;
@@ -45,6 +49,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         View view = inflater.inflate(R.layout.item_control_cald_checkbx, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
+        view.setOnClickListener(this);
 
         return holder;
     }
@@ -134,13 +139,28 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
     }
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener=listener;
+    }
+
 
     @Override
     public int getItemCount() {
         return listCheckedAndAtatch.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onClick(View view) {
+
+
+        if (listener!=null){
+            listener.onClick(view);
+        }
+
+
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected CheckBox checkBx;
         private TextView txtDataFirst;
@@ -154,12 +174,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             checkBx = (CheckBox) itemView.findViewById(R.id.checkBx);
             txtDataFirst = (TextView) itemView.findViewById(R.id.txtDataFirst);
             txtDataSecond = (TextView) itemView.findViewById(R.id.txtDataSecond);
-            imgSee = (ImageView) itemView.findViewById(R.id.imgSee);
+            imgSee =  itemView.findViewById(R.id.imgSee);
+
+            imgSee.findViewById(R.id.imgSee).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    clickListener.onItemClick(getAdapterPosition(), v);
+
+                }
+            });
 
 
         }
 
-    } 
+        @Override
+        public void onClick(View view) {
+            clickListener.onItemClick(getAdapterPosition(), view);
+
+        }
+    }
 
 void udpdate() {
 
@@ -205,5 +239,17 @@ void udpdate() {
     public int getItemViewType(int position) {
         return position;
     }
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
+
+
+    }
+    public void setOnItemClickListener(ClickListener clickListener) {
+        CustomAdapter.clickListener = clickListener;
+
+
+    }
+
 
 }

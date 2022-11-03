@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="right"
     android:background="#E6E6E6"
-    tools:context=".activities.FormularioActivity">
+    tools:context=".activities.formulariosPrev.ActivityContenedoresPrev">
 
     <TextView
         android:id="@+id/textView58"
@@ -107,6 +107,27 @@
                     android:src="@android:drawable/arrow_down_float" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/laggg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgAtachVinculacion"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/ic_baseline_attach_file_24" />
+
+                <TextView
+                    android:id="@+id/textView53"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reportes Vinculados: 0" />
+            </LinearLayout>
 
             <include
                 layout="@layout/ly_datosgenerales"
@@ -124,7 +145,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -133,7 +153,6 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
-                    android:id="@+id/imvOcultaLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
@@ -161,7 +180,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -170,7 +188,6 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
-                    android:id="@+id/imvOcultaLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"

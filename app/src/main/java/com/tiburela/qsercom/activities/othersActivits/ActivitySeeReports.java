@@ -36,6 +36,7 @@ import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadP
 import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivity;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
+import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -489,6 +490,10 @@ public class ActivitySeeReports extends AppCompatActivity {
 
                     if(currentObect!=null){
                         Variables.CurrenReportPart1=currentObect;
+
+                        CustomAdapter.idsFormsVinucladosCntres=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+
+
                         break;
 
                     }
