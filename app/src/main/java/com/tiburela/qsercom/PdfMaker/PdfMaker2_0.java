@@ -78,7 +78,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         if(ActivityFormularioDondeVino== Variables.FormPreviewContenedores){
             Log.i("debbdf","es el primer if");
-              //obtenemos los hasmaps
+
+            Log.i("debbdf","el size de listReprsVinculads es: "+Variables.listReprsVinculads.size());
+
+            //obtenemos los hasmaps
 
                  //TENEMOS UNA LISTA CON LSO REPORTES
 

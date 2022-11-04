@@ -2702,6 +2702,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         controlCaL.setKeyDondeEstaraHasmapDefecSelec(antiguoControlCal.getKeyDondeEstaraHasmapDefecSelec());
         controlCaL.setSimpleDate(antiguoControlCal.getSimpleDate());
         controlCaL.setKeyDondeEstarThisInform(antiguoControlCal.getKeyDondeEstarThisInform());
+        controlCaL.setUniqueId(Variables.currenControlCalReport.getUniqueId());
 
 
         return controlCaL;

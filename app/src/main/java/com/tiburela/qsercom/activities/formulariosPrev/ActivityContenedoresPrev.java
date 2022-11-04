@@ -5365,7 +5365,7 @@ if(indice>2) {
     }
 
 
-    private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int SizeArray, ArrayList<String>listIdSvINCULADOS ) {
+    private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int contador,int sizeListIterate ) {
         Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
 
         RealtimeDB.initDatabasesRootOnly();
@@ -5384,15 +5384,10 @@ if(indice>2) {
 
                     if(user != null) {
                         Variables.listReprsVinculads.add(user);
-
                     }
-
                 }
 
-
-
-
-                if( Variables.listReprsVinculads.size() ==listIdSvINCULADOS.size()){
+                if( sizeListIterate ==contador){
                     Log.i("comnadaer","bien vamos a activity pdf maker");
 
                     //vamos a  activity
@@ -5400,10 +5395,7 @@ if(indice>2) {
                     Intent intent = new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class);
                     intent.putExtra(Variables.KEY_PDF_MAKER,Variables.FormPreviewContenedores);
                     startActivity(intent);
-
                 }
-
-
             }
 
             @Override
@@ -5412,45 +5404,6 @@ if(indice>2) {
             }
         });
 
-                /*
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    ControlCalidad  user=ds.getValue(ControlCalidad.class);
-                    Log.i("salero","encontrado uno ");
-
-                    listForms.add(user);
-
-                }
-
-                //cuando las descrague todos
-                Log.i("salero","el list forms size es "+listForms.size());
-
-                Log.i("salero","el listIdSvINCULADOS size es "+listIdSvINCULADOS.size());
-
-                if(listForms.size() ==listIdSvINCULADOS.size()){
-
-
-                    //cargamos la info en el sheet cargado
-                    setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet,listForms,true);
-
-
-                  //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,true);
-
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        usersdRef.addValueEventListener(eventListener);
-*/
 
 
     }
@@ -5464,11 +5417,14 @@ if(indice>2) {
         if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
 
           //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
+               int contadorx=0;
 
             for(String value: listIdSvINCULADOS){
+                contadorx++;
 
-                Log.i("comnadaer","se ejecuto esto veces");
-                dowloadReportsVinucLADSAndGOcREATEpdf(value,listIdSvINCULADOS.size(),listIdSvINCULADOS);
+                Log.i("comnadaer","se ejecuto esto veces, buscamos este "+value);
+                dowloadReportsVinucLADSAndGOcREATEpdf (value,contadorx,listIdSvINCULADOS.size());
+
             }
 
 
