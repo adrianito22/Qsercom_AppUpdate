@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
+
     // initialize variables
     private TextInputEditText mEdiLargDeds1;
     private TextInputEditText mEdiLargDeds2;
