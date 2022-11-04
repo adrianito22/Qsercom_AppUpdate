@@ -41,6 +41,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     HashMap <String, String> hasmapMapControlCalid;
     Button btnSaveControlC;
     TextView textView48;
+    private boolean seLLamoFindViewId =false;
+
     int numeroClustersInspecc=0;
     HashMap<String, String> hasHmapFieldsOtherViews= new HashMap<>();
     HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
@@ -415,9 +417,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ly_defectos_preview);
+
         findviewsIds();
-
-
         addListnners();
         eventoUploadFormulario();
 
@@ -722,11 +723,15 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
                 edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
                 edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 ,
+
+                edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20
+
+                , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
                 ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 ,ediNdedoXclustXc7,
                 ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 , ediNdedoXclustXc14 ,
                 ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 , ediNdedoXclustXc19,ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
@@ -1279,7 +1284,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
           imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
           imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
 
-
+        seLLamoFindViewId=true;
     }
 
 
@@ -1404,6 +1409,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     @Override
     public void onClick(View view) {
         boolean[] estates;
+
+
+        if(!seLLamoFindViewId){
+
+            findviewsIds();
+        }
+
 
         String keyOrViewID=String.valueOf(view.getId());
 
@@ -2364,30 +2376,44 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
                 ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
                 ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
-                ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
+                ediNumClusInsp9, ediNumClusInsp10,
+
+                ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
                 ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
                 ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
                 ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
                 ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+
+
                 edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
                 edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
                 edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
                 edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
                 edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 ,
+
+                edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20
+
+
+                , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
                 ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
                 , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
                 ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-                ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediNdedoXclustXc19 , ediNdedoXclustXc20
+
+
+
+                , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 ,
+
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20   ,
 
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
                 mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
@@ -2396,7 +2422,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
                 mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,
 
-
+                mEdif2LrgD1,mEdif2LrgD2,mEdif2LrgD3,mEdif2LrgD4,
+                mEdif2LrgD5,mEdif2LrgD6,mEdif2LrgD7, mEdif2LrgD8,mEdif2LrgD9,mEdif2LrgD10
+                ,mEdif2LrgD11,mEdif2LrgD12,mEdif2LrgD13,mEdif2LrgD14,mEdif2LrgD15,mEdif2LrgD16,
+                mEdif2LrgD17,mEdif2LrgD18 ,mEdif2LrgD19,mEdif2LrgD20,mEdif2LrgD21,mEdif2LrgD22
+                ,mEdif2LrgD23,mEdif2LrgD24,mEdif2LrgD25,mEdif2LrgD26,mEdif2LrgD27,mEdif2LrgD28
+                ,mEdif2LrgD29,mEdif2LrgD30
 
         } ;
 
@@ -2428,6 +2459,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         btnSaveControlC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                  if(!seLLamoFindViewId){
+                      findviewsIds();
+
+                  }
+
+
 
                 if(!cheakIfInfoIsComplete()) {
                     return;
@@ -2713,6 +2752,15 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
     public void saveInfo() {
+
+        //aqui llamaos para mostrra el reuslt...
+
+        showResultNumClusteroManoProduct();
+        getlargoDedosPulgaPulpaApulpa();
+        showResultNumeroClusterxCajaProduct();
+        showResultOfCalibraEntreBasalYapiclProduct();
+
+
 
         Log.i("misdtass", "el nodo del objeto current es " + Variables.currenControlCalReport.getKeyDondeEstarThisInform());
         // hasHmapFieldsOtherViews

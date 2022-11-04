@@ -1176,17 +1176,17 @@ public class HelperPdf {
 
         //DATOS QUE NECESITAMOS OBTENERdoub
         double PROMEDIO_PESO=0;
-        double CALIDAD_TOTAL=0;
-        double PORCENTAJE_DE_DEFECTOS=0;
-        int NUMERO_DEFECTS=0;
+        double CALIDAD_TOTAL;
+        double PORCENTAJE_DE_DEFECTOS;
+        int NUMERO_DEFECTS;
         String MAYOR_DEFECTO_SELECCION="Ninguno";
         String MAYOR_DEFECTO_EMPAQUE="Ninguno";
         int NUMERO_DE_CLUSTERS_iNSPECCIONADOS=0;
-        int NUMERO_DE_CLUSTERS_POR_CAJA=0;
+        int NUMERO_DE_CLUSTERS_POR_CAJA;
 
-        int NUMERO_DE_DEDOS=0;
-        double GRADO_CALIBRE_PROMEDIO=0;
-        double LARGO_DEDOS_PROMEDIO=0;
+        int NUMERO_DE_DEDOS;
+        double GRADO_CALIBRE_PROMEDIO;
+        double LARGO_DEDOS_PROMEDIO;
         double PH_PROMEDIO=0;
 
 
@@ -1229,13 +1229,20 @@ public class HelperPdf {
         int  [] keyaRRAYnumnUMdedosFil1={R.id.ediNdedoXclust1,R.id.ediNdedoXclust2,R.id.ediNdedoXclust3,R.id.ediNdedoXclust4,
                 R.id.ediNdedoXclust5,R.id.ediNdedoXclust6,R.id.ediNdedoXclust7, R.id.ediNdedoXclust8,R.id.ediNdedoXclust9,R.id.ediNdedoXclust10
                 ,R.id.ediNdedoXclust11,R.id.ediNdedoXclust12,R.id.ediNdedoXclust13,R.id.ediNdedoXclust14,R.id.ediNdedoXclust15,R.id.ediNdedoXclust16,
-                R.id.ediNdedoXclust17,R.id.ediNdedoXclust18};
+                R.id.ediNdedoXclust17,R.id.ediNdedoXclust18
+                ,R.id.ediNdedoXclust19,R.id.ediNdedoXclust20,R.id.ediNdedoXclust21,R.id.ediNdedoXclust22,R.id.ediNdedoXclust23,R.id.ediNdedoXclust24
+                ,R.id.ediNdedoXclust25,R.id.ediNdedoXclust26,R.id.ediNdedoXclust27,R.id.ediNdedoXclust28
+
+        };
 
 
         int  [] keyaRRAYnumnUMdedosFil2={R.id.edif2NdedoXclust1,R.id.edif2NdedoXclust2,R.id.edif2NdedoXclust3,R.id.edif2NdedoXclust4,
                 R.id.edif2NdedoXclust5,R.id.edif2NdedoXclust6,R.id.edif2NdedoXclust7, R.id.edif2NdedoXclust8,R.id.edif2NdedoXclust9,R.id.edif2NdedoXclust10
                 ,R.id.edif2NdedoXclust11,R.id.edif2NdedoXclust12,R.id.edif2NdedoXclust13,R.id.edif2NdedoXclust14,R.id.edif2NdedoXclust15,R.id.edif2NdedoXclust16,
-                R.id.edif2NdedoXclust17,R.id.edif2NdedoXclust18};
+                R.id.edif2NdedoXclust17,R.id.edif2NdedoXclust18
+                ,R.id.edif2NdedoXclust19,R.id.edif2NdedoXclust20,R.id.edif2NdedoXclust21,R.id.edif2NdedoXclust22,R.id.edif2NdedoXclust23
+                ,R.id.edif2NdedoXclust24,R.id.edif2NdedoXclust25,R.id.edif2NdedoXclust26,R.id.edif2NdedoXclust27,R.id.edif2NdedoXclust28
+        };
 
 
         int  [] keyaRRAYcalibracionesFil1={R.id.ediCalByA1,R.id.ediCalByA2,R.id.ediCalByA3,R.id.ediCalByA4,
@@ -1253,30 +1260,37 @@ public class HelperPdf {
         int  [] keyaRRAYlargoFil1={R.id.ediLargDeds1,R.id.ediLargDeds2,R.id.ediLargDeds3,R.id.ediLargDeds4,
                 R.id.ediLargDeds5,R.id.ediLargDeds6,R.id.ediLargDeds7, R.id.ediLargDeds8,R.id.ediLargDeds9,R.id.ediLargDeds10
                 ,R.id.ediLargDeds11,R.id.ediLargDeds12,R.id.ediLargDeds13,R.id.ediLargDeds14,R.id.ediLargDeds15,R.id.ediLargDeds16,
-                R.id.ediLargDeds17,R.id.ediLargDeds18};
+                R.id.ediLargDeds17,R.id.ediLargDeds18,R.id.ediLargDeds19,R.id.ediLargDeds20,R.id.ediLargDeds21,R.id.ediLargDeds22
+                ,R.id.ediLargDeds23,R.id.ediLargDeds24,R.id.ediLargDeds25,R.id.ediLargDeds26,R.id.ediLargDeds27,R.id.ediLargDeds28
+                ,R.id.ediLargDeds29,R.id.ediLargDeds30};
 
 
         int  [] keyaRRAYlargoFil2={R.id.edif2LrgD1,R.id.edif2LrgD2,R.id.edif2LrgD3,R.id.edif2LrgD4,
                 R.id.edif2LrgD5,R.id.edif2LrgD6,R.id.edif2LrgD7, R.id.edif2LrgD8,R.id.edif2LrgD9,R.id.edif2LrgD10
                 ,R.id.edif2LrgD11,R.id.edif2LrgD12,R.id.edif2LrgD13,R.id.edif2LrgD14,R.id.edif2LrgD15,R.id.edif2LrgD16,
-                R.id.edif2LrgD17,R.id.edif2LrgD18};
+                R.id.edif2LrgD17,R.id.edif2LrgD18 ,R.id.edif2LrgD19,R.id.edif2LrgD20,R.id.edif2LrgD21,R.id.edif2LrgD22
+                ,R.id.edif2LrgD23,R.id.edif2LrgD24,R.id.edif2LrgD25,R.id.edif2LrgD26,R.id.edif2LrgD27,R.id.edif2LrgD28
+                ,R.id.edif2LrgD29,R.id.edif2LrgD30};
 
 
 
         int resultLine1=0;
         int resultLine2=0;
 
+        double resultLine1Double=0;
+        double resultLine2Double=0;
+
         for(int i=0; i<keyaRRAYlargoFil1.length ;i++) {
             //keyDatsPesoarray
             //itremoas
             String keyCurrent1= String.valueOf(keyaRRAYlargoFil1[i])  ;
             if(hashMapControlCald.containsKey(keyCurrent1)){
-                resultLine1=resultLine1 +Integer.parseInt(hashMapControlCald.get(keyCurrent1));
+                resultLine1Double=resultLine1Double +Double.parseDouble(hashMapControlCald.get(keyCurrent1));
             }
 
             String keyCurrent2= String.valueOf(keyaRRAYlargoFil2[i])  ;
             if(hashMapControlCald.containsKey(keyCurrent2)){
-                resultLine2=resultLine2 +Integer.parseInt(hashMapControlCald.get(keyCurrent2));
+                resultLine2Double=resultLine2Double +Double.parseDouble(hashMapControlCald.get(keyCurrent2));
 
             }
 
@@ -1284,28 +1298,24 @@ public class HelperPdf {
         }
 
         /**gheneramos numero de LARGO_DEDOS_PROMEDIO*/
-        LARGO_DEDOS_PROMEDIO=resultLine2/resultLine1;
+        LARGO_DEDOS_PROMEDIO=resultLine2Double/resultLine1Double;
 
         Log.i("ELWEIGTH","EL LARGO_DEDOS_PROMEDIO  ES "+LARGO_DEDOS_PROMEDIO);
 
-
-
-
-
-         resultLine1=0;
-         resultLine2=0;
+         resultLine1Double=0;
+         resultLine2Double=0;
 
         for(int i=0; i<keyaRRAYcalibracionesFil1.length ;i++) {
             //keyDatsPesoarray
             //itremoas
             String keyCurrent1= String.valueOf(keyaRRAYcalibracionesFil1[i])  ;
             if(hashMapControlCald.containsKey(keyCurrent1)){
-                resultLine1=resultLine1 +Integer.parseInt(hashMapControlCald.get(keyCurrent1));
+                resultLine1Double=resultLine1Double +Double.parseDouble(hashMapControlCald.get(keyCurrent1));
             }
 
             String keyCurrent2= String.valueOf(keyaRRAYcalibracionesFil2[i])  ;
             if(hashMapControlCald.containsKey(keyCurrent2)){
-                resultLine2=resultLine2 +Integer.parseInt(hashMapControlCald.get(keyCurrent2));
+                resultLine2Double=resultLine2Double +Double.parseDouble(hashMapControlCald.get(keyCurrent2));
 
             }
 
@@ -1313,7 +1323,7 @@ public class HelperPdf {
         }
 
         /**gheneramos numero de GRADO_CALIBRE_PROMEDIO*/
-        GRADO_CALIBRE_PROMEDIO=resultLine2/resultLine1;
+        GRADO_CALIBRE_PROMEDIO=resultLine2Double/resultLine1Double;
 
         Log.i("ELWEIGTH","EL GRADO_CALIBRE_PROMEDIO  PROMEDIO ES "+GRADO_CALIBRE_PROMEDIO);
 
