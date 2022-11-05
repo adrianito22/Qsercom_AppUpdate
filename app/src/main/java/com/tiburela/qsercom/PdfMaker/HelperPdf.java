@@ -1863,7 +1863,7 @@ public class HelperPdf {
         rgbColor= new DeviceRgb(146, 208, 80); //color
 
         celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph("TOTAL"));
+        celdaGlobal.add(new Paragraph("TOTAL").setTextAlignment(TextAlignment.CENTER).setBold());
         table.addCell(celdaGlobal);
 
 
@@ -1871,14 +1871,14 @@ public class HelperPdf {
         //TOTAL EMBRACADO
         rgbColor= new DeviceRgb(146, 208, 80); //color
         celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph(totalEMbracado+" cajas"));
+        celdaGlobal.add(new Paragraph(totalEMbracado+" cajas").setTextAlignment(TextAlignment.CENTER).setBold());
         table.addCell(celdaGlobal);
 
 
         //porcentaje
         rgbColor= new DeviceRgb(146, 208, 80); //color
         celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph(df.format(porcentajeFinal)+"%"));
+        celdaGlobal.add(new Paragraph(df.format(porcentajeFinal)+"%").setTextAlignment(TextAlignment.CENTER).setBold());
         table.addCell(celdaGlobal);
 
         return table;
