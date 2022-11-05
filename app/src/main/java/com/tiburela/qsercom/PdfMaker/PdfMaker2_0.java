@@ -62,9 +62,11 @@ public class PdfMaker2_0 extends AppCompatActivity {
     int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
     ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
-
-
     HashMap <String, String> hasmapMapControlCalid;
+
+    ArrayList<String>listtoTableDescripcion=new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -489,16 +491,84 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
+
+
           /**agregamos tables de control calidad*/
+        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
+           int contadorTablas=1;
 
          for(int i=0; i<ListWhitHashMapsControlCalidad.size(); i++ ){
              
              HashMap<String,String>currentMap=ListWhitHashMapsControlCalidad.get(i);
              HashMap<String,String>currentMapDefectsCheked=ListWhitHashMapsRechzadosChekeed.get(i);
+             ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(i);
 
-             HelperPdf.createTableEvaluacionYcondcionFruta(table1,rgbColor,Variables.listReprsVinculads,currentMap,currentMapDefectsCheked,PdfMaker2_0.this);
+             table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this);
+
+
+              if( contadorTablas % 2==0){  //y si existen mas tablas y es un numero
+                  table1.setMarginTop(40f);
+
+                  if(contadorTablas<ListWhitHashMapsControlCalidad.size()){ //signifca que quedan mas tablas
+
+                      midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                      imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+                      midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+                  }
+
+              }else{ //si es la primera tabla de la pagina
+
+                  table1.setMarginTop(10f);
+
+
+              }
+
+             table1.setWidth(pageSize.getWidth()/2);
+             table1.setMarginLeft(100f);
+
+             midocumentotoAddData.add(table1);
+
+              contadorTablas++;
 
          }
+
+
+
+
+        /**Agregamos Certificacion texto y tabla*/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
+        Paragraph title= new Paragraph("CERTIFICACION").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
+
+        midocumentotoAddData.add(title);
+        midocumentotoAddData.add(new Paragraph("Estimados").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
+        midocumentotoAddData.add(new Paragraph("Certifico la calidsd y porcentaje de calidad semana 35, marca del monte").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
+        midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
+        midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f).setBold());
+
+        float sizeColumnsx[]= {2,1,2,2};
+        table1=  new Table(sizeColumnsx);
+        //aqyi agrega la data y despues agrega esto...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -508,6 +578,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         //agregamos el hedaer
         /**add header imagen*/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
         imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
         // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -535,25 +606,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        /**Agregamos Certificacion texto*/
-
-        Paragraph title= new Paragraph("CERTIFICACION").setFontSize(12f);
-
-        midocumentotoAddData.add(title);
-        midocumentotoAddData.add(new Paragraph("Estimados").setFontSize(9f).setMarginTop(5f));
-        midocumentotoAddData.add(new Paragraph("Certifico la calidsd y porcentaje de calidad semana 35, marca del monte").setFontSize(9f).setMarginTop(5f));
-        midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f));
-        midocumentotoAddData.add(new Paragraph("Tabla1.-Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f));
-
-        float sizeColumnsx[]= {2,1,2,2};
-        table1=  new Table(sizeColumnsx);
-        //aqyi agrega la data y despues agrega esto...
-
-
-        ///algoritimo crea
-
-        // midocumentotoAddData.close();
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
 
         /**Agregamos anexos*/

@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.fonts.Font;
 import android.util.Log;
 
+import androidx.compose.ui.graphics.colorspace.Connector;
+
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.DeviceRgb;
@@ -16,6 +18,7 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Tab;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
@@ -27,6 +30,7 @@ import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.models.TableCalidProdc;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -42,6 +46,7 @@ public class HelperPdf {
     public static  ArrayList<ArrayList<String>> listOFlist = new ArrayList<>();
 
 
+    public static  ArrayList<TableCalidProdc> TableCalidProdc = new ArrayList<>();
 
 
     public  Image  createInfoImgtoPDF(Drawable mIDrawable, Context conetxt,int i){
@@ -1159,17 +1164,10 @@ public class HelperPdf {
 
 
     /**ESTO CREARA UN TABLE CADA VEZ QUE SE LLAMA**/
-    public static  Table createTableEvaluacionYcondcionFruta(Table table1X,DeviceRgb rgbColor ,ArrayList<ControlCalidad>listControCalidad,HashMap <String, String> hashMapControlCald,HashMap <String, String> hashMapDefctChecked,Context contexto){
+    public static  Table createTableEvaluacionYcondcionFruta(ControlCalidad objecControlCald,HashMap <String, String> hashMapControlCald,HashMap <String, String> hashMapDefctChecked,Context contexto){
         //aqui creamos la info con esta data.....
 
-        ArrayList<Double>listPesos = new ArrayList<>();
         ArrayList<Double>listPh = new ArrayList<>();
-        ArrayList<Integer>listNumClustersiNSP = new ArrayList<>();
-        ArrayList<Float>listDefectSelecion= new ArrayList<>();
-        ArrayList<Float>listDefectEmpaque= new ArrayList<>();
-
-        ArrayList<NameAndValue>dataTotable= new ArrayList<>();
-
         ArrayList<DefectsCantdad>defectsSeleccion= new ArrayList<>();
         ArrayList<DefectsCantdad>defectsEmpaque= new ArrayList<>();
 
@@ -1179,8 +1177,8 @@ public class HelperPdf {
         double CALIDAD_TOTAL;
         double PORCENTAJE_DE_DEFECTOS;
         int NUMERO_DEFECTS;
-        String MAYOR_DEFECTO_SELECCION="Ninguno";
-        String MAYOR_DEFECTO_EMPAQUE="Ninguno";
+        String MAYOR_DEFECTO_SELECCION="NO";
+        String MAYOR_DEFECTO_EMPAQUE="NO";
         int NUMERO_DE_CLUSTERS_iNSPECCIONADOS=0;
         int NUMERO_DE_CLUSTERS_POR_CAJA;
 
@@ -1412,8 +1410,6 @@ public class HelperPdf {
         Log.i("ELWEIGTH","EN PESO PROMEDIO ES "+PROMEDIO_PESO);
 
 
-        //DecimalFormat df = new DecimalFormat("#.#");
-       // String pesoLibrastext= df.format(pesoLibras);
 
 
         //agregamos el peso libras
@@ -1619,77 +1615,272 @@ public class HelperPdf {
 
                 numeroDefectosMayor =numeroDfectosCurrentDefect;
                 MAYOR_DEFECTO_EMPAQUE=currentNombreDefecto;
-
-/*
-                if(MAYOR_DEFECTO_EMPAQUE.equals(" ") ||(MAYOR_DEFECTO_EMPAQUE ==null )){
-                    MAYOR_DEFECTO_EMPAQUE ="Ninguno" ;
-                }
-
-
-           */ }
+            }
         }
 
         Log.i("ELWEIGTH","el defecto MAYOR_DEFECTO_EMPAQUE ES "+MAYOR_DEFECTO_EMPAQUE);
 
 
+        ///entonces vamos a crear la tabla
+      DecimalFormat df = new DecimalFormat("#.##");
+        // String pesoLibrastext= df.format(pesoLibras);
 
 
+         if(MAYOR_DEFECTO_SELECCION.contains(":")){
+            String array[]=MAYOR_DEFECTO_SELECCION.split(":");
 
 
+            MAYOR_DEFECTO_SELECCION=array[0];
+         }
 
-        /*
 
-//CALIDAD TOTAL Y PORCENTAJE DE FDEFECTOS
-        for(int i=0; i<keyDatsPeso.length ;i++) {
-            //keyDatsPesoarray
-            //itremoas
-            String keyCurrent= String.valueOf(keyDatsPeso[i])  ;
+        if(MAYOR_DEFECTO_EMPAQUE.contains(":")){
+            String array[]=MAYOR_DEFECTO_EMPAQUE.split(":");
 
-            if(hashMapControlCald.containsKey(keyCurrent)){
 
-                pesoLibras=pesoLibras + Double.parseDouble(hashMapControlCald.get(keyCurrent));
-                numeroItemsEcontrados++;
-
-            }
-
+            MAYOR_DEFECTO_EMPAQUE=array[0];
         }
 
-*/
+
+        TableCalidProdc.add(new TableCalidProdc(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),objecControlCald.getTotalCajas(),CALIDAD_TOTAL));
 
 
 
 
+       Table table1 =  createTableWhitDateEvaluacionFrura(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),df.format(PROMEDIO_PESO),
+               df.format(CALIDAD_TOTAL)+"%",df.format(PORCENTAJE_DE_DEFECTOS)+"%",String.valueOf(NUMERO_DEFECTS),String.valueOf(MAYOR_DEFECTO_SELECCION),
+               String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+"%",
+               df.format(LARGO_DEDOS_PROMEDIO)+"%",String.valueOf(PH_PROMEDIO)
+               );
 
-        /**PROMEDIO PESO */
-
-
-/*
-        for(int indice =0; indice <keyDatsPeso.length; indice++){
-            String keyValue = String.valueOf(keyDatsPeso[indice]);
-            if(hashMapControlCald.containsKey(keyValue)) {
-                listPesos.add(Double.parseDouble(hashMapControlCald.get(keyValue)));
-            }
-
-
-        }
-
-*/
-
-
-
-
-        float araycolumccc[]= {1,1,1,1};
-        table1X=  new Table(araycolumccc);
-
-
-        Cell cellHeader2= new Cell(1,4).setBackgroundColor(rgbColor);
-        cellHeader2.add(new Paragraph(" CALIBRACION DE FRUTA( CALENDARIO DE ENFUNDE) ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
-        table1X.addCell(cellHeader2);
-
-
-
-
-        return table1X;
+        return table1;
     }
 
+
+    private static Table createTableWhitDateEvaluacionFrura(String empaqueNombre,String promedioPeso,String calidadTotal,String porcenjeDefects,
+                                      String numeroDefectos,String mayorDefectSelecion,String mayorDefectEmq,String numClusters,String numDedos,
+                                                     String gradoCalibrePromedio,String largoDedoPromedio,String phPromedio){
+        float araycolumccc[]= {1,2};
+         Table table1X=  new Table(araycolumccc);
+
+
+        DeviceRgb rgbColor= new DeviceRgb(219, 219, 219); //color verde claro
+        Cell cellGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("EMPAQUE : "+empaqueNombre).setFontSize(7.5f).setPaddingLeft(10f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+
+        rgbColor= new DeviceRgb(155, 194, 230); //color
+         cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("PROMEDIO PESO").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(promedioPeso).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+
+            /***hasta por aqui en bacground*/
+        rgbColor= new DeviceRgb(169, 208, 142); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("CALIDAD TOTAL").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(calidadTotal).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+        rgbColor= new DeviceRgb(255, 217, 102); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("PORCENTAJE DE DEFECTOS").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(porcenjeDefects).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        rgbColor= new DeviceRgb(244, 176, 132); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("NUMERO DE DEFECTOS").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(numeroDefectos).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+
+        rgbColor= new DeviceRgb(255, 255, 0); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("MAYOR DEFECTO SELECION").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(mayorDefectSelecion).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        rgbColor= new DeviceRgb(255, 255, 0); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("MAYOR DEFECTO EMPAQUE").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(mayorDefectEmq).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        rgbColor= new DeviceRgb(198, 224, 180); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("NUMERO DE CLUSTER").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(numClusters).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        rgbColor= new DeviceRgb(255, 192, 0); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("NUMERO DE DEDOS").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(numDedos).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+        rgbColor= new DeviceRgb(153, 153, 255); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("GRADO DE CALIBRE PROMEDIO").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(gradoCalibrePromedio).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        rgbColor= new DeviceRgb(0, 153, 204); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("LARGO DE DEDOS PROMEDIO").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(largoDedoPromedio).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        rgbColor= new DeviceRgb(146, 208, 80); //color
+        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+        cellGlobal.add(new Paragraph("PH").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+        cellGlobal= new Cell();
+        cellGlobal.add(new Paragraph(phPromedio).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table1X.addCell(cellGlobal);
+
+
+
+
+
+        return  table1X;
+
+    }
+
+
+
+
+    private Table createTablePorceCalidProductres(){
+
+        DeviceRgb rgbColor= new DeviceRgb(146, 208, 80); //color
+
+        float  [] array={2,1,2,2};
+         Table table= new Table(array);
+         Cell celdaGlobal= new Cell(2,1).setBackgroundColor(rgbColor);
+         celdaGlobal.add(new Paragraph("CODIGO").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+         table.addCell(celdaGlobal);
+
+        celdaGlobal.add(new Paragraph("TIPO DE EMPAQUE").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table.addCell(celdaGlobal);
+
+
+        celdaGlobal.add(new Paragraph("TOTAL EMBARCADO").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table.addCell(celdaGlobal);
+
+        celdaGlobal.add(new Paragraph("POCERCENTAJE QS %").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        table.addCell(celdaGlobal);
+
+
+
+          /***codigo el numero de rowspan sera del tamaano  TableCalidProdc .size*/
+         rgbColor= new DeviceRgb(146, 208, 80); //color
+        celdaGlobal= new Cell(TableCalidProdc.size(),1).setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph("CODIGO Aqui").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+
+        table.addCell(celdaGlobal);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+
+               int totalEMbracado=0;
+               double sumaPorcentajes=0;
+        for(TableCalidProdc itemCurrent :TableCalidProdc){
+
+                celdaGlobal= new Cell().setBackgroundColor(rgbColor);
+                celdaGlobal.add(new Paragraph(itemCurrent.getTipoEmpaque()).setFontSize(7.5f).setPaddingLeft(5f));
+                table.addCell(celdaGlobal);
+
+
+
+                celdaGlobal= new Cell().setBackgroundColor(rgbColor);
+                celdaGlobal.add(new Paragraph(String.valueOf(itemCurrent.getTotalEmbacado())).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER));
+                table.addCell(celdaGlobal);
+
+
+                celdaGlobal= new Cell().setBackgroundColor(rgbColor);
+                celdaGlobal.add(new Paragraph(df.format(String.valueOf(itemCurrent.getPorcentajeQS()))+"%").setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER));
+                table.addCell(celdaGlobal);
+
+
+            totalEMbracado=totalEMbracado+itemCurrent.getTotalEmbacado();
+            sumaPorcentajes=sumaPorcentajes+itemCurrent.getPorcentajeQS();
+
+            }
+
+
+
+        double porcentajeFinal=sumaPorcentajes/TableCalidProdc.size();
+        //Tabla total
+        rgbColor= new DeviceRgb(146, 208, 80); //color
+
+        celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph("TOTAL"));
+        table.addCell(celdaGlobal);
+
+
+
+        //TOTAL EMBRACADO
+        rgbColor= new DeviceRgb(146, 208, 80); //color
+        celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph(totalEMbracado+" cajas"));
+        table.addCell(celdaGlobal);
+
+
+        //porcentaje
+        rgbColor= new DeviceRgb(146, 208, 80); //color
+        celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph(df.format(porcentajeFinal)+"%"));
+        table.addCell(celdaGlobal);
+
+        return table;
+    }
 }

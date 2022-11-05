@@ -4045,7 +4045,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:digits="0123456789"
                         android:inputType="number"
-                        android:enable="false"
+                        android:enabled="false"
 
                         android:id="@+id/edif2Calib21"
                         android:layout_width="match_parent"
@@ -4064,8 +4064,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:digits="0123456789"
                         android:inputType="number"
-                        android:enable="false"
-
+                        android:enabled="false"
                         android:id="@+id/edif2Calib22"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

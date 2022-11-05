@@ -662,7 +662,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         RealtimeDB.initDatabasesRootOnly();
 
-        Log.i("sibmba","el text es "+Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
 
 
         dowloadCoontrolClidadMapAndCallSetDATAINviews(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
@@ -671,6 +670,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
+        Log.i("huevo","el ediPesoL1  es "+R.id.ediPesoL1);
 
     }
 
@@ -2367,6 +2367,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
     private void createMapInBYothersTextimpuEdFields() {
+
+
 
         hasHmapFieldsOtherViews = new HashMap<>();
 
