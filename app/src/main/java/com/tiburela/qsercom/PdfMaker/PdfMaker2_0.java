@@ -5,17 +5,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 //import androidx.compose.ui.text.Paragraph;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -546,31 +552,32 @@ public class PdfMaker2_0 extends AppCompatActivity {
         Paragraph title= new Paragraph("CERTIFICACION").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
 
         midocumentotoAddData.add(title);
-        midocumentotoAddData.add(new Paragraph("Estimados").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
-        midocumentotoAddData.add(new Paragraph("Certifico la calidsd y porcentaje de calidad semana 35, marca del monte").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
+        midocumentotoAddData.add(new Paragraph("Estimados.").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
+
+
+        /**TEXTO SEGUNDA LINEA*/
+        table1=  HelperPdf.generateTexCertificationTable("SEMANA n AQUI");
+        table1.setWidth(pageSize.getWidth()-145f);  //ESTABA EM 120
+        table1.setMarginLeft(70f);
+        midocumentotoAddData.add(table1);
+
         midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
         midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f).setBold());
 
-        float sizeColumnsx[]= {2,1,2,2};
-        table1=  new Table(sizeColumnsx);
-        //aqyi agrega la data y despues agrega esto...
+
+           /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
+        table1 =HelperPdf. createTablePorceCalidProductres();
+        table1.setWidth(pageSize.getWidth()-170f);
+        table1.setMarginLeft(70f);
+        table1.setMarginTop(1f);
+        midocumentotoAddData.add(table1);
 
 
 
+        midocumentotoAddData.add(new Paragraph("Grafico 1.- Demostracion calidad total y danos - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(70f));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ggdf
+         ///aqui creamos imagen..
 
 
 
@@ -972,4 +979,35 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
     }
 
+
+
+    private void createPieChar(){
+        String label = "type";
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.parseColor("#304567"));
+        colors.add(Color.parseColor("#309967"));
+
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        pieEntries.add(new PieEntry(10f,"Banano"));
+        pieEntries.add(new PieEntry(20f,"Zanahoria"));
+        PieDataSet pieDataSet = new PieDataSet(pieEntries,label);
+        pieDataSet.setValueTextSize(12f);
+        //providing color list for coloring different entries
+        pieDataSet.setColors(colors);
+        //grouping the data set from entry to chart
+        PieData pieData = new PieData(pieDataSet);
+        //showing the value of the entries, default true if not set
+        pieData.setDrawValues(true);
+
+
+        PieChart pieChart;
+          pieChart=findViewById(R.id.pieChart_view);
+
+        pieData.setValueFormatter(new PercentFormatter());
+        pieChart.setUsePercentValues(true);
+       // https://medium.com/@clyeung0714/using-mpandroidchart-for-android-application-piechart-123d62d4ddc0
+
+        pieChart.setData(pieData);
+        pieChart.invalidate();
+    }
 }

@@ -1642,6 +1642,8 @@ public class HelperPdf {
         }
 
 
+        Log.i("debugderor","el calidad total es "+CALIDAD_TOTAL);
+
         TableCalidProdc.add(new TableCalidProdc(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),objecControlCald.getTotalCajas(),CALIDAD_TOTAL));
 
 
@@ -1800,30 +1802,50 @@ public class HelperPdf {
 
 
 
-    private Table createTablePorceCalidProductres(){
+    public static Table createTablePorceCalidProductres(){
 
-        DeviceRgb rgbColor= new DeviceRgb(146, 208, 80); //color
+        DeviceRgb rgbColor= new DeviceRgb(231, 230, 230); //color
 
-        float  [] array={2,1,2,2};
+        float  [] array={1,2,1, 1.5f};
          Table table= new Table(array);
          Cell celdaGlobal= new Cell(2,1).setBackgroundColor(rgbColor);
-         celdaGlobal.add(new Paragraph("CODIGO").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+         celdaGlobal.add(new Paragraph("CODIGO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
          table.addCell(celdaGlobal);
 
-        celdaGlobal.add(new Paragraph("TIPO DE EMPAQUE").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+         celdaGlobal= new Cell(2,1).setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph("TIPO DE EMPAQUE").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
         table.addCell(celdaGlobal);
 
-
-        celdaGlobal.add(new Paragraph("TOTAL EMBARCADO").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        celdaGlobal= new Cell(2,1).setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph("TOTAL EMBARCADO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
         table.addCell(celdaGlobal);
 
-        celdaGlobal.add(new Paragraph("POCERCENTAJE QS %").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        celdaGlobal= new Cell(2,1).setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph("POCERCENTAJE QS %").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
         table.addCell(celdaGlobal);
 
+/*
+        celdaGlobal= new Cell();
+        celdaGlobal.add(new Paragraph("").setTextAlignment(TextAlignment.CENTER).setFontSize(4.5f));
+        table.addCell(celdaGlobal);
+
+        celdaGlobal= new Cell();
+        celdaGlobal.add(new Paragraph("").setTextAlignment(TextAlignment.CENTER).setFontSize(4.5f));
+        table.addCell(celdaGlobal);
+
+        celdaGlobal= new Cell();
+        celdaGlobal.add(new Paragraph("").setTextAlignment(TextAlignment.CENTER).setFontSize(4.5f));
+        table.addCell(celdaGlobal);
+
+        celdaGlobal= new Cell();
+        celdaGlobal.add(new Paragraph("").setTextAlignment(TextAlignment.CENTER).setFontSize(4.5f));
+        table.addCell(celdaGlobal);
+
+*/
 
 
           /***codigo el numero de rowspan sera del tamaano  TableCalidProdc .size*/
-         rgbColor= new DeviceRgb(146, 208, 80); //color
+         rgbColor= new DeviceRgb(242, 242, 242); //color
         celdaGlobal= new Cell(TableCalidProdc.size(),1).setBackgroundColor(rgbColor);
         celdaGlobal.add(new Paragraph("CODIGO Aqui").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
 
@@ -1847,7 +1869,10 @@ public class HelperPdf {
 
 
                 celdaGlobal= new Cell().setBackgroundColor(rgbColor);
-                celdaGlobal.add(new Paragraph(df.format(String.valueOf(itemCurrent.getPorcentajeQS()))+"%").setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER));
+                Log.i("debugderor","el value es "+itemCurrent.getPorcentajeQS());
+
+                String caliddTotal=df.format(Double.valueOf(itemCurrent.getPorcentajeQS()));
+                celdaGlobal.add(new Paragraph(caliddTotal+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
                 table.addCell(celdaGlobal);
 
 
@@ -1860,27 +1885,58 @@ public class HelperPdf {
 
         double porcentajeFinal=sumaPorcentajes/TableCalidProdc.size();
         //Tabla total
-        rgbColor= new DeviceRgb(146, 208, 80); //color
+         rgbColor= new DeviceRgb(231, 230, 230); //color
 
         celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph("TOTAL").setTextAlignment(TextAlignment.CENTER).setBold());
+        celdaGlobal.add(new Paragraph("TOTAL").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(8f));
         table.addCell(celdaGlobal);
 
 
 
         //TOTAL EMBRACADO
-        rgbColor= new DeviceRgb(146, 208, 80); //color
-        celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph(totalEMbracado+" cajas").setTextAlignment(TextAlignment.CENTER).setBold());
+        rgbColor= new DeviceRgb(255, 242, 204); //color
+        celdaGlobal= new Cell().setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph(totalEMbracado+" cajas").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
         table.addCell(celdaGlobal);
 
 
         //porcentaje
-        rgbColor= new DeviceRgb(146, 208, 80); //color
-        celdaGlobal= new Cell(1,2).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph(df.format(porcentajeFinal)+"%").setTextAlignment(TextAlignment.CENTER).setBold());
+        rgbColor= new DeviceRgb(226, 239, 218); //color
+        celdaGlobal= new Cell().setBackgroundColor(rgbColor);
+
+        String porcentajeFinalx=df.format(Double.valueOf(porcentajeFinal));
+        celdaGlobal.add(new Paragraph(porcentajeFinalx+"%").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
         table.addCell(celdaGlobal);
 
+
         return table;
+    }
+
+
+
+    public static Table generateTexCertificationTable(String marcaCurrent){
+
+        Cell cell= new Cell().setBorder(Border.NO_BORDER);
+        float sizeColumnsx[]= {1,1,1,1};
+       Table table1=  new Table(sizeColumnsx);
+
+       cell.add(new Paragraph("Certifico la calidsd y porcentaje de calidad "));
+       table1.addCell(cell).setBorder(Border.NO_BORDER);
+
+
+         cell= new Cell().setBorder(Border.NO_BORDER);
+        cell.add(new Paragraph("Semana "+Variables.CurrenReportPart1.getSemana()).setBold());
+        table1.addCell(cell);
+
+        cell= new Cell().setBorder(Border.NO_BORDER);
+        cell.add(new Paragraph(",marca "));
+        table1.addCell(cell);
+
+
+        cell= new Cell().setBorder(Border.NO_BORDER);
+        cell.add(new Paragraph(marcaCurrent).setBold());
+        table1.addCell(cell);
+
+        return table1;
     }
 }
