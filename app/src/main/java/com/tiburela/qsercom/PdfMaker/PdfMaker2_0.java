@@ -591,7 +591,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
         Image imagen= HelperPdf.createImagebYbitmap(bitmap);
-        imagen.setWidth(100)
+        imagen.setWidth(100);
 
 
         cell1= new Cell().setBorder(Border.NO_BORDER).setBackgroundColor(rgbColor);
