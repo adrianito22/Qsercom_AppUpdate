@@ -5,7 +5,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 //import androidx.compose.ui.text.Paragraph;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -576,9 +578,30 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         midocumentotoAddData.add(new Paragraph("Grafico 1.- Demostracion calidad total y danos - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(70f));
 
-    ggdf
-         ///aqui creamos imagen..
+         /**Agregamos pie  Grafico*/
+         PieChart pieChart;
+         pieChart=findViewById(R.id.pieChart_view);
 
+        rgbColor= new DeviceRgb(220,220,220);
+
+         table1=new Table(1);
+         cell1= new Cell().setBackgroundColor(rgbColor);
+         cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(18f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
+        table1.addCell(cell1);
+
+        Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
+        Image imagen= HelperPdf.createImagebYbitmap(bitmap);
+
+
+
+        cell1= new Cell().setBorder(Border.NO_BORDER).setBackgroundColor(rgbColor);
+        cell1.add(imagen);
+        table1.addCell(cell1);
+        midocumentotoAddData.add(table1);
+
+        table1.setWidth(pageSize.getWidth()-200f);
+       // table1.setMarginLeft(70f);
+        table1.setMarginTop(1f);
 
 
         /**descripcion de defectos de fruta*/
@@ -609,6 +632,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         Log.i("miodatr","el ancho del doc es "+ancho);
         Log.i("miodatr","el alto  del doc es "+alto);
+
 
 
 
@@ -981,33 +1005,4 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-    private void createPieChar(){
-        String label = "type";
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.parseColor("#304567"));
-        colors.add(Color.parseColor("#309967"));
-
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(10f,"Banano"));
-        pieEntries.add(new PieEntry(20f,"Zanahoria"));
-        PieDataSet pieDataSet = new PieDataSet(pieEntries,label);
-        pieDataSet.setValueTextSize(12f);
-        //providing color list for coloring different entries
-        pieDataSet.setColors(colors);
-        //grouping the data set from entry to chart
-        PieData pieData = new PieData(pieDataSet);
-        //showing the value of the entries, default true if not set
-        pieData.setDrawValues(true);
-
-
-        PieChart pieChart;
-          pieChart=findViewById(R.id.pieChart_view);
-
-        pieData.setValueFormatter(new PercentFormatter());
-        pieChart.setUsePercentValues(true);
-       // https://medium.com/@clyeung0714/using-mpandroidchart-for-android-application-piechart-123d62d4ddc0
-
-        pieChart.setData(pieData);
-        pieChart.invalidate();
-    }
 }

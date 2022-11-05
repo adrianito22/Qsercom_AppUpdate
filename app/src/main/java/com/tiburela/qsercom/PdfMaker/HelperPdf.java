@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.fonts.Font;
@@ -11,6 +12,11 @@ import android.util.Log;
 
 import androidx.compose.ui.graphics.colorspace.Connector;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.DeviceRgb;
@@ -43,6 +49,10 @@ import java.util.Map;
 
 public class HelperPdf {
 
+
+    public static   double CALIDAD_TOTAL;
+    public static  double PORCENTAJE_DE_DEFECTOS;
+
     public static  ArrayList<ArrayList<String>> listOFlist = new ArrayList<>();
 
 
@@ -51,7 +61,7 @@ public class HelperPdf {
 
     public  Image  createInfoImgtoPDF(Drawable mIDrawable, Context conetxt,int i){
         // mIDrawable= conetxt.getDrawable(R.drawable.logopdf);
-        Bitmap miBitmap= ((BitmapDrawable)mIDrawable).getBitmap();
+        Bitmap miBitmap= ((BitmapDrawable)mIDrawable). getBitmap();
         ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
         miBitmap.compress(Bitmap.CompressFormat.PNG,100,stream1);
         byte[] bitmapData1= stream1.toByteArray();
@@ -59,8 +69,23 @@ public class HelperPdf {
 
         Image image =new Image(imageData);
         image.setWidth(100f);
+        return  image;
+    }
 
 
+
+
+    public static Image  createImagebYbitmap( Bitmap miBitmap){
+
+        // mIDrawable= conetxt.getDrawable(R.drawable.logopdf);
+       // Bitmap miBitmap= ((BitmapDrawable)mIDrawable). getBitmap();
+        ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+        miBitmap.compress(Bitmap.CompressFormat.PNG,100,stream1);
+        byte[] bitmapData1= stream1.toByteArray();
+        ImageData imageData= ImageDataFactory.create(bitmapData1);
+
+        Image image =new Image(imageData);
+        image.setWidth(100f);
         return  image;
 
 
@@ -68,6 +93,7 @@ public class HelperPdf {
 
 
     public  Image  createInfoImgtoPDF(Drawable mIDrawable,int qualkity){
+
         // mIDrawable= conetxt.getDrawable(R.drawable.logopdf);
         Bitmap miBitmap= ((BitmapDrawable)mIDrawable).getBitmap();
         ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
@@ -78,9 +104,7 @@ public class HelperPdf {
         Image image =new Image(imageData);
         //image.setWidth(826f);
 
-
         return  image;
-
 
     }
 
@@ -96,6 +120,7 @@ public class HelperPdf {
        // image.setWidth(100f);
 
         return  image;
+
     }
 
 
@@ -192,9 +217,6 @@ public class HelperPdf {
         return hasmpaDevolver;
 
     }
-
-
-
 
 
     /**para el cuadrto 1*/
@@ -1174,8 +1196,7 @@ public class HelperPdf {
 
         //DATOS QUE NECESITAMOS OBTENERdoub
         double PROMEDIO_PESO=0;
-        double CALIDAD_TOTAL;
-        double PORCENTAJE_DE_DEFECTOS;
+
         int NUMERO_DEFECTS;
         String MAYOR_DEFECTO_SELECCION="NO";
         String MAYOR_DEFECTO_EMPAQUE="NO";
@@ -1939,4 +1960,65 @@ public class HelperPdf {
 
         return table1;
     }
+
+
+    public static  Bitmap createPieCharImgbITMAP(PieChart pieChart ,Context context){
+
+        String label = "";
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.parseColor("#5c9cd6")); //azul el porcentaje que sirve
+        colors.add(Color.parseColor("#ed7d31"));  //narnja el rechzado
+
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        pieEntries.add(new PieEntry((float) CALIDAD_TOTAL,"Calidad"));
+        pieEntries.add(new PieEntry((float) PORCENTAJE_DE_DEFECTOS,"Defectos"));
+
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntries,label);
+        pieDataSet.setValueTextSize(23f);
+
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),"m_bold.ttf");
+        // pieChart.getDescription().setTypeface(tf);
+        pieDataSet.setValueTypeface(tf);
+        //providing color list for coloring different entries
+        pieDataSet.setColors(colors);
+        pieDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+        pieDataSet.setDrawIcons(true);
+        // pieDataSet.setFormSize(100f);
+        //grouping the data set from entry to chart
+        PieData pieData = new PieData(pieDataSet);
+        ;
+        //showing the value of the entries, default true if not set
+        pieData.setDrawValues(true);
+
+        pieChart.setHoleRadius(0f);
+        pieChart.setTransparentCircleRadius(0f);
+
+        pieChart.getDescription().setEnabled(false);
+
+        // pieChart.setDrawCenterText(false);
+        // https://medium.com/@clyeung0714/using-mpandroidchart-for-android-application-piechart-123d62d4ddc0
+        // pieChart.setDrawEntryLabels(false);
+        // pieChart.getDescription().setEnabled(false);
+
+        pieData.setValueFormatter(new PercentFormatter(pieChart));
+        pieChart.setUsePercentValues(true);
+        pieChart.setData(pieData);
+
+        pieChart.setDrawEntryLabels(false); // To remove labels from piece of pie
+        pieChart.setBackgroundColor(Color.parseColor("#dcdcdc"));
+
+
+        // pieChart.getDescription().;
+        // pieChart.setHoleColor(Color.parseColor("#000000"));
+        // pieChart.setEntryLabelTextSize(19f);  // You can increase or decrease value as per your need in argument
+
+
+        pieChart.invalidate();
+        Bitmap chartBitmap = pieChart.getChartBitmap();
+
+         return chartBitmap;
+
+    }
+
 }
