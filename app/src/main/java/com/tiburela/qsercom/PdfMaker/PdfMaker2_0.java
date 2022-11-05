@@ -586,12 +586,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
          table1=new Table(1);
          cell1= new Cell().setBackgroundColor(rgbColor);
-         cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(18f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
+         cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(15f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
         table1.addCell(cell1);
 
         Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
         Image imagen= HelperPdf.createImagebYbitmap(bitmap);
-
+        imagen.setWidth(100)
 
 
         cell1= new Cell().setBorder(Border.NO_BORDER).setBackgroundColor(rgbColor);
