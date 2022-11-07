@@ -6,6 +6,68 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SetInformDatsHacienda {
+
+    private String extensionistCalid;
+    private String extensionistDeRodillo;
+    private String extensionistEnGancho;
+
+    public String getExtensionistCalid() {
+        return extensionistCalid;
+    }
+
+    public void setExtensionistCalid(String extensionistCalid) {
+        this.extensionistCalid = extensionistCalid;
+    }
+
+    public String getExtensionistDeRodillo() {
+        return extensionistDeRodillo;
+    }
+
+    public void setExtensionistDeRodillo(String extensionistDeRodillo) {
+        this.extensionistDeRodillo = extensionistDeRodillo;
+    }
+
+    public String getExtensionistEnGancho() {
+        return extensionistEnGancho;
+    }
+
+    public void setExtensionistEnGancho(String extensionistEnGancho) {
+        this.extensionistEnGancho = extensionistEnGancho;
+    }
+
+    public String getCI_extensionistCalid() {
+        return CI_extensionistCalid;
+    }
+
+    public void setCI_extensionistCalid(String CI_extensionistCalid) {
+        this.CI_extensionistCalid = CI_extensionistCalid;
+    }
+
+    public String getCI_extensionistDeRodillo() {
+        return CI_extensionistDeRodillo;
+    }
+
+    public void setCI_extensionistDeRodillo(String CI_extensionistDeRodillo) {
+        this.CI_extensionistDeRodillo = CI_extensionistDeRodillo;
+    }
+
+    public String getCI_extensionistEnGancho() {
+        return CI_extensionistEnGancho;
+    }
+
+    public void setCI_extensionistEnGancho(String CI_extensionistEnGancho) {
+        this.CI_extensionistEnGancho = CI_extensionistEnGancho;
+    }
+
+    public void setUniqueIDinformeDatsHda(String uniqueIDinformeDatsHda) {
+        this.uniqueIDinformeDatsHda = uniqueIDinformeDatsHda;
+    }
+
+    private String CI_extensionistCalid;
+    private String CI_extensionistDeRodillo;
+    private String CI_extensionistEnGancho;
+
+
     private String fuenteAgua;
     private boolean hayAguaCorrida;
     private boolean hayLavadoRacimos;
@@ -288,7 +350,12 @@ public class SetInformDatsHacienda {
 
     public SetInformDatsHacienda(String fuenteAgua, boolean hayAguaCorrida, boolean lavadoRacimos, String fumigacionClin1,
                                  String ediTipoBoquilla, String ediCajasProcDesp, String ediRacimosCosech,
-                                 String ediRacimosRecha, String ediRacimProces, String uniqueIDinformeDatsHda){
+                                 String ediRacimosRecha, String ediRacimProces, String uniqueIDinformeDatsHda,
+
+                                  String extensionistCalid, String CI_extensionistCalid
+
+
+                                 ){
 
    this. fuenteAgua=fuenteAgua;
     this.hayAguaCorrida = hayAguaCorrida;
@@ -327,6 +394,16 @@ this.ediRacimProces=ediRacimProces;
 
    this.uniqueIDinformeDatsHda = uniqueIDinformeDatsHda;
 
+
+        this. extensionistCalid=extensionistCalid;
+        this.CI_extensionistCalid =CI_extensionistCalid;
+
+
+        extensionistDeRodillo="";
+      extensionistEnGancho="";
+        CI_extensionistDeRodillo="";
+      CI_extensionistEnGancho="";
+
 }
 
 
@@ -363,7 +440,13 @@ this.ediRacimProces=ediRacimProces;
         result.put("keyFirebase", keyFirebase);
         result.put("uniqueIDinformeDatsHda", uniqueIDinformeDatsHda);
 
+        result.put("extensionistCalid", extensionistCalid);
+        result.put("extensionistDeRodillo", extensionistDeRodillo);
+        result.put("extensionistEnGancho", extensionistEnGancho);
 
+        result.put("CI_extensionistCalid", CI_extensionistCalid);
+        result.put("CI_extensionistDeRodillo", CI_extensionistDeRodillo);
+        result.put("CI_extensionistEnGancho", CI_extensionistEnGancho);
 
         return result;
 

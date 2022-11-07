@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 //import androidx.compose.ui.text.Paragraph;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -20,16 +18,13 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -157,6 +152,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
         HelperPdf pdfHelper= new HelperPdf();
 
 
+        Image imglogqSercomfooter=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.footer_pdf),1);
+        BackgroundEventHandler handler2 = new BackgroundEventHandler(imglogqSercomfooter);
+        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler2);
+
+
+        df
 
         /**add header imagen*/
         Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
@@ -513,7 +514,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
              HashMap<String,String>currentMapDefectsCheked=ListWhitHashMapsRechzadosChekeed.get(i);
              ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(i);
 
-             table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this);
+             table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this,contadorTablas);
 
 
               if( contadorTablas % 2==0){  //y si existen mas tablas y es un numero
@@ -585,23 +586,132 @@ public class PdfMaker2_0 extends AppCompatActivity {
         rgbColor= new DeviceRgb(220,220,220);
 
          table1=new Table(1);
-         cell1= new Cell().setBackgroundColor(rgbColor);
-         cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(15f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
+         cell1= new Cell().setBackgroundColor(rgbColor).setBorder(Border.NO_BORDER);
+         cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(16f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
         table1.addCell(cell1);
 
         Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
         Image imagen= HelperPdf.createImagebYbitmap(bitmap);
-        imagen.setWidth(100);
+        imagen.setWidth(150);
+        imagen.setHeight(150);
+        imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        //imagen.scaleToFit(1000,100); //estaba en 100
 
 
-        cell1= new Cell().setBorder(Border.NO_BORDER).setBackgroundColor(rgbColor);
+        cell1= new Cell().setBorder(Border.NO_BORDER).setBackgroundColor(rgbColor).setHorizontalAlignment(HorizontalAlignment.CENTER);
         cell1.add(imagen);
         table1.addCell(cell1);
-        midocumentotoAddData.add(table1);
 
         table1.setWidth(pageSize.getWidth()-200f);
-       // table1.setMarginLeft(70f);
+        // table1.setMarginLeft(70f);
         table1.setMarginTop(1f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+        midocumentotoAddData.add(table1);
+
+
+        /**Texto como verfiicadora tenemos...*/
+
+        midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligacion de corregir estos danos en  la fruta para garantizar la calidad den la exportacion del banano  buscando siempre el bienestar de nuestro cliente").
+                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(70f));
+
+        midocumentotoAddData.add(new Paragraph("CLIENTE AQUI").
+                setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(70f).setBold());
+
+
+        midocumentotoAddData.add(new Paragraph("Atentamente,").
+                setFontSize(7.5f).setMarginTop(15f).setPaddingLeft(70f));
+
+          /**NOMBRE DE LOS INSPECTORES*/
+         table1=  HelperPdf.generaTableInspectores(Variables.CurrenReportPart3,pageSize.getWidth());
+         midocumentotoAddData.add(table1);
+
+
+         /**BAR CHART Sporcentaje de frutas*/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+
+
+
+
+        imagen.setFixedPosition(12, 300);
+        // PdfDocument pdfDoc = new PdfDocument(new PdfWriter(dest));
+        //ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imagen);
+       // miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
+
+
+
+
+
+
+
+
+
+
+        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
+
+        BarChart barChartView;
+        barChartView=findViewById(R.id.barChartView);
+
+
+                int contadorAllGraficos=2;
+
+                int contadorImageChar=1;
+
+        for(int indice=0; indice<ListWhitHashMapsControlCalidad.size(); indice++){  //2 tablas...  4 en total
+            ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
+
+              //agregamos el texto en cel centro
+             Paragraph mipara= new Paragraph("GRAFICO"+contadorAllGraficos +".-DEMOSTRACION DE DEFECTOS EMPAQUE "+currenControCaldRep.getTipoEmpaque()+" "+currenControCaldRep.getMarcaCaja());
+            mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+             if(contadorImageChar%2==0){  //es multiplo de 2
+                 mipara.setMarginTop(25f);
+
+                 if(contadorImageChar<ListWhitHashMapsControlCalidad.size()){
+                     //cremoas nueva pagina siempre y cuando existan mas valores
+                     midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                 }
+
+
+             }else{
+
+                 mipara.setMarginTop(2f);
+
+             }
+
+
+            midocumentotoAddData.add(mipara);
+
+            bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
+            imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
+            imagen.setWidth(pageSize.getWidth()-140);
+            imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+            table1= new Table(1);
+            cell1 = new Cell().add(new Paragraph("PORCENTAJE POR DEFECTO EN SELECION Y EMPAQUE").setMarginTop(10f).setTextAlignment(TextAlignment.CENTER));
+            cell1.setBorderBottom(Border.NO_BORDER);
+            table1.addCell(cell1);
+
+
+            cell1 = new Cell();
+            cell1.add(imagen);
+            table1.addCell(cell1);
+
+            table1.setWidth(pageSize.getWidth()-100);
+            table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            midocumentotoAddData.add(table1);
+            //setPaddingLeft(70f)
+            contadorAllGraficos++;
+            contadorImageChar++;
+        }
+
+
+
+
+
 
 
         /**descripcion de defectos de fruta*/
@@ -633,7 +743,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         Log.i("miodatr","el ancho del doc es "+ancho);
         Log.i("miodatr","el alto  del doc es "+alto);
 
-
+     //   miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
 
 
 
@@ -764,7 +874,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
     private void createChar(ControlCalidad controlCalidad){
 
 
-        BarChart barChart=findViewById(R.id.chart);
+        BarChart barChart=findViewById(R.id.barChartView);
         barChart.getXAxis().setDrawGridLines(false);  //ocultamos algunas lineas
 
         final String [] quarters=  getResources().getStringArray(R.array.array_defectos_frutax);

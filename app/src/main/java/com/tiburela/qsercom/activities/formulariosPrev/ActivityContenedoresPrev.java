@@ -138,6 +138,12 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
 
     TextInputEditText ediCjasProcesDespacha;
     TextInputEditText  ediInspectorAcopio;
+    TextInputEditText ediExtCalid;
+    TextInputEditText  ediExtRodillo;
+    TextInputEditText ediExtGancho;
+    TextInputEditText ediExtCalidCi;
+    TextInputEditText ediExtRodilloCi;
+    TextInputEditText ediExtGanchoCi;
 
     TextInputEditText ediSemana;
     TextInputEditText ediFecha;
@@ -539,6 +545,17 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        ediExtCalid=findViewById(R.id.ediExtCalid);
+        ediExtRodillo=findViewById(R.id.ediExtRodillo);
+        ediExtGancho=findViewById(R.id.ediExtGancho);
+        ediExtCalidCi=findViewById(R.id.ediExtCalidCi);
+        ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
+        ediExtGanchoCi=findViewById(R.id.ediExtGanchoCi);
+
+
+
+
         imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
 
          fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -2314,8 +2331,12 @@ private void createObjcInformeAndUpload(){
 
             //ediTipoBoquilla.getText().toString()
 
-            ,ediCajasProcDesp.getText().toString(),
-            ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME);
+            ,ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString()
+            ,UNIQUE_ID_iNFORME,ediExtCalid.getText().toString(),ediExtCalidCi.getText().toString());
+
+             updateDatosEvaludoresOFinforme3(informe3);
+
+
 
     informe3.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
@@ -2341,6 +2362,24 @@ private void createObjcInformeAndUpload(){
 
 
 }
+
+    private void updateDatosEvaludoresOFinforme3(SetInformDatsHacienda informe3) {
+
+        if(!ediExtRodillo.getText().toString().trim().isEmpty()){
+            informe3.setExtensionistDeRodillo(ediExtRodillo.getText().toString());
+            informe3.setCI_extensionistCalid(ediExtRodilloCi.getText().toString());
+
+        }
+
+
+        if(!ediExtGancho.getText().toString().trim().isEmpty()){
+            informe3.setExtensionistDeRodillo(ediExtGancho.getText().toString());
+            informe3.setCI_extensionistCalid(ediExtGanchoCi.getText().toString());
+
+        }
+
+
+    }
 
     private void createObjWhitCurrentDataFieldsAndCALLdOWLOAD(){
 
@@ -4182,12 +4221,18 @@ return true;
         ediRacimosRecha.setText(info3Object.getEdiRacimosRecha());
         ediRacimProces.setText(info3Object.getEdiRacimProces());
 
-
+        ediExtCalid.setText(info3Object.getExtensionistCalid());
+        ediExtCalidCi.setText(info3Object.getCI_extensionistCalid());
+        ediExtRodillo.setText(info3Object.getExtensionistDeRodillo());
+        ediExtRodilloCi.setText(info3Object.getCI_extensionistDeRodillo());
+        ediExtGancho.setText(info3Object.getExtensionistEnGancho());
+        ediExtGanchoCi .setText(info3Object.getCI_extensionistEnGancho());
 
     }
 
 
 private void checkModeVisualitY(){
+
 
     Bundle extras = getIntent().getExtras();
     if (extras != null) {
@@ -4718,6 +4763,73 @@ private void checkModeVisualitY(){
             return false;
 
         }
+
+
+
+
+        if(ediExtCalid.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtCalid.requestFocus();
+            ediExtCalid.setError("Este espacio es obligatorio");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+        }
+
+
+
+        if(ediExtCalidCi.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtCalidCi.requestFocus();
+            ediExtCalidCi.setError("Este espacio es obligatorio");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        ///LOS DEMAS DATOS OPCIONALES
+
+        if(!ediExtRodillo.getText().toString().isEmpty() && ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediExtRodilloCi.requestFocus();
+            ediExtRodilloCi.setError("Se requiere La C.I");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        if(ediExtRodillo.getText().toString().isEmpty() && !ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediExtRodillo.requestFocus();
+            ediExtRodillo.setError("Se requiere el nombre");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(!ediExtGancho.getText().toString().isEmpty() && ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediExtGanchoCi.requestFocus();
+            ediExtGanchoCi.setError("Se requiere La C.I");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        if(ediExtGancho.getText().toString().isEmpty() && !ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediExtGancho.requestFocus();
+            ediExtGancho.setError("Se requiere el nombre");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
 
         ///vamos con los datos de semananas y esoRe
 

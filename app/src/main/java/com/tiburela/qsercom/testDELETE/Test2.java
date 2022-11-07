@@ -1,14 +1,8 @@
 package com.tiburela.qsercom.testDELETE;
 
-import static com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas.context;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,12 +18,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -40,7 +29,6 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.GrooveBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
 import com.tiburela.qsercom.PdfMaker.HelperPdf;
 import com.tiburela.qsercom.R;
 
@@ -50,10 +38,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-
-import io.opencensus.resource.Resource;
 
 public class Test2 extends AppCompatActivity {
 BarChart barChart;
@@ -65,7 +50,7 @@ Button button;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.char_layout);
 
-        barChart=findViewById(R.id.chart);
+        barChart=findViewById(R.id.barChartView);
 
          ImageView imageView3 =findViewById(R.id.imageView3);
         imageView3.setOnClickListener(new View.OnClickListener(){

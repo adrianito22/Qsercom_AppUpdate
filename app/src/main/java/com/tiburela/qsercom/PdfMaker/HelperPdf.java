@@ -3,20 +3,25 @@ package com.tiburela.qsercom.PdfMaker;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.fonts.Font;
 import android.util.Log;
 
-import androidx.compose.ui.graphics.colorspace.Connector;
-
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.DeviceRgb;
@@ -24,7 +29,6 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Tab;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
@@ -37,7 +41,6 @@ import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.models.TableCalidProdc;
-import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
@@ -45,18 +48,22 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 public class HelperPdf {
 
 
     public static   double CALIDAD_TOTAL;
     public static  double PORCENTAJE_DE_DEFECTOS;
-
-    public static  ArrayList<ArrayList<String>> listOFlist = new ArrayList<>();
-
-
     public static  ArrayList<TableCalidProdc> TableCalidProdc = new ArrayList<>();
+    public static ArrayList<Integer>listNumClustersInspec= new ArrayList<>();
+
+
+    public static HashMap<String,  ArrayList<DefectsCantdad>> defectsSelecionHahashMaps = new HashMap<>();
+    public static HashMap< String, ArrayList<DefectsCantdad>> defectsEmpaqueHashMapOfLists = new HashMap<>();
+      HashMap<String, ArrayList<String>>hola= new HashMap<>();
+
+
+
 
 
     public  Image  createInfoImgtoPDF(Drawable mIDrawable, Context conetxt,int i){
@@ -1186,11 +1193,11 @@ public class HelperPdf {
 
 
     /**ESTO CREARA UN TABLE CADA VEZ QUE SE LLAMA**/
-    public static  Table createTableEvaluacionYcondcionFruta(ControlCalidad objecControlCald,HashMap <String, String> hashMapControlCald,HashMap <String, String> hashMapDefctChecked,Context contexto){
+    public static  Table createTableEvaluacionYcondcionFruta(ControlCalidad objecControlCald,HashMap <String, String> hashMapControlCald,HashMap <String, String> hashMapDefctChecked,Context contexto,int contador){
         //aqui creamos la info con esta data.....
 
         ArrayList<Double>listPh = new ArrayList<>();
-        ArrayList<DefectsCantdad>defectsSeleccion= new ArrayList<>();
+        ArrayList<DefectsCantdad>defectsSeleccionList= new ArrayList<>();
         ArrayList<DefectsCantdad>defectsEmpaque= new ArrayList<>();
 
 
@@ -1229,9 +1236,6 @@ public class HelperPdf {
 
         int  [] keyDatsNumDefectSempqs={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,
                 R.id.imvEmpaque5,R.id.imvEmpaque6,R.id.imvEmpaque7, R.id.imvEmpaque8,R.id.imvEmpaque9,R.id.imvEmpaque10};
-
-
-
 
 
         int  [] keyaRRAYnumClustXcajaLine1={R.id.edif2NdedoXclustxC1,R.id.edif2NdedoXclustxC2,R.id.edif2NdedoXclustxC3,R.id.edif2NdedoXclustxC4,
@@ -1293,8 +1297,8 @@ public class HelperPdf {
 
 
 
-        int resultLine1=0;
-        int resultLine2=0;
+        int resultLine1;
+        int resultLine2;
 
         double resultLine1Double=0;
         double resultLine2Double=0;
@@ -1475,13 +1479,19 @@ public class HelperPdf {
                 for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
                          int posicionDefecto=Integer.parseInt(posicionDefectoEncontrados [indice2]);
                          //posicion 0 y 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
-                    defectsSeleccion.add(new DefectsCantdad(0,arrayuDefectsSeleccNames[posicionDefecto]));
+                    defectsSeleccionList.add(new DefectsCantdad(0,arrayuDefectsSeleccNames[posicionDefecto]));
 
                         }
             }
 
         }
-        Log.i("ELWEIGTH","EN TOTAL DEFECTOS SELECION HAY "+defectsSeleccion.size());
+
+
+
+        defectsSelecionHahashMaps.put(String.valueOf(contador-1),defectsSeleccionList);
+
+
+        Log.i("SUEPREME","El size de defect selecion es "+defectsSelecionHahashMaps.size()+"el key es  "+(contador-1));
 
 
 
@@ -1512,7 +1522,19 @@ public class HelperPdf {
         }
 
 
-        NUMERO_DEFECTS=defectsSeleccion.size()+defectsEmpaque.size();
+
+
+
+
+
+
+
+
+        defectsEmpaqueHashMapOfLists.put(String.valueOf(contador-1),defectsEmpaque);
+
+
+
+        NUMERO_DEFECTS=defectsSeleccionList.size()+defectsEmpaque.size();
 
                 Log.i("ELWEIGTH","EN TOTAL TODOS LOS DEFECTOE ES "+NUMERO_DEFECTS);
 
@@ -1520,12 +1542,12 @@ public class HelperPdf {
                 //los nombre de los defectos que selecionaron
         ArrayList<String>defectsSelecNames = new ArrayList<>();
 
-        for(int indice2=0; indice2<defectsSeleccion.size() ;indice2++){
+        for(int indice2=0; indice2<defectsSeleccionList.size() ;indice2++){
           //obtenemos la lista de defectos..
 
-               if(!defectsSelecNames.contains(defectsSeleccion.get(indice2).getNombreDefect())){
+               if(!defectsSelecNames.contains(defectsSeleccionList.get(indice2).getNombreDefect())){
 
-                   defectsSelecNames.add(defectsSeleccion.get(indice2).getNombreDefect());
+                   defectsSelecNames.add(defectsSeleccionList.get(indice2).getNombreDefect());
 
                }
 
@@ -1547,8 +1569,8 @@ public class HelperPdf {
             numeroDfectosCurrentDefect=0;
 
 
-            for(int indice3=0; indice3<defectsSeleccion.size() ;indice3++){
-                            DefectsCantdad currnetdefc= defectsSeleccion.get(indice2);
+            for(int indice3=0; indice3<defectsSeleccionList.size() ;indice3++){
+                            DefectsCantdad currnetdefc= defectsSeleccionList.get(indice2);
 
                             if(currnetdefc.getNombreDefect().equals(currentNombreDefecto)){
                                 numeroDfectosCurrentDefect++;
@@ -1587,6 +1609,11 @@ public class HelperPdf {
 
         Log.i("ELWEIGTH","A TEXT1 ES "+NUMERO_DEFECTS);
         Log.i("ELWEIGTH","A TEXT2 ES "+NUMERO_DE_CLUSTERS_iNSPECCIONADOS);
+
+        listNumClustersInspec.add(NUMERO_DE_CLUSTERS_iNSPECCIONADOS);
+
+
+
 
         PORCENTAJE_DE_DEFECTOS=((double)NUMERO_DEFECTS/100) * NUMERO_DE_CLUSTERS_iNSPECCIONADOS;
         Log.i("ELWEIGTH","el PORCENTAJE_DE_DEFECTOS es "+PORCENTAJE_DE_DEFECTOS);
@@ -2021,4 +2048,358 @@ public class HelperPdf {
 
     }
 
+
+
+
+
+    public static  Bitmap createBarChart(BarChart barChart , Context context, int contadorIterador){
+
+        barChart.getXAxis().setDrawGridLines(false);
+
+        final String [] arrayAllDefecstSelecion= context. getResources().getStringArray(R.array.array_defectos_all);
+
+
+        /**si tiene empty le agragamos pensar si podemos agregarle commas mejor es mas rapido*/
+        for(int indice=0; indice<arrayAllDefecstSelecion.length; indice++){
+
+           if(arrayAllDefecstSelecion[indice].equalsIgnoreCase("empty")){
+               arrayAllDefecstSelecion[indice]=" ";
+
+           }
+
+        }
+
+
+
+        ///
+        // barChart.setBackground(getDrawable(R.drawable.bacgroundsercom));
+
+
+      //  MyValueFormatter formater2= new MyValueFormatter();
+        //formater2.getAxisLabel();
+
+
+        ValueFormatter formatter = new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return arrayAllDefecstSelecion[(int) value];
+            }
+        };
+
+
+
+
+
+    // defectsSeleccionHashMapOfList = new HashMap<>();
+    // defectsEmpaqueHashMapOfLists = new HashMap<>();
+           ///recorremos y buscamos este defecto
+       //
+
+         //agregamos los defectos empaque a map defectos alll
+
+
+
+
+        int contadorDefectoEnonctrado;
+
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        String defectOfItemHasmap;
+
+
+        for(int indice=0; indice<arrayAllDefecstSelecion.length-7; indice++){
+                 contadorDefectoEnonctrado=0;
+                 String defectoActualToSearch=arrayAllDefecstSelecion[indice];
+
+            ArrayList<DefectsCantdad>currentArraylist=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
+
+                       Log.i("SUEPREME","se llamo y el size es "+currentArraylist.size());
+
+                 for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){
+                     defectOfItemHasmap=currentArraylist.get(indice2).getNombreDefect();
+
+
+
+
+                     if(defectOfItemHasmap.contains(":")){
+                         String array[]=defectOfItemHasmap.split(":");
+                         defectOfItemHasmap=array[0];
+                     }
+
+                     Log.i("entriesd","comparamos defectOfItemHasmap "+defectOfItemHasmap+" con  defectoActualToSearch:q es  "+ defectoActualToSearch);
+
+                     if(defectOfItemHasmap.equals(defectoActualToSearch)){
+                          contadorDefectoEnonctrado++;
+                      }
+
+
+                 }
+
+
+                 if(contadorDefectoEnonctrado==0){
+                     barEntries.add(new BarEntry((float)indice ,roundTwoDecimals((float)0)));
+
+                 }else{
+                     Log.i("entriesd","Es mayor a cero en first");
+
+                     float porcentaje= contadorDefectoEnonctrado * ((float)listNumClustersInspec.get(contadorIterador)/100);
+
+                     Log.i("sumaerr","El porcentaje es "+porcentaje);
+                     Log.i("entriesd","El contadorDefectoEnonctrado es "+contadorDefectoEnonctrado);
+                     Log.i("entriesd","El  total de inspeccionados es "+listNumClustersInspec.get(contadorIterador));
+
+
+                     float roundedY = (float) ((float) Math.round(porcentaje * 100.0) / 100.0);
+
+                     Log.i("Hawai","El porcentaje es "+roundedY);
+
+                     barEntries.add(new BarEntry((float)indice, roundedY));
+
+
+                 }
+             }
+
+
+
+
+        for(int indice=27; indice<arrayAllDefecstSelecion.length; indice++){
+            contadorDefectoEnonctrado=0;
+            String defectoActualToSearch=arrayAllDefecstSelecion[indice];
+
+
+            ArrayList<DefectsCantdad>currentArraylist=defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador));
+
+
+            for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){
+
+                  defectOfItemHasmap=currentArraylist.get(indice2).getNombreDefect();
+
+                Log.i("entriesd","comparamos defectOfItemHasmap "+defectOfItemHasmap+" con  defectoActualToSearch:q es  "+ defectoActualToSearch);
+
+
+                if(defectOfItemHasmap.contains(":")){
+                    String array[]=defectOfItemHasmap.split(":");
+                    defectOfItemHasmap=array[0];
+                }
+
+
+                if(defectOfItemHasmap.equals(defectoActualToSearch)){
+                    contadorDefectoEnonctrado++;
+                }
+            }
+            if(contadorDefectoEnonctrado==0){
+
+                barEntries.add(new BarEntry((float)indice,roundTwoDecimals((float)0)));
+
+            }else{
+                Log.i("entriesd","Es mayor a cero");
+
+                float porcentaje= contadorDefectoEnonctrado * ((float)listNumClustersInspec.get(contadorIterador)/100);
+
+                float roundedX = (float) ((float) Math.round(porcentaje * 100.0) / 100.0);
+                barEntries.add(new BarEntry((float)indice,roundedX));
+
+
+            }
+        }
+
+
+        /***vemos el valor de los entries*/
+
+
+        Log.i("entriesd","el size de entries es "+barEntries.size());
+        Log.i("entriesd","el size array es  "+arrayAllDefecstSelecion.length);
+
+
+        for(BarEntry entry: barEntries){
+            Log.i("entriesd","el value de entrie X ES: "+entry.getX()+" Y DE Y ES "+entry.getY());
+        }
+
+
+
+        //obtenemos la lista usando el contador del parametro contadorIterador ..
+/*
+        if(MAYOR_DEFECTO_SELECCION.contains(":")){
+            String array[]=MAYOR_DEFECTO_SELECCION.split(":");
+
+
+            MAYOR_DEFECTO_SELECCION=array[0];
+        }
+
+*/
+
+
+      //  barEntries.add(new BarEntry(1f,80f));
+
+
+
+
+        BarDataSet barDataSet = new BarDataSet(barEntries,"Defectos");
+        barDataSet.setValueTextSize(9f);
+        barDataSet.setFormSize(9f);
+
+
+
+        //barDataSet.setDrawIcons(true);
+
+
+        BarData theData = new BarData(barDataSet);
+
+        theData.setBarWidth(0.9f); //esta en 0.9
+        theData.getGroupWidth(1f, 1f);//space between bars
+
+        barChart.setData(theData);
+        //barChart.setTouchEnabled(true);
+        // barChart.set
+        //barChart.setDragEnabled(true);
+        // barChart.setScaleEnabled(true);
+        barChart.setFitBars(true);  //esta activa
+        // barChart
+        barChart.setDrawGridBackground(false);
+        //barChart.getXAxis().setSpaceMax(3);
+
+
+        barDataSet.setColors(new int[]{
+                R.color.durazon , R.color.durazon
+
+
+        } , context);
+
+        barDataSet.setFormSize(4f);
+        barDataSet.setValueTextSize(10f);
+
+        barDataSet.setValueFormatter(new MyValueFormatter());
+
+
+
+        //  barChart.setDescription("hola");
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(formatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelCount(23);
+        // Bitmap b = getChartBitmap();
+
+
+
+       // YAxis valAxisy = barChart.getY();
+        //barChart.setValueFormatter(new MyAxisFormatter());
+        //YAxis hola=new MyValueFormatter();
+
+        DecimalFormat format = new DecimalFormat("#,##");
+       // format.setMinimumFractionDigits(2);
+
+
+        YAxis yAxis = barChart.getAxisRight();
+/*
+        yAxis.setValueFormatter(new MyValueFormatter(){
+
+            @Override
+            public String getFormattedValue(float value) {
+                // return super.getAxisLabel(value, axis);
+
+                Log.i("sangano","el value es "+value);
+                Log.i("sangano","el value con format es "+ format.format(value));
+
+                return "";
+
+
+    }
+});
+
+
+
+*/
+
+
+        barChart.getAxisRight().setDrawLabels(false);
+
+
+
+
+        xAxis.setTextSize(4/*textSize*/);
+
+        // barChart.getDraw
+        //Bitmap bitmap = Bitmap.createBitmap(barChart.getWidth(), barChart.getHeight(), Bitmap.Config.ARGB_8888);
+        //  barChart.saveToGallery("test.png", 50);
+        /// barChart
+
+        barChart.invalidate();
+        Bitmap chartBitmap = barChart.getChartBitmap();
+
+        return chartBitmap;
+
+    }
+
+
+   static float roundTwoDecimals(float d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Float.parseFloat(twoDForm.format(d));
+    }
+
+    public static Table generaTableInspectores(SetInformDatsHacienda objectDatosHaCIENDA, float sizeDocument){
+        /**NOMBRE DE LOS INSPECTORES*/
+        int numClumnas=0;
+
+        Log.i("extensionista","el getExtensionistCalid es "+objectDatosHaCIENDA.getExtensionistCalid());
+        Log.i("extensionista","el getCI_extensionistCalid  es "+objectDatosHaCIENDA.getCI_extensionistCalid());
+
+
+        ArrayList<String>listDatsEvaluadores= new ArrayList<>();
+
+        if(objectDatosHaCIENDA.getExtensionistCalid().trim().length()>1){
+           numClumnas++;
+            listDatsEvaluadores.add("Sr. "+objectDatosHaCIENDA.getExtensionistCalid().toUpperCase());
+        }
+
+        if(objectDatosHaCIENDA.getExtensionistDeRodillo().trim().length()>1){
+            numClumnas++;
+            listDatsEvaluadores.add("Sr. "+objectDatosHaCIENDA.getExtensionistDeRodillo().toUpperCase());
+        }
+
+        if(objectDatosHaCIENDA.getExtensionistEnGancho().trim().length()>1){
+            numClumnas++;
+            listDatsEvaluadores.add("Sr. "+objectDatosHaCIENDA.getExtensionistEnGancho().toUpperCase());
+        }
+
+
+              //ahora los titulos
+        if(objectDatosHaCIENDA.getExtensionistCalid().trim().length()>1){
+            listDatsEvaluadores.add("Inspector de calidad");
+
+        }
+
+        if(objectDatosHaCIENDA.getExtensionistDeRodillo().trim().length()>1){
+            listDatsEvaluadores.add("Inspector de rodillo");
+
+        }
+
+        if(objectDatosHaCIENDA.getExtensionistEnGancho().trim().length()>1){
+            listDatsEvaluadores.add("Inspector de Gancho");
+
+        }
+
+
+
+
+
+
+
+        Table table1= new Table(numClumnas);
+
+        for(String value:listDatsEvaluadores){
+             Paragraph paragraph= new Paragraph(value).setTextAlignment(TextAlignment.CENTER);
+             Cell cell1 = new Cell().setBorder(Border.NO_BORDER);
+              cell1.add(paragraph);
+              table1.addCell(cell1);
+
+
+        }
+
+        table1.setWidth(sizeDocument-200f);
+        // table1.setMarginLeft(70f);
+        table1.setMarginTop(10f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+       return table1;
+    }
 }

@@ -150,7 +150,15 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     TextInputEditText ediFotosPposcosecha;
     TextInputEditText ediEnsunchado;
     TextInputEditText ediBalanzaRepeso;
-  TextInputEditText ediNumContenedor;
+    TextInputEditText ediNumContenedor;
+
+    TextInputEditText ediExtCalid;
+    TextInputEditText  ediExtRodillo;
+    TextInputEditText ediExtGancho;
+    TextInputEditText ediExtCalidCi;
+    TextInputEditText ediExtRodilloCi;
+    TextInputEditText ediExtGanchoCi;
+
 
     TextInputEditText ediBalanza;
     TextInputEditText ediFuenteAgua;
@@ -487,6 +495,16 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+         ediExtCalid=findViewById(R.id.ediExtCalid);
+          ediExtRodillo=findViewById(R.id.ediExtRodillo);
+         ediExtGancho=findViewById(R.id.ediExtGancho);
+         ediExtCalidCi=findViewById(R.id.ediExtCalidCi);
+         ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
+        ediExtGanchoCi=findViewById(R.id.ediExtGanchoCi);
+
+
+
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
 
         imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
@@ -2847,7 +2865,11 @@ private void createObjcInformeAndUpload(){
 
     SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
            ediFumigacionClin1.getText().toString(),ediTipoBoquilla.getText().toString(),ediCajasProcDesp.getText().toString(),
-            ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME);
+            ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME
+            ,ediExtCalid.getText().toString(),ediExtCalidCi.getText().toString());
+
+    updateDatosEvaludoresOFinforme3(informe3);
+
 
 
     //Agregamos un nuevo informe
@@ -2867,6 +2889,27 @@ private void createObjcInformeAndUpload(){
 
 
 }
+
+    private void updateDatosEvaludoresOFinforme3(SetInformDatsHacienda informe3) {
+
+        if(!ediExtRodillo.getText().toString().trim().isEmpty()){
+            informe3.setExtensionistDeRodillo(ediExtRodillo.getText().toString());
+            informe3.setCI_extensionistCalid(ediExtRodilloCi.getText().toString());
+
+        }
+
+
+        if(!ediExtGancho.getText().toString().trim().isEmpty()){
+            informe3.setExtensionistDeRodillo(ediExtGancho.getText().toString());
+            informe3.setCI_extensionistCalid(ediExtGanchoCi.getText().toString());
+
+        }
+
+
+    }
+
+
+
 
     private void eventoBtnclicklistenerDelete(RecyclerViewAdapter adapter) {
 
@@ -3923,6 +3966,70 @@ return true;
             return false;
 
         }
+
+        if(ediExtCalid.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtCalid.requestFocus();
+            ediExtCalid.setError("Este espacio es obligatorio");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+        }
+
+
+
+        if(ediExtCalidCi.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExtCalidCi.requestFocus();
+            ediExtCalidCi.setError("Este espacio es obligatorio");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        ///LOS DEMAS DATOS OPCIONALES
+
+        if(!ediExtRodillo.getText().toString().isEmpty() && ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediExtRodilloCi.requestFocus();
+            ediExtRodilloCi.setError("Se requiere La C.I");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        if(ediExtRodillo.getText().toString().isEmpty() && !ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediExtRodillo.requestFocus();
+            ediExtRodillo.setError("Se requiere el nombre");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(!ediExtGancho.getText().toString().isEmpty() && ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediExtGanchoCi.requestFocus();
+            ediExtGanchoCi.setError("Se requiere La C.I");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        if(ediExtGancho.getText().toString().isEmpty() && !ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+            ediExtGancho.requestFocus();
+            ediExtGancho.setError("Se requiere el nombre");
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
 
         ///vamos con los datos de semananas y eso
 

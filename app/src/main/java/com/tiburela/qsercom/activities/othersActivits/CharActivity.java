@@ -28,7 +28,7 @@ public class CharActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_char);
 
-         chart = (LineChart) findViewById(R.id.chart);
+         chart = (LineChart) findViewById(R.id.barChartView);
         pieChart=(PieChart) findViewById(R.id.pieChart);
       //  YourData[] dataObjects = ...;
         List<Entry> entries = new ArrayList<Entry>();
