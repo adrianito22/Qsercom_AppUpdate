@@ -146,24 +146,34 @@ public class PdfMaker2_0 extends AppCompatActivity {
         PdfDocument miPFDocumentkernel= new PdfDocument(writer);
         PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
         PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
-        Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
-        midocumentotoAddData.setMargins(0, 0, 0, 0);
+
 
         HelperPdf pdfHelper= new HelperPdf();
 
+        Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
+        midocumentotoAddData.setMargins(0, 0, 0, 0);
 
-        Image imglogqSercomfooter=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.footer_pdf),1);
-        BackgroundEventHandler handler2 = new BackgroundEventHandler(imglogqSercomfooter);
-        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler2);
-
-
-        df
-
-        /**add header imagen*/
         Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER)
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+        imglogqSercom.scaleToFit(595f, 200f); //ESTA EN 400 DESPUES 3300
+        imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
+          midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
+
+          /**CONFIGURAMOS OTRA VEZ EL MARGEN*/
+        midocumentotoAddData.setMargins(200, 0, 0, 0);
+
+
+        Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+         imageHeader.setFixedPosition(0, 650); // si no usamos este
+         imageHeader.setMarginTop(0f); // de prueba
+        ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData);
+
+        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
+
+
+
         Rectangle remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+
         float y = remaining.getTop();
         Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() en logo es ES "+y);
 
@@ -172,18 +182,23 @@ public class PdfMaker2_0 extends AppCompatActivity {
         Log.i("miodatr","el mi logoqsercom "+position);
 
 
-        //float sizeColumnsTableTitle[]= {1};
+        Image imglogqSercomfooterBacground=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.footer_pdf),1);
+        imglogqSercomfooterBacground.setFixedPosition(0, 0); // si no usamos este
+        BackgroundEventHandler handler2 = new BackgroundEventHandler(imglogqSercomfooterBacground);
+        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler2);
+
+
+
         Table tableTitle=  new Table(1);
 
         /**TABLE TITULO EXPORTADORA SOLICTADA y procesada*/
-        Cell cell1= new Cell().add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
-        Cell cell2= new Cell().add(new Paragraph("EXPORTADORA SOLICITADA: BANDECUA MARCA DEL MONTE").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
-        Cell cell3= new Cell().add(new Paragraph("EXPORTADORA PROCESADA LAT BIO")).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f);
+        Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITADA: BANDECUA MARCA DEL MONTE").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cell3= new Cell().setBorder(Border.NO_BORDER)  .add(new Paragraph("EXPORTADORA PROCESADA LAT BIO")).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f);
 
-
-        tableTitle.addCell(cell1.setHeight(10f)).setBorder(Border.NO_BORDER);
-        tableTitle.addCell(cell2.setHeight(10f).setBorder(Border.NO_BORDER));
-        tableTitle.addCell(cell3.setHeight(10f)).setBorder(Border.NO_BORDER);
+        tableTitle.addCell(cell1);
+        tableTitle.addCell(cell2);
+        tableTitle.addCell(cell3);
 
 
         tableTitle.setWidth(pageSize.getWidth()-100f);
@@ -340,8 +355,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**add header imagen*/
 
-         imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-         midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
         ///AGREGAMOS LA IMAGEN HEADER AQUI
 
@@ -503,8 +516,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
           /**agregamos tables de control calidad*/
-        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
            int contadorTablas=1;
 
@@ -524,8 +535,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                       midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-                      imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-                      midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
                   }
 
               }else{ //si es la primera tabla de la pagina
@@ -549,8 +558,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**Agregamos Certificacion texto y tabla*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
         Paragraph title= new Paragraph("CERTIFICACION").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
 
@@ -634,22 +641,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        imagen.setFixedPosition(12, 300);
-        // PdfDocument pdfDoc = new PdfDocument(new PdfWriter(dest));
-        //ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imagen);
-       // miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
 
 
 
 
-
-
-
-
-
-
-        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
 
         BarChart barChartView;
@@ -720,10 +715,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**add header imagen*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
-
         float araycolumzz[]= {1,1,1,1,1,1};
         table1=  new Table(araycolumzz);
 
@@ -751,10 +742,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**Agregamos anexos*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        //agregamaos el header
-        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
 
         /**FOTOS LLEGADA */
@@ -764,9 +751,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**AGREGAMOS GRAFICOS ESTADISTICOS...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         //agregamaos el header
-        imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
         //dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
 

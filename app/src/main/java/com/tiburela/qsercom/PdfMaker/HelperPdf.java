@@ -149,10 +149,12 @@ public class HelperPdf {
                 Log.i("mismussndo","el name es "+list.get(i).getNameFields());
                 Log.i("mismussndo","el value es "+list.get(i).getValueContent());
                 Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.5f);
-                cell1= new Cell().add(paragraph1).setPaddingLeft(10f)
-                        .setHeight(10f);  //era 10.5
+                cell1= new Cell().setMaxHeight(9f).add(paragraph1).setPaddingLeft(10f);  //era 10.5// estaba en 10
 
 
+                /**arreglar el size aqui quiero menos size buscar */
+
+                Log.i("mundiosert","se ejecuto este codee"+list.get(i).getNameFields());
 
 
 
