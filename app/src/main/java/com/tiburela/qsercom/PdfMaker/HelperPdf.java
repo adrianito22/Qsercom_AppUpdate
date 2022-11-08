@@ -102,6 +102,17 @@ public class HelperPdf {
 
 
 
+    public static void configTableMaringAndWidth(Table table1, float sizeTable){
+
+        table1.setWidth(sizeTable);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginLeft(60f);
+        table1.setMarginRight(20f);
+        Log.i("mitables","el table es  here es es "+sizeTable);
+
+
+    }
+
 
     public static Image  createImagebYbitmap( Bitmap miBitmap){
 

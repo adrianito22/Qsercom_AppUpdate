@@ -100,7 +100,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
-                            app:srcCompat="@drawable/icon_menu" />
+                            app:srcCompat="@drawable/contenedoricon" />
 
                         <TextView
                             android:id="@+id/textView6"

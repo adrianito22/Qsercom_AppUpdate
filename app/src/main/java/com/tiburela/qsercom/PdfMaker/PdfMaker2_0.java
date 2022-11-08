@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 //import androidx.compose.ui.text.Paragraph;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -35,6 +36,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 //write here which class not found and wirte whee you want to use i timport com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
@@ -141,6 +143,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         HelperPdf.initFontx();
 
+
+
+
         OutputStream estrema =new FileOutputStream(file);
         PdfWriter writer = new PdfWriter(file); //le pasmaos el file
 
@@ -176,6 +181,11 @@ public class PdfMaker2_0 extends AppCompatActivity {
         Rectangle remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
 
         float y = remaining.getTop();
+        float sizeTable= pageSize.getWidth()-120f;
+
+        Log.i("miodatr","el size de table es"+sizeTable);
+
+
         Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() en logo es ES "+y);
 
 
@@ -201,16 +211,17 @@ public class PdfMaker2_0 extends AppCompatActivity {
         tableTitle.addCell(cell2);
         tableTitle.addCell(cell3);
 
-
-        tableTitle.setWidth(pageSize.getWidth()-100f);
-        tableTitle.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        tableTitle.setMarginLeft(40f);
-        tableTitle.setMarginRight(20f);
+        HelperPdf.configTableMaringAndWidth(tableTitle,sizeTable);
         midocumentotoAddData.add(tableTitle);
 
 
+        Log.i("mitables","el size de colum 1  es "+sizeTable/2);
+        Log.i("mitables","el size de colum 2  es "+sizeTable/1.5f);
+
         /**EMPEZAMOS CON LAS TABLAS*/
-        float sizeColumns[]= {1,3};
+      //  float sizeColumns[]= {sizeTable/2,sizeTable/1.5f};
+        float sizeColumns[]= {190,285};
+
         Table table1=  new Table(sizeColumns);
         // table1.
 
@@ -231,10 +242,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         ///productos postcosecha
 
         addCellsInTable(listCellsToTabCurrentTab,table1);
-        table1.setWidth(pageSize.getWidth()-100f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(40f);
-        table1.setMarginRight(20f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
 
@@ -260,17 +268,13 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
-        table1.setWidth(pageSize.getWidth()-100f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(40f);
-        table1.setMarginRight(20f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
         // table1.setMarginTop(10f);
 
         /**DATOS  DE CONTENEDOR***/
 
-        float sizeColumns3[]= {1,1};
         table1=  new Table(sizeColumns2);
 
         cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8f)) ;
@@ -287,15 +291,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
-        table1.setWidth(pageSize.getWidth()-100f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(40f);
-        table1.setMarginRight(20f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+
         midocumentotoAddData.add(table1);
 
         /**SELLOS DE LLEGADA*/
 
-        float sizeColumns4[]= {1,1};
         table1=  new Table(sizeColumns2);
 
         cell0= new Cell(1,2).add(new Paragraph("SELLLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
@@ -312,10 +313,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
         /**SELLLOS INSTALADOS*/
@@ -339,10 +337,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
         /**TERMINA PRIMERA HOJA DEBERIA CREAR OTROA HOJA*/
@@ -378,10 +373,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         table1.setMarginTop(5f);
         midocumentotoAddData.add(table1);
 
@@ -401,13 +393,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         table1 =    HelperPdf.createTable2(table1,HelperPdf.rgbColorAzulClaro,Variables.CurrenReportPart2) ;
-
-
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
-        table1.setMarginTop(5f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+        //table1.setMarginTop(5f);
         midocumentotoAddData.add(table1);
 
 
@@ -419,41 +406,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         table1 =    HelperPdf.createTable3(table1,Variables.CurrenReportPart2) ;
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
-        table1.setMarginTop(0f);
+
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
 
 
-        //CREMOASPRIMERATABLA tipo plastricoy tipo de caja     ,
-
-
-        /*
-
-        float sizeColumns9[]= {1,1,1,1,1,1,1,1,1};
-        table1=  new Table(sizeColumns9);
-
-
-
-        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
-
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
-        table1.addCell(cell0);
-
-
-        table1 =    HelperPdf.createTable2(table1,HelperPdf.rgbColorAzulClaro,Variables.CurrenReportPart2) ;
-
-
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
-        table1.setMarginTop(5f);
-        midocumentotoAddData.add(table1);
-*/
 
 
         /**DATOS DE PROCESO parte 3 */
@@ -463,11 +421,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         table1 =HelperPdf.createTbale6(table1,Variables.CurrenReportPart3) ;
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
-        table1.setMarginTop(0f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
         /**CONTROL DE GANCHOI**/
@@ -492,13 +446,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
-
-
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
-        table1.setMarginTop(0f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
 
@@ -506,12 +454,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**Calibracion de fruta calnedario de enfunde*/
 
         table1= HelperPdf.createTABLEcalendarioEnfude(table1,Variables.CurrenReportPart3);
-
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
-        table1.setMarginTop(0f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
@@ -519,6 +462,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
           /**agregamos tables de control calidad*/
+
+            midocumentotoAddData.add(new Paragraph("1.- EVALUACIÓN Y CONDICIÓN DE FRUTA.").
+                    setFontSize(7f).
+                    setMarginTop(1f).
+                    setBold().
+                    setPaddingBottom(1f).setMarginLeft(60f));
 
            int contadorTablas=1;
 
@@ -547,12 +496,13 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
               }
 
-             table1.setWidth(pageSize.getWidth()/2);
-             table1.setMarginLeft(100f);
 
+             table1.setWidth(pageSize.getWidth()/2);
+             table1.setMarginLeft(60f);
              midocumentotoAddData.add(table1);
 
               contadorTablas++;
+
 
          }
 
@@ -565,29 +515,36 @@ public class PdfMaker2_0 extends AppCompatActivity {
         Paragraph title= new Paragraph("CERTIFICACION").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
 
         midocumentotoAddData.add(title);
-        midocumentotoAddData.add(new Paragraph("Estimados.").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
+        midocumentotoAddData.add(new Paragraph("Estimados.").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
 
 
         /**TEXTO SEGUNDA LINEA*/
         table1=  HelperPdf.generateTexCertificationTable("SEMANA n AQUI");
-        table1.setWidth(pageSize.getWidth()-145f);  //ESTABA EM 120
-        table1.setMarginLeft(70f);
+       // table1.setMarginLeft(60f);
+        table1.setWidth(pageSize.getWidth()-147f);  //ESTABA EM 120
+        table1.setMarginLeft(60f);
+
         midocumentotoAddData.add(table1);
 
-        midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f));
-        midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(70f).setBold());
+        midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
+        midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
 
 
            /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
         table1 =HelperPdf. createTablePorceCalidProductres();
-        table1.setWidth(pageSize.getWidth()-170f);
-        table1.setMarginLeft(70f);
+
+
+        /**confi especial*/
+        table1.setWidth(sizeTable-50);
+        table1.setHorizontalAlignment(HorizontalAlignment.LEFT);
+        table1.setMarginLeft(60f);
+
         table1.setMarginTop(1f);
         midocumentotoAddData.add(table1);
 
 
 
-        midocumentotoAddData.add(new Paragraph("Grafico 1.- Demostracion calidad total y danos - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(70f));
+        midocumentotoAddData.add(new Paragraph("Grafico 1.- Demostracion calidad total y danos - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
          /**Agregamos pie  Grafico*/
          PieChart pieChart;
@@ -623,14 +580,14 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**Texto como verfiicadora tenemos...*/
 
         midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligacion de corregir estos danos en  la fruta para garantizar la calidad den la exportacion del banano  buscando siempre el bienestar de nuestro cliente").
-                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(70f));
+                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f).setPaddingRight(65f));
 
         midocumentotoAddData.add(new Paragraph("CLIENTE AQUI").
-                setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(70f).setBold());
+                setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
 
 
         midocumentotoAddData.add(new Paragraph("Atentamente,").
-                setFontSize(7.5f).setMarginTop(15f).setPaddingLeft(70f));
+                setFontSize(7.5f).setMarginTop(15f).setPaddingLeft(60f));
 
           /**NOMBRE DE LOS INSPECTORES*/
          table1=  HelperPdf.generaTableInspectores(Variables.CurrenReportPart3,pageSize.getWidth());
@@ -662,7 +619,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
             ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
 
               //agregamos el texto en cel centro
-             Paragraph mipara= new Paragraph("GRAFICO"+contadorAllGraficos +".-DEMOSTRACION DE DEFECTOS EMPAQUE "+currenControCaldRep.getTipoEmpaque()+" "+currenControCaldRep.getMarcaCaja());
+             Paragraph mipara= new Paragraph("GRAFICO"+contadorAllGraficos +".-DEMOSTRACION DE DEFECTOS EMPAQUE "+currenControCaldRep.getTipoEmpaque()+" "+currenControCaldRep.getMarcaCaja())
+                     .setPaddingLeft(60f).setBold();
             mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
              if(contadorImageChar%2==0){  //es multiplo de 2
@@ -674,7 +632,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
                  }
 
 
-             }else{
+             }
+             else{
 
                  mipara.setMarginTop(2f);
 
@@ -685,21 +644,24 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
             bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
             imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
-            imagen.setWidth(pageSize.getWidth()-140);
-            imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            imagen.setWidth(pageSize.getWidth()-145);
+            //imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
             table1= new Table(1);
-            cell1 = new Cell().add(new Paragraph("PORCENTAJE POR DEFECTO EN SELECION Y EMPAQUE").setMarginTop(10f).setTextAlignment(TextAlignment.CENTER));
-            cell1.setBorderBottom(Border.NO_BORDER);
+
+            cell1 = new Cell().setBorder(new SolidBorder(rgbColor, 1)).setBorderBottom(Border.NO_BORDER).add(new Paragraph("PORCENTAJE POR DEFECTO EN SELECION Y EMPAQUE").setMarginTop(10f).setTextAlignment(TextAlignment.CENTER));;
             table1.addCell(cell1);
 
 
-            cell1 = new Cell();
+            cell1 = new Cell().setBorderTop(Border.NO_BORDER);
+            cell1.setBorder(new SolidBorder(rgbColor, 1));
+
+
+
             cell1.add(imagen);
             table1.addCell(cell1);
+            HelperPdf.configTableMaringAndWidth(table1,sizeTable);
 
-            table1.setWidth(pageSize.getWidth()-100);
-            table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
             midocumentotoAddData.add(table1);
             //setPaddingLeft(70f)
             contadorAllGraficos++;
@@ -722,11 +684,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1=  new Table(araycolumzz);
 
         table1=HelperPdf.descripciondEFECXTOSFRUTA(table1);
-
-        table1.setWidth(pageSize.getWidth()-120f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginLeft(60f);
-        table1.setMarginRight(20f);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         table1.setMarginTop(8f);
         midocumentotoAddData.add(table1);
 
