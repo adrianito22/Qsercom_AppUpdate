@@ -594,14 +594,16 @@ public class HelperPdf {
     }
 
     public static Table createTbale6(Table table1,SetInformDatsHacienda object){
-        Cell cellDatosHaciend = new Cell(1,7).add(new Paragraph("DATOS DE HACIENDA").setFontSize(7f).setBackgroundColor(rgbColorVerdeCana));
+        Cell cellDatosHaciend = new Cell(1,7).setPadding(0f).add(new Paragraph("DATOS DE HACIENDA").setHorizontalAlignment(HorizontalAlignment.CENTER).setFontSize(7f).setBackgroundColor(rgbColorVerdeCana));
+
         Cell micelda;
-        Paragraph   paragrapMarcado = new Paragraph(" X ").setFontSize(7.5f);;
+        Paragraph   paragrapMarcado = new Paragraph(" X ").setFontSize(7f).setFont(font);;
         Paragraph   paragragSinMarcar = new Paragraph(" ");;
 
         table1.addCell(cellDatosHaciend);
-        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(6.5f));
-        Cell cellx2 = new Cell().add(new Paragraph("AGUA POTABLE").setFontSize(6.5f));
+
+        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(6.5f).setFont(font));
+        Cell cellx2 = new Cell().add(new Paragraph("AGUA POTABLE").setFontSize(6.5f).setFont(font));
         table1.addCell(cellx1);
         table1.addCell(cellx2);
 
