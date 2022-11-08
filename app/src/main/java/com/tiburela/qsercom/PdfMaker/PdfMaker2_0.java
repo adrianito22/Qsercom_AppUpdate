@@ -139,6 +139,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         File file = new File(directory, UUID.randomUUID().toString() + ".pdf");
         //chekear si existe si es asi sobrescribirlo
 
+        HelperPdf.initFontx();
 
         OutputStream estrema =new FileOutputStream(file);
         PdfWriter writer = new PdfWriter(file); //le pasmaos el file
@@ -213,7 +214,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         Table table1=  new Table(sizeColumns);
         // table1.
 
-        DeviceRgb rgbColor= new DeviceRgb(153, 255, 229); //color verde claro
+        //DeviceRgb rgbColor= new DeviceRgb(153, 255, 229); //color verde claro
 
 
         /**add primer cuadro..*/
@@ -224,8 +225,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         //editamos la tabla 1
-        listCellsToTabCurrentTab.get("0name").setBackgroundColor(rgbColor);
-        listCellsToTabCurrentTab.get("0value").setBackgroundColor(rgbColor);
+        listCellsToTabCurrentTab.get("0name").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
+        listCellsToTabCurrentTab.get("0value").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
 
         ///productos postcosecha
 
@@ -244,9 +245,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns2[]= {1,1};
         table1=  new Table(sizeColumns2);
 
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f)
+                .setTextAlignment(TextAlignment.CENTER)) ;
 
-        cell0.setBackgroundColor(rgbColor); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
 
@@ -271,9 +273,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns3[]= {1,1};
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8f)) ;
 
-        cell0.setBackgroundColor(rgbColor); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
 
@@ -281,7 +283,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,3,Variables.currenProductPostCosecha);
         listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
         ///LA POSICION 5 LA EDITAMOS
-        listCellsToTabCurrentTab2.get("2value").setBackgroundColor(rgbColor); //editamos el color
+        listCellsToTabCurrentTab2.get("2value").setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
@@ -296,9 +298,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns4[]= {1,1};
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("SELLLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+        cell0= new Cell(1,2).add(new Paragraph("SELLLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
 
-        cell0.setBackgroundColor(rgbColor); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
 
@@ -306,7 +308,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,4,Variables.currenProductPostCosecha);
         listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
         ///LA POSICION 5 LA EDITAMOS
-        listCellsToTabCurrentTab2.get("2value").setBackgroundColor(rgbColor); //editamos el color
+        listCellsToTabCurrentTab2.get("2value").setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
@@ -322,9 +324,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns5[]= {1,2,1,1};
         table1=  new Table(sizeColumns5);
 
-        cell0= new Cell(1,4).add(new Paragraph("SELLLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+        cell0= new Cell(1,4).add(new Paragraph("SELLLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
 
-        cell0.setBackgroundColor(rgbColor); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
 
@@ -362,9 +364,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns6[]= {4,5};
         table1=  new Table(sizeColumns6);
 
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+        cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
 
-        cell0.setBackgroundColor(rgbColor); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
 
@@ -392,13 +394,13 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
 
-        cell0.setBackgroundColor(rgbColor); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
 
-        table1 =    HelperPdf.createTable2(table1,rgbColor,Variables.CurrenReportPart2) ;
+        table1 =    HelperPdf.createTable2(table1,HelperPdf.rgbColorAzulClaro,Variables.CurrenReportPart2) ;
 
 
         table1.setWidth(pageSize.getWidth()-120f);
@@ -416,7 +418,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1=  new Table(sizeColumns8);
 
 
-        table1 =    HelperPdf.createTable3(table1,rgbColor,Variables.CurrenReportPart2) ;
+        table1 =    HelperPdf.createTable3(table1,Variables.CurrenReportPart2) ;
         table1.setWidth(pageSize.getWidth()-120f);
         table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
         table1.setMarginLeft(60f);
@@ -428,20 +430,21 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         //CREMOASPRIMERATABLA tipo plastricoy tipo de caja     ,
 
-        /**DATOS DE PROCESO parte 1 */
+
+        /*
 
         float sizeColumns9[]= {1,1,1,1,1,1,1,1,1};
         table1=  new Table(sizeColumns9);
 
 
 
-        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f)) ;
+        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
 
-        cell0.setBackgroundColor(rgbColor); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
 
-        table1 =    HelperPdf.createTable2(table1,rgbColor,Variables.CurrenReportPart2) ;
+        table1 =    HelperPdf.createTable2(table1,HelperPdf.rgbColorAzulClaro,Variables.CurrenReportPart2) ;
 
 
         table1.setWidth(pageSize.getWidth()-120f);
@@ -450,7 +453,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1.setMarginRight(20f);
         table1.setMarginTop(5f);
         midocumentotoAddData.add(table1);
-
+*/
 
 
         /**DATOS DE PROCESO parte 3 */
@@ -459,7 +462,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1=  new Table(sizeColumns10);
 
 
-        table1 =HelperPdf.createTbale6(table1,Variables.CurrenReportPart3,rgbColor) ;
+        table1 =HelperPdf.createTbale6(table1,Variables.CurrenReportPart3) ;
         table1.setWidth(pageSize.getWidth()-120f);
         table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
         table1.setMarginLeft(60f);
@@ -474,8 +477,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float araycolum[]= {1,2};
         table1=  new Table(araycolum);
 
-        Cell cellHeader2= new Cell(1,2).setBackgroundColor(rgbColor);
-        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cellHeader2= new Cell(1,2).setBackgroundColor(HelperPdf.rgbColorAzulClaro);
+        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font));
         table1.addCell(cellHeader2);
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,8,Variables.currenProductPostCosecha);
@@ -502,7 +505,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**Calibracion de fruta calnedario de enfunde*/
 
-        table1= HelperPdf.createTABLEcalendarioEnfude(table1,rgbColor,Variables.CurrenReportPart3);
+        table1= HelperPdf.createTABLEcalendarioEnfude(table1,Variables.CurrenReportPart3);
 
         table1.setWidth(pageSize.getWidth()-120f);
         table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -590,7 +593,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
          PieChart pieChart;
          pieChart=findViewById(R.id.pieChart_view);
 
-        rgbColor= new DeviceRgb(220,220,220);
+        DeviceRgb rgbColor= new DeviceRgb(220,220,220);
 
          table1=new Table(1);
          cell1= new Cell().setBackgroundColor(rgbColor).setBorder(Border.NO_BORDER);

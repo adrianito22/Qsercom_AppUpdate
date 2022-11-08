@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.fonts.Font;
 import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -22,9 +23,12 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
@@ -44,12 +48,21 @@ import com.tiburela.qsercom.models.TableCalidProdc;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class HelperPdf {
+
+   public static  PdfFont font=null;
+
+   public static DeviceRgb rgbColorVerdeCana= new DeviceRgb(197, 224, 179);
+    public static DeviceRgb rgbColorAzulClaro= new DeviceRgb(189, 214, 238);
+    public static DeviceRgb rgbColorNaranja= new DeviceRgb(255, 217, 102);
+    public static DeviceRgb rgbColorDurazno= new DeviceRgb(247, 202, 172);
+
 
 
     public static   double CALIDAD_TOTAL;
@@ -63,7 +76,15 @@ public class HelperPdf {
       HashMap<String, ArrayList<String>>hola= new HashMap<>();
 
 
+       public static void initFontx(){
+           try{
+               font = PdfFontFactory.createFont(StandardFonts.COURIER);
 
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+           
+       }
 
 
     public  Image  createInfoImgtoPDF(Drawable mIDrawable, Context conetxt,int i){
@@ -145,12 +166,13 @@ public class HelperPdf {
 
                 Cell cell1;
 
+          
 
                 Log.i("mismussndo","el name es "+list.get(i).getNameFields());
                 Log.i("mismussndo","el value es "+list.get(i).getValueContent());
-                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.5f);
-                cell1= new Cell().setMaxHeight(9f).add(paragraph1).setPaddingLeft(10f);  //era 10.5// estaba en 10
-
+                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7f).setPaddingLeft(10f).setFont(font).
+                setPaddingTop(0f).setPaddingBottom(0f);
+                cell1= new Cell().setHeight(10f).setPadding(0).add(paragraph1);  //estaba en 8 aqui ver
 
                 /**arreglar el size aqui quiero menos size buscar */
 
@@ -160,11 +182,11 @@ public class HelperPdf {
 
                 Paragraph paragraph2;
                 if(list.get(i).getValueContent()==null){
-                    paragraph2=new Paragraph("");
+                    paragraph2=new Paragraph("").setFontSize(7f).setFont(font);
 
                 }else{
 
-                    paragraph2= new Paragraph(list.get(i).getValueContent());
+                    paragraph2= new Paragraph(list.get(i).getValueContent()).setFontSize(7f).setFont(font);
 
                 }
 
@@ -172,13 +194,13 @@ public class HelperPdf {
                 Cell cell2;
 
                 if(TableID==600 && i==4 || i== 5 || i==6 || i==7|| i==8 ||i==9 ||i==10||i==11||i==12){//si es ;a tabla sellos instalados
-                    cell2= new Cell(1,4).add(paragraph2).setPaddingLeft(10f).setFontSize(7.5f).setHeight(10f); ///le agragmos un span
+                    cell2= new Cell(1,4).setHeight(10f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
 
 
 
                 }else{
 
-                    cell2= new Cell().add(paragraph2).setPaddingLeft(10f).setFontSize(7.5f).setHeight(10f); //normal
+                    cell2= new Cell().setHeight(10f).setPadding(0).add(paragraph2).setPaddingLeft(10f); //normal
 
                 }
 
@@ -197,7 +219,7 @@ public class HelperPdf {
 
             for(int i=0;i<list.size();i++){
 
-                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.5f);
+                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7f).setFont(font);
                 Cell cell1= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(10f);
 
 
@@ -207,13 +229,13 @@ public class HelperPdf {
 
                 }else{
 
-                    paragraph2=new Paragraph(list.get(i).getValueContent()).setFontSize(7.5f);
+                    paragraph2=new Paragraph(list.get(i).getValueContent()).setFontSize(7f);
 
 
                 }
 
 
-                Cell cell2= new Cell().add(paragraph2).setTextAlignment(TextAlignment.CENTER).setHeight(10f);
+                Cell cell2= new Cell().add(paragraph2).setTextAlignment(TextAlignment.CENTER).setHeight(10f); //estab en 9,7 parece buena
 
                 hasmpaDevolver.put(i+"name",cell1);
                 hasmpaDevolver.put(i+"value",cell2);
@@ -435,8 +457,8 @@ public class HelperPdf {
 
 
         //FALTA AGREGAR A LAS TABLAS
-        miTable.addCell(cellTipPlastic.add(new Paragraph("TIPO DE PLASTICO").setFontSize(7.5f))) ;
-        miTable.addCell(cellPolitubo.add(new Paragraph("POLITUBO").setFontSize(6.5f))) ;
+        miTable.addCell(cellTipPlastic.add(new Paragraph("TIPO DE PLASTICO").setFontSize(7f))) ;
+        miTable.addCell(cellPolitubo.add(new Paragraph("POLITUBO").setFontSize(7f))) ;
         //tipo de caja
 
 
@@ -501,7 +523,7 @@ public class HelperPdf {
 
         /**tipo de cja */
 
-        miTable.addCell(celltipodEcAJA.add(new Paragraph("TIPO DE CAJA").setFontSize(7.5f))) ;
+        miTable.addCell(celltipodEcAJA.add(new Paragraph("TIPO DE CAJA").setFontSize(6.5f))) ;
         miTable.addCell(cell22Xu.add(new Paragraph("22xU").setFontSize(6.5f))) ;
 
 
@@ -571,27 +593,27 @@ public class HelperPdf {
 
     }
 
-    public static Table createTbale6(Table table1,SetInformDatsHacienda object,DeviceRgb rgbColor){
-        Cell cellDatosHaciend = new Cell(1,7).add(new Paragraph("DATOS DE HACIENDA").setFontSize(7.5f).setBackgroundColor(rgbColor));
+    public static Table createTbale6(Table table1,SetInformDatsHacienda object){
+        Cell cellDatosHaciend = new Cell(1,7).add(new Paragraph("DATOS DE HACIENDA").setFontSize(7f).setBackgroundColor(rgbColorVerdeCana));
         Cell micelda;
         Paragraph   paragrapMarcado = new Paragraph(" X ").setFontSize(7.5f);;
         Paragraph   paragragSinMarcar = new Paragraph(" ");;
 
         table1.addCell(cellDatosHaciend);
-        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(7.5f));
-        Cell cellx2 = new Cell().add(new Paragraph("AGUA POTABLE").setFontSize(7.5f));
+        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(6.5f));
+        Cell cellx2 = new Cell().add(new Paragraph("AGUA POTABLE").setFontSize(6.5f));
         table1.addCell(cellx1);
         table1.addCell(cellx2);
 
         if(object.getFuenteAgua().equalsIgnoreCase("AGUA POTABLE")) {
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
             table1.addCell(micelda);
 
 
         }else{
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -599,17 +621,17 @@ public class HelperPdf {
 
         }
 
-        table1.addCell(new Paragraph("POZO").setFontSize(7.5f));
+        table1.addCell(new Paragraph("POZO").setFontSize(6.5f));
 
         if(object.getFuenteAgua().equalsIgnoreCase("POZO")) {
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
         }
         else{
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -619,13 +641,13 @@ public class HelperPdf {
 
         if(object.getFuenteAgua().equalsIgnoreCase("BIDON")) {
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
         }else{
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -634,20 +656,20 @@ public class HelperPdf {
 
         //2DA FILA DE DATOS DE HACIENDA...
 
-        table1.addCell(new Paragraph("AGUA CORRIDA").setFontSize(7.5f));
+        table1.addCell(new Paragraph("AGUA CORRIDA").setFontSize(6.5f));
 
-        table1.addCell(new Paragraph("SI").setFontSize(7.5f));
+        table1.addCell(new Paragraph("SI").setFontSize(6.5f));
 
 
         if(object.isHayAguaCorrida()) {
             //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor).setFontSize(7.5f));
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).add(paragrapMarcado);
             table1.addCell(micelda);
 
         }else{
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
             table1.addCell(micelda);
 
@@ -657,14 +679,14 @@ public class HelperPdf {
 
         if(!object.isHayAguaCorrida()) {
 
-            micelda = new Cell(1,2).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,2).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
 
         }else{
 
-            micelda = new Cell(1,3).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -677,14 +699,14 @@ public class HelperPdf {
 
         if(object.isHayLavadoRacimos()) {
             //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor));
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
 
         }else{
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -693,13 +715,13 @@ public class HelperPdf {
         table1.addCell(new Paragraph("NO").setFontSize(7.5f));
 
         if(!object.isHayLavadoRacimos()) {
-            micelda = new Cell(1,3).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
         }else{
 
-            micelda = new Cell(1,3).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -713,14 +735,14 @@ public class HelperPdf {
 
 
         if(object.getFumigacionClin1().equalsIgnoreCase("FOGGING")) {
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
 
         }else{
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -734,7 +756,7 @@ public class HelperPdf {
 
         if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3")) {
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -742,7 +764,7 @@ public class HelperPdf {
 
         }else{
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -753,11 +775,11 @@ public class HelperPdf {
         table1.addCell(new Paragraph("ELECTRICA").setFontSize(7.5f));
 
         if(object.getFumigacionClin1().equalsIgnoreCase("ELECTRICA")) {
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
             table1.addCell(micelda);
         }else{
-            micelda = new Cell(1,1).setBackgroundColor(rgbColor).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -769,10 +791,10 @@ public class HelperPdf {
     }
 
 
-    public static Table createTable3(Table miTable, DeviceRgb rgbColor,SetInformEmbarque2 object2) {
+    public static Table createTable3(Table miTable,SetInformEmbarque2 object2) {
 
 
-        Cell cell208X= new Cell().setPaddingLeft(10f);
+        ///Cell cell208X= new Cell().setPaddingLeft(10f);
 
 
         ///cellPolituboX.setBackgroundColor(rgbColor) ; //MNARCAR LA X CON BACVGROUND VERDE
@@ -781,26 +803,26 @@ public class HelperPdf {
         //  miTable.addCell(new Cell().add(new Paragraph("TIPO DE PLASTICO").setFontSize(7.5f))) ;
 
 
-        miTable.addCell(new Cell().add(new Paragraph("ENSUCHADO").setFontSize(7.5f).setPaddingLeft(10f))) ;
+        miTable.addCell(new Cell().add(new Paragraph("ENSUCHADO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
         miTable.addCell(new Cell().add(new Paragraph("SI").setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(object2.isHayExcelnsuchado()) {
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+                miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
         }
 
         else {
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
         }
 
-        miTable.addCell(new Cell().add(new Paragraph("NO").setFontSize(7.5f).setPaddingLeft(10f))) ;
+        miTable.addCell(new Cell().add(new Paragraph("NO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
 
 
         if(!object2.isHayExcelnsuchado()) {
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
         }
 
         else {
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
         }
 
 
@@ -810,11 +832,11 @@ public class HelperPdf {
         miTable.addCell(new Cell().add(new Paragraph("SI").setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(object2.isHayBalanza()) {
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
         }
 
         else {
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana)).setFont(font)) ;
         }
 
 
@@ -822,11 +844,11 @@ public class HelperPdf {
 
 
         if(!object2.isHayBalanza()) {
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
         }
 
         else {
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
         }
 
 
@@ -844,32 +866,32 @@ public class HelperPdf {
 
             Log.i("condicoon","es buena se ejecuto esto ") ;
 
-            miTable.addCell(new Cell().add(new Paragraph("BUENA").setFontSize(7.5f).setPaddingLeft(10f))) ;
+            miTable.addCell(new Cell().add(new Paragraph("BUENA").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
 
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
 
 
-            miTable.addCell(new Cell().add(new Paragraph("MALA").setFontSize(7.5f).setPaddingLeft(10f))) ;
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph("MALA").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana).setFont(font))) ;
 
 
         }
 
         if(object2.getCondicionBalanza().equalsIgnoreCase("MALA")) {
             miTable.addCell(new Cell().add(new Paragraph("MALA ").setFontSize(7.5f).setPaddingLeft(10f))) ;
-            miTable.addCell(new Cell().add(new Paragraph("X").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph("X").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana)).setFont(font)) ;
 
             miTable.addCell(new Cell().add(new Paragraph("BUENA").setFontSize(7.5f).setPaddingLeft(10f))) ;
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana)).setFont(font)) ;
         }
 
         if(object2.getCondicionBalanza().equalsIgnoreCase("REGULAR")) {
-            miTable.addCell(new Cell().add(new Paragraph("REGULAR").setFontSize(7.5f).setPaddingLeft(10f))) ;
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph("REGULAR").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
 
 
-            miTable.addCell(new Cell().add(new Paragraph("BUENA").setFontSize(7.5f).setPaddingLeft(10f))) ;
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph("BUENA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
 
         }
 
@@ -883,23 +905,23 @@ public class HelperPdf {
         miTable.addCell(new Cell().add(new Paragraph("BASCULA").setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(object2.getTipoDeBalanza().equalsIgnoreCase("BASCULA")) {
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
         }
 
         else {
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
         }
 
 
 
-        miTable.addCell(new Cell().add(new Paragraph("DIGITAL").setFontSize(7.5f).setPaddingLeft(10f))) ;
+        miTable.addCell(new Cell().add(new Paragraph("DIGITAL").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(object2.getTipoDeBalanza().equalsIgnoreCase("DIGITAL")) {
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
         }
 
         else {
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
         }
 
 
@@ -914,11 +936,11 @@ public class HelperPdf {
         miTable.addCell(new Cell().add(new Paragraph("SI").setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(object2.getHayBalanzaRepeso()) {
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
         }
 
         else {
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
         }
 
 
@@ -926,41 +948,41 @@ public class HelperPdf {
         miTable.addCell(new Cell().add(new Paragraph("NO").setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(!object2.getHayBalanzaRepeso()) {
-            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
         }
 
         else {
-            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
         }
 
 
 
         //////// //si hay balanza de repeso
         if(object2.getHayBalanzaRepeso()){
-            miTable.addCell(new Cell().add(new Paragraph("TIPO DE BALANZA DE REPESA").setFontSize(7.5f).setPaddingLeft(10f))) ;
+            miTable.addCell(new Cell().add(new Paragraph("TIPO DE BALANZA DE REPESA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
-            miTable.addCell(new Cell().add(new Paragraph("BASCULA").setFontSize(7.5f).setPaddingLeft(10f))) ;
+            miTable.addCell(new Cell().add(new Paragraph("BASCULA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
 
             if(object2.getTipoDeBalanzaRepeso().equalsIgnoreCase("bascula")) {
-                miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+                miTable.addCell(new Cell().add(new Paragraph(" X ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
             }
 
             else {
-                miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+                miTable.addCell(new Cell().add(new Paragraph(" ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
             }
 
 
 
-            miTable.addCell(new Cell().add(new Paragraph("DIGITAL").setFontSize(7.5f).setPaddingLeft(10f))) ;
+            miTable.addCell(new Cell().add(new Paragraph("DIGITAL").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
 
             if(!object2.getTipoDeBalanzaRepeso().equalsIgnoreCase("DIGITAL")) {
-                miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+                miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
             }
 
             else {
-                miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColor))) ;
+                miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setBackgroundColor(rgbColorVerdeCana))) ;
             }
 
 
@@ -979,38 +1001,38 @@ public class HelperPdf {
     /**Calibracion de fruta clanedario de enfunde*/
 
 
-    public static  Table createTABLEcalendarioEnfude(Table table1X,DeviceRgb rgbColor ,SetInformDatsHacienda inform){
+    public static  Table createTABLEcalendarioEnfude(Table table1X ,SetInformDatsHacienda inform){
 
 
         float araycolumccc[]= {1,1,1,1};
         table1X=  new Table(araycolumccc);
 
 
-        Cell cellHeader2= new Cell(1,4).setBackgroundColor(rgbColor);
-        cellHeader2.add(new Paragraph(" CALIBRACION DE FRUTA( CALENDARIO DE ENFUNDE) ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cellHeader2= new Cell(1,4).setBackgroundColor(rgbColorAzulClaro);
+        cellHeader2.add(new Paragraph(" CALIBRACION DE FRUTA( CALENDARIO DE ENFUNDE) ").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
         table1X.addCell(cellHeader2);
 
 
-        Cell cellSemana= new Cell(1,1);
-        cellSemana.add(new Paragraph(" SEMANA ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cellSemana= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
+        cellSemana.add(new Paragraph(" SEMANA ").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
 
         table1X.addCell(cellSemana);
 
 
 
-        Cell cellColor= new Cell(1,1);
-        cellColor.add(new Paragraph(" COLOR ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cellColor= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
+        cellColor.add(new Paragraph(" COLOR ").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
 
         table1X.addCell(cellColor);
 
 
-        Cell cellNUMrAC= new Cell(1,1);
-        cellNUMrAC.add(new Paragraph("NUMERACION RACIMOS ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cellNUMrAC= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
+        cellNUMrAC.add(new Paragraph("NUMERACION RACIMOS ").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
         table1X.addCell(cellNUMrAC);
 
 
-        Cell cellPorcent= new Cell(1,1);
-        cellPorcent.add(new Paragraph(" PORCENTAJE ").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cellPorcent= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
+        cellPorcent.add(new Paragraph(" PORCENTAJE ").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
         table1X.addCell(cellPorcent);
 
 
