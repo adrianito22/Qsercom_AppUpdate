@@ -220,7 +220,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**EMPEZAMOS CON LAS TABLAS*/
       //  float sizeColumns[]= {sizeTable/2,sizeTable/1.5f};
-        float sizeColumns[]= {190,285};
+        float sizeColumns[]= {175,300};
 
         Table table1=  new Table(sizeColumns);
         // table1.
@@ -249,9 +249,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         /**productos postosecha*/
+        //float sizeColumns[]= {175,300};
 
-        float sizeColumns2[]= {1,1};
-        table1=  new Table(sizeColumns2);
+        //float sizeColumns2[]= {sizeColumns};
+        table1=  new Table(sizeColumns);
 
         Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f)
                 .setTextAlignment(TextAlignment.CENTER)) ;
@@ -275,7 +276,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**DATOS  DE CONTENEDOR***/
 
-        table1=  new Table(sizeColumns2);
+        table1=  new Table(sizeColumns);
 
         cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8f)) ;
 
@@ -297,7 +298,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**SELLOS DE LLEGADA*/
 
-        table1=  new Table(sizeColumns2);
+        table1=  new Table(sizeColumns);
 
         cell0= new Cell(1,2).add(new Paragraph("SELLLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
 
@@ -318,8 +319,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**SELLLOS INSTALADOS*/
 
+         //        float sizeColumns[]= {175,300};
 
-        float sizeColumns5[]= {1,2,1,1};
+            //
+       // float sizeColumns5[]= {1,2,1,1};
+
+        float sizeColumns5[]= {175,1,1,1};
         table1=  new Table(sizeColumns5);
 
         cell0= new Cell(1,4).add(new Paragraph("SELLLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
@@ -357,7 +362,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         float sizeColumns6[]= {4,5};
-        table1=  new Table(sizeColumns6);
+        table1=  new Table(sizeColumns);
 
         cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
 
@@ -380,8 +385,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         /**DATOS DE PROCESO parte 1 */
-
-        float sizeColumns7[]= {1,2,2,2,2,2,2,2,2};
+           //         //        float sizeColumns[]= {175,300};
+        float sizeColumns7[]= {175,2,2,2,2,2,2,2,2};
         table1=  new Table(sizeColumns7);
 
 
@@ -401,7 +406,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**DATOS DE PROCESO parte 2 */
 
-        float sizeColumns8[]= {1,2,2,2,2};
+        float sizeColumns8[]= {175,2,2,2,2};
         table1=  new Table(sizeColumns8);
 
 
@@ -416,7 +421,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**DATOS DE PROCESO parte 3 */
 
-        float sizeColumns10[]= {1,1,1,1,1,1,1};
+        float sizeColumns10[]= {175,1,1,1,1,1,1};
         table1=  new Table(sizeColumns10);
 
 
@@ -428,7 +433,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        float araycolum[]= {1,2};
+        float araycolum[]= {175,2};
         table1=  new Table(araycolum);
 
         Cell cellHeader2= new Cell(1,2).setBackgroundColor(HelperPdf.rgbColorAzulClaro);
