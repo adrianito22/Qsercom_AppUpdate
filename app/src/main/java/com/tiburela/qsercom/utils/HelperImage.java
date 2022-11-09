@@ -302,7 +302,28 @@ public class HelperImage {
         int valorDevolver=0;
           boolean encontramos=false;
 
-          for(int i=0; i<list.size(); i++){ //primero buscamos tres imagenes  verticales....
+
+/*
+
+//esto es debug
+        for(int i=0; i<list.size(); i++){ //primero buscamos tres imagenes  verticales....
+
+            if(list.get(i).horientacionImagen.equals("horizontal")){
+                contadorImgVertical++;
+
+            }
+
+        }
+*/
+
+      //  Log.i("PATRONX","este set contiene este numero de imagenes horizontal es : "+contadorImgVertical);
+
+
+
+
+
+
+        for(int i=0; i<list.size(); i++){ //primero buscamos tres imagenes  verticales....
 
                   if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
                       contadorImgVertical++;
@@ -440,10 +461,67 @@ public class HelperImage {
         }
 
 
-        if(!encontramos) { //SI NO ENCONTRA,MOPS NADA LE DAMOS ESTE..
+
+
+
+        if(!encontramos) {
+            imagesSetToCurrentFila= new ArrayList<>();
+
+            for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
+                if(list.get(i).horientacionImagen.equals("horizontal") && ! list.get(i).estaENPdf ){
+                    imagesSetToCurrentFila.add(list.get(i));
+
+                    Log.i("helloheree","ecnonctramos una por aqui ");
+
+                    encontramos=true;
+
+                    valorDevolver= Variables.UNA_HORIZONTAL ;
+
+                    break;
+
+                }
+
+            }
+
+
+        }
+
+
+
+
+
+        if(!encontramos) {
+            imagesSetToCurrentFila= new ArrayList<>();
+
+            for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
+                if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
+                    imagesSetToCurrentFila.add(list.get(i));
+
+                    Log.i("helloheree","ecnonctramos una por aqui ");
+
+                    encontramos=true;
+
+                    valorDevolver= Variables.UNA_VERTICAL ;
+
+                    break;
+
+                }
+
+            }
+
+
+        }
+
+
+
+
+        if(!encontramos) {
+            //SI NO ENCONTRA,MOPS NADA LE DAMOS ESTE..
             imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+            Log.i("PATRONX","NO HEMOS ENCONTRADO NADA ");
 
             valorDevolver =Variables.DEFAULNO_ENCONTRO_NADA;
+
         }
             //si no
 

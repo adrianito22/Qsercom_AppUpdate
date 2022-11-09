@@ -1,5 +1,7 @@
 package com.tiburela.qsercom.PdfMaker;
 
+import static com.tiburela.qsercom.models.TableFifi.ALIGN_TABLE_RIGTH;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -10,6 +12,7 @@ import android.util.Log;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
@@ -17,6 +20,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.TextAlignment;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -30,7 +34,7 @@ public class HelperAdImgs {
 
     static   boolean wehaveAddSpaceyIndescrip =false;
     static   float   posicionLastELEMENTAd =10000f;
-
+     static boolean isPosicion0AndNewAnexo=false;
 
     public static void createPages_addImgs(int setFotoCategory ,String anexoNombre, Document midocumentotoAddData,
                                             PageSize pageSize,Context contexto){
@@ -48,29 +52,68 @@ public class HelperAdImgs {
 
         //nos asegurammos que ninguna este en el pdf aun ,LAS DESMARCAMOS
         currentListImagesSeccion= HelperImage.marcaQueNoEstaEnPDF(currentListImagesSeccion);
-        Log.i("contaburx","la IMAGEN DE LA 1  POSCION esta en el pdf? "+currentListImagesSeccion.get(0).estaENPdf);
-        Log.i("contaburx","la IMAGEN DE LA 2 POSCION esta en el pdf? "+currentListImagesSeccion.get(1).estaENPdf);
+       // Log.i("contaburx","la IMAGEN DE LA 1  POSCION esta en el pdf? "+currentListImagesSeccion.get(0).estaENPdf);
+       // Log.i("contaburx","la IMAGEN DE LA 2 POSCION esta en el pdf? "+currentListImagesSeccion.get(1).estaENPdf);
 
+        Log.i("PATRONX","el size de imagenes de estacategoria es  "+currentListImagesSeccion.size());
 
 
         while(!allImagesISUsed(currentListImagesSeccion)){ //mientras quedan imagenes si usar////
 
             if(contador==0  && setFotoCategory==Variables.FOTO_LLEGADA ) { ///significa que es la primera pagina
               ///AGREGMAOS TEXTO
-                midocumentotoAddData.add(new Paragraph("ANEXOS").setFontSize(11f).setPaddingLeft(20f));
-                midocumentotoAddData.add(new Paragraph("* "+anexoNombre).setFontSize(11f).setPaddingLeft(30f));
+                midocumentotoAddData.add(new Paragraph("ANEXOS").setFontSize(10f).setPaddingLeft(50f).setBold().setMarginTop(2f));
+                midocumentotoAddData.add(new Paragraph("*  "+anexoNombre).setFontSize(10f).
+                        setPaddingLeft(60f).setMarginTop(1f).setBold());
+                isPosicion0AndNewAnexo=true;
+
             }
+
+
+            else if (contador==0  && setFotoCategory==Variables.FOTO_CONTENEDOR ) { ///significa que es la primera pagina
+                ///AGREGMAOS TEXTO
+                midocumentotoAddData.add(new Paragraph(anexoNombre).setFontSize(10f).setBold().setMarginTop(2f).setTextAlignment(TextAlignment.CENTER));
+
+                Log.i("sajsdfgfsd","es foto contenedor ");
+
+                isPosicion0AndNewAnexo=true;
+
+            }
+
+
+            else if (contador==0  && setFotoCategory==Variables.FOTO_SELLO_LLEGADA ) { ///significa que es la primera pagina
+                ///AGREGMAOS TEXTO
+                midocumentotoAddData.add(new Paragraph(anexoNombre).setFontSize(10f).setBold().setMarginTop(2f).setTextAlignment(TextAlignment.CENTER));
+                Log.i("sajsdfgfsd","es foto contenedor ");
+
+                isPosicion0AndNewAnexo=true;
+
+            }
+
+
+
+
+
+
+
+
+
             Log.i("homero","el posicion las element en comprobacion es  "+posicionLastELEMENTAd);
 
             /**chekeamos si cremos otra pagina*/
                 if(posicionLastELEMENTAd<150){
+
+                    Log.i("sajsdfgfsd","creamos una nueva pagina y el id es: "+setFotoCategory);
+
+
                     Log.i("homero","creamos una nueva pagina ");
 
                     midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                    HelperPdf pdfHelper= new HelperPdf();
-                   Image imglogqSercom=pdfHelper.createInfoImgtoPDF(contexto.getDrawable(R.drawable.headerpdf),1);
+                   // HelperPdf pdfHelper= new HelperPdf();
+                  // Image imglogqSercom=pdfHelper.createInfoImgtoPDF(contexto.getDrawable(R.drawable.headerpdf),1);
                     // imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-                    midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+                   // midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
                 }
 
 
@@ -85,7 +128,7 @@ public class HelperAdImgs {
 
             if(patronEncontrado== Variables.TRES_IMGS_VERTCLES){
                 wehaveAddSpaceyIndescrip =false;
-                Log.i("contaburx","es Variables.TRES_IMGS_VERTCLES");
+                Log.i("PATRONX","es Variables.TRES_IMGS_VERTCLES");
                 addImagenSet(Variables.TRES_IMGS_VERTCLES,midocumentotoAddData,pageSize);
                 //ENTONCES ESTOS ENCONTRADOS LOS PONEMOS QUE YA SE USARON.....
 
@@ -93,7 +136,7 @@ public class HelperAdImgs {
             }
 
             else if(patronEncontrado == Variables.DOS_IMGS_VERTICALES) {
-                Log.i("contaburx","es el DOS_IMGS_VERTICALES ");
+                Log.i("PATRONX","es el DOS_IMGS_VERTICALES ");
                 wehaveAddSpaceyIndescrip =false;
 
                 addImagenSet(Variables.DOS_IMGS_VERTICALES,midocumentotoAddData,pageSize);
@@ -102,7 +145,7 @@ public class HelperAdImgs {
             }
 
             else if(patronEncontrado == Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL) {
-                Log.i("contaburx","es  UNAVERTICAL_Y_OTRA_HORIZONTAL");
+                Log.i("PATRONX","es  UNAVERTICAL_Y_OTRA_HORIZONTAL");
                 wehaveAddSpaceyIndescrip =false;
 
                 addImagenSet(Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL,midocumentotoAddData,pageSize);
@@ -112,7 +155,7 @@ public class HelperAdImgs {
 
 
             else if(patronEncontrado == Variables.DOS_HORIZONTALES) {
-                Log.i("contaburx","es el DOS_HORIZONTALES ");
+                Log.i("PATRONX","es el DOS_HORIZONTALES ");
                 wehaveAddSpaceyIndescrip =false;
 
                 addImagenSet(Variables.DOS_HORIZONTALES,midocumentotoAddData,pageSize);
@@ -120,10 +163,21 @@ public class HelperAdImgs {
 
             }
 
+            else if(patronEncontrado == Variables.UNA_HORIZONTAL) {
+                Log.i("PATRONX","es el UNA_HORIZONTAL ");
+                wehaveAddSpaceyIndescrip =false;
+
+                addImagenSet(Variables.UNA_HORIZONTAL,midocumentotoAddData,pageSize);
+
+
+            }
+
+
+
 
 
             else if(patronEncontrado == Variables.DEFAULNO_ENCONTRO_NADA) {
-                Log.i("contaburx","es el  DEFAULNO_ENCONTRO_NADA");
+                Log.i("PATRONX","es el  DEFAULNO_ENCONTRO_NADA");
                 wehaveAddSpaceyIndescrip =false;
 
                 addImagenSet(Variables.DEFAULNO_ENCONTRO_NADA,midocumentotoAddData,pageSize);
@@ -145,69 +199,121 @@ public class HelperAdImgs {
                 contadorIMagesUsadas++;
 
 
-
-            }else{
-
-                break;
             }
 
             //primero si podemos poner las 3 primeras imagenes....
             //comprobamos que existan al menos 3 imagenes
 
-
         }
 
         Log.i("contabur","hay "+contadorIMagesUsadas +" imagenes usadas");
 
-
+        /*
         if(contadorIMagesUsadas== list.size() || contadorIMagesUsadas== list.size()-1 ){ //o si solo queda 1
 
+        return true;
+        }
+
+        else{return false;
+
+        }
+*/
+
+
+
+
+
+
+
+/*
+        if(contadorIMagesUsadas== list.size() || contadorIMagesUsadas== list.size()-1 ){ //o si solo queda 1
+
+        return true;
+        }
+
+        else{return false;
+
+        }
+*/
+
+
+
+
+        if(contadorIMagesUsadas ==list.size()){
+
             return true;
+
         }else{
+
             return false;
 
         }
+
+
+
+
     }
+
+
+
+
     private static void addImagenSet(int tipoOrdenImgs, Document docuemnto,  PageSize pageSize){
 
         float espacioDisponibleHorizontal=pageSize.getWidth()-100f; //
         //si hay texto o comentario le restamos menos espacio....
 
+        float heigthImg=232;
+        float widthImg=(pageSize.getWidth()-70f)/3;
+
+        if(isPosicion0AndNewAnexo){
+            heigthImg=heigthImg+10;
+            isPosicion0AndNewAnexo=false;
+        }
+
+
+
         float espacioDisponibleVertical=pageSize.getHeight()-200; //
         //si hay texto o comentario le restamos menos espacio....
 
-
-
+        Cell cell;
 
         //comprobar en que linea ... comprobar la posicion de la ultima
         if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){ //modo 3 imagenes en una linea...
             Log.i("contabur","hay 3 imagenes verticales hurrazzx");
+          //  float [] tableWidth  = {1,1,1} ;
+            Log.i("contabur","hay 3 imagenes verticales hurrazzx");
             float [] tableWidth  = {1,1,1} ;
 
             Table table = new Table(tableWidth,true);
-           // table.setHeight(200);  //Primera tabla ///este ancho...
+            // table.setHeight(200);  //Primera tabla ///este ancho...
 
 
             Image imagVertical1=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
             imagVertical1.setAutoScale(true);
+           //   imagVertical1.scaleToFit((pageSize.getWidth()-20f)/3,230);
+            imagVertical1.scaleAbsolute(widthImg,heigthImg);
 
-          //  imagVertical1.scaleToFit((pageSize.getWidth()-20f-20f)/3,230);
-
-            Cell cell1 = new Cell().add(imagVertical1);
-            table.addCell(cell1);
-
-
-            Image imagVertical2=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
-            imagVertical2.setAutoScale(true);
-            Cell cell2 = new Cell().add(imagVertical2);
-            table.addCell(cell2);
+            cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical1);
+            table.addCell(cell);
 
 
-            Image imagVertical3=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
-            imagVertical3.setAutoScale(true);
-            Cell cell3 = new Cell().add(imagVertical3);
-            table.addCell(cell3);
-            table.setHeight(230);  //Primera tabla ///este ancho...
+             imagVertical1=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
+            imagVertical1.setAutoScale(true);
+            imagVertical1.scaleAbsolute(widthImg,heigthImg);
+
+            cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical1);
+            table.addCell(cell);
+
+
+             imagVertical1=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+            imagVertical1.setAutoScale(true);
+            imagVertical1.scaleAbsolute(widthImg,heigthImg);
+
+            cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical1);
+            table.addCell(cell);
+            table.setHeight(heigthImg);  //Primera tabla ///este ancho...
+
+
             configtable(table,pageSize);
             docuemnto.add(table);
 
@@ -216,32 +322,41 @@ public class HelperAdImgs {
             Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() ES "+posicionLastELEMENTAd);
             markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podem
 
-            //vamos a crear otra pagina ahora....
-
 
 
         }
 
 
         else if(tipoOrdenImgs==Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL){ //1 vertical y otro horizontal en la misma linea
-                  float [] tableWidth  = {2,1} ;
+                  float [] tableWidth  = {1,1} ;
                  Table table = new Table(tableWidth,true);
-                 table.setHeight(espacioDisponibleVertical/2);  //Primera tabla
-
 
                  Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
                  imagVertical.setAutoScale(true);
-                 Cell cell1 = new Cell().add(imagVertical);
-                 table.addCell(cell1);
+                 imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+                 imagVertical.setMarginRight(10f);
+
+
+
+                  cell = new Cell().add(imagVertical).setBorder(Border.NO_BORDER);
+
+
+                 table.addCell(cell);
 
 
                  Image imgHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
                  imgHorizontal.setAutoScale(true);
-                 Cell cell2 = new Cell().add(imgHorizontal);
-                table.addCell(cell2);
-                table.setHeight(230);  //Primera tabla ///este ancho...
-            configtable(table,pageSize);
+            //imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+                 imagVertical.setMarginLeft(10f);
+                 cell = new Cell().add(imgHorizontal).setBorder(Border.NO_BORDER);
+                 table.addCell(cell);
 
+            table.setWidth((widthImg*2)+80f);
+            table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            table.setMarginTop(8f);
+            table.setHeight(heigthImg);
+
+          //  configtable(table,pageSize);
 
             docuemnto.add(table);
 
@@ -260,7 +375,6 @@ public class HelperAdImgs {
         else if(tipoOrdenImgs==Variables.DOS_IMGS_VERTICALES){ //2 imagenes verticales en una linea
 
 
-
             if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
                 addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion,docuemnto);
               //  LARGO_iMG_VERTICAL_=LARGO_iMG_VERTICAL_-10;
@@ -269,29 +383,43 @@ public class HelperAdImgs {
 
             float [] tableWidth  = {1,1} ;
             Table table = new Table(tableWidth,true);
-            table.setHeight(280);  //Primera tabla ///este ancho...
-
-
+          //  table.setHeight(280);  //Primera tabla ///este ancho...
 
 
             Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
             imagVertical.setAutoScale(true);
-            Cell cell1 = new Cell().add(imagVertical);
-            table.addCell(cell1);
+            imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+            imagVertical.setMarginRight(10f);
+            //imagVertical.scaleAbsolute(widthImg,heigthImg);
+
+            cell = new Cell().add(imagVertical);
+            cell.setBorder(Border.NO_BORDER);
+            table.addCell(cell);
 
 
             Image imgHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
             imgHorizontal.setAutoScale(true);
-            Cell cell2 = new Cell().add(imgHorizontal);
-            table.addCell(cell2);
-            table.setHeight(230);  //Primera tabla ///este ancho...
-            configtable(table,pageSize);
+            imagVertical.setMarginLeft(10f);
+           // imagVertical.scaleAbsolute(widthImg,heigthImg);
+
+             cell = new Cell().add(imgHorizontal);
+            cell.setBorder(Border.NO_BORDER);
+            table.addCell(cell);
+
+            table.setHeight(heigthImg);  //Primera tabla ///este ancho...
+            table.setWidth((widthImg*2)+50f);
+            table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            table.setMarginTop(8f);
+
+
+
+          //  configtable(table,pageSize);
 
             docuemnto.add(table);
             Variables.currentPoscion = docuemnto.getRenderer().getCurrentArea().getBBox().getBottom();
            // Log.i("samledtaa","el mi logoqsercom "+ Variables.currentPoscion);
 
-            docuemnto.add(table);
+           // docuemnto.add(table);
             Rectangle remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
             posicionLastELEMENTAd = remaining.getTop();
             Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() ES "+posicionLastELEMENTAd);
@@ -313,6 +441,9 @@ public class HelperAdImgs {
 
 
 
+            Log.i("PATRONX","el size de image HelperImage.imagesSetToCurrentFila es : "+HelperImage.imagesSetToCurrentFila.size());
+
+
             markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
 
 
@@ -324,39 +455,64 @@ public class HelperAdImgs {
         else if(tipoOrdenImgs==Variables.DOS_HORIZONTALES){ //2 imagenes verticales en una linea
             float [] tableWidth  = {1,1} ;
             Table table = new Table(tableWidth,true);
-            table.setHeight(280);  //Primera tabla ///este ancho...
 
-            Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
-            imagVertical.setAutoScale(true);
-            Cell cell1 = new Cell().add(imagVertical);
-            table.addCell(cell1);
+            Image imagHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+            imagHorizontal.setAutoScale(true);
+            imagHorizontal.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+            imagHorizontal.setMarginRight(10f);
+            cell = new Cell().add(imagHorizontal).setBorder(Border.NO_BORDER);
+            table.addCell(cell);
 
 
-            Image imgHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
-            imgHorizontal.setAutoScale(true);
-            Cell cell2 = new Cell().add(imgHorizontal);
-            table.addCell(cell2);
-            table.setHeight(230);  //Primera tabla ///este ancho...
-            configtable(table,pageSize);
+            imagHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
+            imagHorizontal.setAutoScale(true);
+            imagHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            imagHorizontal.setMarginLeft(10f);
+
+             cell = new Cell().add(imagHorizontal).setBorder(Border.NO_BORDER);
+            table.addCell(cell);
+            table.setHeight(heigthImg);  //Primera tabla ///este ancho...
+            table.setWidth(pageSize.getWidth());
+            table.setMarginLeft(25f);
+            table.setMarginRight(25f);
+
+            //configtable(table,pageSize);
 
             docuemnto.add(table);
             Variables.currentPoscion = docuemnto.getRenderer().getCurrentArea().getBBox().getBottom();
             // Log.i("samledtaa","el mi logoqsercom "+ Variables.currentPoscion);
 
-            docuemnto.add(table);
             Rectangle remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
             posicionLastELEMENTAd = remaining.getTop();
             Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() ES "+posicionLastELEMENTAd);
 
+            markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
 
 
 
-            Log.i("contabur","es el horizontal true");
-          ///  addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion,left,docuemnto);
+        }else if(tipoOrdenImgs==Variables.UNA_HORIZONTAL){
+
+            Table table = new Table(1,true);
+
+            Image imagHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+            imagHorizontal.setAutoScale(true);
+            cell = new Cell().add(imagHorizontal).setBorder(Border.NO_BORDER);
+            table.addCell(cell);
 
 
-          //  addTexDescripTOiMGSiHay(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion,left);
+            table.setHeight(heigthImg);  //Primera tabla ///este ancho...
+            table.setWidth(pageSize.getWidth());
+            table.setMarginLeft(40f);
+            table.setMarginRight(40f);
 
+            //configtable(table,pageSize);
+
+            docuemnto.add(table);
+            Variables.currentPoscion = docuemnto.getRenderer().getCurrentArea().getBBox().getBottom();
+            // Log.i("samledtaa","el mi logoqsercom "+ Variables.currentPoscion);
+
+            Rectangle remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
+            posicionLastELEMENTAd = remaining.getTop();
 
             markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
 
@@ -387,9 +543,10 @@ public class HelperAdImgs {
 
         table1.setWidth(pageSize.getWidth()-20f);
         table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table1.setMarginTop(8f);
+
         table1.setMarginLeft(10f);
         table1.setMarginRight(10f);
-        table1.setMarginTop(8f);
     }
 
     public static void addTexDescripTOiMGSiHay(String textoDescripcion,Document document){

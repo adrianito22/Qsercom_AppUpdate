@@ -141,6 +141,16 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int  DOS_IMGS_VERTICALES= 2502 ;
     public static final int  DOS_HORIZONTALES= 2503 ;
     public static final int  DEFAULNO_ENCONTRO_NADA= 2504 ;
+    public static final int  UNA_HORIZONTAL= 2505 ;
+    public static final int  UNA_VERTICAL= 2506 ;
+
+
+    public static final int  UNA_HORIZONTAL_ULTIMA_Y_PRIMERA_PAG= 2507 ;
+    public static final int  UNA_VERTICAL_ULTIMA_Y_PRIMERA_PAG= 2508 ;
+
+
+
+
 
     public static HashMap<String, DatosDeProceso> mimapaDatosProcesMapCurrent=new HashMap<>();
 
