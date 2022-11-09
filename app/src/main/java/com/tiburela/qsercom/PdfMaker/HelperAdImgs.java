@@ -10,6 +10,7 @@ import android.util.Log;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
@@ -178,7 +179,7 @@ public class HelperAdImgs {
 
 
 
-
+        Cell cell1;
         //comprobar en que linea ... comprobar la posicion de la ultima
         if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){ //modo 3 imagenes en una linea...
             Log.i("contabur","hay 3 imagenes verticales hurrazzx");
@@ -193,20 +194,20 @@ public class HelperAdImgs {
 
           //  imagVertical1.scaleToFit((pageSize.getWidth()-20f-20f)/3,230);
 
-            Cell cell1 = new Cell().add(imagVertical1);
+             cell1 = new Cell().setBorder(Border.NO_BORDER).add(imagVertical1);
             table.addCell(cell1);
 
 
             Image imagVertical2=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
             imagVertical2.setAutoScale(true);
-            Cell cell2 = new Cell().add(imagVertical2);
-            table.addCell(cell2);
+             cell1 = new Cell().setBorder(Border.NO_BORDER).add(imagVertical2);
+            table.addCell(cell1);
 
 
             Image imagVertical3=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
             imagVertical3.setAutoScale(true);
-            Cell cell3 = new Cell().add(imagVertical3);
-            table.addCell(cell3);
+             cell1 = new Cell().setBorder(Border.NO_BORDER).add(imagVertical3);
+            table.addCell(cell1);
             table.setHeight(230);  //Primera tabla ///este ancho...
             configtable(table,pageSize);
             docuemnto.add(table);
@@ -231,14 +232,14 @@ public class HelperAdImgs {
 
                  Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
                  imagVertical.setAutoScale(true);
-                 Cell cell1 = new Cell().add(imagVertical);
+                  cell1 = new Cell().setBorder(Border.NO_BORDER).add(imagVertical);
                  table.addCell(cell1);
 
 
                  Image imgHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
                  imgHorizontal.setAutoScale(true);
-                 Cell cell2 = new Cell().add(imgHorizontal);
-                table.addCell(cell2);
+                  cell1 = new Cell().setBorder(Border.NO_BORDER).add(imgHorizontal);
+                table.addCell(cell1);
                 table.setHeight(230);  //Primera tabla ///este ancho...
             configtable(table,pageSize);
 
@@ -276,14 +277,14 @@ public class HelperAdImgs {
 
             Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
             imagVertical.setAutoScale(true);
-            Cell cell1 = new Cell().add(imagVertical);
+             cell1 = new Cell().setBorder(Border.NO_BORDER).add(imagVertical);
             table.addCell(cell1);
 
 
             Image imgHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
             imgHorizontal.setAutoScale(true);
-            Cell cell2 = new Cell().add(imgHorizontal);
-            table.addCell(cell2);
+            cell1 = new Cell().add(imgHorizontal);
+            table.addCell(cell1);
             table.setHeight(230);  //Primera tabla ///este ancho...
             configtable(table,pageSize);
 
@@ -328,14 +329,14 @@ public class HelperAdImgs {
 
             Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
             imagVertical.setAutoScale(true);
-            Cell cell1 = new Cell().add(imagVertical);
+             cell1 = new Cell().setBorder(Border.NO_BORDER).add(imagVertical);
             table.addCell(cell1);
 
 
             Image imgHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
             imgHorizontal.setAutoScale(true);
-            Cell cell2 = new Cell().add(imgHorizontal);
-            table.addCell(cell2);
+            cell1 = new Cell().add(imgHorizontal);
+            table.addCell(cell1);
             table.setHeight(230);  //Primera tabla ///este ancho...
             configtable(table,pageSize);
 

@@ -714,13 +714,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA,"FRUTAS EN FINCA",midocumentotoAddData,pageSize,PdfMaker2_0.this);
 
 
-        /**AGREGAMOS GRAFICOS ESTADISTICOS...*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        //agregamaos el header
-
-        //dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
-
-
         midocumentotoAddData.close();
 
 
