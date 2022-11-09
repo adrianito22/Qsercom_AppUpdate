@@ -702,15 +702,35 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         /**Agregamos anexos*/
+
+
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-
         /**FOTOS LLEGADA */
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA,"FRUTAS EN FINCA",midocumentotoAddData,pageSize,PdfMaker2_0.this);
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,PdfMaker2_0.this);
 
 
-        /**AGREGAMOS GRAFICOS ESTADISTICOS...*/
+        /**NOTA POR AHORA NO CREaremos muchos titulos en los anerxos  los agregamos directamente porque algunas categorias de imagenes se relacionan */
+
+        /**FOTOS PRODUCST POSTCOSECHA*/
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_PROD_POSTCOSECHA,"PRODUCTOS POSCOSECHA",midocumentotoAddData,pageSize,PdfMaker2_0.this);
+
+
+
+        /**FOTOS contenedor...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_CONTENEDOR,"*  APERTURA, INSPECCION Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,PdfMaker2_0.this);
+
+        /**FOTOS datos trasnportista...*/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_TRANSPORTISTA," ",midocumentotoAddData,pageSize,PdfMaker2_0.this);
+
+
+
+        /**DOCUMENTACION ...*/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"*  DOCUMENTACION",midocumentotoAddData,pageSize,PdfMaker2_0.this);
+
+
         //agregamaos el header
 
         //dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
