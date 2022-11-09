@@ -160,7 +160,12 @@ public class HelperPdf {
 
         return  image;
 
-    }
+
+
+       }
+
+
+
 
 
 

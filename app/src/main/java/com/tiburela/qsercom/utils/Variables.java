@@ -145,8 +145,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int  UNA_VERTICAL= 2506 ;
 
 
-    public static final int  UNA_HORIZONTAL_ULTIMA_Y_PRIMERA_PAG= 2507 ;
-    public static final int  UNA_VERTICAL_ULTIMA_Y_PRIMERA_PAG= 2508 ;
+    public static boolean   ES_ULTIMA_IMAGEN_Y_PRIMERA_PAGINA= true ;
 
 
 
