@@ -79,7 +79,7 @@ public class PdfMaker {
     public static void generaPdFtEST(Context context){
         pdfDocument = new PdfDocument();
 
-        /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth y pgae number que ahora es 1 */
+        /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth yPosicion pgae number que ahora es 1 */
         PdfDocument.PageInfo mypageInfo1 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
 
         // below line is used for setting
@@ -147,7 +147,7 @@ public class PdfMaker {
         pdfDocument = new PdfDocument();
         currentPosicionLastYcanvasElement=0;
 
-        /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth y pgae number que ahora es 1 */
+        /****creramos e inicilizamos un objeto page nfo que recibe como parametros un width.heigth yPosicion pgae number que ahora es 1 */
         PdfDocument.PageInfo mypageInfo1 = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
 
         // below line is used for setting
@@ -173,7 +173,7 @@ public class PdfMaker {
 
         //AGREGAMOS LAS TABLAS EN EL CANVAS
 
-        addNewTable(canvas, posicionYdondeStartDibujamos, mipaintLines, "ESTE ES EL PRIMERA TABLA y HEADER", Variables.FIRST_HEADER_OF_TABLE, informe1, informe2, productPostC);
+        addNewTable(canvas, posicionYdondeStartDibujamos, mipaintLines, "ESTE ES EL PRIMERA TABLA yPosicion HEADER", Variables.FIRST_HEADER_OF_TABLE, informe1, informe2, productPostC);
         addNewTable(canvas, currentPosicionLastYcanvasElement + 10, mipaintLines, "PRODUCTOS POST-COSECHA UTILIZADOS", Variables.TABLE_PRODUCTOS_POSTCOSECHA, informe1, informe2, productPostC);
         addNewTable(canvas, currentPosicionLastYcanvasElement + 10, mipaintLines, "Datos del contenedor", Variables.DATOS_DEL_CONTENEDOR, informe1, informe2, productPostC);
         addNewTable(canvas, currentPosicionLastYcanvasElement + 10, mipaintLines, "SEllOS LLEGADA", Variables.TABLE_SELLOS_LLEGADA, informe1, informe2, productPostC);
@@ -187,7 +187,7 @@ public class PdfMaker {
         PdfDocument.Page myPage2 = pdfDocument.startPage(mypageInfo2);
         Canvas canvas2 = myPage2.getCanvas();
 
-        //agregamos las imagen de header y la de footer
+        //agregamos las imagen de header yPosicion la de footer
         addImageHeaderFootterPDF( canvas2,context);
 
         //agregamos data
@@ -198,7 +198,7 @@ public class PdfMaker {
         addNewTable(canvas2, currentPosicionLastYcanvasElement + 10, mipaintLines, "DATOS DEl PROCESO", Variables.TABLE_DATOS_PROCESO, informe1, informe2, productPostC);
 
 
-        /**en esta ultima tabla agregamos demas columnas y contenido usando el siguioente metodo*/
+        /**en esta ultima tabla agregamos demas columnas yPosicion contenido usando el siguioente metodo*/
         addMoreDataDatosProceso(posicionYdeDataosProcesotabla, canvas2);
 
         currentPosicionLastYcanvasElement=currentPosicionLastYcanvasElement+10;
@@ -457,7 +457,7 @@ public class PdfMaker {
 
 
 
-            starYposicion= starYposicion+25; //actualizamos la posicion de donde termina el la posicino y del ultimo elemento
+            starYposicion= starYposicion+25; //actualizamos la posicion de donde termina el la posicino yPosicion del ultimo elemento
 
         }else {
 
@@ -468,7 +468,7 @@ public class PdfMaker {
             /***Creamos la primera LINEA DEL HEADER*/
             canvas.drawLine(START_X_POSICION,starYposicion-10,END_X_POSICION,starYposicion-10,mipaintLines);
 
-            /***Creamos el texto header y lo posicinamos dpenediendo*/
+            /***Creamos el texto header yPosicion lo posicinamos dpenediendo*/
 
             if(isAlignmentCenter) {
                 canvas.drawText(textHEader.toUpperCase(Locale.ROOT),  Math.round(595/2), starYposicion+2, mipaintHeader);
@@ -573,7 +573,7 @@ public class PdfMaker {
         canvas.drawText("NUMERACION DE RACIMOS " , START_X_POSICION+250, starYposicion+23, paintContentText);
         canvas.drawText("PORCENTAJE" , START_X_POSICION+410, starYposicion+23, paintContentText);
 
-        starYposicion= starYposicion+27; //actualizamos la posicion de donde termina el la posicino y del ultimo elemento
+        starYposicion= starYposicion+27; //actualizamos la posicion de donde termina el la posicino yPosicion del ultimo elemento
 
 
 
@@ -760,7 +760,7 @@ public class PdfMaker {
 
     private static void addNewTableSellosINtalados(Canvas canvas, int starYposicion, String textHEader,SetInformEmbarque2 infoem2) {
 
-        //este podemos agregar algo mas al metodo adnewtable y elimnar este metodo ,despues
+        //este podemos agregar algo mas al metodo adnewtable yPosicion elimnar este metodo ,despues
 
         int starYposicionDelPrincipio=starYposicion;
         //creamos el header de la tabla
@@ -782,7 +782,7 @@ public class PdfMaker {
         canvas.drawLine(START_X_POSICION,starYposicion-10,END_X_POSICION,starYposicion-10,mipaintLines);
 
 
-        /***Creamos el texto header y lo posicinamos en el centro*/
+        /***Creamos el texto header yPosicion lo posicinamos en el centro*/
         canvas.drawText(textHEader.toUpperCase(Locale.ROOT),  Math.round(595/2), starYposicion+2, paintHeader);
 
 
@@ -1164,7 +1164,7 @@ public class PdfMaker {
 
             // si existen al menos 3 para usar
 
-            //crea una lista de estos 3...y ponlos....
+            //crea una lista de estos 3...yPosicion ponlos....
 
 
             //primero si podemos poner las 3 primeras imagenes....
@@ -1215,8 +1215,8 @@ public class PdfMaker {
 
     private static void markImgComoUsada(ArrayList<ImagesToPdf> list){
 
-        //buscamos esos ids,, y marcamos como usado...
-        //vamos atenber dos listas.... una lista que es la litsa del conjunto actual y una lista que dice
+        //buscamos esos ids,, yPosicion marcamos como usado...
+        //vamos atenber dos listas.... una lista que es la litsa del conjunto actual yPosicion una lista que dice
 
 
         for(int i= 0; i<list.size(); i++){ ///
@@ -1295,7 +1295,7 @@ public class PdfMaker {
         }
 
 
-        else if(tipoOrdenImgs==Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL){ //1 vertical y otro horizontal en la misma linea
+        else if(tipoOrdenImgs==Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL){ //1 vertical yPosicion otro horizontal en la misma linea
 
 
             //primera imagen vertical
@@ -1425,7 +1425,7 @@ public class PdfMaker {
         }
 
 
-        //y oior ultimo si hay una imagen sola....tamnto vertical o horizontal ..no la aghregues ,,es una opcion
+        //yPosicion oior ultimo si hay una imagen sola....tamnto vertical o horizontal ..no la aghregues ,,es una opcion
 
 
 
@@ -1470,7 +1470,7 @@ public class PdfMaker {
             currentCanvasObjec.drawText(textoDescripcion, lef, poscYUltImgColoc, paintDescripcionImg);
 
             if(!wehaveAddSpaceyIndescrip){
-                poscYUltImgColoc=poscYUltImgColoc+10; //actualizamos la posicion de la y a mas 10 por ahora
+                poscYUltImgColoc=poscYUltImgColoc+10; //actualizamos la posicion de la yPosicion a mas 10 por ahora
                 wehaveAddSpaceyIndescrip =true;
             }
 
@@ -1478,7 +1478,7 @@ public class PdfMaker {
         /*
         else{
               if(wehaveAddSpaceyIndescrip){
-                  poscYUltImgColoc=poscYUltImgColoc-10; //actualizamos la posicion de la y a mas 10 por ahora
+                  poscYUltImgColoc=poscYUltImgColoc-10; //actualizamos la posicion de la yPosicion a mas 10 por ahora
                   wehaveAddSpaceyIndescrip =false;
 
               }
@@ -1525,7 +1525,7 @@ public class PdfMaker {
             //agegamos la descripcion de la primer imagen....
 
             if(!wehaveAddSpaceyIndescrip){
-                poscYUltImgColoc=poscYUltImgColoc+10; //actualizamos la posicion de la y a mas 10 por ahora
+                poscYUltImgColoc=poscYUltImgColoc+10; //actualizamos la posicion de la yPosicion a mas 10 por ahora
                 wehaveAddSpaceyIndescrip =true;
             }
 
@@ -1533,7 +1533,7 @@ public class PdfMaker {
         /*
         else{
               if(wehaveAddSpaceyIndescrip){
-                  poscYUltImgColoc=poscYUltImgColoc-10; //actualizamos la posicion de la y a mas 10 por ahora
+                  poscYUltImgColoc=poscYUltImgColoc-10; //actualizamos la posicion de la yPosicion a mas 10 por ahora
                   wehaveAddSpaceyIndescrip =false;
 
               }

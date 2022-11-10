@@ -10,6 +10,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -24,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
@@ -34,6 +40,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 //import com.itextpdf.kernel.layout.element.Table; //???? der any probllem?
 
 //write here which class not found and wirte whee you want to use i timport com.itextpdf.layout.element.Cell;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
@@ -53,12 +60,16 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.NameAndValue;
+import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
+
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -68,6 +79,13 @@ public class PdfMaker2_0 extends AppCompatActivity {
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
     ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
     HashMap <String, String> hasmapMapControlCalid;
+
+     ProgressBar progressBar2;
+    TextView txtTareaAqui;
+
+    LinearLayout layoutDown;
+    LinearLayout layoutGraficos;
+    Button btnDescargar ;
 
     ArrayList<String>listtoTableDescripcion=new ArrayList<>();
 
@@ -81,6 +99,31 @@ public class PdfMaker2_0 extends AppCompatActivity {
         ActivityFormularioDondeVino = getIntent().getIntExtra(Variables.KEY_PDF_MAKER,0);
 
 
+         progressBar2=findViewById(R.id.progressBar2);
+         txtTareaAqui=findViewById(R.id.txtTareaAqui);
+         layoutDown=findViewById(R.id.layoutDown);
+         btnDescargar=findViewById(R.id.btnDescargar) ;
+        layoutGraficos=findViewById(R.id.layoutGraficos) ;
+
+        btnDescargar.setEnabled(false);
+
+        btnDescargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                try {
+                    createPDFContenedores() ;
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+
+                }
+
+                generateUniqueIDtOForm();
+
+            }
+        });
+
+
         Log.i("debbdf","activity donde vino es "+ActivityFormularioDondeVino);
 
         if(ActivityFormularioDondeVino== Variables.FormPreviewContenedores){
@@ -91,6 +134,13 @@ public class PdfMaker2_0 extends AppCompatActivity {
             //obtenemos los hasmaps
 
                  //TENEMOS UNA LISTA CON LSO REPORTES
+
+
+            UpdateProgressAndText("Descargando Data",10);
+
+
+            Log.i("hameha","empezamos a crear data" );
+
 
                 for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
                   //decsrgamos hasmap control calidad
@@ -131,9 +181,16 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
+  private  void UpdateProgressAndText(String texto,int progressPercent) {
 
+      progressBar2.setProgress(progressPercent);
+      txtTareaAqui.setText(texto);
+
+  }
 
     public void createPDFContenedores() throws FileNotFoundException {
+
+
         String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         //doble chekeo si la current canvas object no fue terminada la finalizamos
         // pdfDocument.finishPage(currentPagePdfObjec) ;
@@ -166,7 +223,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
           /**CONFIGURAMOS OTRA VEZ EL MARGEN*/
-        midocumentotoAddData.setMargins(200, 0, 0, 0);
+        midocumentotoAddData.setMargins(190, 0, 105, 0);
 
 
         Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
@@ -202,7 +259,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         Table tableTitle=  new Table(1);
 
-        /**TABLE TITULO EXPORTADORA SOLICTADA y procesada*/
+        /**TABLE TITULO EXPORTADORA SOLICTADA yPosicion procesada*/
         Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
         Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITADA: BANDECUA MARCA DEL MONTE").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
         Cell cell3= new Cell().setBorder(Border.NO_BORDER)  .add(new Paragraph("EXPORTADORA PROCESADA LAT BIO")).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f);
@@ -229,7 +286,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         /**add primer cuadro..*/
-        //crea list de celds...y add values...
+        //crea list de celds...yPosicion add values...
         ArrayList<NameAndValue>dataTOtable1=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,1,Variables.currenProductPostCosecha);
         HashMap<String,Cell> listCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable1,50,0);
 
@@ -480,7 +537,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
              table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this,contadorTablas);
 
 
-              if( contadorTablas % 2==0){  //y si existen mas tablas y es un numero
+              if( contadorTablas % 2==0){  //yPosicion si existen mas tablas yPosicion es un numero
                   table1.setMarginTop(40f);
 
                   if(contadorTablas<ListWhitHashMapsControlCalidad.size()){ //signifca que quedan mas tablas
@@ -509,7 +566,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        /**Agregamos Certificacion texto y tabla*/
+
+
+        /**Agregamos Certificacion texto yPosicion tabla*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
         Paragraph title= new Paragraph("CERTIFICACION").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
@@ -544,7 +603,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        midocumentotoAddData.add(new Paragraph("Grafico 1.- Demostracion calidad total y danos - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+        midocumentotoAddData.add(new Paragraph("Grafico 1.- Demostracion calidad total y Posicion danos - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
          /**Agregamos pie  Grafico*/
          PieChart pieChart;
@@ -580,14 +639,14 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**Texto como verfiicadora tenemos...*/
 
         midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligacion de corregir estos danos en  la fruta para garantizar la calidad den la exportacion del banano  buscando siempre el bienestar de nuestro cliente").
-                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f).setPaddingRight(65f));
+                setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
 
         midocumentotoAddData.add(new Paragraph("CLIENTE AQUI").
                 setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
 
 
         midocumentotoAddData.add(new Paragraph("Atentamente,").
-                setFontSize(7.5f).setMarginTop(15f).setPaddingLeft(60f));
+                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
           /**NOMBRE DE LOS INSPECTORES*/
          table1=  HelperPdf.generaTableInspectores(Variables.CurrenReportPart3,pageSize.getWidth());
@@ -596,10 +655,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
          /**BAR CHART Sporcentaje de frutas*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-
-
-
 
 
 
@@ -623,11 +678,26 @@ public class PdfMaker2_0 extends AppCompatActivity {
                      .setPaddingLeft(60f).setBold();
             mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
-             if(contadorImageChar%2==0){  //es multiplo de 2
+          //  midocumentotoAddData.add(new Paragraph("textaqui").setFontSize(5f));
+
+            remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+            float y2 = remaining.getTop();
+
+
+            PdfCanvas canvas = new PdfCanvas(miPFDocumentkernel.getPage(5));
+            canvas.setStrokeColor(ColorConstants.RED).rectangle(remaining).stroke();
+
+
+            Log.i("posicuon","el posicon  es "+y2);
+
+
+
+
+            if(contadorImageChar%2==0){  //es multiplo de 2
                  mipara.setMarginTop(25f);
 
                  if(contadorImageChar<ListWhitHashMapsControlCalidad.size()){
-                     //cremoas nueva pagina siempre y cuando existan mas valores
+                     //cremoas nueva pagina siempre yPosicion cuando existan mas valores
                      midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                  }
 
@@ -671,9 +741,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-
-
-
         /**descripcion de defectos de fruta*/
 
         //agregamos el hedaer
@@ -703,10 +770,15 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**Agregamos anexos*/
 
+        UpdateProgressAndText("Agregando Fotos al Reporte",90);
+
+
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        /**FOTOS LLEGADA */
+
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,PdfMaker2_0.this);
+
+        /**FOTOS LLEGADA */
 
 
         /**NOTA POR AHORA NO CREaremos muchos titulos en los anerxos  los agregamos directamente porque algunas categorias de imagenes se relacionan */
@@ -736,7 +808,44 @@ public class PdfMaker2_0 extends AppCompatActivity {
         //dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
 
 
+
+
+
+
+
+
+
+
+        /**DEBUG*/
+
+
+        int aray[]= {Variables.FOTO_CONTENEDOR,Variables.FOTO_LLEGADA,
+                Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_PROD_POSTCOSECHA} ;
+
+
+        for(int indice=0; indice<aray.length; indice++){
+              int categoiria=aray [indice];
+
+              Log.i("categoriasxx","estos son los ids de la categoria : "+categoiria);
+
+            for(int indice2 = 0; indice2<HelperImage.imAGESpdfSetGlobal.size(); indice2++){
+
+                if(HelperImage.imAGESpdfSetGlobal.get(indice2).tipoImagenCategory==categoiria){
+
+                    Log.i("categoriasxx","el id  de esta imagen es : "+HelperImage.imAGESpdfSetGlobal.get(indice2).uniQueIdimgPertenece);
+
+
+                }
+
+
+            }
+
+
+        }
+
+
         midocumentotoAddData.close();
+        UpdateProgressAndText("Terminado",100);
 
 
     }
@@ -948,7 +1057,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
                             //   HashMap packinKey = dss.getValue( String.class);
 
                             //   Log.i("misadhd","el size del mapa es "+ packingListMap.size());
-                            Log.i("hameha","el key es "+key +"y el; field data es "+fieldData );
+                            Log.i("hameha","el key es "+key +"yPosicion el; field data es "+fieldData );
 
 
                             if (fieldData!=null) {///
@@ -966,6 +1075,11 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
                           if(iterador==Variables.listReprsVinculads.size() ){
+
+                              UpdateProgressAndText("Creando pdf",30);
+
+                              Log.i("hameha","recin terminamos de descrgar data" );
+
 
                               iterateCallDowldRechzadosDefects();
 
@@ -1011,7 +1125,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
                     String  fieldData =dss.getValue(String.class);
 
                     Log.i("debsumas","el key es "+key);
-                    Log.i("debsumas"," y el fiel data es "+fieldData);
+                    Log.i("debsumas"," yPosicion el fiel data es "+fieldData);
 
 
                     if (fieldData!=null && ! fieldData.equals("EMPTY")) {///
@@ -1035,12 +1149,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                     Log.i("comnadaer","llamaor crear pdf now"+hasmapMapControlCalid.size());
 
-                    try {
-                        createPDFContenedores() ;
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                    UpdateProgressAndText("Pdf esta listo",100);
 
-                    }
+
+                    layoutDown.setVisibility(LinearLayout.VISIBLE);
+                    btnDescargar.setEnabled(true);
+                    layoutGraficos.setVisibility(LinearLayout.GONE);
 
 
                     //HEMOS TERMINADO DE DESCRGAR TODOS...
@@ -1072,12 +1186,37 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
             String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyDondeEstaraHasmapDefecSelec();
             dowloadAllSelectDefectosPosiciones(currentlOCATIONwHEREisHAMAP,indice+ 1);
-
-
         }
+
 
     }
 
 
+
+    private void generateUniqueIDtOForm(){
+
+        SecureRandom random = new SecureRandom();
+        byte bytes[] = new byte[6];
+        random.nextBytes(bytes);
+
+       // String key = DatatypeConverter.printBase64Binary(random);
+
+        String key = new String(Base64.encodeBase64(bytes));
+
+
+        Log.i("misuperid","el id es "+key);
+
+    }
+
+
+
+    private void checkIFeXISTfILE(){
+        //PODEMOS USAR UN BUCLE POR 3 SEGUNDOS...
+
+        //Y USAR UN WHILE.... Y SI DENTRO DE ESTE TIMPO NO ENCONTRO FILE,,,
+        //SIGNIFCA QUE NO EXISTE EL FILE...
+
+
+    }
 
 }

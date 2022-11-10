@@ -7,25 +7,87 @@
     tools:context=".PdfMaker.PdfMaker2_0">
 
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChartView"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
-    </com.github.mikephil.charting.charts.BarChart>
+        <TextView
+            android:id="@+id/txtTareaAqui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:text="TextView"
+            android:textSize="16sp" />
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart_view"
-        android:layout_width="0dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barChartView" />
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutGraficos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart_view"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"
+                android:visibility="visible">
+
+            </com.github.mikephil.charting.charts.PieChart>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChartView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"
+                tools:ignore="MissingConstraints">
+
+            </com.github.mikephil.charting.charts.BarChart>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/icon_pdf_file" />
+
+            <Button
+                android:id="@+id/btnDescargar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Descargar" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

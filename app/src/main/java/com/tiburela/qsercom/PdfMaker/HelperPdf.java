@@ -402,7 +402,7 @@ public class HelperPdf {
 
 
 
-        }  ///falta datos de proceso y otro
+        }  ///falta datos de proceso yPosicion otro
 
 
 
@@ -1520,7 +1520,7 @@ public class HelperPdf {
 
                 for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
                          int posicionDefecto=Integer.parseInt(posicionDefectoEncontrados [indice2]);
-                         //posicion 0 y 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
+                         //posicion 0 yPosicion 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
                     defectsSeleccionList.add(new DefectsCantdad(0,arrayuDefectsSeleccNames[posicionDefecto]));
 
                         }
@@ -1555,7 +1555,7 @@ public class HelperPdf {
                 for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
 
                     int posicionDefecto=Integer.parseInt(posicionDefectoEncontrados [indice2]);
-                    //posicion 0 y 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
+                    //posicion 0 yPosicion 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
                     defectsEmpaque.add(new DefectsCantdad(0,arrayuDefectSeMPAQUENames[posicionDefecto]));
 
                 }
@@ -2010,7 +2010,7 @@ public class HelperPdf {
         float sizeColumnsx[]= {1,1,1,1};
        Table table1=  new Table(sizeColumnsx);
 
-       cell.add(new Paragraph("Certifico la calidsd y porcentaje de calidad "));
+       cell.add(new Paragraph("Certifico la calidsd yPosicion porcentaje de calidad "));
        table1.addCell(cell).setBorder(Border.NO_BORDER);
 
 
@@ -2134,7 +2134,7 @@ public class HelperPdf {
 
     // defectsSeleccionHashMapOfList = new HashMap<>();
     // defectsEmpaqueHashMapOfLists = new HashMap<>();
-           ///recorremos y buscamos este defecto
+           ///recorremos yPosicion buscamos este defecto
        //
 
          //agregamos los defectos empaque a map defectos alll
@@ -2154,7 +2154,7 @@ public class HelperPdf {
 
             ArrayList<DefectsCantdad>currentArraylist=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
 
-                       Log.i("SUEPREME","se llamo y el size es "+currentArraylist.size());
+                       Log.i("SUEPREME","se llamo yPosicion el size es "+currentArraylist.size());
 
                  for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){
                      defectOfItemHasmap=currentArraylist.get(indice2).getNombreDefect();
