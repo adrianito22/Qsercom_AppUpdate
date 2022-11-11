@@ -38,6 +38,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
+import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.utils.HelperImage;

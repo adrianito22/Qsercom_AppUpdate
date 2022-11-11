@@ -123,7 +123,7 @@
                     android:src="@drawable/ic_baseline_attach_file_24" />
 
                 <TextView
-                    android:id="@+id/textView53"
+                    android:id="@+id/txtNumReportsVinclds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Reportes Vinculados: 0" />

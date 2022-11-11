@@ -62,6 +62,7 @@ import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadP
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
+import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -90,7 +91,7 @@ import java.util.UUID;
 import com.tiburela.qsercom.R;
 
 
-public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener, CallbackUpdateNumsRepVincls {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -274,14 +275,10 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         Auth.initAuth(ActivityContenedores.this);
         Auth.signInAnonymously(ActivityContenedores.this);
 
-
+Log.i("hellosweer","se ehjecitp onstart");
 
         if(Variables.hayUnFormIncompleto){
-
-
             AddDataFormOfSharePrefe() ;
-
-            //
             Variables.hayUnFormIncompleto=false;
 
         }
@@ -1094,56 +1091,19 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
         Log.i("samerr", "se ejeduto el if ");
 
-    } else {
+    }
+
+    else
+
+    {
+
+
         Log.i("samerr", "se ejeduto el else ");
         txtAdviserDesvicunlar.setVisibility(TextView.VISIBLE);
         // btnSaveCambiosxxx.setVisibility(TextView.VISIBLE);
 
         txtAdviseer.setVisibility(TextView.GONE);
     }
-
-/*
-    btnSaveCambiosxxx.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //hacemos cambios...en caso que el hasmap sea mayor a cero..
-
-            if(CustomAdapter.idOFfORMScontrolCaldVds.size() >0){
-
-                Log.i("comerdd","hay alñmenos 1 vinculado");
-
-                StringJoiner joiner = new StringJoiner(",");
-                Log.i("datamapitkka","el string en btn save es   : "+CustomAdapter.idOFfORMScontrolCaldVds);
-
-
-                //iteramos hasmap
-                for(String value : CustomAdapter.idOFfORMScontrolCaldVds.values()){
-                    Log.i("datamapitkka","el string valu es  : "+value);
-                    joiner.add(value);
-                    CustomAdapter.idsFormsVinucladosCntres = joiner.toString(); // "01,02,03"
-
-                }
-               Log.i("datamapitkka","el text final es : "+ CustomAdapter.idsFormsVinucladosCntres);
-
-                bottomSheetDialog.dismiss();
-            }
-            else{ //significa que no hay ninguno vinculado
-             // CustomAdapter.idsFormsVinucladosCntres);
-
-                Log.i("comerdd","no hay ninguno vinculado");
-
-                CustomAdapter.idsFormsVinucladosCntres = null;
-
-                // CustomAdapter.idOFfORMScontrolCaldVds =null;
-                bottomSheetDialog.dismiss();
-
-            }
-
-
-        }
-    });
-*/
-
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityContenedores.this);
     CustomAdapter adapter = new CustomAdapter(ActivityContenedores.this, lista, generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
@@ -1336,8 +1296,9 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                     listForms.add(user);
                     listForms2.add(new CheckedAndAtatch(user.getSimpleDate(),user.getHacienda(),"Control calidad",true,String.valueOf(user.getUniqueId())));
-
                 }
+
+
 
                 //cuando las descrague todos
                 Log.i("salero","el list forms size es "+listForms.size());
@@ -4745,7 +4706,12 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
+    @Override
+    public void updateReportsVincyulados(int numReportesVinculados) {
+        TextView txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
 
+        txtNumReportsVinclds.setText(String.valueOf(listForms2.size()));
+    }
 
 
 

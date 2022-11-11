@@ -701,4 +701,38 @@ return
         return textInputEditText;
     }
 
+
+
+
+    public static
+          int generaNumsInformsAtach(String data) {
+
+        String arrayRepports [] =data.split(",") ;
+
+        int numsReports =0;
+
+        if(arrayRepports  ==null){
+            numsReports=0;
+
+        }
+
+        else if(arrayRepports.length ==0 ){
+            numsReports=0;
+
+
+        }
+
+
+        else if(arrayRepports.length >1 ){
+            numsReports=arrayRepports.length;
+
+        }
+
+
+        return numsReports;
+
+    }
+
+
+
 }

@@ -123,6 +123,9 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
     TextView txtAdviserDesvicunlar;
     ArrayList<ControlCalidad>listForms=new ArrayList<>();
 
+   TextView txtNumReportsVinclds;
+
+
     ArrayList<CheckedAndAtatch>listForms2=new ArrayList<>();
    private     long millisDateSelect=0;
     BottomSheetDialog bottomSheetDialog;
@@ -553,7 +556,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
         ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
         ediExtGanchoCi=findViewById(R.id.ediExtGanchoCi);
 
-
+        txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
 
 
         imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
@@ -4214,13 +4217,10 @@ return true;
         ediSelloAdesivoexpor.setText(info2Object.getSelloAdhesivoExportadora());
         esiSelloAdhNaviera.setText(info2Object.getSelloNaviera());
         ediOtherSellos.setText(info2Object.getOtrosSellosEspecif());
-
-
         ediCajasProcDesp.setText(info3Object.getEdiCajasProcDesp());
         ediRacimosCosech.setText(info3Object.getEdiRacimosCosech());
         ediRacimosRecha.setText(info3Object.getEdiRacimosRecha());
         ediRacimProces.setText(info3Object.getEdiRacimProces());
-
         ediExtCalid.setText(info3Object.getExtensionistCalid());
         ediExtCalidCi.setText(info3Object.getCI_extensionistCalid());
         ediExtRodillo.setText(info3Object.getExtensionistDeRodillo());
@@ -4228,7 +4228,11 @@ return true;
         ediExtGancho.setText(info3Object.getExtensionistEnGancho());
         ediExtGanchoCi .setText(info3Object.getCI_extensionistEnGancho());
 
+
+        txtNumReportsVinclds.setText(String.valueOf(generaNumsInformsAtach(info1Object.getAtachControCalidadInfrms())));
+
     }
+
 
 
 private void checkModeVisualitY(){

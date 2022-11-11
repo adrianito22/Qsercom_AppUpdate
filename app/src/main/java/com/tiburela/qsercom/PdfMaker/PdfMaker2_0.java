@@ -1203,7 +1203,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         String key = new String(Base64.encodeBase64(bytes));
 
-
         Log.i("misuperid","el id es "+key);
 
     }

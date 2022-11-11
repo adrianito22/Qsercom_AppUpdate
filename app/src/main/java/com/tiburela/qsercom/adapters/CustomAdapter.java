@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
+import com.tiburela.qsercom.activities.othersActivits.ActivityMenu;
+import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -24,6 +27,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     private static ClickListener clickListener;
     private View.OnClickListener listener;
 
+    CallbackUpdateNumsRepVincls callbackUpdateNumsRepVincls= new ActivityContenedores();
 
     private LayoutInflater inflater;
     public static ArrayList<CheckedAndAtatch> listCheckedAndAtatch;
@@ -197,6 +201,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 void udpdate() {
 
+
+
     for(CheckedAndAtatch value : listCheckedAndAtatch){
         Log.i("comerdd","itrando control calida list ye s "+value.isItemChek());
 
@@ -217,11 +223,21 @@ void udpdate() {
             Log.i("datamapitkka","el string valu es  : "+value);
             joiner.add(value);
             CustomAdapter.idsFormsVinucladosCntres = joiner.toString(); // "01,02,03"
-
         }
+
+
+
+
+        callbackUpdateNumsRepVincls.updateReportsVincyulados(true);
+
+
+
         Log.i("datamapitkka","el text final es : "+ CustomAdapter.idsFormsVinucladosCntres);
 
     }
+
+
+
     else{ //significa que no hay ninguno vinculado
         // CustomAdapter.idsFormsVinucladosCntres);
 
