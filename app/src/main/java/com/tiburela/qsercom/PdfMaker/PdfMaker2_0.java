@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 //import androidx.compose.ui.text.Paragraph;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -29,7 +28,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
@@ -40,7 +38,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 //import com.itextpdf.kernel.layout.element.Table; //???? der any probllem?
 
 //write here which class not found and wirte whee you want to use i timport com.itextpdf.layout.element.Cell;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
@@ -105,7 +102,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
          btnDescargar=findViewById(R.id.btnDescargar) ;
         layoutGraficos=findViewById(R.id.layoutGraficos) ;
 
-        btnDescargar.setEnabled(false);
+      //  btnDescargar.setEnabled(false);
+
 
         btnDescargar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -307,7 +305,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**productos postosecha*/
 
-        float sizeColumns2[]= {1,1};
+        float sizeColumns2[]= {190,1};
         table1=  new Table(sizeColumns2);
 
         Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f)
@@ -376,7 +374,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**SELLLOS INSTALADOS*/
 
 
-        float sizeColumns5[]= {1,2,1,1};
+        float sizeColumns5[]= {190,2,1,1};
         table1=  new Table(sizeColumns5);
 
         cell0= new Cell(1,4).add(new Paragraph("SELLLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
@@ -413,7 +411,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         ///AGREGAMOS LA IMAGEN HEADER AQUI
 
 
-        float sizeColumns6[]= {4,5};
+        float sizeColumns6[]= {190,5};
         table1=  new Table(sizeColumns6);
 
         cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
@@ -438,7 +436,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**DATOS DE PROCESO parte 1 */
 
-        float sizeColumns7[]= {1,2,2,2,2,2,2,2,2};
+        float sizeColumns7[]= {190,2,2,2,2,2,2,2,2};
         table1=  new Table(sizeColumns7);
 
 
@@ -458,7 +456,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**DATOS DE PROCESO parte 2 */
 
-        float sizeColumns8[]= {1,2,2,2,2};
+        float sizeColumns8[]= {190,2,2,2,2};
         table1=  new Table(sizeColumns8);
 
 
@@ -473,7 +471,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**DATOS DE PROCESO parte 3 */
 
-        float sizeColumns10[]= {1,1,1,1,1,1,1};
+        float sizeColumns10[]= {190,1,1,1,1,1,1};
         table1=  new Table(sizeColumns10);
 
 
@@ -485,7 +483,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        float araycolum[]= {1,2};
+        float araycolum[]= {190,2};
         table1=  new Table(araycolum);
 
         Cell cellHeader2= new Cell(1,2).setBackgroundColor(HelperPdf.rgbColorAzulClaro);
@@ -545,8 +543,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
                       midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
                   }
+              }
 
-              }else{ //si es la primera tabla de la pagina
+              else{ //si es la primera tabla de la pagina
 
                   table1.setMarginTop(10f);
 
@@ -578,12 +577,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         /**TEXTO SEGUNDA LINEA*/
-        table1=  HelperPdf.generateTexCertificationTable("SEMANA n AQUI");
-       // table1.setMarginLeft(60f);
-        table1.setWidth(pageSize.getWidth()-147f);  //ESTABA EM 120
-        table1.setMarginLeft(60f);
+        //table1=  HelperPdf.generateTexCertificationTable("MARCA AQUI");
+        title=HelperPdf.generateTexCertificoLaCALIDAD(Variables.listReprsVinculads.get(0).getMarcaCaja());
+        title.setMarginLeft(60f);
 
-        midocumentotoAddData.add(table1);
+        midocumentotoAddData.add(title);
+
 
         midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
         midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
@@ -618,8 +617,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
         Image imagen= HelperPdf.createImagebYbitmap(bitmap);
-        imagen.setWidth(150);
-        imagen.setHeight(150);
+
+
+        imagen.setWidth(120);
+        imagen.setHeight(120);
         imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
         //imagen.scaleToFit(1000,100); //estaba en 100
 
@@ -659,9 +660,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-
-
-
         BarChart barChartView;
         barChartView=findViewById(R.id.barChartView);
 
@@ -684,8 +682,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
             float y2 = remaining.getTop();
 
 
-            PdfCanvas canvas = new PdfCanvas(miPFDocumentkernel.getPage(5));
-            canvas.setStrokeColor(ColorConstants.RED).rectangle(remaining).stroke();
+             ///este codigo marcael area restante despues de agregar un elemento al pdf
+            //PdfCanvas canvas = new PdfCanvas(miPFDocumentkernel.getPage(5));
+            //canvas.setStrokeColor(ColorConstants.RED).rectangle(remaining).stroke();
 
 
             Log.i("posicuon","el posicon  es "+y2);
@@ -713,7 +712,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
             midocumentotoAddData.add(mipara);
 
             bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
+
             imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
+            imagen.setHeight(170f);
+
+            //////////////////
+
             imagen.setWidth(pageSize.getWidth()-145);
             //imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
@@ -845,7 +849,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         midocumentotoAddData.close();
-        UpdateProgressAndText("Terminado",100);
+       // UpdateProgressAndText("Terminado",100);
 
 
     }

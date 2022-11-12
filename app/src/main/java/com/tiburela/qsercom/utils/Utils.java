@@ -34,7 +34,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Utils {
-
+public static int numReportsVinculads=0;
 
     //aqui agudaremos el alto con el que tendremos que dibujar cada fila..
 
@@ -704,8 +704,7 @@ return
 
 
 
-    public static
-          int generaNumsInformsAtach(String data) {
+    public static int generaNumsInformsAtach(String data) {
 
         String arrayRepports [] =data.split(",") ;
 
@@ -713,19 +712,16 @@ return
 
         if(arrayRepports  ==null){
             numsReports=0;
-
         }
+
 
         else if(arrayRepports.length ==0 ){
             numsReports=0;
-
-
         }
 
 
-        else if(arrayRepports.length >1 ){
+        else{
             numsReports=arrayRepports.length;
-
         }
 
 

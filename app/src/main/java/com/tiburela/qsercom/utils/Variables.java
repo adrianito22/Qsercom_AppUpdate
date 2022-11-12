@@ -50,6 +50,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static final int   FormPackingList=10073;
     public static final int   FormMuestreoRechaz=10074;
 
+    public static   ProductPostCosecha productsGlobal;
 
     public static  int   tipoDeFoto;
     public static final int CREATE_NEW_FORM =1005;

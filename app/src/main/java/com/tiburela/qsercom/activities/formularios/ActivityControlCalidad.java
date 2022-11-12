@@ -3,6 +3,7 @@ package com.tiburela.qsercom.activities.formularios;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -450,6 +453,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         eventoUploadFormulario();
         addTOUCH();
 
+        configCertainSomeViewsAliniciar();
+
+
         if(Variables.hayUnFormIncompleto){
 
             TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
@@ -843,6 +849,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         imgSelecDefc3.setOnClickListener(this);
 
 
+        mEdiHoraInizz.setOnClickListener(this);
+        mEdiHoraTermizz.setOnClickListener(this);
+
+
+
         imgUpdateNumDedxClust.setOnClickListener(this);
         imgUpdateNumClusterxCaja.setOnClickListener(this);
         imgUpdateCalibBasalYapical.setOnClickListener(this);
@@ -883,6 +894,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         ediTimeHoraxx10.setOnClickListener(this);
 
         textView48.setOnClickListener(this);
+        mEdiFechazz.setOnClickListener(this);
 
 
 
@@ -1096,9 +1108,82 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 break;
 
 
+            case R.id.ediFechazz:
+                selecionaFecha();
+
+                break;
+
+            case R.id.ediHoraInizz:
+                showingTimePicker(view);
+
+                break;
+
+            case R.id.ediHoraTermizz:
+                showingTimePicker(view);
+
+                break;
+
         }
 
     }
+
+
+    private void configCertainSomeViewsAliniciar( ) { //configuraremos algos views al iniciar
+
+        disableEditText(mEdiFechazz);
+
+        disableEditText(mEdiHoraInizz);
+        disableEditText(mEdiHoraTermizz);
+
+
+
+
+    }
+
+    private void disableEditText(EditText editText) {
+
+        // editText.setFocusable(false);
+        // editText.setEnabled(false);
+        editText.setCursorVisible(false);
+        editText.setKeyListener(null);
+        //  editText.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+
+
+
+
+    void selecionaFecha(){
+
+
+        final Calendar cldr = Calendar.getInstance();
+        int year = cldr.get(Calendar.YEAR);
+        int daySemana = cldr.get(Calendar.DAY_OF_WEEK);
+        int mes = cldr.get(Calendar.MONTH);
+
+        // time picker dialog
+        DatePickerDialog picker = new DatePickerDialog(ActivityControlCalidad.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int mes, int daySemana) {
+
+                        mEdiFechazz.setText(daySemana+"/"+mes+"/"+year);
+
+                    }
+                }, year,  mes, daySemana);
+
+        picker.setButton(DialogInterface.BUTTON_POSITIVE, "OK", picker);
+        picker.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", picker);
+
+
+        picker.show();
+    }
+
+
+
+
+
+
     void  generatePercent(int numeroClustersInspecc)  {
 
         int porcetDefectFruta[] ={0,0,0,0,0,0,0,0,0,0,
@@ -1507,11 +1592,19 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                         else if (vista.getId()== R.id.ediTimeHoraxx10) {
                             ediTimeHoraxx10.setText(sHour + ":" + sMinute);
-
-
                         }
 
 
+                        else if (vista.getId()== R.id.ediHoraInizz) {
+                            mEdiHoraInizz.setText(sHour + ":" + sMinute);
+                             }
+
+
+                        else if (vista.getId()== R.id.ediHoraTermizz) {
+                            mEdiHoraTermizz.setText(sHour + ":" + sMinute);
+
+
+                        }
 
 
 
@@ -2318,12 +2411,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 else {
 
-                    double result= currentDecimalArray[indice] * Integer.parseInt(currentArrayofContainsDataNums[indice].getText().toString());
+                    double result= currentDecimalArray[indice] * Double.parseDouble(currentArrayofContainsDataNums[indice].getText().toString());
 
 
                     if(String.valueOf(result).length() >5)  {
-                        double roundDbl = Math.round(result*100.0)/100.0;
-                        result= roundDbl;
+                        result = Math.round(result*100.0)/100.0;
+
                     }
                     Log.i("dfgdf","el value es sssss "+String.valueOf(result))  ;
 

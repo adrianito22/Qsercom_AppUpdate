@@ -450,12 +450,12 @@
                     android:text="Guardar Cambios" />
 
                 <Button
-                    android:id="@+id/btnDowlPdf"
+                    android:id="@+id/btnGENERARpdf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/btn"
-                    android:text="Descargar Pdf " />
+                    android:text="Generar Pdf" />
 
                 <Button
                     android:id="@+id/btnGeneratePdfCliente"

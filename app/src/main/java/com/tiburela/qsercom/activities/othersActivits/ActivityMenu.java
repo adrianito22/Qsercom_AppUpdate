@@ -135,6 +135,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(checkIfExisteFormIcompleto(SharePref.KEY_CONTROL_CALIDAD)){
 
                    currentFormSelect=Variables.FormCantrolCalidad;
+
                     muestraDialog2Opciones(SharePref.KEY_CONTROL_CALIDAD);
 
                 }
@@ -541,19 +542,38 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                //le mostramos un sheet diciendole si esta seguro de esto...
+                DialogConfirmCreateNewForm OBJEC= new DialogConfirmCreateNewForm();
 
 
-              DialogConfirmCreateNewForm OBJEC= new DialogConfirmCreateNewForm();
+                if(currentFormSelect ==Variables.FormatDatsContAcopi) {
 
+                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityDatosContersEnAcopio.class,keyShareDelete);
+
+
+                }
+                else if(currentFormSelect ==Variables.FormPackingList){
+                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityPackingList.class,keyShareDelete);
+
+                }
+                else if(currentFormSelect ==Variables.FormCamionesyCarretasActivity){
+                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityReporteCalidadCamionesyCarretas.class,keyShareDelete);
+
+                }
+                else if(currentFormSelect ==Variables.FormMuestreoRechaz){
+
+                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityCuadMuestCalibAndRechaz.class,keyShareDelete);
+                }
+                else if(currentFormSelect ==Variables.FormCantrolCalidad){
+                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityControlCalidad.class,keyShareDelete);
+
+                }
+                else if(currentFormSelect ==Variables.FormPreviewContenedores
+                ){
+                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityContenedores.class,keyShareDelete);
+
+                }
 
                //DialogConfirmCreateNewForm.gotofragment(ActivityMenu.this);
-
-
-
-               OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityContenedores.class,keyShareDelete);
-
-
 
 
             }

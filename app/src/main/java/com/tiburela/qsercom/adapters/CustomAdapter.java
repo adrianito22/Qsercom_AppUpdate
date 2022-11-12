@@ -16,6 +16,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.othersActivits.ActivityMenu;
 import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
@@ -26,8 +27,6 @@ import java.util.StringJoiner;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>  implements   View.OnClickListener  {
     private static ClickListener clickListener;
     private View.OnClickListener listener;
-
-    CallbackUpdateNumsRepVincls callbackUpdateNumsRepVincls= new ActivityContenedores();
 
     private LayoutInflater inflater;
     public static ArrayList<CheckedAndAtatch> listCheckedAndAtatch;
@@ -218,7 +217,7 @@ void udpdate() {
         StringJoiner joiner = new StringJoiner(",");
 
 
-        //iteramos hasmap
+        //iteramos
         for(String value : CustomAdapter.idOFfORMScontrolCaldVds.values()){
             Log.i("datamapitkka","el string valu es  : "+value);
             joiner.add(value);
@@ -228,9 +227,10 @@ void udpdate() {
 
 
 
-        callbackUpdateNumsRepVincls.updateReportsVincyulados(true);
 
+      //  callbackUpdateNumsRepVincls.updateReportsVincyulados(CustomAdapter.idOFfORMScontrolCaldVds.size());
 
+        Utils.numReportsVinculads=CustomAdapter.idOFfORMScontrolCaldVds.size();
 
         Log.i("datamapitkka","el text final es : "+ CustomAdapter.idsFormsVinucladosCntres);
 
@@ -240,6 +240,9 @@ void udpdate() {
 
     else{ //significa que no hay ninguno vinculado
         // CustomAdapter.idsFormsVinucladosCntres);
+
+        Utils.numReportsVinculads=0;
+
 
         Log.i("comerdd","no hay ninguno vinculado");
 

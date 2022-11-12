@@ -105,8 +105,9 @@ import java.util.Objects;
 
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements
-        View.OnClickListener , View.OnTouchListener{
+        View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
+    ProductPostCosecha products;
     private String UNIQUE_ID_iNFORME;
     ProductPostCosecha productxGlobal=null;
     ProgressDialog pdialogff;
@@ -556,14 +557,14 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
         ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
         ediExtGanchoCi=findViewById(R.id.ediExtGanchoCi);
 
-        txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
 
+        txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
 
         imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
 
          fab = (FloatingActionButton) findViewById(R.id.fab);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
-        btnDowlPdf=findViewById(R.id.btnDowlPdf);
+        btnDowlPdf=findViewById(R.id.btnGENERARpdf);
 
         spFumigaCorL1=findViewById(R.id.spFumigaCorL1);
 
@@ -815,8 +816,13 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
 
        switch (view.getId()) {
 
-           case R.id.btnDowlPdf:
-               DowloadControlcalidadVinculadosandDecideIRpdfMAKER(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
+           case R.id.btnGENERARpdf:
+
+               ///cuandole da en genear obtenmos nuevamente la data
+
+               checkDataToCreatePdf();
+
+               //creamosel pdf con la data actual... excepto las imagenes...
 
                break;
 
@@ -1184,15 +1190,32 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
         bottomSheetDialog = new BottomSheetDialog(context);
 
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atachx);
+
+        bottomSheetDialog.setCancelable(false);
+
 //        CheckBox checkBx1 = bottomSheetDialog.findViewById(R.id.checkBx1);
         reciclerViewBottomSheet =bottomSheetDialog.findViewById(R.id.mirecyclerViewAtach);
         Spinner spinner=bottomSheetDialog.findViewById(R.id.spinnerSelectrodate);
         // spinner.setSelection(posicionSelectedSpinnerx);
+        ImageView imgClose=bottomSheetDialog.findViewById(R.id.imgClose);
 
 
         // reciclerView.setHasFixedSize(true);
         txtAdviseer=bottomSheetDialog.findViewById(R.id.txtAdviseer);
         txtAdviserDesvicunlar=bottomSheetDialog.findViewById(R.id.txtAdviserDesvicunlar);
+
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculads));
+
+
+                bottomSheetDialog.dismiss();
+
+            }
+        });
+
 
 
         if(existeValues){
@@ -2141,7 +2164,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 }
 
-void checkDataFields(){ //
+void checkDataFields(){
 
   //  checkDatosGeneralesIsLleno();
 
@@ -2266,11 +2289,217 @@ void checkDataFields(){ //
 }
 
 
+    void checkDataToCreatePdf(){
+
+        //  checkDatosGeneralesIsLleno();
+
+
+        //ES ETEST
+
+
+        if(! checkDatosGeneralesIsLleno()){
+
+            Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
+            return;
+        }
+
+
+        else{
+            Log.i("test001","si esta lleno checkDatosGeneralesIsLleno ");
+
+        }
+
+
+
+        if(! checkcantidadPostcosechaIsLleno()){
+
+
+            Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
+            return;
+        }else{
+            Log.i("test001","si esta lleno checkcantidadPostcosechaIsLleno ");
+
+        }
+
+
+        if(! checkDatosContenedorIsLleno()){
+            Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
+
+            return;
+        }else{
+
+            Log.i("test001","si  esta lleno  checkDatosContenedorIsLleno");
+        }
+
+
+        if(! checkDataSellosLlegadaIsLleno()){
+            Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
+
+            return;
+        }else{
+
+            Log.i("test001","si  esta lleno  checkDataSellosLlegadaIsLleno");
+
+
+        }
+
+
+        if(! checkSellosInstaladosIsLleno()){
+            Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
+
+            return;
+        }else{
+
+            Log.i("test001","si  esta lleno  checkSellosInstaladosIsLleno");
+
+
+        }
+
+
+        if(! checkDatosTransportistaIsLleno()){
+            Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
+
+            return;
+        }else{
+
+            Log.i("test001","si  esta lleno  checkDatosTransportistaIsLleno");
+
+
+        }
+
+
+        if(! checkDatosProcesoIsLleno()){
+            Log.i("test001","no esta lleno  checkDatosProcesoIsLleno");
+
+            return;
+        }else{
+
+            Log.i("test001","si  esta lleno  checkDatosProcesoIsLleno");
+
+
+        }
+
+        if(! checkDatosHaciendaIsLleno()){
+            Log.i("test001","no esta lleno  checkDatosHaciendaIsLleno");
+
+            return;
+        }else{
+
+            Log.i("test001","si  esta lleno  checkDatosHaciendaIsLleno");
+
+
+        }
+
+
+        if(! checkQueexistminim()){
+            Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
+
+            return;
+        }else
+
+        {
+
+            Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
+
+
+        }
+
+
+        uipdateInformeWhitCurrentDataOfViews();
+
+        updaTeProductsPostCosecha(); //actualizamos estetambien
+
+        DowloadControlcalidadVinculadosandDecideIRpdfMAKER(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
+
+
+    }
+
+
+
+
 private void openBottomSheet(){
 
     DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(Variables.FormPreviewContenedores);
     addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
 }
+
+    private void uipdateInformeWhitCurrentDataOfViews(){
+
+        //aplicamos la logica PARA CREAR UN NUEVO INFORME
+//SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
+        Variables.CurrenReportPart1  = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
+                Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
+                ,ediProductor.getText().toString(),ediCodigo.getText().toString()
+                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
+                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
+                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
+                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
+                FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
+                ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
+                ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
+                ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
+                ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
+        Variables.CurrenReportPart1.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+        Variables.CurrenReportPart1.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosCntres);
+
+        Log.i("eldtatashd","el string atch es "+CustomAdapter.idsFormsVinucladosCntres);
+
+
+        if(millisDateSelect >0){
+
+            ////CONVERTIMOS A SIMPLE DATE FORMAT
+            Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+            String fechaString = formatter.format(Variables.CurrenReportPart1.getFechaCreacionInf());
+            Variables.CurrenReportPart1.setSimpleDataFormat(fechaString);
+            Variables.CurrenReportPart1.setFechaCreacionInf(millisDateSelect);
+
+
+        }
+
+
+
+
+        Variables.CurrenReportPart2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
+                ,ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString(),
+                ediUbicacion1.getText().toString(),ediUbicacion2.getText().toString(),ediRuma1.getText().toString(),ediRuma2.getText().toString()
+                ,ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),
+                ediSelloPlasticoNaviera.getText().toString(),ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),
+                ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString(),FieldOpcional.otrosSellosInstalaEsp,
+                ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(),ediCedula.getText().toString(),
+                ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
+                ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
+                ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
+                switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
+
+        Variables.CurrenReportPart2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+
+        Variables.CurrenReportPart3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),
+
+                spFumigaCorL1.getSelectedItem().toString(),
+                spTipoBoquilla.getSelectedItem().toString()
+                // ediFumigacionClin1.getText().toString()
+
+                //ediTipoBoquilla.getText().toString()
+
+                ,ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString()
+                ,UNIQUE_ID_iNFORME,ediExtCalid.getText().toString(),ediExtCalidCi.getText().toString());
+
+        updateDatosEvaludoresOFinforme3( Variables.CurrenReportPart3);
+
+        Variables.CurrenReportPart3.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+        updateCaledarioEnfunde(Variables.CurrenReportPart3);
+
+
+
+
+
+    }
+
 
 
 private void createObjcInformeAndUpload(){
@@ -2434,8 +2663,11 @@ private void createObjcInformeAndUpload(){
         //agr5egamos la data finalemente
 
 
-         ProductPostCosecha products= onlYCreatrePrudcPostCosecha();
+         products= onlYCreatrePrudcPostCosecha();
+
          generateAnDowloadPdf(informe,informe2,products);
+
+
 
     }
 
@@ -2453,7 +2685,20 @@ private void createObjcInformeAndUpload(){
 
                 Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
+
+
+
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
+
+
+
+                try {
+                    HelperImage.ImagesToPdfMap.remove(v.getTag().toString());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 Log.i("mispiggi","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
                 showImagesPicShotOrSelectUpdateView(true);
@@ -3499,7 +3744,113 @@ return true;
     }
 
 
+
+
+    private void  updaTeProductsPostCosecha(){
+
+        products=new ProductPostCosecha(UNIQUE_ID_iNFORME);
+        //creamos un array de editext
+        products.keyFirebase=productxGlobal.keyFirebase;
+
+        EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
+                ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+
+
+        for (int indice =0; indice<editextArray.length; indice++) {
+            EditText currentEditext=editextArray[indice];
+            if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
+                if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
+                {
+
+                    switch (currentEditext.getId()){
+
+                        case R.id.ediPPC01:
+                            products.alumbre=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC02:
+                            products.bc100=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC03:
+                            products.sb100=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC04:
+                            products.eclipse=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC05:
+                            products.acido_citrico=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC06:
+                            products.biottol=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC07:
+                            products.bromorux=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC08:
+                            products.ryzuc=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC09:
+                            products.mertec=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC010:
+                            products.sastifar=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC011:
+                            products.xtrata=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC012:
+                            products.nlarge=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC013:
+                            products.gib_bex=currentEditext.getText().toString();
+                            break;
+
+
+
+                        case R.id.ediPPC014:
+                            products.cloro=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC015:
+                            products.otro_especifique=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC016:
+                            products.cantidadOtro=currentEditext.getText().toString();
+                            break;
+
+
+                    }
+
+                }
+
+
+            }
+
+            //si el editext tiene data lo corregimos usando la propiedad hint
+
+
+        }
+
+
+
+    }
+
+
+
+
     private void  addProdcutsPostCosechaAndUpload(){
+
         ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
         //creamos un array de editext
         producto.keyFirebase=productxGlobal.keyFirebase;
@@ -4228,8 +4579,9 @@ return true;
         ediExtGancho.setText(info3Object.getExtensionistEnGancho());
         ediExtGanchoCi .setText(info3Object.getCI_extensionistEnGancho());
 
+        txtNumReportsVinclds.setText(String.valueOf(Utils.generaNumsInformsAtach(info1Object.getAtachControCalidadInfrms())));
 
-        txtNumReportsVinclds.setText(String.valueOf(generaNumsInformsAtach(info1Object.getAtachControCalidadInfrms())));
+
 
     }
 
@@ -4323,6 +4675,9 @@ private void checkModeVisualitY(){
 
 
     void addInfotomap(ArrayList<ImagenReport>listImagenReports){
+       //
+
+
         ImagenReport.hashMapImagesData= new HashMap<>();
 
         //agregamos adata al mapusnado un bucle
@@ -4617,12 +4972,13 @@ private void checkModeVisualitY(){
 
                         ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId,descripcionImage);
 
-                        HelperImage.imAGESpdfSetGlobal.add(imgsObect);
-                        HelperImage.ImagesToPdfMap.put(uniqueId,imgsObect);
+                    //   HelperImage.imAGESpdfSetGlobal.add(imgsObect);
+
+                       HelperImage.ImagesToPdfMap.put(uniqueId,imgsObect);
+
 
                         Log.i("hamiso","el size de la lista de Variables.listImagenData es "+Variables.listImagenData.size());
-                        Log.i("hamiso","el size del map es "+HelperImage.ImagesToPdfMap.size());
-
+                       // Log.i("hamiso","el size del map es "+HelperImage.ImagesToPdfMap.size());
                         ///llamamos a este otro metodo .......
                              contadorIterador++;
                         Log.i("hamiso","el contador iteradopr "+ contadorIterador);
@@ -4631,13 +4987,12 @@ private void checkModeVisualitY(){
 
 
                         if(contadorIterador == miLisAllImages.size() ) {
-
                             createlistsForReciclerviewsImages(Variables.listImagenData);
                                 Log.i("hamiso","se llamokkk");
                                 Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
                                 btnDowlPdf.setEnabled(true);
-
                            }
+
 
 
 
@@ -5415,47 +5770,6 @@ if(indice>2) {
             txtAdviseer.setVisibility(TextView.GONE);
         }
 
-/*
-    btnSaveCambiosxxx.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //hacemos cambios...en caso que el hasmap sea mayor a cero..
-
-            if(CustomAdapter.idOFfORMScontrolCaldVds.size() >0){
-
-                Log.i("comerdd","hay alñmenos 1 vinculado");
-
-                StringJoiner joiner = new StringJoiner(",");
-                Log.i("datamapitkka","el string en btn save es   : "+CustomAdapter.idOFfORMScontrolCaldVds);
-
-
-                //iteramos hasmap
-                for(String value : CustomAdapter.idOFfORMScontrolCaldVds.values()){
-                    Log.i("datamapitkka","el string valu es  : "+value);
-                    joiner.add(value);
-                    CustomAdapter.idsFormsVinucladosCntres = joiner.toString(); // "01,02,03"
-
-                }
-               Log.i("datamapitkka","el text final es : "+ CustomAdapter.idsFormsVinucladosCntres);
-
-                bottomSheetDialog.dismiss();
-            }
-            else{ //significa que no hay ninguno vinculado
-             // CustomAdapter.idsFormsVinucladosCntres);
-
-                Log.i("comerdd","no hay ninguno vinculado");
-
-                CustomAdapter.idsFormsVinucladosCntres = null;
-
-                // CustomAdapter.idOFfORMScontrolCaldVds =null;
-                bottomSheetDialog.dismiss();
-
-            }
-
-
-        }
-    });
-*/
 
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityContenedoresPrev.this);
@@ -5551,5 +5865,6 @@ if(indice>2) {
         }
 
     }
+
 
 }

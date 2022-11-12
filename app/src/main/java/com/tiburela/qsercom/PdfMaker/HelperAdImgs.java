@@ -42,7 +42,7 @@ public class HelperAdImgs {
 
         Log.i("contaburx","el size de inagesetglobal es "+HelperImage.imAGESpdfSetGlobal.size());
 
-        currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORY(HelperImage.imAGESpdfSetGlobal,setFotoCategory);///era Variables.FOTO_LLEGADA
+        currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORY(HelperImage.ImagesToPdfMap,setFotoCategory);///era Variables.FOTO_LLEGADA
 
         Log.i("xamil","el SIZE DE  current list images seccion es "+currentListImagesSeccion.size());
 

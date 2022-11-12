@@ -1,12 +1,14 @@
 package com.tiburela.qsercom.activities.formulariosPrev;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -1334,7 +1337,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         textView48.setOnClickListener(this);
 
-
+        mEdiFechazz.setOnClickListener(this);
 
     }
 
@@ -1553,10 +1556,59 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                 break;
 
+            case R.id.ediFechazz:
+                selecionaFecha();
+
+                break;
+
+
+            case R.id.ediHoraInizz:
+                showingTimePicker(view);
+
+                break;
+
+
+            case R.id.ediHoraTermizz:
+                showingTimePicker(view);
+
+                break;
+
+
+
 
         }
 
     }
+    void selecionaFecha(){
+
+
+        final Calendar cldr = Calendar.getInstance();
+        int year = cldr.get(Calendar.YEAR);
+        int daySemana = cldr.get(Calendar.DAY_OF_WEEK);
+        int mes = cldr.get(Calendar.MONTH);
+
+        // time picker dialog
+        DatePickerDialog picker = new DatePickerDialog(FormularioControlCalidadPreview.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int mes, int daySemana) {
+
+                        mEdiFechazz.setText(daySemana+"/"+mes+"/"+year);
+
+
+
+                    }
+                }, year,  mes, daySemana);
+
+        picker.setButton(DialogInterface.BUTTON_POSITIVE, "OK", picker);
+        picker.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", picker);
+
+
+        picker.show();
+    }
+
+
+
 
     private void getlargoDedosPulgaPulpaApulpa() {
 
@@ -1951,6 +2003,18 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                         }
+
+                        else if (vista.getId()== R.id.ediHoraInizz) {
+                            mEdiHoraInizz.setText(sHour + ":" + sMinute);
+                        }
+
+
+                        else if (vista.getId()== R.id.ediHoraTermizz) {
+                            mEdiHoraTermizz.setText(sHour + ":" + sMinute);
+
+
+                        }
+
 
 
 
@@ -2903,6 +2967,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
+                       case R.id.ediFechazz:
+                           selecionaFecha();
+
+                           break;
+
+
+
+
                    }
 
                }
@@ -3018,6 +3090,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     private void configCertainSomeViewsAliniciar( ) { //configuraremos algos views al iniciar
 
+
         disableEditText(ediTimeHoraxx1);
         disableEditText(ediTimeHoraxx2);
         disableEditText(ediTimeHoraxx3);
@@ -3030,6 +3103,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         disableEditText(ediTimeHoraxx8);
         disableEditText(ediTimeHoraxx9);
         disableEditText(ediTimeHoraxx10);
+
+        disableEditText(mEdiHoraInizz);
+        disableEditText(mEdiHoraTermizz);
+
+
 
     }
 

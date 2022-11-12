@@ -120,8 +120,24 @@ public class HelperImage {
 
 
 
-    public static ArrayList<ImagesToPdf> getImagesWhitthisCATEGORY(ArrayList<ImagesToPdf>allImagesData, int categoriaBuscar) {
+    public static ArrayList<ImagesToPdf> getImagesWhitthisCATEGORY( HashMap<String, ImagesToPdf>allImagesData, int categoriaBuscar) {
         ArrayList<ImagesToPdf> imAGESpdfSet = new ArrayList<ImagesToPdf>();
+
+
+
+
+        for (ImagesToPdf imageObject: allImagesData.values()) {
+
+            int  categoryCurrentImg=imageObject.tipoImagenCategory;
+            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
+
+            if (categoryCurrentImg == categoriaBuscar) {
+                imAGESpdfSet.add(imageObject);
+            }
+
+        }
+
+        /*
 
 
         for (int i = 0; i < allImagesData.size(); i++) {
@@ -136,7 +152,7 @@ public class HelperImage {
         }
 
         Log.i("xamil","el SIZE DE createImagesSet es "+imAGESpdfSet.size());
-
+*/
 
         return  imAGESpdfSet;
 

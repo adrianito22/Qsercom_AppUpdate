@@ -34,6 +34,7 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.tiburela.qsercom.R;
@@ -276,6 +277,7 @@ public class HelperPdf {
 
             listTOrETURN1.add(new NameAndValue("SEMANA "+Object1.getSemana(),"FECHA: "+Object1.getSimpleDataFormat()));
             listTOrETURN1.add(new NameAndValue("PRODUCTOR ",Object1.getProductor()));
+            listTOrETURN1.add(new NameAndValue("HACIENDA ",Object1.getHacienda()));
             listTOrETURN1.add(new NameAndValue("CODIGO PRODUCTOR ",Object1.getCodigo()));
             listTOrETURN1.add(new NameAndValue("CODIGO MAGAP ",Object1.getInscirpMagap()));
             listTOrETURN1.add(new NameAndValue("PUERTO EMBARQUE ",Object1.getPemarque()));
@@ -2029,6 +2031,26 @@ public class HelperPdf {
 
         return table1;
     }
+
+
+
+    public static Paragraph generateTexCertificoLaCALIDAD(String marcaCurrent){
+
+        Text certico = new Text("Certifico la calidad y porcentaje de calidad ").setFontSize(8);
+        Text semanaNum = new Text("Semana "+Variables.CurrenReportPart1.getSemana()).setBold().setFontSize(8);
+        Text marcax = new Text(", marca ").setFontSize(8);
+        Text marca = new Text(marcaCurrent.toUpperCase()).setFontSize(8).setBold();
+
+
+        Paragraph p = new Paragraph().setFontSize(8)
+                .add(certico).add(semanaNum).add(marcax).add(marca);
+
+        return p;
+    }
+
+
+
+
 
 
     public static  Bitmap createPieCharImgbITMAP(PieChart pieChart ,Context context){

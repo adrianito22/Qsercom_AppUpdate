@@ -91,7 +91,7 @@ import java.util.UUID;
 import com.tiburela.qsercom.R;
 
 
-public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener, CallbackUpdateNumsRepVincls {
+public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -318,6 +318,8 @@ Log.i("hellosweer","se ehjecitp onstart");
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
+
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
         CustomAdapter.idsFormsVinucladosCntres=null;//reseteamos
@@ -1134,6 +1136,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
         bottomSheetDialog = new BottomSheetDialog(context);
 
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atachx);
+        bottomSheetDialog.setCancelable(false);
+
 //        CheckBox checkBx1 = bottomSheetDialog.findViewById(R.id.checkBx1);
         reciclerViewBottomSheet =bottomSheetDialog.findViewById(R.id.mirecyclerViewAtach);
         Spinner spinner=bottomSheetDialog.findViewById(R.id.spinnerSelectrodate);
@@ -1143,6 +1147,9 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
         // reciclerView.setHasFixedSize(true);
            txtAdviseer=bottomSheetDialog.findViewById(R.id.txtAdviseer);
            txtAdviserDesvicunlar=bottomSheetDialog.findViewById(R.id.txtAdviserDesvicunlar);
+           ImageView imgClose=bottomSheetDialog.findViewById(R.id.imgClose);
+
+           TextView txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
 
 
         if(existeValues){
@@ -1154,6 +1161,20 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
         bottomSheetDialog.show();
+
+
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculads));
+
+                bottomSheetDialog.dismiss();
+
+            }
+        });
+
+
+
 
 
           /////
@@ -4706,12 +4727,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
-    @Override
-    public void updateReportsVincyulados(int numReportesVinculados) {
-        TextView txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
 
-        txtNumReportsVinclds.setText(String.valueOf(listForms2.size()));
-    }
 
 
 

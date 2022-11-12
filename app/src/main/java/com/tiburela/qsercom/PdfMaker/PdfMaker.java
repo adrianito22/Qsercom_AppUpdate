@@ -220,11 +220,10 @@ public class PdfMaker {
 
         currentCanvasObjec= currentPagePdfObjec.getCanvas();
         //obtenbemos solo una lista que contenga fotos llegada...
-        currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORY(HelperImage.imAGESpdfSetGlobal,Variables.FOTO_LLEGADA);
+        currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORY(HelperImage.ImagesToPdfMap,Variables.FOTO_LLEGADA);
         //agregamos fotos llegada
         Log.i("contabur","el SIZE DE ESTA SECCION  ES "+currentListImagesSeccion.size());
         addImageHeaderFootterPDF(currentCanvasObjec,context);
-
 
         // pdfDocument.finishPage(currentPagePdfObjec) ;
 
