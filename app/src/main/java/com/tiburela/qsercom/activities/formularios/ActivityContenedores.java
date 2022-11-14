@@ -2855,8 +2855,12 @@ private void createObjcInformeAndUpload(){
             switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
 
 
-    SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
-           ediFumigacionClin1.getText().toString(),ediTipoBoquilla.getText().toString(),ediCajasProcDesp.getText().toString(),
+    SetInformDatsHacienda informe3= new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(),swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
+            spFumigaCorL1.getSelectedItem().toString(),
+            spTipoBoquilla.getSelectedItem().toString()
+
+
+            ,ediCajasProcDesp.getText().toString(),
             ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString(),UNIQUE_ID_iNFORME
             ,ediExtCalid.getText().toString(),ediExtCalidCi.getText().toString());
 

@@ -247,7 +247,7 @@ public class HelperPdf {
 
                 }else{
 
-                    paragraph2=new Paragraph(list.get(i).getValueContent()).setFontSize(7f);
+                    paragraph2=new Paragraph(list.get(i).getValueContent()).setFontSize(7f).setFont(font);
 
 
                 }
@@ -618,8 +618,8 @@ public class HelperPdf {
         Cell cellDatosHaciend = new Cell(1,7).setPadding(0f).add(new Paragraph("DATOS DE HACIENDA").setTextAlignment(TextAlignment.CENTER).setFontSize(6f).setBackgroundColor(rgbColorAzulClaro));
 
         Cell micelda;
-        Paragraph   paragrapMarcado = new Paragraph(" X ").setFontSize(7f).setFont(font);;
-        Paragraph   paragragSinMarcar = new Paragraph(" ");;
+        Paragraph   paragrapMarcado = new Paragraph(" X ").setFontSize(7f).setFont(font).setTextAlignment(TextAlignment.CENTER);;
+        Paragraph   paragragSinMarcar = new Paragraph("  ");;
 
         table1.addCell(cellDatosHaciend);
 
@@ -646,13 +646,21 @@ public class HelperPdf {
 
         table1.addCell(new Paragraph("POZO").setFontSize(6.5f).setFont(font));
 
-        if(object.getFuenteAgua().equalsIgnoreCase("POZO")) {
+        Log.i("elaguaes","la fuente de agua es "+object.getFuenteAgua());
+
+
+        if(object.getFuenteAgua().equalsIgnoreCase("pozo")) {
+
+            Log.i("elaguaes","la fuente de agua es pozo");
+
             micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
         }
         else{
+            Log.i("elaguaes","la fuente de agua no es pozo ");
+
 
             micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragragSinMarcar);
             micelda .setWidth(10f);

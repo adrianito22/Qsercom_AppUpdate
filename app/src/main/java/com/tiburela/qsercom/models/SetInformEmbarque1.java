@@ -103,6 +103,8 @@ public class SetInformEmbarque1 {
         this.horaInicio = horaInicio;
         this.horaTermino = horaTermino;
         this.semana = semana;
+        this.numcionContenedor=numcionContenedor;
+
         this.empacadora = empacadora;
         this.contenedor = contenedor;
         this.observacion = observacion;

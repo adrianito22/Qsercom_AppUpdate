@@ -2425,6 +2425,8 @@ private void openBottomSheet(){
 
     private void uipdateInformeWhitCurrentDataOfViews(){
 
+
+
         //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
         Variables.CurrenReportPart1  = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
@@ -2476,7 +2478,7 @@ private void openBottomSheet(){
 
 
 
-        Variables.CurrenReportPart3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),
+        Variables.CurrenReportPart3= new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),
 
                 spFumigaCorL1.getSelectedItem().toString(),
                 spTipoBoquilla.getSelectedItem().toString()
@@ -2555,7 +2557,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-    SetInformDatsHacienda informe3= new SetInformDatsHacienda(ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),
+    SetInformDatsHacienda informe3= new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),
 
             spFumigaCorL1.getSelectedItem().toString(),
               spTipoBoquilla.getSelectedItem().toString()
@@ -2570,7 +2572,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-    informe3.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+    informe3.setKeyFirebase( Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
     RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
@@ -2585,7 +2587,7 @@ private void createObjcInformeAndUpload(){
     RealtimeDB.actualizaInformePart1(informe);
     RealtimeDB.actualizaInformePart2(informe2);
 
-    RealtimeDB.addNewInforme(informe3); //vamos a subir este informe...
+    RealtimeDB.actualizaInformePart3(informe3); //vamos a subir este informe...
 
     // RealtimeDB.actualizaInformePart3(informe3);
 

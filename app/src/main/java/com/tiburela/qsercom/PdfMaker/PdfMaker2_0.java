@@ -477,6 +477,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         table1 =HelperPdf.createTbale6(table1,Variables.CurrenReportPart3) ;
+
+
+
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
@@ -715,7 +718,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
             bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
 
             imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
-            imagen.setHeight(178f);
+            imagen.setHeight(185f); //SI NO QUITAMOS 5
 
             //////////////////
 
