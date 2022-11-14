@@ -553,6 +553,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
         ediExtCalid=findViewById(R.id.ediExtCalid);
         ediExtRodillo=findViewById(R.id.ediExtRodillo);
         ediExtGancho=findViewById(R.id.ediExtGancho);
+
         ediExtCalidCi=findViewById(R.id.ediExtCalidCi);
         ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
         ediExtGanchoCi=findViewById(R.id.ediExtGanchoCi);
@@ -2489,45 +2490,44 @@ private void openBottomSheet(){
                 ,ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString()
                 ,UNIQUE_ID_iNFORME,ediExtCalid.getText().toString(),ediExtCalidCi.getText().toString());
 
-        updateDatosEvaludoresOFinforme3( Variables.CurrenReportPart3);
 
-        Variables.CurrenReportPart3.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+        updateDatosEvaludoresOFinforme3(Variables.CurrenReportPart3);
+
+        Variables.CurrenReportPart3.setKeyFirebase( Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
         updateCaledarioEnfunde(Variables.CurrenReportPart3);
-
-
-
 
 
     }
 
 
 
-private void createObjcInformeAndUpload(){
+private void createObjcInformeAndUpload() {
 
-        //aplicamos la logica PARA CREAR UN NUEVO INFORME
+    //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
-    SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
+    SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME, ediCodigo.getText().toString(),
             Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
-            ,ediProductor.getText().toString(),ediCodigo.getText().toString()
-            ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-            ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-            ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-            ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
-            FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-            ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
-            ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
-            ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
-            ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
-    informe.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+            , ediProductor.getText().toString(), ediCodigo.getText().toString()
+            , ediPemarque.getText().toString(), ediNguiaRemision.getText().toString(), ediHacienda.getText().toString()
+            , edi_nguia_transporte.getText().toString(), ediNtargetaEmbarque.getText().toString(),
+            ediInscirpMagap.getText().toString(), ediHoraInicio.getText().toString(), ediHoraTermino.getText().toString()
+            , ediSemana.getText().toString(), ediEmpacadora.getText().toString(), ediContenedor.getText().toString(),
+            FieldOpcional.observacionOpcional, ediHoraLLegadaContenedor.getText().toString(), ediHoraSalidaContenedor.getText().toString()
+            , ediDestino.getText().toString(), ediNViaje.getText().toString(), ediNumContenedor.getText().toString(), ediVapor.getText().toString(),
+            ediTipoContenedor.getText().toString(), ediTare.getText().toString(), ediBooking.getText().toString(), ediMaxGross.getText().toString(),
+            ediNumSerieFunda.getText().toString(), stikVentolerExterna.getText().toString(),
+            ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif);
+    informe.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
     informe.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosCntres);
 
-    Log.i("eldtatashd","el string atch es "+CustomAdapter.idsFormsVinucladosCntres);
+    Log.i("eldtatashd", "el string atch es " + CustomAdapter.idsFormsVinucladosCntres);
 
 
-    if(millisDateSelect >0){
+    if (millisDateSelect > 0) {
 
         ////CONVERTIMOS A SIMPLE DATE FORMAT
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -2539,34 +2539,32 @@ private void createObjcInformeAndUpload(){
     }
 
 
+    SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME, ediTermofrafo1.getText().toString(), ediTermofrafo2.getText().toString()
+            , ediHoraEncendido1.getText().toString(), ediHoraEncendido2.getText().toString(),
+            ediUbicacion1.getText().toString(), ediUbicacion2.getText().toString(), ediRuma1.getText().toString(), ediRuma2.getText().toString()
+            , ediCandadoqsercon.getText().toString(), ediSelloNaviera.getText().toString(), ediCableNaviera.getText().toString(),
+            ediSelloPlasticoNaviera.getText().toString(), ediCandadoBotella.getText().toString(), ediCableExportadora.getText().toString(),
+            ediSelloAdesivoexpor.getText().toString(), esiSelloAdhNaviera.getText().toString(), FieldOpcional.otrosSellosInstalaEsp,
+            ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(), ediCedula.getText().toString(),
+            ediCedula.getText().toString(), ediPLaca.getText().toString(), ediMarcaCabezal.getText().toString(),
+            ediColorCabezal.getText().toString(), ediCondicionBalanza.getText().toString(), ediTipodeCaja.getText().toString()
+            , switchHaybalanza.isChecked(), switchHayEnsunchado.isChecked(), spinnertipodePlastico.getSelectedItem().toString(),
+            switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), FieldOpcional.tipoDeBalanzaRepesoOpcnal);
+
+    informe2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
-    SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
-            ,ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString(),
-            ediUbicacion1.getText().toString(),ediUbicacion2.getText().toString(),ediRuma1.getText().toString(),ediRuma2.getText().toString()
-            ,ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),
-            ediSelloPlasticoNaviera.getText().toString(),ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),
-            ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString(),FieldOpcional.otrosSellosInstalaEsp,
-            ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(),ediCedula.getText().toString(),
-            ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
-            ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
-            ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
-            switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
-
-    informe2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
-
-
-
-    SetInformDatsHacienda informe3= new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),
+    SetInformDatsHacienda informe3 = new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(), swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
 
             spFumigaCorL1.getSelectedItem().toString(),
-              spTipoBoquilla.getSelectedItem().toString()
-           // ediFumigacionClin1.getText().toString()
+            spTipoBoquilla.getSelectedItem().toString()
+            // ediFumigacionClin1.getText().toString()
 
             //ediTipoBoquilla.getText().toString()
 
-            ,ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString()
-            ,UNIQUE_ID_iNFORME,ediExtCalid.getText().toString(),ediExtCalidCi.getText().toString());
+            , ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(), ediRacimosRecha.getText().toString(), ediRacimProces.getText().toString()
+            , UNIQUE_ID_iNFORME, ediExtCalid.getText().toString(), ediExtCalidCi.getText().toString());
+
 
              updateDatosEvaludoresOFinforme3(informe3);
 
@@ -2600,15 +2598,16 @@ private void createObjcInformeAndUpload(){
     private void updateDatosEvaludoresOFinforme3(SetInformDatsHacienda informe3) {
 
         if(!ediExtRodillo.getText().toString().trim().isEmpty()){
+
             informe3.setExtensionistDeRodillo(ediExtRodillo.getText().toString());
-            informe3.setCI_extensionistCalid(ediExtRodilloCi.getText().toString());
+            informe3.setCI_extensionistDeRodillo(ediExtRodilloCi.getText().toString());
 
         }
 
 
         if(!ediExtGancho.getText().toString().trim().isEmpty()){
-            informe3.setExtensionistDeRodillo(ediExtGancho.getText().toString());
-            informe3.setCI_extensionistCalid(ediExtGanchoCi.getText().toString());
+            informe3.setExtensionistEnGancho(ediExtGancho.getText().toString());
+            informe3.setCI_extensionistEnGancho(ediExtGanchoCi.getText().toString());
 
         }
 
