@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -109,7 +110,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
                 try {
+
                     createPDFContenedores() ;
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -308,7 +311,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns2[]= {190,1};
         table1=  new Table(sizeColumns2);
 
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f)
+        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f).setBold()
                 .setTextAlignment(TextAlignment.CENTER)) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
@@ -332,7 +335,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8f)) ;
+        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8f).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -342,7 +345,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,3,Variables.currenProductPostCosecha);
         listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
         ///LA POSICION 5 LA EDITAMOS
-        listCellsToTabCurrentTab2.get("2value").setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
+        listCellsToTabCurrentTab2.get("2value").setBackgroundColor(HelperPdf.rgbColorNaranja); //editamos el color
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
@@ -354,7 +357,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("SELLLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
+        cell0= new Cell(1,2).add(new Paragraph("SELLLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -364,20 +367,20 @@ public class PdfMaker2_0 extends AppCompatActivity {
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,4,Variables.currenProductPostCosecha);
         listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
         ///LA POSICION 5 LA EDITAMOS
-        listCellsToTabCurrentTab2.get("2value").setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
+       // listCellsToTabCurrentTab2.get("2value").setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
 
 
         addCellsInTable(listCellsToTabCurrentTab2,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
-        /**SELLLOS INSTALADOS*/
+        /**SELLOS INSTALADOS*/
 
 
         float sizeColumns5[]= {190,2,1,1};
         table1=  new Table(sizeColumns5);
 
-        cell0= new Cell(1,4).add(new Paragraph("SELLLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
+        cell0= new Cell(1,4).add(new Paragraph("SELLLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -414,7 +417,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns6[]= {190,5};
         table1=  new Table(sizeColumns6);
 
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
+        cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -441,7 +444,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font)) ;
+        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -467,8 +470,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-
-
         /**DATOS DE PROCESO parte 3 */
 
         float sizeColumns10[]= {190,1,1,1,1,1,1};
@@ -487,7 +488,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         table1=  new Table(araycolum);
 
         Cell cellHeader2= new Cell(1,2).setBackgroundColor(HelperPdf.rgbColorAzulClaro);
-        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font));
+        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold());
         table1.addCell(cellHeader2);
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,8,Variables.currenProductPostCosecha);
@@ -714,7 +715,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
             bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
 
             imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
-            imagen.setHeight(170f);
+            imagen.setHeight(178f);
 
             //////////////////
 
@@ -774,7 +775,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**Agregamos anexos*/
 
-        UpdateProgressAndText("Agregando Fotos al Reporte",90);
+       // UpdateProgressAndText("Agregando Fotos al Reporte",90);
 
 
 
@@ -796,6 +797,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_CONTENEDOR,"*  APERTURA, INSPECCION Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,PdfMaker2_0.this);
 
+
         /**FOTOS datos trasnportista...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_TRANSPORTISTA," ",midocumentotoAddData,pageSize,PdfMaker2_0.this);
@@ -810,14 +812,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
         //agregamaos el header
 
         //dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
-
-
-
-
-
-
-
-
 
 
         /**DEBUG*/
@@ -1157,13 +1151,14 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
                     layoutDown.setVisibility(LinearLayout.VISIBLE);
-                    btnDescargar.setEnabled(true);
                     layoutGraficos.setVisibility(LinearLayout.GONE);
+
+                    btnDescargar.setEnabled(true);
+                    Log.i("enablebtn","hemos llmado enable ");
 
 
                     //HEMOS TERMINADO DE DESCRGAR TODOS...
                 }
-
 
                 //   setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
 

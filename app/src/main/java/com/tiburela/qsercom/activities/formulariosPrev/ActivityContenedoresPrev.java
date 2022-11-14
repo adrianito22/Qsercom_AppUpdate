@@ -4582,6 +4582,25 @@ return true;
         txtNumReportsVinclds.setText(String.valueOf(Utils.generaNumsInformsAtach(info1Object.getAtachControCalidadInfrms())));
 
 
+        CustomAdapter.idOFfORMScontrolCaldVds= new HashMap<>();
+        if(info1Object.getAtachControCalidadInfrms()!=null){
+            String [] miarrayiNFORMESvinc = info1Object.getAtachControCalidadInfrms().split(",");
+            Log.i("picacins","el size de aara es "+miarrayiNFORMESvinc.length);
+
+            if(miarrayiNFORMESvinc.length >0) {
+                for(String value : miarrayiNFORMESvinc){
+                    Log.i("picacins","el key sera "+value);
+                    CustomAdapter.idOFfORMScontrolCaldVds.put(value,value);
+                }
+            }
+
+
+            Log.i("picacins","el numero de reposrtes vincualdos es: "+ CustomAdapter.idOFfORMScontrolCaldVds.size());
+
+
+        }
+
+
 
     }
 

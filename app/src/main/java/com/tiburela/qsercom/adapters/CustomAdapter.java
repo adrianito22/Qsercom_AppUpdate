@@ -33,7 +33,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public static ArrayList<String> idsFormsControlCalidVinculados;
 
     public static String idsFormsVinucladosCntres;
-    public static HashMap<String,String>idOFfORMScontrolCaldVds=new HashMap<>();
+    public static HashMap<String,String>idOFfORMScontrolCaldVds;
 
 
     private Context ctx;
@@ -114,12 +114,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                     if(idOFfORMScontrolCaldVds.containsKey(String.valueOf(v.getTag(R.id.idOfoBJECT)))) {
                         idOFfORMScontrolCaldVds.remove(String.valueOf(v.getTag(R.id.idOfoBJECT)));
 
-                        Log.i("comerdd","contiene y lo removemos y el size ahora es: "+idOFfORMScontrolCaldVds.size());
+                        Log.i("comerciales","contiene key y lo removemos y el size ahora es: "+idOFfORMScontrolCaldVds.size());
                         udpdate();
 
                     }else {
 
-                        Log.i("datamapitkka","no hay nada que quitar");
+                        Log.i("comerciales","no contiene key: "+v.getTag(R.id.idOfoBJECT));
 
                     }
 
@@ -200,28 +200,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 void udpdate() {
 
+        Log.i("picacins","el size de idOFfORMScontrolCaldVds en adpater  es  "+idOFfORMScontrolCaldVds.size());
 
 
     for(CheckedAndAtatch value : listCheckedAndAtatch){
         Log.i("comerdd","itrando control calida list ye s "+value.isItemChek());
-
-
     }
-
         //construimos un string a partir del map
+    if(idOFfORMScontrolCaldVds.size() >0){
 
-    if(CustomAdapter.idOFfORMScontrolCaldVds.size() >0){
-
-        Log.i("comerdd","hay alñmenos 1 vinculado");
+        Log.i("picacins","es mayor a cero y es");
 
         StringJoiner joiner = new StringJoiner(",");
 
 
         //iteramos
-        for(String value : CustomAdapter.idOFfORMScontrolCaldVds.values()){
-            Log.i("datamapitkka","el string valu es  : "+value);
+        for(String value : idOFfORMScontrolCaldVds.values()){
+          //  Log.i("datamapitkka","el string valu es  : "+value);
             joiner.add(value);
-            CustomAdapter.idsFormsVinucladosCntres = joiner.toString(); // "01,02,03"
+            idsFormsVinucladosCntres = joiner.toString(); // lo convertimos en una linea de string sperad por comas.. id01,id02,
         }
 
 
@@ -230,21 +227,24 @@ void udpdate() {
 
       //  callbackUpdateNumsRepVincls.updateReportsVincyulados(CustomAdapter.idOFfORMScontrolCaldVds.size());
 
-        Utils.numReportsVinculads=CustomAdapter.idOFfORMScontrolCaldVds.size();
+        Utils.numReportsVinculads=idOFfORMScontrolCaldVds.size();
+        Log.i("datamapitkka","el size de rportes vunculados es "+ Utils.numReportsVinculads);
 
-        Log.i("datamapitkka","el text final es : "+ CustomAdapter.idsFormsVinucladosCntres);
+        Log.i("datamapitkka","el text final es"+ CustomAdapter.idsFormsVinucladosCntres);
 
     }
 
 
 
-    else{ //significa que no hay ninguno vinculado
+    else{
+
+        //significa que no hay ninguno vinculado
         // CustomAdapter.idsFormsVinucladosCntres);
 
         Utils.numReportsVinculads=0;
 
 
-        Log.i("comerdd","no hay ninguno vinculado");
+        Log.i("datamapitkka","no hay ninguno vinculado");
 
         CustomAdapter.idsFormsVinucladosCntres = null;
 

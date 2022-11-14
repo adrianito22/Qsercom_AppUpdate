@@ -1039,6 +1039,7 @@ Log.i("hellosweer","se ehjecitp onstart");
     }
 
     private ArrayList<String> generateLISTbyStringVinculados(String ValueLineViculados ){
+        CustomAdapter.idOFfORMScontrolCaldVds = new HashMap<>();
 
                  ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
 
@@ -1046,23 +1047,32 @@ Log.i("hellosweer","se ehjecitp onstart");
 
                  if(ValueLineViculados!=null){
                      String [] miarrayiNFORMESvinc = ValueLineViculados.split(",");
-                     Log.i("datamapitkka","el size de aara es "+miarrayiNFORMESvinc.length);
+                     Log.i("comerciales","el size de aara es "+miarrayiNFORMESvinc.length);
 
-                     if(miarrayiNFORMESvinc.length >1) {
+                     if(miarrayiNFORMESvinc.length >0) {
 
                          for(String value : miarrayiNFORMESvinc){
                              listIdSvINCULADOS.add(value);
+                             Log.i("comerciales","el key sera "+value);
+
+                            CustomAdapter.idOFfORMScontrolCaldVds.put(value,value);
+
                      }
 
-                         Log.i("datamapitkka","es mayor a 1"+listIdSvINCULADOS.size());
 
                      }
+
+                     /*
                      else{
 
                          listIdSvINCULADOS.add(ValueLineViculados);
                          Log.i("datamapitkka","no es mayor a 1 y el value es "+listIdSvINCULADOS.size());
 
                      }
+*/
+
+                     Log.i("comerciales","el numero de reposrtes vincualdos es: "+listIdSvINCULADOS.size());
+
 
                  }
 
