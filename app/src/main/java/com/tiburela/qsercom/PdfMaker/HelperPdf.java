@@ -69,7 +69,7 @@ public class HelperPdf {
 
     public static   double CALIDAD_TOTAL;
     public static  double PORCENTAJE_DE_DEFECTOS;
-    public static  ArrayList<TableCalidProdc> TableCalidProdc = new ArrayList<>();
+    public static  ArrayList<TableCalidProdc> TableCalidProdc;
     public static ArrayList<Integer>listNumClustersInspec= new ArrayList<>();
 
 
@@ -1255,6 +1255,7 @@ public class HelperPdf {
         ArrayList<DefectsCantdad>defectsSeleccionList= new ArrayList<>();
         ArrayList<DefectsCantdad>defectsEmpaque= new ArrayList<>();
 
+      //  TableCalidProdc=new ArrayList<>();//le agergue
 
         //DATOS QUE NECESITAMOS OBTENERdoub
         double PROMEDIO_PESO=0;
@@ -1668,8 +1669,6 @@ public class HelperPdf {
         listNumClustersInspec.add(NUMERO_DE_CLUSTERS_iNSPECCIONADOS);
 
 
-
-
         PORCENTAJE_DE_DEFECTOS=((double)NUMERO_DEFECTS/100) * NUMERO_DE_CLUSTERS_iNSPECCIONADOS;
         Log.i("ELWEIGTH","el PORCENTAJE_DE_DEFECTOS es "+PORCENTAJE_DE_DEFECTOS);
 
@@ -1693,9 +1692,8 @@ public class HelperPdf {
         }
 
 
-
-
        /**OBTIENE MAYOR DEFECTO EMPAQUE*/
+
       numeroDefectosMayor=0;
 
         for(int indice2=0; indice2<defectsSelecNames.size() ;indice2++){
@@ -2011,6 +2009,8 @@ public class HelperPdf {
         celdaGlobal.add(new Paragraph(porcentajeFinalx+"%").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
         table.addCell(celdaGlobal);
 
+
+        //por aqqui podemos conseguior el porcentaje final..
 
         return table;
     }

@@ -57,18 +57,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return holder;
     }
 
+
+
+
+
+
     @Override
     public void onBindViewHolder(final CustomAdapter.MyViewHolder holder, int position) {
 
         holder.checkBx.setText("Control Calidad ");
 
-
         if(listCheckedAndAtatch.get(position).isItemChek()){
-
                 holder.checkBx.setChecked(true);
+        }
 
-
-        }else {
+        else {
 
             holder.checkBx.setChecked(false);
 
@@ -77,9 +80,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
 
-        holder.txtDataFirst.setText("FECHA:  "+listCheckedAndAtatch.get(position).getDataFirst());
 
-        holder.txtDataSecond.setText("HDA "+listCheckedAndAtatch.get(position).getDataSecond());
+        String datexxx="FECHA "+listCheckedAndAtatch.get(position).getDataFirst()+" ";
+
+        String hda="HDA: "+listCheckedAndAtatch.get(position).getDataSecond();
+
+
+        Log.i("datasg","date es "+datexxx);
+        Log.i("datasg","HDA es "+hda);
+
+        holder.txtDataFirst.setText(datexxx);
+        holder.txtDataSecond.setText(hda);
+
+
 
         // holder.checkBx.setTag(R.integer.btnplusview, convertView);
       //  holder.checkBx.setTag(position,"");
@@ -101,29 +114,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
                 if (listCheckedAndAtatch.get(pos).isItemChek()) {
                     //el anterior estaba en cheked y ahora es falso....lo removemos
-
                     Log.i("datamapitkka","removemos");
-
 
                     listCheckedAndAtatch.get(pos).setItemChek(false);
                     //REMOVE VALUE OF HASMAP
-
                    // listCheckedAndAtatch.get(adapterPosition).setChecked(false);
-
 
                     if(idOFfORMScontrolCaldVds.containsKey(String.valueOf(v.getTag(R.id.idOfoBJECT)))) {
                         idOFfORMScontrolCaldVds.remove(String.valueOf(v.getTag(R.id.idOfoBJECT)));
-
                         Log.i("comerciales","contiene key y lo removemos y el size ahora es: "+idOFfORMScontrolCaldVds.size());
                         udpdate();
 
                     }else {
-
                         Log.i("comerciales","no contiene key: "+v.getTag(R.id.idOfoBJECT));
-
                     }
-
-
 
 
                 } else {
@@ -137,11 +141,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                     udpdate();
 
                 }
+
+
+
             }
         });
 
 
     }
+
+
+
     public void setOnClickListener(View.OnClickListener listener){
         this.listener=listener;
     }
@@ -175,8 +185,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             super(itemView);
 
             checkBx = (CheckBox) itemView.findViewById(R.id.checkBx);
-            txtDataFirst = (TextView) itemView.findViewById(R.id.txtDataFirst);
-            txtDataSecond = (TextView) itemView.findViewById(R.id.txtDataSecond);
+            txtDataFirst =  itemView.findViewById(R.id.txtDataFirstx);
+            txtDataSecond =  itemView.findViewById(R.id.txtDataSecond);
             imgSee =  itemView.findViewById(R.id.imgSee);
 
             imgSee.findViewById(R.id.imgSee).setOnClickListener(new View.OnClickListener() {

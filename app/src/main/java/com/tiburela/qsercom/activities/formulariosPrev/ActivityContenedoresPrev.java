@@ -20,6 +20,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -68,6 +70,7 @@ import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.othersActivits.ActivityMenu;
 import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -104,8 +107,12 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class ActivityContenedoresPrev extends AppCompatActivity implements
-        View.OnClickListener , View.OnTouchListener {
+public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+
+
+    ProgressDialog progress;
+
+
     private static final int PERMISSION_REQUEST_CODE=100;
     ProductPostCosecha products;
     private String UNIQUE_ID_iNFORME;
@@ -137,7 +144,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
     private Context mContext;
 
 
-   Button btnDowlPdf;
+   Button btnGENERARpdf;
     FloatingActionButton fab ;
 
     TextInputEditText ediCjasProcesDespacha;
@@ -300,8 +307,15 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
         Auth.initAuth(ActivityContenedoresPrev.this);
         Auth.signInAnonymously(ActivityContenedoresPrev.this);
 
+        try {
+            progress.dismiss();
 
-               if(esFirstCharge){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        if(esFirstCharge){
                    findViewsIds();
 
                    context = getApplicationContext();
@@ -543,7 +557,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
 
 
         //descativamos este boton
-        btnDowlPdf.setEnabled(false);
+        btnGENERARpdf.setEnabled(false);
 
 
     }
@@ -565,7 +579,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
 
          fab = (FloatingActionButton) findViewById(R.id.fab);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
-        btnDowlPdf=findViewById(R.id.btnGENERARpdf);
+        btnGENERARpdf =findViewById(R.id.btnGENERARpdf);
 
         spFumigaCorL1=findViewById(R.id.spFumigaCorL1);
 
@@ -752,7 +766,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements
         imgAtachVinculacion.setOnClickListener(this);
 
 
-        btnDowlPdf.setOnClickListener(this);
+        btnGENERARpdf.setOnClickListener(this);
 
         fab.setOnClickListener(this);
 
@@ -2295,8 +2309,6 @@ void checkDataFields(){
         //  checkDatosGeneralesIsLleno();
 
 
-        //ES ETEST
-
 
         if(! checkDatosGeneralesIsLleno()){
 
@@ -2305,108 +2317,64 @@ void checkDataFields(){
         }
 
 
-        else{
-            Log.i("test001","si esta lleno checkDatosGeneralesIsLleno ");
-
-        }
-
-
 
         if(! checkcantidadPostcosechaIsLleno()){
-
-
             Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
             return;
-        }else{
-            Log.i("test001","si esta lleno checkcantidadPostcosechaIsLleno ");
-
         }
 
 
         if(! checkDatosContenedorIsLleno()){
             Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
-
             return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkDatosContenedorIsLleno");
         }
 
 
         if(! checkDataSellosLlegadaIsLleno()){
             Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
-
             return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkDataSellosLlegadaIsLleno");
-
-
         }
 
 
         if(! checkSellosInstaladosIsLleno()){
             Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
-
             return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkSellosInstaladosIsLleno");
-
-
         }
+
 
 
         if(! checkDatosTransportistaIsLleno()){
             Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
-
             return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkDatosTransportistaIsLleno");
-
-
         }
+
 
 
         if(! checkDatosProcesoIsLleno()){
             Log.i("test001","no esta lleno  checkDatosProcesoIsLleno");
-
             return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkDatosProcesoIsLleno");
-
-
         }
 
-        if(! checkDatosHaciendaIsLleno()){
+
+
+
+        if (! checkDatosHaciendaIsLleno()) {
             Log.i("test001","no esta lleno  checkDatosHaciendaIsLleno");
-
             return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkDatosHaciendaIsLleno");
-
-
         }
 
 
-        if(! checkQueexistminim()){
+
+
+        if  (!checkQueexistminim()) {
             Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
-
             return;
-        }else
-
-        {
-
-            Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
-
-
         }
 
 
-        uipdateInformeWhitCurrentDataOfViews();
+
+
+        updateInformeWhitCurrentDataOfViews();
 
         updaTeProductsPostCosecha(); //actualizamos estetambien
 
@@ -2424,7 +2392,7 @@ private void openBottomSheet(){
     addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
 }
 
-    private void uipdateInformeWhitCurrentDataOfViews(){
+    private void updateInformeWhitCurrentDataOfViews(){
 
 
 
@@ -5010,7 +4978,7 @@ private void checkModeVisualitY(){
                             createlistsForReciclerviewsImages(Variables.listImagenData);
                                 Log.i("hamiso","se llamokkk");
                                 Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
-                                btnDowlPdf.setEnabled(true);
+                                btnGENERARpdf.setEnabled(true);
                            }
 
 
@@ -5804,7 +5772,8 @@ if(indice>2) {
             public void onItemClick(int position, View v) {
                 Variables.currenControlCalReport=listForms.get(position);
 
-                startActivity(new Intent(ActivityContenedoresPrev.this, FormularioControlCalidadPreview.class));
+
+                showPRogressAndStartActivity(new Intent(ActivityContenedoresPrev.this, FormularioControlCalidadPreview.class));
 
 
                 bottomSheetDialog.dismiss();
@@ -5814,14 +5783,54 @@ if(indice>2) {
 
     }
 
+    private void showPRogressAndStartActivity(Intent i) {
+        progress =new ProgressDialog(ActivityContenedoresPrev.this);
+
+        progress.setMessage("Cargando Formulario....");
+        // progress.setProgressStyle(ProgressDialog.THEME_HOLO_LIGHT);
+        progress.setIndeterminate(true);
+        progress.show();
+
+
+        new Thread ( new Runnable()
+        {
+            public void run()
+            {
+
+                startActivity(i);
+                // finish();
+               // progress.dismiss();
+
+
+            }
+        }).start();
+
+
+
+        @SuppressLint("HandlerLeak") Handler progressHandler = new Handler()
+        {
+
+            public void handleMessage(Message msg1)
+            {
+
+                progress.dismiss();
+            }
+        };
+
+
+    }
+
+
 
     private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int contador,int sizeListIterate ) {
+
+        Variables.listReprsVinculads=new ArrayList<>();
+
         Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
 
+
+
         RealtimeDB.initDatabasesRootOnly();
-
-
-        //  Query query = mDatabase2.child("Clientes").orderByChild("userIdUnique").equalTo(userCurrent.getUserIdUnique());
 
         Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("uniqueId").equalTo(reportidToSearch);
 
@@ -5833,11 +5842,14 @@ if(indice>2) {
                     ControlCalidad  user=ds.getValue(ControlCalidad.class);
 
                     if(user != null) {
+
                         Variables.listReprsVinculads.add(user);
+
                     }
                 }
 
-                if( sizeListIterate ==contador){
+                if( sizeListIterate == contador){
+
                     Log.i("comnadaer","bien vamos a activity pdf maker");
 
                     //vamos a  activity
@@ -5845,6 +5857,7 @@ if(indice>2) {
                     Intent intent = new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class);
                     intent.putExtra(Variables.KEY_PDF_MAKER,Variables.FormPreviewContenedores);
                     startActivity(intent);
+
                 }
             }
 
@@ -5873,12 +5886,14 @@ if(indice>2) {
                 contadorx++;
 
                 Log.i("comnadaer","se ejecuto esto veces, buscamos este "+value);
+
                 dowloadReportsVinucLADSAndGOcREATEpdf (value,contadorx,listIdSvINCULADOS.size());
 
             }
+        }
 
 
-        }else {
+        else {
 
             Toast.makeText(ActivityContenedoresPrev.this, "No Hay reportes vinculados ", Toast.LENGTH_SHORT).show();
 

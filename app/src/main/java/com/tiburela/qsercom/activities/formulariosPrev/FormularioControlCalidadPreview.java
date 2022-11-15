@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -2838,6 +2839,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
         RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
         RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload, Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
+
+
+        Toast.makeText(this, "Guardado", Toast.LENGTH_SHORT).show();
+
+        finish();
 
     }
 

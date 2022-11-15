@@ -3835,7 +3835,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                             createlistsForReciclerviewsImages(Variables.listImagenData);
                             Log.i("hamiso","se llamokkk");
                             Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
-                          //  btnDowlPdf.setEnabled(true);
+                          //  btnGENERARpdf.setEnabled(true);
 
                         }
 

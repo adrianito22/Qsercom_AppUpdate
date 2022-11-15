@@ -113,10 +113,19 @@ public class PdfMaker2_0 extends AppCompatActivity {
                 Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
                 try {
 
-                    createPDFContenedores() ;
-                } catch (FileNotFoundException e) {
+                  HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
+
+                  createPDFContenedores() ;
+
+
+                }
+
+                catch (FileNotFoundException e) {
+
                     e.printStackTrace();
 
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 generateUniqueIDtOForm();
@@ -189,7 +198,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
   }
 
-    public void createPDFContenedores() throws FileNotFoundException {
+    public void createPDFContenedores() throws Exception {
 
 
         String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
@@ -633,6 +642,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         cell1.add(imagen);
         table1.addCell(cell1);
 
+
         table1.setWidth(pageSize.getWidth()-200f);
         // table1.setMarginLeft(70f);
         table1.setMarginTop(1f);
@@ -779,6 +789,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**Agregamos anexos*/
 
        // UpdateProgressAndText("Agregando Fotos al Reporte",90);
+
+           HelperAdImgs.initpdfDocument(miPFDocumentkernel);
 
 
 

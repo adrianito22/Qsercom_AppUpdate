@@ -3728,7 +3728,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                             createlistsForReciclerviewsImages(Variables.listImagenData);
                             Log.i("mispiggi","se llamokkk");
                             Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
-                           // btnDowlPdf.setEnabled(true);
+                           // btnGENERARpdf.setEnabled(true);
 
                         }
 

@@ -100,7 +100,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
-                            app:srcCompat="@drawable/contenedoricon" />
+                            app:srcCompat="@drawable/icon_contenedor" />
 
                         <TextView
                             android:id="@+id/textView6"
@@ -123,7 +123,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
-                            app:srcCompat="@drawable/icon_menu" />
+                            app:srcCompat="@drawable/contenedores_en_acopio" />
 
                         <com.tiburela.qsercom.utils.CustomTextView
                             android:id="@+id/textView7"
@@ -146,7 +146,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
-                            app:srcCompat="@drawable/icon_menu" />
+                            app:srcCompat="@drawable/camiones_y_carretas" />
 
                         <TextView
                             android:id="@+id/textView8"
@@ -169,7 +169,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
-                            app:srcCompat="@drawable/icon_menu" />
+                            app:srcCompat="@drawable/icon_packing_list" />
 
                         <TextView
                             android:id="@+id/textViefdbgfw9"
@@ -192,7 +192,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
-                            app:srcCompat="@drawable/icon_menu" />
+                            app:srcCompat="@drawable/icon_muestreo_rechazados" />
 
                         <TextView
                             android:id="@+id/textView9"
@@ -216,7 +216,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
-                            app:srcCompat="@drawable/icon_menu" />
+                            app:srcCompat="@drawable/icon_control_de_calidad" />
 
                         <TextView
                             android:id="@+id/sfdf"
@@ -244,7 +244,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linear"
-        app:srcCompat="@drawable/robot" />
+        app:srcCompat="@drawable/iconrobot" />
 
     <com.tiburela.qsercom.utils.CustomTextView
         android:id="@+id/txtAdviser"
