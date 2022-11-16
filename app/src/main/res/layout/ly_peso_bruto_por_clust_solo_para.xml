@@ -32,7 +32,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº11"
+                        android:hint="PESO BRUTO POR CLUSTER Nº01"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -40,9 +40,9 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits="0123456789."
                             android:enabled="false"
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -146,7 +146,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº12"
+                        android:hint="PESO BRUTO POR CLUSTER Nº02"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -154,8 +154,8 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
                             android:digits="0123456789."
+                            android:inputType="number"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -261,7 +261,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº13"
+                        android:hint="PESO BRUTO POR CLUSTER Nº03"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -269,10 +269,10 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
+                            android:digits="0123456789."
 
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:enabled="false"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -375,7 +375,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº14"
+                        android:hint="PESO BRUTO POR CLUSTER Nº04"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -383,10 +383,10 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
+                            android:digits="0123456789."
 
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:enabled="false"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -489,7 +489,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº15"
+                        android:hint="PESO BRUTO POR CLUSTER Nº05"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -497,10 +497,10 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
+                            android:digits="0123456789."
 
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:enabled="false"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -603,7 +603,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº16"
+                        android:hint="PESO BRUTO POR CLUSTER Nº06"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -611,10 +611,10 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
+                            android:digits="0123456789."
 
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:enabled="false"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -717,7 +717,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº17"
+                        android:hint="PESO BRUTO POR CLUSTER Nº 07"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -725,10 +725,10 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
+                            android:digits="0123456789."
 
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:enabled="false"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -831,7 +831,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 18"
+                        android:hint="PESO BRUTO POR CLUSTER Nº 08"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -839,10 +839,10 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
+                            android:digits="0123456789."
 
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:enabled="false"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -945,7 +945,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 19"
+                        android:hint="PESO BRUTO POR CLUSTER Nº 09"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -953,10 +953,10 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
+                            android:digits="0123456789."
 
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:enabled="false"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -1059,7 +1059,7 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 20"
+                        android:hint="PESO BRUTO POR CLUSTER Nº 010"
                         android:visibility="visible"
                         app:endIconMode="clear_text">
 
@@ -1067,10 +1067,10 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
+                            android:digits="0123456789."
 
-                            android:inputType="number"
-                            android:digits="0123456789." />
+                            android:enabled="false"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout

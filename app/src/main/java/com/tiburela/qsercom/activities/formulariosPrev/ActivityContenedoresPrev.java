@@ -4228,6 +4228,18 @@ return true;
         diseableViewsByTipe(ediEnsunchado);
         diseableViewsByTipe(    ediBalanzaRepeso);
 
+        diseableViewsByTipe(ediCajasProcDesp);
+        diseableViewsByTipe(ediRacimosCosech);
+        diseableViewsByTipe(ediRacimosRecha);
+        diseableViewsByTipe(ediRacimProces);
+
+        diseableViewsByTipe(ediExtCalid);
+        diseableViewsByTipe(ediExtCalidCi);
+        diseableViewsByTipe(ediExtRodillo);
+        diseableViewsByTipe(ediExtRodilloCi);
+        diseableViewsByTipe(ediExtGancho);
+        diseableViewsByTipe(ediExtGanchoCi);
+
 
 
 
@@ -4239,6 +4251,13 @@ return true;
         diseableViewsByTipe( spinnertipodeBlanza) ;
         diseableViewsByTipe( spinnertipodeBlanzaRepeso) ;
         diseableViewsByTipe( spinnerubicacionBalanza) ;
+
+
+        diseableViewsByTipe( spFuenteAgua) ;
+        diseableViewsByTipe( swAguaCorrida) ;
+        diseableViewsByTipe( switchLavdoRacimos) ;
+        diseableViewsByTipe( spFumigaCorL1) ;
+        diseableViewsByTipe( spTipoBoquilla) ;
 
         //SWITCHSÇ
         diseableViewsByTipe( switchContenedor);
@@ -4352,6 +4371,25 @@ return true;
         activateViewsByTypeView(    ediSelloAdesivoexpor);
         activateViewsByTypeView(    esiSelloAdhNaviera);
         activateViewsByTypeView(    ediOtherSellos);
+
+        activateViewsByTypeView(ediCajasProcDesp);
+        activateViewsByTypeView(ediRacimosCosech);
+        activateViewsByTypeView(ediRacimosRecha);
+        activateViewsByTypeView(ediRacimProces);
+
+        activateViewsByTypeView( spFuenteAgua) ;
+        activateViewsByTypeView( swAguaCorrida) ;
+        activateViewsByTypeView( switchLavdoRacimos) ;
+        activateViewsByTypeView( spFumigaCorL1) ;
+        activateViewsByTypeView( spTipoBoquilla) ;
+
+
+        activateViewsByTypeView(ediExtCalid);
+        activateViewsByTypeView(ediExtCalidCi);
+        activateViewsByTypeView(ediExtRodillo);
+        activateViewsByTypeView(ediExtRodilloCi);
+        activateViewsByTypeView(ediExtGancho);
+        activateViewsByTypeView(ediExtGanchoCi);
 
 
         //SPINNERS
