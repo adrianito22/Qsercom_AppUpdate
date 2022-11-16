@@ -362,7 +362,6 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="OTros sellos (Especifique)"
-
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText

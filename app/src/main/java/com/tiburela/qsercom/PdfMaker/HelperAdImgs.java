@@ -21,6 +21,7 @@ import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.property.VerticalAlignment;
 import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
@@ -313,9 +314,14 @@ public class HelperAdImgs {
 
             //test a la primer imagen le agregamos texto
 
-            if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
+            if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){
+
+                //aqui agregamos la descripcion si contiene
                 cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical1,HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion);
+
             }
+
+
             else {
 
                 cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical1); //estaba asi
@@ -879,6 +885,8 @@ public class HelperAdImgs {
     public static Image getWatermarkedImage(PdfDocument pdfDoc, Image img, String watermark) {
         float width = img.getImageScaledWidth();
         float height = img.getImageScaledHeight();
+        Log.i("heifkg","el heigth de imagen es "+height);
+
         PdfFormXObject template = new PdfFormXObject(new Rectangle(width, height));
         new Canvas(template, pdfDoc).
                 add(img).
@@ -887,7 +895,12 @@ public class HelperAdImgs {
               //  setBackgroundColor(DeviceGray.BLACK).
                 setBackgroundColor(DeviceGray.BLACK,4,4,4,4).
 
-                showTextAligned(new Paragraph(watermark).setBackgroundColor(new DeviceRgb(0,0,0)), width / 2, height / 9, TextAlignment.CENTER); //estaba en 7
+       // showTextAligned(new Paragraph(watermark).setBackgroundColor(new DeviceRgb(0,0,0)), width / 2, height /18, TextAlignment.CENTER); //estaba en 9
+        showTextAligned(new Paragraph(watermark).setBackgroundColor(new DeviceRgb(0,0,0)), width / 2, height-238 //estab en 235
+               , TextAlignment.CENTER ); //estaba en 9
+
+
+        //  showTextAligned(new Paragraph(watermark).setBackgroundColor(new DeviceRgb(0,0,0)), width / 2, height-10, TextAlignment.CENTER); //estaba en 9
 
                //  showTextAligned(watermark, width / 2, height / 8, TextAlignment.CENTER); //estaba en 7
 
