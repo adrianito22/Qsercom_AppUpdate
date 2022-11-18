@@ -21,6 +21,7 @@ import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
@@ -1034,6 +1035,18 @@ public class RealtimeDB {
 
     }
 
+    public static void addNewRegisterUploadInform( InformsRegister informeObjct) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("informsData");
+        mibasedata.push().setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+
+
+}
 }

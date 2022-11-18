@@ -271,7 +271,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**TABLE TITULO EXPORTADORA SOLICTADA yPosicion procesada*/
         Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
-        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITADA: BANDECUA MARCA DEL MONTE").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITADA: "+Variables.CurrenReportPart1.getS).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
         Cell cell3= new Cell().setBorder(Border.NO_BORDER)  .add(new Paragraph("EXPORTADORA PROCESADA LAT BIO")).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f);
 
         tableTitle.addCell(cell1);

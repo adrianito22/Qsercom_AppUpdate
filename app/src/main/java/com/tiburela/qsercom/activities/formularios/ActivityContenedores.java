@@ -12,8 +12,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,6 +55,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -62,17 +67,18 @@ import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadP
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.utils.ConnectionReceiver;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Permisionx;
@@ -85,13 +91,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.UUID;
 
 import com.tiburela.qsercom.R;
 
 
-public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener ,ConnectionReceiver.ReceiverListener{
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -2868,23 +2873,29 @@ private void createObjcInformeAndUpload(){
 
 
 
-    //Agregamos un nuevo informe
-    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     //agr5egamos la data finalemente
+    RealtimeDB.initDatabasesRootOnly();
 
+    generateUniqueIdInformeAndContinuesIfIdIsUnique( informe,informe2,informe3);
+
+
+
+}
+
+private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
+
+    //Agregamos un nuevo informe
+    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
     RealtimeDB.addNewInforme(ActivityContenedores.this,informe);
-
     RealtimeDB.addNewInforme(ActivityContenedores.this,informe2);
-
     updateCaledarioEnfunde(informe3);
-
     RealtimeDB.addNewInforme(informe3);
-
     addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
 
 
 }
+
 
     private void updateDatosEvaludoresOFinforme3(SetInformDatsHacienda informe3) {
 
@@ -4742,6 +4753,165 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
 
+
+
+
+    private void checkConnection() {
+
+        // initialize intent filter
+        IntentFilter intentFilter = new IntentFilter();
+
+        // add action
+        intentFilter.addAction("android.new.conn.CONNECTIVITY_CHANGE");
+
+        // register receiver
+        registerReceiver(new ConnectionReceiver(), intentFilter);
+
+        // Initialize listener
+        ConnectionReceiver.Listener = this;
+
+        // Initialize connectivity manager
+        ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Initialize network info
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        // get connection status
+        boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+
+        // display snack bar
+        showSnackBar(isConnected);
+    }
+
+    private void showSnackBar(boolean isConnected) {
+
+        // initialize color and message
+        String message;
+        int color;
+
+        // check condition
+        if (isConnected) {
+
+            // when internet is connected
+            // set message
+            message = "Connected to Internet";
+
+            // set text color
+            color = Color.WHITE;
+
+        } else {
+
+            // when internet
+            // is disconnected
+            // set message
+            message = "Not Connected to Internet";
+
+            // set text color
+           // color = Color.RED;
+        }
+
+        // initialize snack bar
+      //  Snackbar snackbar = Snackbar.make(findViewById(R.id.btnSi), message, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+
+        // initialize view
+       // View view = snackbar.getView();
+       // Snackbar snackbar = Snackbar.make(coordinatorLayout,"Custom Snackbar",Toast.LENGTH_SHORT);
+        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.red));
+
+
+        // Assign variable
+       // TextView textView = view.findViewById(R.id.txtTotal1);
+
+        // set text color
+      //  textView.setTextColor(color);
+
+        // show snack bar
+        snackbar.show();
+    }
+
+    @Override
+    public void onNetworkChange(boolean isConnected) {
+        // display snack bar
+        showSnackBar(isConnected);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // call method
+        checkConnection();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // call method
+        checkConnection();
+    }
+
+
+    private void generateUniqueIdInformeAndContinuesIfIdIsUnique( SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
+
+        String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
+        Log.i("elnumber","el numero generado es ss"+uniqueId);
+
+        checkIfExistIdAndUpload(uniqueId,informe,informe2,informe3);
+
+
+    }
+
+
+
+
+
+
+    private void checkIfExistIdAndUpload (String currenTidGenrate, SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
+
+      //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
+      //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("informsData").equalTo(currenTidGenrate);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ControlCalidad  user=null;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                      user=ds.getValue(ControlCalidad.class);
+                }
+
+
+                if(user == null) {
+
+                    informe.setUniqueIDinforme(currenTidGenrate);
+                    uploadInformeToDatabase(informe,informe2,informe3);
+                    //dfghdfh
+
+                     RealtimeDB.addNewRegisterUploadInform(new InformsRegister(currenTidGenrate,Variables.FormContenedores));
+
+                    //aqui subimos..
+
+                }else {
+
+                    generateUniqueIdInformeAndContinuesIfIdIsUnique(informe,informe2,informe3);
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
 
 
 

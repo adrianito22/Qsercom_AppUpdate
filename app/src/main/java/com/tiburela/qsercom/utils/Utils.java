@@ -9,6 +9,8 @@ import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
@@ -32,6 +34,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 
 public class Utils {
 public static int numReportsVinculads=0;
@@ -730,5 +733,23 @@ return
     }
 
 
+
+    public static  int generateNumRadom6Digits() {
+
+            Random r = new Random( System.currentTimeMillis() );
+        Log.i("elnumber","el numero generado es "+((1 + r.nextInt(2)) * 10000 + r.nextInt(10000)));
+
+        return ((1 + r.nextInt(2)) * 100000 + r.nextInt(100000)); //estab en 5 ceros
+
+    }
+
+
+
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 }

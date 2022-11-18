@@ -46,7 +46,6 @@ public class ControlCalidad {
     public String getKeyDondeEstaraHasmapDefecSelec2Emp() {
         return keyDondeEstaraHasmapDefecSelec2Emp;
     }
-
     public void setKeyDondeEstaraHasmapDefecSelec2Emp(String keyDondeEstaraHasmapDefecSelec2Emp) {
         this.keyDondeEstaraHasmapDefecSelec2Emp = keyDondeEstaraHasmapDefecSelec2Emp;
     }

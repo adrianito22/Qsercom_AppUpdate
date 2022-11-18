@@ -17,13 +17,23 @@ public class SetInformEmbarque1 {
 
     private String codeInforme;
 
+
+
     public String getAtachControCalidadInfrms() {
         return atachControCalidadInfrms;
     }
 
+
+
     public void setAtachControCalidadInfrms(String atachControCalidadInfrms) {
+
         this.atachControCalidadInfrms = atachControCalidadInfrms;
+
     }
+
+
+
+
 
     private String atachControCalidadInfrms;
 
@@ -33,6 +43,14 @@ public class SetInformEmbarque1 {
     private int  stateInformacion; //si es borrador
     private long fechaCreacionInf;
     private String  numcionContenedor;
+
+    ////////////////////////////////
+
+    private String  exportadoraProcesada;
+    private String  exportadoraSolicitante;
+    private String  marrca;
+
+
 
     private String uniqueIDinforme;
 
@@ -60,7 +78,10 @@ public class SetInformEmbarque1 {
         this.numcionContenedor = numcionContenedor;
     }
 
-    public SetInformEmbarque1(String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
+    public SetInformEmbarque1(
+            String  exportadoraProcesada,String  exportadoraSolicitante,String  marrca,
+
+            String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
                               String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
                               String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
                               String empacadora, String contenedor, String observacion, String horaLlegadaContenedor,
@@ -79,7 +100,11 @@ public class SetInformEmbarque1 {
                               String selloPlasticoNaviera,
                               String otroSelloLlegadaEspec) {
 
-        this.uniqueIDinforme=uniqueIDinforme;
+        this.exportadoraProcesada =exportadoraProcesada;
+        this.exportadoraSolicitante =exportadoraSolicitante;
+        this.marrca =marrca;
+
+                this.uniqueIDinforme=uniqueIDinforme;
         this.codeInforme = codeInforme;
         esVisually = true;
         esEditableNow = true;

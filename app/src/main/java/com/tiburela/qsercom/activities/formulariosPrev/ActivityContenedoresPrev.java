@@ -70,7 +70,6 @@ import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.othersActivits.ActivityMenu;
 import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -111,6 +110,10 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
     ProgressDialog progress;
+    TextInputEditText ediExportadoraProcesada ;
+    TextInputEditText ediExportadoraSolicitante;
+    TextInputEditText ediMarca ;
+
 
 
     private static final int PERMISSION_REQUEST_CODE=100;
@@ -563,6 +566,10 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+        ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
+        ediExportadoraSolicitante =findViewById(R.id.ediExportadoraSolicitante);
+        ediMarca=findViewById(R.id.ediMarca);
+
 
         ediExtCalid=findViewById(R.id.ediExtCalid);
         ediExtRodillo=findViewById(R.id.ediExtRodillo);
@@ -1537,7 +1544,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         ediFecha.setOnTouchListener(this);
         ediProductor.setOnTouchListener(this);
         ediHacienda.setOnTouchListener(this);
-        ediCodigo.setOnTouchListener(this);
+       // ediCodigo.setOnTouchListener(this);
         ediInscirpMagap.setOnTouchListener(this);
         ediPemarque.setOnTouchListener(this);
         ediHoraInicio.setOnTouchListener(this);
@@ -4143,11 +4150,18 @@ return true;
         Log.i("extra","se llamo activateModePreview descativamos ");
           Variables.isClickable=false;
 
+        diseableViewsByTipe(    ediExportadoraProcesada);
+        diseableViewsByTipe(    ediExportadoraSolicitante);
+        diseableViewsByTipe(    ediMarca);
+
+
+
+
         diseableViewsByTipe(    ediSemana);
         diseableViewsByTipe(    ediFecha);
         diseableViewsByTipe(    ediProductor);
         diseableViewsByTipe(    ediHacienda);
-        diseableViewsByTipe(    ediCodigo);
+       // diseableViewsByTipe(    ediCodigo);
         diseableViewsByTipe(    ediInscirpMagap);
         diseableViewsByTipe(    ediPemarque);
         diseableViewsByTipe(    ediZona);
@@ -4289,11 +4303,16 @@ return true;
     private void activateModeEdit() {
         Variables.isClickable=true;
 
+        activateViewsByTypeView(    ediExportadoraProcesada);
+        activateViewsByTypeView(    ediExportadoraSolicitante);
+        activateViewsByTypeView(    ediMarca);
+
+
         activateViewsByTypeView(    ediSemana);
         activateViewsByTypeView(    ediFecha);
         activateViewsByTypeView(    ediProductor);
         activateViewsByTypeView(    ediHacienda);
-        activateViewsByTypeView(    ediCodigo);
+       // activateViewsByTypeView(    ediCodigo);
         activateViewsByTypeView(    ediInscirpMagap);
         activateViewsByTypeView(    ediPemarque);
         activateViewsByTypeView(    ediZona);
@@ -4626,13 +4645,17 @@ private void checkModeVisualitY(){
 
 
     if(isModEdicionFields){
+
         TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
         activateModeEdit();
         txtModeAdviser.setText("Modo Edicion ");
 
         Log.i("isclkiel","es clickeable es "+ Variables.isClickable);
 
-    }else{
+    }
+
+
+    else{
         fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
         activateModePreview();
         Log.i("isclkiel","es clickeable es "+ Variables.isClickable);

@@ -39,8 +39,10 @@ import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
+import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
 import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
@@ -100,11 +102,12 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
       //  Variables.actividad =ActivityMenu;
         Variables.activity=this;
 
-        if(Variables.activity!=null ){
 
-            Log.i("miactivity","no es nulo") ;
 
-        }
+        String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
+        Log.i("elnumber","el numero generado es ss "+uniqueId);
+
+
 
 
 
