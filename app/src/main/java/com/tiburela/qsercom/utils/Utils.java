@@ -23,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tiburela.qsercom.EditextSupreme;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.Celda;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -572,6 +573,36 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
 
     }
 
+
+    public static  void addDataOfPrefrencesInViewX(EditextSupreme[] arraytxtImpEditext, HashMap<String, String> hashMaPDePrefer) {
+
+        //recorremos el array de editext
+
+        for(int indice=0; indice<arraytxtImpEditext.length; indice++)  {
+
+            EditextSupreme currentTxImpEditext =arraytxtImpEditext[indice] ;
+
+            String key =String.valueOf(currentTxImpEditext.getId());
+
+            if(hashMaPDePrefer.get(key) != null)  {
+
+                currentTxImpEditext.setText(hashMaPDePrefer.get(key));
+
+            }
+
+
+
+        }
+
+
+
+
+
+    }
+
+
+
+
     public static void saveArrayList(ArrayList<ImagenReport> list,Activity activity){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = prefs.edit();
@@ -685,9 +716,9 @@ return
 
 
 
-    public static  TextInputEditText getTexImputEditextByidORkey( TextInputEditText[] allArrayViewsTextIMPUTe,int idViewSearch ){
+    public static EditextSupreme getEditextSupreme(EditextSupreme[] allArrayViewsTextIMPUTe, int idViewSearch ){
 
-        TextInputEditText textInputEditText=null;
+        EditextSupreme textInputEditText=null;
         Log.i("midata","hay en totak "+allArrayViewsTextIMPUTe.length + "textimput editext");
 
 
@@ -699,6 +730,33 @@ return
             if(allArrayViewsTextIMPUTe[indice].getId()==idViewSearch){
 
                 Log.i("midata","se cumplio ss");
+
+
+                textInputEditText= allArrayViewsTextIMPUTe[indice];
+                break;
+            }
+
+        }
+
+        return textInputEditText;
+    }
+
+
+
+    public static TextInputEditText getTextImpuEditex(TextInputEditText[] allArrayViewsTextIMPUTe, int idViewSearch ){
+
+        TextInputEditText textInputEditText=null;
+        Log.i("midata","hay en totak "+allArrayViewsTextIMPUTe.length + "textimput editext");
+
+
+        for(int indice=0; indice<allArrayViewsTextIMPUTe.length ; indice++){  //iteramos el mapa
+
+            Log.i("midata","el id de este view es es "+allArrayViewsTextIMPUTe[indice].getId());
+
+            if(allArrayViewsTextIMPUTe[indice].getId()==idViewSearch){
+
+                Log.i("midata","se cumplio ss");
+
 
                 textInputEditText= allArrayViewsTextIMPUTe[indice];
                 break;

@@ -17,8 +17,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.tiburela.qsercom.EditextSupreme;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -36,87 +38,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private boolean sellamoFindViewIds=false;
 
-    // initialize variables
-    private TextInputEditText mEdiLargDeds1;
-    private TextInputEditText mEdiLargDeds2;
-    private TextInputEditText mEdiLargDeds3;
-    private TextInputEditText mEdiLargDeds4;
-    private TextInputEditText mEdiLargDeds5;
-    private TextInputEditText mEdiLargDeds6;
-    private TextInputEditText mEdiLargDeds7;
-    private TextInputEditText mEdiLargDeds8;
-    private TextInputEditText mEdiLargDeds9;
-    private TextInputEditText mEdiLargDeds10;
-    private TextInputEditText mEdiLargDeds11;
-    private TextInputEditText mEdiLargDeds12;
-    private TextInputEditText mEdiLargDeds13;
-    private TextInputEditText mEdiLargDeds14;
-    private TextInputEditText mEdiLargDeds15;
-    private TextInputEditText mEdiLargDeds16;
-    private TextInputEditText mEdiLargDeds17;
-    private TextInputEditText mEdiLargDeds18;
-    private TextInputEditText mEdiLargDeds19;
-    private TextInputEditText mEdiLargDeds20;
-    private TextInputEditText mEdiLargDeds21;
-    private TextInputEditText mEdiLargDeds22;
-    private TextInputEditText mEdiLargDeds23;
-    private TextInputEditText mEdiLargDeds24;
-    private TextInputEditText mEdiLargDeds25;
-    private TextInputEditText mEdiLargDeds26;
-    private TextInputEditText mEdiLargDeds27;
-    private TextInputEditText mEdiLargDeds28;
-    private TextInputEditText mEdiLargDeds29;
-    private TextInputEditText mEdiLargDeds30;
-
-    private TextInputEditText mEdiTotalFila1;
-    private TextInputEditText mEdiPromFila1;
-
-    private TextInputEditText mEdif2LrgD1;
-    private TextInputEditText mEdif2LrgD2;
-    private TextInputEditText mEdif2LrgD3;
-    private TextInputEditText mEdif2LrgD4;
-    private TextInputEditText mEdif2LrgD5;
-    private TextInputEditText mEdif2LrgD6;
-    private TextInputEditText mEdif2LrgD7;
-    private TextInputEditText mEdif2LrgD8;
-    private TextInputEditText mEdif2LrgD9;
-    private TextInputEditText mEdif2LrgD10;
-    private TextInputEditText mEdif2LrgD11;
-    private TextInputEditText mEdif2LrgD12;
-    private TextInputEditText mEdif2LrgD13;
-    private TextInputEditText mEdif2LrgD14;
-    private TextInputEditText mEdif2LrgD15;
-    private TextInputEditText mEdif2LrgD16;
-    private TextInputEditText mEdif2LrgD17;
-    private TextInputEditText mEdif2LrgD18;
-    private TextInputEditText mEdif2LrgD19;
-    private TextInputEditText mEdif2LrgD20;
-    private TextInputEditText mEdif2LrgD21;
-    private TextInputEditText mEdif2LrgD22;
-    private TextInputEditText mEdif2LrgD23;
-    private TextInputEditText mEdif2LrgD24;
-    private TextInputEditText mEdif2LrgD25;
-    private TextInputEditText mEdif2LrgD26;
-    private TextInputEditText mEdif2LrgD27;
-    private TextInputEditText mEdif2LrgD28;
-    private TextInputEditText mEdif2LrgD29;
-    private TextInputEditText mEdif2LrgD30;
-
-
-
-
-  int numeroClustersInspecc=0;
-    TextView textView;
-    //  boolean[] selectedLanguage;
-    Button btnSaveControlC;
-    TextView textView48;
-    HashMap<String, String> hasHmapOtherFieldsEditxs;
-    HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
-    HashMap<String, String> hahasMapitemsSelecPosicDefcEmpqtoUpload;
-
-
-    private TextInputEditText ediObservacioneszszz;
-    // fist fields
     private TextInputEditText mEdiVaporzz;
     private TextInputEditText mEdiProductorzz;
     private TextInputEditText mEdiCodigozz;
@@ -142,6 +63,91 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     private TextInputEditText mEdiPlacaCarrzz;
     private TextInputEditText mEdiPuertEmbzz;
 
+    private EditextSupreme ediObservacioneszszz;
+
+
+
+
+
+    // initialize variables
+    private EditextSupreme mEdiLargDeds1;
+    private EditextSupreme mEdiLargDeds2;
+    private EditextSupreme mEdiLargDeds3;
+    private EditextSupreme mEdiLargDeds4;
+    private EditextSupreme mEdiLargDeds5;
+    private EditextSupreme mEdiLargDeds6;
+    private EditextSupreme mEdiLargDeds7;
+    private EditextSupreme mEdiLargDeds8;
+    private EditextSupreme mEdiLargDeds9;
+    private EditextSupreme mEdiLargDeds10;
+    private EditextSupreme mEdiLargDeds11;
+    private EditextSupreme mEdiLargDeds12;
+    private EditextSupreme mEdiLargDeds13;
+    private EditextSupreme mEdiLargDeds14;
+    private EditextSupreme mEdiLargDeds15;
+    private EditextSupreme mEdiLargDeds16;
+    private EditextSupreme mEdiLargDeds17;
+    private EditextSupreme mEdiLargDeds18;
+    private EditextSupreme mEdiLargDeds19;
+    private EditextSupreme mEdiLargDeds20;
+    private EditextSupreme mEdiLargDeds21;
+    private EditextSupreme mEdiLargDeds22;
+    private EditextSupreme mEdiLargDeds23;
+    private EditextSupreme mEdiLargDeds24;
+    private EditextSupreme mEdiLargDeds25;
+    private EditextSupreme mEdiLargDeds26;
+    private EditextSupreme mEdiLargDeds27;
+    private EditextSupreme mEdiLargDeds28;
+    private EditextSupreme mEdiLargDeds29;
+    private EditextSupreme mEdiLargDeds30;
+
+    private EditextSupreme mEdiTotalFila1;
+    private EditextSupreme mEdiPromFila1;
+
+    private EditextSupreme mEdif2LrgD1;
+    private EditextSupreme mEdif2LrgD2;
+    private EditextSupreme mEdif2LrgD3;
+    private EditextSupreme mEdif2LrgD4;
+    private EditextSupreme mEdif2LrgD5;
+    private EditextSupreme mEdif2LrgD6;
+    private EditextSupreme mEdif2LrgD7;
+    private EditextSupreme mEdif2LrgD8;
+    private EditextSupreme mEdif2LrgD9;
+    private EditextSupreme mEdif2LrgD10;
+    private EditextSupreme mEdif2LrgD11;
+    private EditextSupreme mEdif2LrgD12;
+    private EditextSupreme mEdif2LrgD13;
+    private EditextSupreme mEdif2LrgD14;
+    private EditextSupreme mEdif2LrgD15;
+    private EditextSupreme mEdif2LrgD16;
+    private EditextSupreme mEdif2LrgD17;
+    private EditextSupreme mEdif2LrgD18;
+    private EditextSupreme mEdif2LrgD19;
+    private EditextSupreme mEdif2LrgD20;
+    private EditextSupreme mEdif2LrgD21;
+    private EditextSupreme mEdif2LrgD22;
+    private EditextSupreme mEdif2LrgD23;
+    private EditextSupreme mEdif2LrgD24;
+    private EditextSupreme mEdif2LrgD25;
+    private EditextSupreme mEdif2LrgD26;
+    private EditextSupreme mEdif2LrgD27;
+    private EditextSupreme mEdif2LrgD28;
+    private EditextSupreme mEdif2LrgD29;
+    private EditextSupreme mEdif2LrgD30;
+
+
+
+
+    int numeroClustersInspecc=0;
+    TextView textView;
+    //  boolean[] selectedLanguage;
+    Button btnSaveControlC;
+    TextView textView48;
+    HashMap<String, String> hasHmapOtherFieldsEditxs;
+    HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
+    HashMap<String, String> hahasMapitemsSelecPosicDefcEmpqtoUpload;
+
+
 
 
     //Imageviews defects
@@ -165,210 +171,210 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     ImageView imgupdateInfo;
 
-    TextInputEditText ediTimeHoraxx1;
-    TextInputEditText ediTimeHoraxx2;;
-    TextInputEditText ediTimeHoraxx3;
-    TextInputEditText ediTimeHoraxx4;
-    TextInputEditText ediTimeHoraxx5;
-    TextInputEditText ediTimeHoraxx6;
-    TextInputEditText ediTimeHoraxx7;
-    TextInputEditText ediTimeHoraxx8;
-    TextInputEditText ediTimeHoraxx9;
-    TextInputEditText ediTimeHoraxx10;
+    EditextSupreme ediTimeHoraxx1;
+    EditextSupreme ediTimeHoraxx2;;
+    EditextSupreme ediTimeHoraxx3;
+    EditextSupreme ediTimeHoraxx4;
+    EditextSupreme ediTimeHoraxx5;
+    EditextSupreme ediTimeHoraxx6;
+    EditextSupreme ediTimeHoraxx7;
+    EditextSupreme ediTimeHoraxx8;
+    EditextSupreme ediTimeHoraxx9;
+    EditextSupreme ediTimeHoraxx10;
 
 
 
-    TextInputEditText ediPesoL1;
-    TextInputEditText ediPesoL2;
-    TextInputEditText ediPesoL3;
-    TextInputEditText ediPesoL4;
-    TextInputEditText ediPesoL5;
-    TextInputEditText ediPesoL6;
-    TextInputEditText ediPesoL7;
-    TextInputEditText ediPesoL8;
-    TextInputEditText ediPesoL9;
-    TextInputEditText ediPesoL10;
+    EditextSupreme ediPesoL1;
+    EditextSupreme ediPesoL2;
+    EditextSupreme ediPesoL3;
+    EditextSupreme ediPesoL4;
+    EditextSupreme ediPesoL5;
+    EditextSupreme ediPesoL6;
+    EditextSupreme ediPesoL7;
+    EditextSupreme ediPesoL8;
+    EditextSupreme ediPesoL9;
+    EditextSupreme ediPesoL10;
 
-    TextInputEditText ediPH1;
-    TextInputEditText ediPH2;
-    TextInputEditText ediPH3;
-    TextInputEditText ediPH4;
-    TextInputEditText ediPH5;
-    TextInputEditText ediPH6;
-    TextInputEditText ediPH7;
-    TextInputEditText ediPH8;
-    TextInputEditText ediPH9;
-    TextInputEditText ediPH10;
+    EditextSupreme ediPH1;
+    EditextSupreme ediPH2;
+    EditextSupreme ediPH3;
+    EditextSupreme ediPH4;
+    EditextSupreme ediPH5;
+    EditextSupreme ediPH6;
+    EditextSupreme ediPH7;
+    EditextSupreme ediPH8;
+    EditextSupreme ediPH9;
+    EditextSupreme ediPH10;
 
-    TextInputEditText ediNumClusInsp1;
-    TextInputEditText ediNumClusInsp2;
-    TextInputEditText ediNumClusInsp3;
-    TextInputEditText ediNumClusInsp4;
-    TextInputEditText ediNumClusInsp5;
-    TextInputEditText ediNumClusInsp6;
-    TextInputEditText ediNumClusInsp7;
-    TextInputEditText ediNumClusInsp8;
-    TextInputEditText ediNumClusInsp9;
-    TextInputEditText ediNumClusInsp10;
+    EditextSupreme ediNumClusInsp1;
+    EditextSupreme ediNumClusInsp2;
+    EditextSupreme ediNumClusInsp3;
+    EditextSupreme ediNumClusInsp4;
+    EditextSupreme ediNumClusInsp5;
+    EditextSupreme ediNumClusInsp6;
+    EditextSupreme ediNumClusInsp7;
+    EditextSupreme ediNumClusInsp8;
+    EditextSupreme ediNumClusInsp9;
+    EditextSupreme ediNumClusInsp10;
 
-    TextInputEditText ediNdedoXclust1;
-    TextInputEditText ediNdedoXclust2 ;
-    TextInputEditText ediNdedoXclust3 ;
-    TextInputEditText ediNdedoXclust4 ;
-    TextInputEditText ediNdedoXclust5 ;
-    TextInputEditText ediNdedoXclust6 ;
-    TextInputEditText ediNdedoXclust7 ;
-    TextInputEditText ediNdedoXclust8 ;
-    TextInputEditText ediNdedoXclust9 ;
-    TextInputEditText ediNdedoXclust10 ;
-    TextInputEditText ediNdedoXclust11 ;
-    TextInputEditText ediNdedoXclust12 ;
-    TextInputEditText ediNdedoXclust13 ;
-    TextInputEditText ediNdedoXclust14 ;
-    TextInputEditText ediNdedoXclust15 ;
-    TextInputEditText ediNdedoXclust16 ;
-    TextInputEditText ediNdedoXclust17 ;
-    TextInputEditText ediNdedoXclust18 ;
-    TextInputEditText ediNdedoXclust19 ;
-    TextInputEditText ediNdedoXclust20 ;
-    TextInputEditText ediNdedoXclust21 ;
-    TextInputEditText ediNdedoXclust22 ;
-    TextInputEditText ediNdedoXclust23 ;
-    TextInputEditText ediNdedoXclust24 ;
-    TextInputEditText ediNdedoXclust25 ;
-    TextInputEditText ediNdedoXclust26 ;
-    TextInputEditText ediNdedoXclust27;
-    TextInputEditText ediNdedoXclust28 ;
-    TextInputEditText ediNdedoXclust29 ;
-    TextInputEditText ediNdedoXclust30 ;
+    EditextSupreme ediNdedoXclust1;
+    EditextSupreme ediNdedoXclust2 ;
+    EditextSupreme ediNdedoXclust3 ;
+    EditextSupreme ediNdedoXclust4 ;
+    EditextSupreme ediNdedoXclust5 ;
+    EditextSupreme ediNdedoXclust6 ;
+    EditextSupreme ediNdedoXclust7 ;
+    EditextSupreme ediNdedoXclust8 ;
+    EditextSupreme ediNdedoXclust9 ;
+    EditextSupreme ediNdedoXclust10 ;
+    EditextSupreme ediNdedoXclust11 ;
+    EditextSupreme ediNdedoXclust12 ;
+    EditextSupreme ediNdedoXclust13 ;
+    EditextSupreme ediNdedoXclust14 ;
+    EditextSupreme ediNdedoXclust15 ;
+    EditextSupreme ediNdedoXclust16 ;
+    EditextSupreme ediNdedoXclust17 ;
+    EditextSupreme ediNdedoXclust18 ;
+    EditextSupreme ediNdedoXclust19 ;
+    EditextSupreme ediNdedoXclust20 ;
+    EditextSupreme ediNdedoXclust21 ;
+    EditextSupreme ediNdedoXclust22 ;
+    EditextSupreme ediNdedoXclust23 ;
+    EditextSupreme ediNdedoXclust24 ;
+    EditextSupreme ediNdedoXclust25 ;
+    EditextSupreme ediNdedoXclust26 ;
+    EditextSupreme ediNdedoXclust27;
+    EditextSupreme ediNdedoXclust28 ;
+    EditextSupreme ediNdedoXclust29 ;
+    EditextSupreme ediNdedoXclust30 ;
 
 
     //FILA2
-    TextInputEditText edif2NdedoXclust1;
-    TextInputEditText edif2NdedoXclust2 ;
-    TextInputEditText edif2NdedoXclust3 ;
-    TextInputEditText edif2NdedoXclust4 ;
-    TextInputEditText edif2NdedoXclust5 ;
-    TextInputEditText edif2NdedoXclust6 ;
-    TextInputEditText edif2NdedoXclust7 ;
-    TextInputEditText edif2NdedoXclust8 ;
-    TextInputEditText edif2NdedoXclust9 ;
-    TextInputEditText edif2NdedoXclust10 ;
-    TextInputEditText edif2NdedoXclust11 ;
-    TextInputEditText edif2NdedoXclust12 ;
-    TextInputEditText edif2NdedoXclust13 ;
-    TextInputEditText edif2NdedoXclust14 ;
-    TextInputEditText edif2NdedoXclust15 ;
-    TextInputEditText edif2NdedoXclust16 ;
-    TextInputEditText edif2NdedoXclust17 ;
-    TextInputEditText edif2NdedoXclust18 ;
-    TextInputEditText edif2NdedoXclust19 ;
-    TextInputEditText edif2NdedoXclust20 ;
-    TextInputEditText edif2NdedoXclust21 ;
-    TextInputEditText edif2NdedoXclust22 ;
-    TextInputEditText edif2NdedoXclust23 ;
-    TextInputEditText edif2NdedoXclust24 ;
-    TextInputEditText edif2NdedoXclust25 ;
-    TextInputEditText edif2NdedoXclust26 ;
-    TextInputEditText edif2NdedoXclust27;
-    TextInputEditText edif2NdedoXclust28 ;
-    TextInputEditText edif2NdedoXclust29 ;
-    TextInputEditText edif2NdedoXclust30 ;
+    EditextSupreme edif2NdedoXclust1;
+    EditextSupreme edif2NdedoXclust2 ;
+    EditextSupreme edif2NdedoXclust3 ;
+    EditextSupreme edif2NdedoXclust4 ;
+    EditextSupreme edif2NdedoXclust5 ;
+    EditextSupreme edif2NdedoXclust6 ;
+    EditextSupreme edif2NdedoXclust7 ;
+    EditextSupreme edif2NdedoXclust8 ;
+    EditextSupreme edif2NdedoXclust9 ;
+    EditextSupreme edif2NdedoXclust10 ;
+    EditextSupreme edif2NdedoXclust11 ;
+    EditextSupreme edif2NdedoXclust12 ;
+    EditextSupreme edif2NdedoXclust13 ;
+    EditextSupreme edif2NdedoXclust14 ;
+    EditextSupreme edif2NdedoXclust15 ;
+    EditextSupreme edif2NdedoXclust16 ;
+    EditextSupreme edif2NdedoXclust17 ;
+    EditextSupreme edif2NdedoXclust18 ;
+    EditextSupreme edif2NdedoXclust19 ;
+    EditextSupreme edif2NdedoXclust20 ;
+    EditextSupreme edif2NdedoXclust21 ;
+    EditextSupreme edif2NdedoXclust22 ;
+    EditextSupreme edif2NdedoXclust23 ;
+    EditextSupreme edif2NdedoXclust24 ;
+    EditextSupreme edif2NdedoXclust25 ;
+    EditextSupreme edif2NdedoXclust26 ;
+    EditextSupreme edif2NdedoXclust27;
+    EditextSupreme edif2NdedoXclust28 ;
+    EditextSupreme edif2NdedoXclust29 ;
+    EditextSupreme edif2NdedoXclust30 ;
 
 
 
     ////SEGUNDO CUADRO
 
-    TextInputEditText edif2NdedoXclustxC1;
-    TextInputEditText edif2NdedoXclustxC2 ;
-    TextInputEditText edif2NdedoXclustxC3 ;
-    TextInputEditText edif2NdedoXclustxC4 ;
-    TextInputEditText edif2NdedoXclustxC5 ;
-    TextInputEditText edif2NdedoXclustxC6 ;
-    TextInputEditText edif2NdedoXclustxC7 ;
-    TextInputEditText edif2NdedoXclustxC8 ;
-    TextInputEditText edif2NdedoXclustxC9 ;
-    TextInputEditText edif2NdedoXclustxC10 ;
-    TextInputEditText edif2NdedoXclustxC11 ;
-    TextInputEditText edif2NdedoXclustxC12 ;
-    TextInputEditText edif2NdedoXclustxC13 ;
-    TextInputEditText edif2NdedoXclustxC14 ;
-    TextInputEditText edif2NdedoXclustxC15 ;
-    TextInputEditText edif2NdedoXclustxC16 ;
-    TextInputEditText edif2NdedoXclustxC17 ;
-    TextInputEditText edif2NdedoXclustxC18 ;
-    TextInputEditText edif2NdedoXclustxC19 ;
-    TextInputEditText edif2NdedoXclustxC20 ;
+    EditextSupreme edif2NdedoXclustxC1;
+    EditextSupreme edif2NdedoXclustxC2 ;
+    EditextSupreme edif2NdedoXclustxC3 ;
+    EditextSupreme edif2NdedoXclustxC4 ;
+    EditextSupreme edif2NdedoXclustxC5 ;
+    EditextSupreme edif2NdedoXclustxC6 ;
+    EditextSupreme edif2NdedoXclustxC7 ;
+    EditextSupreme edif2NdedoXclustxC8 ;
+    EditextSupreme edif2NdedoXclustxC9 ;
+    EditextSupreme edif2NdedoXclustxC10 ;
+    EditextSupreme edif2NdedoXclustxC11 ;
+    EditextSupreme edif2NdedoXclustxC12 ;
+    EditextSupreme edif2NdedoXclustxC13 ;
+    EditextSupreme edif2NdedoXclustxC14 ;
+    EditextSupreme edif2NdedoXclustxC15 ;
+    EditextSupreme edif2NdedoXclustxC16 ;
+    EditextSupreme edif2NdedoXclustxC17 ;
+    EditextSupreme edif2NdedoXclustxC18 ;
+    EditextSupreme edif2NdedoXclustxC19 ;
+    EditextSupreme edif2NdedoXclustxC20 ;
 
 
 
-    TextInputEditText ediNdedoXclustXc1;
-    TextInputEditText ediNdedoXclustXc2 ;
-    TextInputEditText ediNdedoXclustXc3 ;
-    TextInputEditText ediNdedoXclustXc4 ;
-    TextInputEditText ediNdedoXclustXc5 ;
-    TextInputEditText ediNdedoXclustXc6 ;
-    TextInputEditText ediNdedoXclustXc7 ;
-    TextInputEditText ediNdedoXclustXc8 ;
-    TextInputEditText ediNdedoXclustXc9 ;
-    TextInputEditText ediNdedoXclustXc10 ;
-    TextInputEditText ediNdedoXclustXc11 ;
-    TextInputEditText ediNdedoXclustXc12 ;
-    TextInputEditText ediNdedoXclustXc13 ;
-    TextInputEditText ediNdedoXclustXc14 ;
-    TextInputEditText ediNdedoXclustXc15 ;
-    TextInputEditText ediNdedoXclustXc16 ;
-    TextInputEditText ediNdedoXclustXc17 ;
-    TextInputEditText ediNdedoXclustXc18 ;
-    TextInputEditText ediNdedoXclustXc19 ;
-    TextInputEditText ediNdedoXclustXc20 ;
+    EditextSupreme ediNdedoXclustXc1;
+    EditextSupreme ediNdedoXclustXc2 ;
+    EditextSupreme ediNdedoXclustXc3 ;
+    EditextSupreme ediNdedoXclustXc4 ;
+    EditextSupreme ediNdedoXclustXc5 ;
+    EditextSupreme ediNdedoXclustXc6 ;
+    EditextSupreme ediNdedoXclustXc7 ;
+    EditextSupreme ediNdedoXclustXc8 ;
+    EditextSupreme ediNdedoXclustXc9 ;
+    EditextSupreme ediNdedoXclustXc10 ;
+    EditextSupreme ediNdedoXclustXc11 ;
+    EditextSupreme ediNdedoXclustXc12 ;
+    EditextSupreme ediNdedoXclustXc13 ;
+    EditextSupreme ediNdedoXclustXc14 ;
+    EditextSupreme ediNdedoXclustXc15 ;
+    EditextSupreme ediNdedoXclustXc16 ;
+    EditextSupreme ediNdedoXclustXc17 ;
+    EditextSupreme ediNdedoXclustXc18 ;
+    EditextSupreme ediNdedoXclustXc19 ;
+    EditextSupreme ediNdedoXclustXc20 ;
 
-    TextInputEditText ediCalByA1;
-    TextInputEditText ediCalByA2 ;
-    TextInputEditText ediCalByA3 ;
-    TextInputEditText ediCalByA4 ;
-    TextInputEditText ediCalByA5 ;
-    TextInputEditText ediCalByA6 ;
-    TextInputEditText ediCalByA7 ;
-    TextInputEditText ediCalByA8 ;
-    TextInputEditText ediCalByA9 ;
-    TextInputEditText ediCalByA10 ;
-    TextInputEditText ediCalByA11 ;
-    TextInputEditText ediCalByA12 ;
-    TextInputEditText ediCalByA13 ;
-    TextInputEditText ediCalByA14 ;
-    TextInputEditText ediCalByA15 ;
-    TextInputEditText ediCalByA16 ;
-    TextInputEditText ediCalByA17 ;
-    TextInputEditText ediCalByA18 ;
-    TextInputEditText ediCalByA19 ;
-    TextInputEditText ediCalByA20 ;
-    TextInputEditText ediCalByA21 ;
+    EditextSupreme ediCalByA1;
+    EditextSupreme ediCalByA2 ;
+    EditextSupreme ediCalByA3 ;
+    EditextSupreme ediCalByA4 ;
+    EditextSupreme ediCalByA5 ;
+    EditextSupreme ediCalByA6 ;
+    EditextSupreme ediCalByA7 ;
+    EditextSupreme ediCalByA8 ;
+    EditextSupreme ediCalByA9 ;
+    EditextSupreme ediCalByA10 ;
+    EditextSupreme ediCalByA11 ;
+    EditextSupreme ediCalByA12 ;
+    EditextSupreme ediCalByA13 ;
+    EditextSupreme ediCalByA14 ;
+    EditextSupreme ediCalByA15 ;
+    EditextSupreme ediCalByA16 ;
+    EditextSupreme ediCalByA17 ;
+    EditextSupreme ediCalByA18 ;
+    EditextSupreme ediCalByA19 ;
+    EditextSupreme ediCalByA20 ;
+    EditextSupreme ediCalByA21 ;
 
 
     ///////////////////
-    TextInputEditText edif2Calib1;
-    TextInputEditText edif2Calib2 ;
-    TextInputEditText edif2Calib3 ;
-    TextInputEditText edif2Calib4 ;
-    TextInputEditText edif2Calib5 ;
-    TextInputEditText edif2Calib6 ;
-    TextInputEditText edif2Calib7 ;
-    TextInputEditText edif2Calib8 ;
-    TextInputEditText edif2Calib9 ;
-    TextInputEditText edif2Calib10 ;
-    TextInputEditText edif2Calib11 ;
-    TextInputEditText edif2Calib12 ;
-    TextInputEditText edif2Calib13 ;
-    TextInputEditText edif2Calib14 ;
-    TextInputEditText edif2Calib15 ;
-    TextInputEditText edif2Calib16 ;
-    TextInputEditText edif2Calib17 ;
-    TextInputEditText edif2Calib18 ;
-    TextInputEditText edif2Calib19 ;
-    TextInputEditText edif2Calib20 ;
-    TextInputEditText edif2Calib21 ;
-    TextInputEditText edif2Calib22 ;
+    EditextSupreme edif2Calib1;
+    EditextSupreme edif2Calib2 ;
+    EditextSupreme edif2Calib3 ;
+    EditextSupreme edif2Calib4 ;
+    EditextSupreme edif2Calib5 ;
+    EditextSupreme edif2Calib6 ;
+    EditextSupreme edif2Calib7 ;
+    EditextSupreme edif2Calib8 ;
+    EditextSupreme edif2Calib9 ;
+    EditextSupreme edif2Calib10 ;
+    EditextSupreme edif2Calib11 ;
+    EditextSupreme edif2Calib12 ;
+    EditextSupreme edif2Calib13 ;
+    EditextSupreme edif2Calib14 ;
+    EditextSupreme edif2Calib15 ;
+    EditextSupreme edif2Calib16 ;
+    EditextSupreme edif2Calib17 ;
+    EditextSupreme edif2Calib18 ;
+    EditextSupreme edif2Calib19 ;
+    EditextSupreme edif2Calib20 ;
+    EditextSupreme edif2Calib21 ;
+    EditextSupreme edif2Calib22 ;
     //imgvEMPAQUES
 
 
@@ -436,8 +442,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         // assign variable
         // textView = findViewById(R.id.textView);
         initSomeViewsINcreateAndCLICKlISTENNER();
-
         addListnners();
+        configCertainSomeViewsAliniciar();
 
         // addListnners();
 
@@ -456,16 +462,18 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     protected void onStart() {
         super.onStart();
         eventoUploadFormulario();
-     //   addTOUCH();
+        //   addTOUCH();
 
-     //   configCertainSomeViewsAliniciar();
 
 
 
         if(Variables.hayUnFormIncompleto){
 
-            TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
-            Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
+            EditextSupreme [] arrayEditexSupreme =creaArryOfEditextSupreme();
+            TextInputEditText [] arrayEditex2 =creaArryOftEXTiMPUTeditext();
+
+            Utils.addDataOfPrefrencesInViewX(arrayEditexSupreme,Variables.currentMapPreferences);
+            Utils. addDataOfPrefrencesInView(arrayEditex2,Variables.currentMapPreferences);
 
 
             Variables.hayUnFormIncompleto=false;
@@ -535,7 +543,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         textView48=findViewById(R.id.textView48);
 
-      //  txtTotal=findViewById(R.id.txttotal);
+        //  txtTotal=findViewById(R.id.txttotal);
 
         ediPesoL1=findViewById(R.id. ediPesoL1);
         ediPesoL2=findViewById(R.id. ediPesoL2);
@@ -939,7 +947,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-            findviewsIdsMayoriaViews();
+        findviewsIdsMayoriaViews();
 
 
         String keyOrViewID=String.valueOf(view.getId());
@@ -1101,6 +1109,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         disableEditText(mEdiHoraTermizz);
 
 
+        disableEditText(ediTimeHoraxx1);
+        disableEditText(ediTimeHoraxx2);
+        disableEditText(ediTimeHoraxx3);
+        disableEditText(ediTimeHoraxx4);
+        disableEditText(ediTimeHoraxx5);
+        disableEditText(ediTimeHoraxx6);
+        disableEditText(ediTimeHoraxx7);
+        disableEditText(ediTimeHoraxx8);
+        disableEditText(ediTimeHoraxx9);
+        disableEditText(ediTimeHoraxx10);
+
+
+
+
 
 
     }
@@ -1196,13 +1218,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     void muestraaLLResults() {
 
-        TextInputEditText ediTotalPesoLAll=findViewById(R.id.ediTotalPesoLAll);
-        TextInputEditText ediNumClusInspAll=findViewById(R.id.ediNumClusInspAll);
+        EditextSupreme ediTotalPesoLAll=findViewById(R.id.ediTotalPesoLAll);
+        EditextSupreme ediNumClusInspAll=findViewById(R.id.ediNumClusInspAll);
 
-        TextInputEditText ediPromedioPorc=findViewById(R.id.ediAllPesoLibraPorcent);
-        TextInputEditText alNumClustPercent =findViewById(R.id.alNumClustPercent);
+        EditextSupreme ediPromedioPorc=findViewById(R.id.ediAllPesoLibraPorcent);
+        EditextSupreme alNumClustPercent =findViewById(R.id.alNumClustPercent);
         TextView txtTotalDefect   =findViewById(R.id.txtTotalDefectSelect);
-        TextInputEditText allPerPh=findViewById(R.id.allPerPh);
+        EditextSupreme allPerPh=findViewById(R.id.allPerPh);
 
 
 
@@ -1216,12 +1238,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         int  contadorValrsCloseterIns=0;
         int contadorPh=0;
 
-        TextInputEditText [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
+        EditextSupreme [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
 
-        TextInputEditText [] arrayPhs = {ediPH1,ediPH2,ediPH3,ediPH4,ediPH5,ediPH6,ediPH7,ediPH7,ediPH8,ediPH9,ediPH10};
+        EditextSupreme [] arrayPhs = {ediPH1,ediPH2,ediPH3,ediPH4,ediPH5,ediPH6,ediPH7,ediPH7,ediPH8,ediPH9,ediPH10};
 
 
-        TextInputEditText [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+        EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
                 ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
 
 
@@ -1562,7 +1584,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                         else if (vista.getId()== R.id.ediHoraInizz) {
                             mEdiHoraInizz.setText(sHour + ":" + sMinute);
-                             }
+                        }
 
 
                         else if (vista.getId()== R.id.ediHoraTermizz) {
@@ -1591,7 +1613,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         hasHmapOtherFieldsEditxs = new HashMap<>();
 
-        TextInputEditText arrayAllFields[] =  {
+        EditextSupreme arrayAllFields[] =  {
 
                 ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
                 ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
@@ -1657,7 +1679,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         for(int i = 0; i<arrayAllFields.length; i++) {
 
-            TextInputEditText currenTextImput=arrayAllFields[i];
+            EditextSupreme currenTextImput=arrayAllFields[i];
 
             if(!currenTextImput.getText().toString().trim().isEmpty()) { //si no esta vacio
 
@@ -1676,16 +1698,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-    private TextInputEditText[] creaArryOfTextInputEditText() {
+    private EditextSupreme[] creaArryOfEditextSupreme() {
 
-        TextInputEditText [] arrayEditex = {
-
-               ediObservacioneszszz, mEdiVaporzz,mEdiProductorzz,mEdiCodigozz, mEdiZonazz,mEdiHaciendazz,mEdiExportadorazz,
-                mEdiCompaniazz,mEdiClientezz,mEdisemanazz, mEdiFechazz,mEdiMagapzz,mEdiMarcaCajazz,
-                mEdiTipoEmpazz,mEdiDestinzz,mEdiTotalCajaszz, mEdioCalidaCampzz,mEdiHoraInizz,mEdiHoraTermizz,
-                mEdiContenedorzz,mEdiSellosnavzz,mEdiSelloVerzz, mEdiTermografozz,mEdiPlacaCarrzz,mEdiPuertEmbzz,
-
-        ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+        EditextSupreme [] arrayEditex = {
+                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
                 ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
                 ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
                 ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
@@ -1728,6 +1744,24 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         return arrayEditex;
     }
+
+    private TextInputEditText [] creaArryOftEXTiMPUTeditext() {
+
+        TextInputEditText [] arrayEditex = {
+
+                 mEdiVaporzz,mEdiProductorzz,mEdiCodigozz, mEdiZonazz,mEdiHaciendazz,mEdiExportadorazz,
+                mEdiCompaniazz,mEdiClientezz,mEdisemanazz, mEdiFechazz,mEdiMagapzz,mEdiMarcaCajazz,
+                mEdiTipoEmpazz,mEdiDestinzz,mEdiTotalCajaszz, mEdioCalidaCampzz,mEdiHoraInizz,mEdiHoraTermizz,
+                mEdiContenedorzz,mEdiSellosnavzz,mEdiSelloVerzz, mEdiTermografozz,mEdiPlacaCarrzz,mEdiPuertEmbzz,
+
+
+        } ;
+
+
+        return arrayEditex;
+    }
+
+
 
 
     private void createInfoToHashmapRechazaSelecToUpload() {
@@ -2083,6 +2117,36 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 }
 
+                if(ediPesoL1.getText().toString().trim().isEmpty()) {
+                    ediPesoL1.requestFocus() ;
+                    ediPesoL1.setError("no puede estar vacio");
+                    return;
+
+                }
+
+
+                if(ediNumClusInsp1.getText().toString().trim().isEmpty()) {
+                    ediNumClusInsp1.setError("no puede estar vacio");
+                    return;
+
+                }
+
+
+
+                if(!checkeaNumsMinimosData()) {
+                    return;
+
+                }
+
+
+
+
+
+
+
+
+
+
                 setResultNumClusteroManoProduct();
                 getlargoDedosPulgaPulpaApulpa();
                 getNumeroClusterxCajaProduct();
@@ -2142,7 +2206,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26,27,28,29,30  } ;
 
-        TextInputEditText [] arrayEditsFilaArriba = { ediNdedoXclust1,	ediNdedoXclust2,
+        EditextSupreme [] arrayEditsFilaArriba = { ediNdedoXclust1,	ediNdedoXclust2,
                 ediNdedoXclust3,	ediNdedoXclust4,	ediNdedoXclust5,ediNdedoXclust6,ediNdedoXclust7
                 ,	ediNdedoXclust8,	ediNdedoXclust9,ediNdedoXclust10,	ediNdedoXclust11
                 ,	ediNdedoXclust12,	ediNdedoXclust13,ediNdedoXclust14,	ediNdedoXclust15
@@ -2152,7 +2216,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediNdedoXclust28,ediNdedoXclust29, ediNdedoXclust30 };
 
 
-        TextInputEditText [] arrayEditsFilaAbajo = {
+        EditextSupreme [] arrayEditsFilaAbajo = {
                 edif2NdedoXclust1	, edif2NdedoXclust2	, edif2NdedoXclust3	, edif2NdedoXclust4	,
                 edif2NdedoXclust5	, edif2NdedoXclust6	, edif2NdedoXclust7	, edif2NdedoXclust8	,
                 edif2NdedoXclust9	, edif2NdedoXclust10, edif2NdedoXclust11, edif2NdedoXclust12,
@@ -2196,7 +2260,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         final int [] arrayNJumsTOmult = {9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26  } ;
 
-        TextInputEditText [] arrayEditsFilaArriba = { edif2NdedoXclustxC1	, edif2NdedoXclustxC2	, edif2NdedoXclustxC3	,
+        EditextSupreme [] arrayEditsFilaArriba = { edif2NdedoXclustxC1	, edif2NdedoXclustxC2	, edif2NdedoXclustxC3	,
                 edif2NdedoXclustxC4	, edif2NdedoXclustxC5, edif2NdedoXclustxC6	, edif2NdedoXclustxC7	,
                 edif2NdedoXclustxC8	, edif2NdedoXclustxC9, edif2NdedoXclustxC10, edif2NdedoXclustxC11, edif2NdedoXclustxC12,
                 edif2NdedoXclustxC13, edif2NdedoXclustxC14, edif2NdedoXclustxC15, edif2NdedoXclustxC16,
@@ -2204,7 +2268,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         };
 
 
-        TextInputEditText [] arrayEditsFilaAbajo = {
+        EditextSupreme [] arrayEditsFilaAbajo = {
                 ediNdedoXclustXc1, ediNdedoXclustXc2, ediNdedoXclustXc3	, ediNdedoXclustXc4	,ediNdedoXclustXc5,
                 ediNdedoXclustXc6, ediNdedoXclustXc7, ediNdedoXclustXc8	, ediNdedoXclustXc9	,ediNdedoXclustXc10
                 , ediNdedoXclustXc11, ediNdedoXclustXc12, ediNdedoXclustXc13, ediNdedoXclustXc14
@@ -2253,7 +2317,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
 
 
-        TextInputEditText [] arrayEditsFilaArriba = { ediCalByA1	,
+        EditextSupreme [] arrayEditsFilaArriba = { ediCalByA1	,
                 ediCalByA2	,
                 ediCalByA3	,
                 ediCalByA4	,
@@ -2278,7 +2342,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         };
 
 
-        TextInputEditText [] arrayEditsFilaAbajo = {
+        EditextSupreme [] arrayEditsFilaAbajo = {
                 edif2Calib1	, edif2Calib2, edif2Calib3,edif2Calib4,
                 edif2Calib5	, edif2Calib6, edif2Calib7, edif2Calib8	,
                 edif2Calib9	, edif2Calib10, edif2Calib11, edif2Calib12	,
@@ -2335,7 +2399,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        TextInputEditText [][] arrayBidimensfILA1ContieneTexts = {
+        EditextSupreme [][] arrayBidimensfILA1ContieneTexts = {
 
                 {mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5},
                 {mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10},
@@ -2347,7 +2411,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         } ;
 
 
-        TextInputEditText [][] arrayBidimensfILA2MostarText = {
+        EditextSupreme [][] arrayBidimensfILA2MostarText = {
 
                 {mEdif2LrgD1,mEdif2LrgD2,mEdif2LrgD3,mEdif2LrgD4,mEdif2LrgD5},
                 {mEdif2LrgD6,mEdif2LrgD7,mEdif2LrgD8,mEdif2LrgD9,mEdif2LrgD10},
@@ -2362,7 +2426,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         for (int i = 0; i <arrayBidimensfILA1ContieneTexts.length; i++) {
 
-            TextInputEditText [] currentArrayofContainsDataNums= arrayBidimensfILA1ContieneTexts[i];
+            EditextSupreme [] currentArrayofContainsDataNums= arrayBidimensfILA1ContieneTexts[i];
             double [] currentDecimalArray=decimalsToMultiplicar[i];
 
 
@@ -2522,67 +2586,69 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         return false;
     }
 
+
+    /*
     private void addTOUCH(){
 
 
-            TextInputEditText [] arrayEditex = {
+        EditextSupreme [] arrayEditex = {
 
-                    ediObservacioneszszz, mEdiVaporzz,mEdiProductorzz,mEdiCodigozz, mEdiZonazz,mEdiHaciendazz,mEdiExportadorazz,
-                    mEdiCompaniazz,mEdiClientezz,mEdisemanazz, mEdiFechazz,mEdiMagapzz,mEdiMarcaCajazz,
-                    mEdiTipoEmpazz,mEdiDestinzz,mEdiTotalCajaszz, mEdioCalidaCampzz,mEdiHoraInizz,mEdiHoraTermizz,
-                    mEdiContenedorzz,mEdiSellosnavzz,mEdiSelloVerzz, mEdiTermografozz,mEdiPlacaCarrzz,mEdiPuertEmbzz,
+                ediObservacioneszszz, mEdiVaporzz,mEdiProductorzz,mEdiCodigozz, mEdiZonazz,mEdiHaciendazz,mEdiExportadorazz,
+                mEdiCompaniazz,mEdiClientezz,mEdisemanazz, mEdiFechazz,mEdiMagapzz,mEdiMarcaCajazz,
+                mEdiTipoEmpazz,mEdiDestinzz,mEdiTotalCajaszz, mEdioCalidaCampzz,mEdiHoraInizz,mEdiHoraTermizz,
+                mEdiContenedorzz,mEdiSellosnavzz,mEdiSelloVerzz, mEdiTermografozz,mEdiPlacaCarrzz,mEdiPuertEmbzz,
 
-                    ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
-                    ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
-                    ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
-                    ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
-                    ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
-                    ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
-                    ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
-                    ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
-                    ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
-                    edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
-                    edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
-                    edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
-                    edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
-                    edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-                    edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
-                    edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
-                    edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
-                    edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                    edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
-                    ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
-                    , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
-                    ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-                    ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
-                    ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-                    ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
-                    edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
-                    edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-                    edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
-
-
-                    mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
-                    mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
-                    mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
-                    mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
-                    mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
-                    mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,} ;
+                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+                ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
+                ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
+                ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
+                ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
+                ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
+                ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
+                ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+                edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
+                edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
+                edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
+                edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
+                edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
+                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
+                edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
+                edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
+                , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
+                ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
+                ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+                edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
+                edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
 
 
+                mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
+                mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
+                mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
+                mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
+                mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
+                mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,} ;
 
-                    for (int i = 0; i <arrayEditex.length; i++){
-
-                        arrayEditex[i].setOnTouchListener(this);
 
 
-                    }
+        for (int i = 0; i <arrayEditex.length; i++){
+
+            arrayEditex[i].setOnTouchListener(this);
 
 
         }
 
 
-private void addPreferencesHashMap(){
+    }
+*/
+
+    private void addPreferencesHashMap(){
 
         if(!sellamoFindViewIds){
             findviewsIdsMayoriaViews();
@@ -2590,79 +2656,199 @@ private void addPreferencesHashMap(){
         }
 
 
-   HashMap<String, String> currentMapPreferences=new HashMap<>();
+        HashMap<String, String> currentMapPreferences=new HashMap<>();
 
-   TextInputEditText [] arrayTexImputEdit= creaArryOfTextInputEditText();
-
-
-   for(TextInputEditText editextCurrent: arrayTexImputEdit){
-       if(!editextCurrent.getText().toString().trim().isEmpty()){
-
-           currentMapPreferences.put(String.valueOf(editextCurrent.getId()),editextCurrent.getText().toString());
-
-       }
+        EditextSupreme [] arrayTexImputEdit= creaArryOfEditextSupreme();
 
 
-   }
+        for(EditextSupreme editextCurrent: arrayTexImputEdit){
+            if(!editextCurrent.getText().toString().trim().isEmpty()){
+
+                currentMapPreferences.put(String.valueOf(editextCurrent.getId()),editextCurrent.getText().toString());
+
+            }
 
 
-
-
-}
-
-
-private void initSomeViewsINcreateAndCLICKlISTENNER(){
-    imgupdateInfo= findViewById(R.id.imgupdateInfo);
-
-    imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
-
-    imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
-    imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
-    imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
+        }
 
 
 
-    imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
-    imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
-    imgSelecDefc3=findViewById(R.id.imgSelecDefc3);
-    imgSelecDefc4=findViewById(R.id.imgSelecDefc4);
-    imgSelecDefc5=findViewById(R.id.imgSelecDefc5);
-    imgSelecDefc6=findViewById(R.id.imgSelecDefc6);
-    imgSelecDefc7=findViewById(R.id.imgSelecDefc7);
-    imgSelecDefc8=findViewById(R.id.imgSelecDefc8);
-    imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
-    imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
 
-    imvEmpaque1=findViewById(R.id.imvEmpaque1);
-    imvEmpaque2=findViewById(R.id.imvEmpaque2);
-    imvEmpaque3=findViewById(R.id.imvEmpaque3);
-    imvEmpaque4=findViewById(R.id.imvEmpaque4);
-    imvEmpaque5=findViewById(R.id.imvEmpaque5);
-    imvEmpaque6=findViewById(R.id.imvEmpaque6);
-    imvEmpaque7=findViewById(R.id.imvEmpaque7);
-    imvEmpaque8=findViewById(R.id.imvEmpaque8);
-    imvEmpaque9=findViewById(R.id.imvEmpaque9);
-    imvEmpaque10=findViewById(R.id.imvEmpaque10);
-
-    ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
-    ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
-    ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
-    ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
-    ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
-    ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
-    ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
-    ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
-    ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
-    ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
-    mEdiFechazz = findViewById(R.id.ediFechazz);
-
-    mEdiHoraInizz = findViewById(R.id.ediHoraInizz);
-    mEdiHoraTermizz = findViewById(R.id.ediHoraTermizz);
-
-    btnSaveControlC=findViewById(R.id.btnSaveControlC);
+    }
 
 
-}
+    private void initSomeViewsINcreateAndCLICKlISTENNER(){
+        imgupdateInfo= findViewById(R.id.imgupdateInfo);
+
+        imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
+
+        imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
+        imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
+        imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
+
+
+
+        imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
+        imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
+        imgSelecDefc3=findViewById(R.id.imgSelecDefc3);
+        imgSelecDefc4=findViewById(R.id.imgSelecDefc4);
+        imgSelecDefc5=findViewById(R.id.imgSelecDefc5);
+        imgSelecDefc6=findViewById(R.id.imgSelecDefc6);
+        imgSelecDefc7=findViewById(R.id.imgSelecDefc7);
+        imgSelecDefc8=findViewById(R.id.imgSelecDefc8);
+        imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
+        imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
+
+        imvEmpaque1=findViewById(R.id.imvEmpaque1);
+        imvEmpaque2=findViewById(R.id.imvEmpaque2);
+        imvEmpaque3=findViewById(R.id.imvEmpaque3);
+        imvEmpaque4=findViewById(R.id.imvEmpaque4);
+        imvEmpaque5=findViewById(R.id.imvEmpaque5);
+        imvEmpaque6=findViewById(R.id.imvEmpaque6);
+        imvEmpaque7=findViewById(R.id.imvEmpaque7);
+        imvEmpaque8=findViewById(R.id.imvEmpaque8);
+        imvEmpaque9=findViewById(R.id.imvEmpaque9);
+        imvEmpaque10=findViewById(R.id.imvEmpaque10);
+
+        ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
+        ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
+        ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
+        ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
+        ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
+        ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
+        ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
+        ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
+        ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
+        ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
+        mEdiFechazz = findViewById(R.id.ediFechazz);
+
+        mEdiHoraInizz = findViewById(R.id.ediHoraInizz);
+        mEdiHoraTermizz = findViewById(R.id.ediHoraTermizz);
+
+        btnSaveControlC=findViewById(R.id.btnSaveControlC);
+
+
+    }
+    private boolean checkeaNumsMinimosData(){
+        //debe haber al menos algo de data aqui...
+        int contadorMiumData=0;
+
+
+        EditextSupreme []   arraCuadro1 = {  ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
+                ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
+                ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
+                ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+
+
+
+        };
+
+
+        EditextSupreme []   arraCuadro2 = {    edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
+                edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
+                edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20
+
+
+        };
+
+        EditextSupreme []   arraCuadro3 = {
+                ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20
+
+        };
+
+
+        EditextSupreme []   arraCuadro4 = {
+                mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
+                mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
+                mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
+                mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
+                mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
+                mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,
+
+        };
+
+
+
+        for(EditextSupreme ediSupreme :arraCuadro1){
+
+            if(!ediSupreme.getText().toString().trim().isEmpty()) {
+
+                contadorMiumData++ ;
+            }
+
+        }
+
+        if(contadorMiumData ==0){
+            Toast.makeText(this, "algun cuadro esta incompleto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+
+        contadorMiumData=0;
+        for(EditextSupreme ediSupreme :arraCuadro2){
+
+            if(!ediSupreme.getText().toString().trim().isEmpty()) {
+
+                contadorMiumData++ ;
+            }
+
+        }
+
+        if(contadorMiumData ==0){
+            Toast.makeText(this, "algun cuadro esta incompleto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+
+
+        contadorMiumData=0;
+
+        for(EditextSupreme ediSupreme :arraCuadro3){
+
+            if(!ediSupreme.getText().toString().trim().isEmpty()) {
+
+                contadorMiumData++ ;
+            }
+
+        }
+
+        if(contadorMiumData ==0){
+            Toast.makeText(this, "algun cuadro esta incompleto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+
+
+        contadorMiumData=0;
+
+        for(EditextSupreme ediSupreme :arraCuadro4){
+
+            if(!ediSupreme.getText().toString().trim().isEmpty()) {
+
+                contadorMiumData++ ;
+            }
+
+        }
+
+        if(contadorMiumData ==0){
+            Toast.makeText(this, "algun cuadro esta incompleto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+
+
+        return true;
+
+    }
 
 
 }

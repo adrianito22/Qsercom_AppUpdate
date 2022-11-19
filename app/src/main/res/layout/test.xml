@@ -6,10 +6,13 @@
     android:orientation="vertical">
 
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -107,28 +110,29 @@
 
                     <TextView
                         android:id="@+id/textView57"
-                        android:layout_width="80dp"
+                        android:layout_width="95dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:gravity="center"
                         android:text="EMPAQUE" />
 
                     <TextView
                         android:id="@+id/textView48"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="5dp"
                         android:background="#DC3232"
                         android:text="TOTAL" />
 
                     <LinearLayout
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/textView49"
-                            android:layout_width="match_parent"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
@@ -139,11 +143,13 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -152,74 +158,42 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="1" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediTimeHoraxx1"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:gravity="center"
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediTimeHoraxx1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPesoL1"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789."
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPesoL1"
-                            android:layout_width="match_parent"
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH1"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:digits="0123456789."
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediNumClusInsp1"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPH1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:enabled="false"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediNumClusInsp1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
 
@@ -253,12 +227,15 @@
                 <LinearLayout
 
                     android:id="@+id/comtainer"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -267,79 +244,47 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="2" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediTimeHoraxx2"
+
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:gravity="center"
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-
-
-                            android:id="@+id/ediTimeHoraxx2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPesoL2"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPesoL2"
-                            android:layout_width="match_parent"
+                        android:digits="0123456789."
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH2"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:digits="0123456789."
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:id="@+id/ediNumClusInsp2"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPH2"
-                            android:layout_width="match_parent"
-                            android:enabled="false"
-
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/ediNumClusInsp2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
 
@@ -372,12 +317,15 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
 
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -386,78 +334,46 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="3" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+
+
+                        android:id="@+id/ediTimeHoraxx3"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediPesoL3"
+                        android:layout_width="75dp"
 
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                            android:id="@+id/ediTimeHoraxx3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH3"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:digits="0123456789."
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediNumClusInsp3"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPesoL3"
-                            android:layout_width="match_parent"
-
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPH3"
-                            android:layout_width="match_parent"
-                            android:enabled="false"
-
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediNumClusInsp3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
 
@@ -490,12 +406,15 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
 
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -504,78 +423,46 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="4" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediTimeHoraxx4"
+
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:gravity="center"
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediPesoL4"
+                        android:layout_width="75dp"
+
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:textSize="14sp" />
+
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH4"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:digits="0123456789."
+
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
 
-                            android:id="@+id/ediTimeHoraxx4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediNumClusInsp4"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPesoL4"
-                            android:layout_width="match_parent"
-
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPH4"
-                            android:layout_width="match_parent"
-                            android:enabled="false"
-
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediNumClusInsp4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:digits="0123456789"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
                     <ImageView
 
@@ -608,11 +495,14 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -621,76 +511,44 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="5" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediTimeHoraxx5"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediTimeHoraxx5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediPesoL5"
+                        android:layout_width="75dp"
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH5"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:digits="0123456789."
+
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
+
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediNumClusInsp5"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPesoL5"
-                            android:layout_width="match_parent"
-
-                            android:layout_height="51dp"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPH5"
-                            android:layout_width="match_parent"
-                            android:enabled="false"
-
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediNumClusInsp5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
                     <ImageView
 
@@ -723,12 +581,15 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
 
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -737,77 +598,45 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="6" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+
+
+                        android:id="@+id/ediTimeHoraxx6"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-
-
-                            android:id="@+id/ediTimeHoraxx6"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediPesoL6"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPesoL6"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH6"
+                        android:layout_width="75dp"
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="match_parent"
+                        android:digits="0123456789."
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediNumClusInsp6"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:enabled="false"
-
-                            android:id="@+id/ediPH6"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediNumClusInsp6"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
                     <ImageView
 
@@ -841,12 +670,15 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
 
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:id="@+id/delete"
@@ -856,79 +688,47 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="7" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+
+
+                        android:id="@+id/ediTimeHoraxx7"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
 
-
-                            android:id="@+id/ediTimeHoraxx7"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:id="@+id/ediPesoL7"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH7"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
 
-                            android:id="@+id/ediPesoL7"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
+                        android:digits="0123456789."
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
 
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:id="@+id/ediNumClusInsp7"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPH7"
-                            android:enabled="false"
-
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/ediNumClusInsp7"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
 
@@ -962,11 +762,14 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -975,79 +778,47 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="8" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+
+
+                        android:id="@+id/ediTimeHoraxx8"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediPesoL8"
+                        android:layout_width="75dp"
 
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                            android:id="@+id/ediTimeHoraxx8"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH8"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:digits="0123456789."
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:id="@+id/ediNumClusInsp8"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPesoL8"
-                            android:layout_width="match_parent"
-
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPH8"
-                            android:enabled="false"
-
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/ediNumClusInsp8"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
 
@@ -1081,12 +852,15 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
 
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -1095,76 +869,44 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="9" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+
+                        android:id="@+id/ediTimeHoraxx9"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/ediTimeHoraxx9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediPesoL9"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPesoL9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH9"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:digits="0123456789."
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediNumClusInsp9"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediPH9"
-                            android:enabled="false"
-
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediNumClusInsp9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
 
@@ -1202,8 +944,11 @@
 
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <TextView
                         android:layout_width="10dp"
@@ -1212,77 +957,44 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="10" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tdf"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+
+                        android:id="@+id/ediTimeHoraxx10"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:textSize="13sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
 
-                            android:id="@+id/ediTimeHoraxx10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:id="@+id/ediPesoL10"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/ediPH10"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textSize="14sp" />
 
-                            android:id="@+id/ediPesoL10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:id="@+id/ediNumClusInsp10"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:enabled="false"
-                            android:id="@+id/ediPH10"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-
-                            android:id="@+id/ediNumClusInsp10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
 
@@ -1320,89 +1032,59 @@
 
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+
+                        android:id="@+id/editotalHere"
                         android:layout_width="95dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:enabled="false"
+                        android:hint="TOTAL"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+                        android:id="@+id/ediTotalPesoLAll"
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:enabled="false"
+                        android:textSize="14sp" />
 
-                            android:id="@+id/editotalHere"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:hint="TOTAL"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/phAll"
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ediTotalPesoLAll"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:enabled="false"
-                            android:textSize="14sp" />
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
 
-                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:id="@+id/ediNumClusInspAll"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:digits="0123456789"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-
-
-                            android:id="@+id/phAll"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:enabled="false"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-
-                            android:id="@+id/ediNumClusInspAll"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:enabled="false"
-                            android:inputType="number"
-                            android:textSize="14sp" />
-
-
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Space
-                        android:layout_width="185dp"
+                        android:layout_width="195dp"
                         android:layout_height="wrap_content" />
 
                     <TextView
@@ -1410,6 +1092,7 @@
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
+                        android:gravity="center"
                         android:text="0"
                         android:textSize="17sp" />
 
@@ -1423,70 +1106,48 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    android:divider="@drawable/backage_text"
                     android:gravity="left"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
 
                     <TextView
                         android:id="@+id/textView50"
-                        android:layout_width="100dp"
+                        android:layout_width="95dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center"
                         android:text="%"
                         android:textSize="20sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
+
+                        android:id="@+id/ediAllPesoLibraPorcent"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:enabled="false"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+                        android:id="@+id/allPerPh"
 
-                            android:id="@+id/ediAllPesoLibraPorcent"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textSize="14sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <com.tiburela.qsercom.EditextSupreme
+android:gravity="center"
 
-                            android:id="@+id/allPerPh"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:id="@+id/alNumClustPercent"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_horizontal">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/alNumClustPercent"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:enabled="false"
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
@@ -1494,5 +1155,6 @@
 
             </LinearLayout>
         </LinearLayout>
+    </HorizontalScrollView>
 
 </LinearLayout>

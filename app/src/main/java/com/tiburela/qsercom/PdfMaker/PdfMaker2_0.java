@@ -138,10 +138,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
                         requestPermision(PdfMaker2_0.this);
 
 
-
+                       /*
                         ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{WRITE_EXTERNAL_STORAGE},
                                 2);
-
+*/
                     }
 
 
@@ -159,7 +159,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                generateUniqueIDtOForm();
+               // generateUniqueIDtOForm();
 
             }
         });
@@ -1332,6 +1332,15 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
                 ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         1);
 
+                 //probando read external estorage
+
+
+               /*
+
+                ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{WRITE_EXTERNAL_STORAGE},
+                        2);
+
+                */
 
                 bottomSheetDialog.dismiss();
 
