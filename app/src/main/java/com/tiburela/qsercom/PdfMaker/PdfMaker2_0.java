@@ -1,10 +1,16 @@
 package com.tiburela.qsercom.PdfMaker;
 
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 //import androidx.compose.ui.text.Paragraph;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,6 +31,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -55,6 +62,7 @@ import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.NameAndValue;
@@ -112,10 +120,33 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                 Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
                 try {
+                    HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
 
-                  HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
 
-                  createPDFContenedores() ;
+
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED){ //si tiene permisos
+                        Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE ");
+
+
+                        createPDFContenedores() ;
+
+
+                    }else{
+                        Log.i("permisodd","aun no tiene el permiso  READ_EXTERNAL_STORAGE ");
+
+                        requestPermision(PdfMaker2_0.this);
+
+
+
+                        ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{WRITE_EXTERNAL_STORAGE},
+                                2);
+
+                    }
+
+
+
+
 
 
                 }
@@ -271,8 +302,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**TABLE TITULO EXPORTADORA SOLICTADA yPosicion procesada*/
         Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
-        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITADA: "+Variables.CurrenReportPart1.getS).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
-        Cell cell3= new Cell().setBorder(Border.NO_BORDER)  .add(new Paragraph("EXPORTADORA PROCESADA LAT BIO")).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f);
+        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITANTE "+Variables.CurrenReportPart1.getExportadoraSolicitante().toUpperCase()+" MARCA "+" "+Variables.CurrenReportPart1.getMarrca().toUpperCase()).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cell3= new Cell().setBorder(Border.NO_BORDER)  .add(new Paragraph("EXPORTADORA PROCESADA "+Variables.CurrenReportPart1.getExportadoraProcesada()+" "+Variables.CurrenReportPart1.getUniqueIDinforme().toUpperCase()).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
 
         tableTitle.addCell(cell1);
         tableTitle.addCell(cell2);
@@ -598,7 +629,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
-        midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
+midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
 
 
            /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
@@ -1228,6 +1259,100 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         //Y USAR UN WHILE.... Y SI DENTRO DE ESTE TIMPO NO ENCONTRO FILE,,,
         //SIGNIFCA QUE NO EXISTE EL FILE...
+
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Log.i("permisodd","es permiso concedido READ_EXTERNAL_STORAGE ");
+
+                    //descragamos el file..
+
+                      ///aqui descargamos el pdf.....y lo screamos
+
+                    try {
+                        createPDFContenedores() ;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    Log.i("permisodd","es permiso denegado READ_EXTERNAL_STORAGE ");
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    //   Toast.makeText(ActivityContenedoresPrev.this, "P" , Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+
+
+
+
+
+
+            case 2: {
+
+            }
+
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    private void requestPermision( Context contex){
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(contex);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheetx);
+
+        bottomSheetDialog.setCancelable(false);
+        Button btnConceder =bottomSheetDialog.findViewById(R.id.btnConceder);
+        Button btnCerrar =bottomSheetDialog.findViewById(R.id.btnCerrar);
+
+        btnConceder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
+
+
+                bottomSheetDialog.dismiss();
+
+
+            }
+        });
+
+
+
+        btnCerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                bottomSheetDialog.dismiss();
+
+
+            }
+        });
+        bottomSheetDialog.show();
+
+
 
 
     }

@@ -128,7 +128,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Reportes Vinculados: 0" />
+
+
             </LinearLayout>
+
+            <include
+                layout="@layout/layout_dats_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <include
                 layout="@layout/ly_datosgenerales"
@@ -251,7 +258,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -323,7 +329,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -359,7 +364,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"

@@ -46,6 +46,30 @@ public class SetInformEmbarque1 {
 
     ////////////////////////////////
 
+    public String getExportadoraProcesada() {
+        return exportadoraProcesada;
+    }
+
+    public void setExportadoraProcesada(String exportadoraProcesada) {
+        this.exportadoraProcesada = exportadoraProcesada;
+    }
+
+    public String getExportadoraSolicitante() {
+        return exportadoraSolicitante;
+    }
+
+    public void setExportadoraSolicitante(String exportadoraSolicitante) {
+        this.exportadoraSolicitante = exportadoraSolicitante;
+    }
+
+    public String getMarrca() {
+        return marrca;
+    }
+
+    public void setMarrca(String marrca) {
+        this.marrca = marrca;
+    }
+
     private String  exportadoraProcesada;
     private String  exportadoraSolicitante;
     private String  marrca;
@@ -80,7 +104,6 @@ public class SetInformEmbarque1 {
 
     public SetInformEmbarque1(
             String  exportadoraProcesada,String  exportadoraSolicitante,String  marrca,
-
             String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
                               String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
                               String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
@@ -557,7 +580,14 @@ public class SetInformEmbarque1 {
         result.put("keyFirebase", keyFirebase);
         result.put("atachControCalidadInfrms", atachControCalidadInfrms);
 
-        //39
+        result.put("exportadoraProcesada", exportadoraProcesada);
+        result.put("exportadoraSolicitante", exportadoraSolicitante);
+        result.put("marrca", marrca);
+
+
+
+
+
 
         return result;
 

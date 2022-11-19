@@ -104,6 +104,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     ArrayList<ControlCalidad>listForms=new ArrayList<>();
     ArrayList<CheckedAndAtatch>listForms2=new ArrayList<>();
 
+
+
     BottomSheetDialog bottomSheetDialog;
      ImageView imgAtachVinculacion;
     RecyclerView reciclerViewBottomSheet;
@@ -111,8 +113,12 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
      TextView    txtAdviseer;
      TextView txtAdviserDesvicunlar;
     ProgressBar progressBarFormulario;
+    TextInputEditText ediExportadoraProcesada ;
+    TextInputEditText ediExportadoraSolicitante;
+    TextInputEditText ediMarca ;
 
     TextInputEditText ediSemana;
+
     TextInputEditText ediFecha;
     TextInputEditText ediProductor;
     TextInputEditText ediHacienda;
@@ -499,6 +505,10 @@ Log.i("hellosweer","se ehjecitp onstart");
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
+        ediExportadoraSolicitante =findViewById(R.id.ediExportadoraSolicitante);
+        ediMarca=findViewById(R.id.ediMarca);
 
          ediExtCalid=findViewById(R.id.ediExtCalid);
           ediExtRodillo=findViewById(R.id.ediExtRodillo);
@@ -2833,7 +2843,10 @@ private void createObjcInformeAndUpload(){
 //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
 
-    SetInformEmbarque1 informe = new SetInformEmbarque1(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
+    SetInformEmbarque1 informe = new SetInformEmbarque1(ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString(),
+            ediMarca.getText().toString(),
+
+            UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
             Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
             ,ediProductor.getText().toString(),ediCodigo.getText().toString()
             ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()

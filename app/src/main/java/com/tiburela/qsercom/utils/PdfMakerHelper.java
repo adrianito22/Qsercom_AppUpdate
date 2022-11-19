@@ -1,7 +1,9 @@
 package com.tiburela.qsercom.utils;
 
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.tiburela.qsercom.PdfMaker.PdfMaker;
 import com.tiburela.qsercom.models.SetInformEmbarque1;

@@ -2,6 +2,7 @@ package com.tiburela.qsercom.utils;
 
 import static android.view.Gravity.CENTER;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,10 +16,14 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.Celda;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -751,5 +756,7 @@ return
         NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+
 
 }

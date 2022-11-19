@@ -19,9 +19,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_margin="5dp"
         android:hint="EXPORTADORA PROCESADA"
         app:endIconMode="clear_text">
 
@@ -38,9 +36,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_margin="5dp"
         android:hint="EXPORTADORA SOLICITANTE"
         app:endIconMode="clear_text">
 
@@ -57,9 +53,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_margin="5dp"
         android:hint="MARCA"
         app:endIconMode="clear_text">
 

@@ -195,12 +195,11 @@
                         android:gravity="center_horizontal">
 
                         <com.google.android.material.textfield.TextInputEditText
-
                             android:id="@+id/ediPH1"
                             android:layout_width="match_parent"
-
                             android:layout_height="match_parent"
                             android:digits="0123456789."
+                            android:enabled="false"
                             android:inputType="number"
                             android:textSize="14sp" />
 
@@ -315,6 +314,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediPH2"
                             android:layout_width="match_parent"
+                            android:enabled="false"
 
                             android:layout_height="match_parent"
                             android:digits="0123456789."
@@ -433,6 +433,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediPH3"
                             android:layout_width="match_parent"
+                            android:enabled="false"
 
                             android:layout_height="match_parent"
                             android:digits="0123456789."
@@ -550,6 +551,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediPH4"
                             android:layout_width="match_parent"
+                            android:enabled="false"
 
                             android:layout_height="match_parent"
                             android:digits="0123456789."
@@ -664,6 +666,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediPH5"
                             android:layout_width="match_parent"
+                            android:enabled="false"
 
                             android:layout_height="match_parent"
                             android:digits="0123456789."
@@ -778,6 +781,7 @@
                         android:gravity="center_horizontal">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:enabled="false"
 
                             android:id="@+id/ediPH6"
                             android:layout_width="match_parent"
@@ -898,6 +902,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediPH7"
+                            android:enabled="false"
+
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:digits="0123456789."
@@ -1015,6 +1021,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediPH8"
+                            android:enabled="false"
+
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:digits="0123456789."
@@ -1131,6 +1139,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediPH9"
+                            android:enabled="false"
+
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:digits="0123456789."
@@ -1247,8 +1257,7 @@
                         android:gravity="center_horizontal">
 
                         <com.google.android.material.textfield.TextInputEditText
-
-
+                            android:enabled="false"
                             android:id="@+id/ediPH10"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

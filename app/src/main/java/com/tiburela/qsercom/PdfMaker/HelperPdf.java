@@ -1745,7 +1745,7 @@ public class HelperPdf {
 
         Log.i("debugderor","el calidad total es "+CALIDAD_TOTAL);
 
-        TableCalidProdc.add(new TableCalidProdc(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),objecControlCald.getTotalCajas(),CALIDAD_TOTAL));
+        TableCalidProdc.add(new TableCalidProdc(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),objecControlCald.getTotalCajas(),CALIDAD_TOTAL, objecControlCald.getCodigo()));
 
 
 
@@ -1947,16 +1947,23 @@ public class HelperPdf {
 
           /***codigo el numero de rowspan sera del tamaano  TableCalidProdc .size*/
          rgbColor= new DeviceRgb(242, 242, 242); //color
-        celdaGlobal= new Cell(TableCalidProdc.size(),1).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph("CODIGO Aqui").setTextAlignment(TextAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE).setFontSize(7.5f).setBold());
 
+        /*
+        celdaGlobal= new Cell(TableCalidProdc.size(),1).setBackgroundColor(rgbColor);
+        celdaGlobal.add(new Paragraph("CODIGO Aqui").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
         table.addCell(celdaGlobal);
+*/
 
         DecimalFormat df = new DecimalFormat("#.##");
 
                int totalEMbracado=0;
                double sumaPorcentajes=0;
         for(TableCalidProdc itemCurrent :TableCalidProdc){
+
+              celdaGlobal= new Cell( ).setBackgroundColor(rgbColor);
+              celdaGlobal.add(new Paragraph(itemCurrent.getCodigo()).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+              table.addCell(celdaGlobal);
+
 
                 celdaGlobal= new Cell().setBackgroundColor(rgbColor);
                 celdaGlobal.add(new Paragraph(itemCurrent.getTipoEmpaque()).setFontSize(7.5f).setPaddingLeft(5f));

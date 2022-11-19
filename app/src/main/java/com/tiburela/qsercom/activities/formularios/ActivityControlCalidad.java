@@ -34,6 +34,8 @@ import java.util.HashMap;
 
 public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
 
+    private boolean sellamoFindViewIds=false;
+
     // initialize variables
     private TextInputEditText mEdiLargDeds1;
     private TextInputEditText mEdiLargDeds2;
@@ -433,8 +435,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         setContentView(R.layout.control_calid_activity);
         // assign variable
         // textView = findViewById(R.id.textView);
-        findviewsIds();
+        initSomeViewsINcreateAndCLICKlISTENNER();
+
         addListnners();
+
+        // addListnners();
 
 
         //   String[] albums = getResources().getStringArray(R.array.array_defectos_fruta);
@@ -451,9 +456,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     protected void onStart() {
         super.onStart();
         eventoUploadFormulario();
-        addTOUCH();
+     //   addTOUCH();
 
-        configCertainSomeViewsAliniciar();
+     //   configCertainSomeViewsAliniciar();
+
 
 
         if(Variables.hayUnFormIncompleto){
@@ -467,15 +473,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         }
 
+
+
     }
 
     //determinar que posicion pulso o si pusla este hacer esto
 
-    private void findviewsIds() {
+    private void findviewsIdsMayoriaViews() {
         //first views fields
         ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
 
-        btnSaveControlC=findViewById(R.id.btnSaveControlC);
         mEdiVaporzz = findViewById(R.id.ediVaporzz);
         mEdiProductorzz = findViewById(R.id.ediProductorzz);
         mEdiCodigozz = findViewById(R.id.ediCodigozz);
@@ -485,15 +492,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdiCompaniazz = findViewById(R.id.ediCompaniazz);
         mEdiClientezz = findViewById(R.id.ediClientezz);
         mEdisemanazz = findViewById(R.id.ediSemanazz);
-        mEdiFechazz = findViewById(R.id.ediFechazz);
         mEdiMagapzz = findViewById(R.id.ediMagapzz);
         mEdiMarcaCajazz = findViewById(R.id.ediMarcaCajazz);
         mEdiTipoEmpazz = findViewById(R.id.ediTipoEmpazz);
         mEdiDestinzz = findViewById(R.id.ediDestinzz);
         mEdiTotalCajaszz = findViewById(R.id.ediTotalCajaszz);
         mEdioCalidaCampzz = findViewById(R.id.edioCalidaCampzz);
-        mEdiHoraInizz = findViewById(R.id.ediHoraInizz);
-        mEdiHoraTermizz = findViewById(R.id.ediHoraTermizz);
+
         mEdiContenedorzz = findViewById(R.id.ediContenedorzz);
         mEdiSellosnavzz = findViewById(R.id.ediSellosnavzz);
         mEdiSelloVerzz = findViewById(R.id.ediSelloVerzz);
@@ -502,33 +507,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdiPuertEmbzz = findViewById(R.id.ediPuertEmbzz);
 
 
-
-
-        imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
-        imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
-        imgSelecDefc3=findViewById(R.id.imgSelecDefc3);
-        imgSelecDefc4=findViewById(R.id.imgSelecDefc4);
-        imgSelecDefc5=findViewById(R.id.imgSelecDefc5);
-        imgSelecDefc6=findViewById(R.id.imgSelecDefc6);
-        imgSelecDefc7=findViewById(R.id.imgSelecDefc7);
-        imgSelecDefc8=findViewById(R.id.imgSelecDefc8);
-        imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
-        imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
-
-        imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
-
-        imgupdateInfo= findViewById(R.id.imgupdateInfo);
-
-        imvEmpaque1=findViewById(R.id.imvEmpaque1);
-        imvEmpaque2=findViewById(R.id.imvEmpaque2);
-        imvEmpaque3=findViewById(R.id.imvEmpaque3);
-        imvEmpaque4=findViewById(R.id.imvEmpaque4);
-        imvEmpaque5=findViewById(R.id.imvEmpaque5);
-        imvEmpaque6=findViewById(R.id.imvEmpaque6);
-        imvEmpaque7=findViewById(R.id.imvEmpaque7);
-        imvEmpaque8=findViewById(R.id.imvEmpaque8);
-        imvEmpaque9=findViewById(R.id.imvEmpaque9);
-        imvEmpaque10=findViewById(R.id.imvEmpaque10);
 
 
         spinnerDef1=findViewById(R.id.spinnerDef1);
@@ -603,16 +581,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
-        ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
-        ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
-        ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
-        ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
-        ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
-        ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
-        ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
-        ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
-        ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
+
 
 
         ediNdedoXclust6=findViewById(R.id.ediNdedoXclust6);
@@ -832,12 +801,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
 
 
-        imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
-        imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
-        imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
 
 
-
+        sellamoFindViewIds=true;
 
     }
 
@@ -854,12 +820,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        imgUpdateNumDedxClust.setOnClickListener(this);
-        imgUpdateNumClusterxCaja.setOnClickListener(this);
-        imgUpdateCalibBasalYapical.setOnClickListener(this);
-        imgUpdateNumPulpaApulpa.setOnClickListener(this);
-
-        imgupdateInfo.setOnClickListener(this);
 
 
 
@@ -893,10 +853,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         ediTimeHoraxx9.setOnClickListener(this);
         ediTimeHoraxx10.setOnClickListener(this);
 
-        textView48.setOnClickListener(this);
+        //textView48.setOnClickListener(this);
         mEdiFechazz.setOnClickListener(this);
 
 
+        imgUpdateCalibBasalYapical.setOnClickListener(this);
+        imgUpdateNumClusterxCaja.setOnClickListener(this);
+        imgUpdateNumDedxClust.setOnClickListener(this);
+        imgUpdateNumPulpaApulpa.setOnClickListener(this);
+        imgupdateInfo.setOnClickListener(this);
 
     }
 
@@ -974,7 +939,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-            findviewsIds();
+            findviewsIdsMayoriaViews();
 
 
         String keyOrViewID=String.valueOf(view.getId());
@@ -2543,6 +2508,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
             Log.i("casnasd","el size de la lista es "+ PerecentHelp.listViewsClickedUser.size());
 
+
             if( PerecentHelp.listViewsClickedUser.size()>1) {
                 //obtenemos la lista anterior y verficamos si esta completada;
                 View vistFieldAnterior = PerecentHelp.getVistaAnteriorClick();
@@ -2616,13 +2582,87 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
 
+private void addPreferencesHashMap(){
 
-        ///AHORA AGREGA
+        if(!sellamoFindViewIds){
+            findviewsIdsMayoriaViews();
+
+        }
+
+
+   HashMap<String, String> currentMapPreferences=new HashMap<>();
+
+   TextInputEditText [] arrayTexImputEdit= creaArryOfTextInputEditText();
+
+
+   for(TextInputEditText editextCurrent: arrayTexImputEdit){
+       if(!editextCurrent.getText().toString().trim().isEmpty()){
+
+           currentMapPreferences.put(String.valueOf(editextCurrent.getId()),editextCurrent.getText().toString());
+
+       }
+
+
+   }
 
 
 
 
-    ///OTHER
+}
+
+
+private void initSomeViewsINcreateAndCLICKlISTENNER(){
+    imgupdateInfo= findViewById(R.id.imgupdateInfo);
+
+    imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
+
+    imgUpdateNumDedxClust=findViewById(R.id.imgUpdateNumDedxClust);
+    imgUpdateNumClusterxCaja=findViewById(R.id.imgUpdateNumClusterxCaja);
+    imgUpdateCalibBasalYapical=findViewById(R.id.imgUpdateCalibBasalYapical);
+
+
+
+    imgSelecDefc1=findViewById(R.id.imgSelecDefc1);
+    imgSelecDefc2=findViewById(R.id.imgSelecDefc2);
+    imgSelecDefc3=findViewById(R.id.imgSelecDefc3);
+    imgSelecDefc4=findViewById(R.id.imgSelecDefc4);
+    imgSelecDefc5=findViewById(R.id.imgSelecDefc5);
+    imgSelecDefc6=findViewById(R.id.imgSelecDefc6);
+    imgSelecDefc7=findViewById(R.id.imgSelecDefc7);
+    imgSelecDefc8=findViewById(R.id.imgSelecDefc8);
+    imgSelecDefc9=findViewById(R.id.imgSelecDefc9);
+    imgSelecDefc10=findViewById(R.id.imgSelecDefc10);
+
+    imvEmpaque1=findViewById(R.id.imvEmpaque1);
+    imvEmpaque2=findViewById(R.id.imvEmpaque2);
+    imvEmpaque3=findViewById(R.id.imvEmpaque3);
+    imvEmpaque4=findViewById(R.id.imvEmpaque4);
+    imvEmpaque5=findViewById(R.id.imvEmpaque5);
+    imvEmpaque6=findViewById(R.id.imvEmpaque6);
+    imvEmpaque7=findViewById(R.id.imvEmpaque7);
+    imvEmpaque8=findViewById(R.id.imvEmpaque8);
+    imvEmpaque9=findViewById(R.id.imvEmpaque9);
+    imvEmpaque10=findViewById(R.id.imvEmpaque10);
+
+    ediTimeHoraxx1=findViewById(R.id.ediTimeHoraxx1);
+    ediTimeHoraxx2=findViewById(R.id.ediTimeHoraxx2);
+    ediTimeHoraxx3=findViewById(R.id.ediTimeHoraxx3);
+    ediTimeHoraxx4=findViewById(R.id.ediTimeHoraxx4);
+    ediTimeHoraxx5=findViewById(R.id.ediTimeHoraxx5);
+    ediTimeHoraxx6=findViewById(R.id.ediTimeHoraxx6);
+    ediTimeHoraxx7=findViewById(R.id.ediTimeHoraxx7);
+    ediTimeHoraxx8=findViewById(R.id.ediTimeHoraxx8);
+    ediTimeHoraxx9=findViewById(R.id.ediTimeHoraxx9);
+    ediTimeHoraxx10=findViewById(R.id.ediTimeHoraxx10);
+    mEdiFechazz = findViewById(R.id.ediFechazz);
+
+    mEdiHoraInizz = findViewById(R.id.ediHoraInizz);
+    mEdiHoraTermizz = findViewById(R.id.ediHoraTermizz);
+
+    btnSaveControlC=findViewById(R.id.btnSaveControlC);
+
+
+}
 
 
 }

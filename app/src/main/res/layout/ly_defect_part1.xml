@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <androidx.gridlayout.widget.GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:columnCount="2">
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="VAPOR">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:hint="VAPOR"
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediVaporzz"
@@ -25,39 +31,31 @@
                 android:inputType="text" />
 
 
-
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="PRODUCTOR">
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="ZONA"
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediProductorzz"
+                android:id="@+id/ediZonazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="CODIGO">
+            android:hint="CODIGO"
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediCodigozz"
@@ -68,48 +66,27 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="ZONA">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediZonazz"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="HACIENDA">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediHaciendazz"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="EXPORTADORA">
+            android:hint="PRODUCTOR"
+            app:layout_columnWeight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ediProductorzz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="EXPORTADORA"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediExportadorazz"
@@ -118,20 +95,32 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
+            android:hint="HACIENDA"
+            app:layout_columnWeight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ediHaciendazz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="COMPAÑIA ">
+            android:hint="COMPAÑIA "
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediCompaniazz"
@@ -142,11 +131,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="CLIENTE">
+            android:hint="CLIENTE"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediClientezz"
@@ -155,20 +145,15 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="SEMANA">
+            android:hint="SEMANA"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediSemanazz"
@@ -180,11 +165,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="FECHA">
+            android:hint="FECHA"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediFechazz"
@@ -193,20 +179,15 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="MAGAP">
+            android:hint="MAGAP"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediMagapzz"
@@ -217,11 +198,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="MARCA DE CAJA">
+            android:hint="MARCA DE CAJA"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediMarcaCajazz"
@@ -230,20 +212,15 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="TIPO DE EMPAQUE">
+            android:hint="TIPO DE EMPAQUE"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediTipoEmpazz"
@@ -254,11 +231,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="DESTINO">
+            android:hint="DESTINO"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediDestinzz"
@@ -267,36 +245,32 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="TOTAL DE CAJAS">
+            android:hint="TOTAL DE CAJAS"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediTotalCajaszz"
-                android:digits="0123456789"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="CALIDAD CAMPO">
+            android:hint="CALIDAD CAMPO"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edioCalidaCampzz"
@@ -305,20 +279,15 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="HORA INICIO">
+            android:hint="HORA INICIO"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediHoraInizz"
@@ -329,11 +298,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="HORA TERMINO">
+            android:hint="HORA TERMINO"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediHoraTermizz"
@@ -342,20 +312,15 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="CONTENEDOR #">
+            android:hint="CONTENEDOR #"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediContenedorzz"
@@ -366,11 +331,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="SELLO NAVIERA">
+            android:hint="SELLO NAVIERA"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediSellosnavzz"
@@ -379,20 +345,15 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="SELLO VERIFICADORA">
+            android:hint="SELLO VERIFICADORA"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediSelloVerzz"
@@ -403,11 +364,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="TERMOGRAFO #">
+            android:hint="TERMOGRAFO #"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediTermografozz"
@@ -416,20 +378,15 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="PLACA CARRO">
+            android:hint="PLACA CARRO"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediPlacaCarrzz"
@@ -440,22 +397,21 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:hint="PUERTO DE EMBARQUE">
+            android:hint="PUERTO DE EMBARQUE"
+
+            app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediPuertEmbzz"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="54dp"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
 
-
-
+    </androidx.gridlayout.widget.GridLayout>
 
 </LinearLayout>
