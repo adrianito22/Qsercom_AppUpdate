@@ -13,7 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,9 +45,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -57,8 +55,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -68,7 +64,6 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
@@ -77,14 +72,14 @@ import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 
 public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
@@ -959,17 +954,36 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK) {
-                            // There are no request codes
 
-                          //  mImageView.setImageURI(cam_uri);
 
-                           // showImageByUri(cam_uri);
 
-                            //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,cam_uri)));
+                            try {
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),cam_uri);
 
-                            //agregamos este objeto a la lista
-                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+                               // Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+
+                                //creamos un nuevo objet de tipo ImagenReport
+                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,cam_uri),horientacionImg);
+
+                                //agregamos este objeto a la lista
+                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                                showImagesPicShotOrSelectUpdateView(false);
+
+                            }
+
+
+                            catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            ///  ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
                             //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityDatosContersEnAcopio.this);
 
@@ -1315,14 +1329,37 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                         for(int indice=0; indice<result.size(); indice++){
 
 
-//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(FormularioActivity.this,cam_uri)));
-                            ImagenReport imagenReportObjc =new ImagenReport("adrianitotest",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice))));
+                            try {
 
-                          Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),result.get(indice));
 
-                            ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
-                            //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityDatosContersEnAcopio.this);
+                            //    Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+
+                                //creamos un nuevo objet de tipo ImagenReport
+                                ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice)), horientacionImg);
+
+                                //agregamos este objeto a la lista
+                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                                showImagesPicShotOrSelectUpdateView(false);
+
+                            }
+
+                           catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            ///     ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)));
+
+                            //   ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
+                            //  Log.i("mispiggi","el size de la  lists  el key del value es "+imagenReportObjc.getUniqueIdNamePic());
+
 
                         }
 
@@ -3657,13 +3694,13 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                 Log.i("mispiggi","el size es "+listImagenData.size());
 
-                Variables.listImagenData=listImagenData;
+                Variables.listImagenDataGlobalCurrentReport =listImagenData;
 
-                dowloadAllImages2AddCallRecicler(Variables.listImagenData);
+                //dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
                 Log.i("mispiggi","se llamo a: addInfotomap");
 
-                addInfotomap(Variables.listImagenData);
+                addInfotomap(Variables.listImagenDataGlobalCurrentReport);
 
 
 
@@ -3685,7 +3722,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
-
+/*
 
     public   void dowloadAllImages2AddCallRecicler(ArrayList<ImagenReport>miLisAllImages){
         //lllamos a este metodo unicamente si la lista es 0....si no
@@ -3762,7 +3799,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
-
+*/
 
     public void saveInfo() {
         RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);

@@ -54,6 +54,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -63,6 +64,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -80,11 +82,13 @@ import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.ConnectionReceiver;
 import com.tiburela.qsercom.utils.FieldOpcional;
+import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -92,6 +96,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import com.tiburela.qsercom.R;
 
@@ -1868,19 +1873,37 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK) {
-                            // There are no request codes
 
-                          //  mImageView.setImageURI(cam_uri);
 
-                           // showImageByUri(cam_uri);
+                            try {
 
-                            //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri)));
 
-                            //agregamos este objeto a la lista
-                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedores.this.getContentResolver(),cam_uri);
 
-                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
+
+                               // Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
+
+
+                                String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
+
+                                showImagesPicShotOrSelectUpdateView(false);
+
+                                //creamos un nuevo objet de tipo ImagenReport
+                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri)),horientacionImg);
+
+                                //agregamos este objeto a la lista
+                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+                                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
+
+
+                            }
+
+                         catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -2252,16 +2275,30 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                         //creamos un objeto
 
                         for(int indice=0; indice<result.size(); indice++){
+                            try {
+
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedores.this.getContentResolver(),result.get(indice));
 
 
-//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri)));
-                            ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))));
+                              //  Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                                String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
-                          Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
+                                showImagesPicShotOrSelectUpdateView(false);
 
-                            ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
+                                ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
 
-                            Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
+                                //agregamos este objeto a la lista
+                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+                                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
+
+
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
 
                         }
 

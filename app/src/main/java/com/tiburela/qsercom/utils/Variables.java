@@ -117,7 +117,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static boolean copiamosData = false;
 
 
-    public static ArrayList<ImagenReport> listImagenData;
+    public static ArrayList<ImagenReport> listImagenDataGlobalCurrentReport;
 
 
    public static  HashMap<String, ImagenReport> hashMapImagesStart;

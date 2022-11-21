@@ -15,7 +15,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,8 +49,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -59,8 +57,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -69,7 +65,6 @@ import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.storage.StorageData;
@@ -80,7 +75,7 @@ import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -89,7 +84,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 
 public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener  {
@@ -951,18 +946,36 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                     if (result.getResultCode() == RESULT_OK) {
                         // There are no request codes
 
-                        //  mImageView.setImageURI(cam_uri);
 
-                        // showImageByUri(cam_uri);
+                        try {
 
-                        //creamos un nuevo objet de tipo ImagenReport
-                        ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,cam_uri)));
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(PreviewCalidadCamionesyCarretas.this.getContentResolver(),cam_uri);
 
-                        //agregamos este objeto a la lista
-                        ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                            //Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                            String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
+
+                            //creamos un nuevo objet de tipo ImagenReport
+                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,cam_uri),horientacionImg);
+
+                            //agregamos este objeto a la lista
+                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                            showImagesPicShotOrSelectUpdateView(false);
+
+                        }
+
+
+                      catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
 
                         Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
-
 
                         showImagesPicShotOrSelectUpdateView(false);
 
@@ -1325,13 +1338,29 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                             for(int indice=0; indice<result.size(); indice++){
 
 
-//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(ActivityReporteCalidadCamionesyCarretas.this,cam_uri)));
-                                ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,result.get(indice))));
+                                try {
 
-                                Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
+                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(PreviewCalidadCamionesyCarretas.this.getContentResolver(),result.get(indice));
 
-                                ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
 
+
+                                  //  Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                                    String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+
+                                    //creamos un nuevo objet de tipo ImagenReport
+                                    ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,result.get(indice)), horientacionImg);
+
+                                    //agregamos este objeto a la lista
+                                    ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                                    showImagesPicShotOrSelectUpdateView(false);
+
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
 
                             }
@@ -3765,13 +3794,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 }
 
 
-                Variables.listImagenData=listImagenData;
+                Variables.listImagenDataGlobalCurrentReport =listImagenData;
 
-                dowloadAllImages2AddCallRecicler(Variables.listImagenData);
+              //  dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
                 Log.i("mispiggi","se llamo a: addInfotomap");
 
-                addInfotomap(Variables.listImagenData);
+                addInfotomap(Variables.listImagenDataGlobalCurrentReport);
 
 
 
@@ -3793,7 +3822,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     }
 
-
+/*
     public   void dowloadAllImages2AddCallRecicler(ArrayList<ImagenReport>miLisAllImages){
         //lllamos a este metodo unicamente si la lista es 0....si no
         HelperImage.ImagesToPdfMap=new HashMap<>();
@@ -3868,7 +3897,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
     }
-
+*/
 
     private void checkModeVisualitY(){
 

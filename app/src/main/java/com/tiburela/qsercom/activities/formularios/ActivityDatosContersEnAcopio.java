@@ -44,10 +44,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -57,11 +59,13 @@ import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
+import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,6 +73,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 
 public class ActivityDatosContersEnAcopio extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
@@ -922,19 +927,31 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK) {
-                            // There are no request codes
 
-                          //  mImageView.setImageURI(cam_uri);
+                            try {
 
-                           // showImageByUri(cam_uri);
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),cam_uri);
 
-                            //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,cam_uri)));
 
-                            //agregamos este objeto a la lista
-                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                               // Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                                String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
-                            //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityDatosContersEnAcopio.this);
+                                //creamos un nuevo objet de tipo ImagenReport
+                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,cam_uri),horientacionImg);
+
+                                //agregamos este objeto a la lista
+                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                                showImagesPicShotOrSelectUpdateView(false);
+
+                            }
+
+                          catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1256,15 +1273,29 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
                         for(int indice=0; indice<result.size(); indice++){
 
+                            try {
 
-//                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+"."+Utils.getFormate(Utils.getFileNameByUri(FormularioActivity.this,cam_uri)));
-                            ImagenReport imagenReportObjc =new ImagenReport("adrianitotest",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice))));
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityDatosContersEnAcopio.this.getContentResolver(),result.get(indice));
 
-                          Log.i("jamisama","el name id es "+imagenReportObjc.getUniqueIdNamePic());
+                               // Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
-                            ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
+                                //creamos un nuevo objet de tipo ImagenReport
+                                ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice)), horientacionImg);
 
-                            //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityDatosContersEnAcopio.this);
+                                //agregamos este objeto a la lista
+                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                                showImagesPicShotOrSelectUpdateView(false);
+
+                            }
+                                catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
 
                         }
 

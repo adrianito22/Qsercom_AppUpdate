@@ -1,8 +1,25 @@
 package com.tiburela.qsercom.PdfMaker;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
+import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
 import com.itextpdf.kernel.colors.DeviceGray;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.geom.PageSize;
@@ -21,23 +38,29 @@ import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.layout.property.VerticalAlignment;
-import com.tiburela.qsercom.models.ImagesToPdf;
+import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-public class HelperAdImgs {
-   public static  ArrayList<ImagesToPdf> currentListImagesSeccion;
+public class HelperAdImgs implements LifecycleOwner {
+   public static  ArrayList<ImagenReport> currentListImagesSeccion;
 
     static   boolean wehaveAddSpaceyIndescrip =false;
     static   float   posicionLastELEMENTAd =10000f;
      static boolean isPosicion0AndNewAnexo=false;
     static float yPosicion=150;
     static float yPosicionSuper=0;
-
+    StorageReference storageRef;
    public static PdfDocument pdfDocumentx;
+   static  Bitmap bitmapDevolver=null;
+   static  Bitmap myBitmap;
+
+    private static  MutableLiveData<Bitmap> userNameMutableLiveData = new MutableLiveData<>();
+   static Bitmap mapa;
 
 
    // static float yPosicion=150;
@@ -59,7 +82,7 @@ public class HelperAdImgs {
 
         Log.i("contaburx","el size de inagesetglobal es "+HelperImage.imAGESpdfSetGlobal.size());
 
-        currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORY(HelperImage.ImagesToPdfMap,setFotoCategory);///era Variables.FOTO_LLEGADA
+        currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORYz(ImagenReport.hashMapImagesData,setFotoCategory);///era Variables.FOTO_LLEGADA
 
         Log.i("xamil","el SIZE DE  current list images seccion es "+currentListImagesSeccion.size());
 
@@ -146,7 +169,7 @@ public class HelperAdImgs {
                 wehaveAddSpaceyIndescrip =false;
                 Log.i("PATRONX","es Variables.TRES_IMGS_VERTCLES");
 
-                addImagenSetAndCreateNewPage(Variables.TRES_IMGS_VERTCLES,midocumentotoAddData,pageSize);
+                addImagenSetAndCreateNewPage(Variables.TRES_IMGS_VERTCLES,midocumentotoAddData,pageSize,contexto);
                 //ENTONCES ESTOS ENCONTRADOS LOS PONEMOS QUE YA SE USARON.....
             }
 
@@ -154,28 +177,28 @@ public class HelperAdImgs {
                 Log.i("PATRONX","es el DOS_IMGS_VERTICALES ");
                 wehaveAddSpaceyIndescrip =false;
 
-                addImagenSetAndCreateNewPage(Variables.DOS_IMGS_VERTICALES,midocumentotoAddData,pageSize);
+                addImagenSetAndCreateNewPage(Variables.DOS_IMGS_VERTICALES,midocumentotoAddData,pageSize,contexto);
             }
 
             else if(patronEncontrado == Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL) {
                 Log.i("PATRONX","es  UNAVERTICAL_Y_OTRA_HORIZONTAL");
                 wehaveAddSpaceyIndescrip =false;
 
-                addImagenSetAndCreateNewPage(Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL,midocumentotoAddData,pageSize);
+                addImagenSetAndCreateNewPage(Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL,midocumentotoAddData,pageSize,contexto);
             }
 
             else if(patronEncontrado == Variables.DOS_HORIZONTALES) {
                 Log.i("PATRONX","es el DOS_HORIZONTALES ");
                 wehaveAddSpaceyIndescrip =false;
 
-                addImagenSetAndCreateNewPage(Variables.DOS_HORIZONTALES,midocumentotoAddData,pageSize);
+                addImagenSetAndCreateNewPage(Variables.DOS_HORIZONTALES,midocumentotoAddData,pageSize,contexto);
             }
 
             else if(patronEncontrado == Variables.UNA_HORIZONTAL) {
                 Log.i("PATRONX","es el UNA_HORIZONTAL ");
                 wehaveAddSpaceyIndescrip =false;
 
-                addImagenSetAndCreateNewPage(Variables.UNA_HORIZONTAL,midocumentotoAddData,pageSize);
+                addImagenSetAndCreateNewPage(Variables.UNA_HORIZONTAL,midocumentotoAddData,pageSize,contexto);
             }
 
 
@@ -183,7 +206,7 @@ public class HelperAdImgs {
                 Log.i("PATRONX","es el UNA_HORIZONTAL ");
                 wehaveAddSpaceyIndescrip =false;
 
-                addImagenSetAndCreateNewPage(Variables.UNA_VERTICAL,midocumentotoAddData,pageSize);
+                addImagenSetAndCreateNewPage(Variables.UNA_VERTICAL,midocumentotoAddData,pageSize,contexto);
             }
 
 
@@ -191,19 +214,19 @@ public class HelperAdImgs {
                 Log.i("PATRONX","es el  DEFAULNO_ENCONTRO_NADA");
                 wehaveAddSpaceyIndescrip =false;
 
-                addImagenSetAndCreateNewPage(Variables.DEFAULNO_ENCONTRO_NADA,midocumentotoAddData,pageSize);
+                addImagenSetAndCreateNewPage(Variables.DEFAULNO_ENCONTRO_NADA,midocumentotoAddData,pageSize,contexto);
             }
 
         }
 
     }
-    private static boolean allImagesISUsed(ArrayList<ImagesToPdf> list){
+    private static boolean allImagesISUsed(ArrayList<ImagenReport> list){
         int contadorIMagesUsadas=0;
 
 
         for(int indice=0; indice<list.size(); indice++){
 
-            if(list.get(indice).estaENPdf){
+            if(list.get(indice).isEstaENPdf()){
 
                 contadorIMagesUsadas++;
 
@@ -262,7 +285,7 @@ public class HelperAdImgs {
 
 
 
-    private static void addImagenSetAndCreateNewPage(int tipoOrdenImgs, Document docuemnto, PageSize pageSize) throws Exception {
+    private static void addImagenSetAndCreateNewPage(int tipoOrdenImgs, Document docuemnto, PageSize pageSize, Context contexta) throws Exception {
 
         float espacioDisponibleHorizontal=pageSize.getWidth()-100f; //
         //si hay texto o comentario le restamos menos espacio....
@@ -292,7 +315,11 @@ public class HelperAdImgs {
 
 
         //comprobar en que linea ... comprobar la posicion de la ultima
-        if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){ //modo 3 imagenes en una linea...
+        if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){
+
+            //GENERAMOS LA IMAGE.
+
+            //modo 3 imagenes en una linea...
             Log.i("contabur","hay 3 imagenes verticales hurrazzx");
           //  float [] tableWidth  = {1,1,1} ;
             float [] tableWidth  = {1,1,1} ;
@@ -300,7 +327,12 @@ public class HelperAdImgs {
             Table table = new Table(tableWidth,true);
             // table.setHeight(200);  //Primera tabla ///este ancho...
 
-            Image imagVertical1=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+            Image imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
+
+
+
+
+
             imagVertical1.setAutoScale(true);
            //   imagVertical1.scaleToFit((pageSize.getWidth()-20f)/3,230);
             imagVertical1.scaleAbsolute(widthImg,heigthImg);
@@ -314,10 +346,10 @@ public class HelperAdImgs {
 
             //test a la primer imagen le agregamos texto
 
-            if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){
+            if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){
 
                 //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical1,HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion);
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical1,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
 
             }
 
@@ -333,15 +365,15 @@ public class HelperAdImgs {
 
 
 
-             imagVertical1=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
+             imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical1.setAutoScale(true);
             imagVertical1.scaleAbsolute(widthImg,heigthImg);
 
 
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical1,HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical1,HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen());
             }
             else {
 
@@ -353,14 +385,14 @@ public class HelperAdImgs {
             table.addCell(cell);
 
 
-             imagVertical1=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+             imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical1.setAutoScale(true);
             imagVertical1.scaleAbsolute(widthImg,heigthImg);
 
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(2).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical1,HelperImage.imagesSetToCurrentFila.get(2).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(2).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical1,HelperImage.imagesSetToCurrentFila.get(2).getDescripcionImagen());
             }
             else {
 
@@ -424,14 +456,14 @@ public class HelperAdImgs {
                   float [] tableWidth  = {1,1} ;
                  Table table = new Table(tableWidth,true);
 
-                 Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+                 Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
                  imagVertical.setAutoScale(true);
                  imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
                  imagVertical.setMarginRight(10f);
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
             }
             else {
                 cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical); //estaba asi
@@ -442,14 +474,14 @@ public class HelperAdImgs {
 
 
 
-                 Image imgHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
+                 Image imgHorizontal=HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
                  imgHorizontal.setAutoScale(true);
             //imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
                  imagVertical.setMarginLeft(10f);
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imgHorizontal,HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imgHorizontal,HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen());
             }
             else {
                 cell = new Cell().setBorder(Border.NO_BORDER).add(imgHorizontal); //estaba asi
@@ -498,7 +530,7 @@ public class HelperAdImgs {
             Table table = new Table(tableWidth,true);
           //  table.setHeight(280);  //Primera tabla ///este ancho...
 
-            Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+            Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical.setAutoScale(true);
             imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
             imagVertical.setMarginRight(10f);
@@ -506,8 +538,8 @@ public class HelperAdImgs {
 
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
             }
             else {
 
@@ -517,14 +549,14 @@ public class HelperAdImgs {
             table.addCell(cell);
 
 
-             imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
+             imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical.setAutoScale(true);
             imagVertical.setMarginLeft(10f);
            // imagVertical.scaleAbsolute(widthImg,heigthImg);
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen());
             }
             else {
 
@@ -571,14 +603,14 @@ public class HelperAdImgs {
             float [] tableWidth  = {1,1} ;
             Table table = new Table(tableWidth,true);
 
-            Image imagHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+            Image imagHorizontal=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagHorizontal.setAutoScale(true);
             imagHorizontal.setHorizontalAlignment(HorizontalAlignment.RIGHT);
             imagHorizontal.setMarginRight(6f);
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagHorizontal,HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagHorizontal,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
             }
             else {
 
@@ -588,14 +620,14 @@ public class HelperAdImgs {
             table.addCell(cell);
 
 
-            imagHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(1).miBitmap);
+            imagHorizontal=HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagHorizontal.setAutoScale(true);
             imagHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
             imagHorizontal.setMarginLeft(6f);
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagHorizontal,HelperImage.imagesSetToCurrentFila.get(1).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagHorizontal,HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen());
             }
             else {
 
@@ -652,13 +684,13 @@ public class HelperAdImgs {
 
             Table table = new Table(1,true);
 
-            Image imagHorizontal=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+            Image imagHorizontal=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagHorizontal.setAutoScale(true);
             imagHorizontal.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagHorizontal,HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagHorizontal,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
             }
             else {
 
@@ -717,12 +749,12 @@ public class HelperAdImgs {
 
             Table table = new Table(1,true);
 
-            Image imagVertical=HelperPdf.createInfoImgtoPDF(HelperImage.imagesSetToCurrentFila.get(0).miBitmap);
+            Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical.setAutoScale(true);
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion.length()>1){  //aqui agregamos la descripcion si contiene
-                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(0).descripcionOpcion);
+            if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
             }
             else {
 
@@ -777,6 +809,14 @@ public class HelperAdImgs {
 
 
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -851,19 +891,19 @@ public class HelperAdImgs {
 */
 
 
-    private static void markImgComoUsada(ArrayList<ImagesToPdf> list){
+    private static void markImgComoUsada(ArrayList<ImagenReport> list){
 
         //buscamos esos ids,, yPosicion marcamos como usado...
         //vamos atenber dos listas.... una lista que es la litsa del conjunto actual yPosicion una lista que dice
 
 
         for(int i= 0; i<list.size(); i++){ ///
-            String uniqueId=list.get(i).uniQueIdimgPertenece;
+            String uniqueId=list.get(i).getUniqueIdNamePic();
 
             for(int indice=0; indice<currentListImagesSeccion.size(); indice++){
 
-                if(uniqueId.equals(currentListImagesSeccion.get(indice).uniQueIdimgPertenece)) {
-                    currentListImagesSeccion.get(indice).estaENPdf=true;
+                if(uniqueId.equals(currentListImagesSeccion.get(indice).getUniqueIdNamePic())) {
+                    currentListImagesSeccion.get(indice).setEstaENPdf(true);
 
                   //  Log.i("contabur","el size de marcads como usadas es   "+currentListImagesSeccion.size());
 
@@ -928,6 +968,303 @@ public class HelperAdImgs {
         return cell;
     }
 
+/*
+   private static Bitmap generaBitmap(Context contexto,String urlImage)  {
 
 
+
+       MutableLiveData<Bitmap> liveData;
+
+       //then initialize this variable in oncreate or where you want just like this
+       liveData= new MutableLiveData<>();
+
+       //then set value to LiveData just like this
+       Observer  observer2;
+       liveData.observe(this,observer2):
+
+//then Create observer for livedata. whenever data change in Livedata  onChanged method will call
+       Observer  observer= new Observer() {
+           @Override
+           public void update(Observable observable, Object o) {
+
+
+
+               Glide.with(contexto)
+                       .asBitmap()
+                       .load(urlImage)    //.onlyRetrieveFromCache(false)
+                       .into(new CustomTarget<Bitmap>() {
+
+                           //  Observer<Bitmap> observer= new Observer<Bitmap>() {
+
+                           @Override
+                           public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                               //
+
+
+                               //then set value to LiveData just like this
+                               // liveData.setValue(resource);
+                               bitmapDevolver=resource;
+                               //AQUI CREAMOS LA IMAGEN...
+
+                               liveData.setValue(bitmapDevolver);
+
+
+
+                               Log.i("haisdssdsd","es reay listo..");
+
+                           }
+
+                           @Override
+                           public void onLoadCleared(@Nullable Drawable placeholder) {
+                           }
+                       });
+
+           }
+       };
+
+
+
+
+
+
+
+
+       while (bitmapDevolver ==null) {
+
+           Log.i("haisdssdsd","aun es nulo");
+
+       }
+
+
+       Log.i("haisdssdsd","ya no es nulo hurra ");
+
+
+
+
+   return  bitmapDevolver;
+   }
+
+*/
+
+
+        public static  Bitmap generaBitmap(Context contexto,String urlImage)  {
+
+
+                Glide.with(contexto)
+                        .asBitmap()
+                        .load(urlImage)    //.onlyRetrieveFromCache(false)
+                        .into(new CustomTarget<Bitmap>() {
+
+                            //  Observer<Bitmap> observer= new Observer<Bitmap>() {
+
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                //
+
+
+                                //then set value to LiveData just like this
+                                // liveData.setValue(resource);
+                                bitmapDevolver=resource;
+                                //AQUI CREAMOS LA IMAGEN...
+
+
+
+
+                                Log.i("haisdssdsd","es reay listo..");
+
+                                // imageView.setImageBitmap(resource);
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+                            }
+                        });
+
+
+
+
+
+        return  bitmapDevolver;
+    }
+
+
+    public static Bitmap generaBitmapMutable(Context contexto,String urlImage,int inte) {
+
+        Glide.with(contexto)
+                .asBitmap()
+                .load(urlImage)    //.onlyRetrieveFromCache(false)
+                .into(new CustomTarget<Bitmap>() {
+
+                    //  Observer<Bitmap> observer= new Observer<Bitmap>() {
+
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        //
+
+                        userNameMutableLiveData.setValue(bitmapDevolver);
+
+                           mapa=userNameMutableLiveData.getValue();
+
+                        Log.i("haisdssdsd","es reay listo..");
+
+                        // imageView.setImageBitmap(resource);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
+
+        if(mapa==null) {
+            Log.i("haisdssdsd", "es mpbit es nulo..");
+
+        } else{
+                Log.i("haisdssdsd","el bitmap no es nulo");
+
+
+            }
+
+
+        Log.i("haisdssdsd","es reay listo.");
+
+
+        return mapa;
+
+
+
+    }
+
+
+
+public static  Bitmap retornaBitmaPhere(Context contexto, String urlImage,ImagenReport image) throws ExecutionException, InterruptedException {
+
+    Log.i("ladtastor","llamos reotnabima");
+
+    BitmapCreatorBackG foo = new BitmapCreatorBackG();
+    foo.iniValuesParams(contexto,urlImage);
+
+    Thread thread = new Thread(foo);
+    thread.start();
+    thread.join();
+    myBitmap = foo.getValueBitmap();
+
+
+
+if(myBitmap==null){
+    Log.i("ladtastor","este es nulo y el id es "+image.getUniqueIdNamePic());
+
+
+}else{
+
+    Log.i("ladtastor","no es null");
+
+}
+
+
+return  myBitmap;
+}
+
+
+/*
+    private void generaBitmap2(Context contexto, String urlImage,int TypeImagenn)  {
+
+            //aqui btenemos una lista de imagenes y hacemos el calucalo
+
+      //  userNameMutableLiveData.observe(this,observer):
+
+
+
+        generaBitmapMutable(contexto,urlImage,4).observe(this, new Observer<Bitmap>() {
+            @Override
+            public void onChanged(Bitmap userName) {
+
+                //aqui hacesmo
+
+                   //aqui tenemos el bitmappp creo;
+                //here, do whatever you want on `userName`
+
+
+            }
+        });
+
+
+    }
+
+
+*/
+
+
+   /*
+   private void genratebitmapNew(Context contexto,String urlImage){
+
+       Glide.with(contexto)
+               .load("your url")
+               .asBitmap()
+               .into(new BitmapImageViewTarget(imgView) {
+                   @Override
+                   protected void setResource(Bitmap resource) {
+                       //Play with bitmap
+                       super.setResource(resource);
+                   }
+               });
+   }
+
+*/
+
+    private void dowloadAndSetImg(String imgPath, ImageView holder, Context context){
+
+         storageRef  = StorageData.rootStorageReference.child("imagenes_all_reports/"+imgPath);
+
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Glide.with(context)
+                        .load(uri)
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)         //ALL or NONE as your requirement
+                        //.thumbnail(Glide.with(OfertsAdminActivity.context).load(R.drawable.enviado_icon))
+                        // .error(R.drawable.)
+                        .into(holder);
+
+                String uriX = uri.toString();
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Log.i("ladtastor","es un fallo y es "+exception.getMessage());
+
+                try{
+
+                    //   Glide.with(ActivitySeeReports.context)
+                    //.load(R.drawable.acea2)
+                    // .fitCenter()
+                    // .into(holder.imgViewLogoGIFTc);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        });
+
+
+
+
+
+
+    }
+
+
+    @NonNull
+    @Override
+    public Lifecycle getLifecycle() {
+        return null;
+    }
 }

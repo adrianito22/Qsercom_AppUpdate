@@ -8,8 +8,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -47,7 +49,6 @@ private static int counTbucle=0;
             for (Map.Entry<String, ImagenReport> entry : hasmapImagenData.entrySet()) {
                 ImagenReport value = entry.getValue();
                 String uriFilePath =value.geturiImage();
-
                 Uri myUri = Uri.parse(uriFilePath);
                 ///
 
@@ -70,10 +71,40 @@ private static int counTbucle=0;
                                     public void onSuccess(
                                             UploadTask.TaskSnapshot taskSnapshot) {
 
+                                        //Task uriTask = taskSnapshot.getStorage().getDownloadUrl();
+
+                                        // String url =taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+
+                                       /// String image = taskSnapshot.getDownloadUrl().toString();
+                                      //  Log.i("comoer","info la dataerr first es  "+url);
+
+
+                                       // String iconPathFirebase = uri.getResult().toString();
+
+                                      stoRefToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                          @Override
+                                          public void onSuccess(Uri uri) {
+
+                                               String iconPathFirebase = uri.toString();
+
+                                              value.setUrlStoragePic(iconPathFirebase);
+                                              Log.i("comoer","info la dataerr second es  "+iconPathFirebase);
+
+                                              Log.i("comoer","info "+counTbucle+" = "+hasmapImagenData.size());
+                                              RealtimeDB.addNewSetPicsInforme(context,value);
+                                          }
+                                      });
+
+
                                         //subimos el registro
 
-                                        Log.i("comoer","info "+counTbucle+" = "+hasmapImagenData.size());
-                                        RealtimeDB.addNewSetPicsInforme(context,value);
+                                       /// Uri downloadUri = task.getResult();
+
+                                       // return stoRefToUpload.getDownloadUrl();
+                                       //Log.i("comidair","la url es : "+url);
+
+
+
 
                                         //    startActivity(new Intent(AddNewOfertCupon.this,OfertsAdminActivity.class)) ;
 
@@ -111,7 +142,19 @@ private static int counTbucle=0;
 
 
 
-
+                // [START download_via_url]
+                stoRefToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        // Got the download URL for 'users/me/profile.png'
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+                // [END download_via_url]
 
 
             }
@@ -119,6 +162,9 @@ private static int counTbucle=0;
 
 
     }
+
+
+
 
 
     public static void actualizaImagenes(Context context,  HashMap<String, ImagenReport> hasmapImagenData) {

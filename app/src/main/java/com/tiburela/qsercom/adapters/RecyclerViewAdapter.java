@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -31,6 +32,7 @@ import com.tiburela.qsercom.models.ImagenReport;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.storage.StorageData;
@@ -42,14 +44,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private View.OnClickListener listener;
     private static ClickListener clickListener;
+    Bitmap currentBitmP;
 
+    StorageReference storageRef;
 
     private ArrayList<ImagenReport> listImagenData;
     private Context mcontext;
 
-    public RecyclerViewAdapter(ArrayList<ImagenReport> imagenReportArrayList, Context mcontext) {
+    public RecyclerViewAdapter(ArrayList<ImagenReport> imagenReportArrayList, Context mcontext) { //si no fuunciona este contexto lo obtenmos con getaplicarion context
         this.listImagenData = imagenReportArrayList;
         this.mcontext = mcontext;
+
+
     }
 
     @NonNull
@@ -160,14 +166,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-          {  //es el modo de selecionar imagenes y tomar fotos con la camara
+          {
               Log.i("ladtastor","lo descragamos  "+imagenReport.getUniqueIdNamePic());
 
-                  if(HelperImage.ImagesToPdfMap.containsKey(imagenReport.getUniqueIdNamePic())) {
+                  if(ImagenReport.hashMapImagesData.containsKey(imagenReport.getUniqueIdNamePic())) {
 
-                      Bitmap currentBitmP= HelperImage.ImagesToPdfMap.get(imagenReport.getUniqueIdNamePic()).miBitmap;
+                      dowloadAndSetImg(imagenReport, holder.imageview,mcontext);
 
-                      holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
+                    //  holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
 
                   }
 
@@ -298,21 +304,33 @@ private void checkExistFile(){
 
 }
 
-    private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
+    private void dowloadAndSetImg(ImagenReport imagenReport, ImageView holder,Context context){
 
-        StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+imgPath);
+        storageRef  = StorageData.rootStorageReference.child("imagenes_all_reports/"+imagenReport.getUniqueIdNamePic());
 
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
 
-                Glide.with(ActivitySeeReports.context)
+
+
+                Glide.with(context)
                         .load(uri)
                         .fitCenter()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)         //ALL or NONE as your requirement
+                        .diskCacheStrategy(DiskCacheStrategy.DATA)  //ESTABA EN ALL         //ALL or NONE as your requirementDiskCacheStrategy.DATA
                         //.thumbnail(Glide.with(OfertsAdminActivity.context).load(R.drawable.enviado_icon))
-                       // .error(R.drawable.)
-                        .into(holder.imageview);
+                       //.error(R.drawable.)
+                        .into(holder);
+
+
+
+
+
+              //  imagenReport.setUrlStoragePic(uri.toString());
+
+                  //  ImagenReport.hashMapImagesData.put(imagenReport.getUniqueIdNamePic(),imagenReport);
+
+
 
 
             }

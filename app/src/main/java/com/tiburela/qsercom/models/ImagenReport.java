@@ -18,6 +18,50 @@ public class ImagenReport {
     private String uriImageString;
     private int tipoImagenCategory;
     private String idReportePerteence;
+    private boolean estaENPdf;
+
+    public String getUrlStoragePic() {
+        return urlStoragePic;
+    }
+
+    public void setUrlStoragePic(String urlStoragePic) {
+        this.urlStoragePic = urlStoragePic;
+    }
+
+    private String  urlStoragePic;
+
+
+
+
+    public void setUniqueIdNamePic(String uniqueIdNamePic) {
+        this.uniqueIdNamePic = uniqueIdNamePic;
+    }
+
+    public String getUriImageString() {
+        return uriImageString;
+    }
+
+    public void setUriImageString(String uriImageString) {
+        this.uriImageString = uriImageString;
+    }
+
+    public String getIdReportePerteence() {
+        return idReportePerteence;
+    }
+
+    public void setIdReportePerteence(String idReportePerteence) {
+        this.idReportePerteence = idReportePerteence;
+    }
+
+    public String getHorientacionImage() {
+        return horientacionImage;
+    }
+
+    public void setHorientacionImage(String horientacionImage) {
+        this.horientacionImage = horientacionImage;
+    }
+
+    private String horientacionImage;
 
     public int getTipoImagenCategory() {
         return tipoImagenCategory;
@@ -40,24 +84,32 @@ public class ImagenReport {
     }
 
     public String geturiImage() {
-        return uriImageString
-                ;
+        return uriImageString;
     }
 
+
+    public boolean isEstaENPdf() {
+        return estaENPdf;
+    }
+
+    public void setEstaENPdf(boolean estaENPdf) {
+        this.estaENPdf = estaENPdf;
+    }
 
     /*
-    public void seturiImage(int uriImage) {
-        this.uriImage = uriImage;
-    }
-*/
-    public ImagenReport(String descripcionImagen, String uriImage, int tipoImagenCategory,String idReportePerteence,String uniqueIdNamePic ) {
+        public void seturiImage(int uriImage) {
+            this.uriImage = uriImage;
+        }
+    */
+    public ImagenReport(String descripcionImagen, String uriImage, int tipoImagenCategory,String idReportePerteence,String uniqueIdNamePic,String horientacionImage ) {
         this.descripcionImagen = descripcionImagen;
         this.uriImageString = uriImage;
         this.tipoImagenCategory=tipoImagenCategory;
         this.idReportePerteence=idReportePerteence;
         this.uniqueIdNamePic = uniqueIdNamePic;
-
-
+        this.horientacionImage=horientacionImage;
+        estaENPdf=false;
+        urlStoragePic="";
     }
 
 
@@ -74,6 +126,10 @@ public ImagenReport(){
         result.put("tipoImagenCategory", tipoImagenCategory);
         result.put("uniqueIdNamePic", uniqueIdNamePic);
         result.put("idReportePerteence", idReportePerteence);
+
+        result.put("horientacionImage", horientacionImage);
+        result.put("estaENPdf", estaENPdf);
+        result.put("urlStoragePic", urlStoragePic);
 
         return result;
 

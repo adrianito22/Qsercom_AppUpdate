@@ -42,6 +42,7 @@ import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
 import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
@@ -485,6 +486,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         PerecentHelp.listViewsClickedUser =new ArrayList<>();
         showDataByMode();
 
+        librearMemor();
+
+
         try {
             progress.dismiss();
 
@@ -493,16 +497,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         }
 
 
-        try {
-
-            HelperImage.imAGESpdfSetGlobal.clear();
-            HelperImage.imAGESpdfSetGlobal=new ArrayList<>();
-            HelperImage.ImagesToPdfMap.clear();
-            HelperImage.ImagesToPdfMap=new HashMap<>();
-            Variables.CurrenReportPart1=null;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
    ///   PdfMaker. generaPdFtEST(ActivityMenu.this);
@@ -809,5 +803,56 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
     }
 
+
+
+
+    private void librearMemor(){
+
+
+        if(HelperImage.imAGESpdfSetGlobal!=null){
+            HelperImage.imAGESpdfSetGlobal.clear();
+            HelperImage.imAGESpdfSetGlobal=new ArrayList<>();
+
+        }
+
+
+        if(HelperImage.imAGESpdfSetGlobal!=null){
+            HelperImage.imAGESpdfSetGlobal= new ArrayList<>();
+
+        }
+
+
+        if( Variables.CurrenReportPart1!=null){
+            Variables.CurrenReportPart1=null;
+
+        }
+        if(Variables.CurrenReportPart2!=null){
+
+            Variables.CurrenReportPart2=null;
+
+        }
+
+        if(Variables.CurrenReportPart3!=null){
+            Variables.CurrenReportPart3=null;
+
+        }
+
+        if(Variables.listReprsVinculads!=null){
+            Variables.listReprsVinculads= new ArrayList<>();
+        }
+
+
+        if(ImagenReport.hashMapImagesData!=null){
+            ImagenReport.hashMapImagesData= null;
+        }
+
+
+        if(Variables.listImagenDataGlobalCurrentReport!=null){
+            Variables.listImagenDataGlobalCurrentReport= null;
+        }
+        if(Variables.hashMapImagesStart!=null){
+            Variables.hashMapImagesStart= null;
+        }
+    }
 
 }

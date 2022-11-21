@@ -17,7 +17,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.models.ImagesToPdf;
+import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.storage.StorageData;
 
 import java.io.File;
@@ -28,12 +28,12 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class HelperImage {
-   public static  ArrayList<ImagesToPdf> imAGESpdfSetGlobal=new ArrayList<ImagesToPdf>();
+   public static  ArrayList<ImagenReport> imAGESpdfSetGlobal=new ArrayList<ImagenReport>();
 
 
-   public static  ArrayList<ImagesToPdf> imagesSetToCurrentFila;
+   public static  ArrayList<ImagenReport> imagesSetToCurrentFila;
 
-   public static  HashMap<String, ImagesToPdf> ImagesToPdfMap;
+   public static  HashMap<String, ImagenReport> ImagenReportMap;
 
 
 
@@ -53,7 +53,7 @@ public class HelperImage {
     }
 
 
-    private void addImagenSet(int posicionUltimaImagenColoacadaY, ArrayList<ImagesToPdf> list, int tipoOrdenImgs, Canvas canvas){
+    private void addImagenSet(int posicionUltimaImagenColoacadaY, ArrayList<ImagenReport> list, int tipoOrdenImgs, Canvas canvas){
 
         //comprobar en que linea ... comprobar la posicion de la ultima
 
@@ -120,19 +120,86 @@ public class HelperImage {
 
 
 
-    public static ArrayList<ImagesToPdf> getImagesWhitthisCATEGORY( HashMap<String, ImagesToPdf>allImagesData, int categoriaBuscar) {
-        ArrayList<ImagesToPdf> imAGESpdfSet = new ArrayList<ImagesToPdf>();
+    public static ArrayList<ImagenReport> getImagesWhitthisCATEGORY( ArrayList <ImagenReport>allImagesData, int categoriaBuscar) {
+        ArrayList<ImagenReport> ImagenReport = new ArrayList<>();
 
 
 
 
-        for (ImagesToPdf imageObject: allImagesData.values()) {
+        for (ImagenReport imageObject: allImagesData) {
 
-            int  categoryCurrentImg=imageObject.tipoImagenCategory;
+            int  categoryCurrentImg=imageObject.getTipoImagenCategory();
             Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
 
             if (categoryCurrentImg == categoriaBuscar) {
-                imAGESpdfSet.add(imageObject);
+                ImagenReport.add(imageObject);
+            }
+
+        }
+
+  
+        return  ImagenReport;
+
+
+    }
+
+
+    public static ArrayList<ImagenReport> getImagesWhitthisCATEGORYz( HashMap<String, ImagenReport >allImagesData, int categoriaBuscar) {
+        ArrayList<ImagenReport> ImagenReport = new ArrayList<>();
+
+
+
+
+        for (ImagenReport imageObject: allImagesData.values()) {
+
+            int  categoryCurrentImg=imageObject.getTipoImagenCategory();
+            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
+
+            Log.i("xamil","el uri es "+imageObject.getUrlStoragePic());
+
+
+
+            if (categoryCurrentImg == categoriaBuscar) {
+                ImagenReport.add(imageObject);
+            }
+
+        }
+
+
+
+
+/*
+        for (ImagenReport imageObject: allImagesData) {
+
+            int  categoryCurrentImg=imageObject.getTipoImagenCategory();
+            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
+
+            if (categoryCurrentImg == categoriaBuscar) {
+                ImagenReport.add(imageObject);
+            }
+
+        }
+*/
+
+        return  ImagenReport;
+
+
+    }
+    
+
+    public static ArrayList<ImagenReport> getImagesWhitthisCATEGORY( HashMap<String, ImagenReport>allImagesData, int categoriaBuscar) {
+        ArrayList<ImagenReport> ImagenReport = new ArrayList<>();
+
+
+
+
+        for (ImagenReport imageObject: allImagesData.values()) {
+
+            int  categoryCurrentImg=imageObject.getTipoImagenCategory();
+            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
+
+            if (categoryCurrentImg == categoriaBuscar) {
+                ImagenReport.add(imageObject);
             }
 
         }
@@ -154,7 +221,7 @@ public class HelperImage {
         Log.i("xamil","el SIZE DE createImagesSet es "+imAGESpdfSet.size());
 */
 
-        return  imAGESpdfSet;
+        return  ImagenReport;
 
 
     }
@@ -201,7 +268,7 @@ public class HelperImage {
                         String horientacionImg=devuelveHorientacionImg(bitmap);
 
 
-                     //   imAGESpdfSetGlobal.add(new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg));
+                     //   imAGESpdfSetGlobal.add(new ImagenReport(horientacionImg,bitmap,categoYCurrentImg));
 
                       // Log.i("hamiso","el size de esta lista es "+imAGESpdfSetGlobal.size());
 
@@ -236,7 +303,7 @@ public class HelperImage {
 
     public static  void dowloadAllImages2(ArrayList<ImagenReport>miLisAllImages){
         //lllamos a este metodo unicamente si la lista es 0....si no
-        ImagesToPdfMap=new HashMap<>();
+        ImagenReportMap=new HashMap<>();
 
         for(int i = 0; i <miLisAllImages.size() ;i++ ){
 
@@ -257,9 +324,9 @@ public class HelperImage {
                         Bitmap  bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                         String horientacionImg=devuelveHorientacionImg(bitmap);
 
-                       // ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId);
+                       // ImagenReport imgsObect=new ImagenReport(horientacionImg,bitmap,categoYCurrentImg,uniqueId);
                        // imAGESpdfSetGlobal.add(imgsObect);
-                      //  ImagesToPdfMap.put(uniqueId,imgsObect);
+                      //  ImagenReportMap.put(uniqueId,imgsObect);
 
 
 
@@ -308,9 +375,9 @@ public class HelperImage {
 
 
 
-    public static int buscaPosiblePatronParaOrdenar(ArrayList<ImagesToPdf> list){
+    public static int buscaPosiblePatronParaOrdenar(ArrayList<ImagenReport> list){
 
-        imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+        imagesSetToCurrentFila=new ArrayList<>();
 
 
         int contadorImgVertical= 0;
@@ -341,7 +408,7 @@ public class HelperImage {
 
         for(int i=0; i<list.size(); i++){ //primero buscamos tres imagenes  verticales....
 
-                  if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
+                  if(list.get(i).getHorientacionImage().equals("vertical") && ! list.get(i).isEstaENPdf() ){
                       contadorImgVertical++;
                       imagesSetToCurrentFila.add(list.get(i));
 
@@ -357,12 +424,12 @@ public class HelperImage {
 
 
         if(!encontramos) {
-            imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+            imagesSetToCurrentFila=new ArrayList<ImagenReport>();
 
             contadorImgVertical= 0;
             for(int i=0; i<list.size(); i++){ ///si no comprobamos que exista una imagen vertical y otra horizontal ...
 
-                if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
+                if(list.get(i).getHorientacionImage().equals("vertical") && ! list.get(i).isEstaENPdf() ){
                     imagesSetToCurrentFila.add(list.get(i));
 
                     contadorImgVertical++;
@@ -370,7 +437,7 @@ public class HelperImage {
                     if(contadorImgVertical==1 &&  contadorImgHorizontal==1  ){
                            //le cambiamos la ubicacion en caso que lña imagen horizontal este en la posicioon 1
                           //primero la vertical y depues la horizontal
-                        if(imagesSetToCurrentFila.get(0).horientacionImagen.equals("horizontal")){ ///si la primera imagen es horizontal
+                        if(imagesSetToCurrentFila.get(0).getHorientacionImage().equals("horizontal")){ ///si la primera imagen es horizontal
                              //invertir ubicacion
                             Collections.reverse(imagesSetToCurrentFila);
 
@@ -388,7 +455,7 @@ public class HelperImage {
 
 
 
-                if(list.get(i).horientacionImagen.equals("horizontal") && ! list.get(i).estaENPdf ){
+                if(list.get(i).getHorientacionImage().equals("horizontal") && ! list.get(i).isEstaENPdf() ){
 
                     imagesSetToCurrentFila.add(list.get(i));
 
@@ -396,7 +463,7 @@ public class HelperImage {
 
                     if(contadorImgVertical==1 &&  contadorImgHorizontal==1  ){
 
-                        if(imagesSetToCurrentFila.get(0).horientacionImagen.equals("horizontal")){ ///si la primera imagen es horizontal
+                        if(imagesSetToCurrentFila.get(0).getHorientacionImage().equals("horizontal")){ ///si la primera imagen es horizontal
                             //invertir ubicacion
                             Collections.reverse(imagesSetToCurrentFila);
 
@@ -420,13 +487,13 @@ public class HelperImage {
 
 
         if(!encontramos) {
-            imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+            imagesSetToCurrentFila=new ArrayList<ImagenReport>();
 
             contadorImgVertical= 0;
 
             for(int i=0; i<list.size(); i++){  ////si no vemos que halla solo dos imagenes verticales  PARA PÓNERFLAS  en el centro
 
-                if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
+                if(list.get(i).getHorientacionImage().equals("vertical") && ! list.get(i).isEstaENPdf() ){
                     imagesSetToCurrentFila.add(list.get(i));
 
                     contadorImgVertical++;
@@ -449,12 +516,12 @@ public class HelperImage {
 
 
         if(!encontramos) {
-            imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+            imagesSetToCurrentFila=new ArrayList<ImagenReport>();
 
             contadorImgHorizontal= 0;
 
             for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
-                if(list.get(i).horientacionImagen.equals("horizontal") && ! list.get(i).estaENPdf ){
+                if(list.get(i).getHorientacionImage().equals("horizontal") && ! list.get(i).isEstaENPdf() ){
                     imagesSetToCurrentFila.add(list.get(i));
 
                     contadorImgHorizontal++;
@@ -484,7 +551,7 @@ public class HelperImage {
             imagesSetToCurrentFila= new ArrayList<>();
 
             for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
-                if(list.get(i).horientacionImagen.equals("horizontal") && ! list.get(i).estaENPdf ){
+                if(list.get(i).getHorientacionImage().equals("horizontal") && ! list.get(i).isEstaENPdf() ){
                     imagesSetToCurrentFila.add(list.get(i));
 
                     Log.i("helloheree","ecnonctramos una por aqui ");
@@ -510,7 +577,7 @@ public class HelperImage {
             imagesSetToCurrentFila= new ArrayList<>();
 
             for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
-                if(list.get(i).horientacionImagen.equals("vertical") && ! list.get(i).estaENPdf ){
+                if(list.get(i).getHorientacionImage().equals("vertical") && ! list.get(i).isEstaENPdf() ){
                     imagesSetToCurrentFila.add(list.get(i));
 
                     Log.i("helloheree","ecnonctramos una por aqui ");
@@ -533,7 +600,7 @@ public class HelperImage {
 
         if(!encontramos) {
             //SI NO ENCONTRA,MOPS NADA LE DAMOS ESTE..
-            imagesSetToCurrentFila=new ArrayList<ImagesToPdf>();
+            imagesSetToCurrentFila=new ArrayList<ImagenReport>();
             Log.i("PATRONX","NO HEMOS ENCONTRADO NADA ");
 
             valorDevolver =Variables.DEFAULNO_ENCONTRO_NADA;
@@ -590,15 +657,15 @@ public class HelperImage {
 
 
 
-    public static  ArrayList<ImagesToPdf>   marcaQueNoEstaEnPDF (ArrayList<ImagesToPdf> list){
-        ArrayList<ImagesToPdf> listx=new ArrayList<ImagesToPdf>();
+    public static  ArrayList<ImagenReport>   marcaQueNoEstaEnPDF (ArrayList<ImagenReport> list){
+        ArrayList<ImagenReport> listx=new ArrayList<>();
         //buscamos esos ids,, y marcamos como usado...
         //vamos atenber dos listas.... una lista que es la litsa del conjunto actual y una lista que dice
 
 
         for(int i= 0; i<list.size(); i++){ ///
             listx.add(list.get(i));
-            listx.get(i).estaENPdf=false;
+            listx.get(i).setEstaENPdf(false);
         }
 
 

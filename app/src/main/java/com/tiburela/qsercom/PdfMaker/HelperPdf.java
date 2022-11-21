@@ -153,7 +153,7 @@ public class HelperPdf {
     public static   Image  createInfoImgtoPDF(Bitmap miBitmap){
 
         ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-        miBitmap.compress(Bitmap.CompressFormat.PNG,100,stream1);
+        miBitmap.compress(Bitmap.CompressFormat.JPEG,75,stream1);
         byte[] bitmapData1= stream1.toByteArray();
         ImageData imageData= ImageDataFactory.create(bitmapData1);
 

@@ -3305,4 +3305,11 @@ return true;
 
         return true;
     }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }
