@@ -1,8 +1,6 @@
 package com.tiburela.qsercom.activities.formularios;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.os.Build.VERSION.SDK_INT;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -54,7 +52,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -64,7 +61,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.SharePref.SharePref;
-import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -84,7 +80,6 @@ import com.tiburela.qsercom.utils.ConnectionReceiver;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
-import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -96,7 +91,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import com.tiburela.qsercom.R;
 
@@ -109,6 +103,9 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     ArrayList<ControlCalidad>listForms=new ArrayList<>();
     ArrayList<CheckedAndAtatch>listForms2=new ArrayList<>();
 
+    private final int CODE_TWO_PERMISIONS =12;
+
+    private final int WRITE_EXTERNAL_STORAGE=13;
 
 
     BottomSheetDialog bottomSheetDialog;
@@ -339,6 +336,8 @@ Log.i("hellosweer","se ehjecitp onstart");
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
         CustomAdapter.idsFormsVinucladosCntres=null;//reseteamos
+
+        ImagenReport.hashMapImagesData=new HashMap<>();
 
 
         Bundle extras = getIntent().getExtras();
@@ -769,17 +768,17 @@ Log.i("hellosweer","se ehjecitp onstart");
     @Override
     public void onClick(View view) {
 
+
+
+      /*
         if(!checkPermission()){
 
             requestPermission();
-            //   Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
             // checkPermission2();
 
-            /****por aqui pedir permisos antes **/
 
         }
-
-
+      */
 
        switch (view.getId()) {
 
@@ -1845,22 +1844,39 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
     private void takepickNow() {
 
-        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, ActivityContenedores.this);
+       // Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, ActivityContenedores.this)
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
-            values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
-             cam_uri = ActivityContenedores.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
+            ){
+                takePickCamera();
 
-            //startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE); // OLD WAY
-            startCamera.launch(cameraIntent);                // VERY NEW WAY
+                Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
 
 
-        }
+            }
+
+            else
+
+            {
+
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                        CODE_TWO_PERMISIONS);
+
+
+
+             //   ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE,CODE_TWO_PERMISIONS}
+              //          );
+
+
+                Log.i("codereister","permiso DENEGADO SOLICTAMOS PERMISO") ;
+
+               // ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                     //   CODE_TWO_PERMISIONS);
+
+            }
 
 
 
@@ -1936,6 +1952,18 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
         return false;
     }
 
+
+
+    public void makePermissionRequescAMERA() {
+
+
+        ActivityCompat.requestPermissions(ActivityContenedores.this, new String[]{Manifest.permission.CAMERA},
+                CODE_TWO_PERMISIONS);
+
+
+
+
+    }
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -2283,19 +2311,27 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                               //  Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
-                                showImagesPicShotOrSelectUpdateView(false);
-
                                 ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
 
-                                //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                                showImagesPicShotOrSelectUpdateView(false);
+
+
+                                //agregamos este objeto a la lista
 
                                 Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
 
 
                             } catch (FileNotFoundException e) {
+                                Log.i("dateer","lA EXCEPCION ES "+e.getMessage());
+
                                 e.printStackTrace();
                             } catch (IOException e) {
+
+                                Log.i("dateer","lA EXCEPCION ES "+e.getMessage());
+
                                 e.printStackTrace();
                             }
 
@@ -3070,9 +3106,12 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
     private boolean checkPermission() {
         // checking of permissions.
-        int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+       // int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
         int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
-        return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
+      //  return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
+
+
+   return true;
     }
 
 
@@ -3116,40 +3155,68 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0) {
+        if (requestCode == CODE_TWO_PERMISIONS) {
 
-                // after requesting permissions we are showing
-                // users a toast message of permission granted.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i("codereister","permiso concedido") ;
 
-               /*
+                   // takePickCamera();
 
-                boolean writeStorage = grantResults[0] == PackageManager.MANAGE;
-                boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
-                if ( readStorage) {
-                    Toast.makeText(this, "Permission Granted..", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
-                    finish();
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                }else {
+
+
+                    Log.i("codereister","es permiso denegado") ;
+
+
                 }
 
-                */
+
+
+        }
+
+
+        if(requestCode == CODE_TWO_PERMISIONS) {
+
+            //ESTE ES EL DE CAMERA
+
+
+            Log.i("codereister","es code camera pérmision") ;
+
+            if (grantResults.length > 0
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Log.i("codereister","permiso concedido") ;
+
+                //SI TINE LOS DOS POERMISOS
+
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
+                    takePickCamera();
+
+
+                }
+
+
+
+
+
+                // permission was granted, yay! Do the
+                // contacts-related task you need to do.
+            }else {
+
+
+                Log.i("codereister","Necesitas conceder ambos permisos") ;
+
 
             }
+
         }
     }
 
 
-    private boolean checkPermission2() {
-        if (SDK_INT >= Build.VERSION_CODES.R) {
-            return Environment.isExternalStorageManager();
-        } else {
-            int result = ContextCompat.checkSelfPermission(ActivityContenedores.this, READ_EXTERNAL_STORAGE);
-            int result1 = ContextCompat.checkSelfPermission(ActivityContenedores.this, WRITE_EXTERNAL_STORAGE);
-            return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
-        }
-    }
+
 
 
 
@@ -4964,5 +5031,24 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
+
+
+
+
+    void takePickCamera() {
+
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
+
+        cam_uri = ActivityContenedores.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
+
+        //startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE); // OLD WAY
+        startCamera.launch(cameraIntent);                // VERY NEW WAY
+
+    }
 
 }

@@ -385,19 +385,22 @@ public class HelperImage {
         int valorDevolver=0;
           boolean encontramos=false;
 
+           int debugFOTOScONTENEDOR =0;
 
-/*
 
-//esto es debug
+
         for(int i=0; i<list.size(); i++){ //primero buscamos tres imagenes  verticales....
 
-            if(list.get(i).horientacionImagen.equals("horizontal")){
-                contadorImgVertical++;
+            if(list.get(i).getTipoImagenCategory()==  Variables.FOTO_CONTENEDOR){
+                debugFOTOScONTENEDOR++;
 
             }
 
         }
-*/
+
+        Log.i("debugfotos","FOTOS CONTEENEDOR HAY "+debugFOTOScONTENEDOR);
+
+
 
       //  Log.i("PATRONX","este set contiene este numero de imagenes horizontal es : "+contadorImgVertical);
 
