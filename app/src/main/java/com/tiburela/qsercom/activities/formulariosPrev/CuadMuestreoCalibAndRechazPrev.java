@@ -25,6 +25,8 @@ import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.utils.Variables;
 
+import org.slf4j.helpers.Util;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,7 +81,7 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.deletexx);
+        setContentView(R.layout.lay_cuadro_muestreo_recha);
 
         ediMutante=findViewById(R.id.ediMutante);
         ediSPEKLING=findViewById(R.id.ediSPEKLING);
@@ -162,7 +164,7 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
          getAndDowloadHasmapAndCALLSetReciclerV("-NDn-PiXib2TFddIhSNL"); //ESTE ES TEST
 
 
-      //  setDataInViews(Variables.currentcuadroMuestreo);
+        setDataInViews(Variables.currentcuadroMuestreo);
 
 
 
@@ -378,27 +380,33 @@ return object;
 
 
 
+        ediExtCalidad.setText(cuadroMuestreo.getExtensionistaCalidad());
+        ediExteRodillo.setText(cuadroMuestreo.getExtensionistaEnRodillo());
+        ediExtGancho.setText(cuadroMuestreo.getExtensionistaEnGancho());
+
+
          //con racimos rechazados
 
 
-        ediMutante.setText(cuadroMuestreo.getMutantes());
-        ediSPEKLING.setText(cuadroMuestreo.getSpekling());
-        ediPuntaamarillayB.setText(cuadroMuestreo.getPtaAmarillaYb());
-        ediCremaAlmendraFloja.setText(cuadroMuestreo.getCremaAlmendraFloja());
-        ediManchaRoja.setText(cuadroMuestreo.getManchaRoja());
-        ediAlterados.setText(cuadroMuestreo.getAlterados());
-        ediPobres.setText(cuadroMuestreo.getPobres());
-        ediCaidos.setText(cuadroMuestreo.getCaidos());
-        ediSobreGrado.setText(cuadroMuestreo.getSobreGrado());
-        ediBajoGrado.setText(cuadroMuestreo.getBajoGrado());
-        edimosaico.setText(cuadroMuestreo.getMosaico());
-        ediDanoDeAnimal.setText(cuadroMuestreo.getDanoAnimal());
-        ediExplosivo.setText(cuadroMuestreo.getExplosivo());
-        ediErwinea.setText(cuadroMuestreo.getErwinea());
-        ediDedoCorto.setText(cuadroMuestreo.getDedoCorto());
-        ediRacimosPesadosDeEdad.setText(cuadroMuestreo.getRacimosPasadosEdad());
-        ediCochinillaEscamaFumagina.setText(cuadroMuestreo.getCochinillaEscamaFunagina());
-        ediRacimosSinEdintificacion.setText(cuadroMuestreo.getRacimosSinEdintificacion());
+
+        ediMutante.setText(String.valueOf(cuadroMuestreo.getMutantes()));
+        ediSPEKLING.setText(String.valueOf(cuadroMuestreo.getSpekling()));
+        ediPuntaamarillayB.setText(String.valueOf(cuadroMuestreo.getPtaAmarillaYb()));
+        ediCremaAlmendraFloja.setText(String.valueOf(cuadroMuestreo.getCremaAlmendraFloja()));
+        ediManchaRoja.setText(String.valueOf(cuadroMuestreo.getManchaRoja()));
+        ediAlterados.setText(String.valueOf(cuadroMuestreo.getAlterados()));
+        ediPobres.setText(String.valueOf(cuadroMuestreo.getPobres()));
+        ediCaidos.setText(String.valueOf(cuadroMuestreo.getCaidos()));
+        ediSobreGrado.setText(String.valueOf(cuadroMuestreo.getSobreGrado()));
+        ediBajoGrado.setText(String.valueOf(cuadroMuestreo.getBajoGrado()));
+        edimosaico.setText(String.valueOf(cuadroMuestreo.getMosaico()));
+        ediDanoDeAnimal.setText(String.valueOf(cuadroMuestreo.getDanoAnimal()));
+        ediExplosivo.setText(String.valueOf(cuadroMuestreo.getExplosivo()));
+        ediErwinea.setText(String.valueOf(cuadroMuestreo.getErwinea()));
+        ediDedoCorto.setText(String.valueOf(cuadroMuestreo.getDedoCorto()));
+        ediRacimosPesadosDeEdad.setText(String.valueOf(cuadroMuestreo.getRacimosPasadosEdad()));
+        ediCochinillaEscamaFumagina.setText(String.valueOf(cuadroMuestreo.getCochinillaEscamaFunagina()));
+        ediRacimosSinEdintificacion.setText(String.valueOf(cuadroMuestreo.getRacimosSinEdintificacion()));
 
 
     }
@@ -498,29 +506,31 @@ return object;
     }
 
 
-    public void   saveInfo( ) {
-
-
-
+    public void   saveInfo() {
         //creamos un objeto
         RealtimeDB.initDatabasesRootOnly();
-        String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
+      //  String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
 
         CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),
                 ediVaporx.getText().toString(), ediProductoras.getText().toString(),ediCodigoxs.getText().toString(),
-                ediEnfundex.getText().toString(),keyDondeEstaraHashmap,
+                ediEnfundex.getText().toString(), Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap(),
                 ediExtCalidad.getText().toString(), ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
 
+           //LE AGERGAMOS EL MISMO UNIQUE ID
+       /// objec.setUniqueIdObject(Variables.currentcuadroMuestreo.getUniqueIdObject());
         ///LE AGREGAMOS OTROS DATOS A ESTE OBJETO
         addRechazadosData(objec);
-        /// objec.setSimpleDateFormat();
+        /// objecsetSimpleDateFormat();
+         RealtimeDB.updateCuadroMuestreoObject(objec,Variables.currentcuadroMuestreo); //subimos un cuadro de muestreo object
 
-        RealtimeDB.addNewCuadroMuestreoObject(objec); //subimos un cuadro de muestreo object
-
-        RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
+        // RealtimeDB.addNewCuadroMuestreoObject(objec); //subimos un cuadro de muestreo object
+        RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 
         Toast.makeText(CuadMuestreoCalibAndRechazPrev.this, "Se Actualizo Informe", Toast.LENGTH_SHORT).show();
         // Log.i(
+
+        finish();
+
 
 
     }

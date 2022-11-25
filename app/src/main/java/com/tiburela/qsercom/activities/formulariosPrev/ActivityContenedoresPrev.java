@@ -129,7 +129,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     RecyclerView reciclerViewBottomSheet;
     TextView    txtAdviseer;
     TextView txtAdviserDesvicunlar;
-    ArrayList<ControlCalidad>listForms=new ArrayList<>();
+    ArrayList<ControlCalidad> listFormsControlCalidad =new ArrayList<>();
 
    TextView txtNumReportsVinclds;
 
@@ -1127,7 +1127,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
                ArrayList<String>listIdSvINCULADOS;
                listIdSvINCULADOS=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres);
-               listForms= new ArrayList<>();
+               listFormsControlCalidad = new ArrayList<>();
                listForms2= new ArrayList<>();
 
                if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
@@ -1270,7 +1270,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
                     /**tambien chekamos que si estan chekeeds...*/
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
 
                     //  System.out.println("Date = "+ cal.getTimeInMillis());
 
@@ -1281,7 +1281,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                     cal.add(Calendar.DATE, -1);
                     cald2.add(Calendar.DATE,0);
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
 
                     //  System.out.println("Date = "+ cal.getTimeInMillis());
 
@@ -1297,7 +1297,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                     cald2.add(Calendar.DATE,0);
 
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
 
 
 
@@ -1313,7 +1313,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                     cal.add(Calendar.DATE, -15);
                     cald2.add(Calendar.DATE,0);
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
 
                     Log.i("sabemosd","la data "+cal.getTimeInMillis());
 
@@ -1324,7 +1324,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                     cal.add(Calendar.DATE, -30);
                     cald2.add(Calendar.DATE,0);
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
 
                     Log.i("sabemosd","la data "+cal.getTimeInMillis());
                 }
@@ -1337,7 +1337,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                         if(CustomAdapter.idsFormsVinucladosCntres.length()>0){
 
 
-                            dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                            dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
 
 
                         }
@@ -1366,8 +1366,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
     }
 
-    void dowloadinformesby_RangeDateAndCallShowSheetB(long desdeFecha, long hastFecha, ArrayList<String>idsFormsControlCalidVinculadosOmit){
-        listForms= new ArrayList<>();
+    void dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(long desdeFecha, long hastFecha, ArrayList<String>idsFormsControlCalidVinculadosOmit){
+        listFormsControlCalidad = new ArrayList<>();
         listForms2= new ArrayList<>();
 
         RealtimeDB.initDatabasesRootOnly();
@@ -1385,7 +1385,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
                     //agregamos solo los que no esten en esta lista..
                     if(controlcalidad!=null){
-                        listForms.add(controlcalidad);
+                        listFormsControlCalidad.add(controlcalidad);
 
                         if(idsFormsControlCalidVinculadosOmit !=null){
 
@@ -1442,6 +1442,80 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     }
 
 
+    void dowloadinformesby_RangeDateCuadroMuestreoAndCallShowSheet(long desdeFecha, long hastFecha, ArrayList<String>idsFormsControlCalidVinculadosOmit){
+        listFormsControlCalidad = new ArrayList<>();
+        listForms2= new ArrayList<>();
+
+        RealtimeDB.initDatabasesRootOnly();
+        // Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("timeDateMillis").startAt(desdeFecha).endAt(hastFecha);
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
+
+
+                    //agregamos solo los que no esten en esta lista..
+                    if(controlcalidad!=null){
+                        listFormsControlCalidad.add(controlcalidad);
+
+                        if(idsFormsControlCalidVinculadosOmit !=null){
+
+                            if(idsFormsControlCalidVinculadosOmit.contains(controlcalidad.getUniqueId())){
+
+                                listForms2.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",true,String.valueOf(controlcalidad.getUniqueId())));
+
+
+                            }else {
+
+                                listForms2.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",false,String.valueOf(controlcalidad.getUniqueId())));
+
+                            }
+
+
+
+
+                        }else{
+                            listForms2.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",false,String.valueOf(controlcalidad.getUniqueId())));
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                //ceramos el anterior ..mostramos este...
+
+                Log.i("samerr","se llamo sedatauncrecicler en dowloadinformesby_RangeDateAndCallShowSheetB ");
+                Log.i("samerr","y el size es  "+listForms2.size());
+
+                setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet,listForms2,false);
+
+
+
+
+                //   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,existValues);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
 
 
 
@@ -5869,13 +5943,13 @@ if(indice>2) {
                     ControlCalidad  user=ds.getValue(ControlCalidad.class);
                     Log.i("salero","encontrado uno ");
 
-                    listForms.add(user);
+                    listFormsControlCalidad.add(user);
                     listForms2.add(new CheckedAndAtatch(user.getSimpleDate(),user.getHacienda(),"Control calidad",true,String.valueOf(user.getUniqueId())));
 
                 }
 
                 //cuando las descrague todos
-                Log.i("salero","el list forms size es "+listForms.size());
+                Log.i("salero","el list forms size es "+ listFormsControlCalidad.size());
 
                 Log.i("salero","el listIdSvINCULADOS size es "+listIdSvINCULADOS.size());
 
@@ -5906,20 +5980,20 @@ if(indice>2) {
                     ControlCalidad  user=ds.getValue(ControlCalidad.class);
                     Log.i("salero","encontrado uno ");
 
-                    listForms.add(user);
+                    listFormsControlCalidad.add(user);
 
                 }
 
                 //cuando las descrague todos
-                Log.i("salero","el list forms size es "+listForms.size());
+                Log.i("salero","el list forms size es "+listFormsControlCalidad.size());
 
                 Log.i("salero","el listIdSvINCULADOS size es "+listIdSvINCULADOS.size());
 
-                if(listForms.size() ==listIdSvINCULADOS.size()){
+                if(listFormsControlCalidad.size() ==listIdSvINCULADOS.size()){
 
 
                     //cargamos la info en el sheet cargado
-                    setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet,listForms,true);
+                    setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet,listFormsControlCalidad,true);
 
 
                   //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,true);
@@ -5982,7 +6056,7 @@ if(indice>2) {
         adapter.setOnItemClickListener(new CustomAdapter.ClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                Variables.currenControlCalReport=listForms.get(position);
+                Variables.currenControlCalReport= listFormsControlCalidad.get(position);
 
 
                 showPRogressAndStartActivity(new Intent(ActivityContenedoresPrev.this, FormularioControlCalidadPreview.class));

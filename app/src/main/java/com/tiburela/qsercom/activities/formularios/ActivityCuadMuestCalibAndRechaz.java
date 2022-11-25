@@ -1,10 +1,13 @@
 package com.tiburela.qsercom.activities.formularios;
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
@@ -24,7 +28,11 @@ import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +41,9 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
     RecyclerView mireciclerv;
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
     Button btnSaveCambios;
+
+    long millisDateSelect;
+
 
     TextInputEditText ediSemanaxc;
     TextInputEditText ediExportadora;
@@ -72,7 +83,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.deletexx);
+        setContentView(R.layout.lay_cuadro_muestreo_recha);
 
         ediMutante=findViewById(R.id.ediMutante);
         ediSPEKLING=findViewById(R.id.ediSPEKLING);
@@ -113,7 +124,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
             @Override
             public void onClick(View view) {
 
-
                 CuadroMuestreo objec= new CuadroMuestreo(0,"","",""
                         ,"", "","","",
                         "", ""
@@ -121,6 +131,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
                 ///editamos los otos datos de la cantidad de rechzados..
                 CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
+
 
 
             String totalRechazados=String.valueOf( obtenTotaLrechazados(objectWhitMoreData));
@@ -163,6 +174,10 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                      Log.i("saber"," se subio la data ");
 
 
+                     finish();
+
+
+
                 }
 
 
@@ -184,6 +199,23 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
         setRECICLERdata(ColorCintasSemnsArrayList);
         createMapInitial();
+
+
+        ediFechax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //slecioamofecha
+                selecionaFecha();
+
+            }
+        });
+
+
+
+        ediFechax.setKeyListener(null);
+        ediFechax.setCursorVisible(false);
+
 
     }
 
@@ -498,7 +530,7 @@ return  sum_of_values;
 
 private TextInputEditText[] devuleArrayTiEditext(){
         TextInputEditText [] arrayDevolver={
-                ediSemanaxc, ediExportadora, ediVaporx, ediFechax, ediProductoras,
+                ediSemanaxc, ediExportadora, ediVaporx, (TextInputEditText) ediFechax, ediProductoras,
                 ediCodigoxs, ediEnfundex, ediExtCalidad, ediExteRodillo, ediExtGancho,
                 ediMutante, ediSPEKLING, ediPuntaamarillayB, ediCremaAlmendraFloja,
                 ediManchaRoja, ediAlterados, ediPobres, ediCaidos, ediSobreGrado,
@@ -562,6 +594,9 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
     private void addtouclister(){
 
+
+
+
         TextInputEditText [] miArrayTXtimpEdit=devuleArrayTiEditext();
 
         for (int indice=0; indice<miArrayTXtimpEdit.length; indice++){
@@ -569,6 +604,46 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
     }
     }
+
+    void selecionaFecha(){
+
+        final Calendar cldr = Calendar.getInstance();
+        int year = cldr.get(Calendar.YEAR);
+        int daySemana = cldr.get(Calendar.DAY_OF_WEEK);
+        int mes = cldr.get(Calendar.MONTH);
+
+        // time picker dialog
+        DatePickerDialog picker = new DatePickerDialog(ActivityCuadMuestCalibAndRechaz.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+                        String dateSelec=i2+"/"+i1+"/"+i;
+
+                        ediFechax.setText(dateSelec);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+
+                        Date date = null;
+                        try {
+                            date = sdf.parse(dateSelec);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        millisDateSelect = date.getTime();
+
+
+                    }
+                }, year,  mes, daySemana);
+
+        picker.setButton(DialogInterface.BUTTON_POSITIVE, "OK", picker);
+        picker.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", picker);
+
+
+        picker.show();
+    }
+
 }
 
 

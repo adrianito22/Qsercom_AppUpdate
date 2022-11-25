@@ -7,6 +7,26 @@ import java.util.UUID;
 
 public class CuadroMuestreo {
 
+
+
+
+    public CuadroMuestreo(){
+
+
+    }
+
+
+
+    public void setKeyFirebaseLocation(String keyFirebaseLocation) {
+        this.keyFirebaseLocation = keyFirebaseLocation;
+    }
+
+    public String getKeyFirebaseLocation() {
+        return keyFirebaseLocation;
+    }
+
+
+
     private int mutantes;
     private int spekling;
     private int ptaAmarillaYb;
@@ -328,7 +348,7 @@ public class CuadroMuestreo {
         this.extensionistaCalidad=extensionistaCalidad;
         this.extensionistaEnRodillo=extensionistaEnRodillo;
         this.extensionistaEnGancho=extensionistaEnGancho;
-
+        keyFirebaseLocation="";
 
         //EL NUMERO DE RECHAZADOE N TODOS LOS CASO SERA DE 0
 

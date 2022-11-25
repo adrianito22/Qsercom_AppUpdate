@@ -1,7 +1,5 @@
 package com.tiburela.qsercom.activities.othersActivits;
 
-import static android.service.controls.ControlsProviderService.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +20,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,6 +32,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
 import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivity;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
@@ -44,6 +42,7 @@ import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.ReportsAllModel;
@@ -57,6 +56,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ActivitySeeReports extends AppCompatActivity  implements   View.OnTouchListener{
     RecyclerView recyclerVReports;
@@ -75,8 +75,11 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
     public final int REPORTE_CONTENEDORES_EN_ACOPIO=1203;
     public final int REPORTE_CAMIONES_y_CARRETAS=1204;
     public final int REPORT_CONTROL_CALIDAD=1205;
+    public final int MUESTREO_CALIBRA_RECHAZ=1269;
 
-    ArrayList<ReportsAllModel>allReportFiltB;
+
+
+    HashMap<String, ReportsAllModel> allReportFiltBMap=new HashMap<>();
 
 
     public static Context context;
@@ -204,7 +207,6 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
     void dowloadinformesby_CONTENEDORES(String dateSelecionado){
-        allReportFiltB=new ArrayList<>();
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
@@ -221,8 +223,11 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                     //  reportsListPart1.add(informEmbarque1);
 
 
-                    allReportFiltB.add(new ReportsAllModel(CONTENEDORES,false,false,false,"Contenedores"
-                            , informEmbarque1.getSimpleDataFormat(),informEmbarque1.getUniqueIDinforme()));
+                    ReportsAllModel objec= new ReportsAllModel(CONTENEDORES,false,false,false,"Contenedores"
+                            , informEmbarque1.getSimpleDataFormat(),informEmbarque1.getUniqueIDinforme());
+
+
+                    allReportFiltBMap.put(informEmbarque1.getUniqueIDinforme(),objec);
 
                 }
 
@@ -249,7 +254,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
 
 
-        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
+        Log.i("sliexsa","el size de lista here call es  "+ allReportFiltBMap.size());
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("contenedoresAcopio").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
@@ -264,12 +269,17 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                     //  reportsListPart1.add(informEmbarque1);
 
-                    allReportFiltB.add(new ReportsAllModel(REPORTE_CONTENEDORES_EN_ACOPIO,false,false,false,"Contenedores Acopio"
-                            , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme()));
+                    ReportsAllModel objec=new ReportsAllModel(REPORTE_CONTENEDORES_EN_ACOPIO,false,false,false,"Contenedores Acopio"
+                            , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme());
+
+
+
+
+                            allReportFiltBMap.put(contenedoresEnAcopio.getUniqueIDinforme(),objec);
 
                 }
 
-                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
+                Log.i("sliexsa","el size de lista 222es  "+ allReportFiltBMap.size());
                 dowloadinformesby_PACKE_lIST(dateSelecionado);
                 //setAdapaterDataAndShow(reportsListPart1);
 
@@ -291,7 +301,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
 
 
-        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
+        Log.i("sliexsa","el size de lista here call es  "+ allReportFiltBMap.size());
 
         //        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("PackingListDescripcion");
 
@@ -308,13 +318,17 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                     //  reportsListPart1.add(informEmbarque1);
 
-                    allReportFiltB.add(new ReportsAllModel(PACKINGLIST,false,false,false,"Packing List"
-                            , packinList.getSimpledatFormt(),packinList.getUniqueIDinforme()));
+                    ReportsAllModel object=new ReportsAllModel(PACKINGLIST,false,false,false,"Packing List"
+                            , packinList.getSimpledatFormt(),packinList.getUniqueIDinforme());
+
+
+
+                    allReportFiltBMap.put(packinList.getUniqueIDinforme(),object);
 
                 }
 
 
-                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
+                Log.i("sliexsa","el size de lista 222es  "+ allReportFiltBMap.size());
                 dowloadinformesby_CAMIONES_Y_CARRETAS(dateSelecionado);
 
                 //setAdapaterDataAndShow(reportsListPart1);
@@ -337,7 +351,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
 
 
-        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
+        Log.i("sliexsa","el size de lista here call es  "+ allReportFiltBMap.size());
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = rootDatabaseReference.child("Informes").child("informeCamionesYcarretas").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
@@ -352,12 +366,17 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                     //  reportsListPart1.add(informEmbarque1);
 
-                    allReportFiltB.add(new ReportsAllModel(REPORTE_CAMIONES_y_CARRETAS,false,false,false,"Camiones Y Carretas"
-                            , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme()));
+
+                    ReportsAllModel object=new ReportsAllModel(REPORTE_CAMIONES_y_CARRETAS,false,false,false,"Camiones Y Carretas"
+                            , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme());
+
+
+
+                    allReportFiltBMap.put(contenedoresEnAcopio.getUniqueIDinforme(),object);
 
                 }
 
-                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
+                Log.i("sliexsa","el size de lista 222es  "+ allReportFiltBMap.size());
                 ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
                 //setAdapaterDataAndShow(reportsListPart1);
 
@@ -380,11 +399,9 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
     void dowloadinformesby_ControlCalidad(String dateSelecionado){
         /*   DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
-
         Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);*/
         Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
-        Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
-
+        Log.i("sliexsa","el size de lista here call es  "+ allReportFiltBMap.size());
 
 
         Query query = rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
@@ -395,16 +412,64 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
-                    allReportFiltB.add(new ReportsAllModel(REPORT_CONTROL_CALIDAD,false,false,false,"Control Calidad",
-                            controlcalidad.getSimpleDate(),controlcalidad.getUniqueId()));
+
+                    ReportsAllModel objec =  new ReportsAllModel(REPORT_CONTROL_CALIDAD,false,false,false,"Control Calidad",
+                            controlcalidad.getSimpleDate(),controlcalidad.getUniqueId());
+
+                    allReportFiltBMap.put(controlcalidad.getUniqueId(),objec);
+
+
+
                 }
 
-                Log.i("sliexsa","el size de lista 222es  "+allReportFiltB.size());
+                Log.i("sliexsa","el size de lista 222es  "+ allReportFiltBMap.size());
+                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
+                //setAdapaterDataAndShow(reportsListPart1);
+                dowloadinformesby_CuadroMuestreoCalib(dateSelecionado);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+
+    void dowloadinformesby_CuadroMuestreoCalib(String dateSelecionado){
+
+        Query query = rootDatabaseReference.child("Informes").child("CuadrosMuestreo").orderByChild("simpleDateFormat").equalTo(dateSelecionado);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    CuadroMuestreo controlcalidad=ds.getValue(CuadroMuestreo.class);
+
+                    ReportsAllModel report = new ReportsAllModel(MUESTREO_CALIBRA_RECHAZ,false,false,false,"Cuadro Muestreo",
+                            controlcalidad.getSimpleDateFormat(),controlcalidad.getUniqueIdObject());
+
+
+                    allReportFiltBMap.put(controlcalidad.getUniqueIdObject(),report);
+
+
+
+                }
+
+                Log.i("muestrodff","el size de lista 222es  "+ allReportFiltBMap.size());
                 ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
                 //setAdapaterDataAndShow(reportsListPart1);
 
 
-                setAdapaterDataAndShow(allReportFiltB);
+                setAdapaterDataAndShow(allReportFiltBMap);
 
 
             }
@@ -424,7 +489,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
 
-    void setAdapaterDataAndShow(ArrayList<ReportsAllModel>reports ) {
+    void setAdapaterDataAndShow(  HashMap<String, ReportsAllModel> reports ) {
 
 
         if (reports.size()>0 )
@@ -437,7 +502,11 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivitySeeReports.this);
 
-        RecyclerVAdapterReportsList  adapter = new RecyclerVAdapterReportsList(reports,ActivitySeeReports.this);
+
+        //convertimos este hasmape
+
+
+        RecyclerVAdapterReportsList  adapter = new RecyclerVAdapterReportsList( createAarrayListBYmap(reports),ActivitySeeReports.this);
 
         recyclerVReports.setLayoutManager(layoutManager);
 
@@ -452,6 +521,25 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
 
+    private  ArrayList<ReportsAllModel>  createAarrayListBYmap(
+            HashMap<String, ReportsAllModel>map){
+        ArrayList<ReportsAllModel>miList=new ArrayList<>();
+
+        for(ReportsAllModel report: map.values()){
+
+            miList.add(report);
+
+
+        }
+
+
+
+        return miList;
+
+    }
+
+
+
     private void eventoBtnclicklistener(RecyclerVAdapterReportsList adapter) {
 
         adapter.setOnItemClickListener(new RecyclerVAdapterReportsList.ClickListener() {
@@ -460,10 +548,10 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 // Variables.CurrenReportPart1=  reportsListPart1.get(position);
 
-                showBottomSheetDialog(allReportFiltB.get(position).getReporteTipo(),allReportFiltB.get(position).getIdInforme());
+                showBottomSheetDialog(allReportFiltBMap.get(String.valueOf(v.getTag())).getReporteTipo(), allReportFiltBMap.get(String.valueOf(v.getTag())).getIdInforme());
 
 
-                Log.i("midaclick","el click es here, el informe es "+allReportFiltB.get(position).getIdInforme());
+                Log.i("midaclick","el click es here, el informe es "+ allReportFiltBMap.get(String.valueOf(v.getTag())).getIdInforme());
 
 
             }
@@ -559,9 +647,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
     }
 
-
-
-    private void DowloadReportCamionesYcarretas(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
+    private void DowloadReportCamionesYcarretas(String uniqeuIDiNFORME,int modoReporte){
 
         //to fetch all the users of firebase Auth app
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -611,6 +697,84 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                     Log.i("verdura","ahora se llamo intent");
 
                   //  startActivity(intencion);
+                    // pdialogff.dismiss();
+                    // finish();
+                    showPRogress(intencion);
+
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
+
+
+    }
+
+
+
+    private void DowloadEspecificReportCalbAndRechazados(String uniqeuIDiNFORME,int modoReporte){
+
+        //to fetch all the users of firebase Auth app
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference usersdRef = rootRef.child("Informes").child("CuadrosMuestreo");
+
+        Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(uniqeuIDiNFORME);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
+
+                    if(informe!=null){
+                        Variables.currentcuadroMuestreo=informe;
+
+                        Log.i("elcarreta","el value es "+ Variables.currentcuadroMuestreo.getProductor());
+
+                        break;
+
+                    }
+
+
+                }
+
+                Intent intencion= new Intent(ActivitySeeReports.this, CuadMuestreoCalibAndRechazPrev.class);
+
+
+                if(modoReporte==Variables.MODO_EDICION ){
+
+                  //  intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    // startActivity(intencion);
+                    showPRogress(intencion);
+
+                    //pdialogff.dismiss();
+
+                    //finish();
+                }else{
+
+
+                   // intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,false);
+                    //si queremos deciion le ponemos true;
+                    Log.i("verdura","ahora se llamo intent");
+
+                    //  startActivity(intencion);
                     // pdialogff.dismiss();
                     // finish();
                     showPRogress(intencion);
@@ -1115,6 +1279,13 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 }
 
+                else if(reportTipo==MUESTREO_CALIBRA_RECHAZ){
+
+                    DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_VISUALIZACION);
+                    // DowloadControlCalidad(idReport,Variables.MODO_EDICION);
+                    //Descargamos un objeto contenedores object...
+                }
+
 
 
 
@@ -1166,6 +1337,19 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
                     DowloadControlCalidad(idReport,Variables.MODO_EDICION);
+                    //Descargamos un objeto contenedores object...
+
+
+                }
+
+
+                else if(reportTipo==MUESTREO_CALIBRA_RECHAZ){
+
+
+                            DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_EDICION);
+
+
+                   // DowloadControlCalidad(idReport,Variables.MODO_EDICION);
                     //Descargamos un objeto contenedores object...
 
 

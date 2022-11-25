@@ -382,6 +382,7 @@ public class RealtimeDB {
 
         //agregamos la propiedad keyFirebase a al objeto
         String PuskEY = mibasedata.push().getKey();
+        informeObjct.setKeyFirebaseLocation(PuskEY);
         // informeObjct.setKeyFirebase(PuskEY);
         //   Map<String, Object> mapValues = informeObjct.toMap();
 
@@ -408,6 +409,8 @@ public class RealtimeDB {
 
     }
 
+
+
     public static void updateCuadroMuestreoObject( CuadroMuestreo newinformeObjct, CuadroMuestreo objecAntiguo) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
@@ -416,6 +419,7 @@ public class RealtimeDB {
         newinformeObjct.setNodoKyDondeEstaHasmap(objecAntiguo.getNodoKyDondeEstaHasmap());
         newinformeObjct.setUniqueIdObject(objecAntiguo.getUniqueIdObject());
         newinformeObjct.setSimpleDateFormat(objecAntiguo.getSimpleDateFormat());
+        newinformeObjct.setKeyFirebaseLocation(objecAntiguo.getKeyFirebaseLocation());
 
 
         mibasedata.child(objecAntiguo.getNodoKyDondeEstaHasmap()).setValue(newinformeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {

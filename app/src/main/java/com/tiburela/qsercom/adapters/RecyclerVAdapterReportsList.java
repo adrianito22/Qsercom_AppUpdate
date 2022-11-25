@@ -54,6 +54,8 @@ public class RecyclerVAdapterReportsList extends RecyclerView.Adapter<RecyclerVA
         holder.txtReportCode.setText("Reporte cod: 00012");
         holder.txtDate.setText(ReportsAllModel.getDateReport());
         holder.txtCategoria.setText(ReportsAllModel.getNombreCategoria());
+        holder.cardview.setTag(ReportsAllModel.idInforme);
+
       //  holder.txtUploadBy.setText(dateString);
 
 

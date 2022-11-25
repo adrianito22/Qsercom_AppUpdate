@@ -19,6 +19,8 @@ public class SetInformEmbarque1 {
 
 
 
+
+
     public String getAtachControCalidadInfrms() {
         return atachControCalidadInfrms;
     }
@@ -73,7 +75,7 @@ public class SetInformEmbarque1 {
     private String  exportadoraProcesada;
     private String  exportadoraSolicitante;
     private String  marrca;
-
+     private String atachControCuadroMuestreo;
 
 
     private String uniqueIDinforme;
@@ -100,6 +102,14 @@ public class SetInformEmbarque1 {
 
     public void setNumcionContenedor(String numcionContenedor) {
         this.numcionContenedor = numcionContenedor;
+    }
+
+    public String getAtachControCuadroMuestreo() {
+        return atachControCuadroMuestreo;
+    }
+
+    public void setAtachControCuadroMuestreo(String atachControCuadroMuestreo) {
+        this.atachControCuadroMuestreo = atachControCuadroMuestreo;
     }
 
     public SetInformEmbarque1(
@@ -173,7 +183,7 @@ public class SetInformEmbarque1 {
 
         keyFirebase="";
         atachControCalidadInfrms="";
-
+        atachControCuadroMuestreo ="";
 
 
 
