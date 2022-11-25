@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.text.DecimalFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,11 +53,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,8 +66,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
-import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -100,7 +99,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
@@ -2347,15 +2345,128 @@ void checkDataFields(){
 
 
     }
+    if(getResultDatCalibCalEnfundes()){
+        Log.i("test001","no esta lleno  getResultDatCalibCalEnfundes");
+
+        return;
+    }else
+
+    {
+
+        Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
 
 
+    }
 
-   // DialogConfirmCreateNewForm.showBottomSheetDialogConfirmAndCallUpdate(ActivityContenedoresPrev.this,Variables.FormPreviewContenedores);
+
 
 
     openBottomSheet();
 
 }
+
+
+    private boolean getResultDatCalibCalEnfundes(){
+
+
+
+        if(ediRacimosCosech.getText().toString().trim().isEmpty()){
+            ediRacimosCosech.requestFocus();
+            ediRacimosCosech.setError("Este valor es necesesario");
+
+            return false;
+
+        }
+
+
+
+        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
+        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
+        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
+        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
+        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
+        TextInputEditText ediPorc9 =findViewById(R.id.ediPorc9);
+
+
+
+        int numRacimosCosechados=Integer.parseInt(ediRacimosCosech.getText().toString());
+        float resultpercente;
+        DecimalFormat format = new DecimalFormat("#.##");
+
+        int numeroRacimosContador=0;
+
+        //numero de raCimos
+        TextInputEditText [] miArrayNUmrACIMOS ={ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9};
+
+        TextInputEditText [] miArraypORCENTAHJES ={ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPorc9};
+
+        for(int i=0; i<miArrayNUmrACIMOS.length; i++){
+
+            if(!miArrayNUmrACIMOS[i].getText().toString().trim().isEmpty())
+            {        ///tiene que ser mayor a cero
+                if(Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString())>0)
+                {  //operamoss
+                    resultpercente= (Float.parseFloat(miArrayNUmrACIMOS[i].getText().toString())/numRacimosCosechados)*100;
+
+                    String promDecim=format.format(resultpercente)   ;
+                    miArraypORCENTAHJES[i].setText(promDecim);
+
+                    //sumaoslos racimos totale
+                    numeroRacimosContador=numeroRacimosContador+Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString());
+
+
+
+                }
+
+            }
+
+
+        }
+
+
+
+        //calculo aqwui
+
+        if(numeroRacimosContador!=numRacimosCosechados){
+
+            Snackbar.make(ediRacimosCosech, "El numero de racimos no concuerda con el numero de racimos cosechados", Snackbar.LENGTH_LONG)
+                    .show();
+
+            Log.i("dataracimos","no coincide");
+
+            return false;
+
+
+
+
+        }
+
+        else {
+            Log.i("dataracimos","SI coincide");
+
+            return true;
+
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+
 
 
     void checkDataToCreatePdf(){
@@ -5344,7 +5455,7 @@ private void checkModeVisualitY(){
         TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
         TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
         TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
-        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
 
 
         TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
@@ -5426,7 +5537,7 @@ private void checkModeVisualitY(){
                     case R.id.ediPorc10:
                         break;
 
-                    case R.id.ediPsgddsorc9:
+                    case R.id.ediPorc9:
                         break;
 
 
@@ -5474,7 +5585,7 @@ if(indice>2) {
         TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
         TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
         TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
-        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
 
 
         TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
@@ -5573,7 +5684,7 @@ if(indice>2) {
                         informe.setPorc10(value);
                         break;
 
-                    case R.id.ediPsgddsorc9:
+                    case R.id.ediPorc9:
                         informe.setPorc9(value);
                         break;
 
@@ -5622,7 +5733,7 @@ if(indice>2) {
         TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
         TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
         TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
-        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
 
 
 

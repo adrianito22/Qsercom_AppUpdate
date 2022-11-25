@@ -196,6 +196,7 @@
                 android:id="@+id/ediCajasProcDesp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -212,6 +213,7 @@
                 android:id="@+id/ediRacimosCosech"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -227,6 +229,7 @@
                 android:id="@+id/ediRacimosRecha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -242,6 +245,7 @@
                 android:id="@+id/ediRacimProces"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:digits="0123456789"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 

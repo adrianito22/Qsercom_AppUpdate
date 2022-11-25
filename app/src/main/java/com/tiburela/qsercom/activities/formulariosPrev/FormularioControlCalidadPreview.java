@@ -3028,7 +3028,7 @@ return true;
         EditextSupreme ediPorc12=findViewById(R.id.ediPorc12);
         EditextSupreme ediPorc11=findViewById(R.id.ediPorc11);
         EditextSupreme ediPorc10=findViewById(R.id.ediPorc10);
-        EditextSupreme ediPsgddsorc9 =findViewById(R.id.ediPsgddsorc9);
+        EditextSupreme ediPsgddsorc9 =findViewById(R.id.ediPorc9);
 
 
         EditextSupreme [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
@@ -3122,7 +3122,7 @@ return true;
                         informe.setPorc10(value);
                         break;
 
-                    case R.id.ediPsgddsorc9:
+                    case R.id.ediPorc9:
                         informe.setPorc9(value);
                         break;
 
