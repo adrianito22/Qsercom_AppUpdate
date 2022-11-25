@@ -105,8 +105,6 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     private final int CODE_TWO_PERMISIONS =12;
 
-    private final int WRITE_EXTERNAL_STORAGE=13;
-
 
     BottomSheetDialog bottomSheetDialog;
      ImageView imgAtachVinculacion;
@@ -193,6 +191,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     TextInputEditText ediMarcaCabezal;
     TextInputEditText ediColorCabezal;
     TextInputEditText ediFotosLlegadaTransport;
+    TextInputEditText ediFotosLlegada;
+
 
     TextInputEditText ediTare;
     TextInputEditText ediBooking;
@@ -495,7 +495,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
         disableEditText(ediContenedor);
-        disableEditText(ediFotosLlegada);
+       // disableEditText(ediFotosLlegada);
 
         disableEditText(ediZona);
         disableEditText(ediEnsunchado);
@@ -4336,7 +4336,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ediNhojaEvaluacion,
             ediObservacion,
             ediEmpacadora,
-            ediFotosLlegada,
+           // ediFotosLlegada,
             ediContenedor,
             ediPPC01,
             ediPPC02,
@@ -4358,8 +4358,8 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ediNViaje,
             ediTipoContenedor,
             ediVapor,
-            ediFotoContenedor,
-            ediFotosPposcosecha,
+            //ediFotoContenedor,
+           // ediFotosPposcosecha,
             ediEnsunchado,
             ediBalanzaRepeso,
 
@@ -4383,7 +4383,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ediPLaca,
             ediMarcaCabezal,
             ediColorCabezal,
-            ediFotosLlegadaTransport,
+           // ediFotosLlegadaTransport,
 
             ediTare,
             ediBooking,
@@ -4393,7 +4393,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ediCableRastreoLlegada,
             ediSelloPlasticoNaviera,
             ediOtroSellosLlegada,
-            ediFotosSellosLLegada,
+            //ediFotosSellosLLegada,
 
             ediCondicionBalanza,
             ediTipodeCaja,

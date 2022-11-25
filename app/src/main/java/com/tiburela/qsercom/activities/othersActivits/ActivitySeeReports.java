@@ -1,5 +1,7 @@
 package com.tiburela.qsercom.activities.othersActivits;
 
+import static android.service.controls.ControlsProviderService.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
@@ -55,7 +58,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ActivitySeeReports extends AppCompatActivity {
+public class ActivitySeeReports extends AppCompatActivity  implements   View.OnTouchListener{
     RecyclerView recyclerVReports;
     Spinner  spinnerDatesSelector;
     ArrayList<SetInformEmbarque1> reportsListPart1;
@@ -144,6 +147,7 @@ public class ActivitySeeReports extends AppCompatActivity {
                 String fechaToSearch="";
 
 
+
                 //  ediZona.setText("Zona "+zonaEelejida+" ");
                 if(timeSelecionado.equals("HOY")){
 
@@ -188,6 +192,7 @@ public class ActivitySeeReports extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.d("dateis ","nothin selected") ;
 
             }
         });
@@ -1289,4 +1294,8 @@ public class ActivitySeeReports extends AppCompatActivity {
         picker.show();
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
+    }
 }

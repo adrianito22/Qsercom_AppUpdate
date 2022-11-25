@@ -158,14 +158,14 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="1" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediTimeHoraxx1"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPesoL1"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH1"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -185,7 +185,7 @@
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediNumClusInsp1"
                         android:layout_width="75dp"
@@ -244,7 +244,7 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="2" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediTimeHoraxx2"
 
 
@@ -253,7 +253,7 @@ android:gravity="center"
                         android:gravity="center"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPesoL2"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
@@ -263,7 +263,7 @@ android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH2"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -275,7 +275,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/ediNumClusInsp2"
@@ -334,7 +334,7 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="3" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
 
@@ -343,7 +343,7 @@ android:gravity="center"
                         android:layout_height="wrap_content"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediPesoL3"
                         android:layout_width="75dp"
@@ -353,7 +353,7 @@ android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH3"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -365,7 +365,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediNumClusInsp3"
                         android:layout_width="75dp"
@@ -423,7 +423,7 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="4" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediTimeHoraxx4"
 
 
@@ -432,7 +432,7 @@ android:gravity="center"
                         android:gravity="center"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediPesoL4"
                         android:layout_width="75dp"
@@ -442,7 +442,7 @@ android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH4"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -455,7 +455,7 @@ android:gravity="center"
                         android:textSize="14sp" />
 
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediNumClusInsp4"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
@@ -511,14 +511,14 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="5" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediTimeHoraxx5"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediPesoL5"
                         android:layout_width="75dp"
@@ -529,7 +529,7 @@ android:gravity="center"
                         android:textSize="14sp" />
 
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH5"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -541,7 +541,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediNumClusInsp5"
                         android:layout_width="75dp"
@@ -598,7 +598,7 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="6" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
 
@@ -607,7 +607,7 @@ android:gravity="center"
                         android:layout_height="wrap_content"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediPesoL6"
                         android:layout_width="75dp"
@@ -616,7 +616,7 @@ android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH6"
                         android:layout_width="75dp"
 
@@ -629,7 +629,7 @@ android:gravity="center"
                         android:textSize="14sp" />
 
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediNumClusInsp6"
                         android:layout_width="75dp"
@@ -688,7 +688,7 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="7" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
 
@@ -697,7 +697,7 @@ android:gravity="center"
                         android:layout_height="wrap_content"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/ediPesoL7"
@@ -707,7 +707,7 @@ android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH7"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -719,7 +719,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/ediNumClusInsp7"
@@ -778,7 +778,7 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="8" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
 
@@ -787,7 +787,7 @@ android:gravity="center"
                         android:layout_height="wrap_content"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediPesoL8"
                         android:layout_width="75dp"
@@ -797,7 +797,7 @@ android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH8"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -809,7 +809,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/ediNumClusInsp8"
@@ -869,7 +869,7 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="9" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/ediTimeHoraxx9"
@@ -877,7 +877,7 @@ android:gravity="center"
                         android:layout_height="wrap_content"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediPesoL9"
                         android:layout_width="75dp"
@@ -886,7 +886,7 @@ android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH9"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -898,7 +898,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediNumClusInsp9"
                         android:layout_width="75dp"
@@ -957,7 +957,7 @@ android:gravity="center"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="10" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/ediTimeHoraxx10"
@@ -965,7 +965,7 @@ android:gravity="center"
                         android:layout_height="wrap_content"
                         android:textSize="13sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/ediPesoL10"
@@ -975,7 +975,7 @@ android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediPH10"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
@@ -984,7 +984,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
 
@@ -1038,7 +1038,7 @@ android:gravity="center"
                     android:orientation="horizontal"
                     android:showDividers="middle">
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/editotalHere"
@@ -1049,7 +1049,7 @@ android:gravity="center"
                         android:hint="TOTAL"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
                         android:id="@+id/ediTotalPesoLAll"
                         android:layout_width="75dp"
@@ -1057,7 +1057,7 @@ android:gravity="center"
                         android:enabled="false"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/phAll"
 
 
@@ -1070,7 +1070,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
 
@@ -1121,7 +1121,7 @@ android:gravity="center"
                         android:text="%"
                         android:textSize="20sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/ediAllPesoLibraPorcent"
@@ -1130,7 +1130,7 @@ android:gravity="center"
                         android:enabled="false"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/allPerPh"
 
                         android:layout_width="75dp"
@@ -1140,7 +1140,7 @@ android:gravity="center"
                         android:text="2"
                         android:textSize="14sp" />
 
-                    <com.tiburela.qsercom.EditextSupreme
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
 android:gravity="center"
 
                         android:id="@+id/alNumClustPercent"

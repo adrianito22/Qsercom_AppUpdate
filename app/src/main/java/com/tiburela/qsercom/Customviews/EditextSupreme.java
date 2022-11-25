@@ -1,4 +1,4 @@
-package com.tiburela.qsercom;
+package com.tiburela.qsercom.Customviews;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+
+import com.tiburela.qsercom.R;
 
 public class EditextSupreme extends androidx.appcompat.widget.AppCompatEditText {
 
