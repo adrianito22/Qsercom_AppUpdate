@@ -324,13 +324,9 @@ private void checkExistFile(){
 
 
 
-
-
               //  imagenReport.setUrlStoragePic(uri.toString());
 
                   //  ImagenReport.hashMapImagesData.put(imagenReport.getUniqueIdNamePic(),imagenReport);
-
-
 
 
             }

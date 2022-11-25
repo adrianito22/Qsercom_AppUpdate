@@ -138,7 +138,6 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     TextInputEditText ediNhojaEvaluacion;
     TextInputEditText ediObservacion;
     TextInputEditText ediEmpacadora;
-    TextInputEditText ediFotosLlegada;
     TextInputEditText ediContenedor;
     TextInputEditText ediPPC01;
     TextInputEditText ediPPC02;
@@ -3156,66 +3155,21 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CODE_TWO_PERMISIONS) {
-
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i("codereister","permiso concedido") ;
-
-                   // takePickCamera();
-
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                }else {
-
-
-                    Log.i("codereister","es permiso denegado") ;
-
-
-                }
-
-
-
-        }
-
-
-        if(requestCode == CODE_TWO_PERMISIONS) {
-
-            //ESTE ES EL DE CAMERA
-
-
-            Log.i("codereister","es code camera pérmision") ;
-
-            if (grantResults.length > 0
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                Log.i("codereister","permiso concedido") ;
-
-                //SI TINE LOS DOS POERMISOS
-
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i("codereisterxcc","permisos concedidos") ;
                     takePickCamera();
 
+                       }
+
+                else{
+                    Log.i("codereisterxcc","no se concedieron") ;
 
                 }
 
 
-
-
-
-                // permission was granted, yay! Do the
-                // contacts-related task you need to do.
-            }else {
-
-
-                Log.i("codereister","Necesitas conceder ambos permisos") ;
-
-
-            }
-
-        }
     }
 
-
+    }
 
 
 
@@ -4958,14 +4912,14 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     protected void onResume() {
         super.onResume();
         // call method
-        checkConnection();
+       // checkConnection();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         // call method
-        checkConnection();
+      //  checkConnection();
     }
 
 

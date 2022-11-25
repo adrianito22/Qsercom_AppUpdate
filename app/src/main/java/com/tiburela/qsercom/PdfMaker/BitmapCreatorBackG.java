@@ -49,9 +49,6 @@ public class BitmapCreatorBackG  implements Runnable{
 
 
 
-
-
-
         boolean existUriFile = false;
         Log.i("vamert","url de esta imagen es  es"+urlImage);
 
@@ -74,8 +71,6 @@ public class BitmapCreatorBackG  implements Runnable{
         if(existUriFile){  //chekeamos i hay uri y obtenemos la imagen usnadp uri
 
             Log.i("vamert"," si existe uri y es "+imgReport.geturiImage());
-
-
 
             try {
                 myBitmap = MediaStore.Images.Media.getBitmap(contexto.getContentResolver(), Uri.parse(imgReport.geturiImage()));
@@ -120,9 +115,6 @@ public class BitmapCreatorBackG  implements Runnable{
 
 
         }
-
-
-
 
     }
 
