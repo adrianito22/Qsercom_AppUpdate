@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
@@ -37,12 +38,14 @@ import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadP
 import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivity;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
+import com.tiburela.qsercom.adapters.AdapterAllReports;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.ReportsAllModel;
@@ -65,7 +68,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
     ProgressDialog pd;
     DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
-
+    ArrayList<InformRegister> listReport= new ArrayList<>();
     private ProgressDialog progress;
 
     public final int REPORTE_CONTENEDORES_EN_HCDA=1100;
@@ -94,7 +97,6 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         context = getApplicationContext();
 
         findViewsIDs();
-        listenenrSpinner();
 
         Variables.listImagesToDelete=new ArrayList<String>();
 
@@ -110,6 +112,11 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
     @Override
     protected void onStart() {
         super.onStart();
+        listenenrSpinner();
+
+       // fechaToSearch=generaFechaToSearch(Variables.HOY);
+
+      //  dowloadinformesby_EspecificDate();
 
 
         try {
@@ -155,7 +162,9 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 if(timeSelecionado.equals("HOY")){
 
                     fechaToSearch=generaFechaToSearch(Variables.HOY);
-                    dowloadinformesby_CONTENEDORES(fechaToSearch);
+
+                    dowloadinformesby_EspecificDate(fechaToSearch);
+                   // dowloadinformesby_CONTENEDORES(fechaToSearch);
                     //dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
                     Log.d("dateis ","el dat today is "+fechaToSearch) ;
@@ -165,7 +174,9 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 else if (timeSelecionado.equals("AYER")){
 
                     fechaToSearch=generaFechaToSearch(Variables.AYER);
-                    dowloadinformesby_CONTENEDORES(fechaToSearch);
+                    dowloadinformesby_EspecificDate(fechaToSearch);
+
+                    // dowloadinformesby_CONTENEDORES(fechaToSearch);
                     // dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
 
@@ -174,7 +185,9 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 else if (timeSelecionado.equals("ANTEAYER")){
 
                     fechaToSearch=generaFechaToSearch(Variables.ANTEAYER);
-                    dowloadinformesby_CONTENEDORES(fechaToSearch);
+                    dowloadinformesby_EspecificDate(fechaToSearch);
+
+                    //dowloadinformesby_CONTENEDORES(fechaToSearch);
                     //dowloadinformesby_CONTENEDORES_EN_ACOPIO(fechaToSearch);
 
                     // Log.i("sumares","la fecha to search es "+fechaToSearch);
@@ -487,6 +500,36 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
 
+    void setAdapaterDataAndShow(ArrayList <InformRegister> reports) {
+
+
+        if (reports.size()>0 )
+        {txtConfirmExitenciaData.setVisibility(TextView.INVISIBLE);
+
+        }
+        else
+        {txtConfirmExitenciaData.setVisibility(TextView.VISIBLE);
+        }
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivitySeeReports.this);
+
+
+        //convertimos este hasmape
+
+
+        AdapterAllReports adapter = new AdapterAllReports( reports,ActivitySeeReports.this);
+
+        recyclerVReports.setLayoutManager(layoutManager);
+
+        recyclerVReports.setAdapter(adapter);
+
+
+        eventoBtnclicklistener(adapter);
+
+
+
+    }
+
 
 
     void setAdapaterDataAndShow(  HashMap<String, ReportsAllModel> reports ) {
@@ -539,6 +582,31 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
     }
 
 
+    private void eventoBtnclicklistener(AdapterAllReports adapter) {
+
+        adapter.setOnItemClickListener(new AdapterAllReports.ClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {  //este para eminar
+
+                // Variables.CurrenReportPart1=  reportsListPart1.get(position);
+
+                Variables.currentInformRegisterSelected=listReport.get(position);
+
+                showBottomSheetDialog(listReport.get(position).getTypeInform(), listReport.get(position).getInformUniqueIdPertenece());
+
+
+             //   Log.i("midaclick","el click es here, el informe es "+ allReportFiltBMap.get(String.valueOf(v.getTag())).getIdInforme());
+
+
+            }
+
+        });
+    }
+
+
+
+
+
 
     private void eventoBtnclicklistener(RecyclerVAdapterReportsList adapter) {
 
@@ -584,7 +652,8 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                     if(currentObect!=null){
                         Variables.CurrenReportPart1=currentObect;
 
-                        CustomAdapter.idsFormsVinucladosCntres=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+                        CustomAdapter.idsFormsVinucladosControlCalidadString =Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+                        CustomAdapter.idsFormsVinucladosCudorMuestreoString =Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
 
 
                         break;
@@ -1232,7 +1301,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         LinearLayout layOtherOpcion = bottomSheetDialog.findViewById(R.id.layOtherOpcion);
 
 
-
+Log.i("puslado","el value es "+idReport);
 
         lyRevisar.setOnClickListener(new View.OnClickListener() { //revisar
 
@@ -1241,13 +1310,13 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
 
-                if(reportTipo==CONTENEDORES){
+                if(reportTipo== Constants.CONTENEDORES){
                     ///descragamos la parte uno del reporte
                     DowloadReportPart1(idReport,Variables.MODO_VISUALIZACION);
 
                 }
 
-                else if(reportTipo==REPORTE_CONTENEDORES_EN_ACOPIO){
+                else if(reportTipo==Constants.CONTENEDORES_EN_ACOPIO){
 
 
                     DowloadReportContersAcopio(idReport,Variables.MODO_VISUALIZACION);
@@ -1255,7 +1324,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 }
 
-                else if(reportTipo==PACKINGLIST){
+                else if(reportTipo==Constants.PACKING_lIST){
 
 
                     DowloadPackingList(idReport,Variables.MODO_VISUALIZACION);
@@ -1264,7 +1333,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 }
 
 
-                else if(reportTipo==REPORTE_CAMIONES_y_CARRETAS){
+                else if(reportTipo==Constants.CAMIONES_Y_CARRETAS){
 
 
                     DowloadReportCamionesYcarretas(idReport,Variables.MODO_VISUALIZACION);
@@ -1272,14 +1341,14 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 }
 
-                else if(reportTipo==REPORT_CONTROL_CALIDAD){
+                else if(reportTipo==Constants.CONTROL_CALIDAD){
 
                     DowloadControlCalidad(idReport,Variables.MODO_VISUALIZACION);
                     //Descargamos un objeto contenedores object...
 
                 }
 
-                else if(reportTipo==MUESTREO_CALIBRA_RECHAZ){
+                else if(reportTipo==Constants.CUADRO_MUESTRO_CAL_RECHZDS){
 
                     DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_VISUALIZACION);
                     // DowloadControlCalidad(idReport,Variables.MODO_EDICION);
@@ -1302,11 +1371,13 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
             public void onClick(View v) {
 
                 //  Toast.makeText(getActivity(), "Share is Clicked", Toast.LENGTH_LONG).show();
-                if(reportTipo==CONTENEDORES){
+                if(reportTipo==Constants.CONTENEDORES){
                     ///descragamos la parte uno del reporte
                     DowloadReportPart1(idReport,Variables.MODO_EDICION);
 
-                }else if(reportTipo==REPORTE_CONTENEDORES_EN_ACOPIO){
+
+
+                }else if(reportTipo==Constants.CONTENEDORES_EN_ACOPIO){
 
 
                     DowloadReportContersAcopio(idReport,Variables.MODO_EDICION);
@@ -1314,7 +1385,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 }
 
-                else if(reportTipo==PACKINGLIST){
+                else if(reportTipo==Constants.PACKING_lIST){
 
 
                     DowloadPackingList(idReport,Variables.MODO_EDICION);
@@ -1323,7 +1394,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 }
 
 
-                else if(reportTipo==REPORTE_CAMIONES_y_CARRETAS){
+                else if(reportTipo==Constants.CAMIONES_Y_CARRETAS){
 
 
                     DowloadReportCamionesYcarretas(idReport,Variables.MODO_EDICION);
@@ -1333,7 +1404,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 }
 
 
-                else if(reportTipo==REPORT_CONTROL_CALIDAD){
+                else if(reportTipo==Constants.CONTROL_CALIDAD){
 
 
                     DowloadControlCalidad(idReport,Variables.MODO_EDICION);
@@ -1343,11 +1414,8 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 }
 
 
-                else if(reportTipo==MUESTREO_CALIBRA_RECHAZ){
-
-
+                else if(reportTipo==Constants.CUADRO_MUESTRO_CAL_RECHZDS){
                             DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_EDICION);
-
 
                    // DowloadControlCalidad(idReport,Variables.MODO_EDICION);
                     //Descargamos un objeto contenedores object...
@@ -1465,7 +1533,11 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                         Log.i("sumares","el date picker to search es "+fechaToSearch);
 
-                        dowloadinformesby_CONTENEDORES(fechaToSearch);
+
+                        dowloadinformesby_EspecificDate(fechaToSearch);
+
+
+                      //  dowloadinformesby_CONTENEDORES(fechaToSearch);
 
 
                     }
@@ -1482,4 +1554,56 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return false;
     }
+
+
+
+
+
+
+
+    void dowloadinformesby_EspecificDate(String dateSelecionado){
+
+        //VAMOS A LLAMRALO MULTIPLES VECES CUANDO CAMBIA LA INFO .... PILAXX
+
+        Query query = rootDatabaseReference.child("Registros").child("InformesRegistros").orderByChild("simpleDateForm").equalTo(dateSelecionado);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                listReport= new ArrayList<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    InformRegister report=ds.getValue(InformRegister.class);
+
+                    listReport.add(report);
+
+                }
+
+                Log.i("muestrodff","el size de lista 222es  "+ listReport.size());
+                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
+                //setAdapaterDataAndShow(reportsListPart1);
+
+
+                setAdapaterDataAndShow(listReport);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+
+
 }

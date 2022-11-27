@@ -50,6 +50,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -58,6 +59,7 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.storage.StorageData;
@@ -2103,6 +2105,11 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         createHashmapPesoBrutoCloster2y3lAndUpload(Variables.nodoDondeEstaraPesoBruto2y3l);
+
+
+        RealtimeDB.addNewRegistroInforme(ActivityReporteCalidadCamionesyCarretas.this,new InformRegister(informe.getUniqueIDinforme(), Constants.CAMIONES_Y_CARRETAS,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Camiones y carretas"));
+
+
 
 
     }

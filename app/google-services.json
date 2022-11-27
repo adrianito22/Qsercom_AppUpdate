@@ -8,41 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:672391309758:android:c22778daae54646e11b1ef",
-        "android_client_info": {
-          "package_name": "com.tiburela.canvaspdf"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "672391309758-af9tn52aj1icbel33c729ms9qemcpbdm.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD2oGDZVOnPfnx5ZtcJ03CuzXGq4jSgusA"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "672391309758-af9tn52aj1icbel33c729ms9qemcpbdm.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:672391309758:android:6a5501c8c71a6a3111b1ef",
         "android_client_info": {
           "package_name": "com.tiburela.qsercom"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "672391309758-pikhrhl6s48m0q05gqq3bfpvf6k4ranh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tiburela.qsercom",
+            "certificate_hash": "085d4cbea929f456a4107837fddc610f711ce8f7"
+          }
+        },
         {
           "client_id": "672391309758-af9tn52aj1icbel33c729ms9qemcpbdm.apps.googleusercontent.com",
           "client_type": 3

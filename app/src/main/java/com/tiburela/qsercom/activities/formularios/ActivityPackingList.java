@@ -10,9 +10,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
 import com.tiburela.qsercom.utils.PerecentHelp;
@@ -143,6 +145,8 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
                           //agregamos en el mapa ty lo subimos..
                          RealtimeDB.addNewPackingListHasMap(packingListMap);
                          RealtimeDB.AddNewPackingListObject(obpackinList);
+
+                         RealtimeDB.addNewRegistroInforme(ActivityPackingList.this,new InformRegister(obpackinList.getUniqueIDinforme(), Constants.PACKING_lIST,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Packing List"));
 
 
                          //debe haber al menos un datao en el paking list

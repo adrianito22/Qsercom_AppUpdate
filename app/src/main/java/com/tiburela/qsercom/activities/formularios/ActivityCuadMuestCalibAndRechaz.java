@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
@@ -24,6 +25,7 @@ import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -169,8 +171,13 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
                     RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 
+                    RealtimeDB.addNewRegistroInforme(ActivityCuadMuestCalibAndRechaz.this,new InformRegister(objectWhitMoreData.getUniqueIdObject(), Constants.CUADRO_MUESTRO_CAL_RECHZDS,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Cuadro Muestreo"));
 
-                    Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Se Guardo Informe", Toast.LENGTH_SHORT).show();
+
+
+
+
+                    //   Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Se Guardo Informe", Toast.LENGTH_SHORT).show();
                      Log.i("saber"," se subio la data ");
 
 

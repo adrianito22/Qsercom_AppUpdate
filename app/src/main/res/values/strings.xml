@@ -81,9 +81,15 @@
         <item>FECHA ESPECIFICA</item>
 
     </string-array>
+
+
     <item type="id" name="posicion" />
 
     <item type="id" name="idOfoBJECT" />
+    <item type="id" name="tipoInforme" />
+
+
+
 
     <string-array name="fuentesAguaArray">
         <item>Ninguna</item>

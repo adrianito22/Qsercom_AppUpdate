@@ -47,6 +47,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
@@ -57,6 +58,7 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -1786,6 +1788,8 @@ private void createObjcInformeAndUpload(){
 
     creaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME,PuskEY,mibasedata);
 
+
+    RealtimeDB.addNewRegistroInforme(ActivityDatosContersEnAcopio.this,new InformRegister(informe.getUniqueIDinforme(), Constants.CONTENEDORES_EN_ACOPIO,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Contenedores en Acopio"));
 
 }
 

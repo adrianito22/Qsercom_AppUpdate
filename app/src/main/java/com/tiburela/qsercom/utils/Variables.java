@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -11,12 +12,14 @@ import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ImagesToPdf;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.models.UsuarioQsercom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +28,18 @@ public class Variables {
 
 public static String  paqueteName="com.tiburela.qsercom";
 
+
+   public static FirebaseUser userGoogle;
+
     public static  ArrayList<ControlCalidad>listReprsVinculads=new ArrayList<>();
+
+
+    public static UsuarioQsercom usuarioQsercomGlobal;
+
+    public static InformRegister currentInformRegisterSelected;
+
+
+    public static String  nombreCUrrentUser="";
 
 
     public static String currentKeyShareToDelete="";

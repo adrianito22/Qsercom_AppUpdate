@@ -21,6 +21,7 @@ import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -28,6 +29,7 @@ import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.models.UsuarioQsercom;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -1053,4 +1055,115 @@ public class RealtimeDB {
 
 
 }
+
+
+
+
+    public static void addNewUser(Context contexto, UsuarioQsercom user) {
+
+        Variables.usuarioQsercomGlobal=user;
+
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom");
+
+        Map<String, Object> mapValues = user.toMap(); //lo convertimos en mapa
+
+        mibasedata.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    Toast.makeText(contexto, "Se registro exitosamente", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+                    Toast.makeText(contexto, "Ocurrio un Error", Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+
+
+    public static void addNewRegistroInforme( Context context ,InformRegister registroInforme) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Registros").child("InformesRegistros");
+
+        String keyThisLoactionForm=mibasedata.push().getKey();
+
+        registroInforme.setKeyLoactionThisForm(keyThisLoactionForm);
+
+
+        Map<String, Object> mapValues = registroInforme.toMap(); //lo convertimos en mapa
+
+
+
+        mibasedata.child(keyThisLoactionForm).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+               Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+               Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+
+    public static void marckComoRevisadoInformRegister( Context context ,String keyLOactionThisObject) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Registros").child("InformesRegistros").child(keyLOactionThisObject);
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("seRevisoForm", true);
+
+
+        mibasedata.updateChildren(values).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    Toast.makeText(context, "Se Actualizo Correctamente", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+                    Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            }
+        });
+
+
+    }
+
+
 }

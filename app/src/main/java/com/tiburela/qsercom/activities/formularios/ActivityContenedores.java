@@ -61,6 +61,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
 import com.tiburela.qsercom.adapters.CustomAdapter;
@@ -71,6 +72,7 @@ import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
@@ -338,7 +340,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
-        CustomAdapter.idsFormsVinucladosCntres=null;//reseteamos
+        CustomAdapter.idsFormsVinucladosControlCalidadString =null;//reseteamos
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
@@ -1048,7 +1050,7 @@ Log.i("hellosweer","se ehjecitp onstart");
            case R.id.imgAtachVinculacion:
 
                ArrayList<String>listIdSvINCULADOS;
-               listIdSvINCULADOS=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres);
+               listIdSvINCULADOS=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString);
                listForms= new ArrayList<>();
                listForms2= new ArrayList<>();
 
@@ -1181,7 +1183,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
     private ArrayList<String> generateLISTbyStringVinculados(String ValueLineViculados ){
-        CustomAdapter.idOFfORMScontrolCaldVds = new HashMap<>();
+        CustomAdapter.mapWhitIDScontrolCaldVinclds = new HashMap<>();
 
                  ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
 
@@ -1197,7 +1199,7 @@ Log.i("hellosweer","se ehjecitp onstart");
                              listIdSvINCULADOS.add(value);
                              Log.i("comerciales","el key sera "+value);
 
-                            CustomAdapter.idOFfORMScontrolCaldVds.put(value,value);
+                            CustomAdapter.mapWhitIDScontrolCaldVinclds.put(value,value);
 
                      }
 
@@ -1260,7 +1262,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
     }
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityContenedores.this);
-    CustomAdapter adapter = new CustomAdapter(ActivityContenedores.this, lista, generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+    CustomAdapter adapter = new CustomAdapter(ActivityContenedores.this, lista, generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
     //  this.adapter.setPlayPauseClickListener(this);
     reciclerView.setLayoutManager(layoutManager);
     reciclerView.setAdapter(adapter);
@@ -1318,7 +1320,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculads));
+                txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
 
                 bottomSheetDialog.dismiss();
 
@@ -1351,7 +1353,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                     /**tambien chekamos que si estan chekeeds...*/
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
                     //  System.out.println("Date = "+ cal.getTimeInMillis());
 
@@ -1362,7 +1364,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     cal.add(Calendar.DATE, -1);
                     cald2.add(Calendar.DATE,0);
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
                     //  System.out.println("Date = "+ cal.getTimeInMillis());
 
@@ -1378,7 +1380,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     cald2.add(Calendar.DATE,0);
 
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
 
 
@@ -1394,7 +1396,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     cal.add(Calendar.DATE, -15);
                     cald2.add(Calendar.DATE,0);
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
                     Log.i("sabemosd","la data "+cal.getTimeInMillis());
 
@@ -1405,7 +1407,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     cal.add(Calendar.DATE, -30);
                     cald2.add(Calendar.DATE,0);
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
                     Log.i("sabemosd","la data "+cal.getTimeInMillis());
                 }
@@ -1414,11 +1416,11 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 else if(selecionado.equals("Reportes Vinculados")) {
 
 
-                    if(CustomAdapter.idsFormsVinucladosCntres!=null){  //si existen vinuclados DESCRAGAMOS ESTOS Y OTTRO BY DATE
-                        if(CustomAdapter.idsFormsVinucladosCntres.length()>0){
+                    if(CustomAdapter.idsFormsVinucladosControlCalidadString !=null){  //si existen vinuclados DESCRAGAMOS ESTOS Y OTTRO BY DATE
+                        if(CustomAdapter.idsFormsVinucladosControlCalidadString.length()>0){
 
 
-                            dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres));
+                            dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
 
                         }
@@ -3121,7 +3123,15 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     RealtimeDB.addNewInforme(ActivityContenedores.this,informe2);
     updateCaledarioEnfunde(informe3);
     RealtimeDB.addNewInforme(informe3);
+    //agregamos el registro informe4
+
+
+    RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,new InformRegister(informe.getUniqueIDinforme(), Constants.CONTENEDORES,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Contenedores"));
+
+
     addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
+
+
 
 
 }

@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Utils {
-public static int numReportsVinculads=0;
+public static int numReportsVinculadsAll =0;
 
     //aqui agudaremos el alto con el que tendremos que dibujar cada fila..
 
@@ -577,28 +577,77 @@ return
 
 
 
-    public static int generaNumsInformsAtach(String data) {
+    public static int generaNumsInformsAtach(String controlCalidad,String cuadroMuestro) {
 
-        String arrayRepports [] =data.split(",") ;
+        String arrayRepports [] =controlCalidad.split(",") ;
 
-        int numsReports =0;
+        int numsReportsControlCalidad =0;
+        int numsReportsCuadroMuestreo = 0;
+
 
         if(arrayRepports  ==null){
-            numsReports=0;
+            numsReportsControlCalidad=0;
         }
 
 
         else if(arrayRepports.length ==0 ){
-            numsReports=0;
+            numsReportsControlCalidad=0;
         }
+
+
+        else if(controlCalidad.trim().isEmpty() ){
+            numsReportsControlCalidad=0;
+        }
+
+
 
 
         else{
-            numsReports=arrayRepports.length;
+            numsReportsControlCalidad=arrayRepports.length;
         }
 
 
-        return numsReports;
+
+
+        String [] arrayRepportsCuadMuestreo =cuadroMuestro.split(",") ;
+
+
+        if(arrayRepportsCuadMuestreo  ==null){
+            numsReportsCuadroMuestreo=0;
+        }
+
+
+        else if(arrayRepportsCuadMuestreo.length ==0 ){
+            numsReportsCuadroMuestreo=0;
+        }
+
+
+        else if(cuadroMuestro.trim().isEmpty() ){
+            numsReportsCuadroMuestreo=0;
+        }
+
+
+
+        else{
+
+            Log.i("cidueirur","el size de este array es  " +arrayRepportsCuadMuestreo.length);
+
+
+            numsReportsCuadroMuestreo=arrayRepportsCuadMuestreo.length;
+
+
+        }
+
+
+        Log.i("cidueirur","el size de todos numsReportsControlCalidad "+numsReportsControlCalidad);
+        Log.i("cidueirur","el size de numsReportsCuadroMuestreo es "+numsReportsCuadroMuestreo);
+
+
+        Log.i("cidueirur","el size de todos es "+(numsReportsControlCalidad + numsReportsCuadroMuestreo));
+
+        Utils.numReportsVinculadsAll=numsReportsControlCalidad + numsReportsCuadroMuestreo;
+
+        return numsReportsControlCalidad + numsReportsCuadroMuestreo;
 
     }
 
@@ -621,6 +670,10 @@ return
         NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+
+
+
 
 
 

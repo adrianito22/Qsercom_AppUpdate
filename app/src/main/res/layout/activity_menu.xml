@@ -19,13 +19,12 @@
         android:layout_height="55dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:tint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_face_24" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtSubHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,10 +33,10 @@
         android:text="Employee"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtHeader" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txtHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"

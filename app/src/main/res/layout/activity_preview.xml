@@ -448,15 +448,6 @@
                     android:text="Guardar Cambios" />
 
                 <Button
-                    android:id="@+id/btnGENERARpdf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="100dp"
-                    android:background="@drawable/btn"
-                    android:text="Generar Pdf" />
-
-                <Button
                     android:id="@+id/btnGeneratePdfCliente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -465,6 +456,23 @@
                     android:background="@drawable/btn"
                     android:text="Subir pdf A Drive"
                     android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnGuardarCambiosmARKrREVISADO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/btn"
+                    android:text="Marcar como Revisado" />
+
+                <Button
+                    android:id="@+id/btnGENERARpdf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="100dp"
+                    android:background="@drawable/btn"
+                    android:text="Generar Pdf" />
 
                 <Space
                     android:layout_width="match_parent"

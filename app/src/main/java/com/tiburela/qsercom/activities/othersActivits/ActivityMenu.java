@@ -5,6 +5,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 import static com.tiburela.qsercom.utils.Variables.currentFormSelect;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,10 +26,32 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
@@ -38,12 +61,14 @@ import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
-import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
+import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.models.InformsRegister;
+import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.models.ReportsAllModel;
+import com.tiburela.qsercom.models.UsuarioQsercom;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
@@ -52,9 +77,25 @@ import com.tiburela.qsercom.utils.Variables;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 //package com.tiburela.qsercom.activities.formularios;
 public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation {
+
+    boolean userIniciosSesion=false;
+    private FirebaseAuth mAuth;
+      GoogleSignInClient mGoogleSignInClient;
+   // private CallbackManager mCallbackManager;
+
+     String correoUsuario="";
+    String nombreYapllidoUser="";
+
+
+    ImageView imGProfile;
+
+    TextView txtHeader;
+    TextView txtSubHeader;
+
     LinearLayout ly_contenedores;
     LinearLayout ly_conte_en_acopio;
     LinearLayout ly_camy_carretas;
@@ -64,6 +105,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     Intent currentIntent;
     Context contetext;
     private ProgressDialog progress;
+
+    private final int RC_SIGN_IN=500;
+
 
 
   private  AlertDialog alertDialog=null;
@@ -103,12 +147,21 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
       //  Variables.actividad =ActivityMenu;
         Variables.activity=this;
 
+        imGProfile=findViewById(R.id.imageView2);
 
+
+        RealtimeDB.initDatabasesRootOnly();
+
+
+
+
+        inigoogleSigni();//iniciamos google account autentificacion
 
         String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
         Log.i("elnumber","el numero generado es ss "+uniqueId);
 
 
+      //  testCreateRegisters();
 
 
 
@@ -346,6 +399,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         //    public SetInformEmbarque1(String codeInforme, int ediNhojaEvaluacion, String zona, String productor, String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte, String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana, String empacadora, String contenedor, String cbservacion) {
         // informeObjct = new SetInformEmbarque1("aaad01","testxz",12,"Sur","Horlando Mendez","01dssd","Adrtinañ","021121","Florestilla","45654","5454","ADER INCRIPCION","8:00","16:23","12","La Florencia","Contenedor 01","falto mas cola y pan");
 
+
+
         if(!checkPermission()){
 
             requestPermission();
@@ -363,7 +418,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     protected void onRestart() {
         super.onRestart();
 
-        Log.i("ciclelife","onrestar call");
+       // Log.i("ciclelife","onrestar call");
 
     }
 
@@ -373,6 +428,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
         return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
     }
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -489,7 +546,32 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         librearMemor();
 
 
-        try {
+       // estableceHeaderTextAndListerner();
+
+
+         Variables.userGoogle = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(Variables.userGoogle!=null) {
+
+            mAuth = FirebaseAuth.getInstance(); //verificamos que si esta autentificado..
+
+            mAuth.getAccessToken(false).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                @Override
+                public void onSuccess(GetTokenResult getTokenResult) {
+                    Log.i("solodataaqui", "el user esta autentificado");
+
+                    userIniciosSesion=true;
+                    estableceHeaderTextAndListerner();
+
+
+
+                }
+            });
+        }
+
+
+
+            try {
             progress.dismiss();
 
         } catch (Exception e) {
@@ -854,5 +936,314 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             Variables.hashMapImagesStart= null;
         }
     }
+
+
+
+
+    void estableceHeaderTextAndListerner(){
+        txtHeader=findViewById(R.id.txtHeader);
+        txtSubHeader=findViewById(R.id.txtSubHeader);
+
+
+        if(Variables.userGoogle!=null)
+        {
+            // When firebase user is not equal to null
+            // Set image on image view
+            Glide.with(ActivityMenu.this)
+                    .load(Variables.userGoogle.getPhotoUrl())
+
+                    .apply(RequestOptions.circleCropTransform())
+                    //.circleCrop()
+                    .into(imGProfile);
+            // set name on text view
+            txtHeader.setText(Variables.userGoogle.getDisplayName());
+            txtSubHeader.setText(Variables.userGoogle.getEmail());
+
+        }
+
+
+        if(userIniciosSesion){ ///mostramos el nombre y el cargo que tiene
+            txtSubHeader.setOnClickListener(null);
+
+
+
+        }else{
+           // txtSubHeader.setEnabled(true);
+
+            txtHeader.setText("!No has iniciado Sesion !");
+            txtSubHeader.setText("Inicia sesion Aqui");
+
+            ///LE CAMBISMO DE COLOR A UN
+
+
+            txtSubHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+        signInGoogle();
+                }
+            });
+
+
+
+        }
+
+
+
+    }
+
+
+
+    private void signInGoogle() {
+
+
+
+        Intent signInIntent =  mGoogleSignInClient.getSignInIntent();
+
+
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+        Log.i("logingoogle","se puslo singin metodo2");
+
+
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+      //  mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                Log.i("defugero", "firebaseAuthWithGoogle:" + account.getId());
+                Log.i("defugero", "firebaseAuthWithGoogle:" + account.getDisplayName());
+
+
+                firebaseAuthWithGoogle(account.getIdToken());
+                Log.i("defugero","se jecuito el try");
+
+            } catch (ApiException e) {
+
+                Log.i("defugero","se produjo un error ");
+                Log.i("defugero","se produjo un error es "+e);
+                // Google Sign In failed, update UI appropriately
+                Log.w("defugero", "Google sign in failed", e);
+            }
+        }
+    }
+    // [END onactivityresult]
+
+
+
+    private void firebaseAuthWithGoogle(String idToken) {  //se logea correctamente
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                          //  Log.d(TAG, "signInWithCredential:success");
+
+                            Log.i("dataLogin","se ejecuto firebaseAuthWithGoogle()  succes");
+
+                            Variables.  userGoogle = mAuth.getCurrentUser();
+
+
+                            chelkeasIEXTSEuser(Variables.userGoogle.getEmail());
+                             nombreYapllidoUser=Variables.userGoogle.getDisplayName();
+
+
+                             userIniciosSesion=true;
+
+                             estableceHeaderTextAndListerner();
+
+
+
+
+                            /**verificar si por aqui creamos el nuevo nodo
+                             * */
+
+                            // creaNuevoUser(ediNomnre.getText().toString(),ediApellido.getText().toString(),numeroTelefonico.getText().toString(),email,1,0,contrasena_string,"");
+
+                            //verificamos si existe un
+
+
+
+                            // updateUI(user);
+                        } else {
+                            Log.i("dataLogin","se ejecuto firebaseAuthWithGoogle() else failure ");
+
+                            Log.i("logingoogle","ocurrio un errro "+task.getException());
+
+                            // If sign in fails, display a message to the user.
+                         //   Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            // updateUI(null);
+                        }
+                    }
+                });
+    }
+    // [END auth_with_google]
+
+
+
+
+    private void inigoogleSigni(){
+
+
+        mAuth = FirebaseAuth.getInstance(); //verificamos que si esta autentificado..
+        // FirebaseDatabase.getInstance().setPersistenceEnabled(true); //anterior
+
+
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("672391309758-af9tn52aj1icbel33c729ms9qemcpbdm.apps.googleusercontent.com")
+
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+        if(Variables.userGoogle==null){
+            estableceHeaderTextAndListerner();
+
+        }else{
+
+            descragCurrentUsuario(Variables.userGoogle.getEmail());
+
+
+        }
+
+    }
+
+
+
+
+
+    void chelkeasIEXTSEuser(String idMailGoogle){
+
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Usuarios").child("Colaboradores").orderByChild("mailGooglaUser").equalTo(idMailGoogle);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UsuarioQsercom user=null;
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                     user=ds.getValue(UsuarioQsercom.class);
+
+
+                }
+
+
+                if(user !=null){
+
+
+                    //existe
+
+                }else{  //no existe los registramos...
+
+
+
+
+                    Log.i("skjsf","el correo google es : "+idMailGoogle);
+
+
+                    RealtimeDB.addNewUser(ActivityMenu.this,  new UsuarioQsercom("Colaborador", UUID.randomUUID().toString(),idMailGoogle,Variables.userGoogle.getDisplayName()));
+
+
+
+
+
+
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+
+    ///descragmos current usuario();
+
+
+
+    void descragCurrentUsuario(String mailUserThisUser){
+
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom").orderByChild("mailGooglaUser").equalTo(mailUserThisUser);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    UsuarioQsercom usuarioQsercom=ds.getValue(UsuarioQsercom.class);
+
+                    if(usuarioQsercom!=null){
+                        Variables.usuarioQsercomGlobal=usuarioQsercom;
+
+
+
+                    }
+
+                    break;
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+
+
+
+    private void testCreateRegisters(){
+
+     //   RealtimeDB.addNewRegistroInforme(ActivityMenu.this, new InformRegister("163349", Constants.CONTENEDORES,"Adriano Vicente","idaqui","Contenedores"));
+       // RealtimeDB.addNewRegistroInforme(ActivityMenu.this, new InformRegister("", Constants.CUADRO_MUESTRO_CAL_RECHZDS,"Adriano Vicente","idaqui","Cudro Muestreo"));
+      //  RealtimeDB.addNewRegistroInforme(ActivityMenu.this, new InformRegister("", Constants.CONTROL_CALIDAD,"Adriano Vicente","idaqui","Control CALIDAD"));
+       // RealtimeDB.addNewRegistroInforme(ActivityMenu.this, new InformRegister("", Constants.CONTROL_CALIDAD,"Adriano Vicente","idaqui","Control CALIDAD"));
+      //  RealtimeDB.addNewRegistroInforme(ActivityMenu.this, new InformRegister("", Constants.CONTROL_CALIDAD,"Adriano Vicente","idaqui","Control CALIDAD"));
+
+
+    }
+
 
 }

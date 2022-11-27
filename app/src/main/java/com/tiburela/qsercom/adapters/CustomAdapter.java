@@ -12,12 +12,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
-import com.tiburela.qsercom.activities.othersActivits.ActivityMenu;
-import com.tiburela.qsercom.callbacks.CallbackUpdateNumsRepVincls;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.utils.Utils;
-import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,8 +28,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public static ArrayList<CheckedAndAtatch> listCheckedAndAtatch;
     public static ArrayList<String> idsFormsControlCalidVinculados;
 
-    public static String idsFormsVinucladosCntres;
-    public static HashMap<String,String>idOFfORMScontrolCaldVds;
+    public static String idsFormsVinucladosControlCalidadString;
+    public static String idsFormsVinucladosCudorMuestreoString;
+
+    public static HashMap<String,String> mapWhitIDScontrolCaldVinclds;
+    public static HashMap<String,String> mapWhitIdsCuadroMuestreo;
+
+
 
 
     private Context ctx;
@@ -65,19 +66,38 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final CustomAdapter.MyViewHolder holder, int position) {
 
-        holder.checkBx.setText("Control Calidad ");
+        holder.checkBx.setText(listCheckedAndAtatch.get(position).getDataChecboxTxt());
 
         if(listCheckedAndAtatch.get(position).isItemChek()){
+
                 holder.checkBx.setChecked(true);
+
         }
+
+
 
         else {
 
             holder.checkBx.setChecked(false);
 
-
         }
 
+
+if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestreo")){
+
+    holder.imgSee.setTag("Cuadro Muestreo");
+
+
+}else{
+
+    holder.imgSee.setTag("");
+
+
+
+}
+
+
+        Log.i("hsyeyrr","el size DE cuadr muestro es  "+mapWhitIdsCuadroMuestreo.size());
 
 
 
@@ -93,13 +113,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.txtDataSecond.setText(hda);
 
 
-
         // holder.checkBx.setTag(R.integer.btnplusview, convertView);
       //  holder.checkBx.setTag(position,"");
 
         holder.checkBx.setTag(R.id.posicion,position);
         holder.checkBx.setTag(R.id.idOfoBJECT,listCheckedAndAtatch.get(position).getUniqueID());
-
+        holder.checkBx.setTag(R.id.tipoInforme,listCheckedAndAtatch.get(position).getDataChecboxTxt() );
 
 
         holder.checkBx.setOnClickListener(new View.OnClickListener() {
@@ -107,38 +126,100 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             public void onClick(View v) {
 
                 Integer pos = (Integer) holder.checkBx.getTag(R.id.posicion);
-              //  Toast.makeText(ctx, listCheckedAndAtatch.get(pos).getAnimal() + " clicked!", Toast.LENGTH_SHORT).show();
+
+                String tipoInforme = (String) holder.checkBx.getTag(R.id.tipoInforme);
+
+                //  Toast.makeText(ctx, listCheckedAndAtatch.get(pos).getAnimal() + " clicked!", Toast.LENGTH_SHORT).show();
               //  int adapterPosition = getAdapterPosition();
 
                 Log.i("posicion","al posicioon es "+pos);
 
                 if (listCheckedAndAtatch.get(pos).isItemChek()) {
                     //el anterior estaba en cheked y ahora es falso....lo removemos
-                    Log.i("datamapitkka","removemos");
+                    Log.i("somere","removemos");
 
                     listCheckedAndAtatch.get(pos).setItemChek(false);
                     //REMOVE VALUE OF HASMAP
                    // listCheckedAndAtatch.get(adapterPosition).setChecked(false);
 
-                    if(idOFfORMScontrolCaldVds.containsKey(String.valueOf(v.getTag(R.id.idOfoBJECT)))) {
-                        idOFfORMScontrolCaldVds.remove(String.valueOf(v.getTag(R.id.idOfoBJECT)));
-                        Log.i("comerciales","contiene key y lo removemos y el size ahora es: "+idOFfORMScontrolCaldVds.size());
-                        udpdate();
+                    if( tipoInforme.equals("Cuadro Muestreo")){
+                        //es un cuadro de muestreo
 
-                    }else {
-                        Log.i("comerciales","no contiene key: "+v.getTag(R.id.idOfoBJECT));
+                        Log.i("somere","elimnamos cuadro muestro");
+
+
+
+                        if(mapWhitIdsCuadroMuestreo.containsKey(String.valueOf(v.getTag(R.id.idOfoBJECT)))) {
+                            mapWhitIdsCuadroMuestreo.remove(String.valueOf(v.getTag(R.id.idOfoBJECT)));
+                            Log.i("comerciales","contiene key y lo removemos y el size ahora es: "+ mapWhitIDScontrolCaldVinclds.size());
+                            udpdateStringVinucldsReports("Cuadro Muestreo");
+
+                        }
+
                     }
 
 
-                } else {
+
+                    //quiere decir que del otro report
+                    else{
+
+                        Log.i("somere","elimnamos es control calidad report");
+
+
+                        if(mapWhitIDScontrolCaldVinclds.containsKey(String.valueOf(v.getTag(R.id.idOfoBJECT)))) {
+                            mapWhitIDScontrolCaldVinclds.remove(String.valueOf(v.getTag(R.id.idOfoBJECT)));
+
+                            Log.i("hsyeyrr","asi contiene key eleomnamos y size ahora es "+ mapWhitIDScontrolCaldVinclds.size());
+
+                            Log.i("hsyeyrr","el size de la otra map es "+ mapWhitIdsCuadroMuestreo.size());
+
+                            Log.i("comerciales","contiene key y lo removemos y el size ahora es: "+ mapWhitIDScontrolCaldVinclds.size());
+                            udpdateStringVinucldsReports("");
+
+                        }else{
+
+
+                            Log.i("hsyeyrr","no hay key no eliminamos ");
+
+                        }
+
+
+                    }
+
+
+
+
+
+
+
+                } else {  ///si el cehckeed esta en falseo, lo marcamos
+
+
                     Log.i("comerdd","agregamos");
 
                     listCheckedAndAtatch.get(pos).setItemChek(true);
 
+                   ///AGREGAMOS DEPEDINEDO DE CUAL ES...
 
-                    idOFfORMScontrolCaldVds.put(String.valueOf(v.getTag(R.id.idOfoBJECT)),String.valueOf(v.getTag(R.id.idOfoBJECT))); //agregamos o quitamos este del hasmap..
+                    if(tipoInforme.equals("Cuadro Muestreo")){
 
-                    udpdate();
+                        Log.i("hsyeyrr","se ejecuto este es cuado muestreo");
+
+
+
+                        mapWhitIdsCuadroMuestreo.put(String.valueOf(v.getTag(R.id.idOfoBJECT)),String.valueOf(v.getTag(R.id.idOfoBJECT))); //agregamos o quitamos este del hasmap..
+                        udpdateStringVinucldsReports("Cuadro Muestreo");
+
+
+                    }else{
+                        mapWhitIDScontrolCaldVinclds.put(String.valueOf(v.getTag(R.id.idOfoBJECT)),String.valueOf(v.getTag(R.id.idOfoBJECT))); //agregamos o quitamos este del hasmap..
+                        udpdateStringVinucldsReports("");
+
+
+                    }
+
+
+
 
                 }
 
@@ -208,59 +289,118 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
     }
 
-void udpdate() {
-
-        Log.i("picacins","el size de idOFfORMScontrolCaldVds en adpater  es  "+idOFfORMScontrolCaldVds.size());
 
 
-    for(CheckedAndAtatch value : listCheckedAndAtatch){
-        Log.i("comerdd","itrando control calida list ye s "+value.isItemChek());
-    }
-        //construimos un string a partir del map
-    if(idOFfORMScontrolCaldVds.size() >0){
-
-        Log.i("picacins","es mayor a cero y es");
-
-        StringJoiner joiner = new StringJoiner(",");
+void udpdateStringVinucldsReports(String tipiInforme) {
 
 
-        //iteramos
-        for(String value : idOFfORMScontrolCaldVds.values()){
-          //  Log.i("datamapitkka","el string valu es  : "+value);
-            joiner.add(value);
-            idsFormsVinucladosCntres = joiner.toString(); // lo convertimos en una linea de string sperad por comas.. id01,id02,
+        if(tipiInforme.equals("Cuadro Muestreo")){
+
+            if(mapWhitIdsCuadroMuestreo.size() >0){
+
+
+                Log.i("hsyeyrr","actualiamos idOFfORMSCuadroMuestreo y es mayor a cero y es  "+ mapWhitIdsCuadroMuestreo.size());
+
+
+                StringJoiner joiner = new StringJoiner(",");
+
+                //iteramos
+                for(String value : mapWhitIdsCuadroMuestreo.values()){
+                    //  Log.i("datamapitkka","el string valu es  : "+value);
+                    joiner.add(value);
+                    idsFormsVinucladosCudorMuestreoString = joiner.toString(); // lo convertimos en una linea de string sperad por comas.. id01,id02,
+                }
+
+
+
+                Log.i("hakuna","el idsFormsVinucladosCudorMuestreoString value  es "+  idsFormsVinucladosCudorMuestreoString);
+
+                //eliminamos un control calidad y agregamos un muestro...
+
+
+                updateNumReportsVinculadosALL(mapWhitIDScontrolCaldVinclds, mapWhitIdsCuadroMuestreo);
+
+
+
+            }
+
+            else{
+
+                //significa que no hay ninguno vinculado
+                // CustomAdapter.idsFormsVinucladosCntres);
+
+
+
+
+                Log.i("hsyeyrr","actualiamos idOFfORMSCuadroMuestreo no es  mayor a cero y es  "+ mapWhitIdsCuadroMuestreo.size());
+
+
+
+
+               idsFormsVinucladosCudorMuestreoString = null;
+                Log.i("hakuna","el idsFormsVinucladosCudorMuestreoString value  es "+  idsFormsVinucladosCudorMuestreoString);
+
+                updateNumReportsVinculadosALL(mapWhitIDScontrolCaldVinclds, mapWhitIdsCuadroMuestreo);
+
+                // CustomAdapter.idOFfORMScontrolCaldVds =null;
+
+            }
+
+
+        }else{
+
+            if(mapWhitIDScontrolCaldVinclds.size() >0){
+
+
+                Log.i("hsyeyrr","actualiamos idOFfORMScontrolCaldVinclds si es  mayor a cero y es  "+ mapWhitIDScontrolCaldVinclds.size());
+                Log.i("hsyeyrr","actualiamos idOFfORMScontrolCaldVinclds y el mapa de idOFfORMSCuadroMuestreo tien size : "+ mapWhitIdsCuadroMuestreo.size());
+
+
+                StringJoiner joiner = new StringJoiner(",");
+
+                //iteramos
+                for(String value : mapWhitIDScontrolCaldVinclds.values()){
+                    //  Log.i("datamapitkka","el string valu es  : "+value);
+                    joiner.add(value);
+                    idsFormsVinucladosControlCalidadString = joiner.toString(); // lo convertimos en una linea de string sperad por comas.. id01,id02,
+                }
+
+                Log.i("hakuna","el idsFormsVinucladosControlCalidadString value  es "+  idsFormsVinucladosControlCalidadString);
+
+
+                updateNumReportsVinculadosALL(mapWhitIDScontrolCaldVinclds, mapWhitIdsCuadroMuestreo);
+
+
+                Log.i("somere","el size de all rportes vunculados  es "+  Utils.numReportsVinculadsAll);
+            }
+
+            else{
+
+
+
+
+
+                idsFormsVinucladosControlCalidadString = null;
+
+                Log.i("hakuna","el idsFormsVinucladosControlCalidadString value  es "+  idsFormsVinucladosControlCalidadString);
+
+
+                updateNumReportsVinculadosALL(mapWhitIDScontrolCaldVinclds, mapWhitIdsCuadroMuestreo);
+
+
+                Log.i("somere","el size de all rportes vunculados  es "+  Utils.numReportsVinculadsAll);
+
+                // CustomAdapter.idOFfORMScontrolCaldVds =null;
+
+            }
+
+
+
         }
 
 
+        //construimos un string a partir del map
 
-
-
-      //  callbackUpdateNumsRepVincls.updateReportsVincyulados(CustomAdapter.idOFfORMScontrolCaldVds.size());
-
-        Utils.numReportsVinculads=idOFfORMScontrolCaldVds.size();
-        Log.i("datamapitkka","el size de rportes vunculados es "+ Utils.numReportsVinculads);
-
-        Log.i("datamapitkka","el text final es"+ CustomAdapter.idsFormsVinucladosCntres);
-
-    }
-
-
-
-    else{
-
-        //significa que no hay ninguno vinculado
-        // CustomAdapter.idsFormsVinucladosCntres);
-
-        Utils.numReportsVinculads=0;
-
-
-        Log.i("datamapitkka","no hay ninguno vinculado");
-
-        CustomAdapter.idsFormsVinucladosCntres = null;
-
-        // CustomAdapter.idOFfORMScontrolCaldVds =null;
-
-    }
 
 }
 
@@ -280,5 +420,38 @@ void udpdate() {
 
     }
 
+
+
+    private void updateNumReportsVinculadosALL(HashMap<String,String> idOFfORMScontrolCaldVinclds
+           , HashMap<String,String> idOFfORMSCuadroMuestreo){
+
+        int valorMpa1;
+        int valorMpa2;
+
+
+        if(idOFfORMScontrolCaldVinclds==null){
+            valorMpa1=0;
+        }else{
+            valorMpa1=idOFfORMScontrolCaldVinclds.size();
+        }
+
+
+        if(idOFfORMSCuadroMuestreo==null){
+            valorMpa2=0;
+
+        }else{
+            valorMpa2=idOFfORMSCuadroMuestreo.size();
+        }
+
+
+        Utils.numReportsVinculadsAll=valorMpa1+valorMpa2;
+
+
+        Log.i("somere","el size de all rportes vunculados  es "+  Utils.numReportsVinculadsAll);
+
+
+
+
+    }
 
 }

@@ -3,6 +3,7 @@ package com.tiburela.qsercom.models;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class PackingListMod {
 
@@ -19,7 +20,7 @@ public class PackingListMod {
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
         simpledatFormt = formatter.format(timeCurrenMillisecds);
        nodoPadreThisObect="";
-       uniqueIDinforme ="";
+       uniqueIDinforme = UUID.randomUUID().toString();
 
     }
 
