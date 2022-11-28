@@ -78,6 +78,7 @@ import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.models.UsuarioQsercom;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.ConnectionReceiver;
 import com.tiburela.qsercom.utils.FieldOpcional;
@@ -94,6 +95,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.tiburela.qsercom.R;
 
@@ -3123,7 +3126,9 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     RealtimeDB.addNewInforme(ActivityContenedores.this,informe2);
     updateCaledarioEnfunde(informe3);
     RealtimeDB.addNewInforme(informe3);
-    //agregamos el registro informe4
+
+
+
 
 
     RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,new InformRegister(informe.getUniqueIDinforme(), Constants.CONTENEDORES,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Contenedores"));
@@ -5159,5 +5164,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         startCamera.launch(cameraIntent);                // VERY NEW WAY
 
     }
+
+
+
+
 
 }

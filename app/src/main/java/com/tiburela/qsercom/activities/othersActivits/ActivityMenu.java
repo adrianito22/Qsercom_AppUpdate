@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.util.Util;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,9 +50,12 @@ import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
+import com.tiburela.qsercom.PdfMaker.BackroundUserIsAproveed;
+import com.tiburela.qsercom.PdfMaker.BitmapCreatorBackG;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
@@ -78,6 +82,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 //package com.tiburela.qsercom.activities.formularios;
 public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation {
@@ -559,9 +565,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 @Override
                 public void onSuccess(GetTokenResult getTokenResult) {
                     Log.i("solodataaqui", "el user esta autentificado");
-
                     userIniciosSesion=true;
                     estableceHeaderTextAndListerner();
+                    descragCurrentUsuario(Variables.userGoogle.getEmail());
 
 
 
@@ -1207,9 +1213,13 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                     if(usuarioQsercom!=null){
                         Variables.usuarioQsercomGlobal=usuarioQsercom;
 
+                        Log.i("hahsger","no es nulo");
 
 
                     }
+
+                    Log.i("hahsger","esta por aqui esta data ");
+
 
                     break;
 
@@ -1241,6 +1251,103 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
       //  RealtimeDB.addNewRegistroInforme(ActivityMenu.this, new InformRegister("", Constants.CONTROL_CALIDAD,"Adriano Vicente","idaqui","Control CALIDAD"));
        // RealtimeDB.addNewRegistroInforme(ActivityMenu.this, new InformRegister("", Constants.CONTROL_CALIDAD,"Adriano Vicente","idaqui","Control CALIDAD"));
       //  RealtimeDB.addNewRegistroInforme(ActivityMenu.this, new InformRegister("", Constants.CONTROL_CALIDAD,"Adriano Vicente","idaqui","Control CALIDAD"));
+
+
+    }
+
+
+    public void checkifUserIsActivate (View vista)  {
+        checkIFuserIsActivatexx(Variables.usuarioQsercomGlobal.getMailGooglaUser());
+
+      //  Utils.checkIFuserIsActivate(Variables.usuarioQsercomGlobal.getMailGooglaUser());
+
+       /// Log.i("simbolosd","el value es : "+Utils.checkIFuserIsActivate(Variables.usuarioQsercomGlobal.getMailGooglaUser()).toString());
+
+
+
+/*
+        BackroundUserIsAproveed foo = new BackroundUserIsAproveed();
+
+        Thread thread = new Thread(foo);
+        thread.start();
+        thread.join();
+        boolean valueisYET = foo.getVAaluIsAproveed();
+        Log.i("hahsger","el value de este es "+valueisYET);
+
+
+
+
+        if(Utils.checkIFuserIsActivate(Variables.usuarioQsercomGlobal.getMailGooglaUser()))
+{
+    Log.i("hahsger","e value es true ");
+
+
+}else{
+
+            Log.i("hahsger","el value es false ");
+
+        }
+
+*/
+
+
+    }
+
+
+
+    public  void checkIFuserIsActivatexx(String mailGoogleUser){
+
+        Log.i("hahsger", "se llamo checkIFuserIsActivatexx ");
+
+
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom");
+
+        Query query = usersdRef.orderByChild("mailGooglaUser").equalTo(mailGoogleUser);
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Log.i("hahsger","el value de snpatshot es "+snapshot.getValue());
+                UsuarioQsercom currentObect = null;
+                if(snapshot.exists()) {
+/*
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        currentObect = ds.getValue(UsuarioQsercom.class);
+                    }
+*/
+
+                    //   isUserAptobadoAccount[0] = currentObect.isUserISaprobadp() ;
+                    //  System.out.println("worked");
+                    currentObect=snapshot.getValue(UsuarioQsercom.class);
+
+
+                    Log.i("hahsger", "el object es  " + currentObect.isUserISaprobadp());
+
+                    Log.i("hahsger", "se a llmado ondata change ");
+
+                    //
+
+
+                }
+
+
+
+                Log.i("hahsger", "se a llmado ondata change "+currentObect.isUserISaprobadp());
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("isclkiel","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
 
 
     }

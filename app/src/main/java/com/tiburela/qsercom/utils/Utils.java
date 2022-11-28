@@ -2,6 +2,7 @@ package com.tiburela.qsercom.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -11,12 +12,30 @@ import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
+import com.tiburela.qsercom.adapters.CustomAdapter;
+import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.UsuarioQsercom;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,8 +44,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
 public static int numReportsVinculadsAll =0;
@@ -674,6 +699,115 @@ return
 
 
 
+
+
+    public static  AtomicInteger   checkIFuserIsActivate(String mailGoogleUser){
+        final AtomicBoolean done = new AtomicBoolean(false);
+        final AtomicInteger message1 = new AtomicInteger(0);
+
+       // Log.i("hahsger","vamos a metodo check ");
+
+      //  final TaskCompletionSource<UsuarioQsercom> tcs = new TaskCompletionSource<>();
+
+
+      //  CountDownLatch done = new CountDownLatch(1);
+       // final boolean isUserAptobadoAccount[] = {false};
+
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom");
+
+        Query query = usersdRef.orderByChild("mailGooglaUser").equalTo(mailGoogleUser);
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                  Log.i("hahsger","el value de snpatshot es "+snapshot.getValue());
+                UsuarioQsercom currentObect = null;
+                  if(snapshot.exists()){
+
+                      for (DataSnapshot ds : snapshot.getChildren()) {
+                          currentObect=ds.getValue(UsuarioQsercom.class);
+                      }
+
+
+
+                   //   isUserAptobadoAccount[0] = currentObect.isUserISaprobadp() ;
+                      //  System.out.println("worked");
+
+                      Log.i("hahsger","el object es  "+ currentObect.isUserISaprobadp());
+
+                      Log.i("hahsger","se a llmado ondata change ");
+
+                    //
+
+                      if(currentObect.isUserISaprobadp()){
+
+                          message1.set(0);
+
+                      }else{
+                          message1.set(1);
+
+
+
+                      }
+
+                      done.set(true);
+
+                    //  done.countDown();
+
+                  }else{
+
+
+                      Log.i("hahsger","no existe ");
+
+                  }
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("isclkiel","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
+
+
+
+
+
+
+
+/*
+
+        try {
+          //  done.await(); //it will wait till the response is received from firebase.
+        } catch(InterruptedException e) {
+            Log.i("hahsger","la excepcion es  "+e.getMessage());
+
+            e.printStackTrace();
+        }
+*/
+
+      //  return isUserAptobadoAccount[0];
+
+
+        while (!done.get());
+
+
+
+        return message1;
+
+    }
 
 
 

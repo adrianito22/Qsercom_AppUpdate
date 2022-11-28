@@ -16,7 +16,10 @@ public class UsuarioQsercom
 
     }
 
+public UsuarioQsercom(){
 
+
+}
 
 
 
@@ -41,6 +44,17 @@ public class UsuarioQsercom
 
     private String mailGooglaUser;
 
+    public boolean isUserISaprobadp() {
+        return userISaprobadp;
+    }
+
+    public void setUserISaprobadp(boolean userISaprobadp) {
+        this.userISaprobadp = userISaprobadp;
+    }
+
+    private boolean userISaprobadp;
+
+
     public String getMailGooglaUser() {
         return mailGooglaUser;
     }
@@ -62,8 +76,9 @@ public class UsuarioQsercom
         result.put("tiposUSUARI", tiposUSUARI);
         result.put("uniqueIDuser", uniqueIDuser);
         result.put("mailGooglaUser", mailGooglaUser);
-
         result.put("nombreUsuario", nombreUsuario);
+        result.put("userISaprobadp", userISaprobadp);
+
 
 
         return  result;

@@ -629,7 +629,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
 
-    private void DowloadReportPart1(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
+    private void DowloadReportPart1(String uniqeuIDiNFORME,int modoReporte){
 
         //to fetch all the users of firebase Auth app
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
