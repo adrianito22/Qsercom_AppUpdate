@@ -160,8 +160,14 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
 
 
         RealtimeDB.initDatabasesRootOnly();
-       // getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
-         getAndDowloadHasmapAndCALLSetReciclerV("-NDn-PiXib2TFddIhSNL"); //ESTE ES TEST
+       //// getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
+
+
+
+
+        Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
+
+         getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
 
 
         setDataInViews(Variables.currentcuadroMuestreo);
@@ -520,6 +526,22 @@ return object;
        /// objec.setUniqueIdObject(Variables.currentcuadroMuestreo.getUniqueIdObject());
         ///LE AGREGAMOS OTROS DATOS A ESTE OBJETO
         addRechazadosData(objec);
+
+
+
+        int totalRechazados=obtenTotaLrechazados(objec);
+        Log.i("eldaterr","el total rechzados es "+totalRechazados);
+        objec.setTotalRechazadosAll(totalRechazados);
+
+
+
+        //obtenmos el total ... de erechzdos..
+
+
+
+
+
+
         /// objecsetSimpleDateFormat();
          RealtimeDB.updateCuadroMuestreoObject(objec,Variables.currentcuadroMuestreo); //subimos un cuadro de muestreo object
 

@@ -2,6 +2,7 @@ package com.tiburela.qsercom.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
         if(InformRegister.isSeRevisoForm()){  //si lo marco como revisado
 
             holder.txtStateForm.setText("Revisado");
+            holder.txtStateForm.setTextColor(Color.parseColor("#338737"));
 
 
         }else{

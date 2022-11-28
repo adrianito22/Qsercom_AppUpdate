@@ -71,6 +71,7 @@ import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.ReportsAllModel;
 import com.tiburela.qsercom.models.UsuarioQsercom;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -566,7 +567,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 public void onSuccess(GetTokenResult getTokenResult) {
                     Log.i("solodataaqui", "el user esta autentificado");
                     userIniciosSesion=true;
-                    estableceHeaderTextAndListerner();
                     descragCurrentUsuario(Variables.userGoogle.getEmail());
 
 
@@ -593,17 +593,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
     }
 
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-
-        Log.i("ciclelife","onresume call");
-
-        //  Variables.currentMapPreferences  =new HashMap<>();
-      //  showDataByMode();
-
-    }
 
 
     private void muestraDialog2Opciones(String keyShareDelete){
@@ -953,6 +942,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         if(Variables.userGoogle!=null)
         {
+            Log.i("solodataaqui", "el aqui tampoco es nulo");
+
+
+
             // When firebase user is not equal to null
             // Set image on image view
             Glide.with(ActivityMenu.this)
@@ -962,8 +955,16 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                     //.circleCrop()
                     .into(imGProfile);
             // set name on text view
+
+
             txtHeader.setText(Variables.userGoogle.getDisplayName());
             txtSubHeader.setText(Variables.userGoogle.getEmail());
+
+        }else{
+
+
+            Log.i("solodataaqui", "aqui si es nulo");
+
 
         }
 
@@ -1032,6 +1033,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 Log.i("defugero", "firebaseAuthWithGoogle:" + account.getDisplayName());
 
 
+                if(task.isSuccessful()){  ///vamohaber tareaspendientes
+
+                }
+
+
                 firebaseAuthWithGoogle(account.getIdToken());
                 Log.i("defugero","se jecuito el try");
 
@@ -1071,7 +1077,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                              estableceHeaderTextAndListerner();
 
-
+                           // estableceHeaderTextAndListerner
 
 
                             /**verificar si por aqui creamos el nuevo nodo
@@ -1215,8 +1221,13 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                         Log.i("hahsger","no es nulo");
 
+                        checkIFuserIsActivatexx(Variables.usuarioQsercomGlobal.getMailGooglaUser());
 
                     }
+
+                    estableceHeaderTextAndListerner();
+
+
 
                     Log.i("hahsger","esta por aqui esta data ");
 
@@ -1256,48 +1267,13 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     }
 
 
-    public void checkifUserIsActivate (View vista)  {
-        checkIFuserIsActivatexx(Variables.usuarioQsercomGlobal.getMailGooglaUser());
 
-      //  Utils.checkIFuserIsActivate(Variables.usuarioQsercomGlobal.getMailGooglaUser());
-
-       /// Log.i("simbolosd","el value es : "+Utils.checkIFuserIsActivate(Variables.usuarioQsercomGlobal.getMailGooglaUser()).toString());
-
-
-
-/*
-        BackroundUserIsAproveed foo = new BackroundUserIsAproveed();
-
-        Thread thread = new Thread(foo);
-        thread.start();
-        thread.join();
-        boolean valueisYET = foo.getVAaluIsAproveed();
-        Log.i("hahsger","el value de este es "+valueisYET);
-
-
-
-
-        if(Utils.checkIFuserIsActivate(Variables.usuarioQsercomGlobal.getMailGooglaUser()))
-{
-    Log.i("hahsger","e value es true ");
-
-
-}else{
-
-            Log.i("hahsger","el value es false ");
-
-        }
-
-*/
-
-
-    }
 
 
 
     public  void checkIFuserIsActivatexx(String mailGoogleUser){
 
-        Log.i("hahsger", "se llamo checkIFuserIsActivatexx ");
+        Log.i("holerr", "se llamo checkIFuserIsActivatexx ");
 
 
         DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom");
@@ -1312,23 +1288,28 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 Log.i("hahsger","el value de snpatshot es "+snapshot.getValue());
                 UsuarioQsercom currentObect = null;
                 if(snapshot.exists()) {
-/*
+
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         currentObect = ds.getValue(UsuarioQsercom.class);
                     }
-*/
+
 
                     //   isUserAptobadoAccount[0] = currentObect.isUserISaprobadp() ;
                     //  System.out.println("worked");
-                    currentObect=snapshot.getValue(UsuarioQsercom.class);
+                  //  currentObect=snapshot.getValue(UsuarioQsercom.class);
 
 
-                    Log.i("hahsger", "el object es  " + currentObect.isUserISaprobadp());
 
-                    Log.i("hahsger", "se a llmado ondata change ");
+                    Log.i("holerr", "el user id es  "+currentObect.getUniqueIDuser());
 
                     //
+                    Log.i("holerr", "el user se aprobo  "+currentObect.isUserISaprobadp());
 
+
+                    if(currentObect.isUserISaprobadp()){
+
+                        checkIRealTimeUserSiFaltaReportPorRevisa();
+                    }
 
                 }
 
@@ -1348,6 +1329,95 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         } );
 
 
+
+
+    }
+
+
+
+    private void checkIRealTimeUserSiFaltaReportPorRevisa () {
+
+        final int[] informesPorRevfisarContador = {0};
+
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros");
+
+        // [START post_value_event_listener]
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    InformRegister informe=ds.getValue(InformRegister.class);
+
+
+                    if(informe!=null){
+                      if(!informe.isSeRevisoForm()){
+                          informesPorRevfisarContador[0]++;
+                      }
+
+                    }
+
+
+                }
+
+
+                setTextAdviser(informesPorRevfisarContador[0]);
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+
+
+
+              //  Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+
+
+            }
+        };
+        usersdRef.addValueEventListener(postListener);
+        // [END post_value_event_listener]
+    }
+
+
+
+    private void setTextAdviser(int numsInformsPorRevisar){
+
+
+        Log.i("misdtata","el numcontador es "+numsInformsPorRevisar);
+
+        if(numsInformsPorRevisar >0){
+
+            //SACTUALIZAMOS VIEWS
+            btnInInformes.setText("Revisar Informes");
+            txtAdviser.setText("Hay "+numsInformsPorRevisar+ " informes por revisar");
+            txtAdviser2.setText("Dale!");
+            //mostramos data...Hay un formulario a medias....
+
+
+        }
+
+
+    else
+
+
+
+    {
+
+        btnInInformes.setText("Revisar Informes");
+        txtAdviser.setText("No hay tarea por ahora");
+        txtAdviser2.setText("Hurra!");
+        hayUnformulariAmediasPorSubir=false;
+
+    }
 
 
     }

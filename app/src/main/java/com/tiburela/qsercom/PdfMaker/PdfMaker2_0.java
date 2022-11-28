@@ -6,6 +6,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.RecyclerView;
 //import androidx.compose.ui.text.Paragraph;
 
 import android.Manifest;
@@ -34,6 +35,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.itextpdf.kernel.colors.DeviceRgb;
@@ -64,7 +66,9 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.NameAndValue;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
@@ -90,6 +94,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
     TextView txtTareaAqui;
 
     Context contexto;
+
+    int numRacimosRechzados = 0;
+
 
     LinearLayout layoutDown;
     LinearLayout layoutGraficos;
@@ -1204,11 +1211,21 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
                     layoutDown.setVisibility(LinearLayout.VISIBLE);
                     layoutGraficos.setVisibility(LinearLayout.GONE);
 
-                    btnDescargar.setEnabled(true);
                     Log.i("enablebtn","hemos llmado enable ");
 
 
-                    //HEMOS TERMINADO DE DESCRGAR TODOS...
+                    //
+
+                    if(Variables.currentkEYcuadroMuetreo!=null){
+
+                        DowloadUniqeuRechazadosoObject(Variables.currentkEYcuadroMuetreo);
+
+                    }
+
+
+
+
+
                 }
 
                 //   setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
@@ -1384,4 +1401,54 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
 
      ****/
+
+
+
+    private void DowloadUniqeuRechazadosoObject (   String currentIDoBJECTvinuc ){
+///PODEMOS OBTER
+
+        //to fetch all the users of firebase Auth app
+        //  DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
+
+        Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(currentIDoBJECTvinuc);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
+                    Log.i("holerd","aqui se encontro un cuadro muestreo......");
+
+                    if(informe!=null){
+                        numRacimosRechzados=informe.getTotalRechazadosAll();
+                          //activamos btn generar
+
+                        btnDescargar.setEnabled(true);
+
+                    break;
+                    }
+
+
+                }
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+            }
+        } );
+
+    }
+
 }

@@ -167,6 +167,11 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                     CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
 
 
+                    int totalRechazados=obtenTotaLrechazados(objec);
+                    Log.i("eldaterr","el total rechzados es "+totalRechazados);
+                    objec.setTotalRechazadosAll(totalRechazados);
+
+
                     RealtimeDB.addNewCuadroMuestreoObject(objectWhitMoreData); //subimos un cuadro de muestreo object
 
                     RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara

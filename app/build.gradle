@@ -5,6 +5,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\CAPSULE\\Desktop\\KeyApp\\key')
+            storePassword 'holamundo22'
+            keyPassword 'holamundo22'
+            keyAlias 'key0'
+        }
+    }
     compileSdk 32
 
     defaultConfig {
@@ -17,10 +25,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
+
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
         }
     }
     compileOptions {

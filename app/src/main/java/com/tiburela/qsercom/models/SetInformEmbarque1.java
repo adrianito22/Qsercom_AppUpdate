@@ -594,6 +594,7 @@ public class SetInformEmbarque1 {
         result.put("exportadoraSolicitante", exportadoraSolicitante);
         result.put("marrca", marrca);
 
+        result.put("atachControCuadroMuestreo", atachControCuadroMuestreo);
 
 
 

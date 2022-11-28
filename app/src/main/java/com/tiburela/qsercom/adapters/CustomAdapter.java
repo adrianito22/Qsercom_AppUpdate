@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.utils.Utils;
+import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -133,6 +135,21 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
               //  int adapterPosition = getAdapterPosition();
 
                 Log.i("posicion","al posicioon es "+pos);
+
+                //chekcamos que solo exista un objeto CUADROmUETREO OBJET...
+
+
+               if(mapWhitIdsCuadroMuestreo.size()==1){ //si ya hay uno ...return
+                   Toast.makeText(ctx, "Solo permitido un reporte Cuadro Muestreo", Toast.LENGTH_SHORT).show();
+                   return;
+               }
+
+
+
+
+               Variables.currentkEYcuadroMuetreo=idsFormsVinucladosCudorMuestreoString; //
+
+
 
                 if (listCheckedAndAtatch.get(pos).isItemChek()) {
                     //el anterior estaba en cheked y ahora es falso....lo removemos

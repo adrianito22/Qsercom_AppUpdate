@@ -105,6 +105,8 @@ import java.util.Objects;
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
 
+String currentIDcUDORmUESTREO;
+
 
     ProgressDialog progress;
 
@@ -1159,25 +1161,22 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                checkedListForms = new ArrayList<>();
 
                if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
-
                    showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
-
                    for(String value: listIdSvINCULADOS){
-
                        Log.i("salero","se ejecuto esto veces");
                        dowloadReportsVinucladosAndSetinRecycler(value, listIdSvINCULADOS);
                    }
 
+                  }
 
-               }else{ //si esta lista esta vacia inteta con otras......
+               else
+               { //si esta lista esta vacia inteta con otras......
 
                    calltoDowloadReportsVinculadoCudroMuestreo();
-
                }
 
+
                break;
-
-
 
 
 
@@ -1343,7 +1342,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
     private void showReportsAndSelectOrDeleteVinuclados(Context context,boolean existeValues) {
 
-
         bottomSheetDialog = new BottomSheetDialog(context);
 
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atachx);
@@ -1365,10 +1363,23 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
             @Override
             public void onClick(View view) {
 
+                //aqui actualizamos...
+
                 txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
+
+                if(CustomAdapter.idsFormsVinucladosCudorMuestreoString!=null){
+                    if(CustomAdapter.idsFormsVinucladosCudorMuestreoString.trim().length()>1){
+                        DowloadUniqeuRechazadosoObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+
+
+                    }
+                }
 
 
                 bottomSheetDialog.dismiss();
+
+
+
 
             }
         });
@@ -2756,6 +2767,21 @@ void checkDataFields(){
         }
 
 
+        if  (!cehckExisteMiumReportsVINCULADOS()) {
+            Log.i("test001","no esta lleno  cehckExisteMiumReportsVINCULADOS");
+            return;
+        }
+
+
+
+
+//all reportsdfgdf
+        // exieste al menos un reporte generado vinuculado///
+
+
+
+
+
 
 
         updateInformeWhitCurrentDataOfViews();
@@ -2768,6 +2794,50 @@ void checkDataFields(){
     }
 
 
+
+    private boolean  cehckExisteMiumReportsVINCULADOS(){
+          //   int contadroInformsControCalidad=0;
+      //  int contadroInformsCuadroMuetreo=0;
+
+
+      //  String [] allInformCuadroMuetreo =CustomAdapter.idsFormsVinucladosCudorMuestreoString.split(",");
+       /// String [] allInformcONTROLcALIDA=CustomAdapter.idsFormsVinucladosControlCalidadString.split(",");
+
+
+        if(CustomAdapter.idsFormsVinucladosCudorMuestreoString.trim().isEmpty()){
+            Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Cuadro de muestreo", Toast.LENGTH_LONG).show();
+            return false;
+
+        }
+
+
+        if(CustomAdapter.idsFormsVinucladosControlCalidadString.trim().isEmpty()){
+            Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Control calia", Toast.LENGTH_LONG).show();
+
+            return false;
+
+        }
+
+
+
+        /*
+
+        if(allInformCuadroMuetreo.length>=1 && allInformcONTROLcALIDA.length>=1){
+
+            return true;
+        }
+
+        else{
+
+            return false;
+
+        }
+
+    */
+
+
+        return true;
+    }
 
 
 private void openBottomSheet(){
@@ -2802,6 +2872,11 @@ private void openBottomSheet(){
         Variables.CurrenReportPart1.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
         Variables.CurrenReportPart1.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
+
+
+        Variables.CurrenReportPart1.setAtachControCuadroMuestreo(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+
+
 
         Log.i("eldtatashd","el string atch es "+CustomAdapter.idsFormsVinucladosControlCalidadString);
 
@@ -2884,8 +2959,9 @@ private void createObjcInformeAndUpload() {
 
     informe.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
 
-    Log.i("eldtatashd", "el string atch es " + CustomAdapter.idsFormsVinucladosControlCalidadString);
+    informe.setAtachControCuadroMuestreo(CustomAdapter.idsFormsVinucladosCudorMuestreoString); //LE BORRAMOS MASS
 
+    Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + CustomAdapter.idsFormsVinucladosCudorMuestreoString);
 
     if (millisDateSelect > 0) {
 
@@ -4705,7 +4781,7 @@ return true;
 
         activateViewsByTypeView(ediCajasProcDesp);
         activateViewsByTypeView(ediRacimosCosech);
-        activateViewsByTypeView(ediRacimosRecha);
+       // activateViewsByTypeView(ediRacimosRecha);
         activateViewsByTypeView(ediRacimProces);
 
         activateViewsByTypeView( spFuenteAgua) ;
@@ -4914,7 +4990,9 @@ return true;
         ediOtherSellos.setText(info2Object.getOtrosSellosEspecif());
         ediCajasProcDesp.setText(info3Object.getEdiCajasProcDesp());
         ediRacimosCosech.setText(info3Object.getEdiRacimosCosech());
-        ediRacimosRecha.setText(info3Object.getEdiRacimosRecha());
+
+       // ediRacimosRecha.setText(info3Object.getEdiRacimosRecha());
+
         ediRacimProces.setText(info3Object.getEdiRacimProces());
         ediExtCalid.setText(info3Object.getExtensionistCalid());
         ediExtCalidCi.setText(info3Object.getCI_extensionistCalid());
@@ -5317,7 +5395,27 @@ private void checkModeVisualitY(){
               //  dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
                 Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
-                btnGENERARpdf.setEnabled(true);
+
+
+
+
+                 //solo un archivo
+                 //s
+
+
+                if(currentIDcUDORmUESTREO!=null){
+                    DowloadUniqeuRechazadosoObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+
+                }else{ //sino hay ningun cuadro muestreo;
+
+                     btnGENERARpdf.setEnabled(true);
+
+                }
+
+
+
+
+              //  btnGENERARpdf.setEnabled(true);
 
                 Log.i("mispiggi","se llamo a: addInfotomap");
 
@@ -5557,7 +5655,7 @@ private void checkModeVisualitY(){
 
         if(ediRacimosRecha.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimosRecha.requestFocus();
-            ediRacimosRecha.setError("Este espacio es obligatorio");
+            ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
 
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -6227,8 +6325,6 @@ if(indice>2) {
 
 
 
-
-
     private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList<CheckedAndAtatch>lista,boolean esReportsVinculadosMod) {
         Log.i("samerr", "se llamo setDataInRecyclerOfBottomSheet y esl zie es  " + lista.size());
 
@@ -6429,6 +6525,57 @@ if(indice>2) {
         }
 
     }
+
+
+
+
+
+    private void DowloadUniqeuRechazadosoObjectCUADROMuestreoAndSetNumRechzados (String currentIDoBJECTvinuc ){
+
+
+        //
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
+
+        Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(currentIDoBJECTvinuc);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
+                    Log.i("holerd","aqui se encontro un cuadro muestreo......");
+
+                    if(informe!=null){
+                      //  numRacimosRechzados=informe.getTotalRechazadosAll();
+                        //activamos btn generar
+                        ediRacimosRecha.setText(String.valueOf(informe.getTotalRechazadosAll()));
+                            btnGENERARpdf.setEnabled(true);
+
+                        break;
+                    }
+
+
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+            }
+        } );
+
+    }
+
+
+
 
 
 }

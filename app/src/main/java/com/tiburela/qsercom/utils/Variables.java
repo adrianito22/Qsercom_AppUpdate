@@ -28,6 +28,7 @@ public class Variables {
 
 public static String  paqueteName="com.tiburela.qsercom";
 
+ public static String currentkEYcuadroMuetreo;
 
    public static FirebaseUser userGoogle;
 

@@ -25,6 +25,7 @@ public class CuadroMuestreo {
         return keyFirebaseLocation;
     }
 
+    private int totalRechazadosAll;
 
 
     private int mutantes;
@@ -330,8 +331,16 @@ public class CuadroMuestreo {
     private double dateInMillisecond;
 
 
-    public CuadroMuestreo(int semanaNum,String exportadora, String vapor, String productor, String codigo, String enfunde, String nodoKyDondeEstaHasmap,
-                          String extensionistaCalidad,String extensionistaEnRodillo,String extensionistaEnGancho) {
+    public int getTotalRechazadosAll() {
+        return totalRechazadosAll;
+    }
+
+    public void setTotalRechazadosAll(int totalRechazadosAll) {
+        this.totalRechazadosAll = totalRechazadosAll;
+    }
+
+    public CuadroMuestreo(int semanaNum, String exportadora, String vapor, String productor, String codigo, String enfunde, String nodoKyDondeEstaHasmap,
+                          String extensionistaCalidad, String extensionistaEnRodillo, String extensionistaEnGancho) {
 
         this.semanaNum = semanaNum;
         this.exportadora=exportadora;
@@ -371,6 +380,8 @@ public class CuadroMuestreo {
           racimosPasadosEdad=0;
           cochinillaEscamaFunagina=0;
           racimosSinEdintificacion=0;
+
+        totalRechazadosAll =0;
 
     }
 
