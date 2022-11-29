@@ -86,6 +86,15 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/clicked_btn"
                 android:text="Descargar" />
+
+            <Button
+                android:id="@+id/btnIrAARCHIVOpdf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/clicked_btn"
+                android:text="Ir a archivo"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

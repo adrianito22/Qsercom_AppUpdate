@@ -1803,7 +1803,7 @@ String currentIDcUDORmUESTREO;
         ediFecha.setOnTouchListener(this);
         ediProductor.setOnTouchListener(this);
         ediHacienda.setOnTouchListener(this);
-        ediCodigo.setOnTouchListener(this);
+       // ediCodigo.setOnTouchListener(this);
         ediInscirpMagap.setOnTouchListener(this);
         ediPemarque.setOnTouchListener(this);
         ediHoraInicio.setOnTouchListener(this);
@@ -3373,15 +3373,18 @@ private void createObjcInformeAndUpload() {
 
 
 
-
+/*
          if(ediCodigo.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCodigo.requestFocus();
             ediCodigo.setError("Este espacio es obligatorio");
-
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
+*/
+
+
+
 
 
         if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
@@ -4713,7 +4716,7 @@ return true;
         activateViewsByTypeView(    ediFecha);
         activateViewsByTypeView(    ediProductor);
         activateViewsByTypeView(    ediHacienda);
-        activateViewsByTypeView(    ediCodigo);
+       // activateViewsByTypeView(    ediCodigo);
         activateViewsByTypeView(    ediInscirpMagap);
         activateViewsByTypeView(    ediPemarque);
         activateViewsByTypeView(    ediZona);
@@ -4934,7 +4937,7 @@ return true;
 
         ediProductor.setText(info1Object.getProductor());
                 ediHacienda.setText(info1Object.getHacienda());
-        ediCodigo.setText(info1Object.getCodigo());
+        ediCodigo.setText(info1Object.getUniqueIDinforme());
                 ediInscirpMagap.setText(info1Object.getInscirpMagap());
         ediPemarque.setText(info1Object.getPemarque());
                 ediZona.setText(info1Object.getZona());

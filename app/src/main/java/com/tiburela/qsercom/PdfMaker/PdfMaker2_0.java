@@ -1,7 +1,9 @@
 package com.tiburela.qsercom.PdfMaker;
 
 
+import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 //import androidx.compose.ui.text.Paragraph;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
+import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -93,6 +99,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
     ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
     HashMap <String, String> hasmapMapControlCalid;
 
+    Button btnIrAARCHIVOpdf;
 
     String nameOFPDFrEPORTfile;
 
@@ -106,6 +113,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
     Context contexto;
 
     int numRacimosRechzados = 0;
+    int PERMISION_NEWHERE = 130;
 
 
     LinearLayout layoutDown;
@@ -114,6 +122,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
     ArrayList<String>listtoTableDescripcion=new ArrayList<>();
 
+
+     boolean hayFILE = false;
 
 
     @Override
@@ -135,6 +145,76 @@ public class PdfMaker2_0 extends AppCompatActivity {
          layoutDown=findViewById(R.id.layoutDown);
          btnDescargar=findViewById(R.id.btnDescargar) ;
         layoutGraficos=findViewById(R.id.layoutGraficos) ;
+        btnIrAARCHIVOpdf=findViewById(R.id.btnIrAARCHIVOpdf);
+        btnIrAARCHIVOpdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uriFile=uriThiSfile.toString();
+
+
+                Log.i("searchFilex","el uri es : "+uriFile);
+
+
+                try {
+                    InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriThiSfile);
+                    inputStream.close();
+                    hayFILE=true;
+                    ///ecnontroFiLE[0] = true;
+                } catch (Exception e) {
+                    hayFILE=false;
+
+                    // Log.w(MY_TAG, "File corresponding to the uri does not exist " + uri.toString());
+                }
+
+
+if(hayFILE){
+
+
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setDataAndType(uriThiSfile, "application/pdf");
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    try {/*from   ww w  .  java  2s . c  om*/
+        PdfMaker2_0.this.startActivity(intent);
+
+        Log.i("searchFilex","vaomos activity");
+
+        //  return true;
+    } catch (ActivityNotFoundException e) {
+
+
+        Log.i("searchFilex","error ehjejhr");
+
+    }
+
+  //  viewpdf(uriThiSfile);
+
+
+  //  verifyStoragePermission();
+
+
+   // openPdf(uriThiSfile);
+
+
+
+
+    Log.i("searchFilex","se se encontro file");
+
+}else {
+
+    Toast.makeText(PdfMaker2_0.this, "No existe el archivo", Toast.LENGTH_SHORT).show();
+    Log.i("searchFilex","NO se encontro file");
+
+
+
+}
+
+
+
+
+            }
+        });
 
       //  btnDescargar.setEnabled(false);
 
@@ -1239,7 +1319,15 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
                     //
 
+
+                    Log.i("searchFile","se llamomethod");
+
+
+
                     checkIfFileisSaveINsRORAGE(uriThiSfile);
+
+
+                    Toast.makeText(PdfMaker2_0.this, "Se Guardo el Pdf", Toast.LENGTH_SHORT).show();
 
 
                     /*
@@ -1463,7 +1551,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
 
              //aqui podemos revisar
-                checkIfFileisSaveINsRORAGE(uriThiSfile);
+             //   checkIfFileisSaveINsRORAGE(uriThiSfile);
 
 
 
@@ -1484,10 +1572,13 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
     private void checkIfFileisSaveINsRORAGE (Uri uriSearchFile){
 
         final boolean[] ecnontroFiLE = {false};
+        final boolean[] pasaron3Seconds = {false};
 
-             cTimer =new CountDownTimer(30000, 1000) {
+
+        cTimer =new CountDownTimer(3000, 1000) {
 
             public void onTick(long millisUntilFinished) {
+
 
                 if(null != uriSearchFile) {
                     try {
@@ -1499,7 +1590,18 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
                     }
                 }
 
+                /*
+                while(!pasaron3Seconds[0]){
 
+
+
+                }
+
+*/
+
+
+
+                Log.i("searchFile","se llama ontcikc");
 
                 //aqui chekeamo habver si encontro
 
@@ -1509,8 +1611,22 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
             }
 
             public void onFinish() {
-                if(ecnontroFiLE[0]){ ///si existe activamos btn intent open pdf
 
+                try {
+                    InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriSearchFile);
+                    inputStream.close();
+                    ecnontroFiLE[0] = true;
+                } catch (Exception e) {
+                    // Log.w(MY_TAG, "File corresponding to the uri does not exist " + uri.toString());
+                }
+
+
+
+
+                pasaron3Seconds[0]=false;
+
+
+                if(ecnontroFiLE[0]){ ///si existe activamos btn intent open pdf
                     Log.i("searchFile","si se encontro file");
 
                 }else {
@@ -1555,5 +1671,64 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
     }
 //onDestroy()/onDestroyView()
+
+
+
+    private void viewpdf(Uri uriPdf) {
+        // add the link of pdf
+        //String value="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+        Intent intent=new Intent(Intent.ACTION_VIEW, uriPdf);
+
+        // start activity
+        startActivity(intent);
+
+    }
+
+
+
+    public void verifyStoragePermission() {
+        int permission = ActivityCompat.checkSelfPermission(PdfMaker2_0.this, WRITE_EXTERNAL_STORAGE);
+
+        // Surrounded with if statement for Android R to get access of complete file.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager() && permission != PackageManager.PERMISSION_GRANTED) {
+
+                Log.i("permosod","tiene el permiso concedido");
+
+                ActivityCompat.requestPermissions(PdfMaker2_0 .this, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE},7);
+
+                // Abruptly we will ask for permission once the application is launched for sake demo.
+                Intent intent = new Intent();
+                intent.setAction(ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                Uri uri = Uri.fromParts("package", this.getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+
+            }else{
+
+                Log.i("permosod","el permiso esta   denegado");
+
+
+            }
+        }
+    }
+
+
+    void openPdf(Uri uriPdfPath){
+
+         // Start Intent to View PDF from the Installed Applications.
+        Intent pdfOpenIntent = new Intent(Intent.ACTION_VIEW);
+        pdfOpenIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        pdfOpenIntent.setClipData(ClipData.newRawUri("", uriPdfPath));
+        pdfOpenIntent.setDataAndType(uriPdfPath, "application/pdf");
+        pdfOpenIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |  Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+        try {
+            startActivity(pdfOpenIntent);
+        } catch (ActivityNotFoundException activityNotFoundException) {
+            Toast.makeText(this,"No existe ninguna app para ver pdf",Toast.LENGTH_LONG).show();
+
+        }
+    }
 
 }

@@ -2215,6 +2215,7 @@ android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:inputType="number"
                     android:textSize="14sp" />
 
 
@@ -2224,6 +2225,7 @@ android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:inputType="number"
                     android:textSize="14sp" />
 
 

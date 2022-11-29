@@ -77,7 +77,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediCodigoN7"
+                android:id="@+id/ediCodigo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"

@@ -434,6 +434,11 @@ Log.i("hellosweer","se ehjecitp onstart");
 
                         }
 
+                        else if (vista.getId()== R.id.ediHoraEncendido1) {
+                            ediHoraEncendido1.setText(sHour + ":" + sMinute);
+
+
+                        }
 
 
                         else if (vista.getId()== R.id.ediHoraEncendido2) {
@@ -542,7 +547,7 @@ Log.i("hellosweer","se ehjecitp onstart");
          ediFecha=findViewById(R.id.ediCajas7);
          ediProductor=findViewById(R.id.ediCodigoN2);
          ediHacienda=findViewById(R.id.ediCodigoN8);
-         ediCodigo=findViewById(R.id.ediCodigoN7);
+         ediCodigo=findViewById(R.id.ediCodigo);
          ediInscirpMagap=findViewById(R.id.ediCajas10);
          ediPemarque=findViewById(R.id.ediProductor10);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
@@ -939,6 +944,15 @@ Log.i("hellosweer","se ehjecitp onstart");
                showingTimePicker(view);
 
                break; //
+
+           case R.id.ediHoraEncendido1:
+               // Utils.closeKeyboard(ActivityContenedores.this);
+               showingTimePicker(view);
+
+               break; //
+
+
+
 
            case R.id.ediHoraEncendido2:
                // Utils.closeKeyboard(ActivityContenedores.this);
@@ -2101,7 +2115,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
         ediFecha.setOnTouchListener(this);
         ediProductor.setOnTouchListener(this);
         ediHacienda.setOnTouchListener(this);
-        ediCodigo.setOnTouchListener(this);
+      //  ediCodigo.setOnTouchListener(this);
         ediInscirpMagap.setOnTouchListener(this);
         ediPemarque.setOnTouchListener(this);
         ediHoraInicio.setOnTouchListener(this);
@@ -3451,7 +3465,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
 
 
-
+/*
 
          if(ediCodigo.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCodigo.requestFocus();
@@ -3461,7 +3475,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
             return false;
 
         }
-
+*/
 
         if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediInscirpMagap.requestFocus();
