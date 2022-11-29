@@ -477,6 +477,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
         //agregamos el header
 
 
+        Log.i("debian","sellamoaqui tambien xxx ");
+
+
 
         /**DATOS DE TRANSPORTISTA */
 
