@@ -85,6 +85,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
 
 
+
+        holder.txtCodeHere.setText(listCheckedAndAtatch.get(position).getUniqueID());
+
 if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestreo")){
 
     holder.imgSee.setTag("Cuadro Muestreo");
@@ -139,19 +142,14 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
                 //chekcamos que solo exista un objeto CUADROmUETREO OBJET...
 
 
-               if(mapWhitIdsCuadroMuestreo.size()==1){ //si ya hay uno ...return
-                   Toast.makeText(ctx, "Solo permitido un reporte Cuadro Muestreo", Toast.LENGTH_SHORT).show();
-                   return;
-               }
-
-
-
-
-               Variables.currentkEYcuadroMuetreo=idsFormsVinucladosCudorMuestreoString; //
-
 
 
                 if (listCheckedAndAtatch.get(pos).isItemChek()) {
+
+
+
+
+
                     //el anterior estaba en cheked y ahora es falso....lo removemos
                     Log.i("somere","removemos");
 
@@ -212,7 +210,24 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
                 } else {  ///si el cehckeed esta en falseo, lo marcamos
 
 
-                    Log.i("comerdd","agregamos");
+
+
+                    if(tipoInforme.equals("Cuadro Muestreo") && mapWhitIdsCuadroMuestreo.size()==1){ //si ya hay uno ...return
+                        Toast.makeText(ctx, "Solo permitido un reporte Cuadro Muestreo", Toast.LENGTH_SHORT).show();
+                        holder.checkBx.setChecked(false);
+
+                      //  listCheckedAndAtatch.get(pos).setItemChek(false);
+
+                        Log.i("sopillass","no mas cuadros muetreo");
+
+                        return;
+
+                    }
+
+
+                    Variables.currentkEYcuadroMuetreo=idsFormsVinucladosCudorMuestreoString; //
+
+
 
                     listCheckedAndAtatch.get(pos).setItemChek(true);
 
@@ -277,7 +292,7 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
         private TextView txtDataFirst;
         private TextView txtDataSecond;
         private ImageView imgSee;
-        
+        TextView txtCodeHere;
         
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -286,7 +301,7 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
             txtDataFirst =  itemView.findViewById(R.id.txtDataFirstx);
             txtDataSecond =  itemView.findViewById(R.id.txtDataSecond);
             imgSee =  itemView.findViewById(R.id.imgSee);
-
+            txtCodeHere=itemView.findViewById(R.id.txtCodeHere);
             imgSee.findViewById(R.id.imgSee).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

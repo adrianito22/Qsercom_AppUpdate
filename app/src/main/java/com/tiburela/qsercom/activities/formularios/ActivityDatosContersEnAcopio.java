@@ -46,7 +46,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
@@ -59,6 +63,7 @@ import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -1782,16 +1787,98 @@ private void createObjcInformeAndUpload(){
 
 
     informe.setDatosProcesoContenAcopioKEYFather(PuskEY); //le agregamos esa propiedad
-    RealtimeDB.addNewInformContenresAcopio(informe,UNIQUE_ID_iNFORME);
+
+
+
+
+    generateUniqueIdInformeAndContinuesIfIdIsUnique(informe);
 
 
 
     creaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME,PuskEY,mibasedata);
 
 
-    RealtimeDB.addNewRegistroInforme(ActivityDatosContersEnAcopio.this,new InformRegister(informe.getUniqueIDinforme(), Constants.CONTENEDORES_EN_ACOPIO,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Contenedores en Acopio"));
 
 }
+
+
+
+
+
+
+    private void generateUniqueIdInformeAndContinuesIfIdIsUnique( ContenedoresEnAcopio contenedores_acopio){
+
+        String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
+        Log.i("elnumber","el numero generado es ss"+uniqueId);
+
+        checkIfExistIdAndUpload(uniqueId,contenedores_acopio);
+
+
+    }
+
+
+
+    private void checkIfExistIdAndUpload (String currenTidGenrate, ContenedoresEnAcopio conetnedores){
+
+        //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
+        //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").equalTo(currenTidGenrate);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                InformRegister informRegister=null;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    informRegister=ds.getValue(InformRegister.class);
+                }
+
+
+                if(informRegister == null) { //quiere decir que no existe
+
+                    informRegister= new InformRegister(currenTidGenrate,Constants.CONTENEDORES_EN_ACOPIO,
+                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
+                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            , "CONTENEDORES ACOPIO ");
+
+
+                    //informe register
+                    RealtimeDB.addNewRegistroInforme(ActivityDatosContersEnAcopio.this,informRegister);
+
+
+                    conetnedores.setUniqueIDinforme(currenTidGenrate);
+                    //informe actual
+
+                  // DDFG RealtimeDB.AddNewPackingListObject(packingListMod);
+
+                    RealtimeDB.addNewInformContenresAcopio(conetnedores,currenTidGenrate);
+
+                    //aqui subimos..
+
+                }else {  //si exite creamos otro value...
+
+                    generateUniqueIdInformeAndContinuesIfIdIsUnique(conetnedores);
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
+
+
+
+
+
 
     private void eventoBtnclicklistenerDelete(RecyclerViewAdapter adapter) {
 

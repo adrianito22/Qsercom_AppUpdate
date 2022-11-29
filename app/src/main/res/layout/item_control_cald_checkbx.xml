@@ -25,6 +25,13 @@
                 android:text="Control Calidad  , Codigo 005" />
 
             <TextView
+                android:id="@+id/txtCodeHere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="TextView" />
+
+            <TextView
                 android:id="@+id/txtDataFirstx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

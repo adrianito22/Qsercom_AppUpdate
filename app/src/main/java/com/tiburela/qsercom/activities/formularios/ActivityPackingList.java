@@ -7,9 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
@@ -17,6 +22,7 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -144,10 +150,9 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
                           //agregamos en el mapa ty lo subimos..
                          RealtimeDB.addNewPackingListHasMap(packingListMap);
-                         RealtimeDB.AddNewPackingListObject(obpackinList);
 
-                         RealtimeDB.addNewRegistroInforme(ActivityPackingList.this,new InformRegister(obpackinList.getUniqueIDinforme(), Constants.PACKING_lIST,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Packing List"));
 
+                         generateUniqueIdInformeAndContinuesIfIdIsUnique(obpackinList);
 
                          //debe haber al menos un datao en el paking list
 
@@ -172,6 +177,78 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
 
     }
+
+
+    private void generateUniqueIdInformeAndContinuesIfIdIsUnique( PackingListMod packinglISTmOOD){
+
+        String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
+        Log.i("elnumber","el numero generado es ss"+uniqueId);
+
+        checkIfExistIdAndUpload(uniqueId,packinglISTmOOD);
+
+
+    }
+
+
+
+    private void checkIfExistIdAndUpload (String currenTidGenrate, PackingListMod packingListMod){
+
+        //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
+        //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").equalTo(currenTidGenrate);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                InformRegister informRegister=null;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    informRegister=ds.getValue(InformRegister.class);
+                }
+
+
+                if(informRegister == null) { //quiere decir que no existe
+
+                    informRegister= new InformRegister(currenTidGenrate,Constants.PACKING_lIST,
+                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
+                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            , "PACKING LIST ");
+
+
+                    //informe register
+                    RealtimeDB.addNewRegistroInforme(ActivityPackingList.this,informRegister);
+
+
+                    packingListMod.setUniqueIDinforme(currenTidGenrate);
+                    //informe actual
+
+                    RealtimeDB.AddNewPackingListObject(packingListMod);
+
+
+                    //aqui subimos..
+
+                }else {  //si exite creamos otro value...
+
+                    generateUniqueIdInformeAndContinuesIfIdIsUnique(packingListMod);
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
+
+
+
 
     @Override
     protected void onStart() {

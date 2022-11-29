@@ -1,5 +1,6 @@
 package com.tiburela.qsercom.activities.formularios;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -20,11 +21,21 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.models.InformsRegister;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -2126,7 +2137,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
                 if(ediNumClusInsp1.getText().toString().trim().isEmpty()) {
-                    ediNumClusInsp1.setError("no puede estar vacio");
+                    ediNumClusInsp1.setError("No puede estar vacio");
                     return;
 
                 }
@@ -2170,7 +2181,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 obecjControlCalidad.setKeyDondeEstaraHasmapDefecSelec(keyDondeEstaraHasmapDefecSelec);
 
 
-                RealtimeDB.UploadControlcalidadInform(obecjControlCalidad);
+                generateUniqueIdInformeAndContinuesIfIdIsUnique(obecjControlCalidad);
+
+
+
                 RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxs,keyDondeEstaraHasmap);
                 RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
 
@@ -2181,6 +2195,75 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         });
 
     }
+
+
+    private void generateUniqueIdInformeAndContinuesIfIdIsUnique( ControlCalidad controlCalidad){
+
+        String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
+        Log.i("elnumber","el numero generado es ss"+uniqueId);
+
+        checkIfExistIdAndUpload(uniqueId,controlCalidad);
+
+
+    }
+
+    private void checkIfExistIdAndUpload (String currenTidGenrate, ControlCalidad controlCalidad){
+
+        //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
+        //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").equalTo(currenTidGenrate);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                InformRegister informRegister=null;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    informRegister=ds.getValue(InformRegister.class);
+                }
+
+
+                if(informRegister == null) { //quiere decir que no existe
+
+
+                    informRegister= new InformRegister(currenTidGenrate,Constants.CONTROL_CALIDAD,
+                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
+                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            , "CONTROL CALIDAD ");
+
+
+
+
+                    /**AQUI SUBIMOS ESTOS FORMS*/
+                    controlCalidad.setUniqueId(currenTidGenrate);
+                    RealtimeDB.UploadControlcalidadInform(controlCalidad);
+                    RealtimeDB.addNewRegistroInforme(ActivityControlCalidad.this,informRegister);
+
+                    //aqui subimos..
+
+                }else {  //si exite creamos otro value...
+
+                    generateUniqueIdInformeAndContinuesIfIdIsUnique(controlCalidad);
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
+
+
+
+
 
 
     private ControlCalidad creaNuevoFormularioByTxtImputEditext(){

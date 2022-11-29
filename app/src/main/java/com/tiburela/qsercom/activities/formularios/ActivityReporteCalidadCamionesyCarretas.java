@@ -50,6 +50,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
@@ -57,9 +61,11 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.storage.StorageData;
@@ -2099,7 +2105,13 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         informe.setNodoQueContieneMapPesoBrutoCloster2y3l(Variables.nodoDondeEstaraPesoBruto2y3l);
 
         //agr5egamos la data finalemente
-        RealtimeDB.addNewReportCalidaCamionCarrretas(informe);
+
+        generateUniqueIdInformeAndContinuesIfIdIsUnique(informe);
+
+        //aqui estos va en upload
+
+
+
         addCalibracionFutaC_enfAndUpload();
         addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
 
@@ -2107,12 +2119,80 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         createHashmapPesoBrutoCloster2y3lAndUpload(Variables.nodoDondeEstaraPesoBruto2y3l);
 
 
-        RealtimeDB.addNewRegistroInforme(ActivityReporteCalidadCamionesyCarretas.this,new InformRegister(informe.getUniqueIDinforme(), Constants.CAMIONES_Y_CARRETAS,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Camiones y carretas"));
 
 
 
 
     }
+
+
+    private void generateUniqueIdInformeAndContinuesIfIdIsUnique( ReportCamionesyCarretas cmaionesyCarretasObjc){
+
+        String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
+        Log.i("elnumber","el numero generado es ss"+uniqueId);
+
+        checkIfExistIdAndUpload(uniqueId,cmaionesyCarretasObjc);
+
+
+    }
+
+    private void checkIfExistIdAndUpload (String currenTidGenrate, ReportCamionesyCarretas objecCamionesyCarretas){
+
+        //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
+        //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").equalTo(currenTidGenrate);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                InformRegister informRegister=null;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    informRegister=ds.getValue(InformRegister.class);
+                }
+
+
+                if(informRegister == null) { //quiere decir que no existe
+
+                    informRegister= new InformRegister(currenTidGenrate,Constants.CAMIONES_Y_CARRETAS,
+                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
+                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                           , "CAMIONES Y CARRETAS ");
+
+
+                    //informe register
+                    RealtimeDB.addNewRegistroInforme(ActivityReporteCalidadCamionesyCarretas.this,informRegister);
+
+
+                    objecCamionesyCarretas.setUniqueIDinforme(currenTidGenrate);
+                     //informe actual
+                    RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
+
+
+
+                    //aqui subimos..
+
+                }else {  //si exite creamos otro value...
+
+                    generateUniqueIdInformeAndContinuesIfIdIsUnique(objecCamionesyCarretas);
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
+
+
 
     private void eventoBtnclicklistenerDelete(RecyclerViewAdapter adapter) {
 

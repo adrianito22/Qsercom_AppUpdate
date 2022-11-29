@@ -793,6 +793,10 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
     private void DowloadEspecificReportCalbAndRechazados(String uniqeuIDiNFORME,int modoReporte){
+        Log.i("hsmpadat","descrgamos este value  es svc");
+
+
+
 
         //to fetch all the users of firebase Auth app
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -811,8 +815,9 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                     if(informe!=null){
                         Variables.currentcuadroMuestreo=informe;
+                     //   Log.i("hsmpadat","es nulo");
 
-                        Log.i("elcarreta","el value es "+ Variables.currentcuadroMuestreo.getProductor());
+                        Log.i("hsmpadat","el value es "+ Variables.currentcuadroMuestreo.getProductor());
 
                         break;
 
@@ -820,6 +825,11 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
                 }
+
+
+              //  Log.i("hsmpadat","el value es aqui es  "+ Variables.currentcuadroMuestreo.getProductor());
+
+
 
                 Intent intencion= new Intent(ActivitySeeReports.this, CuadMuestreoCalibAndRechazPrev.class);
 
@@ -1350,6 +1360,13 @@ Log.i("puslado","el value es "+idReport);
 
                 else if(reportTipo==Constants.CUADRO_MUESTRO_CAL_RECHZDS){
 
+
+                    Log.i("hsmpadat","es un cuadro de muestreo ");
+
+                    Log.i("hsmpadat","el id report es  "+idReport);
+
+
+
                     DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_VISUALIZACION);
                     // DowloadControlCalidad(idReport,Variables.MODO_EDICION);
                     //Descargamos un objeto contenedores object...
@@ -1415,6 +1432,11 @@ Log.i("puslado","el value es "+idReport);
 
 
                 else if(reportTipo==Constants.CUADRO_MUESTRO_CAL_RECHZDS){
+
+                    Log.i("hsmpadat","es un cuadro de muestreo ");
+
+                    Log.i("hsmpadat","el id report es  "+idReport);
+
                             DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_EDICION);
 
                    // DowloadControlCalidad(idReport,Variables.MODO_EDICION);

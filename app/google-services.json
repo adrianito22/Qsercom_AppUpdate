@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "672391309758-vbogn7vjrqcdjebdkg3gkibosfqn9ajf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tiburela.qsercom",
+            "certificate_hash": "085d4cbea929f456a4107837fddc610f711ce8f7"
+          }
+        },
+        {
           "client_id": "672391309758-vp06qmhh94v5030v7fu421tpn32792j9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

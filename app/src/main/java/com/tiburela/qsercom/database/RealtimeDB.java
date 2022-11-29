@@ -1041,20 +1041,7 @@ public class RealtimeDB {
 
     }
 
-    public static void addNewRegisterUploadInform( InformsRegister informeObjct) {
 
-        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("informsData");
-        mibasedata.push().setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
-
-
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-
-            }
-        });
-
-
-}
 
 
 
@@ -1165,5 +1152,64 @@ public class RealtimeDB {
 
     }
 
+
+
+/*
+    private void checkIfExistIdAndUpload (String currenTidGenrate, SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
+
+        //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
+        //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").equalTo(currenTidGenrate);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ControlCalidad  user=null;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    user=ds.getValue(ControlCalidad.class);
+                }
+
+
+                if(user == null) {
+
+
+                    informe.setUniqueIDinforme(currenTidGenrate);
+                    uploadInformeToDatabase(informe,informe2,informe3);
+                    //dfghdfh
+
+                    RealtimeDB.addNewRegisterUploadInform(new InformsRegister(currenTidGenrate,Variables.FormContenedores));
+
+
+                }else {
+
+                    generateUniqueIdInformeAndContinuesIfIdIsUnique(informe,informe2,informe3);
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
+
+*/
+    private void generateUniqueIdInformeAndContinuesIfIdIsUnique( SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
+
+        String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
+        Log.i("elnumber","el numero generado es ss"+uniqueId);
+
+      //  checkIfExistIdAndUpload(uniqueId,informe,informe2,informe3);
+
+
+    }
 
 }

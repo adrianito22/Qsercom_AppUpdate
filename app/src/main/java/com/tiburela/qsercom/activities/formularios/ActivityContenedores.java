@@ -5096,35 +5096,43 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
 
-
-
     private void checkIfExistIdAndUpload (String currenTidGenrate, SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
 
       //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
       //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
 
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("informsData").equalTo(currenTidGenrate);
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").equalTo(currenTidGenrate);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ControlCalidad  user=null;
+                InformRegister  user=null;
+
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                      user=ds.getValue(ControlCalidad.class);
+                      user=ds.getValue(InformRegister.class);
                 }
 
 
-                if(user == null) {
+                if(user == null) { //quiere decir que no existe
+
+                    user= new InformRegister(currenTidGenrate,Constants.CONTENEDORES,
+                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
+                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            , "CONTENEDORES ");
+
+
+                    //informe register
+                    RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,user);
+
 
                     informe.setUniqueIDinforme(currenTidGenrate);
                     uploadInformeToDatabase(informe,informe2,informe3);
                     //dfghdfh
 
-                     RealtimeDB.addNewRegisterUploadInform(new InformsRegister(currenTidGenrate,Variables.FormContenedores));
 
                     //aqui subimos..
 
-                }else {
+                }else {  //si exite creamos otro value...
 
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(informe,informe2,informe3);
 
@@ -5143,9 +5151,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     }
-
-
-
 
 
 

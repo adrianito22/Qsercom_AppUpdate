@@ -164,6 +164,19 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
 
 
 
+        if(Variables.currentcuadroMuestreo !=null){
+
+            Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo);
+
+
+        }else{
+            Log.i("hsmpadat","es nulo");
+
+
+        }
+
+
+
 
         Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
 
