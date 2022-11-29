@@ -70,6 +70,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         holder.checkBx.setText(listCheckedAndAtatch.get(position).getDataChecboxTxt());
 
+
+        holder.imgSee.setTag(R.id.tagImgUniqueIdItem,listCheckedAndAtatch.get(position).getUniqueID());
+
+
+
+
         if(listCheckedAndAtatch.get(position).isItemChek()){
 
                 holder.checkBx.setChecked(true);
@@ -90,12 +96,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestreo")){
 
-    holder.imgSee.setTag("Cuadro Muestreo");
+    holder.imgSee.setTag(R.id.tagImgCategory,"Cuadro Muestreo");
+
+
+
+
 
 
 }else{
 
-    holder.imgSee.setTag("");
+    holder.imgSee.setTag(R.id.tagImgCategory,"");
 
 
 

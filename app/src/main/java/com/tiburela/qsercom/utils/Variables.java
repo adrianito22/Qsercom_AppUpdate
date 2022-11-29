@@ -114,6 +114,7 @@ public static String  paqueteName="com.tiburela.qsercom";
     public static String KEYEXTRA_CONTEN_EN_ACP= "estacontentXCC";
     public static String KEY_PACKING_LIST= "MIPAQKICN";
     public static String KEY_PDF_MAKER= "MIPODFMAKER";
+    public static String KEY_PDF_MAKER_PDF_NAME= "MIPODFMAKER_PDF_NAME";
 
     public static String nodoDondeEstaraPesoBruto2y3l;
 

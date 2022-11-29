@@ -1,5 +1,6 @@
 package com.tiburela.qsercom.activities.formulariosPrev;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
@@ -164,27 +169,30 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
 
 
 
-        if(Variables.currentcuadroMuestreo !=null){
+        if(Variables.currentcuadroMuestreo !=null){  //set data inviews....
+            Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
+            getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
+            setDataInViews(Variables.currentcuadroMuestreo);
 
             Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo);
 
 
-        }else{
-            Log.i("hsmpadat","es nulo");
+        }else{ ///es nulodescragamos reporte....
+
+
+            if(Variables.CurrenReportPart1!=null){
+
+                dowloadEspecificReportAndSetData(Variables.CurrenReportPart1.getAtachControCuadroMuestreo());
+
+            }else{
+
+
+                return;
+            }
+
 
 
         }
-
-
-
-
-        Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
-
-         getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
-
-
-        setDataInViews(Variables.currentcuadroMuestreo);
-
 
 
 
@@ -578,7 +586,69 @@ return object;
 
 
 
+    private void dowloadEspecificReportAndSetData(String uniqeuIDiNFORME){
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference usersdRef = rootRef.child("Informes").child("CuadrosMuestreo");
+
+        Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(uniqeuIDiNFORME);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
+
+                    if(informe!=null){
+                        Variables.currentcuadroMuestreo=informe;
+                        //   Log.i("hsmpadat","es nulo");
+
+                        Log.i("hsmpadat","el value es "+ Variables.currentcuadroMuestreo.getProductor());
+
+                        break;
+
+                    }
+
+
+                }
+
+
+                getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
+                setDataInViews(Variables.currentcuadroMuestreo);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
+
+
+    }
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
 
 /*
 *   if(chekeadDataListIsReady()){

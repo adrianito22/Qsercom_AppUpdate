@@ -138,6 +138,10 @@ String currentIDcUDORmUESTREO;
     ArrayList<ControlCalidad> listFormsControlCalidad =new ArrayList<>();
     ArrayList<CuadroMuestreo> listCuadrosMuestreos =new ArrayList<>();
 
+    HashMap<String,CuadroMuestreo> mapCudroMuestreo =new HashMap<>();
+    HashMap<String,ControlCalidad> mapControlCalidad =new HashMap<>();
+
+
 
     TextView txtNumReportsVinclds;
 
@@ -1158,6 +1162,9 @@ String currentIDcUDORmUESTREO;
                ArrayList<String>listIdSvINCULADOS;
                listIdSvINCULADOS=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString);
                listFormsControlCalidad = new ArrayList<>();
+               mapControlCalidad= new HashMap<>();
+
+
                checkedListForms = new ArrayList<>();
 
                if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
@@ -1369,7 +1376,7 @@ String currentIDcUDORmUESTREO;
 
                 if(CustomAdapter.idsFormsVinucladosCudorMuestreoString!=null){
                     if(CustomAdapter.idsFormsVinucladosCudorMuestreoString.trim().length()>1){
-                        DowloadUniqeuRechazadosoObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+                        DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
 
 
                     }
@@ -1521,6 +1528,8 @@ String currentIDcUDORmUESTREO;
     void dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(long desdeFecha, long hastFecha, ArrayList<String>idsFormsControlCalidVinculadosOmit,ArrayList<String>idsFormsCudroOmits){
 
         listFormsControlCalidad = new ArrayList<>();
+        mapControlCalidad= new HashMap<>();
+
         checkedListForms = new ArrayList<>();
 
         RealtimeDB.initDatabasesRootOnly();
@@ -1539,6 +1548,8 @@ String currentIDcUDORmUESTREO;
                     //agregamos solo los que no esten en esta lista..
                     if(controlcalidad!=null){
                         listFormsControlCalidad.add(controlcalidad);
+                        mapControlCalidad.put(controlcalidad.getUniqueId(),controlcalidad);
+
 
                         if(idsFormsControlCalidVinculadosOmit !=null){
 
@@ -1618,6 +1629,8 @@ String currentIDcUDORmUESTREO;
                     if(cuadroMuestreo!=null){
 
                         listCuadrosMuestreos.add(cuadroMuestreo);
+                        mapCudroMuestreo.put(cuadroMuestreo.getUniqueIdObject(),cuadroMuestreo);
+
 
                         if(idsFormsCuadroMuestreoVinculadosOmit !=null){
 
@@ -4836,8 +4849,8 @@ return true;
 
 
 
-    private  void addDataENfiledsoTHERviews(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object
-            ,SetInformDatsHacienda info3Object) {
+    private  void setDtaInOthersViews(SetInformEmbarque1 info1Object, SetInformEmbarque2 info2Object
+            , SetInformDatsHacienda info3Object) {
 
 
 
@@ -4899,7 +4912,7 @@ return true;
     }
 
 
-    private  void addDataEnFields(SetInformEmbarque1 info1Object,SetInformEmbarque2 info2Object,SetInformDatsHacienda info3Object)  {
+    private  void setDataInfields(SetInformEmbarque1 info1Object, SetInformEmbarque2 info2Object, SetInformDatsHacienda info3Object)  {
         //usamos los 2 objetos para establecer esta data..
 
         Log.i("jamisama","la semana es "+info1Object.getSemana());
@@ -5404,7 +5417,8 @@ private void checkModeVisualitY(){
 
 
                 if(currentIDcUDORmUESTREO!=null){
-                    DowloadUniqeuRechazadosoObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+
+                    DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
 
                 }else{ //sino hay ningun cuadro muestreo;
 
@@ -6058,7 +6072,7 @@ if(indice>2) {
     }
 
 
-    private void addatainviewsMOREviews(SetInformDatsHacienda informe) {
+    private void setDataInMoreViews(SetInformDatsHacienda informe) {
 
         TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
         TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
@@ -6168,16 +6182,24 @@ if(indice>2) {
                     if(inform!=null){
                         Variables.CurrenReportPart3=inform;
                         break;
-
                     }
+                }
+
+
+
+                //AGREGMOS LA DATA EN LOS FILEDS
+                setDataInfields(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
+                setDataInMoreViews(Variables.CurrenReportPart3);
+                setDtaInOthersViews(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
+
+                if(Variables.CurrenReportPart1.getAtachControCuadroMuestreo().trim().length()>1){
+                    //descragamos cuadro muestreo adn se data..
+
+                    DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(Variables.CurrenReportPart1.getAtachControCuadroMuestreo());
+
 
 
                 }
-
-                //AGREGMOS LA DATA EN LOS FILEDS
-                addDataEnFields(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
-                addatainviewsMOREviews(Variables.CurrenReportPart3);
-                addDataENfiledsoTHERviews(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
 
 
             }
@@ -6192,6 +6214,7 @@ if(indice>2) {
 
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -6217,6 +6240,9 @@ if(indice>2) {
                     Log.i("salero","encontrado uno ");
 
                     listFormsControlCalidad.add(user);
+
+                    mapControlCalidad.put(user.getUniqueId(),user);
+
 
                     checkedListForms.add(new CheckedAndAtatch(user.getSimpleDate(),user.getHacienda(),"Control calidad",true,String.valueOf(user.getUniqueId())));
 
@@ -6335,6 +6361,7 @@ if(indice>2) {
 
         }
 
+
         if (lista.size() == 0) {
 
             txtAdviseer.setVisibility(TextView.VISIBLE);
@@ -6345,7 +6372,11 @@ if(indice>2) {
 
             Log.i("samerr", "se ejeduto el if ");
 
-        } else {
+        }
+
+        else
+
+        {
             Log.i("samerr", "se ejeduto el else ");
             txtAdviserDesvicunlar.setVisibility(TextView.VISIBLE);
             // btnSaveCambiosxxx.setVisibility(TextView.VISIBLE);
@@ -6380,16 +6411,36 @@ if(indice>2) {
                 //mejor ponemos el key en un
 
 
-                if( v.getTag().toString().equals("Cuadro Muestreo")){
-                    Variables.currentcuadroMuestreo=listCuadrosMuestreos.get(position);
+                // seria un mapa
+
+
+                if( v.getTag(R.id.tagImgCategory).toString().equals("Cuadro Muestreo")){
+
+
+                   // String tipoInforme = (String) holder.checkBx.getTag(R.id.tipoInforme);
+
+
+                    ///    Variables.currentcuadroMuestreo=listCuadrosMuestreos.get(position)
+
+                    Variables.currentcuadroMuestreo=mapCudroMuestreo.get(String. valueOf(v.getTag(R.id.tagImgUniqueIdItem)));
+
+
+                    Log.i("dbuhehjr","el id selecte  es "+v.getTag(R.id.tagImgUniqueIdItem));
 
                     showPRogressAndStartActivity(new Intent(ActivityContenedoresPrev.this, CuadMuestreoCalibAndRechazPrev.class));
 
 
                 }else{
 
+                    Log.i("dbuhehjr","el id selecte es "+v.getTag(R.id.tagImgUniqueIdItem));
 
-                    Variables.currenControlCalReport= listFormsControlCalidad.get(position);
+
+
+                  //  Variables.currenControlCalReport= listFormsControlCalidad.get(position);
+
+                    Variables.currenControlCalReport=mapControlCalidad.get(String.valueOf(v.getTag(R.id.tagImgUniqueIdItem)));
+
+
                     showPRogressAndStartActivity(new Intent(ActivityContenedoresPrev.this, FormularioControlCalidadPreview.class));
 
 
@@ -6475,12 +6526,20 @@ if(indice>2) {
 
                 if( sizeListIterate == contador){
 
+
+                    String nameFilePdf="TTNU-"+Variables.CurrenReportPart1.getUniqueIDinforme()+" "+ Variables.CurrenReportPart1.getProductor();
+
+
                     Log.i("comnadaer","bien vamos a activity pdf maker");
 
                     //vamos a  activity
 // createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
                     Intent intent = new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class);
                     intent.putExtra(Variables.KEY_PDF_MAKER,Variables.FormPreviewContenedores);
+                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NAME ,nameFilePdf);
+
+
+
                     startActivity(intent);
 
                 }
@@ -6530,10 +6589,8 @@ if(indice>2) {
 
 
 
-    private void DowloadUniqeuRechazadosoObjectCUADROMuestreoAndSetNumRechzados (String currentIDoBJECTvinuc ){
+    private void DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(String currentIDoBJECTvinuc ){
 
-
-        //
         DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
 
         Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(currentIDoBJECTvinuc);
@@ -6548,8 +6605,9 @@ if(indice>2) {
                     Log.i("holerd","aqui se encontro un cuadro muestreo......");
 
                     if(informe!=null){
-                      //  numRacimosRechzados=informe.getTotalRechazadosAll();
-                        //activamos btn generar
+
+                        Variables.CurrenReportPart3.setEdiRacimosRecha(  String.valueOf(informe.getTotalRechazadosAll()));
+
                         ediRacimosRecha.setText(String.valueOf(informe.getTotalRechazadosAll()));
                             btnGENERARpdf.setEnabled(true);
 

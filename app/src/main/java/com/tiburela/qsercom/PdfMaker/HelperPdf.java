@@ -420,6 +420,9 @@ public class HelperPdf {
         }
         else if(tableInfo==8){/**CONTROL DE GANCHO*/
 
+       // por aquiracimos rechzados
+
+
             listTOrETURN1.add(new NameAndValue("CAJAS PROCESADAS DESPACHADAS",Object3.getEdiCajasProcDesp()));
             listTOrETURN1.add(new NameAndValue("RACIMOS COSECHADOS ",Object3.getEdiRacimosCosech()));
             listTOrETURN1.add(new NameAndValue("RACIMOS RECHAZADOS ",Object3.getEdiRacimosRecha()));

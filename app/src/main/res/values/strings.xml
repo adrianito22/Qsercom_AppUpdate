@@ -90,6 +90,11 @@
 
 
 
+    <item type="id" name="tagImgCategory" />
+    <item type="id" name="tagImgUniqueIdItem" />
+
+
+
 
     <string-array name="fuentesAguaArray">
         <item>Ninguna</item>

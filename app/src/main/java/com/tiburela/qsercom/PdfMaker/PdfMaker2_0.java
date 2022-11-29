@@ -13,7 +13,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
@@ -78,6 +80,7 @@ import org.apache.commons.codec.binary.Base64;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -89,6 +92,13 @@ public class PdfMaker2_0 extends AppCompatActivity {
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
     ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
     HashMap <String, String> hasmapMapControlCalid;
+
+
+    String nameOFPDFrEPORTfile;
+
+    Uri uriThiSfile;
+
+    CountDownTimer cTimer;
 
      ProgressBar progressBar2;
     TextView txtTareaAqui;
@@ -112,6 +122,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
         setContentView(R.layout.activity_pdf_maker20);
 
         ActivityFormularioDondeVino = getIntent().getIntExtra(Variables.KEY_PDF_MAKER,0);
+
+        nameOFPDFrEPORTfile=getIntent().getStringExtra(Variables.KEY_PDF_MAKER_PDF_NAME);
+
+
+        Log.i("sermasd","namepdf es "+nameOFPDFrEPORTfile);
+
 
         contexto=getApplicationContext();
          progressBar2=findViewById(R.id.progressBar2);
@@ -248,12 +264,15 @@ public class PdfMaker2_0 extends AppCompatActivity {
         //doble chekeo si la current canvas object no fue terminada la finalizamos
         // pdfDocument.finishPage(currentPagePdfObjec) ;
         File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File file = new File(directory, UUID.randomUUID().toString() + ".pdf");
+        File file = new File(directory, nameOFPDFrEPORTfile+".pdf");
+
+        uriThiSfile=Uri.fromFile(file);
+
         //chekear si existe si es asi sobrescribirlo
 
         HelperPdf.initFontx();
 
-
+      Log.i("debian","sellamoaqui");
 
 
         OutputStream estrema =new FileOutputStream(file);
@@ -295,6 +314,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         Log.i("miodatr","el size de table es"+sizeTable);
 
+        Log.i("debian","sellamoaqui tambien ");
 
         Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() en logo es ES "+y);
 
@@ -1216,14 +1236,18 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
                     //
 
+                    checkIfFileisSaveINsRORAGE(uriThiSfile);
+
+
+                    /*
                     if(Variables.currentkEYcuadroMuetreo!=null){
 
-                        DowloadUniqeuRechazadosoObject(Variables.currentkEYcuadroMuetreo);
+                       // DowloadUniqeuRechazadosoObject(Variables.currentkEYcuadroMuetreo);
 
                     }
 
 
-
+*/
 
 
                 }
@@ -1404,7 +1428,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
 
 
-    private void DowloadUniqeuRechazadosoObject (   String currentIDoBJECTvinuc ){
+    private void DowloadUniqeuRechazadosoObject (String currentIDoBJECTvinuc ){
 ///PODEMOS OBTER
 
         //to fetch all the users of firebase Auth app
@@ -1435,7 +1459,8 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
                 }
 
 
-
+             //aqui podemos revisar
+                checkIfFileisSaveINsRORAGE(uriThiSfile);
 
 
 
@@ -1450,5 +1475,82 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
         } );
 
     }
+
+
+
+    private void checkIfFileisSaveINsRORAGE (Uri uriSearchFile){
+
+        final boolean[] ecnontroFiLE = {false};
+
+             cTimer =new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                if(null != uriSearchFile) {
+                    try {
+                        InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriSearchFile);
+                        inputStream.close();
+                        ecnontroFiLE[0] = true;
+                    } catch (Exception e) {
+                        // Log.w(MY_TAG, "File corresponding to the uri does not exist " + uri.toString());
+                    }
+                }
+
+
+
+                //aqui chekeamo habver si encontro
+
+
+               // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+                // logic to set the EditText could go here
+            }
+
+            public void onFinish() {
+                if(ecnontroFiLE[0]){ ///si existe activamos btn intent open pdf
+
+                    Log.i("searchFile","si se encontro file");
+
+                }else {
+
+                    Log.i("searchFile","NO se encontro file");
+
+
+                    //le decimos que no se descargo
+
+                }
+
+              //  mTextField.setText("done!");
+            }
+
+        }.start();
+
+
+        //CERREMOAS UN BUCLE I CHEKEAMO SI YA FUE DESCARGADIO
+
+
+
+    }
+
+
+
+    void cancelTimer() {
+        //si se destruye la actividad ...lo cancelamos....
+
+
+        if(cTimer!=null)
+            cTimer.cancel();
+    }
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        cancelTimer();
+
+    }
+//onDestroy()/onDestroyView()
 
 }
