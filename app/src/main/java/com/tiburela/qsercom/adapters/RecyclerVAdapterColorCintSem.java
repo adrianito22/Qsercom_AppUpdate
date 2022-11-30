@@ -190,6 +190,8 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
 
 
         holder.semnNum.setText(String.valueOf(objectCurrent.getSemanNum()) );
+        holder.semnNum.setTag(objectCurrent.getUniqueId());
+
 
         //ad atags
        // holder.semnNum.setTag("semnNum");
@@ -227,6 +229,8 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
         this.listener=listener;
     }
 
+
+
     @Override
     public void onClick(View view) {
         if (listener!=null){
@@ -237,9 +241,9 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
     // View Holder Class to handle Recycler View.
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextInputEditText semnNum;
+        public TextInputEditText semnNum;
 
-        private TextInputEditText ediColum9, ediColum10,ediColum11,ediColum12,ediColum13,ediColum14;
+        public TextInputEditText ediColum9, ediColum10,ediColum11,ediColum12,ediColum13,ediColum14;
 
         MyCustomEditTextListener  myCustomEditTextListener;
 
@@ -406,8 +410,9 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
             Log.i("adinaiot","la posicion methjod 2 e  "+mPos);
 
             SharePref.mihashMapFieldsToRecycler.put(String.valueOf(mPos+","+editTextx.getId()),currentText);
-            SharePref.saveMapPreferFields(SharePref.mihashMapFieldsToRecycler,SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS);
 
+            SharePref.saveMapPreferFields(SharePref.mihashMapFieldsToRecycler,SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS);
+            //Variables.mapColorCintasSemanas.put();
 
              //lo guardamos...
 
@@ -430,6 +435,9 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
             // no op
         }
     }
+
+
+
 
 
 

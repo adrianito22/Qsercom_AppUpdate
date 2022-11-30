@@ -328,9 +328,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
 
 
-                if(checkIfExisteFormIcompleto(SharePref.KEY_MUESTRO_RECHAZDOS) ){
+                if(checkIfExisteFormIcompleto(SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS) ){
                     currentFormSelect=Variables.FormMuestreoRechaz;
-                    muestraDialog2Opciones(SharePref.KEY_MUESTRO_RECHAZDOS);
+                    muestraDialog2Opciones(SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS);
 
 
                 }

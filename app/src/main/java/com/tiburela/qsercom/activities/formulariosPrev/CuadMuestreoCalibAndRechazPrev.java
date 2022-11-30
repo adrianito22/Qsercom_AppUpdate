@@ -1,6 +1,5 @@
 package com.tiburela.qsercom.activities.formulariosPrev;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
@@ -30,11 +28,11 @@ import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.utils.Variables;
 
-import org.slf4j.helpers.Util;
-
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
 
@@ -44,6 +42,10 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
 
     TextView txtTotalRechazados;
     ImageView imgVupdate;
+
+    TextView hindeviewTxt;
+
+
 
     //textimputeditexts
 
@@ -87,6 +89,31 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lay_cuadro_muestreo_recha);
+
+
+        hindeviewTxt=findViewById(R.id.hindeviewTxt);
+
+        hindeviewTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(mireciclerv.getVisibility()==View.VISIBLE){
+                    mireciclerv.setVisibility(View.GONE);
+
+                    Log.i("midtarer","es if ");
+
+                }else{
+                    mireciclerv.setVisibility(View.VISIBLE);
+                    Log.i("midtarer","es else  ");
+
+
+                }
+
+
+            }
+        });
+
+
 
         ediMutante=findViewById(R.id.ediMutante);
         ediSPEKLING=findViewById(R.id.ediSPEKLING);
@@ -153,6 +180,10 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
                 if(chekeadDataListIsReady()){
 
 
+                    iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
+
+
+
                     openBottomSheetConfirmCreateNew(Variables.FormMuestreoRechaz);
 
 
@@ -208,16 +239,19 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
     private void setRECICLERdata(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList ) {
 
 
+
+
         Log.i("debugeoxc","call here set recicler ");
 
 
-        RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem(ColorCintasSemnsArrayList,this, CuadMuestreoCalibAndRechazPrev.this);
+        RecyclerVAdapterColorCintSem adapter=new RecyclerVAdapterColorCintSem( generateListOrdenada(ColorCintasSemnsArrayList),this, CuadMuestreoCalibAndRechazPrev.this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CuadMuestreoCalibAndRechazPrev.this);
 
         mireciclerv.setLayoutManager(layoutManager);
 
         mireciclerv.setAdapter(adapter);
+
 
 
     }
@@ -494,6 +528,8 @@ return object;
                         Variables.mapColorCintasSemanas.put(key,currentObecjt);
 
                     }
+
+
                 }
 
 
@@ -636,6 +672,103 @@ return object;
 
 
 
+    private  ArrayList<ColorCintasSemns> generateListOrdenada(ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList){
+
+        ArrayList<ColorCintasSemns> sortedUsers = (ArrayList<ColorCintasSemns>) ColorCintasSemnsArrayList.stream()
+                .sorted(Comparator.comparing(ColorCintasSemns::getSemanNum))
+                .collect(Collectors.toList());
+
+
+        return sortedUsers;
+
+    }
+
+
+
+    public  void iterateItemsOfReciclerViewAndAddDataToMap(RecyclerView mirecicler){
+
+        int valueNUM14;
+        int valueNUM13;
+        int valueNUM12;
+        int valueNUM11;
+        int valueNUM10;
+        int valueNUM9;
+
+
+
+
+
+        for (int i = 0; i < mirecicler.getChildCount(); i++) {
+
+
+            RecyclerVAdapterColorCintSem.RecyclerViewHolder holder = (RecyclerVAdapterColorCintSem.RecyclerViewHolder) mirecicler.findViewHolderForAdapterPosition(i);
+           Log.i("samaerino","el value es "+ holder.semnNum.getText().toString());
+            valueNUM14=0;
+            valueNUM13=0;
+            valueNUM12=0;
+            valueNUM11=0;
+            valueNUM10=0;
+            valueNUM9=0;
+
+
+           String uniqueIdObjec=holder.semnNum.getTag().toString();
+
+            if(! holder.ediColum14.getText().toString().trim().isEmpty()){
+                valueNUM14=Integer.parseInt(holder.ediColum14.getText().toString());
+
+            }
+
+            if(!holder.ediColum13.getText().toString().trim().isEmpty()){
+                valueNUM13=Integer.parseInt(holder.ediColum13.getText().toString());
+
+            }
+
+            if(!holder.ediColum12.getText().toString().trim().isEmpty()){
+                valueNUM12=Integer.parseInt(holder.ediColum12.getText().toString());
+
+            }
+
+            if(!holder.ediColum11.getText().toString().trim().isEmpty()){
+                valueNUM11=Integer.parseInt(holder.ediColum11.getText().toString());
+
+            }
+
+            if(!holder.ediColum10.getText().toString().trim().isEmpty()){
+                valueNUM10=Integer.parseInt(holder.ediColum10.getText().toString());
+
+            }
+
+            if(!holder.ediColum9.getText().toString().trim().isEmpty()){
+                valueNUM9=Integer.parseInt(holder.ediColum9.getText().toString());
+
+            }
+
+
+
+            ColorCintasSemns objec= new  ColorCintasSemns(Integer.parseInt(holder.semnNum.getText().toString()),
+            valueNUM14,valueNUM13,valueNUM12,valueNUM11,valueNUM10,valueNUM9);
+            objec.setUniqueId(uniqueIdObjec);
+
+
+            Variables. mapColorCintasSemanas.put(uniqueIdObjec,objec);
+
+
+
+            //aqui agudamos..... hasmap
+
+            //GAURDA,PS
+
+        }
+
+
+
+
+    }
+
+
+
+
+
 
 
 
@@ -649,26 +782,3 @@ return object;
 
 
 
-
-/*
-*   if(chekeadDataListIsReady()){
-
-            //creamos un objeto
-            String keyDondeEstaraHashmap=Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap();
-
-            CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),ediVaporx.getText().toString(),ediProductoras.getText().toString()
-                    ,ediCodigoxs.getText().toString(), ediEnfundex.getText().toString(),keyDondeEstaraHashmap,ediExtCalidad.getText().toString(),
-                    ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
-
-
-            ///editamos los otros datos de la cantidad de rechzados..
-            objec objec=addRechazadosData(objec);
-
-
-            RealtimeDB.updateCuadroMuestreoObject(objectWhitMoreData,Variables.currentcuadroMuestreo); //subimos un cuadro de muestreo object
-
-            RealtimeDB.updateCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
-
-
-
-        }*/

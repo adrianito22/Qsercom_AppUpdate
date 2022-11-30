@@ -16,7 +16,7 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/hindeviewTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -43,8 +43,9 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="150dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:background="#4A4A4A"
-                            android:enabled="false"
                             android:hint="1"
                             android:visibility="visible"
                             app:endIconMode="clear_text">
@@ -69,6 +70,7 @@
                             android:id="@+id/ediColudm14"
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
                             android:digits="0123456789."
                             android:gravity="center_horizontal"
                             android:inputType="number"
@@ -84,60 +86,61 @@
 
                             android:layout_height="wrap_content"
 
+                            android:layout_margin="5dp"
                             android:digits="0123456789."
                             android:gravity="center_horizontal"
                             android:inputType="number"
                             android:text="13" />
 
 
+                        <TextView
 
-                            <TextView
+                            android:id="@+id/ediColsaum12"
+                            android:layout_width="130dp"
 
-                                android:id="@+id/ediColsaum12"
-                                android:layout_width="130dp"
+                            android:layout_height="wrap_content"
 
-                                android:layout_height="wrap_content"
-
-                                android:digits="0123456789."
-                                android:gravity="center_horizontal"
-                                android:inputType="number"
-                                android:text="12" />
-
-
-
-                            <TextView
-
-                                android:id="@+id/ediColum7611"
-                                android:layout_height="wrap_content"
-                                android:layout_width="130dp"
-
-                                android:digits="0123456789."
-                                android:gravity="center_horizontal"
-                                android:inputType="number"
-                                android:text="11" />
+                            android:layout_margin="5dp"
+                            android:digits="0123456789."
+                            android:gravity="center_horizontal"
+                            android:inputType="number"
+                            android:text="12" />
 
 
+                        <TextView
+
+                            android:id="@+id/ediColum7611"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:digits="0123456789."
+                            android:gravity="center_horizontal"
+                            android:inputType="number"
+                            android:text="11" />
 
 
-                            <TextView
+                        <TextView
 
-                                android:id="@+id/ediCol675um10"
-                                android:layout_width="130dp"
+                            android:id="@+id/ediCol675um10"
+                            android:layout_width="130dp"
 
-                                android:layout_height="wrap_content"
+                            android:layout_height="wrap_content"
 
-                                android:gravity="center_horizontal"
-                                android:inputType="text"
-                                android:text="10" />
+                            android:layout_margin="5dp"
+                            android:gravity="center_horizontal"
+                            android:inputType="text"
+                            android:text="10" />
 
 
-                            <TextView
-                                android:id="@+id/ediCorw5lum9"
-                                android:layout_width="130dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
-                                android:inputType="text"
-                                android:text="9" />
+                        <TextView
+                            android:id="@+id/ediCorw5lum9"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center_horizontal"
+                            android:inputType="text"
+                            android:text="9" />
 
 
                     </LinearLayout>

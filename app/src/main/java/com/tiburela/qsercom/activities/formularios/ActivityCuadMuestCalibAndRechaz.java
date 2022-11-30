@@ -40,9 +40,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implements View.OnTouchListener {
 
@@ -51,6 +53,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
     Button btnSaveCambios;
 
     long millisDateSelect;
+    TextView hindeviewTxt;
 
 
     TextInputEditText ediSemanaxc;
@@ -127,6 +130,30 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         txtTotalRechazados=findViewById(R.id.txtTotalRechazados);
         imgVupdate=findViewById(R.id.imgVupdate);
 
+        hindeviewTxt=findViewById(R.id.hindeviewTxt);
+
+        hindeviewTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(mireciclerv.getVisibility()==View.VISIBLE){
+                    mireciclerv.setVisibility(View.GONE);
+
+                    Log.i("midtarer","es if ");
+
+                }else{
+                    mireciclerv.setVisibility(View.VISIBLE);
+                    Log.i("midtarer","es else  ");
+
+
+                }
+
+
+            }
+        });
+
+
+
 
         imgVupdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +206,9 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
 
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(objec);
+
+
+                    iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
 
                     RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 
@@ -302,6 +332,10 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
 
     }
+
+
+
+
 
 
 
@@ -730,6 +764,93 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
         picker.show();
     }
+
+
+
+
+    public  void iterateItemsOfReciclerViewAndAddDataToMap(RecyclerView mirecicler){
+
+        int valueNUM14;
+        int valueNUM13;
+        int valueNUM12;
+        int valueNUM11;
+        int valueNUM10;
+        int valueNUM9;
+
+
+
+
+        for (int i = 0; i < mirecicler.getChildCount(); i++) {
+            RecyclerVAdapterColorCintSem.RecyclerViewHolder holder = (RecyclerVAdapterColorCintSem.RecyclerViewHolder) mirecicler.findViewHolderForAdapterPosition(i);
+
+            Log.i("samaerino","el value es "+ holder.semnNum.getText().toString());
+
+             valueNUM14=0;
+             valueNUM13=0;
+             valueNUM12=0;
+             valueNUM11=0;
+             valueNUM10=0;
+             valueNUM9=0;
+
+
+            String uniqueIdObjec=holder.semnNum.getTag().toString();
+            Log.i("samaerino","el tag es  "+uniqueIdObjec);
+
+
+
+            if(! holder.ediColum14.getText().toString().trim().isEmpty()){
+                valueNUM14=Integer.parseInt(holder.ediColum14.getText().toString());
+
+            }
+
+            if(!holder.ediColum13.getText().toString().trim().isEmpty()){
+                valueNUM13=Integer.parseInt(holder.ediColum13.getText().toString());
+
+            }
+
+            if(!holder.ediColum12.getText().toString().trim().isEmpty()){
+                valueNUM12=Integer.parseInt(holder.ediColum12.getText().toString());
+
+            }
+
+            if(!holder.ediColum11.getText().toString().trim().isEmpty()){
+                valueNUM11=Integer.parseInt(holder.ediColum11.getText().toString());
+
+            }
+
+            if(!holder.ediColum10.getText().toString().trim().isEmpty()){
+                valueNUM10=Integer.parseInt(holder.ediColum10.getText().toString());
+
+            }
+
+            if(!holder.ediColum9.getText().toString().trim().isEmpty()){
+                valueNUM9=Integer.parseInt(holder.ediColum9.getText().toString());
+
+            }
+
+
+
+            ColorCintasSemns objec= new  ColorCintasSemns(Integer.parseInt(holder.semnNum.getText().toString()),
+                    valueNUM14,valueNUM13,valueNUM12,valueNUM11,valueNUM10,valueNUM9);
+            objec.setUniqueId(uniqueIdObjec);
+
+
+            Variables. mapColorCintasSemanas.put(uniqueIdObjec,objec);
+
+
+
+            //aqui agudamos..... hasmap
+
+            //GAURDA,PS
+
+        }
+
+
+
+
+    }
+
+
 
 }
 
