@@ -1063,7 +1063,7 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
 
 
-                    Toast.makeText(contexto, "Se registro exitosamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(contexto, "Iniciaste sesión exitosamente", Toast.LENGTH_SHORT).show();
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {

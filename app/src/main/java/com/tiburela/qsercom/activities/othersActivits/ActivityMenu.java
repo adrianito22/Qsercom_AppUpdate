@@ -64,6 +64,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
+import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
@@ -174,7 +175,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         Utils.dataFieldsPreferencias=new HashMap<String,String>();
         Utils.listImagesToSaVE=new ArrayList<>();
-      Variables.contexto=this;
+
+
+
+
+        Variables.contexto=this;
 
 
         EstateFieldView.adddataListsStateFields();

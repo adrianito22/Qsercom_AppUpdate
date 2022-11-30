@@ -355,13 +355,16 @@ Log.i("hellosweer","se ehjecitp onstart");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
-
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
         CustomAdapter.idsFormsVinucladosControlCalidadString =null;//reseteamos
         CustomAdapter.idsFormsVinucladosCudorMuestreoString=null;
+        CustomAdapter.mapWhitIdsCuadroMuestreo = new HashMap<>();
+        CustomAdapter.mapWhitIDScontrolCaldVinclds= new HashMap<>();
+
 
         ImagenReport.hashMapImagesData=new HashMap<>();
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -395,6 +398,8 @@ Log.i("hellosweer","se ehjecitp onstart");
         eventCheckdata();
         //creaFotos();
 
+        ediRacimosRecha.setEnabled(false);
+        ediRacimosRecha.setText(null);
 
     }
 
@@ -1436,6 +1441,14 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
             public void onClick(View view) {
                 txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
 
+                if(CustomAdapter.idsFormsVinucladosCudorMuestreoString!=null){
+                    if(CustomAdapter.idsFormsVinucladosCudorMuestreoString.trim().length()>1){
+                        DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+
+                    }
+                }
+
+
                 bottomSheetDialog.dismiss();
 
             }
@@ -1465,9 +1478,14 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                   //  dowloadEspecificReprtControCalidadVinculados();
 
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
+
+
+
+
                     /**tambien chekamos que si estan chekeeds...*/
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
+                  //  dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
                     //  System.out.println("Date = "+ cal.getTimeInMillis());
 
@@ -1477,8 +1495,11 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                     cal.add(Calendar.DATE, -1);
                     cald2.add(Calendar.DATE,0);
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
+
+                    //
+                   // dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
                     //  System.out.println("Date = "+ cal.getTimeInMillis());
 
@@ -1493,8 +1514,9 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     cal.add(Calendar.DATE, -7);
                     cald2.add(Calendar.DATE,0);
 
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
+                   // dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
 
 
@@ -1509,8 +1531,9 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                     cal.add(Calendar.DATE, -15);
                     cald2.add(Calendar.DATE,0);
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
+                 //   dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
                     Log.i("sabemosd","la data "+cal.getTimeInMillis());
 
@@ -1520,8 +1543,9 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                     cal.add(Calendar.DATE, -30);
                     cald2.add(Calendar.DATE,0);
+                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
 
-                    dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
+                 //   dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
                     Log.i("sabemosd","la data "+cal.getTimeInMillis());
                 }
@@ -1533,8 +1557,9 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     if(CustomAdapter.idsFormsVinucladosControlCalidadString !=null){  //si existen vinuclados DESCRAGAMOS ESTOS Y OTTRO BY DATE
                         if(CustomAdapter.idsFormsVinucladosControlCalidadString.length()>0){
 
+                            dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
 
-                            dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
+                           // dowloadinformesby_RangeDateAndCallShowSheetB(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
 
 
                         }
@@ -3249,7 +3274,7 @@ void checkDataFields(){ //
 
 
 
-    if(getResultDatCalibCalEnfundes()){
+    if(! getResultDatCalibCalEnfundes()){
         Log.i("test001","no esta lleno  getResultDatCalibCalEnfundes");
 
         return;
@@ -3261,11 +3286,6 @@ void checkDataFields(){ //
 
 
     }
-
-
-
-
-
 
 
 
@@ -4314,6 +4334,8 @@ return true;
         else if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_TRANSPORTISTA)){
             ediFotosLlegadaTransport.requestFocus();
 
+            Toast.makeText(ActivityContenedores.this, "Faltan agregar algunas fotos de transportista", Toast.LENGTH_LONG).show();
+
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
             ediFotosLlegadaTransport.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
             return false;
@@ -4353,7 +4375,6 @@ return true;
         if(ediAguaCorrida.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediAguaCorrida.requestFocus();
             ediAguaCorrida.setError("Este espacio es obligatorio");
-
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
@@ -4412,7 +4433,7 @@ return true;
 
         if(ediRacimosRecha.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimosRecha.requestFocus();
-            ediRacimosRecha.setError("Este espacio es obligatorio");
+            ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
 
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -5415,6 +5436,208 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
+    void dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(long desdeFecha, long hastFecha, ArrayList<String>idsFormsControlCalidVinculadosOmit,ArrayList<String>idsFormsCudroOmits){
+
+        listFormsControlCalidad = new ArrayList<>();
+        mapControlCalidad= new HashMap<>();
+
+        checkedListForms = new ArrayList<>();
+
+        RealtimeDB.initDatabasesRootOnly();
+        // Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("timeDateMillis").startAt(desdeFecha).endAt(hastFecha);
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
+
+
+                    //agregamos solo los que no esten en esta lista..
+                    if(controlcalidad!=null){
+                        listFormsControlCalidad.add(controlcalidad);
+                        mapControlCalidad.put(controlcalidad.getUniqueId(),controlcalidad);
+
+
+                        if(idsFormsControlCalidVinculadosOmit !=null){
+
+                            if(idsFormsControlCalidVinculadosOmit.contains(controlcalidad.getUniqueId())){
+
+                                checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",true,String.valueOf(controlcalidad.getUniqueId())));
+
+
+                            }else {
+
+                                checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",false,String.valueOf(controlcalidad.getUniqueId())));
+
+                            }
+
+
+
+
+                        }else{
+                            checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",false,String.valueOf(controlcalidad.getUniqueId())));
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                //ceramos el anterior ..mostramos este...
+
+                Log.i("samerr","se llamo sedatauncrecicler en dowloadinformesby_RangeDateAndCallShowSheetB ");
+                Log.i("samerr","y el size es  "+ checkedListForms.size());
+
+
+                dowloadinformesby_RangeDateCuadroMuestreoAndCallShowSheet(desdeFecha,hastFecha,idsFormsCudroOmits);
+
+
+                //   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,existValues);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+    void dowloadinformesby_RangeDateCuadroMuestreoAndCallShowSheet(long desdeFecha, long hastFecha, ArrayList<String>idsFormsCuadroMuestreoVinculadosOmit){
+
+        //listFormsControlCalidad = new ArrayList<>();
+
+        //  checkedListForms = new ArrayList<>();
+
+        //  RealtimeDB.initDatabasesRootOnly();
+        // Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo").orderByChild("dateInMillisecond").startAt(desdeFecha).endAt(hastFecha);
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    CuadroMuestreo cuadroMuestreo=ds.getValue(CuadroMuestreo.class);
+
+
+                    //agregamos solo los que no esten en esta lista..
+                    if(cuadroMuestreo!=null){
+
+                      //  listCuadrosMuestreos.add(cuadroMuestreo);
+                        mapCudroMuestreo.put(cuadroMuestreo.getUniqueIdObject(),cuadroMuestreo);
+
+
+                        if(idsFormsCuadroMuestreoVinculadosOmit !=null){
+
+                            if(idsFormsCuadroMuestreoVinculadosOmit.contains(cuadroMuestreo.getUniqueIdObject())){
+
+                                checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",true,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
+
+
+                            }else {
+
+                                checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",false,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
+
+                            }
+
+
+
+
+                        }else{
+                            checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",false,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                //ceramos el anterior ..mostramos este...
+
+                Log.i("samerr","se llamo sedatauncrecicler en dowloadinformesby_RangeDateAndCallShowSheetB ");
+                Log.i("samerr","y el size es  "+ checkedListForms.size());
+
+
+                setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet, checkedListForms,false);
+
+
+
+                //   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,existValues);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+    private void DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(String currentIDoBJECTvinuc ){
+
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
+
+        Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(currentIDoBJECTvinuc);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
+                    Log.i("holerd","aqui se encontro un cuadro muestreo......");
+
+                    if(informe!=null){
+
+                       // Variables.CurrenReportPart3.setEdiRacimosRecha(  String.valueOf(informe.getTotalRechazadosAll()));
+
+                        ediRacimosRecha.setText(String.valueOf(informe.getTotalRechazadosAll()));
+                      //  btnGENERARpdf.setEnabled(true);
+
+                        break;
+                    }
+
+
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+            }
+        } );
+
+    }
 
 
 
