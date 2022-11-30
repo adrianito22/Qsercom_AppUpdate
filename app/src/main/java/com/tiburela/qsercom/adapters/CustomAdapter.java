@@ -32,7 +32,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public static String idsFormsVinucladosControlCalidadString;
     public static String idsFormsVinucladosCudorMuestreoString;
-
     public static HashMap<String,String> mapWhitIDScontrolCaldVinclds;
     public static HashMap<String,String> mapWhitIdsCuadroMuestreo;
 
