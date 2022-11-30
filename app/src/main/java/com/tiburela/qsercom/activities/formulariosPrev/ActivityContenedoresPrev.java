@@ -379,6 +379,10 @@ String currentIDcUDORmUESTREO;
         super.onCreate(savedInstanceState);
        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
+        CustomAdapter.idsFormsVinucladosControlCalidadString =null;//reseteamos
+
+        CustomAdapter.idsFormsVinucladosCudorMuestreoString=null;
+
 
         mContext=this;
 

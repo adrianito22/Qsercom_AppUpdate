@@ -359,6 +359,7 @@ Log.i("hellosweer","se ehjecitp onstart");
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
         CustomAdapter.idsFormsVinucladosControlCalidadString =null;//reseteamos
+        CustomAdapter.idsFormsVinucladosCudorMuestreoString=null;
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
