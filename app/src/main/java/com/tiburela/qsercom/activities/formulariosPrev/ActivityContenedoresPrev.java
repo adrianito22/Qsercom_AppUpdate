@@ -2884,10 +2884,18 @@ private void openBottomSheet(){
                 ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
         Variables.CurrenReportPart1.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
-        Variables.CurrenReportPart1.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
 
 
-        Variables.CurrenReportPart1.setAtachControCuadroMuestreo(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+
+        if( CustomAdapter.idsFormsVinucladosControlCalidadString!=null){
+            Variables.CurrenReportPart1.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
+        }
+
+
+        if( CustomAdapter.idsFormsVinucladosCudorMuestreoString!=null){
+            Variables.CurrenReportPart1.setAtachControCuadroMuestreo(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+
+        }
 
 
 
