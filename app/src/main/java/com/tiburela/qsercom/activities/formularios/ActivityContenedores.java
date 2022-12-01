@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -71,6 +72,7 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -2692,6 +2694,29 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 void checkDataFields(){ //
 
+    if(! Utils.checkifAtach()){
+
+        Log.i("test001","no esta lleno  checkifAtach");
+
+        FragmentManager fm = getSupportFragmentManager();
+        DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CONTENEDORES);
+        // alertDialog.setCancelable(false);
+        alertDialog.show(fm, "duialoffragment_alertZ");
+
+        return;
+    }else
+
+    {
+
+        Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
+
+
+    }
+
+
+
+
+
     if(! checkDatosGeneralesIsLleno()){
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
@@ -2817,6 +2842,9 @@ void checkDataFields(){ //
 
     }
 
+
+
+   //AGERGAR AQUI
 
 
 
@@ -4966,164 +4994,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
-    void dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(long desdeFecha, long hastFecha, ArrayList<String>idsFormsControlCalidVinculadosOmit,ArrayList<String>idsFormsCudroOmits){
-
-        listFormsControlCalidad = new ArrayList<>();
-        mapControlCalidad= new HashMap<>();
-
-        checkedListForms = new ArrayList<>();
-
-        RealtimeDB.initDatabasesRootOnly();
-        // Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("timeDateMillis").startAt(desdeFecha).endAt(hastFecha);
-
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
-
-
-                    //agregamos solo los que no esten en esta lista..
-                    if(controlcalidad!=null){
-                        listFormsControlCalidad.add(controlcalidad);
-                        mapControlCalidad.put(controlcalidad.getUniqueId(),controlcalidad);
-
-
-                        if(idsFormsControlCalidVinculadosOmit !=null){
-
-                            if(idsFormsControlCalidVinculadosOmit.contains(controlcalidad.getUniqueId())){
-
-                                checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",true,String.valueOf(controlcalidad.getUniqueId())));
-
-
-                            }else {
-
-                                checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",false,String.valueOf(controlcalidad.getUniqueId())));
-
-                            }
-
-
-
-
-                        }else{
-                            checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",false,String.valueOf(controlcalidad.getUniqueId())));
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-                //ceramos el anterior ..mostramos este...
-
-                Log.i("samerr","se llamo sedatauncrecicler en dowloadinformesby_RangeDateAndCallShowSheetB ");
-                Log.i("samerr","y el size es  "+ checkedListForms.size());
-
-
-                dowloadinformesby_RangeDateCuadroMuestreoAndCallShowSheet(desdeFecha,hastFecha,idsFormsCudroOmits);
-
-
-                //   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,existValues);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-    void dowloadinformesby_RangeDateCuadroMuestreoAndCallShowSheet(long desdeFecha, long hastFecha, ArrayList<String>idsFormsCuadroMuestreoVinculadosOmit){
-
-        //listFormsControlCalidad = new ArrayList<>();
-
-        //  checkedListForms = new ArrayList<>();
-
-        //  RealtimeDB.initDatabasesRootOnly();
-        // Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo").orderByChild("dateInMillisecond").startAt(desdeFecha).endAt(hastFecha);
-
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    CuadroMuestreo cuadroMuestreo=ds.getValue(CuadroMuestreo.class);
-
-
-                    //agregamos solo los que no esten en esta lista..
-                    if(cuadroMuestreo!=null){
-
-                      //  listCuadrosMuestreos.add(cuadroMuestreo);
-                        mapCudroMuestreo.put(cuadroMuestreo.getUniqueIdObject(),cuadroMuestreo);
-
-
-                        if(idsFormsCuadroMuestreoVinculadosOmit !=null){
-
-                            if(idsFormsCuadroMuestreoVinculadosOmit.contains(cuadroMuestreo.getUniqueIdObject())){
-
-                                checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",true,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
-
-
-                            }else {
-
-                                checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",false,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
-
-                            }
-
-
-
-
-                        }else{
-                            checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",false,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-                //ceramos el anterior ..mostramos este...
-
-                Log.i("samerr","se llamo sedatauncrecicler en dowloadinformesby_RangeDateAndCallShowSheetB ");
-                Log.i("samerr","y el size es  "+ checkedListForms.size());
-
-
-                //setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet, checkedListForms,false);
-
-
-
-                //   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,existValues);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
 
 
     private void DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(String currentIDoBJECTvinuc ){
@@ -5226,7 +5096,42 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
 
+public void decideaAtachReport(int userSelecion){
 
+        /*
+        *100 para cuando el usuario tenga otro pendiente
+        * 200: PARA CUANDO EL USER SELECION ATACH
+        * ***/
+
+
+
+      if(userSelecion==200){ //SELECIONO ATCH
+            Log.i("test001"," seleciono 200");
+
+            ScrollView scrollView2 =findViewById(R.id.scrollView2);
+
+            scrollView2.post(new Runnable() {
+                public void run() {
+                    scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
+                }
+            });
+
+        }
+
+        else if(userSelecion==300){ //USUARIO SELECION OMITR TODS
+            //AQUI VAMOS A SUBIR DATA..
+
+            Log.i("test001"," seleciono 300");
+
+
+        }
+
+
+
+
+
+
+}
 
 
 }

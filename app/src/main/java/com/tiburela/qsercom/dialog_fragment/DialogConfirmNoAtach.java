@@ -7,28 +7,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
-import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
-import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
-import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivity;
-import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
-import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements View.OnClickListener {
         public static final String TAG = "ActionBottomDialog";
 
+         boolean userDeciidoAquiAtach=false;
 
        static int formullarioSelect=0;
         private View vista;
-        Button btnSi;
-        Button btnNo;
+        Button atachAhora;
+        Button atachDespues;
+
+        TextView txtiText;
 
     Context context;
 
@@ -40,12 +42,18 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
-            vista= inflater.inflate(R.layout.bottom_sheet_confirm_changes, container, false);
+            vista= inflater.inflate(R.layout.bottom_sheet_confirm_atch, container, false);
 
-             btnSi=vista.findViewById(R.id.btnSi);
-             btnNo=vista.findViewById(R.id.btnNo);
+            atachAhora =vista.findViewById(R.id.atachAhora);
+            atachDespues =vista.findViewById(R.id.atachDespues);
+            txtiText=vista.findViewById(R.id.txtiText);
 
             context = getActivity();
+
+
+            atachAhora.setOnClickListener(this);
+            atachDespues.setOnClickListener(this);
+            Log.i("ontatch","se ejecuto onViewCreated");
             Log.i("ontatch","se ejecuto onCreateView");
 
             return  vista;
@@ -54,9 +62,18 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
         }
         @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            btnSi.setOnClickListener(this);
-            btnNo.setOnClickListener(this);
-            Log.i("ontatch","se ejecuto onViewCreated");
+
+            if(! Utils.userDecidioNoVincularControlCalidForm){
+                txtiText.setText("No tienes vinculado ningun reporte control Calidad");
+
+            }
+
+            else if(! Utils.userDecidioNoVincularCuadroMuestreo){
+                txtiText.setText("No tienes vinuculado ningun  reporte cuadro Muestreo");
+
+            }
+
+
 
             //  view.findViewById(R.id.textView4).setOnClickListener(this);
         }
@@ -81,8 +98,26 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
         @Override public void onClick(View view) {
           // Button tvSelected = (Button) view;
 
-            if(view.getId()==R.id.btnSi){ //crea un formulario nuevo
-                callmethod(formullarioSelect);
+            if(view.getId()==R.id.atachAhora){ //
+                userDeciidoAquiAtach=true;
+                callmethodOfActivity(formullarioSelect);
+
+            }
+
+            if(view.getId()==R.id.atachDespues){
+                userDeciidoAquiAtach=false;
+
+
+                if(! Utils.userDecidioNoVincularControlCalidForm){  /// si es true
+                    Utils.userDecidioNoVincularControlCalidForm=true;
+                }
+
+                else if(! Utils.userDecidioNoVincularCuadroMuestreo){
+                    Utils.userDecidioNoVincularCuadroMuestreo=true;
+                }
+
+
+                callmethodOfActivity(formullarioSelect);
 
             }
 
@@ -111,44 +146,38 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
 
     }
 
-    public  void callmethod(int tipoFormulario) {
+    public  void callmethodOfActivity(int tipoFormulario) {
       //  openBottomSheetConfirmCreateNew  saveinfo
 
 
-        if(tipoFormulario== Variables.FormCantrolCalidad){
+        if(tipoFormulario== Constants.CONTENEDORES){
+            if( Utils.userDecidioNoVincularControlCalidForm && Utils.userDecidioNoVincularCuadroMuestreo ){
+
+                ((ActivityContenedores)getActivity()).decideaAtachReport(300);//  ///
+
+            }
+
+
+
+
+            else if(userDeciidoAquiAtach && Utils.userDecidioNoVincularControlCalidForm || Utils.userDecidioNoVincularCuadroMuestreo  ) { //si el usuerio le queda otro por atach
+
+                ((ActivityContenedores)getActivity()).decideaAtachReport(200);//  ///
+
+            }
             Log.i("ontatch","se ejecuto onStart");
-            ((FormularioControlCalidadPreview)getActivity()).saveInfo();
-
-        }
-
-        else  if(tipoFormulario==Variables.FormPreviewContenedores){
-            ((ActivityContenedoresPrev)getActivity()).saveInfo();
-        }
-
-
-        else  if(tipoFormulario==Variables.FormatDatsContAcopi){
-            ((PreviewsFormDatSContersEnAc)getActivity()).saveInfo();
-
-        }
-
-        else  if(tipoFormulario==Variables.FormCamionesyCarretasActivity){//
-            ((PreviewCalidadCamionesyCarretas)getActivity()).saveInfo();
-
-        }
-
-        else  if(tipoFormulario==Variables.FormPackingList){
-            ((PackingListPreviewActivity)getActivity()).saveInfo();
-
-
-        }
-
-        else  if(tipoFormulario==Variables.FormMuestreoRechaz){
-            ((CuadMuestreoCalibAndRechazPrev)getActivity()).saveInfo();
 
         }
 
 
-        ///
+
+
+             //m,aselse if por aqui
+
+
+          dismiss();
+
+
     }
 
 

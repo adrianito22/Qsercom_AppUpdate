@@ -827,4 +827,23 @@ return
     }
 
 
+
+
+    public static  boolean checkifAtach(){ //chekeamos ambos haber si estan en atch
+
+
+        if(Utils.userDecidioNoVincularControlCalidForm && Utils.userDecidioNoVincularCuadroMuestreo){
+           return true;
+        }
+
+        else{
+
+                return false;
+
+        }
+
+
+
+    }
+
 }
