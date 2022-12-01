@@ -14,6 +14,10 @@ public class SetInformEmbarque2 {
     private String termografo2HoraEncendido;
     private String ubicacionPalletN1;
 
+    public void setUniqueIDinformePart2(String uniqueIDinformePart2) {
+        this.uniqueIDinformePart2 = uniqueIDinformePart2;
+    }
+
     private  String uniqueIDinformePart2;
     private String ubicacionPalletN2;
     private String rumaPalletN1;

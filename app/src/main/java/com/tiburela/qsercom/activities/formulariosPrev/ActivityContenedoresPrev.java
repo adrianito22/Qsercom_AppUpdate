@@ -49,6 +49,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,6 +66,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
@@ -72,6 +74,7 @@ import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -337,6 +340,12 @@ String currentIDcUDORmUESTREO;
 
 
                    UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinforme();
+                   //
+
+
+
+                    StorageData. uniqueIDImagesSetAndUInforme= Variables.CurrenReportPart1.getUniqueIDinforme();
+
 
 
                    // FirebaseApp.initializeApp(this);
@@ -379,9 +388,9 @@ String currentIDcUDORmUESTREO;
         super.onCreate(savedInstanceState);
        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
-        CustomAdapter.idsFormsVinucladosControlCalidadString =null;//reseteamos
+        CustomAdapter.idsFormsVinucladosControlCalidadString ="";//reseteamos
 
-        CustomAdapter.idsFormsVinucladosCudorMuestreoString=null;
+        CustomAdapter.idCudroMuestreoStringVinuclado ="";
 
 
         mContext=this;
@@ -615,7 +624,7 @@ String currentIDcUDORmUESTREO;
          ediFecha=findViewById(R.id.ediCajas7);
          ediProductor=findViewById(R.id.ediCodigoN2);
          ediHacienda=findViewById(R.id.ediCodigoN8);
-         ediCodigo=findViewById(R.id.ediCodigoN7);
+         ediCodigo=findViewById(R.id.ediCodigo);
          ediInscirpMagap=findViewById(R.id.ediCajas10);
          ediPemarque=findViewById(R.id.ediProductor10);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
@@ -1163,28 +1172,8 @@ String currentIDcUDORmUESTREO;
 
            case R.id.imgAtachVinculacion:
 
-               ArrayList<String>listIdSvINCULADOS;
-               listIdSvINCULADOS=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString);
-               listFormsControlCalidad = new ArrayList<>();
-               mapControlCalidad= new HashMap<>();
+               showEditDialogAndSendData();
 
-
-               checkedListForms = new ArrayList<>();
-
-               if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
-                   showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
-                   for(String value: listIdSvINCULADOS){
-                       Log.i("salero","se ejecuto esto veces");
-                       dowloadReportsVinucladosAndSetinRecycler(value, listIdSvINCULADOS);
-                   }
-
-                  }
-
-               else
-               { //si esta lista esta vacia inteta con otras......
-
-                   calltoDowloadReportsVinculadoCudroMuestreo();
-               }
 
 
                break;
@@ -1193,505 +1182,37 @@ String currentIDcUDORmUESTREO;
 
        }
 
+
+
+
+
+
         //aqui o
 
 
     }
 
+    private void showEditDialogAndSendData() {
 
-    private void calltoDowloadReportsVinculadoCudroMuestreo(){
-        ArrayList<String>listVinculadoCalidadAndRechazads;
+        Bundle bundle = new Bundle();
+        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS,CustomAdapter.idsFormsVinucladosControlCalidadString);
+        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED,CustomAdapter.idCudroMuestreoStringVinuclado);
 
-        listVinculadoCalidadAndRechazads=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
-       // listFormsControlCalidad = new ArrayList<>();
 
-       ///agregamos estos valores a esta lista...
 
-       // checkedListForms = new ArrayList<>();
+        //
 
-        if(listVinculadoCalidadAndRechazads.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
-           // showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
-             //CALCULAMOS CUANTOS REPORTES DEBEN HABER EN TOTAL
 
+        FragmentManager fm = getSupportFragmentManager();
+        BottonSheetDfragmentVclds alertDialog = BottonSheetDfragmentVclds.newInstance(Constants.PREV_CONTENEDORES);
+        // alertDialog.setCancelable(false);
 
-            Log.i("hanoaia","se llamo aqui ");
-
-
-            int reportesTOtalquedebenVinculares=listVinculadoCalidadAndRechazads.size();
-
-
-            Log.i("hanoaia","el numreportesdeven vincularese es  "+reportesTOtalquedebenVinculares);
-
-
-            for(String value: listVinculadoCalidadAndRechazads){
-                Log.i("hanoaia","se ejecuto esto veces");
-                DowloadCalbAndRechazadosAndSetRecicler(reciclerViewBottomSheet,true,value,reportesTOtalquedebenVinculares);
-            }
-
-
-        }else{
-
-
-
-            Log.i("hanoaia","se ejecuto el else ");
-
-            showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,false);
-
-
-        }
-
-    }
-
-
-    private ArrayList<String> generateLISTbyStringVinculados(String controlCalidStrin,String cuadroReportString ){
-
-        ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
-
-
-        if(controlCalidStrin!=null){
-            String [] miarrayiNFORMESvinc = controlCalidStrin.split(",");
-            Log.i("datamapitkka","el size de aara es "+miarrayiNFORMESvinc.length);
-
-            if(miarrayiNFORMESvinc.length >1) {
-
-                for(String value : miarrayiNFORMESvinc){
-                    listIdSvINCULADOS.add(value);
-                }
-
-                Log.i("datamapitkka","es mayor a 1"+listIdSvINCULADOS.size());
-
-            }
-            else{
-
-                listIdSvINCULADOS.add(controlCalidStrin);
-                Log.i("datamapitkka","no es mayor a 1 y el value es "+listIdSvINCULADOS.size());
-
-            }
-
-        }
-
-
-
-
-        if(cuadroReportString!=null){
-            String [] miarrayiNFORMESvincx = cuadroReportString.split(",");
-            Log.i("datamapitkka","el size de aara es "+miarrayiNFORMESvincx.length);
-
-            if(miarrayiNFORMESvincx.length >1) {
-
-                for(String value : miarrayiNFORMESvincx){
-                    listIdSvINCULADOS.add(value);
-                }
-
-                Log.i("datamapitkka","es mayor a 1"+listIdSvINCULADOS.size());
-
-            }
-            else{
-
-                listIdSvINCULADOS.add(cuadroReportString);
-                Log.i("datamapitkka","no es mayor a 1 y el value es "+listIdSvINCULADOS.size());
-
-            }
-
-        }
-
-
-
-
-
-
-
-        return listIdSvINCULADOS;
-    }
-
-
-
-    private ArrayList<String> generateLISTbyStringVinculados(String ValueLineViculados ){
-
-        ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
-
-
-
-        if(ValueLineViculados!=null){
-            String [] miarrayiNFORMESvinc = ValueLineViculados.split(",");
-            Log.i("datamapitkka","el size de aara es "+miarrayiNFORMESvinc.length);
-
-            if(miarrayiNFORMESvinc.length >1) {
-
-                for(String value : miarrayiNFORMESvinc){
-                    listIdSvINCULADOS.add(value);
-                }
-
-                Log.i("datamapitkka","es mayor a 1"+listIdSvINCULADOS.size());
-
-            }
-            else{
-
-                listIdSvINCULADOS.add(ValueLineViculados);
-                Log.i("datamapitkka","no es mayor a 1 y el value es "+listIdSvINCULADOS.size());
-
-            }
-
-        }
-
-
-
-
-        return listIdSvINCULADOS;
-    }
-
-    private void generateAnDowloadPdf(SetInformEmbarque1 objPrimeraParte, SetInformEmbarque2 objSegundaParte, ProductPostCosecha productPost) {
-        //generamos el pdf usnado el objeto 1 y 2
-
-       // PdfMaker.generatePdfReport1(ActivityContenedoresPrev.this,objPrimeraParte,objSegundaParte,productPost);
-
+        alertDialog.setArguments(bundle);
+        alertDialog.show(fm, "duialoffragment_alert");
 
 
 
     }
-
-
-    private void showReportsAndSelectOrDeleteVinuclados(Context context,boolean existeValues) {
-
-        bottomSheetDialog = new BottomSheetDialog(context);
-
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_ver_atachx);
-
-        bottomSheetDialog.setCancelable(false);
-
-//        CheckBox checkBx1 = bottomSheetDialog.findViewById(R.id.checkBx1);
-        reciclerViewBottomSheet =bottomSheetDialog.findViewById(R.id.mirecyclerViewAtach);
-        Spinner spinner=bottomSheetDialog.findViewById(R.id.spinnerSelectrodate);
-        // spinner.setSelection(posicionSelectedSpinnerx);
-        ImageView imgClose=bottomSheetDialog.findViewById(R.id.imgClose);
-
-
-        // reciclerView.setHasFixedSize(true);
-        txtAdviseer=bottomSheetDialog.findViewById(R.id.txtAdviseer);
-        txtAdviserDesvicunlar=bottomSheetDialog.findViewById(R.id.txtAdviserDesvicunlar);
-
-        imgClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //aqui actualizamos...
-
-                txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
-
-                if(CustomAdapter.idsFormsVinucladosCudorMuestreoString!=null){
-                    if(CustomAdapter.idsFormsVinucladosCudorMuestreoString.trim().length()>1){
-                        DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
-
-
-                    }
-                }
-
-
-                bottomSheetDialog.dismiss();
-
-
-
-
-            }
-        });
-
-
-
-        if(existeValues){
-            txtAdviseer.setVisibility(TextView.GONE);
-
-        }
-
-
-
-
-        bottomSheetDialog.show();
-
-
-        /////
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selecionado=spinner.getSelectedItem().toString();
-                Calendar cal = Calendar.getInstance();
-
-                Calendar cald2 = Calendar.getInstance();
-
-
-                //   idsFormsControlCalidVinculados=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres);
-
-                if(selecionado.equals("Hoy")) {
-
-                    // long timeCurrent = new Date().getTime();
-                    cal.add(Calendar.DATE, -0);
-                    cald2.add(Calendar.DATE,0);
-
-                    //  dowloadEspecificReprtControCalidadVinculados();
-
-                    /**tambien chekamos que si estan chekeeds...*/
-
-                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
-
-
-
-
-                    //  System.out.println("Date = "+ cal.getTimeInMillis());
-
-                }
-
-                else if(selecionado.equals("Ayer")) {
-
-                    cal.add(Calendar.DATE, -1);
-                    cald2.add(Calendar.DATE,0);
-
-                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
-
-                    //  System.out.println("Date = "+ cal.getTimeInMillis());
-
-                }
-
-
-
-
-
-                else if(selecionado.equals("Ultimos 7 dias")) {
-
-                    cal.add(Calendar.DATE, -7);
-                    cald2.add(Calendar.DATE,0);
-
-
-                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
-
-
-
-                    Log.i("sabemosd","la data "+cal.getTimeInMillis());
-
-                    //  System.out.println("Date = "+ cal.getTimeInMillis());
-
-                }
-
-
-                else if(selecionado.equals("Ultimos 15 dias")) {
-
-                    cal.add(Calendar.DATE, -15);
-                    cald2.add(Calendar.DATE,0);
-
-                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
-
-                    Log.i("sabemosd","la data "+cal.getTimeInMillis());
-
-                }
-
-                else if(selecionado.equals("Ultimos 30 dias")) {
-
-                    cal.add(Calendar.DATE, -30);
-                    cald2.add(Calendar.DATE,0);
-
-                    dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
-
-                    Log.i("sabemosd","la data "+cal.getTimeInMillis());
-                }
-
-
-                else if(selecionado.equals("Reportes Vinculados")) {
-
-
-                    if(CustomAdapter.idsFormsVinucladosControlCalidadString !=null){  //si existen vinuclados DESCRAGAMOS ESTOS Y OTTRO BY DATE
-                        if(CustomAdapter.idsFormsVinucladosControlCalidadString.length()>0){
-
-
-                            dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCudorMuestreoString));
-
-
-                        }
-                    }else{
-                        txtAdviseer.setText("No existe Ningun Reporte Vinculado");
-                        txtAdviseer.setVisibility(TextView.VISIBLE);
-                    }
-
-
-                    Log.i("sabemosd","la data "+cal.getTimeInMillis());
-                }
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-
-
-
-
-    }
-
-    void dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(long desdeFecha, long hastFecha, ArrayList<String>idsFormsControlCalidVinculadosOmit,ArrayList<String>idsFormsCudroOmits){
-
-        listFormsControlCalidad = new ArrayList<>();
-        mapControlCalidad= new HashMap<>();
-
-        checkedListForms = new ArrayList<>();
-
-        RealtimeDB.initDatabasesRootOnly();
-        // Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("timeDateMillis").startAt(desdeFecha).endAt(hastFecha);
-
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
-
-
-                    //agregamos solo los que no esten en esta lista..
-                    if(controlcalidad!=null){
-                        listFormsControlCalidad.add(controlcalidad);
-                        mapControlCalidad.put(controlcalidad.getUniqueId(),controlcalidad);
-
-
-                        if(idsFormsControlCalidVinculadosOmit !=null){
-
-                            if(idsFormsControlCalidVinculadosOmit.contains(controlcalidad.getUniqueId())){
-
-                                checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",true,String.valueOf(controlcalidad.getUniqueId())));
-
-
-                            }else {
-
-                                checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",false,String.valueOf(controlcalidad.getUniqueId())));
-
-                            }
-
-
-
-
-                        }else{
-                            checkedListForms.add(new CheckedAndAtatch(controlcalidad.getSimpleDate(),controlcalidad.getHacienda(),"Control calidad",false,String.valueOf(controlcalidad.getUniqueId())));
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-                //ceramos el anterior ..mostramos este...
-
-                Log.i("samerr","se llamo sedatauncrecicler en dowloadinformesby_RangeDateAndCallShowSheetB ");
-                Log.i("samerr","y el size es  "+ checkedListForms.size());
-
-
-                dowloadinformesby_RangeDateCuadroMuestreoAndCallShowSheet(desdeFecha,hastFecha,idsFormsCudroOmits);
-
-
-                //   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,existValues);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-
-    void dowloadinformesby_RangeDateCuadroMuestreoAndCallShowSheet(long desdeFecha, long hastFecha, ArrayList<String>idsFormsCuadroMuestreoVinculadosOmit){
-
-        //listFormsControlCalidad = new ArrayList<>();
-
-      //  checkedListForms = new ArrayList<>();
-
-      //  RealtimeDB.initDatabasesRootOnly();
-        // Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo").orderByChild("dateInMillisecond").startAt(desdeFecha).endAt(hastFecha);
-
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    CuadroMuestreo cuadroMuestreo=ds.getValue(CuadroMuestreo.class);
-
-
-                    //agregamos solo los que no esten en esta lista..
-                    if(cuadroMuestreo!=null){
-
-                        listCuadrosMuestreos.add(cuadroMuestreo);
-                        mapCudroMuestreo.put(cuadroMuestreo.getUniqueIdObject(),cuadroMuestreo);
-
-
-                        if(idsFormsCuadroMuestreoVinculadosOmit !=null){
-
-                            if(idsFormsCuadroMuestreoVinculadosOmit.contains(cuadroMuestreo.getUniqueIdObject())){
-
-                                checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",true,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
-
-
-                            }else {
-
-                                checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",false,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
-
-                            }
-
-
-
-
-                        }else{
-                            checkedListForms.add(new CheckedAndAtatch(cuadroMuestreo.getSimpleDateFormat(),cuadroMuestreo.getProductor(),"Cuadro Muestreo",false,String.valueOf(cuadroMuestreo.getUniqueIdObject())));
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-                //ceramos el anterior ..mostramos este...
-
-                Log.i("samerr","se llamo sedatauncrecicler en dowloadinformesby_RangeDateAndCallShowSheetB ");
-                Log.i("samerr","y el size es  "+ checkedListForms.size());
-
-
-                setDataInRecyclerOfBottomSheet(reciclerViewBottomSheet, checkedListForms,false);
-
-
-
-                //   showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,existValues);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-
 
 
     private void takepickNow() {
@@ -1745,7 +1266,7 @@ String currentIDcUDORmUESTREO;
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                                 //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(ActivityContenedoresPrev.this,cam_uri),horientacionImg);
+                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,cam_uri),horientacionImg);
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -2096,7 +1617,7 @@ String currentIDcUDORmUESTREO;
                                     String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                                     //creamos un nuevo objet de tipo ImagenReport
-                                    ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)), horientacionImg);
+                                    ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)), horientacionImg);
 
                                     //agregamos este objeto a la lista
                                     ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -2592,7 +2113,7 @@ void checkDataFields(){
 
 
     }
-    if(getResultDatCalibCalEnfundes()){
+    if(!getResultDatCalibCalEnfundes()){
         Log.i("test001","no esta lleno  getResultDatCalibCalEnfundes");
 
         return;
@@ -2817,11 +2338,11 @@ void checkDataFields(){
       //  int contadroInformsCuadroMuetreo=0;
 
 
-      //  String [] allInformCuadroMuetreo =CustomAdapter.idsFormsVinucladosCudorMuestreoString.split(",");
+      //  String [] allInformCuadroMuetreo =CustomAdapter.idCudroMuestreoStringVinuclado.split(",");
        /// String [] allInformcONTROLcALIDA=CustomAdapter.idsFormsVinucladosControlCalidadString.split(",");
 
 
-        if(CustomAdapter.idsFormsVinucladosCudorMuestreoString.trim().isEmpty()){
+        if(CustomAdapter.idCudroMuestreoStringVinuclado.trim().isEmpty()){
             Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Cuadro de muestreo", Toast.LENGTH_LONG).show();
             return false;
 
@@ -2865,6 +2386,8 @@ private void openBottomSheet(){
 
     private void updateInformeWhitCurrentDataOfViews(){
 
+        String atachViucladoControlCalidad=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+        String atachViucladoCuadroX=Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
 
 
         //aplicamos la logica PARA CREAR UN NUEVO INFORME
@@ -2886,18 +2409,19 @@ private void openBottomSheet(){
                 ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
                 ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
                 ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
-        Variables.CurrenReportPart1.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+                Variables.CurrenReportPart1.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
+        Variables.CurrenReportPart1.setAtachControCalidadInfrms(atachViucladoControlCalidad);
+        Variables.CurrenReportPart1.setAtachControCuadroMuestreo(atachViucladoCuadroX);
 
-
-        if( CustomAdapter.idsFormsVinucladosControlCalidadString!=null){
+        if( CustomAdapter.idsFormsVinucladosControlCalidadString.length()>1){
             Variables.CurrenReportPart1.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
         }
 
 
-        if( CustomAdapter.idsFormsVinucladosCudorMuestreoString!=null){
-            Variables.CurrenReportPart1.setAtachControCuadroMuestreo(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+        if( CustomAdapter.idCudroMuestreoStringVinuclado.length()>1){
+            Variables.CurrenReportPart1.setAtachControCuadroMuestreo(CustomAdapter.idCudroMuestreoStringVinuclado);
 
         }
 
@@ -2984,9 +2508,9 @@ private void createObjcInformeAndUpload() {
 
     informe.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
 
-    informe.setAtachControCuadroMuestreo(CustomAdapter.idsFormsVinucladosCudorMuestreoString); //LE BORRAMOS MASS
+    informe.setAtachControCuadroMuestreo(CustomAdapter.idCudroMuestreoStringVinuclado); //LE BORRAMOS MASS
 
-    Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+    Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + CustomAdapter.idCudroMuestreoStringVinuclado);
 
     if (millisDateSelect > 0) {
 
@@ -5035,7 +4559,7 @@ return true;
         CustomAdapter.mapWhitIDScontrolCaldVinclds = new HashMap<>();
         CustomAdapter.mapWhitIdsCuadroMuestreo = new HashMap<>();
 
-        if(info1Object.getAtachControCalidadInfrms()!=null){
+        if(info1Object.getAtachControCalidadInfrms().length()>1){
             String [] miarrayiNFORMESvinc = info1Object.getAtachControCalidadInfrms().split(",");
             Log.i("picacins","el size de aara es "+miarrayiNFORMESvinc.length);
 
@@ -5055,7 +4579,7 @@ return true;
 
 
            ///AGERGAMOS LOS INFORMES DE CUADRO MUESTREO A LA VARIABLE A LA AVRIABLE GLOBAL
-        if(info1Object.getAtachControCuadroMuestreo()!=null){
+        if(info1Object.getAtachControCuadroMuestreo().length()>1){
             String [] miarrayiNFORMESvinc = info1Object.getAtachControCuadroMuestreo().split(",");
             Log.i("picacins","el size de aara es "+miarrayiNFORMESvinc.length);
 
@@ -5433,7 +4957,7 @@ private void checkModeVisualitY(){
 
                 if(currentIDcUDORmUESTREO!=null){
 
-                    DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idsFormsVinucladosCudorMuestreoString);
+                    DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idCudroMuestreoStringVinuclado);
 
                 }else{ //sino hay ningun cuadro muestreo;
 
@@ -6236,280 +5760,7 @@ if(indice>2) {
        finish();
     }
 
-    private void dowloadReportsVinucladosAndSetinRecycler(String reportidToSearch, ArrayList<String>listIdSvINCULADOS ) {
-        Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
 
-        RealtimeDB.initDatabasesRootOnly();
-
-
-        //  Query query = mDatabase2.child("Clientes").orderByChild("userIdUnique").equalTo(userCurrent.getUserIdUnique());
-
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("uniqueId").equalTo(reportidToSearch);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    ControlCalidad  user=ds.getValue(ControlCalidad.class);
-                    Log.i("salero","encontrado uno ");
-
-                    listFormsControlCalidad.add(user);
-
-                    mapControlCalidad.put(user.getUniqueId(),user);
-
-
-                    checkedListForms.add(new CheckedAndAtatch(user.getSimpleDate(),user.getHacienda(),"Control calidad",true,String.valueOf(user.getUniqueId())));
-
-
-                }
-
-                //cuando las descrague todos
-                Log.i("salero","el list forms size es "+ listFormsControlCalidad.size());
-
-                Log.i("salero","el listIdSvINCULADOS size es "+listIdSvINCULADOS.size());
-
-
-
-
-                if(checkedListForms.size() ==listIdSvINCULADOS.size()){
-
-
-
-
-                    calltoDowloadReportsVinculadoCudroMuestreo();
-
-                    //cargamos la info en el sheet cargado
-
-
-                   // DowloadCalbAndRechazadosAndSetRecicler();
-
-
-                    //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedores.this,true);
-
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-
-    private void DowloadCalbAndRechazadosAndSetRecicler (RecyclerView recicler,boolean esreportsVinculados, String uniqeuIDiNFORME,int numTOtalRportVINCULARaLLTYPES ){
-
-        //to fetch all the users of firebase Auth app
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-
-        DatabaseReference usersdRef = rootRef.child("Informes").child("CuadrosMuestreo");
-
-        Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(uniqeuIDiNFORME);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot ds : snapshot.getChildren()) {
-
-                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
-                    Log.i("holerd","aqui se encontro un cuadro muestreo......");
-
-                    if(informe!=null){
-
-
-                       // listFormsControlCalidad.add(informe);
-
-                        checkedListForms.add(new CheckedAndAtatch(informe.getSimpleDateFormat(),informe.getCodigo(),"Cuadro Muestreo",true,String.valueOf(informe.getUniqueIdObject())));
-
-
-
-                    }
-
-
-                }
-
-
-
-                Log.i("hanoaia","el checkedListForms size es "+ checkedListForms.size());
-                Log.i("hanoaia","el numTOtalRportVINCULARaLLTYPES es "+ numTOtalRportVINCULARaLLTYPES);
-
-
-                if(checkedListForms.size()==numTOtalRportVINCULARaLLTYPES){
-
-                    Log.i("hanoaia","es tru evamos sgiguienyte...");
-
-
-                    setDataInRecyclerOfBottomSheet(recicler,checkedListForms,esreportsVinculados);
-
-
-                }
-
-
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("misdata","el error es  "+ error.getMessage());
-
-            }
-        } );
-
-    }
-
-
-
-
-    private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList<CheckedAndAtatch>lista,boolean esReportsVinculadosMod) {
-        Log.i("samerr", "se llamo setDataInRecyclerOfBottomSheet y esl zie es  " + lista.size());
-
-        //Button  btnSaveCambiosxxx=bottomSheetDialog.findViewById(R.id.btnSaveCambiosxxx);
-
-        if (esReportsVinculadosMod && lista.size() == 0) {
-            txtAdviseer.setText("No hay Reportes Vinculados");
-
-        }
-
-
-        if (lista.size() == 0) {
-
-            txtAdviseer.setVisibility(TextView.VISIBLE);
-            txtAdviseer.setText("No hay Reportes en este periodo, selecione otro");
-
-            txtAdviserDesvicunlar.setVisibility(TextView.GONE);
-            //  btnSaveCambiosxxx.setVisibility(TextView.GONE);
-
-            Log.i("samerr", "se ejeduto el if ");
-
-        }
-
-        else
-
-        {
-            Log.i("samerr", "se ejeduto el else ");
-            txtAdviserDesvicunlar.setVisibility(TextView.VISIBLE);
-            // btnSaveCambiosxxx.setVisibility(TextView.VISIBLE);
-
-            txtAdviseer.setVisibility(TextView.GONE);
-        }
-
-
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityContenedoresPrev.this);
-
-
-      int sizeList= generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString,CustomAdapter.idsFormsVinucladosCudorMuestreoString).size();
-      Log.i("elsized","misizelistes "+sizeList);
-
-
-        Log.i("elsized","e; size de lista  2es  "+lista.size());
-
-        CustomAdapter adapter = new CustomAdapter(ActivityContenedoresPrev.this, lista, generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString,CustomAdapter.idsFormsVinucladosCudorMuestreoString));
-
-
-        //  this.adapter.setPlayPauseClickListener(this);
-
-        reciclerView.setLayoutManager(layoutManager);
-        reciclerView.setAdapter(adapter);
-
-
-        adapter.setOnItemClickListener(new CustomAdapter.ClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-
-                //mejor ponemos el key en un
-
-
-                // seria un mapa
-
-
-                if( v.getTag(R.id.tagImgCategory).toString().equals("Cuadro Muestreo")){
-
-
-                   // String tipoInforme = (String) holder.checkBx.getTag(R.id.tipoInforme);
-
-
-                    ///    Variables.currentcuadroMuestreo=listCuadrosMuestreos.get(position)
-
-                    Variables.currentcuadroMuestreo=mapCudroMuestreo.get(String. valueOf(v.getTag(R.id.tagImgUniqueIdItem)));
-
-
-                    Log.i("dbuhehjr","el id selecte  es "+v.getTag(R.id.tagImgUniqueIdItem));
-
-                    showPRogressAndStartActivity(new Intent(ActivityContenedoresPrev.this, CuadMuestreoCalibAndRechazPrev.class));
-
-
-                }else{
-
-                    Log.i("dbuhehjr","el id selecte es "+v.getTag(R.id.tagImgUniqueIdItem));
-
-
-
-                  //  Variables.currenControlCalReport= listFormsControlCalidad.get(position);
-
-                    Variables.currenControlCalReport=mapControlCalidad.get(String.valueOf(v.getTag(R.id.tagImgUniqueIdItem)));
-
-
-                    showPRogressAndStartActivity(new Intent(ActivityContenedoresPrev.this, FormularioControlCalidadPreview.class));
-
-
-                }
-
-
-
-
-                bottomSheetDialog.dismiss();
-
-            }
-        });
-
-        bottomSheetDialog.show();
-
-
-    }
-
-    private void showPRogressAndStartActivity(Intent i) {
-        progress =new ProgressDialog(ActivityContenedoresPrev.this);
-
-        progress.setMessage("Cargando Formulario....");
-        // progress.setProgressStyle(ProgressDialog.THEME_HOLO_LIGHT);
-        progress.setIndeterminate(true);
-        progress.show();
-
-
-        new Thread ( new Runnable()
-        {
-            public void run()
-            {
-
-                startActivity(i);
-                // finish();
-               // progress.dismiss();
-
-
-            }
-        }).start();
-
-
-
-        @SuppressLint("HandlerLeak") Handler progressHandler = new Handler()
-        {
-
-            public void handleMessage(Message msg1)
-            {
-
-                progress.dismiss();
-            }
-        };
-
-
-    }
 
 
 
@@ -6574,7 +5825,8 @@ if(indice>2) {
 
     private void DowloadControlcalidadVinculadosandDecideIRpdfMAKER(String valueVinculds){
 
-      ArrayList<String> listIdSvINCULADOS= generateLISTbyStringVinculados(valueVinculds);
+        // Utils.generateLISTbyStringVinculados
+      ArrayList<String> listIdSvINCULADOS=Utils.generateLISTbyStringVinculados(valueVinculds,"");
 
         if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
 
@@ -6648,6 +5900,21 @@ if(indice>2) {
     }
 
 
+    public void updateVinucladosObject(){
+
+        TextView txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
+
+        txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
+
+
+        if(!CustomAdapter.idCudroMuestreoStringVinuclado.trim().isEmpty()){ //lodecsrgamos y seteamos info
+
+            DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idCudroMuestreoStringVinuclado);
+
+        }
+
+
+    }
 
 
 

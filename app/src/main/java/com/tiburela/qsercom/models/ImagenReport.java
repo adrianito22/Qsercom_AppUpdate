@@ -101,11 +101,11 @@ public class ImagenReport {
             this.uriImage = uriImage;
         }
     */
-    public ImagenReport(String descripcionImagen, String uriImage, int tipoImagenCategory,String idReportePerteence,String uniqueIdNamePic,String horientacionImage ) {
+    public ImagenReport(String descripcionImagen, String uriImage, int tipoImagenCategory,String uniqueIdNamePic,String horientacionImage ) {
         this.descripcionImagen = descripcionImagen;
         this.uriImageString = uriImage;
         this.tipoImagenCategory=tipoImagenCategory;
-        this.idReportePerteence=idReportePerteence;
+        idReportePerteence=idReportePerteence="";
         this.uniqueIdNamePic = uniqueIdNamePic;
         this.horientacionImage=horientacionImage;
         estaENPdf=false;

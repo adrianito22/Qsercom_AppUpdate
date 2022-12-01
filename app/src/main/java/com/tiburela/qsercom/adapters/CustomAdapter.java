@@ -28,10 +28,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private LayoutInflater inflater;
     public static ArrayList<CheckedAndAtatch> listCheckedAndAtatch;
-    public static ArrayList<String> idsFormsControlCalidVinculados;
 
-    public static String idsFormsVinucladosControlCalidadString;
-    public static String idsFormsVinucladosCudorMuestreoString;
+    public static String idsFormsVinucladosControlCalidadString="";
+    public static String idCudroMuestreoStringVinuclado ="";
     public static HashMap<String,String> mapWhitIDScontrolCaldVinclds;
     public static HashMap<String,String> mapWhitIdsCuadroMuestreo;
 
@@ -40,14 +39,23 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private Context ctx;
 
-    public CustomAdapter(Context ctx, ArrayList<CheckedAndAtatch> listCheckedAndAtatch,ArrayList<String >idsFormsControlCalidVinculados) {
+    public CustomAdapter(Context ctx, ArrayList<CheckedAndAtatch> listCheckedAndAtatch) {
 
-        inflater = LayoutInflater.from(ctx);
-        this.listCheckedAndAtatch = listCheckedAndAtatch;
-        this.ctx = ctx;
-        this.idsFormsControlCalidVinculados=idsFormsControlCalidVinculados;
+        try {
+
+            inflater = LayoutInflater.from(ctx);
+            this.listCheckedAndAtatch = listCheckedAndAtatch;
+            this.ctx = ctx;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
    
     }
+
+
 
     @Override
     public CustomAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -63,7 +71,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
 
-
     @Override
     public void onBindViewHolder(final CustomAdapter.MyViewHolder holder, int position) {
 
@@ -72,6 +79,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         holder.imgSee.setTag(R.id.tagImgUniqueIdItem,listCheckedAndAtatch.get(position).getUniqueID());
 
+        Log.i("samerr", "el value de ag es "+listCheckedAndAtatch.get(position).getUniqueID());
 
 
 
@@ -93,9 +101,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         holder.txtCodeHere.setText(listCheckedAndAtatch.get(position).getUniqueID());
 
-if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestreo")){
+if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equalsIgnoreCase("CUADRO MUESTREO")){
 
-    holder.imgSee.setTag(R.id.tagImgCategory,"Cuadro Muestreo");
+    holder.imgSee.setTag(R.id.tagImgCategory,"CUADRO MUESTREO");
 
 
 
@@ -166,7 +174,7 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
                     //REMOVE VALUE OF HASMAP
                    // listCheckedAndAtatch.get(adapterPosition).setChecked(false);
 
-                    if( tipoInforme.equals("Cuadro Muestreo")){
+                    if( tipoInforme.equals("CUADRO MUESTREO")){
                         //es un cuadro de muestreo
 
                         Log.i("somere","elimnamos cuadro muestro");
@@ -221,7 +229,7 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
 
 
 
-                    if(tipoInforme.equals("Cuadro Muestreo") && mapWhitIdsCuadroMuestreo.size()==1){ //si ya hay uno ...return
+                    if(tipoInforme.equals("CUADRO MUESTREO") && mapWhitIdsCuadroMuestreo.size()==1){ //si ya hay uno ...return
                         Toast.makeText(ctx, "Solo permitido un reporte Cuadro Muestreo", Toast.LENGTH_SHORT).show();
                         holder.checkBx.setChecked(false);
 
@@ -234,7 +242,7 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
                     }
 
 
-                    Variables.currentkEYcuadroMuetreo=idsFormsVinucladosCudorMuestreoString; //
+                    Variables.currentkEYcuadroMuetreo= idCudroMuestreoStringVinuclado; //
 
 
 
@@ -242,17 +250,23 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
 
                    ///AGREGAMOS DEPEDINEDO DE CUAL ES...
 
-                    if(tipoInforme.equals("Cuadro Muestreo")){
+                    if(tipoInforme.equals("CUADRO MUESTREO")){
 
                         Log.i("hsyeyrr","se ejecuto este es cuado muestreo");
 
 
 
                         mapWhitIdsCuadroMuestreo.put(String.valueOf(v.getTag(R.id.idOfoBJECT)),String.valueOf(v.getTag(R.id.idOfoBJECT))); //agregamos o quitamos este del hasmap..
-                        udpdateStringVinucldsReports("Cuadro Muestreo");
+                        udpdateStringVinucldsReports("CUADRO MUESTREO");
 
 
                     }else{
+
+                        Log.i("debfggf"," sellamo el else aqui actualiamos mapWhitIDScontrolCaldVinclds y es mayor a cero y es  "+ mapWhitIDScontrolCaldVinclds.size());
+
+                        Log.i("debfggf"," sellamo el else aqui actualiamos mapWhitIdsCuadroMuestreo es  "+ mapWhitIdsCuadroMuestreo.size());
+
+
                         mapWhitIDScontrolCaldVinclds.put(String.valueOf(v.getTag(R.id.idOfoBJECT)),String.valueOf(v.getTag(R.id.idOfoBJECT))); //agregamos o quitamos este del hasmap..
                         udpdateStringVinucldsReports("");
 
@@ -335,26 +349,33 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equals("Cuadro Muestre
 void udpdateStringVinucldsReports(String tipiInforme) {
 
 
-        if(tipiInforme.equals("Cuadro Muestreo")){
+        if(tipiInforme.equals("CUADRO MUESTREO")){
 
             if(mapWhitIdsCuadroMuestreo.size() >0){
 
 
-                Log.i("hsyeyrr","actualiamos idOFfORMSCuadroMuestreo y es mayor a cero y es  "+ mapWhitIdsCuadroMuestreo.size());
+                Log.i("debfggf","actualiamos idOFfORMSCuadroMuestreo y es mayor a cero y es  "+ mapWhitIdsCuadroMuestreo.size());
+                Log.i("debfggf","el size de mapWhitIDScontrolCaldVinclds  es  "+ mapWhitIDScontrolCaldVinclds.size());
 
+
+              //  mapWhitIDScontrolCaldVinclds
 
                 StringJoiner joiner = new StringJoiner(",");
 
                 //iteramos
                 for(String value : mapWhitIdsCuadroMuestreo.values()){
                     //  Log.i("datamapitkka","el string valu es  : "+value);
-                    joiner.add(value);
-                    idsFormsVinucladosCudorMuestreoString = joiner.toString(); // lo convertimos en una linea de string sperad por comas.. id01,id02,
+                    if(!value.trim().isEmpty()){
+                        joiner.add(value);
+
+                    }
+
+                    idCudroMuestreoStringVinuclado = joiner.toString(); // lo convertimos en una linea de string sperad por comas.. id01,id02,
                 }
 
+                Log.i("debfggf","el string generado idCudroMuestreoStringVinuclado  es "+ idCudroMuestreoStringVinuclado);
 
 
-                Log.i("hakuna","el idsFormsVinucladosCudorMuestreoString value  es "+  idsFormsVinucladosCudorMuestreoString);
 
                 //eliminamos un control calidad y agregamos un muestro...
 
@@ -378,8 +399,8 @@ void udpdateStringVinucldsReports(String tipiInforme) {
 
 
 
-               idsFormsVinucladosCudorMuestreoString = null;
-                Log.i("hakuna","el idsFormsVinucladosCudorMuestreoString value  es "+  idsFormsVinucladosCudorMuestreoString);
+               idCudroMuestreoStringVinuclado = "";
+                Log.i("hakuna","el idCudroMuestreoStringVinuclado value  es "+ idCudroMuestreoStringVinuclado);
 
                 updateNumReportsVinculadosALL(mapWhitIDScontrolCaldVinclds, mapWhitIdsCuadroMuestreo);
 
@@ -402,7 +423,12 @@ void udpdateStringVinucldsReports(String tipiInforme) {
                 //iteramos
                 for(String value : mapWhitIDScontrolCaldVinclds.values()){
                     //  Log.i("datamapitkka","el string valu es  : "+value);
-                    joiner.add(value);
+
+                    if(!value.trim().isEmpty()){
+                        joiner.add(value);
+
+                    }
+
                     idsFormsVinucladosControlCalidadString = joiner.toString(); // lo convertimos en una linea de string sperad por comas.. id01,id02,
                 }
 
@@ -421,7 +447,7 @@ void udpdateStringVinucldsReports(String tipiInforme) {
 
 
 
-                idsFormsVinucladosControlCalidadString = null;
+                idsFormsVinucladosControlCalidadString = "";
 
                 Log.i("hakuna","el idsFormsVinucladosControlCalidadString value  es "+  idsFormsVinucladosControlCalidadString);
 
@@ -466,31 +492,30 @@ void udpdateStringVinucldsReports(String tipiInforme) {
     private void updateNumReportsVinculadosALL(HashMap<String,String> idOFfORMScontrolCaldVinclds
            , HashMap<String,String> idOFfORMSCuadroMuestreo){
 
-        int valorMpa1;
-        int valorMpa2;
+        int valorMpa1=0;
+        int valorMpa2=0;
 
 
-        if(idOFfORMScontrolCaldVinclds==null){
-            valorMpa1=0;
-        }else{
+        if(idOFfORMScontrolCaldVinclds.size()>0){
             valorMpa1=idOFfORMScontrolCaldVinclds.size();
+
         }
 
-
-        if(idOFfORMSCuadroMuestreo==null){
-            valorMpa2=0;
-
-        }else{
+        if(idOFfORMSCuadroMuestreo.size()>0){
             valorMpa2=idOFfORMSCuadroMuestreo.size();
+
         }
+
 
 
         Utils.numReportsVinculadsAll=valorMpa1+valorMpa2;
 
-
         Log.i("somere","el size de all rportes vunculados  es "+  Utils.numReportsVinculadsAll);
 
 
+        ////////
+        Log.i("somere","el size de map 1  es "+  idOFfORMScontrolCaldVinclds.size());
+        Log.i("somere","el size de map2   es "+  idOFfORMSCuadroMuestreo.size());
 
 
     }

@@ -653,7 +653,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                         Variables.CurrenReportPart1=currentObect;
 
                         CustomAdapter.idsFormsVinucladosControlCalidadString =Variables.CurrenReportPart1.getAtachControCalidadInfrms();
-                        CustomAdapter.idsFormsVinucladosCudorMuestreoString =Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
+                        CustomAdapter.idCudroMuestreoStringVinuclado =Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
 
 
                         break;

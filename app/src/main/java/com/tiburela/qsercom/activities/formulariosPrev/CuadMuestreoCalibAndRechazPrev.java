@@ -205,17 +205,21 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
             getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
             setDataInViews(Variables.currentcuadroMuestreo);
 
-            Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo);
+         //  Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo);
 
 
         }else{ ///es nulodescragamos reporte....
 
 
-            if(Variables.CurrenReportPart1!=null){
+            if(Variables.idCuadroMuestreoToDowload.length()>1){
 
-                dowloadEspecificReportAndSetData(Variables.CurrenReportPart1.getAtachControCuadroMuestreo());
+                dowloadEspecificReportAndSetData(Variables.idCuadroMuestreoToDowload);
 
-            }else{
+            }
+
+
+
+            else{
 
 
                 return;

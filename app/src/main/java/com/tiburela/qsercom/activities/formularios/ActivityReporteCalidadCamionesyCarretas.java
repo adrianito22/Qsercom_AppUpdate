@@ -1074,7 +1074,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                             String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
                             //creamos un nuevo objet de tipo ImagenReport
-                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(ActivityReporteCalidadCamionesyCarretas.this,cam_uri),horientacionImg);
+                            ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityReporteCalidadCamionesyCarretas.this,cam_uri),horientacionImg);
 
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -1476,7 +1476,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                                     String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                                     //creamos un nuevo objet de tipo ImagenReport
-                                    ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(ActivityReporteCalidadCamionesyCarretas.this,result.get(indice)), horientacionImg);
+                                    ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(ActivityReporteCalidadCamionesyCarretas.this,result.get(indice)), horientacionImg);
 
                                     //agregamos este objeto a la lista
                                     ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);

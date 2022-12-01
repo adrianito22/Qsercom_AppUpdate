@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,9 +23,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -675,11 +680,22 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         RealtimeDB.initDatabasesRootOnly();
 
 
-        dowloadCoontrolClidadMapAndCallSetDATAINviews(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
-        //  getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+        if((Variables.currenControlCalReport!=null)){
+
+            dowloadCoontrolClidadMapAndCallSetDATAINviews(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+            //  getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
 
 
-        Log.i("huevo","el ediPesoL1  es "+R.id.ediPesoL1);
+         //   Log.i("huevo","el ediPesoL1  es "+R.id.ediPesoL1);
+        }else{//
+
+            DowloadControlCalidad(Variables.idControCalidadToDowload);
+
+
+        }
+
+
+
 
     }
 
@@ -3311,5 +3327,66 @@ return true;
     public void onBackPressed() {
         finish();
     }
+
+
+
+    private void DowloadControlCalidad(String uniqueId){
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
+
+        Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    ControlCalidad informe=ds.getValue(ControlCalidad.class);
+
+                    if(informe!=null){
+
+                        Variables.currenControlCalReport=informe;
+
+                        //  Log.i("verdura","el value es "+ currenControlCalReport);
+
+                        break;
+
+                    }
+
+
+                }
+
+                dowloadCoontrolClidadMapAndCallSetDATAINviews(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+
+
+
+
+
+
+                //setDataInViews(hasmapMapControlCalid,Variables.currenControlCalReport);
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+
+            }
+        } );
+
+
+
+
+    }
+
+
+
 
 }

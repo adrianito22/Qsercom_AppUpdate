@@ -29,6 +29,9 @@ public class StorageData {
 
  public static    StorageReference stoRefToUpload ;
 
+ public static String uniqueIDImagesSetAndUInforme="";
+
+
 
 private static int counTbucle=0;
 
@@ -48,6 +51,9 @@ private static int counTbucle=0;
             //iteramos el mapa
             for (Map.Entry<String, ImagenReport> entry : hasmapImagenData.entrySet()) {
                 ImagenReport value = entry.getValue();
+                value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
+                //edityamos donde va ir estasiamgenes
+
                 String uriFilePath =value.geturiImage();
                 Uri myUri = Uri.parse(uriFilePath);
                 ///

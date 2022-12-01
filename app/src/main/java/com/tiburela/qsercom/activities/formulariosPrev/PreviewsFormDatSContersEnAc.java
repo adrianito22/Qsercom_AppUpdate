@@ -965,7 +965,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                                 //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,cam_uri),horientacionImg);
+                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,cam_uri),horientacionImg);
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -1338,7 +1338,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                                 //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice)), horientacionImg);
+                                ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice)), horientacionImg);
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);

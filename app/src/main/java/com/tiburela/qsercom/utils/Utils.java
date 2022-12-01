@@ -56,9 +56,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Utils {
 public static int numReportsVinculadsAll =0;
 
-    //aqui agudaremos el alto con el que tendremos que dibujar cada fila..
-
-
+public static boolean userDecidioNoVincularControlCalidForm=false;
+public static boolean userDecidioNoVincularCuadroMuestreo  =false;
 
 
 
@@ -604,73 +603,32 @@ return
 
     public static int generaNumsInformsAtach(String controlCalidad,String cuadroMuestro) {
 
+        Log.i("dtywyer","controcalida es "+controlCalidad+" y ciuadromuestra es "+cuadroMuestro);
+
+
+
+
         String arrayRepports [] =controlCalidad.split(",") ;
+        String arryCuadroMuestro [] =controlCalidad.split(",") ;
+
 
         int numsReportsControlCalidad =0;
         int numsReportsCuadroMuestreo = 0;
 
 
-        if(arrayRepports  ==null){
-            numsReportsControlCalidad=0;
-        }
-
-
-        else if(arrayRepports.length ==0 ){
-            numsReportsControlCalidad=0;
-        }
-
-
-        else if(controlCalidad.trim().isEmpty() ){
-            numsReportsControlCalidad=0;
-        }
-
-
-
-
-        else{
+        if(!controlCalidad.trim().isEmpty()){
             numsReportsControlCalidad=arrayRepports.length;
         }
 
 
-
-
-        String [] arrayRepportsCuadMuestreo =cuadroMuestro.split(",") ;
-
-
-        if(arrayRepportsCuadMuestreo  ==null){
-            numsReportsCuadroMuestreo=0;
-        }
-
-
-        else if(arrayRepportsCuadMuestreo.length ==0 ){
-            numsReportsCuadroMuestreo=0;
-        }
-
-
-        else if(cuadroMuestro.trim().isEmpty() ){
-            numsReportsCuadroMuestreo=0;
+        if(!cuadroMuestro.trim().isEmpty()){
+            numsReportsCuadroMuestreo=arryCuadroMuestro.length;
         }
 
 
 
-        else{
-
-            Log.i("cidueirur","el size de este array es  " +arrayRepportsCuadMuestreo.length);
-
-
-            numsReportsCuadroMuestreo=arrayRepportsCuadMuestreo.length;
-
-
-        }
-
-
-        Log.i("cidueirur","el size de todos numsReportsControlCalidad "+numsReportsControlCalidad);
-        Log.i("cidueirur","el size de numsReportsCuadroMuestreo es "+numsReportsCuadroMuestreo);
-
-
-        Log.i("cidueirur","el size de todos es "+(numsReportsControlCalidad + numsReportsCuadroMuestreo));
-
-        Utils.numReportsVinculadsAll=numsReportsControlCalidad + numsReportsCuadroMuestreo;
+      //  numReportsVinculadsAll=numsReportsControlCalidad + numsReportsCuadroMuestreo;
+        Log.i("dtywyer","2 controcalida es "+numsReportsControlCalidad+" y 2 ciuadromuestra es "+numsReportsCuadroMuestreo);
 
         return numsReportsControlCalidad + numsReportsCuadroMuestreo;
 
@@ -809,6 +767,64 @@ return
 
     }
 
+    public static ArrayList<String> generateLISTbyStringVinculados(String controlCalidStrin,String cuadroReportString ){
+
+        ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
+
+
+        if(controlCalidStrin!=null){
+            String [] miarrayiNFORMESvinc = controlCalidStrin.split(",");
+            Log.i("datamapitkka","el size de aara es "+miarrayiNFORMESvinc.length);
+
+            if(miarrayiNFORMESvinc.length >0) {
+
+                for(String value : miarrayiNFORMESvinc){
+
+                    if(!value.trim().isEmpty()){
+
+                        listIdSvINCULADOS.add(value);
+
+                    }
+                }
+
+                Log.i("datamapitkka","es mayor a 1"+listIdSvINCULADOS.size());
+
+            }
+
+
+        }
+
+
+        if(cuadroReportString!=null){
+            String [] miarrayiNFORMESvincx = cuadroReportString.split(",");
+            Log.i("datamapitkka","el size de aara es "+miarrayiNFORMESvincx.length);
+
+            if(miarrayiNFORMESvincx.length >0) {
+
+                for(String value : miarrayiNFORMESvincx){
+
+                    if(!value.trim().isEmpty()){
+
+                        listIdSvINCULADOS.add(value);
+
+                    }
+                }
+
+                Log.i("datamapitkka","es mayor a 1"+listIdSvINCULADOS.size());
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+        return listIdSvINCULADOS;
+    }
 
 
 }

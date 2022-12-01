@@ -26,7 +26,19 @@ import java.util.HashMap;
 
 public class Variables {
 
-public static String  paqueteName="com.tiburela.qsercom";
+ public static String  KEY_CONTROL_CALIDAD_ATACHEDS="MICTRNLDLD";
+ public static String  KEY_CUADRO_MUETREO_ATACHED="MICUDAROR";
+
+ public static CuadroMuestreo cuadroMuestreoVinculado;
+
+ public static String idCuadroMuestreoToDowload ="";
+
+ public static String idControCalidadToDowload ="";
+
+
+
+
+ public static String  paqueteName="com.tiburela.qsercom";
 
  public static String currentkEYcuadroMuetreo;
 
