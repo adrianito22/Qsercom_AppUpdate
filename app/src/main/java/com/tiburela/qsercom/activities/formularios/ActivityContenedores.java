@@ -2694,26 +2694,6 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 void checkDataFields(){ //
 
-    if(! Utils.checkifAtach()){
-
-        Log.i("test001","no esta lleno  checkifAtach");
-
-        FragmentManager fm = getSupportFragmentManager();
-        DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CONTENEDORES);
-        // alertDialog.setCancelable(false);
-        alertDialog.show(fm, "duialoffragment_alertZ");
-
-        return;
-    }else
-
-    {
-
-        Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
-
-
-    }
-
-
 
 
 
@@ -2841,6 +2821,29 @@ void checkDataFields(){ //
 
 
     }
+
+
+
+    if(! Utils.checkifAtach()){
+
+        Log.i("test001","no esta lleno  checkifAtach");
+
+        FragmentManager fm = getSupportFragmentManager();
+        DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CONTENEDORES);
+        // alertDialog.setCancelable(false);
+        alertDialog.show(fm, "duialoffragment_alertZ");
+
+        return;
+    }else
+
+    {
+
+        Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
+
+
+    }
+
+
 
 
 
@@ -5096,16 +5099,12 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
 
-public void decideaAtachReport(int userSelecion){
-
-        /*
-        *100 para cuando el usuario tenga otro pendiente
-        * 200: PARA CUANDO EL USER SELECION ATACH
-        * ***/
+public void decideaAtachReport(boolean userSelecion){
 
 
 
-      if(userSelecion==200){ //SELECIONO ATCH
+
+      if(userSelecion){ //SELECIONO ATCH
             Log.i("test001"," seleciono 200");
 
             ScrollView scrollView2 =findViewById(R.id.scrollView2);
@@ -5118,10 +5117,15 @@ public void decideaAtachReport(int userSelecion){
 
         }
 
-        else if(userSelecion==300){ //USUARIO SELECION OMITR TODS
+
+
+        else { //USUARIO SELECION OMITR TODS
             //AQUI VAMOS A SUBIR DATA..
 
-            Log.i("test001"," seleciono 300");
+          //gaurdamops  aqui
+          createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+          Log.i("test001"," seleciono 300");
 
 
         }

@@ -34,6 +34,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -76,6 +77,7 @@ import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -2126,7 +2128,24 @@ void checkDataFields(){
 
     }
 
+    if(! Utils.checkifAtach()){
 
+      Log.i("test001","no esta lleno  checkifAtach");
+
+        FragmentManager fm = getSupportFragmentManager();
+        DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CONTENEDORES);
+        // alertDialog.setCancelable(false);
+        alertDialog.show(fm, "duialoffragment_alertZ");
+
+        return;
+    }else
+
+    {
+
+        Log.i("test001","si  esta lleno  checkifAtach");
+
+
+    }
 
 
     openBottomSheet();
@@ -5916,6 +5935,43 @@ if(indice>2) {
 
     }
 
+    public void decideaAtachReport(boolean userSelecion){
+
+
+
+
+        if(userSelecion){ //SELECIONO ATCH
+            Log.i("test001"," seleciono 200");
+
+            ScrollView scrollView2 =findViewById(R.id.scrollView2);
+
+            scrollView2.post(new Runnable() {
+                public void run() {
+                    scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
+                }
+            });
+
+        }
+
+
+
+        else { //USUARIO SELECION OMITR TODS
+            //AQUI VAMOS A SUBIR DATA..
+
+            //gaurdamops  aqui
+            createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+            Log.i("test001"," seleciono 300");
+
+
+        }
+
+
+
+
+
+
+    }
 
 
 }

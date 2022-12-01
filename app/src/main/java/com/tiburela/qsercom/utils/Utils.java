@@ -59,6 +59,7 @@ public static int numReportsVinculadsAll =0;
 public static boolean userDecidioNoVincularControlCalidForm=false;
 public static boolean userDecidioNoVincularCuadroMuestreo  =false;
 
+public static String textoShow="";
 
 
 
@@ -834,15 +835,29 @@ return
 
         if(Utils.userDecidioNoVincularControlCalidForm && Utils.userDecidioNoVincularCuadroMuestreo){
            return true;
+        } ///si tenemos data en mabos tambien retorna true
+
+        else if(CustomAdapter.mapWhitIDScontrolCaldVinclds.size()>0 && CustomAdapter.mapWhitIdsCuadroMuestreo.size()>0 ){
+           return true;
+
+        }
+        else if(CustomAdapter.mapWhitIDScontrolCaldVinclds.size()==0){
+            textoShow=        "No tienes vinculado ningun reporte control Calidad";
+
+            return false;
         }
 
-        else{
+        else if(CustomAdapter.mapWhitIdsCuadroMuestreo.size()==0){
+            textoShow=        "No tienes vinculado ningun reporte cuadro Muestreo";
 
-                return false;
+            return false;
 
         }
 
 
+
+
+return true;
 
     }
 

@@ -153,19 +153,44 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
         if(tipoFormulario== Constants.CONTENEDORES){
             if( Utils.userDecidioNoVincularControlCalidForm && Utils.userDecidioNoVincularCuadroMuestreo ){
 
-                ((ActivityContenedores)getActivity()).decideaAtachReport(300);//  ///
+                ((ActivityContenedores)getActivity()).decideaAtachReport(false);//  ///
 
             }
 
 
 
 
-            else if(userDeciidoAquiAtach && Utils.userDecidioNoVincularControlCalidForm || Utils.userDecidioNoVincularCuadroMuestreo  ) { //si el usuerio le queda otro por atach
+            else if( Utils.userDecidioNoVincularControlCalidForm || Utils.userDecidioNoVincularCuadroMuestreo  ) { //si el usuerio le queda otro por atach
 
-                ((ActivityContenedores)getActivity()).decideaAtachReport(200);//  ///
+                ((ActivityContenedores)getActivity()).decideaAtachReport(true);//  ///
 
             }
             Log.i("ontatch","se ejecuto onStart");
+
+        }
+
+
+
+          else  if(tipoFormulario== Constants.PREV_CONTENEDORES){
+
+                if( Utils.userDecidioNoVincularControlCalidForm && Utils.userDecidioNoVincularCuadroMuestreo ){
+
+                    ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(false);//  ///
+
+                }
+
+
+
+
+                else if( Utils.userDecidioNoVincularControlCalidForm || Utils.userDecidioNoVincularCuadroMuestreo  ) { //si el usuerio le queda otro por atach
+
+                    ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(true);//  ///
+
+                }
+                Log.i("ontatch","se ejecuto onStart");
+
+
+
 
         }
 
