@@ -151,40 +151,19 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equalsIgnoreCase("CUAD
 
                 String tipoInforme = (String) holder.checkBx.getTag(R.id.tipoInforme);
 
-                //  Toast.makeText(ctx, listCheckedAndAtatch.get(pos).getAnimal() + " clicked!", Toast.LENGTH_SHORT).show();
-              //  int adapterPosition = getAdapterPosition();
-
-                Log.i("posicion","al posicioon es "+pos);
-
-                //chekcamos que solo exista un objeto CUADROmUETREO OBJET...
-
-
-
 
                 if (listCheckedAndAtatch.get(pos).isItemChek()) {
-
-
-
-
-
-                    //el anterior estaba en cheked y ahora es falso....lo removemos
-                    Log.i("somere","removemos");
 
                     listCheckedAndAtatch.get(pos).setItemChek(false);
                     //REMOVE VALUE OF HASMAP
                    // listCheckedAndAtatch.get(adapterPosition).setChecked(false);
 
                     if( tipoInforme.equals("CUADRO MUESTREO")){
-                        //es un cuadro de muestreo
-
-                        Log.i("somere","elimnamos cuadro muestro");
-
-
 
                         if(mapWhitIdsCuadroMuestreo.containsKey(String.valueOf(v.getTag(R.id.idOfoBJECT)))) {
                             mapWhitIdsCuadroMuestreo.remove(String.valueOf(v.getTag(R.id.idOfoBJECT)));
                             Log.i("comerciales","contiene key y lo removemos y el size ahora es: "+ mapWhitIDScontrolCaldVinclds.size());
-                            udpdateStringVinucldsReports("Cuadro Muestreo");
+                            udpdateStringVinucldsReports("CUADRO MUESTREO");
 
                         }
 
@@ -201,9 +180,7 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equalsIgnoreCase("CUAD
                         if(mapWhitIDScontrolCaldVinclds.containsKey(String.valueOf(v.getTag(R.id.idOfoBJECT)))) {
                             mapWhitIDScontrolCaldVinclds.remove(String.valueOf(v.getTag(R.id.idOfoBJECT)));
 
-                            Log.i("hsyeyrr","asi contiene key eleomnamos y size ahora es "+ mapWhitIDScontrolCaldVinclds.size());
 
-                            Log.i("hsyeyrr","el size de la otra map es "+ mapWhitIdsCuadroMuestreo.size());
 
                             Log.i("comerciales","contiene key y lo removemos y el size ahora es: "+ mapWhitIDScontrolCaldVinclds.size());
                             udpdateStringVinucldsReports("");
@@ -225,8 +202,6 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equalsIgnoreCase("CUAD
 
 
                 } else {  ///si el cehckeed esta en falseo, lo marcamos
-
-
 
 
                     if(tipoInforme.equals("CUADRO MUESTREO") && mapWhitIdsCuadroMuestreo.size()==1){ //si ya hay uno ...return
@@ -353,12 +328,10 @@ void udpdateStringVinucldsReports(String tipiInforme) {
 
             if(mapWhitIdsCuadroMuestreo.size() >0){
 
-
-                Log.i("debfggf","actualiamos idOFfORMSCuadroMuestreo y es mayor a cero y es  "+ mapWhitIdsCuadroMuestreo.size());
-                Log.i("debfggf","el size de mapWhitIDScontrolCaldVinclds  es  "+ mapWhitIDScontrolCaldVinclds.size());
+                Log.i("comercial","es cuadro muestreo mayor a cero ");
 
 
-              //  mapWhitIDScontrolCaldVinclds
+                //  mapWhitIDScontrolCaldVinclds
 
                 StringJoiner joiner = new StringJoiner(",");
 
@@ -391,16 +364,10 @@ void udpdateStringVinucldsReports(String tipiInforme) {
                 //significa que no hay ninguno vinculado
                 // CustomAdapter.idsFormsVinucladosCntres);
 
-
-
-
-                Log.i("hsyeyrr","actualiamos idOFfORMSCuadroMuestreo no es  mayor a cero y es  "+ mapWhitIdsCuadroMuestreo.size());
-
-
+                Log.i("comercial","es cuadro muestreo se eejxuto el else ");
 
 
                idCudroMuestreoStringVinuclado = "";
-                Log.i("hakuna","el idCudroMuestreoStringVinuclado value  es "+ idCudroMuestreoStringVinuclado);
 
                 updateNumReportsVinculadosALL(mapWhitIDScontrolCaldVinclds, mapWhitIdsCuadroMuestreo);
 
@@ -501,6 +468,7 @@ void udpdateStringVinucldsReports(String tipiInforme) {
 
         }
 
+
         if(idOFfORMSCuadroMuestreo.size()>0){
             valorMpa2=idOFfORMSCuadroMuestreo.size();
 
@@ -510,7 +478,7 @@ void udpdateStringVinucldsReports(String tipiInforme) {
 
         Utils.numReportsVinculadsAll=valorMpa1+valorMpa2;
 
-        Log.i("somere","el size de all rportes vunculados  es "+  Utils.numReportsVinculadsAll);
+        Log.i("SIZEALLLS","el size de all rportes vunculados  es "+  Utils.numReportsVinculadsAll);
 
 
         ////////

@@ -79,10 +79,7 @@ public class Variables {
 
     public static   ProductPostCosecha productsGlobal;
 
-    public static  int   tipoDeFoto;
-    public static final int CREATE_NEW_FORM =1005;
-    public static final int   EDIT_FORM=1006;
-    public static  int   modoCurren;
+
 
     public static final int   FOTO_LLEGADA=1;
     public static final int   FOTO_PROD_POSTCOSECHA=2;
@@ -93,16 +90,6 @@ public class Variables {
     public static int typeoFdeleteImg=0;
     public static final  int   MINIMO_FOTOS_ALL_CATEGORY=1;
 
-
-    public static final int   FIRST_HEADER_OF_TABLE=5018;
-    public static final int   TABLE_PRODUCTOS_POSTCOSECHA=5019;
-    public static final int   TABLE_DATOS_PROCESO=5020;
-    public static final int   TABLE_DATOS_TRANSPORTISTA=5021;
-    public static final int   TABLE_SELLOS_LLEGADA=5022;
-    public static final int   DATOS_DEL_CONTENEDOR=5023;
-    public static final int   TABLE_CALIB_FRUTS_CLD_ENFUN=5024;
-    public static final int   TABLE_CONTROL_DE_GANCHO=5025;
-    public static final int   TABLE_DATOS_HACIENDA=5026;
 
 
     public static final int   HOY=600;
@@ -148,7 +135,7 @@ public class Variables {
     public static ArrayList<ImagenReport> listImagenDataGlobalCurrentReport;
 
 
-   public static  HashMap<String, ImagenReport> hashMapImagesStart;
+   public static  HashMap<String, ImagenReport> hashMapImagesStart=new HashMap<>();
 
 
     public static ArrayList<String> listImagesToDelete; //alamcenar los unicques id para elimnarlos
@@ -158,8 +145,6 @@ public class Variables {
     public static final int  CALIFICADOR_OFICINA= 1701 ;
     public static  int tipoDeUser =CALIFICADOR_OFICINA ;
 
-    public static  final int VERTICAL =1200 ;
-    public static  final int HORIZONTAL =12001 ;
     public static   int orientacionImagen ;
     public static ProductPostCosecha currenProductPostCosecha;
 

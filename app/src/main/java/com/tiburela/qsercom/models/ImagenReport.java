@@ -9,7 +9,7 @@ import java.util.Map;
 public class ImagenReport {
   //  public static ArrayList<ImagenReport> listImagesData;
 
-   public static  HashMap<String, ImagenReport> hashMapImagesData = new HashMap<String, ImagenReport>();
+   public static  HashMap<String, ImagenReport> hashMapImagesData = new HashMap<>();
     public String getUniqueIdNamePic() {
         return uniqueIdNamePic;
     }

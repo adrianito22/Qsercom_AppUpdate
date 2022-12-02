@@ -18,12 +18,11 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.utils.Utils;
-import com.tiburela.qsercom.utils.Variables;
 
 public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements View.OnClickListener {
         public static final String TAG = "ActionBottomDialog";
 
-         boolean userDeciidoAquiAtach=false;
+         boolean userDecicidoVinucularSomeReport =false;
 
        static int formullarioSelect=0;
         private View vista;
@@ -63,13 +62,13 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
         @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            if(! Utils.userDecidioNoVincularControlCalidForm){
-                txtiText.setText("No tienes vinculado ningun reporte control Calidad");
+            if(! Utils.userDecidioNoVincularAhora){
+                txtiText.setText(Utils.textoShow);
 
             }
 
             else if(! Utils.userDecidioNoVincularCuadroMuestreo){
-                txtiText.setText("No tienes vinuculado ningun  reporte cuadro Muestreo");
+                txtiText.setText(Utils.textoShow);
 
             }
 
@@ -99,25 +98,14 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
           // Button tvSelected = (Button) view;
 
             if(view.getId()==R.id.atachAhora){ //
-                userDeciidoAquiAtach=true;
+                userDecicidoVinucularSomeReport =true;
                 callmethodOfActivity(formullarioSelect);
 
             }
 
             if(view.getId()==R.id.atachDespues){
-                userDeciidoAquiAtach=false;
-
-
-                if(! Utils.userDecidioNoVincularControlCalidForm){  /// si es true
-                    Utils.userDecidioNoVincularControlCalidForm=true;
-                }
-
-                else if(! Utils.userDecidioNoVincularCuadroMuestreo){
-                    Utils.userDecidioNoVincularCuadroMuestreo=true;
-                }
-
-
-                callmethodOfActivity(formullarioSelect);
+                userDecicidoVinucularSomeReport =false;
+                Utils.userDecidioNoVincularAhora=true;
 
             }
 
@@ -151,21 +139,16 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
 
 
         if(tipoFormulario== Constants.CONTENEDORES){
-            if( Utils.userDecidioNoVincularControlCalidForm && Utils.userDecidioNoVincularCuadroMuestreo ){
+
+            if(userDecicidoVinucularSomeReport){
+
+                ((ActivityContenedores)getActivity()).decideaAtachReport(true);//  ///
+
+            }else{
 
                 ((ActivityContenedores)getActivity()).decideaAtachReport(false);//  ///
 
             }
-
-
-
-
-            else if( Utils.userDecidioNoVincularControlCalidForm || Utils.userDecidioNoVincularCuadroMuestreo  ) { //si el usuerio le queda otro por atach
-
-                ((ActivityContenedores)getActivity()).decideaAtachReport(true);//  ///
-
-            }
-            Log.i("ontatch","se ejecuto onStart");
 
         }
 
@@ -173,21 +156,16 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
 
           else  if(tipoFormulario== Constants.PREV_CONTENEDORES){
 
-                if( Utils.userDecidioNoVincularControlCalidForm && Utils.userDecidioNoVincularCuadroMuestreo ){
+            if(userDecicidoVinucularSomeReport){
 
-                    ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(false);//  ///
+                ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(true);//  ///
 
-                }
+            }else{
 
+                ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(false);//  ///
 
+            }
 
-
-                else if( Utils.userDecidioNoVincularControlCalidForm || Utils.userDecidioNoVincularCuadroMuestreo  ) { //si el usuerio le queda otro por atach
-
-                    ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(true);//  ///
-
-                }
-                Log.i("ontatch","se ejecuto onStart");
 
 
 

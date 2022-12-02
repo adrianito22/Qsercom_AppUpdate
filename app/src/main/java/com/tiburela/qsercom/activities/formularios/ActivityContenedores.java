@@ -5023,11 +5023,11 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                         //actualizamos el objeto..\\
 
 
-                        if( Variables.CurrenReportPart1!=null){
+                     //   if( Variables.CurrenReportPart1!=null){
 
 
-                        }
-                        Variables.CurrenReportPart3.setEdiRacimosRecha(String.valueOf(informe.getTotalRechazadosAll()));
+                     //   }
+                      ///  Variables.CurrenReportPart3.setEdiRacimosRecha(String.valueOf(informe.getTotalRechazadosAll()));
 
 
                       //  btnGENERARpdf.setEnabled(true);
@@ -5118,7 +5118,7 @@ public void decideaAtachReport(boolean userSelecion){
         }
 
 
-
+/*
         else { //USUARIO SELECION OMITR TODS
             //AQUI VAMOS A SUBIR DATA..
 
@@ -5130,7 +5130,7 @@ public void decideaAtachReport(boolean userSelecion){
 
         }
 
-
+*/
 
 
 

@@ -96,6 +96,8 @@ public class BottonSheetDfragmentVclds extends BottomSheetDialogFragment {
             CustomAdapter.idsFormsVinucladosControlCalidadString = getArguments().getString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS);
 
 
+
+
             Log.i("viculados","idCudroMuestreoStringVinuclado es "+CustomAdapter.idCudroMuestreoStringVinuclado);
             Log.i("viculados","idsFormsVinucladosControlCalidadString es "+CustomAdapter.idsFormsVinucladosControlCalidadString);
 

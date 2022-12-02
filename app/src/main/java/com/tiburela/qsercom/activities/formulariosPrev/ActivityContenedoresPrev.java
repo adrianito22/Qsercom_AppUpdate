@@ -20,8 +20,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -52,7 +50,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,7 +61,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
@@ -324,8 +320,8 @@ String currentIDcUDORmUESTREO;
 
         Variables.VienedePreview=true;
 
-        Auth.initAuth(ActivityContenedoresPrev.this);
-        Auth.signInAnonymously(ActivityContenedoresPrev.this);
+      //  Auth.initAuth(ActivityContenedoresPrev.this);
+       // Auth.signInAnonymously(ActivityContenedoresPrev.this);
 
         try {
             progress.dismiss();
@@ -382,7 +378,7 @@ String currentIDcUDORmUESTREO;
                    esFirstCharge=false;
 }
 
-
+ 
     }
 
     @Override
@@ -394,6 +390,7 @@ String currentIDcUDORmUESTREO;
 
         CustomAdapter.idCudroMuestreoStringVinuclado ="";
 
+        Variables.copiamosData=false;
 
         mContext=this;
 
@@ -1195,6 +1192,8 @@ String currentIDcUDORmUESTREO;
     }
 
     private void showEditDialogAndSendData() {
+
+
 
         Bundle bundle = new Bundle();
         bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS,CustomAdapter.idsFormsVinucladosControlCalidadString);
@@ -2133,7 +2132,7 @@ void checkDataFields(){
       Log.i("test001","no esta lleno  checkifAtach");
 
         FragmentManager fm = getSupportFragmentManager();
-        DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CONTENEDORES);
+        DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
         // alertDialog.setCancelable(false);
         alertDialog.show(fm, "duialoffragment_alertZ");
 
@@ -2658,7 +2657,7 @@ private void createObjcInformeAndUpload() {
     void uploadImagesInStorageAndInfoPICS() {
    //una lista de Uris
 
-        if(ImagenReport.hashMapImagesData.size() ==0 ){
+        if(ImagenReport.hashMapImagesData.size() ==0||  Variables.hashMapImagesStart.size()>0){
 
              return;
         }
@@ -2666,10 +2665,15 @@ private void createObjcInformeAndUpload() {
         //si introdujo texto en el recicler actualizar los objetos
 
 
+
+
+
+
+
           //boorara desee aqui
         if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
-            Log.i("elfile","alguno o toos son diferentes images llamaos metodo filtra");
+            Log.i("sumeria","alguno o toos son diferentes images llamaos metodo filtra");
 
             StorageData.uploadImage(ActivityContenedoresPrev.this, Utils.creaHahmapNoDuplicado());
 
@@ -3886,12 +3890,21 @@ return true;
         RealtimeDB.UpdateProductosPostCosecha(producto);
 
 
-        pdialogff.dismiss();
+        try {
+            pdialogff.dismiss();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
 
         Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
-
-        startActivity(new Intent(ActivityContenedoresPrev.this, ActivitySeeReports.class));
+              finish();
+      //  startActivity(new Intent(ActivityContenedoresPrev.this, ActivitySeeReports.class));
 
     }
 
@@ -4572,60 +4585,18 @@ return true;
         ediExtGancho.setText(info3Object.getExtensionistEnGancho());
         ediExtGanchoCi .setText(info3Object.getCI_extensionistEnGancho());
 
-        txtNumReportsVinclds.setText(String.valueOf(Utils.generaNumsInformsAtach(info1Object.getAtachControCalidadInfrms(),info1Object.getAtachControCuadroMuestreo())));
 
+        /**inicilizamos variable global Utils.numReportsVinculadsAll ,map de vinuclads,etc */
+        Utils.initializeAndGETnuMSvinuclads(info1Object.getAtachControCalidadInfrms(),info1Object.getAtachControCuadroMuestreo());
 
-        CustomAdapter.mapWhitIDScontrolCaldVinclds = new HashMap<>();
-        CustomAdapter.mapWhitIdsCuadroMuestreo = new HashMap<>();
+        txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
 
-        if(info1Object.getAtachControCalidadInfrms().length()>1){
-            String [] miarrayiNFORMESvinc = info1Object.getAtachControCalidadInfrms().split(",");
-            Log.i("picacins","el size de aara es "+miarrayiNFORMESvinc.length);
-
-            if(miarrayiNFORMESvinc.length >0) {
-                for(String value : miarrayiNFORMESvinc){
-                    Log.i("picacins","el key sera "+value);
-                    CustomAdapter.mapWhitIDScontrolCaldVinclds.put(value,value);
-                }
-            }
-
-
-            Log.i("picacins","el numero de reposrtes vincualdos es: "+ CustomAdapter.mapWhitIDScontrolCaldVinclds.size());
-
-
-        }
-
-
-
-           ///AGERGAMOS LOS INFORMES DE CUADRO MUESTREO A LA VARIABLE A LA AVRIABLE GLOBAL
-        if(info1Object.getAtachControCuadroMuestreo().length()>1){
-            String [] miarrayiNFORMESvinc = info1Object.getAtachControCuadroMuestreo().split(",");
-            Log.i("picacins","el size de aara es "+miarrayiNFORMESvinc.length);
-
-            if(miarrayiNFORMESvinc.length >0) {
-                for(String value : miarrayiNFORMESvinc){
-
-
-
-                    if(!value.trim().isEmpty()){
-
-                        CustomAdapter.mapWhitIdsCuadroMuestreo.put(value,value);
-
-
-                    }
-                    Log.i("picacins","el key sera "+value);
-                }
-            }
-
-
-            //Log.i("picacins","el numero de reposrtes vincualdos es: "+ CustomAdapter.idOFfORMScontrolCaldVinclds.size());
-
-
-        }
 
 
 
     }
+
+
 
 
 
@@ -4732,7 +4703,7 @@ private void checkModeVisualitY(){
 
         }
 
-
+        Log.i("sucecia","se llamo method here");
 
         if(!Variables.copiamosData) {
            // Variables.hashMapImagesStart =ImagenReport.hashMapImagesData;
@@ -5938,8 +5909,6 @@ if(indice>2) {
     public void decideaAtachReport(boolean userSelecion){
 
 
-
-
         if(userSelecion){ //SELECIONO ATCH
             Log.i("test001"," seleciono 200");
 
@@ -5954,7 +5923,7 @@ if(indice>2) {
         }
 
 
-
+/*
         else { //USUARIO SELECION OMITR TODS
             //AQUI VAMOS A SUBIR DATA..
 
@@ -5967,7 +5936,7 @@ if(indice>2) {
         }
 
 
-
+*/
 
 
 

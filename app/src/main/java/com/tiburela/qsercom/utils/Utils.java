@@ -2,7 +2,6 @@ package com.tiburela.qsercom.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -14,27 +13,19 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
-import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
-import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
-import com.tiburela.qsercom.models.ReportCamionesyCarretas;
-import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.UsuarioQsercom;
 
 import org.json.JSONException;
@@ -44,19 +35,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
 public static int numReportsVinculadsAll =0;
 
-public static boolean userDecidioNoVincularControlCalidForm=false;
+public static boolean userDecidioNoVincularAhora =false;
 public static boolean userDecidioNoVincularCuadroMuestreo  =false;
 
 public static String textoShow="";
@@ -602,36 +589,49 @@ return
 
 
 
-    public static int generaNumsInformsAtach(String controlCalidad,String cuadroMuestro) {
+    public static void initializeAndGETnuMSvinuclads(String controlCalidad, String cuadroMuestro) {
 
-        Log.i("dtywyer","controcalida es "+controlCalidad+" y ciuadromuestra es "+cuadroMuestro);
+        Utils.numReportsVinculadsAll=0;
 
-
-
-
-        String arrayRepports [] =controlCalidad.split(",") ;
-        String arryCuadroMuestro [] =controlCalidad.split(",") ;
-
-
-        int numsReportsControlCalidad =0;
-        int numsReportsCuadroMuestreo = 0;
-
-
-        if(!controlCalidad.trim().isEmpty()){
-            numsReportsControlCalidad=arrayRepports.length;
-        }
-
-
-        if(!cuadroMuestro.trim().isEmpty()){
-            numsReportsCuadroMuestreo=arryCuadroMuestro.length;
-        }
+        String[] arrayRepportsCONTROLcALIDAD =controlCalidad.split(",") ;
+        String[] arryCuadroMuestro =cuadroMuestro.split(",") ;
 
 
 
-      //  numReportsVinculadsAll=numsReportsControlCalidad + numsReportsCuadroMuestreo;
-        Log.i("dtywyer","2 controcalida es "+numsReportsControlCalidad+" y 2 ciuadromuestra es "+numsReportsCuadroMuestreo);
+        CustomAdapter.mapWhitIDScontrolCaldVinclds = new HashMap<>();
+        CustomAdapter.mapWhitIdsCuadroMuestreo = new HashMap<>();
 
-        return numsReportsControlCalidad + numsReportsCuadroMuestreo;
+        CustomAdapter.idsFormsVinucladosControlCalidadString=controlCalidad;
+        CustomAdapter.idCudroMuestreoStringVinuclado=cuadroMuestro;
+
+
+
+
+            for(String value : arrayRepportsCONTROLcALIDAD){
+                Log.i("picacins","el key sera "+value);
+                if(! value.trim().isEmpty()){
+                    CustomAdapter.mapWhitIDScontrolCaldVinclds.put(value,value);
+
+                    Utils.numReportsVinculadsAll++;
+                }
+            }
+
+
+            for(String value : arryCuadroMuestro){
+
+                if(!value.trim().isEmpty()){
+
+                    CustomAdapter.mapWhitIdsCuadroMuestreo.put(value,value);
+                    Utils.numReportsVinculadsAll++;
+
+
+                }
+                Log.i("picacins","el key sera "+value);
+            }
+
+
+
+
 
     }
 
@@ -833,14 +833,20 @@ return
     public static  boolean checkifAtach(){ //chekeamos ambos haber si estan en atch
 
 
-        if(Utils.userDecidioNoVincularControlCalidForm && Utils.userDecidioNoVincularCuadroMuestreo){
+        if(Utils.userDecidioNoVincularAhora){
            return true;
         } ///si tenemos data en mabos tambien retorna true
 
-        else if(CustomAdapter.mapWhitIDScontrolCaldVinclds.size()>0 && CustomAdapter.mapWhitIdsCuadroMuestreo.size()>0 ){
-           return true;
+
+          else if(CustomAdapter.mapWhitIDScontrolCaldVinclds.size()==0 &&
+                CustomAdapter.mapWhitIdsCuadroMuestreo.size()==0){
+
+            textoShow= "No tienes vinculado ningun reporte Control calidad y Cuadro Muestreo";
+
 
         }
+
+
         else if(CustomAdapter.mapWhitIDScontrolCaldVinclds.size()==0){
             textoShow=        "No tienes vinculado ningun reporte control Calidad";
 
@@ -853,6 +859,9 @@ return
             return false;
 
         }
+
+
+
 
 
 
