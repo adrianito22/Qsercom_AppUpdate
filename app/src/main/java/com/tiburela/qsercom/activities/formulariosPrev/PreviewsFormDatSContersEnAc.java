@@ -870,7 +870,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
            case R.id.imbTakePicSellosLLegada:
                Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
 
-               currentTypeImage=Variables.FOTO_TRANSPORTISTA;
+               currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
 
                takepickNow();
                break;

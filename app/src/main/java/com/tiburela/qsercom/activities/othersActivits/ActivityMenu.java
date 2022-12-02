@@ -99,6 +99,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     String nombreYapllidoUser="";
 
 
+    Button btnInforsGuardados;
+
     ImageView imGProfile;
 
     TextView txtHeader;
@@ -188,7 +190,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         btnInInformes =findViewById(R.id.btnIformesRevisar);
 
-
+        btnInforsGuardados=findViewById(R.id.btnInforsGuardados);
 
         ly_contenedores=findViewById(R.id.ly_contenedores);
         ly_conte_en_acopio=findViewById(R.id.ly_conte_en_acopio);
@@ -197,6 +199,28 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         ly_cuadro_Muestreo_caly_rechaz=findViewById(R.id.ly_cuadro_Muestreo_caly_rechaz);
 
         ly_controlCalidad=findViewById(R.id.ly_controlCalidad);
+
+
+        btnInforsGuardados.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                SharePref.init(ActivityMenu.this);
+
+
+                startActivity(new Intent(ActivityMenu.this,ActivitySeeReportsOffline.class));
+
+
+            }
+        });
+
+
+
+
+
+
+
         ly_controlCalidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

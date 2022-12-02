@@ -1103,12 +1103,12 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
 
 
-               Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_SHORT).show();
+               Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_LONG).show();
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
 
-               Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_SHORT).show();
+               Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
 
 
 

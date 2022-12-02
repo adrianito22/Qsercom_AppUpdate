@@ -40,6 +40,10 @@
             android:exported="true"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
+
+
+
+
         <activity
             android:name=".testDELETE.Selector"
             android:exported="false"
@@ -159,6 +163,7 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.othersActivits.MainActivity"
             android:configChanges="orientation"
@@ -166,7 +171,11 @@
             android:screenOrientation="portrait" />
 
 
-
+        <activity
+            android:name=".activities.othersActivits.ActivitySeeReportsOffline"
+            android:configChanges="orientation"
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
 
 

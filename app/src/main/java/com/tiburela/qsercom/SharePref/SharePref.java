@@ -20,7 +20,7 @@ import java.util.Map;
 public class SharePref {
  //al menos 5 keys.. UNA POR CADA FORMULARIO
 
-    public static final String KEY_ALL_REPORTS_OFLINE_REGISTER="KEYALL+REPORT_OFFFLINE";
+    public static final String KEY_ALL_REPORTS_OFLINE_REGISTER="KEYALL_REPORT_OFFFLINE";
 
 
     public static final String  KEY_CALIDAD_CAMIONESY_CARRETAS="KEY_CALIDAD_CAMIONESY_CARRETAS";
@@ -124,6 +124,21 @@ public class SharePref {
         }
 
 
+    }
+
+
+    public static  void saveHashMapOfHashmapInformRegister(  Map<String, InformRegister> inputMap,String keySharePref) {
+        if (mSharedPrefUniqueObjc != null){
+            // JSONObject jsonObject = new JSONObject(inputMap);
+            //   String jsonString = jsonObject.toString();
+            mSharedPrefUniqueObjc.edit()
+                    //  .remove("My_map")
+                    .putString(keySharePref, new Gson().toJson(inputMap))
+
+
+                    // .putString(keySharePref, jsonString)
+                    .apply();
+        }
     }
 
 }

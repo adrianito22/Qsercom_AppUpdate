@@ -62,7 +62,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
@@ -79,7 +78,6 @@ import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
@@ -258,7 +256,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     LinearLayout linLayoutHeader7;
     LinearLayout linLayoutHeader8;
 
-
+       Button btnSaveLocale;
 
     Spinner spinnerSelectZona;
     Spinner spinnerCondicionBalanza;
@@ -365,6 +363,8 @@ Log.i("hellosweer","se ehjecitp onstart");
         CustomAdapter.mapWhitIdsCuadroMuestreo = new HashMap<>();
         CustomAdapter.mapWhitIDScontrolCaldVinclds= new HashMap<>();
 
+        Utils.userDecidioNoVincularAhora =false;
+
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
@@ -374,6 +374,9 @@ Log.i("hellosweer","se ehjecitp onstart");
         if (extras != null) {
 
             hayUnformularioIcompleto = extras.getBoolean("ActivitymenuKey");
+
+            currentKeySharePrefrences=extras.getString(Variables.KEY_CONTENEDORES_EXTRA);
+
 
             //The key argument here must match that used in the other activity
         }
@@ -552,6 +555,7 @@ Log.i("hellosweer","se ehjecitp onstart");
         ediMarca = findViewById(R.id.ediMarca);
         imgUpdatecAlfrutaEnfunde=findViewById(R.id.imgUpdatecAlfrutaEnfunde);
 
+        btnSaveLocale =findViewById(R.id.btnSaveLocale);
 
 
          ediExtCalid=findViewById(R.id.ediExtCalid);
@@ -752,6 +756,9 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
+        btnSaveLocale.setOnClickListener(this);
+
+
 
         imgAtachVinculacion.setOnClickListener(this);
 
@@ -809,18 +816,16 @@ Log.i("hellosweer","se ehjecitp onstart");
     public void onClick(View view) {
 
 
-
-      /*
-        if(!checkPermission()){
-
-            requestPermission();
-            // checkPermission2();
-
-
-        }
-      */
-
        switch (view.getId()) {
+
+
+
+           case R.id.btnSaveLocale:
+
+               callPrefrencesSave();
+
+
+               break; //
 
 
            case R.id.linLayoutHeader1:
@@ -1035,7 +1040,7 @@ Log.i("hellosweer","se ehjecitp onstart");
            case R.id.imbTakePicSellosLLegada:
                Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
 
-               currentTypeImage=Variables.FOTO_TRANSPORTISTA;
+               currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
 
                takepickNow();
                break;
@@ -3351,6 +3356,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
            if(ediNhojaEvaluacion.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediNhojaEvaluacion.requestFocus();
             ediNhojaEvaluacion.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediNhojaEvaluacion);
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
             //obtiene el padre del padre
@@ -3370,6 +3376,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
 
           if(!ediObservacion.getText().toString().isEmpty()){ //si esta lleno
+              scroollElementoFaltante(ediObservacion);
 
               FieldOpcional.observacionOpcional=ediObservacion.getText().toString();
 
@@ -3378,6 +3385,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
             ediFotosLlegada.requestFocus();
+            scroollElementoFaltante(ediFotosLlegada);
 
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             ediFotosLlegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
@@ -3443,6 +3451,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
         ///y chekeamos al menos una imagen del pridcutp
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PROD_POSTCOSECHA)){
             ediFotosPposcosecha.requestFocus();
+            scroollElementoFaltante(ediFotosPposcosecha);
 
             layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
             ediFotosPposcosecha.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
@@ -3535,6 +3544,7 @@ return  true;
 
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CONTENEDOR)){
             ediFotoContenedor.requestFocus();
+            scroollElementoFaltante(ediFotoContenedor);
 
             layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
             ediFotoContenedor.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
@@ -3639,6 +3649,7 @@ return  true;
 
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
             ediFotosSellosLLegada.requestFocus();
+            scroollElementoFaltante(ediFotosSellosLLegada);
 
             layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
             ediFotosSellosLLegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
@@ -3896,6 +3907,7 @@ return true;
 
         else if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_TRANSPORTISTA)){
             ediFotosLlegadaTransport.requestFocus();
+            scroollElementoFaltante(ediFotosLlegadaTransport);
 
             Toast.makeText(ActivityContenedores.this, "Faltan agregar algunas fotos de transportista", Toast.LENGTH_LONG).show();
 
@@ -4097,6 +4109,7 @@ return true;
         if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCondicionBalanza.requestFocus();
             ediCondicionBalanza.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediCondicionBalanza);
 
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -4106,6 +4119,7 @@ return true;
         if(ediTipodeCaja.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediTipodeCaja.requestFocus();
             ediTipodeCaja.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediTipodeCaja);
 
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -4118,6 +4132,8 @@ return true;
             ediCondicionBalanza.requestFocus();
             ediCondicionBalanza.setError("Este espacio es obligatorio");
 
+              scroollElementoFaltante(ediCondicionBalanza);
+
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
 
@@ -4126,6 +4142,7 @@ return true;
         if(ediTipoPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediTipoPlastico.requestFocus();
             ediTipoPlastico.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediTipoPlastico);
 
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -4137,6 +4154,7 @@ return true;
         if(ediTipoBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediTipoBalanza.requestFocus();
             ediTipoBalanza.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediTipoBalanza);
 
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -4148,6 +4166,7 @@ return true;
         if(editipbalanzaRepeso.getText().toString().isEmpty()){ //chekamos que no este vacia
             editipbalanzaRepeso.requestFocus();
             editipbalanzaRepeso.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(editipbalanzaRepeso);
 
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -4158,6 +4177,7 @@ return true;
         if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediUbicacionBalanza.requestFocus();
             ediUbicacionBalanza.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediUbicacionBalanza);
 
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -5083,7 +5103,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
-
                     //aqui subimos..
 
                 }else {  //si exite creamos otro value...
@@ -5270,9 +5289,9 @@ private void callPrefrencesSave(){
 
      View [] mivIEWSAlls=creaArryOfViewsAll();
 
-    if(currentKeySharePrefrences.length()>1){
+    if(currentKeySharePrefrences.length()>1){  //si existe un key...y lo usamos...
 
-        SharePrefHelper.viewsSaveInfo(mivIEWSAlls,currentKeySharePrefrences);
+        SharePrefHelper.viewsSaveInfo(mivIEWSAlls,currentKeySharePrefrences,ActivityContenedores.this);
 
         //significa que tenemos un key de un objeto obtneido de prefrencias
 
@@ -5281,13 +5300,56 @@ private void callPrefrencesSave(){
 
     else{ //no existe creamos un nuevo register..
 
+
+        //OBTENMOS EL MAPAP CON OBJETOS INFORM REGISTER
+        Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+        //CREMos un nuevo objeto register
         InformRegister inform= new InformRegister(UUID.randomUUID().toString(),Constants.CONTENEDORES,"Me", "","Contenedores"  );
 
 
+        //gudramos oejto en el mapa
+        miMpaAllrRegisters.put(inform.getInformUniqueIdPertenece(),inform);
 
-        SharePrefHelper.viewsSaveInfo(mivIEWSAlls,inform.getInformUniqueIdPertenece());
+        SharePref.saveHashMapOfHashmapInformRegister(miMpaAllrRegisters,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
-        //guardamos el inform reporte en un hasmap ,,,el mismo que recuperaremos despues....
+        //guardamos info de  views en un mapa usnado el nismo id delobejto creado
+        SharePrefHelper.viewsSaveInfo(mivIEWSAlls,inform.getInformUniqueIdPertenece(),ActivityContenedores.this);
+
+
+
+
+
+    }
+
+
+
+}
+
+
+    public void scroollElementoFaltante(View vistFocus){
+
+       // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
+        vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+
+
+
+
+/*
+
+            Log.i("test001"," seleciono 200");
+
+            ScrollView scrollView2 =findViewById(R.id.scrollView2);
+
+            scrollView2.post(new Runnable() {
+                public void run() {
+                    scrollView2.scrollTo(0, vistFocus.getBottom());
+                }
+            });
+
+*/
+
 
 
 
@@ -5296,7 +5358,6 @@ private void callPrefrencesSave(){
 
 
 
-}
-
+    //Y AHORA SET DATA YN IEWS...
 
 }

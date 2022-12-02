@@ -1,4 +1,4 @@
-package com.tiburela.qsercom.activities.formularios;
+package com.tiburela.qsercom.activities.othersActivits;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
@@ -42,7 +43,6 @@ import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEn
 import com.tiburela.qsercom.adapters.AdapterAllReports;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
-import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -50,9 +50,7 @@ import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.ReportsAllModel;
-import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
-import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.text.DateFormat;
@@ -61,6 +59,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ActivitySeeReportsOffline extends AppCompatActivity  implements   View.OnTouchListener{
     RecyclerView recyclerVReports;
@@ -69,21 +68,14 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
     ProgressDialog pd;
     DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
-    ArrayList<InformRegister> listReport= new ArrayList<>();
+    ArrayList<InformRegister> listReportCurrents = new ArrayList<>();
     private ProgressDialog progress;
 
-    public final int REPORTE_CONTENEDORES_EN_HCDA=1100;
     public final int CONTENEDORES=1200;
-    public final int PACKINGLIST=1201;
-    public final int OTRO_REPORTE=1202;
-    public final int REPORTE_CONTENEDORES_EN_ACOPIO=1203;
-    public final int REPORTE_CAMIONES_y_CARRETAS=1204;
-    public final int REPORT_CONTROL_CALIDAD=1205;
-    public final int MUESTREO_CALIBRA_RECHAZ=1269;
 
     HashMap<String, ReportsAllModel> allReportFiltBMap=new HashMap<>();
 
-    HashMap<String,  InformRegister> mapAllReportsRegister =new HashMap<>();
+    Map<String,  InformRegister> mapAllReportsRegister =new HashMap<>();
 
 
     public static Context context;
@@ -113,9 +105,7 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
         listenenrSpinner();
 
 
-        mapAllReportsRegister = (HashMap<String, InformRegister>) SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
-
-
+        mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
 
         try {
@@ -233,10 +223,10 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
 
 
 
-    void setAdapaterDataAndShow(ArrayList <InformRegister> reports) {
+    void setAdapaterDataAndShow() {
 
 
-        if (reports.size()>0 )
+        if (listReportCurrents.size()>0 )
         {txtConfirmExitenciaData.setVisibility(TextView.INVISIBLE);
 
         }
@@ -250,7 +240,7 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
         //convertimos este hasmape
 
 
-        AdapterAllReports adapter = new AdapterAllReports( reports, ActivitySeeReportsOffline.this);
+        AdapterAllReports adapter = new AdapterAllReports( listReportCurrents, ActivitySeeReportsOffline.this);
 
         recyclerVReports.setLayoutManager(layoutManager);
 
@@ -323,9 +313,10 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
 
                 // Variables.CurrenReportPart1=  reportsListPart1.get(position);
 
-                Variables.currentInformRegisterSelected=listReport.get(position);
+              //  Variables.currentInformRegisterSelected=listReportCurrents.get(position);
 
-                showBottomSheetDialog(listReport.get(position).getTypeInform(), listReport.get(position).getInformUniqueIdPertenece());
+
+                showBottomSheetDialog(listReportCurrents.get(position).getTypeInform(), listReportCurrents.get(position).getInformUniqueIdPertenece());
 
 
              //   Log.i("midaclick","el click es here, el informe es "+ allReportFiltBMap.get(String.valueOf(v.getTag())).getIdInforme());
@@ -892,147 +883,6 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
 
 
 
-
-
-
-
-    void dowloadSecondPART_Report(String reportUNIQUEidtoSEARCH, int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
-        pd = new ProgressDialog(ActivitySeeReportsOffline.this);
-        pd.setMessage("Obteniendo Data");
-        pd.show();
-
-        Log.i("secondInform","el curren report id es "+reportUNIQUEidtoSEARCH);
-
-
-
-        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
-        Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinformePart2").equalTo(reportUNIQUEidtoSEARCH);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    SetInformEmbarque2 informEmbarque2= ds.getValue(SetInformEmbarque2.class);
-
-                    if(informEmbarque2!=null){
-                        Variables.CurrenReportPart2=informEmbarque2;
-                        break;
-                    }
-                }
-                Log.i("secondInform","el id del secon resport es "+Variables.CurrenReportPart2.getUniqueIDinformePart2());
-                Log.i("secondInform","el CANDAO ES "+Variables.CurrenReportPart2.getCandadoQsercom());
-
-
-                dowloadThirdReportAngoActivity(reportUNIQUEidtoSEARCH,modo);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-    void dowloadThirdReportAngoActivity(String reportUNIQUEidtoSEARCH,int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
-        pd = new ProgressDialog(ActivitySeeReportsOffline.this);
-        pd.setMessage("Obteniendo Data");
-        pd.show();
-
-        Log.i("secondInform","el curren report id es "+reportUNIQUEidtoSEARCH);
-
-
-
-        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
-        Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinformeDatsHda").equalTo(reportUNIQUEidtoSEARCH);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    SetInformDatsHacienda inform= ds.getValue(SetInformDatsHacienda.class);
-
-                    if(inform!=null){
-                        Variables.CurrenReportPart3=inform;
-                        break;
-
-                    }
-
-
-                    ///  Log.i("midaclick","el fist data elemetn is "+Variables.CurrenReportPart2.getUniqueIDinformePart2());
-                }
-
-                Log.i("CurrenReportPart3","la fuente a es "+ Variables.CurrenReportPart3.getFuenteAgua());
-
-
-
-                //  Log.i("secondInform","el id del secon resport es "+Variables.CurrenReportPart3.getUniqueIDinformePart2());
-
-              //  Log.i("secondInform","el CANDAO ES "+Variables.CurrenReportPart3.getCandadoQsercom());
-
-                Intent intencion= new Intent(ActivitySeeReportsOffline.this, ActivityContenedoresPrev.class);
-
-
-                if(modo==Variables.MODO_EDICION ){
-
-                    intencion.putExtra(Variables.KEYEXTRAPREVIEW,true);
-                    //si queremos deciion le ponemos true;
-                    Log.i("verdura","ahora se llamo intent");
-
-                   // startActivity(intencion);
-
-                    showPRogress(intencion);
-
-                    //pdialogff.dismiss();
-
-                    //finish();
-                }else{
-
-
-                    intencion.putExtra(Variables.KEYEXTRAPREVIEW,false);
-                    //si queremos deciion le ponemos true;
-                    Log.i("verdura","ahora se llamo intent");
-
-
-                   // startActivity(intencion);
-                    // pdialogff.dismiss();
-                    // finish();
-                    showPRogress(intencion);
-
-
-
-                }
-
-
-
-
-                //debemos tener data en el report chekemaos
-                //VAmos al activity preview...
-
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-
     private void showBottomSheetDialog(int reportTipo,String idReport) {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivitySeeReportsOffline.this);
@@ -1040,8 +890,6 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_edit_cpn);
 
         LinearLayout lyRevisar = bottomSheetDialog.findViewById(R.id.lyhh);
-        LinearLayout lyEditar = bottomSheetDialog.findViewById(R.id.lyEditar);
-        LinearLayout layOtherOpcion = bottomSheetDialog.findViewById(R.id.layOtherOpcion);
 
 
 Log.i("puslado","el value es "+idReport);
@@ -1054,15 +902,23 @@ Log.i("puslado","el value es "+idReport);
 
 
                 if(reportTipo== Constants.CONTENEDORES){
+
+                    Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityContenedores.class);
+                    intencion.putExtra(Variables.KEY_CONTENEDORES_EXTRA,idReport);
+
+                    startActivity(intencion);
+
+
+
                     ///descragamos la parte uno del reporte
-                    DowloadReportPart1(idReport,Variables.MODO_VISUALIZACION);
+                   // DowloadReportPart1(idReport,Variables.MODO_VISUALIZACION);
 
                 }
 
                 else if(reportTipo==Constants.CONTENEDORES_EN_ACOPIO){
 
 
-                    DowloadReportContersAcopio(idReport,Variables.MODO_VISUALIZACION);
+                  //  DowloadReportContersAcopio(idReport,Variables.MODO_VISUALIZACION);
                     //Descargamos un objeto contenedores object...
 
                 }
@@ -1070,7 +926,7 @@ Log.i("puslado","el value es "+idReport);
                 else if(reportTipo==Constants.PACKING_lIST){
 
 
-                    DowloadPackingList(idReport,Variables.MODO_VISUALIZACION);
+                   // DowloadPackingList(idReport,Variables.MODO_VISUALIZACION);
                     //Descargamos un objeto contenedores object...
 
                 }
@@ -1079,14 +935,14 @@ Log.i("puslado","el value es "+idReport);
                 else if(reportTipo==Constants.CAMIONES_Y_CARRETAS){
 
 
-                    DowloadReportCamionesYcarretas(idReport,Variables.MODO_VISUALIZACION);
+                   // DowloadReportCamionesYcarretas(idReport,Variables.MODO_VISUALIZACION);
                     //Descargamos un objeto contenedores object...
 
                 }
 
                 else if(reportTipo==Constants.CONTROL_CALIDAD){
 
-                    DowloadControlCalidad(idReport,Variables.MODO_VISUALIZACION);
+                   // DowloadControlCalidad(idReport,Variables.MODO_VISUALIZACION);
                     //Descargamos un objeto contenedores object...
 
                 }
@@ -1100,7 +956,7 @@ Log.i("puslado","el value es "+idReport);
 
 
 
-                    DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_VISUALIZACION);
+                   // DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_VISUALIZACION);
                     // DowloadControlCalidad(idReport,Variables.MODO_EDICION);
                     //Descargamos un objeto contenedores object...
                 }
@@ -1116,88 +972,6 @@ Log.i("puslado","el value es "+idReport);
 
 
 
-        lyEditar.setOnClickListener(new View.OnClickListener() {  //activar switch
-            @Override
-            public void onClick(View v) {
-
-                //  Toast.makeText(getActivity(), "Share is Clicked", Toast.LENGTH_LONG).show();
-                if(reportTipo==Constants.CONTENEDORES){
-                    ///descragamos la parte uno del reporte
-                    DowloadReportPart1(idReport,Variables.MODO_EDICION);
-
-
-
-                }else if(reportTipo==Constants.CONTENEDORES_EN_ACOPIO){
-
-
-                    DowloadReportContersAcopio(idReport,Variables.MODO_EDICION);
-                    //Descargamos un objeto contenedores object...
-
-                }
-
-                else if(reportTipo==Constants.PACKING_lIST){
-
-
-                    DowloadPackingList(idReport,Variables.MODO_EDICION);
-                    //Descargamos un objeto contenedores object...
-
-                }
-
-
-                else if(reportTipo==Constants.CAMIONES_Y_CARRETAS){
-
-
-                    DowloadReportCamionesYcarretas(idReport,Variables.MODO_EDICION);
-                    //Descargamos un objeto contenedores object...
-
-
-                }
-
-
-                else if(reportTipo==Constants.CONTROL_CALIDAD){
-
-
-                    DowloadControlCalidad(idReport,Variables.MODO_EDICION);
-                    //Descargamos un objeto contenedores object...
-
-
-                }
-
-
-                else if(reportTipo==Constants.CUADRO_MUESTRO_CAL_RECHZDS){
-
-                    Log.i("hsmpadat","es un cuadro de muestreo ");
-
-                    Log.i("hsmpadat","el id report es  "+idReport);
-
-                            DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_EDICION);
-
-                   // DowloadControlCalidad(idReport,Variables.MODO_EDICION);
-                    //Descargamos un objeto contenedores object...
-
-
-                }
-
-
-
-
-
-
-                bottomSheetDialog.dismiss();
-            }
-        });
-
-
-
-        layOtherOpcion.setOnClickListener(new View.OnClickListener() { //editar
-            @Override
-            public void onClick(View v) {
-
-                bottomSheetDialog.dismiss();
-
-
-            }
-        });
 
         bottomSheetDialog.show();
     }
@@ -1318,7 +1092,7 @@ Log.i("puslado","el value es "+idReport);
 
     void getReportLocalStorageBYdate(String dateSelecionado){
 
-  /***recuerd  buscamos by date iterando el hasmpa si contiene esta faecha agregarlo al listReport list *********/
+  /***recuerd  buscamos by date iterando el hasmpa si contiene esta faecha agregarlo al listReportCurrents list *********/
         //crear una variable global para la key que contedra siemore los all reporest offline ...
         //crear un metodo que guarde el mapa con objetos  InformRegister ,,, tierra fettil parec ontner algun metodo...
         //y con eso ya lo tiene 30 minutos maximo
@@ -1327,20 +1101,20 @@ Log.i("puslado","el value es "+idReport);
        //posiblemente obtengamos el mapa otra vez aqui
 
 
-        listReport= new ArrayList<>();
+        listReportCurrents = new ArrayList<>();
 
           for(InformRegister objecCurrent : mapAllReportsRegister.values()){
 
           if(objecCurrent.getSimpleDateForm().equals(dateSelecionado)){
 
-                  listReport.add(objecCurrent);
+                  listReportCurrents.add(objecCurrent);
           }
 
           }
 
 
 
-        setAdapaterDataAndShow(listReport);
+        setAdapaterDataAndShow();
 
 
            //en caso que no halla nada en este periodo..

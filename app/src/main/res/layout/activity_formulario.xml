@@ -130,7 +130,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -139,7 +138,6 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
-                    android:id="@+id/imvOcultaLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
@@ -167,7 +165,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -176,7 +173,6 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
-                    android:id="@+id/imvOcultaLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
@@ -203,7 +199,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -212,7 +207,6 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
-                    android:id="@+id/imvOcultaLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
@@ -239,7 +233,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -248,7 +241,6 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
-                    android:id="@+id/imvOcultaLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
@@ -275,7 +267,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -285,7 +276,6 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
-                    android:id="@+id/imvOcultaLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
@@ -311,7 +301,6 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -321,7 +310,6 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
-                    android:id="@+id/imvOcultaLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
@@ -391,7 +379,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text=" POR CLUSTER (SOLO PARA QUIENES PROCESEN ....).." />
+                    android:text=" POR CLUSTER (SOLO PARA QUIENES PROCESEN ....).."
+                    android:visibility="gone" />
             </LinearLayout>
 
             <include
@@ -428,9 +417,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn"
+                    android:text="Subir Formulario" />
+
+                <Button
+                    android:id="@+id/btnSaveLocale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="25dp"
                     android:background="@drawable/btn"
-                    android:text="Guardar Formulario" />
+                    android:text="Guardar Localemente" />
+
 
                 <Space
                     android:layout_width="match_parent"

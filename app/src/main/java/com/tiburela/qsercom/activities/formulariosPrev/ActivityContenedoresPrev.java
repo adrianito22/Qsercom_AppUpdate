@@ -390,6 +390,9 @@ String currentIDcUDORmUESTREO;
 
         CustomAdapter.idCudroMuestreoStringVinuclado ="";
 
+        Utils.userDecidioNoVincularAhora =false;
+
+
         Variables.copiamosData=false;
 
         mContext=this;
@@ -1126,7 +1129,7 @@ String currentIDcUDORmUESTREO;
            case R.id.imbTakePicSellosLLegada:
                Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
 
-               currentTypeImage=Variables.FOTO_TRANSPORTISTA;
+               currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
 
                takepickNow();
                break;

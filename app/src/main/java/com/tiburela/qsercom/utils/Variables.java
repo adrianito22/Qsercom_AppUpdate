@@ -26,6 +26,10 @@ import java.util.HashMap;
 
 public class Variables {
 
+ public static String  KEY_CONTENEDORES_EXTRA="MIKEYXTR";
+
+
+
  public static String  KEY_CONTROL_CALIDAD_ATACHEDS="MICTRNLDLD";
  public static String  KEY_CUADRO_MUETREO_ATACHED="MICUDAROR";
 
