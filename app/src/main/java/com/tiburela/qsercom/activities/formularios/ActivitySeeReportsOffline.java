@@ -32,6 +32,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
@@ -80,9 +81,9 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
     public final int REPORT_CONTROL_CALIDAD=1205;
     public final int MUESTREO_CALIBRA_RECHAZ=1269;
 
-
-
     HashMap<String, ReportsAllModel> allReportFiltBMap=new HashMap<>();
+
+    HashMap<String,  InformRegister> mapAllReportsRegister =new HashMap<>();
 
 
     public static Context context;
@@ -98,11 +99,8 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
 
         findViewsIDs();
 
-        Variables.listImagesToDelete=new ArrayList<String>();
 
-        RealtimeDB.initDatabasesRootOnly();
 
-        rootDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -114,9 +112,10 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
         super.onStart();
         listenenrSpinner();
 
-       // fechaToSearch=generaFechaToSearch(Variables.HOY);
 
-      //  dowloadinformesby_EspecificDate();
+        mapAllReportsRegister = (HashMap<String, InformRegister>) SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
 
 
         try {
@@ -219,284 +218,18 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
     }
 
 
-    void dowloadinformesby_CONTENEDORES(String dateSelecionado){
 
-        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
-        Query query = rootDatabaseReference.child("Informes").child("listInformes").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
-        //reportsListPart1 = new ArrayList<>();
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    SetInformEmbarque1 informEmbarque1=ds.getValue(SetInformEmbarque1.class);
 
-                    //  reportsListPart1.add(informEmbarque1);
 
 
-                    ReportsAllModel objec= new ReportsAllModel(CONTENEDORES,false,false,false,"Contenedores"
-                            , informEmbarque1.getSimpleDataFormat(),informEmbarque1.getUniqueIDinforme());
 
 
-                    allReportFiltBMap.put(informEmbarque1.getUniqueIDinforme(),objec);
 
-                }
 
 
-                dowloadinformesby_CONTENEDORES_EN_ACOPIO(dateSelecionado);
-                Log.i("sellamos","se llamo dowload more info data ");
-                //setAdapaterDataAndShow(reportsListPart1);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-    void dowloadinformesby_CONTENEDORES_EN_ACOPIO(String dateSelecionado){
-        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
-
-
-        Log.i("sliexsa","el size de lista here call es  "+ allReportFiltBMap.size());
-
-        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
-        Query query = rootDatabaseReference.child("Informes").child("contenedoresAcopio").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
-        //    reportsListPart1 = new ArrayList<>();
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    ContenedoresEnAcopio contenedoresEnAcopio=ds.getValue(ContenedoresEnAcopio.class);
-
-                    //  reportsListPart1.add(informEmbarque1);
-
-                    ReportsAllModel objec=new ReportsAllModel(REPORTE_CONTENEDORES_EN_ACOPIO,false,false,false,"Contenedores Acopio"
-                            , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme());
-
-
-
-
-                            allReportFiltBMap.put(contenedoresEnAcopio.getUniqueIDinforme(),objec);
-
-                }
-
-                Log.i("sliexsa","el size de lista 222es  "+ allReportFiltBMap.size());
-                dowloadinformesby_PACKE_lIST(dateSelecionado);
-                //setAdapaterDataAndShow(reportsListPart1);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-    void dowloadinformesby_PACKE_lIST(String dateSelecionado){
-        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
-
-
-        Log.i("sliexsa","el size de lista here call es  "+ allReportFiltBMap.size());
-
-        //        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("PackingListDescripcion");
-
-        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
-        Query query = rootDatabaseReference.child("Informes").child("PackingListDescripcion").orderByChild("simpledatFormt").equalTo(dateSelecionado);
-        //    reportsListPart1 = new ArrayList<>();
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    PackingListMod packinList=ds.getValue(PackingListMod.class);
-
-                    //  reportsListPart1.add(informEmbarque1);
-
-                    ReportsAllModel object=new ReportsAllModel(PACKINGLIST,false,false,false,"Packing List"
-                            , packinList.getSimpledatFormt(),packinList.getUniqueIDinforme());
-
-
-
-                    allReportFiltBMap.put(packinList.getUniqueIDinforme(),object);
-
-                }
-
-
-                Log.i("sliexsa","el size de lista 222es  "+ allReportFiltBMap.size());
-                dowloadinformesby_CAMIONES_Y_CARRETAS(dateSelecionado);
-
-                //setAdapaterDataAndShow(reportsListPart1);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-    void dowloadinformesby_CAMIONES_Y_CARRETAS(String dateSelecionado){
-        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
-
-
-        Log.i("sliexsa","el size de lista here call es  "+ allReportFiltBMap.size());
-
-        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
-        Query query = rootDatabaseReference.child("Informes").child("informeCamionesYcarretas").orderByChild("simpleDataFormat").equalTo(dateSelecionado);
-        //    reportsListPart1 = new ArrayList<>();
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    ContenedoresEnAcopio contenedoresEnAcopio=ds.getValue(ContenedoresEnAcopio.class);
-
-                    //  reportsListPart1.add(informEmbarque1);
-
-
-                    ReportsAllModel object=new ReportsAllModel(REPORTE_CAMIONES_y_CARRETAS,false,false,false,"Camiones Y Carretas"
-                            , contenedoresEnAcopio.getSimpleDataFormat(),contenedoresEnAcopio.getUniqueIDinforme());
-
-
-
-                    allReportFiltBMap.put(contenedoresEnAcopio.getUniqueIDinforme(),object);
-
-                }
-
-                Log.i("sliexsa","el size de lista 222es  "+ allReportFiltBMap.size());
-                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
-                //setAdapaterDataAndShow(reportsListPart1);
-
-                dowloadinformesby_ControlCalidad(dateSelecionado);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-
-    void dowloadinformesby_ControlCalidad(String dateSelecionado){
-        /*   DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
-        Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);*/
-        Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
-        Log.i("sliexsa","el size de lista here call es  "+ allReportFiltBMap.size());
-
-
-        Query query = rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("simpleDate").equalTo(dateSelecionado);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    ControlCalidad controlcalidad=ds.getValue(ControlCalidad.class);
-
-                    ReportsAllModel objec =  new ReportsAllModel(REPORT_CONTROL_CALIDAD,false,false,false,"Control Calidad",
-                            controlcalidad.getSimpleDate(),controlcalidad.getUniqueId());
-
-                    allReportFiltBMap.put(controlcalidad.getUniqueId(),objec);
-
-
-
-                }
-
-                Log.i("sliexsa","el size de lista 222es  "+ allReportFiltBMap.size());
-                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
-                //setAdapaterDataAndShow(reportsListPart1);
-                dowloadinformesby_CuadroMuestreoCalib(dateSelecionado);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
-
-
-
-    void dowloadinformesby_CuadroMuestreoCalib(String dateSelecionado){
-
-        Query query = rootDatabaseReference.child("Informes").child("CuadrosMuestreo").orderByChild("simpleDateFormat").equalTo(dateSelecionado);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    CuadroMuestreo controlcalidad=ds.getValue(CuadroMuestreo.class);
-
-                    ReportsAllModel report = new ReportsAllModel(MUESTREO_CALIBRA_RECHAZ,false,false,false,"Cuadro Muestreo",
-                            controlcalidad.getSimpleDateFormat(),controlcalidad.getUniqueIdObject());
-
-
-                    allReportFiltBMap.put(controlcalidad.getUniqueIdObject(),report);
-
-
-
-                }
-
-                Log.i("muestrodff","el size de lista 222es  "+ allReportFiltBMap.size());
-                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
-                //setAdapaterDataAndShow(reportsListPart1);
-
-
-                setAdapaterDataAndShow(allReportFiltBMap);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
 
 
 
@@ -1591,70 +1324,31 @@ Log.i("puslado","el value es "+idReport);
         //y con eso ya lo tiene 30 minutos maximo
         // aqui emvairle un intent con el key cuando el usuario selecione los items y dirigja a contenedor....
         ///y asi parece facil
+       //posiblemente obtengamos el mapa otra vez aqui
 
 
-        HashMap<String,InformRegister>mapAllReports= new HashMap<>();  //aqui ibtenemos usando prefrencias....
+        listReport= new ArrayList<>();
 
-          for(){
+          for(InformRegister objecCurrent : mapAllReportsRegister.values()){
 
+          if(objecCurrent.getSimpleDateForm().equals(dateSelecionado)){
 
+                  listReport.add(objecCurrent);
+          }
 
           }
 
 
 
-        ////esta fecha....
+        setAdapaterDataAndShow(listReport);
 
 
-
-        //buscamos solo los que contengan esta fecha ......
-
-
-
-        //itremoas toda la lista de reportes y buscamos solo los de esta semana....
+           //en caso que no halla nada en este periodo..
 
 
 
 
 
-
-
-        //VAMOS A LLAMRALO MULTIPLES VECES CUANDO CAMBIA LA INFO .... PILAXX
-
-        Query query = rootDatabaseReference.child("Registros").child("InformesRegistros").orderByChild("simpleDateForm").equalTo(dateSelecionado);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                listReport= new ArrayList<>();
-
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    InformRegister report=ds.getValue(InformRegister.class);
-
-                    listReport.add(report);
-
-                }
-
-                Log.i("muestrodff","el size de lista 222es  "+ listReport.size());
-                ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
-                //setAdapaterDataAndShow(reportsListPart1);
-
-
-                setAdapaterDataAndShow(listReport);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
 
 
     }
