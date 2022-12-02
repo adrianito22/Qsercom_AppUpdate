@@ -79,6 +79,7 @@ import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
@@ -88,6 +89,7 @@ import com.tiburela.qsercom.utils.ConnectionReceiver;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
+import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -111,6 +113,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     ArrayList<ControlCalidad> listFormsControlCalidad = new ArrayList<>();
     ArrayList<CheckedAndAtatch> checkedListForms = new ArrayList<>();
     ProgressDialog progress;
+
+    String currentKeySharePrefrences="";
 
     private final int CODE_TWO_PERMISIONS = 12;
 
@@ -4392,21 +4396,145 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 }
 
 
-    void addInfotomap(ArrayList<ImagenReport>listImagenReports){
-        ImagenReport.hashMapImagesData= new HashMap<>();
-
-        //agregamos adata al mapusnado un bucle
-
-        for(int indice2=0; indice2<listImagenReports.size(); indice2++){
-
-            ImagenReport currentImareportObj=listImagenReports.get(indice2);
-
-            ImagenReport.hashMapImagesData.put(currentImareportObj.getUniqueIdNamePic(),currentImareportObj);
-
-        }
 
 
+    private View[] creaArryOfViewsAll() {
+        View [] arrayViews = {
+
+                ediSemana,
+                ediFecha,
+                ediProductor,
+                ediHacienda,
+                ediCodigo,
+                ediInscirpMagap,
+                ediPemarque,
+                ediZona,
+                ediHoraInicio,
+                ediHoraTermino,
+                ediHoraLLegadaContenedor,
+                ediHoraSalidaContenedor,
+                ediNguiaRemision,
+                edi_nguia_transporte,
+                ediNtargetaEmbarque,
+                ediNhojaEvaluacion,
+                ediObservacion,
+                ediEmpacadora,
+                // ediFotosLlegada,
+                ediContenedor,
+                ediPPC01,
+                ediPPC02,
+                ediPPC03,
+                ediPPC04,
+                ediPPC05,
+                ediPPC06,
+                ediPPC07,
+                ediPPC08,
+                ediPPC09,
+                ediPPC010,
+                ediPPC011,
+                ediPPC012,
+                ediPPC013,
+                ediPPC014,
+                ediPPC015,
+                ediPPC016,
+                ediDestino,
+                ediNViaje,
+                ediTipoContenedor,
+                ediVapor,
+                //ediFotoContenedor,
+                // ediFotosPposcosecha,
+                ediEnsunchado,
+                ediBalanzaRepeso,
+
+
+                ediBalanza,
+                ediFuenteAgua,
+                ediAguaCorrida,
+                ediLavadoRacimos,
+                ediFumigacionClin1,
+                ediTipoBoquilla,
+                ediCajasProcDesp,
+                ediRacimosCosech,
+                ediRacimosRecha,
+                ediRacimProces,
+
+
+                ediCompaniaTransporte,
+                ediNombreChofer,
+                ediCedula,
+                ediCelular,
+                ediPLaca,
+                ediMarcaCabezal,
+                ediColorCabezal,
+                // ediFotosLlegadaTransport,
+
+                ediTare,
+                ediBooking,
+                ediMaxGross,
+                ediNumSerieFunda,
+                stikVentolerExterna,
+                ediCableRastreoLlegada,
+                ediSelloPlasticoNaviera,
+                ediOtroSellosLlegada,
+                //ediFotosSellosLLegada,
+
+                ediCondicionBalanza,
+                ediTipodeCaja,
+                ediTipoPlastico,
+                ediTipoBalanza,
+                editipbalanzaRepeso,
+                ediUbicacionBalanza,
+
+                ediTermofrafo1,
+                ediHoraEncendido1,
+                ediUbicacion1,
+                ediRuma1,
+                ediTermofrafo2,
+                ediHoraEncendido2,
+                ediUbicacion2,
+                ediRuma2,
+                ediCandadoqsercon,
+                ediSelloNaviera,
+                ediCableNaviera,
+                ediSelloPlastico,
+                ediCandadoBotella,
+                ediCableExportadora,
+                ediSelloAdesivoexpor,
+                esiSelloAdhNaviera,
+                ediOtherSellos,
+
+
+
+
+                spinnerSelectZona,
+                spinnerCondicionBalanza,
+                spinnertipoCaja,
+                spinnertipodePlastico,
+                spinnertipodeBlanza ,
+                spinnertipodeBlanzaRepeso ,
+                spinnerubicacionBalanza ,
+
+                spFuenteAgua ,
+                spFumigaCorL1 ,
+                spTipoBoquilla ,
+
+                switchContenedor,
+                switchHaybalanza,
+                switchHayEnsunchado,
+                switchBalanzaRep,
+                switchLavdoRacimos,
+                swAguaCorrida,
+
+
+
+        } ;
+
+
+        return arrayViews;
     }
+
+
+
 
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
 
@@ -5131,6 +5259,39 @@ public void decideaAtachReport(boolean userSelecion){
         }
 
 */
+
+
+
+
+}
+
+
+private void callPrefrencesSave(){
+
+     View [] mivIEWSAlls=creaArryOfViewsAll();
+
+    if(currentKeySharePrefrences.length()>1){
+
+        SharePrefHelper.viewsSaveInfo(mivIEWSAlls,currentKeySharePrefrences);
+
+        //significa que tenemos un key de un objeto obtneido de prefrencias
+
+
+    }
+
+    else{ //no existe creamos un nuevo register..
+
+        InformRegister inform= new InformRegister(UUID.randomUUID().toString(),Constants.CONTENEDORES,"Me", "","Contenedores"  );
+
+
+
+        SharePrefHelper.viewsSaveInfo(mivIEWSAlls,inform.getInformUniqueIdPertenece());
+
+        //guardamos el inform reporte en un hasmap ,,,el mismo que recuperaremos despues....
+
+
+
+    }
 
 
 

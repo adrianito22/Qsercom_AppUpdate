@@ -4,6 +4,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Switch;
+
+import com.tiburela.qsercom.SharePref.SharePref;
 
 import java.util.HashMap;
 
@@ -13,7 +16,7 @@ public class SharePrefHelper {
     ////creamos un super array con todas las views...
 
 
-    private void viewsSaveInfo(View[] misViews ){
+    public static void viewsSaveInfo(View[] misViews,String keyToSaveMap ){
         HashMap<String ,String> miMapToSave= new HashMap<>() ;
 
         String keyViewID;
@@ -66,8 +69,34 @@ public class SharePrefHelper {
             }
 
 
+
+
+            else  if (vistCurrent instanceof Switch) { //asi es un editex compobamos si esta lleno
+                Switch switchz = (Switch) vistCurrent;
+                keyViewID=String.valueOf(vistCurrent.getId());
+
+                if(switchz.isChecked()){ //si contiene texto
+                    miMapToSave.put(keyViewID,"true");
+
+
+                }else{
+                    miMapToSave.put(keyViewID, "false");
+
+                }
+
+
+            }
+
+
+
         }
 
+        /*****Recuerda iniiclizar share preferencias en la actividad donde vamos a lllmar este metodo**********/
+//        //currentKeySharePrefrences //si esa key emptu o leng =0 ...
+        //le pasmoas con un intent en activity see mism reports local prefrences...
+        /** desues guardar.....vamos.s... entonces es asi...*/
+
+        //SharePref.init();
 
 
         ///aqui guardamos este....
