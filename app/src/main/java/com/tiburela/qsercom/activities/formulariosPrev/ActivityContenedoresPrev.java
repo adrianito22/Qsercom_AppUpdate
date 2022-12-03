@@ -6030,9 +6030,14 @@ if(indice>2) {
      * en tipo de balanza spinner
      * extensionista ci
      * fotos llegada  dice selcione al menos una foto.....incluso en otras secciones
-     *
+     *cuando vamos a check racimos rechzados mostrar el dilgo frag,et con confirmacion........
+     * ////crear nuevo reporte antes agergarle eso...
+     * //y revisar resportes...
      *
      * cuando estamos en activity preview y vamos a activity no deja delete... resetear eso.. en actvity menu.... onstart...o see reports...
+     *
+     *
+     *
      * en el recicler deberi estar el onclick o en el callback de la actividad
      * **/
 
