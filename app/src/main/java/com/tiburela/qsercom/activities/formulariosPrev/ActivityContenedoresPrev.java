@@ -6,6 +6,7 @@ import static android.os.Build.VERSION.SDK_INT;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -44,6 +45,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -107,7 +109,7 @@ import java.util.Objects;
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
 
 String currentIDcUDORmUESTREO;
-
+ final int   PICK_IMG=590;
 
     ProgressDialog progress;
 
@@ -294,7 +296,6 @@ String currentIDcUDORmUESTREO;
 
     ArrayList<View> listViewsClickedUser;
 
-    ActivityResultLauncher activityResultLauncher;
     Uri cam_uri;
 
     ImageView imBtakePic;
@@ -338,9 +339,6 @@ String currentIDcUDORmUESTREO;
 
 
                    UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinforme();
-                   //
-
-
 
                     StorageData.uniqueIDImagesSetAndUInforme= Variables.CurrenReportPart1.getUniqueIDinforme();
 
@@ -360,7 +358,7 @@ String currentIDcUDORmUESTREO;
 
 
                    addClickListeners();
-                   resultatachImages();
+                  // resultatachImages();
                    listennersSpinners();
 
                   // EstateFieldView.adddataListsStateFields();
@@ -1084,9 +1082,26 @@ String currentIDcUDORmUESTREO;
 
                currentTypeImage=Variables.FOTO_LLEGADA;
 
+               //Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+               //intent.setType("image/*");
+               //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+
+               //intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+              // intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+              // intent.
+
+            //  startActivityForResult(intent, PICK_IMG);
+
+              // Intent intent = new Intent(this, SomeActivity.class);
+              // someActivityResultLauncherx.launch(intent);
+
                Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
 
                activityResultLauncher.launch("image/*");
+
+
+               // activityResultLauncher.launch(intent);
                break;
 
 
@@ -1261,6 +1276,14 @@ String currentIDcUDORmUESTREO;
 
                            // showImageByUri(cam_uri);
                           //  Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.onActivityResult();, imageUri);
+
+
+                           // Uri sourceTreeUri = data.getData();
+
+
+
+                                ActivityContenedoresPrev.this.getContentResolver().takePersistableUriPermission
+                                        (cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
 
                             try {
@@ -1590,15 +1613,14 @@ String currentIDcUDORmUESTREO;
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 
-        resultatachImages();
+      //  resultatachImages();
 
 
 
     }
 
 
-    private void resultatachImages() {
-        activityResultLauncher = registerForActivityResult(
+     ActivityResultLauncher   activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
                     @Override
                     public void onActivityResult(List<Uri> result) {
@@ -1624,12 +1646,14 @@ String currentIDcUDORmUESTREO;
 
                                     //creamos un nuevo objet de tipo ImagenReport
                                     ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)), horientacionImg);
+                                    obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
+
 
                                     //agregamos este objeto a la lista
                                     ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
-                                    showImagesPicShotOrSelectUpdateView(false);
+                                  //  showImagesPicShotOrSelectUpdateView(false);
 
                                 } catch (FileNotFoundException e) {
                                     e.printStackTrace();
@@ -1660,7 +1684,7 @@ String currentIDcUDORmUESTREO;
                     }
                 });
 
-}
+
 
 void showImageByUri(Uri uri )  {
    try {
@@ -1809,6 +1833,8 @@ private void listennersSpinners() {
                 ediTipoBalanza.setText("");
                 actualizaListStateView("addetiquetaaqui",false) ;
             }else {
+
+
                 actualizaListStateView("addetiquetaaqui",true) ;
             }
 
@@ -1825,15 +1851,6 @@ private void listennersSpinners() {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String zonaEelejida= spinnertipodeBlanzaRepeso.getSelectedItem().toString();
             editipbalanzaRepeso.setText(zonaEelejida);
-            if(zonaEelejida.equals("Ninguna")){
-                //actualizamos
-                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                editipbalanzaRepeso.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
-            }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
-            }
-
         }
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
@@ -1992,6 +2009,10 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
            // generatePDFandImport();
 
             checkDataFields();
+
+
+
+
 
 
 
@@ -2692,8 +2713,42 @@ private void createObjcInformeAndUpload() {
             Log.i("imagheddd","alguno o toos son diferentes images llamaos metodo filtra");
 
 
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
 
-            StorageData.uploadImage(ActivityContenedoresPrev.this, Utils.creaHahmapNoDuplicado());
+                Log.i("imagheddd","tienes permiso");
+
+            }else{
+
+                Log.i("imagheddd","no tiene sel permios");
+
+
+            }
+
+
+
+
+
+            ArrayList<ImagenReport>list=Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
+            StorageData.counTbucle=0; //resetemoa esta variable que sera indice en la reflexion
+
+
+
+
+            ArrayList<ImagenReport>list2=Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
+
+            StorageData.uploaddata(list2);
+
+
+           try {
+             ///  StorageData.uploadFile(ActivityContenedoresPrev.this,list);
+
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+
+
+           // StorageData.uploadImage(ActivityContenedoresPrev.this, Utils.creaHahmapNoDuplicado());
 
 
 
@@ -3668,21 +3723,25 @@ return true;
 
 
 
+
+
+
         if(editipbalanzaRepeso.getText().toString().isEmpty()){ //si no esta vacia
 
           // FieldOpcional.tipoDeBalanzaRepesoOpcnal AQUI GAURDAMOS EL VALOR DEL EDITEXT
+              FieldOpcional.tipoDeBalanzaRepesoOpcnal ="";
 
-            editipbalanzaRepeso.requestFocus();
-            editipbalanzaRepeso.setError("Este espacio es obligatorio");
+            //editipbalanzaRepeso.requestFocus();
+            //editipbalanzaRepeso.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
-            return false;
+            //layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+          //  return false;
 
         }
 
         else {
+              FieldOpcional.tipoDeBalanzaRepesoOpcnal =editipbalanzaRepeso.getText().toString();
 
-            FieldOpcional.tipoDeBalanzaRepesoOpcnal =editipbalanzaRepeso.getText().toString();
 
         }
 
@@ -4361,7 +4420,7 @@ return true;
         activateViewsByTypeView(    ediTipodeCaja);
         activateViewsByTypeView(    ediTipoPlastico);
         activateViewsByTypeView(    ediTipoBalanza);
-        activateViewsByTypeView(    editipbalanzaRepeso);
+      //  activateViewsByTypeView(    editipbalanzaRepeso);
         activateViewsByTypeView(    ediUbicacionBalanza);
         activateViewsByTypeView(    ediTermofrafo1);
         activateViewsByTypeView(    ediHoraEncendido1);
@@ -4450,7 +4509,16 @@ return true;
         selectValue(spinnerCondicionBalanza,info2Object.getCondicionBalanza()) ;
         selectValue(spinnertipoCaja,info2Object.getTipoCaja()) ;
         selectValue(spinnertipodePlastico,info2Object.getTipoPlastico()) ;
+
+        Log.i("balznas","el tipo de balanza es "+info2Object.getTipoDeBalanza());
+
+
+
         selectValue(spinnertipodeBlanza,info2Object.getTipoDeBalanza()) ;
+
+
+
+
         selectValue(spinnertipodeBlanzaRepeso,info2Object.getTipoDeBalanzaRepeso()) ;
         selectValue(spinnerubicacionBalanza,info2Object.getUbicacionBalanza()) ;
 
@@ -5875,4 +5943,124 @@ if(indice>2) {
     }
 
 
-}
+
+
+    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
+    ActivityResultLauncher<Intent> someActivityResultLauncherx = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                    if(result.getResultCode()== Activity.RESULT_OK){
+
+                        Intent data = result.getData();
+
+
+                        if (data.getClipData() != null) {
+                            int count = data.getClipData().getItemCount();
+
+                            int CurrentImageSelect = 0;
+
+                            while (CurrentImageSelect < count) {
+                                Uri imageuri = data.getClipData().getItemAt(CurrentImageSelect).getUri();
+                                //   ImageList.add(imageuri);
+
+                                Bitmap bitmap = null;
+                                try {
+                                    bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(),imageuri);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
+                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+
+
+                                ImagenReport obcjImagenReport = new ImagenReport("",imageuri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,imageuri), horientacionImg);
+
+                                //agregamos este objeto a la lista
+                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                                Utils.mapUris.put(obcjImagenReport.getUniqueIdNamePic(),imageuri);
+                                CurrentImageSelect = CurrentImageSelect + 1;
+                            }
+
+                            showImagesPicShotOrSelectUpdateView(false);
+
+
+                            // textView.setVisibility(View.VISIBLE);
+                            //textView.setText("You Have Selected " + ImageList.size() + " Pictures");
+                            //choose.setVisibility(View.GONE);
+                        }
+
+                    }
+
+                    }
+
+
+
+
+
+            });
+
+
+
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMG) {
+            if (resultCode == RESULT_OK) {
+                if (data.getClipData() != null) {
+                    int count = data.getClipData().getItemCount();
+
+                    int CurrentImageSelect = 0;
+
+                    while (CurrentImageSelect < count) {
+                        Uri imageuri = data.getClipData().getItemAt(CurrentImageSelect).getUri();
+                     //   ImageList.add(imageuri);
+
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(),imageuri);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
+                        String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+
+
+                        ImagenReport obcjImagenReport = new ImagenReport("",imageuri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,imageuri), horientacionImg);
+
+                        //agregamos este objeto a la lista
+                        ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                        Utils.mapUris.put(obcjImagenReport.getUniqueIdNamePic(),imageuri);
+                        CurrentImageSelect = CurrentImageSelect + 1;
+                    }
+                   // textView.setVisibility(View.VISIBLE);
+                    //textView.setText("You Have Selected " + ImageList.size() + " Pictures");
+                    //choose.setVisibility(View.GONE);
+                }
+
+            }
+
+        }
+
+    }
+    }
+
+    /*****
+     *
+     * en tipo de balanza spinner
+     * extensionista ci
+     * fotos llegada  dice selcione al menos una foto.....incluso en otras secciones
+     *
+     * **/
+

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,7 +19,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +36,7 @@ public class StorageData {
 
 
 
-private static int counTbucle=0;
+public static int counTbucle=0;
 
 
 
@@ -178,6 +181,225 @@ private static int counTbucle=0;
 
     }
 
+    public static void uploadImages(Context context, ArrayList< ImagenReport> listImageReport) {
+
+
+
+         ImagenReport currenImageReport= listImageReport.get(counTbucle);
+        String uriFilePath =currenImageReport.geturiImage();
+        Uri myUri = Uri.parse(uriFilePath);
+        //por aqui comprimir la imagen para subir
+
+       // counTbucle++;
+
+        // Defining the child of storageReference
+//        stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+listImageReport.get(counTbucle).getUniqueIdNamePic());
+
+
+        Log.i("imagheddd","vamos a subir el file con este name  "+currenImageReport.getUniqueIdNamePic());
+
+
+        stoRefToUpload = rootStorageReference.child("imagenes_all_reports/");
+
+            stoRefToUpload.child(currenImageReport.getUniqueIdNamePic()).putFile(myUri)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+
+                                    stoRefToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+
+                                            String iconPathFirebase = uri.toString();
+
+                                            currenImageReport.setUrlStoragePic(iconPathFirebase);
+                                            // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
+
+                                            Log.i("imagheddd","info es on success  "+iconPathFirebase);
+
+
+                                            if(counTbucle < listImageReport.size()) {
+                                                counTbucle++;
+                                                uploadImages(context,listImageReport);
+                                            }
+
+
+                                           // Log.i("imagheddd","info "+counTbucle+" = "+hasmapImagenData.size());
+                                            RealtimeDB.addNewSetPicsInforme(currenImageReport);
+
+
+                                        }
+                                    });
+
+
+                                    //subimos el registro
+
+                                    /// Uri downloadUri = task.getResult();
+
+                                    // return stoRefToUpload.getDownloadUrl();
+                                    //Log.i("comidair","la url es : "+url);
+
+
+
+
+                                    //    startActivity(new Intent(AddNewOfertCupon.this,OfertsAdminActivity.class)) ;
+
+
+                                }
+                            })
+
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+
+                            Log.i("imagheddd","el error es  "+e.getMessage());
+
+
+                            Log.i("imagheddd","la data es "+e.getMessage());
+
+                            // Error, Image not uploaded
+                            Toast
+                                    .makeText(context,
+                                            "Error " + e.getMessage(),
+                                            Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                                // Progress Listener for loading
+                                // percentage on the dialog box
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+
+                                }
+                            });
+
+
+            // [START download_via_url]
+            stoRefToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+
+
+                    Log.i("imagheddd","el succes here es"+uri.toString());
+
+                    // Got the download URL for 'users/me/profile.png'
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                    Log.i("imagheddd","el error es  "+exception.getMessage());
+
+                    // Handle any errors
+                }
+            });
+            // [END download_via_url]
+
+
+
+
+
+
+    }
+
+    public static void uploadFile(Context context, ArrayList< ImagenReport> listImageReport){
+
+        if(counTbucle ==listImageReport.size()){
+            return;
+
+        }
+
+
+        ImagenReport currenImageReport= listImageReport.get(counTbucle);
+        String uriFilePath =currenImageReport.geturiImage();
+     //   Uri myUri = Uri.parse(uriFilePath);
+
+       Uri myUri= Utils.mapUris.get(currenImageReport.getUniqueIdNamePic());
+
+        Log.i("imagheddd","el size de map uris es   "+Utils.mapUris.size());
+
+        //por aqui comprimir la imagen para subir
+
+        // counTbucle++;
+
+        // Defining the child of storageReference
+       stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+listImageReport.get(counTbucle).getUniqueIdNamePic());
+
+
+        Log.i("imagheddd","vamos a subir el file con este name  "+currenImageReport.getUniqueIdNamePic());
+
+
+       // stoRefToUpload = rootStorageReference.child("imagenes_all_reports/");
+
+           //le decimos que si existe uri
+
+
+
+
+            if(myUri!=null){
+                stoRefToUpload.putFile(myUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
+                {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
+                    {
+                        if (!task.isSuccessful())
+                        {
+                            throw task.getException();
+                        }
+                        return stoRefToUpload.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            Uri downloadUri = task.getResult();
+                            Log.e("TAG", "then: " + downloadUri.toString());
+                            Log.i("imagheddd","es succces vamos ");
+
+
+                            if(counTbucle<listImageReport.size()) {
+                                counTbucle++;
+
+                                Log.i("imagheddd","info ");
+                                RealtimeDB.addNewSetPicsInforme(currenImageReport);
+
+                                uploadFile(context,listImageReport);
+
+                            }
+
+
+
+
+
+                            //    Toast.makeText(MainActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        } else
+                        {
+                            // Toast.makeText(MainActivity.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+            else{
+                // Toast.makeText(this, "Please upload image!", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+
+
+
 
 
 
@@ -292,5 +514,71 @@ private static int counTbucle=0;
     }
 
 
+    public static void uploaddata(ArrayList<ImagenReport>ImageList) {
 
+        /**SI HAY PROBELASM DE URI PERMISOS ASEGURARSE QUE EL URI CONTENGA UNA PROPIEDAD QUE HACER QUE LE DE PERMISOS DE
+         * LECTURA ALGO AS..ESO EN INTENT AL SELECIONAR IMAGENES*/
+
+
+
+        final StorageReference ImageFolder =  FirebaseStorage.getInstance().getReference().child("imagenes_all_reports");
+        for (int uploads=0; uploads < ImageList.size(); uploads++) {
+       //     String curreNTkEY=mimap.get(ImageList.get(uploads).getUniqueIdNamePic());
+
+                 ImagenReport currenImageReport= ImageList.get(uploads);
+
+            Uri uriImage  = Uri.parse(currenImageReport.geturiImage());
+
+
+            final StorageReference imagename = ImageFolder.child(ImageList.get(uploads).getUniqueIdNamePic());
+
+            imagename.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+
+                            Log.i("imagheddd","es succces bien");
+
+                          //  String url = String.valueOf(uri);
+
+
+
+
+
+                            String iconPathFirebase = uri.toString();
+
+                            currenImageReport.setUrlStoragePic(iconPathFirebase);
+                            // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
+
+                            Log.i("imagheddd","info es on success  y path es  "+iconPathFirebase);
+
+
+                         //   if(counTbucle < listImageReport.size()) {
+                           //     counTbucle++;
+                               // uploadImages(context,listImageReport);
+                           // }
+
+
+                            // Log.i("imagheddd","info "+counTbucle+" = "+hasmapImagenData.size());
+                            RealtimeDB.addNewSetPicsInforme(currenImageReport);
+
+
+
+
+
+                            // SendLink(url);
+                        }
+                    });
+
+                }
+            });
+
+
+        }
+
+
+    }
 }

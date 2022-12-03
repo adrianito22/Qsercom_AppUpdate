@@ -3,6 +3,7 @@ package com.tiburela.qsercom.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -47,7 +48,7 @@ public static boolean userDecidioNoVincularAhora =false;
 public static boolean userDecidioNoVincularCuadroMuestreo  =false;
 
 public static String textoShow="";
-
+public static HashMap<String, Uri>mapUris= new HashMap<>();
 
 
 
@@ -871,4 +872,23 @@ return true;
 
     }
 
+
+    public static ArrayList<ImagenReport>mapToArrayList(HashMap<String,ImagenReport> map){
+        ArrayList<ImagenReport>list= new ArrayList<>();
+
+        for(ImagenReport currnet: map.values()){
+
+            list.add(currnet);
+
+        }
+
+
+        return  list;
+
+    }
+
+
+
+
 }
+

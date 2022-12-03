@@ -48,6 +48,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -1000,7 +1001,41 @@ Log.i("hellosweer","se ehjecitp onstart");
 
                Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
 
+
+               // Configure chooser
+              // Intent chooser = new Intent();
+
+               //Intent intent = new Intent();
+               //intent.setType("image/*");
+              // intent.setAction(Intent.ACTION_GET_CONTENT);
+              // chooser.addCategory(Intent.CATEGORY_OPENABLE);
+              // chooser.setType("image/*");
+
+              // activityResultLauncher.launch("image/*");
+
+             //  chooser.setAction(Intent.ACTION_GET_CONTENT);
+             //  Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+              // mGetContent.launch(intent);
+
+               // activityResultLauncher.setAction(Intent.ACTION_PICK);
+               //activityResultLauncher.launch(intent);
+
+
+               //   Intent intent = new Intent();
+             //  intent.setType("*/*");
+               //Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+
+               //chooser.setType("image/*");
+
+               //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+               //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+              // intent.addCategory(Intent.CATEGORY_OPENABLE);
+              // someActivityResultLauncher.launch(intent);
+
                activityResultLauncher.launch("image/*");
+
+            //  activityResultLauncher.launch(intent);
+
                break;
 
 
@@ -1875,7 +1910,11 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
 
-    public void makePermissionRequescAMERA() {
+
+
+
+
+        public void makePermissionRequescAMERA() {
 
 
         ActivityCompat.requestPermissions(ActivityContenedores.this, new String[]{Manifest.permission.CAMERA},
@@ -2489,8 +2528,6 @@ private void listennersSpinners() {
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoBalanza.setText("");
               //  actualizaListStateView("ediTipoBalanza",false) ;
-            }else {
-               // actualizaListStateView("ediTipoBalanza",true) ;
             }
 
         }
@@ -2691,13 +2728,19 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         public void onClick(View view) {
 
            // generatePDFandImport();
-          ImagenReport.updateIdPerteence("89895666",ImagenReport.hashMapImagesData);
-         StorageData.uploadImage(ActivityContenedores.this,ImagenReport.hashMapImagesData);
+        //  ImagenReport.updateIdPerteence("89895666",ImagenReport.hashMapImagesData);
+
+
+           // ArrayList<ImagenReport>milist=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
+
+
+           // StorageData.
+
+        // StorageData.uploaddata(milist);
 
 
 
-
-            checkDataFields();
+          //  checkDataFields();
 
 
 
@@ -2964,18 +3007,23 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
     private void updateDatosEvaludoresOFinforme3(SetInformDatsHacienda informe3) {
 
+        if(!ediExtGancho.getText().toString().trim().isEmpty()){
+            informe3.setExtensionistEnGancho(ediExtGancho.getText().toString());
+            informe3.setCI_extensionistEnGancho(ediExtGanchoCi.getText().toString());
+
+        }
+
+
         if(!ediExtRodillo.getText().toString().trim().isEmpty()){
             informe3.setExtensionistDeRodillo(ediExtRodillo.getText().toString());
-            informe3.setCI_extensionistCalid(ediExtRodilloCi.getText().toString());
+            informe3.setCI_extensionistDeRodillo(ediExtRodilloCi.getText().toString());
 
         }
 
 
-        if(!ediExtGancho.getText().toString().trim().isEmpty()){
-            informe3.setExtensionistDeRodillo(ediExtGancho.getText().toString());
-            informe3.setCI_extensionistCalid(ediExtGanchoCi.getText().toString());
 
-        }
+
+
 
 
     }
@@ -3037,9 +3085,16 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
         ///aqui le cambiamos...
             ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
 
+           // StorageData.counTbucle=0;
 
+            //cremaos un array list  a partir de ka info de el map
+           ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
         //aqui subimos
-       StorageData.uploadImage(ActivityContenedores.this, ImagenReport.hashMapImagesData);
+        // StorageData.uploadFile(ActivityContenedores.this,list);
+         StorageData.uploaddata(list);
+
+
+        // StorageData.uploadImage(ActivityContenedores.this, ImagenReport.hashMapImagesData);
 
 
 
@@ -4184,18 +4239,32 @@ return true;
         }
 
 
+        if(switchBalanzaRep.isChecked()  && editipbalanzaRepeso.getText().toString().trim().isEmpty() ){
 
-        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //chekamos que no este vacia
-            editipbalanzaRepeso.requestFocus();
-            editipbalanzaRepeso.setError("Este espacio es obligatorio");
+             editipbalanzaRepeso.requestFocus();
+            editipbalanzaRepeso.setError("Selecione el tipo de balanza");
             scroollElementoFaltante(editipbalanzaRepeso);
 
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
-            return false;
+             return false;
+        }else{
+            editipbalanzaRepeso.setText("");
 
         }
 
 
+/*
+        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //chekamos que no este vacia
+           // editipbalanzaRepeso.requestFocus();
+            //editipbalanzaRepeso.setError("Este espacio es obligatorio");
+            //scroollElementoFaltante(editipbalanzaRepeso);
+
+            //layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+           // return false;
+
+        }
+
+*/
         if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediUbicacionBalanza.requestFocus();
             ediUbicacionBalanza.setError("Este espacio es obligatorio");
