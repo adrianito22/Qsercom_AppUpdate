@@ -102,6 +102,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
     Button btnIrAARCHIVOpdf;
 
     String nameOFPDFrEPORTfile;
+    int numProductsPostcosecha=0;
 
     Uri uriThiSfile;
 
@@ -134,7 +135,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         ActivityFormularioDondeVino = getIntent().getIntExtra(Variables.KEY_PDF_MAKER,0);
 
         nameOFPDFrEPORTfile=getIntent().getStringExtra(Variables.KEY_PDF_MAKER_PDF_NAME);
-
+        numProductsPostcosecha=getIntent().getIntExtra(Variables.KEY_PDF_MAKER_PDF_NUM_PR_POST,0);
 
         Log.i("sermasd","namepdf es "+nameOFPDFrEPORTfile);
 
@@ -470,14 +471,29 @@ if(hayFILE){
         table1.addCell(cell0);
 
 
-        ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
+        /**devulve productos postcosecha table inf0 = 2 */
 
 
-        HashMap<String, Cell> listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
-        ///productos postcosecha
+        HashMap<String, Cell> listCellsToTabCurrentTab2= new HashMap<>();
+
+        if(numProductsPostcosecha<=4){
+            ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
+             listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
+            ///productos postcosecha
+            addCellsInTable(listCellsToTabCurrentTab2,table1);
+
+        }else{
+
+            HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+            midocumentotoAddData.add(table1);
+
+            table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha,contexto);
+
+        }
 
 
-        addCellsInTable(listCellsToTabCurrentTab2,table1);
+
+
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
@@ -492,7 +508,7 @@ if(hayFILE){
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
-
+        ArrayList<NameAndValue>dataTOtable2;
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,3,Variables.currenProductPostCosecha);
         listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);

@@ -68,7 +68,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.adapters.CustomAdapter;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -5776,9 +5775,14 @@ if(indice>2) {
 
                     //vamos a  activity
 // createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
+                    int numsPriodcutsPost= cuentaProdcutosposTcosechaAndUpdateGlobaProducPost();
+
                     Intent intent = new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class);
                     intent.putExtra(Variables.KEY_PDF_MAKER,Variables.FormPreviewContenedores);
                     intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NAME ,nameFilePdf);
+                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NUM_PR_POST ,numsPriodcutsPost);
+
+
 
 
 
@@ -6040,7 +6044,123 @@ if(indice>2) {
         }
 
     }
+
+
+
+
+
+
+    private int cuentaProdcutosposTcosechaAndUpdateGlobaProducPost(){
+        EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
+                ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+
+        int contadorpRODUCTS=0;
+
+        for(EditText editext : editextArray){
+
+            if(!editext.getText().toString().trim().isEmpty() && editext.getText().toString().length()>1){
+
+                contadorpRODUCTS++;
+            }
+
+
+        }
+
+        //update productos postcosechafsdfsd
+        for (int indice =0; indice<editextArray.length; indice++) {
+            EditText currentEditext=editextArray[indice];
+            if (!currentEditext.getText().toString().trim().isEmpty()){ //si no esta vacioo
+
+
+                    switch (currentEditext.getId()){
+
+                        case R.id.ediPPC01:
+                            Variables.currenProductPostCosecha.alumbre=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC02:
+                            Variables.currenProductPostCosecha.bc100=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC03:
+                            Variables.currenProductPostCosecha.sb100=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC04:
+                            Variables.currenProductPostCosecha.eclipse=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC05:
+                            Variables.currenProductPostCosecha.acido_citrico=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC06:
+                            Variables.currenProductPostCosecha.biottol=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC07:
+                            Variables.currenProductPostCosecha.bromorux=currentEditext.getText().toString();
+                            break;
+                        case R.id.ediPPC08:
+                            Variables.currenProductPostCosecha.ryzuc=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC09:
+                            Variables.currenProductPostCosecha.mertec=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC010:
+                            Variables.currenProductPostCosecha.sastifar=currentEditext.getText().toString();
+                            break;
+
+                        case R.id.ediPPC011:
+                            Variables.currenProductPostCosecha.xtrata=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC012:
+                            Variables.currenProductPostCosecha.nlarge=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC013:
+                            Variables.currenProductPostCosecha.gib_bex=currentEditext.getText().toString();
+                            break;
+
+
+
+                        case R.id.ediPPC014:
+                            Variables.currenProductPostCosecha.cloro=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC015:
+                            Variables.currenProductPostCosecha.otro_especifique=currentEditext.getText().toString();
+                            break;
+
+
+                        case R.id.ediPPC016:
+                            Variables.currenProductPostCosecha.cantidadOtro=currentEditext.getText().toString();
+                            break;
+
+
+                    }
+
+
+
+
+            }
+
+            //si el editext tiene data lo corregimos usando la propiedad hint
+
+
+        }
+
+
+
+
+        return contadorpRODUCTS;
     }
+
+
+
+}
 
     /*****
      * probando parte de selcion almenos una foto...
@@ -6059,4 +6179,5 @@ if(indice>2) {
      *
      * en el recicler deberi estar el onclick o en el callback de la actividad
      * **/
+
 

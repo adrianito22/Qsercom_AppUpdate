@@ -13,10 +13,10 @@
 
     <string-array name="condicionde_balanza">
         <item>Ninguna</item>
-        <item>ACEPTABLE</item>
         <item>BUENA</item>
-        <item>MALA</item>
+        <item>ACEPTABLE</item>
         <item>REGULAR</item>
+        <item>MALA</item>
 
     </string-array>
 
@@ -52,9 +52,6 @@
         <item>Ninguna</item>
         <item>BASCULA</item>
         <item>DIGITAL</item>
-        <item>BANAVAC</item>
-        <item>BAG</item>
-
     </string-array>
 
 

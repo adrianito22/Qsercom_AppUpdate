@@ -1893,6 +1893,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private boolean cheakIfInfoIsComplete() {
 
+
+        if(!sellamoFindViewIds){
+            findviewsIdsMayoriaViews();
+
+        }
+
+
         if(mEdiVaporzz.getText().toString().trim().isEmpty()){
             mEdiVaporzz.requestFocus() ;
             mEdiVaporzz.setError("Este espacio es necesario") ;

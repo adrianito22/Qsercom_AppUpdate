@@ -118,6 +118,7 @@ public class Variables {
     public static String KEY_PACKING_LIST= "MIPAQKICN";
     public static String KEY_PDF_MAKER= "MIPODFMAKER";
     public static String KEY_PDF_MAKER_PDF_NAME= "MIPODFMAKER_PDF_NAME";
+ public static String KEY_PDF_MAKER_PDF_NUM_PR_POST= "MIPODFMAKER_NUMPRODCUTS";
 
     public static String nodoDondeEstaraPesoBruto2y3l;
 

@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.fonts.Font;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -59,6 +60,8 @@ import java.util.HashMap;
 public class HelperPdf {
 
    public static  PdfFont font=null;
+
+   public static boolean hayMasDe10products;
 
    public static DeviceRgb rgbColorVerdeCana= new DeviceRgb(197, 224, 179);
     public static DeviceRgb rgbColorAzulClaro= new DeviceRgb(189, 214, 238);
@@ -173,8 +176,6 @@ public class HelperPdf {
 
     public static HashMap<String,Cell> generateHasmapFieldnameandValue (ArrayList<NameAndValue>list,int alineacion, int TableID){
 
-
-
         Log.i("mismussndo","el lineacion es "+alineacion);
         HashMap<String,Cell> hasmpaDevolver= new HashMap<>();
 
@@ -183,8 +184,6 @@ public class HelperPdf {
             for(int i=0;i<list.size();i++){
 
                 Cell cell1;
-
-          
 
                 Log.i("mismussndo","el name es "+list.get(i).getNameFields());
                 Log.i("mismussndo","el value es "+list.get(i).getValueContent());
@@ -236,10 +235,10 @@ public class HelperPdf {
             Log.i("mismussndo","el lineacion es "+alineacion);
 
             for(int i=0;i<list.size();i++){
+                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(6.7f).setFont(font)
+                        .setPaddingTop(0f).setPaddingBottom(0f);
 
-                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7f).setFont(font);
-                Cell cell1= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(10f);
-
+                Cell cell1= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
 
                 Paragraph paragraph2;
                 if(list.get(i).getValueContent()==null){
@@ -247,13 +246,14 @@ public class HelperPdf {
 
                 }else{
 
-                    paragraph2=new Paragraph(list.get(i).getValueContent()).setFontSize(7f).setFont(font);
+                    paragraph2=new Paragraph(list.get(i).getValueContent()).setFontSize(6.7f).setFont(font);
 
 
                 }
 
 
-                Cell cell2= new Cell().add(paragraph2).setTextAlignment(TextAlignment.CENTER).setHeight(10f); //estab en 9,7 parece buena
+                //queremos que celda no tenga paddin leponemosen cero
+                Cell cell2= new Cell().add(paragraph2).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(1f); //estab en 9,7 parece buena
 
                 hasmpaDevolver.put(i+"name",cell1);
                 hasmpaDevolver.put(i+"value",cell2);
@@ -266,6 +266,264 @@ public class HelperPdf {
         return hasmpaDevolver;
 
     }
+
+    public static Table generateTablePRODUCTSPOSTO (ProductPostCosecha product,Context context){
+
+      Table table= new Table(4);
+      Cell cell;
+      Paragraph paragraph1;
+
+      int contadorProductsPostCosecha =0;
+
+
+        if(!product.bromorux.trim().isEmpty()){
+
+            paragraph1 = new Paragraph("BROMORUX").setFontSize(6.7f).setFont(font) //producto
+                    .setPaddingTop(0f).setPaddingBottom(0f);
+            cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+            table.addCell(cell);
+
+
+            paragraph1 = new Paragraph(product.bromorux).setFontSize(6.7f).setFont(font) //cantidad
+                    .setPaddingTop(0f).setPaddingBottom(0f);
+            cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+            table.addCell(cell);
+
+            contadorProductsPostCosecha++;
+        }
+
+
+        ///si contienen data
+            if(!product.acido_citrico.trim().isEmpty()){
+
+                 paragraph1 = new Paragraph("ACIDO CITRICO").setFontSize(6.7f).setFont(font) //producto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                  cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                  table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.acido_citrico).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.alumbre.trim().isEmpty()){
+                paragraph1 = new Paragraph("ALUMBRE").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.alumbre).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.bc100.trim().isEmpty())
+            {
+
+                paragraph1 = new Paragraph("BC100").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.bc100).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+                contadorProductsPostCosecha++;
+
+
+            }
+
+
+            if(!product.biottol.trim().isEmpty()){
+                paragraph1 = new Paragraph("BIOTTOL").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.biottol).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+                contadorProductsPostCosecha++;
+
+            }
+
+
+
+            if(!product.eclipse.trim().isEmpty()){
+                paragraph1 = new Paragraph("ECLIPSE").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.eclipse).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+                contadorProductsPostCosecha++;
+
+
+            }
+
+            if(!product.gib_bex.trim().isEmpty()){
+                paragraph1 = new Paragraph("GIB_BEX").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.gib_bex).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.mertec.trim().isEmpty()){
+                paragraph1 = new Paragraph("MERTEC").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.mertec).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.nlarge.trim().isEmpty()){
+                paragraph1 = new Paragraph("NLARGE").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.nlarge).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.otro_especifique.trim().isEmpty()){
+                paragraph1 = new Paragraph(product.otro_especifique).setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.otroCantidad).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.ryzuc.trim().isEmpty()){
+                paragraph1 = new Paragraph("RYZUX").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.ryzuc).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.sastifar.trim().isEmpty()){
+                paragraph1 = new Paragraph("SASTISFARR").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.sastifar).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.xtrata.trim().isEmpty()){
+                paragraph1 = new Paragraph("XTRATA").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.xtrata).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+                contadorProductsPostCosecha++;
+
+            }
+
+            if(!product.sb100.trim().isEmpty()){
+                paragraph1 = new Paragraph("SB100").setFontSize(6.7f).setFont(font) //prodcuto
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+
+
+                paragraph1 = new Paragraph(product.sb100).setFontSize(6.7f).setFont(font) //cantidad
+                        .setPaddingTop(0f).setPaddingBottom(0f);
+                cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
+                table.addCell(cell);
+                contadorProductsPostCosecha++;
+
+            }
+
+
+
+if(contadorProductsPostCosecha>10){
+    hayMasDe10products=true;
+    Toast.makeText(context, "Hay mas de 10 productos, SE ADMITE MAXIMO 10", Toast.LENGTH_LONG).show();
+}else{
+
+    hayMasDe10products=false;
+
+
+}
+
+
+
+
+        return table;
+
+    }
+
 
 
     /**para el cuadrto 1*/
@@ -295,6 +553,11 @@ public class HelperPdf {
 
         else   if(tableInfo==2){ /**la segunda tabla productos postocosecha*/
             ///si contienen data
+
+            if(!product.bromorux.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("BROMORUX",product.bromorux));
+            }
+
             if(!product.acido_citrico.trim().isEmpty()){
                 listTOrETURN1.add(new NameAndValue("ACIDO CITRICO",product.acido_citrico));
             }
@@ -618,7 +881,7 @@ public class HelperPdf {
     }
 
     public static Table createTbale6(Table table1,SetInformDatsHacienda object){
-        Cell cellDatosHaciend = new Cell(1,7).setPadding(0f).add(new Paragraph("DATOS DE HACIENDA").setTextAlignment(TextAlignment.CENTER).setFontSize(6f).setBackgroundColor(rgbColorAzulClaro));
+        Cell cellDatosHaciend = new Cell(1,7).setBackgroundColor(rgbColorAzulClaro).add(new Paragraph("DATOS DE HACIENDA").setTextAlignment(TextAlignment.CENTER).setFontSize(7f));
 
         Cell micelda;
         Paragraph   paragrapMarcado = new Paragraph(" X ").setFontSize(7f).setFont(font).setTextAlignment(TextAlignment.CENTER);;
@@ -626,20 +889,20 @@ public class HelperPdf {
 
         table1.addCell(cellDatosHaciend);
 
-        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(6.5f).setFont(font));
-        Cell cellx2 = new Cell().add(new Paragraph("AGUA POTABLE").setFontSize(6.5f).setFont(font));
+        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(7f).setFont(font));
+        Cell cellx2 = new Cell().add(new Paragraph("AGUA POTABLE").setFontSize(7f).setFont(font));
         table1.addCell(cellx1);
         table1.addCell(cellx2);
 
         if(object.getFuenteAgua().equalsIgnoreCase("AGUA POTABLE")) {
-            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragrapMarcado);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7f).add(paragrapMarcado);
             micelda .setWidth(10f);
             table1.addCell(micelda);
 
 
         }else{
 
-            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragragSinMarcar);
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7f).add(paragragSinMarcar);
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
@@ -690,15 +953,16 @@ public class HelperPdf {
 
         //2DA FILA DE DATOS DE HACIENDA...
 
-        table1.addCell(new Paragraph("AGUA CORRIDA").setFontSize(6.5f).setFont(font));
+        table1.addCell(new Paragraph("AGUA CORRIDA").setFontSize(7f).setFont(font));
 
-        table1.addCell(new Paragraph("SI").setFontSize(6.5f).setFont(font));
+        table1.addCell(new Paragraph("SI").setFontSize(7f).setFont(font));
 
 
         if(object.isHayAguaCorrida()) {
             //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor).setFontSize(7.5f));
 
             micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).add(paragrapMarcado);
+            micelda .setWidth(10f);
             table1.addCell(micelda);
 
         }else{
@@ -709,7 +973,8 @@ public class HelperPdf {
 
         }
 
-        table1.addCell(new Paragraph("NO").setFontSize(7.5f).setFont(font));
+        micelda = new Cell(1,2).add(new Paragraph("NO").setFontSize(7.5f).setFont(font));
+       table1.addCell(micelda);
 
         if(!object.isHayAguaCorrida()) {
 
@@ -717,19 +982,29 @@ public class HelperPdf {
             micelda .setWidth(10f);
 
             table1.addCell(micelda);
+            ///
+
+
+
+
 
         }else{
 
-            micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
-            micelda .setWidth(10f);
+            micelda = new Cell(1,2).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
+            //micelda .setWidth(10f);
 
             table1.addCell(micelda);
         }
+
+//
 
         table1.addCell(new Paragraph("LAVADO DE RACIMOS").setFontSize(7.5f).setFont(font));
 
 
         table1.addCell(new Paragraph("SI").setFontSize(7.5f).setFont(font));
+
+
+        /**tiene 7 columnas*/
 
         if(object.isHayLavadoRacimos()) {
             //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor));
@@ -750,13 +1025,13 @@ public class HelperPdf {
 
         if(!object.isHayLavadoRacimos()) {
             micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
-            micelda .setWidth(10f);
+           // micelda .setWidth(10f);
 
             table1.addCell(micelda);
         }else{
 
             micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
-            micelda .setWidth(10f);
+          //  micelda .setWidth(10f);
 
             table1.addCell(micelda);
         }
@@ -787,8 +1062,8 @@ public class HelperPdf {
         ////////
         table1.addCell(new Paragraph("BOMBA CP3").setFontSize(7.5f).setFont(font));
 
-
-        if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3")) {
+/*
+        if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3 MANUAL") ) {
 
             micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
@@ -803,20 +1078,35 @@ public class HelperPdf {
 
             table1.addCell(micelda);
         }
-
+*/
 ////////////4
 
-        table1.addCell(new Paragraph("ELECTRICA").setFontSize(7.5f).setFont(font));
 
-        if(object.getFumigacionClin1().equalsIgnoreCase("ELECTRICA")) {
-            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
+
+     //   table1.addCell();
+
+        if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3 ELECTRICA")) {
+
+            micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).
+                    setFontSize(7.5f).add(new Paragraph("ELECTRICA").setFontSize(7.5f).setFont(font));
+
             micelda .setWidth(10f);
+            table1.addCell(micelda);
+
+        }else if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3 MANUAL")) {
+
+            micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).
+                    setFontSize(7.5f).add(new Paragraph("MANUAL").setFontSize(7.5f).setFont(font));
+
+         //   micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+
             table1.addCell(micelda);
         }else{
-            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
-            micelda .setWidth(10f);
-
+            micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
             table1.addCell(micelda);
+
+
         }
 
 
@@ -895,6 +1185,26 @@ public class HelperPdf {
         miTable.addCell(new Cell().add(new Paragraph("CONDICION DE BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         //BUENO ,ALO Y REGUKLAR
+
+        if(object2.getCondicionBalanza().equalsIgnoreCase("ACEPTABLE")) {
+
+            Log.i("condicoon","es buena se ejecuto esto ") ;
+
+            miTable.addCell(new Cell().add(new Paragraph("ACEPTABLE").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+
+            miTable.addCell(new Cell().setBackgroundColor(rgbColorVerdeCana).add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+
+
+            miTable.addCell(new Cell().add(new Paragraph("MALA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+            miTable.addCell(new Cell().setBackgroundColor(rgbColorVerdeCana).add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+
+
+        }
+
+
+
+
+
 
         if(object2.getCondicionBalanza().equalsIgnoreCase("BUENA")) {
 
@@ -1756,7 +2066,7 @@ public class HelperPdf {
        Table table1 =  createTableWhitDateEvaluacionFrura(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),df.format(PROMEDIO_PESO),
                df.format(CALIDAD_TOTAL)+"%",df.format(PORCENTAJE_DE_DEFECTOS)+"%",String.valueOf(NUMERO_DEFECTS),String.valueOf(MAYOR_DEFECTO_SELECCION),
                String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+"%",
-               df.format(LARGO_DEDOS_PROMEDIO)+"%",String.valueOf(PH_PROMEDIO)
+               df.format(LARGO_DEDOS_PROMEDIO)+"%",String.valueOf(2) //estaba en PH_PROMEDIO
                );
 
         return table1;
