@@ -46,12 +46,21 @@ private static int counTbucle=0;
 
     }
 
+
+    public static void callADnnNow (HashMap<String, ImagenReport> hasmapImagenData){
+
+    }
+
+
     public static void uploadImage(Context context,  HashMap<String, ImagenReport> hasmapImagenData) {
 
             //iteramos el mapa
-            for (Map.Entry<String, ImagenReport> entry : hasmapImagenData.entrySet()) {
-                ImagenReport value = entry.getValue();
-                value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
+            for (ImagenReport value : hasmapImagenData.values()) {
+               //  value = entry.getValue();
+
+                Log.i("imagheddd","info se llamo aqui  ");
+
+
                 //edityamos donde va ir estasiamgenes
 
                 String uriFilePath =value.geturiImage();
@@ -63,7 +72,8 @@ private static int counTbucle=0;
                 counTbucle++;
 
                 // Defining the child of storageReference
-                stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+value.getUniqueIdNamePic());
+               // stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+value.getUniqueIdNamePic());
+                stoRefToUpload = rootStorageReference.child("imagenes_all_reports/");
 
 
                 // adding listeners on upload
@@ -77,15 +87,6 @@ private static int counTbucle=0;
                                     public void onSuccess(
                                             UploadTask.TaskSnapshot taskSnapshot) {
 
-                                        //Task uriTask = taskSnapshot.getStorage().getDownloadUrl();
-
-                                        // String url =taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-
-                                       /// String image = taskSnapshot.getDownloadUrl().toString();
-                                      //  Log.i("comoer","info la dataerr first es  "+url);
-
-
-                                       // String iconPathFirebase = uri.getResult().toString();
 
                                       stoRefToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                           @Override
@@ -94,10 +95,12 @@ private static int counTbucle=0;
                                                String iconPathFirebase = uri.toString();
 
                                               value.setUrlStoragePic(iconPathFirebase);
-                                              Log.i("comoer","info la dataerr second es  "+iconPathFirebase);
+                                             // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
 
-                                              Log.i("comoer","info "+counTbucle+" = "+hasmapImagenData.size());
-                                              RealtimeDB.addNewSetPicsInforme(context,value);
+                                              Log.i("imagheddd","info es on success  "+iconPathFirebase);
+
+                                              Log.i("imagheddd","info "+counTbucle+" = "+hasmapImagenData.size());
+                                              RealtimeDB.addNewSetPicsInforme(value);
                                           }
                                       });
 
@@ -123,7 +126,10 @@ private static int counTbucle=0;
                             public void onFailure(@NonNull Exception e)
                             {
 
-                                Log.i("simoa","la data es "+e.getMessage());
+                                Log.i("imagheddd","el error es  "+e.getMessage());
+
+
+                                Log.i("imagheddd","la data es "+e.getMessage());
 
                                 // Error, Image not uploaded
                                 Toast
@@ -147,16 +153,19 @@ private static int counTbucle=0;
                                 });
 
 
-
                 // [START download_via_url]
                 stoRefToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+
                         // Got the download URL for 'users/me/profile.png'
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
+
+                        Log.i("imagheddd","el error es  "+exception.getMessage());
+
                         // Handle any errors
                     }
                 });
@@ -215,7 +224,7 @@ private static int counTbucle=0;
                                     //subimos el registro
 
                                     Log.i("comoer","info "+counTbucle+" = "+hasmapImagenData.size());
-                                    RealtimeDB.addNewSetPicsInforme(context,value);
+                                  //  RealtimeDB.addNewSetPicsInforme(context,value);
 
                                     if(counTbucle ==hasmapImagenData.size()) {
 

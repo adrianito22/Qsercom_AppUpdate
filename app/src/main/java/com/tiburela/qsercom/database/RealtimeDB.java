@@ -669,13 +669,12 @@ public class RealtimeDB {
     }
 
 
-    public static void addNewSetPicsInforme(Context context, ImagenReport objecImageReport ) {
+    public static void addNewSetPicsInforme( ImagenReport objecImageReport ) {
 
         if(mibasedataPathImages==null ) {
             initDatabasesReferenceImagesData();
 
         }
-
 
         Map<String, Object> mapValues = objecImageReport.toMap();
 
@@ -684,12 +683,14 @@ public class RealtimeDB {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Log.i("imagheddd","se subio set data");
 
 
-                    Toast.makeText(context, "HECHO", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(context, "HECHO", Toast.LENGTH_SHORT).show();
 
                 }else  {
 
+                    Log.i("imagheddd","no se subio SEDATA y elerro es "+task.getException());
 
                 }
             }

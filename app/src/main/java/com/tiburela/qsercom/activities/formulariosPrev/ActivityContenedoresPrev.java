@@ -342,7 +342,7 @@ String currentIDcUDORmUESTREO;
 
 
 
-                    StorageData. uniqueIDImagesSetAndUInforme= Variables.CurrenReportPart1.getUniqueIDinforme();
+                    StorageData.uniqueIDImagesSetAndUInforme= Variables.CurrenReportPart1.getUniqueIDinforme();
 
 
 
@@ -387,6 +387,9 @@ String currentIDcUDORmUESTREO;
        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
         CustomAdapter.idsFormsVinucladosControlCalidadString ="";//reseteamos
+
+        Log.i("imagebrr","probandodebug");
+
 
         CustomAdapter.idCudroMuestreoStringVinuclado ="";
 
@@ -772,7 +775,6 @@ String currentIDcUDORmUESTREO;
          imbAtachSellosLlegada=findViewById(R.id.imbAtachSellosLlegada);
          imbTakePicSellosLLegada=findViewById(R.id.imbTakePicSellosLLegada);
          imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
-        imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
          imbAtachPrPostcosecha=findViewById(R.id.imbAtachPrPostcosecha);
          imbTakePicPrPostcosecha=findViewById(R.id.imbTakePicPrPostcosecha);
         imbTakePicDatosContenedor=findViewById(R.id.imbTakePicDatosContenedor);
@@ -2660,10 +2662,21 @@ private void createObjcInformeAndUpload() {
     void uploadImagesInStorageAndInfoPICS() {
    //una lista de Uris
 
-        if(ImagenReport.hashMapImagesData.size() ==0||  Variables.hashMapImagesStart.size()>0){
+        Log.i("imagheddd","sellamo method here");
+
+        Log.i("imagheddd"," fue return"+ImagenReport.hashMapImagesData.size()+" ye l otro esw "+Variables.hashMapImagesStart.size());
+
+
+        if(ImagenReport.hashMapImagesData.size() ==0 ||  Variables.hashMapImagesStart.size()==0){
+            Log.i("imagheddd"," fue return");
 
              return;
         }
+
+
+
+
+        Log.i("imagheddd","no fue return");
 
         //si introdujo texto en el recicler actualizar los objetos
 
@@ -2676,14 +2689,16 @@ private void createObjcInformeAndUpload() {
           //boorara desee aqui
         if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
-            Log.i("sumeria","alguno o toos son diferentes images llamaos metodo filtra");
+            Log.i("imagheddd","alguno o toos son diferentes images llamaos metodo filtra");
+
+
 
             StorageData.uploadImage(ActivityContenedoresPrev.this, Utils.creaHahmapNoDuplicado());
 
 
 
         }else{
-            Log.i("debugasd","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
+            Log.i("imagheddd","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
 
 
            Log.i("elfile","son iguales las imagenes");
@@ -4873,6 +4888,8 @@ private void checkModeVisualitY(){
 
     void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH){ //DESCRAGAMOS EL SEGUNDO
 
+        Log.i("imagheddd","elreport unique id es  "+reportUNIQUEidtoSEARCH);
+
         RealtimeDB.initDatabasesReferenceImagesData(); //borrar
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
@@ -4893,41 +4910,10 @@ private void checkModeVisualitY(){
 
                     Variables.listImagenDataGlobalCurrentReport.add(imagenReport);
 
-                    Log.i("cajhsd","key uninque id es "+imagenReport.getUniqueIdNamePic());
-                    Log.i("cajhsd","el url es  "+imagenReport.getUrlStoragePic());
+                    Log.i("imagheddd","key uninque id es "+imagenReport.getUniqueIdNamePic());
+                    Log.i("imagheddd","el url es  "+imagenReport.getUrlStoragePic());
 
 
-
-                    //  Log.i("ilaimgensss","se llamo a: la imegn uniqyue id "+keylocation);
-
-
-                   // imagenReport.setHorientacionImage("vertical");
-                  ///  imagenReport.setEstaENPdf(false);
-                   /// imagenReport.setUrlStoragePic("");
-
-
-
-                  //  Map<String, Object> mapValues = imagenReport.toMap();
-
-
-
-                    /*
-                    //SUBE MAPA
-                    RealtimeDB.mibasedataPathImages.child(keylocation).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(context, "HECHO", Toast.LENGTH_SHORT).show();
-
-                            }else  {
-
-                            }
-                        }
-                    });
-*/
-
-
-                    //guardamos ese objeto..
 
 
                 }
@@ -4937,7 +4923,6 @@ private void checkModeVisualitY(){
 
                 createlistsForReciclerviewsImages(Variables.listImagenDataGlobalCurrentReport);
 
-              //  dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
                 Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
 
@@ -4993,6 +4978,8 @@ private void checkModeVisualitY(){
     //por ahora solo con borrarlo de rtdabase
     private void geTidAndDelete( String idUniqueToDelete){ //busca el que tenga esa propieda y obtiene el id node child
 
+        Log.i("imagheddd","se lamo to delete");
+
                Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
 
         DatabaseReference usersdRef= RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
@@ -5001,23 +4988,28 @@ private void checkModeVisualitY(){
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
-                String key = nodeShot.getKey();
+
                 //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
+                try {
 
+                    DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                    String key = nodeShot.getKey();
 
-                usersdRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            //Toast.makeText(OfertsAdminActivity.this, "Se elimino correctamente", Toast.LENGTH_SHORT).show();
+                    usersdRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                //Toast.makeText(OfertsAdminActivity.this, "Se elimino correctamente", Toast.LENGTH_SHORT).show();
+                            }
+
 
                         }
+                    });
 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-
-                    }
-                });
 
 
 
@@ -5047,77 +5039,7 @@ private void checkModeVisualitY(){
 
 
 
-/*
 
-    public   void dowloadAllImages2AddCallRecicler(ArrayList<ImagenReport>miLisAllImages){
-        //lllamos a este metodo unicamente si la lista es 0....si no
-        HelperImage.ImagesToPdfMap=new HashMap<>();
-
-        for(int i = 0; i <miLisAllImages.size() ;i++ ){
-
-            String pathImage =miLisAllImages.get(i).getUniqueIdNamePic();
-            int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
-            String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
-            String descripcionImage=miLisAllImages.get(i).getDescripcionImagen();
-            StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
-
-
-            try {
-                final File localFile = File.createTempFile("Images", "bmp");
-                storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener< FileDownloadTask.TaskSnapshot >() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                        Bitmap  bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                        String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
-
-                        ImagesToPdf imgsObect=new ImagesToPdf(horientacionImg,bitmap,categoYCurrentImg,uniqueId,descripcionImage);
-
-                    //   HelperImage.imAGESpdfSetGlobal.add(imgsObect);
-
-                       HelperImage.ImagesToPdfMap.put(uniqueId,imgsObect);
-
-
-                        Log.i("hamiso","el size de la lista de Variables.listImagenData es "+Variables.listImagenData.size());
-                       // Log.i("hamiso","el size del map es "+HelperImage.ImagesToPdfMap.size());
-                        ///llamamos a este otro metodo .......
-                             contadorIterador++;
-                        Log.i("hamiso","el contador iteradopr "+ contadorIterador);
-
-
-
-
-                        if(contadorIterador == miLisAllImages.size() ) {
-                            createlistsForReciclerviewsImages(Variables.listImagenData);
-                                Log.i("hamiso","se llamokkk");
-                                Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
-                                btnGENERARpdf.setEnabled(true);
-                           }
-
-
-
-
-                    }
-
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.i("hamiso","se produjo un error");
-
-                        // Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-        }
-
-        Log.i("hamiso","llamos a recicler create y el size de map es  "+HelperImage.ImagesToPdfMap.size());
-
-    }
-
-*/
     private boolean checkDatosHaciendaIsLleno(){
         LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
 
@@ -5308,7 +5230,14 @@ private void checkModeVisualitY(){
              pdialogff.setMessage("Actualizando data ");
              pdialogff.show();
 
-            uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+        Log.i("imagheddd","hemos pulsado save info ");
+
+        Log.i("imagheddd","el size de la list imagees es "+ImagenReport.hashMapImagesData.size());
+
+
+
+        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
             //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...

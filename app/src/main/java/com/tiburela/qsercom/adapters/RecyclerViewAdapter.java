@@ -306,6 +306,9 @@ private void checkExistFile(){
 
     private void dowloadAndSetImg(ImagenReport imagenReport, ImageView holder,Context context){
 
+        Log.i("ladtastor","ladtastor es "+imagenReport.getUniqueIdNamePic());
+
+
         storageRef  = StorageData.rootStorageReference.child("imagenes_all_reports/"+imagenReport.getUniqueIdNamePic());
 
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

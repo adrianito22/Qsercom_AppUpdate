@@ -843,6 +843,7 @@ return
 
             textoShow= "No tienes vinculado ningun reporte Control calidad y Cuadro Muestreo";
 
+            return false;
 
         }
 

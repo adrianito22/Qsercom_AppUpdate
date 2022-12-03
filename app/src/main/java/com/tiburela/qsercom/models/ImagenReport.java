@@ -105,7 +105,7 @@ public class ImagenReport {
         this.descripcionImagen = descripcionImagen;
         this.uriImageString = uriImage;
         this.tipoImagenCategory=tipoImagenCategory;
-        idReportePerteence=idReportePerteence="";
+        idReportePerteence="";
         this.uniqueIdNamePic = uniqueIdNamePic;
         this.horientacionImage=horientacionImage;
         estaENPdf=false;
@@ -136,6 +136,18 @@ public ImagenReport(){
     }
 
 
+
+    public static void updateIdPerteence(String idPerteenceAdd, HashMap<String, ImagenReport>map){
+        for(ImagenReport reportImg: map.values()){
+
+            String key=reportImg.getUniqueIdNamePic();
+            reportImg.setIdReportePerteence(idPerteenceAdd);
+            map.put(key,reportImg);
+
+        }
+
+
+    }
 
 
 }

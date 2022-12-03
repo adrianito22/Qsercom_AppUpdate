@@ -111,8 +111,9 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     ArrayList<ControlCalidad> listFormsControlCalidad = new ArrayList<>();
     ArrayList<CheckedAndAtatch> checkedListForms = new ArrayList<>();
     ProgressDialog progress;
-
+    Button btnCheck;
     String currentKeySharePrefrences="";
+    boolean seSubioform=false;
 
     private final int CODE_TWO_PERMISIONS = 12;
 
@@ -365,6 +366,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         Utils.userDecidioNoVincularAhora =false;
 
+        Log.i("imagheddd","estamos debugeando");
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
@@ -501,7 +503,11 @@ Log.i("hellosweer","se ehjecitp onstart");
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-                        ediFecha.setText(daySemana+"/"+mes+"/"+year);
+                        String dateSelec=i2+"/"+i1+"/"+i;
+
+                        ediFecha.setText(dateSelec);
+
+                       // ediFecha.setText(daySemana+"/"+mes+"/"+year);
 
                     }
                 }, year,  mes, daySemana);
@@ -727,7 +733,6 @@ Log.i("hellosweer","se ehjecitp onstart");
          imbAtachSellosLlegada=findViewById(R.id.imbAtachSellosLlegada);
          imbTakePicSellosLLegada=findViewById(R.id.imbTakePicSellosLLegada);
          imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
-        imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
          imbAtachPrPostcosecha=findViewById(R.id.imbAtachPrPostcosecha);
          imbTakePicPrPostcosecha=findViewById(R.id.imbTakePicPrPostcosecha);
         imbTakePicDatosContenedor=findViewById(R.id.imbTakePicDatosContenedor);
@@ -2241,12 +2246,12 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
                             } catch (FileNotFoundException e) {
-                                Log.i("dateer","lA EXCEPCION ES "+e.getMessage());
+                                Log.i("imagheddd","lA EXCEPCION ES "+e.getMessage());
 
                                 e.printStackTrace();
                             } catch (IOException e) {
 
-                                Log.i("dateer","lA EXCEPCION ES "+e.getMessage());
+                                Log.i("imagheddd","lA EXCEPCION ES "+e.getMessage());
 
                                 e.printStackTrace();
                             }
@@ -2676,7 +2681,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
 
-    Button btnCheck;
+
     btnCheck=findViewById(R.id.btnCheck);
 
 
@@ -2686,6 +2691,11 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         public void onClick(View view) {
 
            // generatePDFandImport();
+           // ImagenReport.updateIdPerteence("89895666",ImagenReport.hashMapImagesData);
+         /// StorageData.uploadImage(ActivityContenedores.this,ImagenReport.hashMapImagesData);
+
+
+
 
             checkDataFields();
 
@@ -2702,6 +2712,8 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 }
 
 void checkDataFields(){ //
+
+
 
 
 
@@ -2832,8 +2844,7 @@ void checkDataFields(){ //
     }
 
 
-
-    if(! Utils.checkifAtach()){
+    if(!Utils.checkifAtach()){
 
         Log.i("test001","no esta lleno  checkifAtach");
 
@@ -2854,6 +2865,8 @@ void checkDataFields(){ //
 
 
 
+
+//
 
 
    //AGERGAR AQUI
@@ -2925,7 +2938,6 @@ private void createObjcInformeAndUpload(){
 
 
 
-    finish();
 
 }
 
@@ -3007,14 +3019,24 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     void uploadImagesInStorageAndInfoPICS() {
    //una lista de Uris
 
+        Log.i("imagheddd","se llamometodoel size de lista es "+ImagenReport.hashMapImagesData.size());
 
         if(ImagenReport.hashMapImagesData.size() ==0 ){
+            Log.i("imagheddd","es igual a cero");
 
             Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
              return;
         }
 
+        Log.i("imagheddd","es difrente de cero");
+
+
         //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
+
+
+        ///aqui le cambiamos...
+            ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
+
 
         //aqui subimos
        StorageData.uploadImage(ActivityContenedores.this, ImagenReport.hashMapImagesData);
@@ -5038,7 +5060,12 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
         Log.i("elnumber","el numero generado es ss"+uniqueId);
 
-        checkIfExistIdAndUpload(uniqueId,informe,informe2,informe3);
+        if(!seSubioform){
+            checkIfExistIdAndUpload(uniqueId,informe,informe2,informe3);
+
+        }
+
+
 
 
     }
@@ -5064,6 +5091,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
                 if(user == null) { //quiere decir que no existe
+
+                    Log.i("imagebrr","elunique id informe es "+currenTidGenrate);
+
 
                     user= new InformRegister(currenTidGenrate,Constants.CONTENEDORES,
                             Variables.usuarioQsercomGlobal.getNombreUsuario(),
@@ -5098,10 +5128,15 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                     uploadInformeToDatabase(informe,informe2,informe3);
 
-                    ///imagenes tambien por aqui
+
+
+                      Log.i("imagebrr","elsize es "+ImagenReport.hashMapImagesData.size());
+
 
                     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                    btnCheck.setEnabled(false);
 
+                    seSubioform=true;
 
                     //aqui subimos..
 
