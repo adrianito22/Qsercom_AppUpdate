@@ -2691,8 +2691,8 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         public void onClick(View view) {
 
            // generatePDFandImport();
-           // ImagenReport.updateIdPerteence("89895666",ImagenReport.hashMapImagesData);
-         /// StorageData.uploadImage(ActivityContenedores.this,ImagenReport.hashMapImagesData);
+          ImagenReport.updateIdPerteence("89895666",ImagenReport.hashMapImagesData);
+         StorageData.uploadImage(ActivityContenedores.this,ImagenReport.hashMapImagesData);
 
 
 

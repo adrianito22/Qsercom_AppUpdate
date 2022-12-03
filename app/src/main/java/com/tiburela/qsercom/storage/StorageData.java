@@ -79,7 +79,7 @@ private static int counTbucle=0;
                 // adding listeners on upload
                 // or failure of image
 
-                stoRefToUpload.putFile(myUri)
+                stoRefToUpload.child(value.getUniqueIdNamePic()).putFile(myUri)
                         .addOnSuccessListener(
                                 new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
