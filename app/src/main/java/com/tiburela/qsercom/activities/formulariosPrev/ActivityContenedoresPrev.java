@@ -2688,7 +2688,7 @@ private void createObjcInformeAndUpload() {
         Log.i("imagheddd"," fue return"+ImagenReport.hashMapImagesData.size()+" ye l otro esw "+Variables.hashMapImagesStart.size());
 
 
-        if(ImagenReport.hashMapImagesData.size() ==0 ||  Variables.hashMapImagesStart.size()==0){
+        if(ImagenReport.hashMapImagesData.size() ==0){
             Log.i("imagheddd"," fue return");
 
              return;
@@ -2707,56 +2707,25 @@ private void createObjcInformeAndUpload() {
 
 
 
+
+
+
           //boorara desee aqui
         if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
             Log.i("imagheddd","alguno o toos son diferentes images llamaos metodo filtra");
 
-
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-
-                Log.i("imagheddd","tienes permiso");
-
-            }else{
-
-                Log.i("imagheddd","no tiene sel permios");
-
-
-            }
-
-
-
-
-
             ArrayList<ImagenReport>list=Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
             StorageData.counTbucle=0; //resetemoa esta variable que sera indice en la reflexion
-
-
-
 
             ArrayList<ImagenReport>list2=Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
             StorageData.uploaddata(list2);
 
 
-           try {
-             ///  StorageData.uploadFile(ActivityContenedoresPrev.this,list);
-
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-
-
-           // StorageData.uploadImage(ActivityContenedoresPrev.this, Utils.creaHahmapNoDuplicado());
-
-
 
         }else{
             Log.i("imagheddd","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
-
-
-           Log.i("elfile","son iguales las imagenes");
 
         }
 
@@ -6062,5 +6031,8 @@ if(indice>2) {
      * extensionista ci
      * fotos llegada  dice selcione al menos una foto.....incluso en otras secciones
      *
+     *
+     * cuando estamos en activity preview y vamos a activity no deja delete... resetear eso.. en actvity menu.... onstart...o see reports...
+     * en el recicler deberi estar el onclick o en el callback de la actividad
      * **/
 
