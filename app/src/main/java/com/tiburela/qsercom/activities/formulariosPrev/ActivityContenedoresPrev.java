@@ -386,6 +386,9 @@ String currentIDcUDORmUESTREO;
         setContentView(R.layout.activity_preview);
         CustomAdapter.idsFormsVinucladosControlCalidadString ="";//reseteamos
 
+        ImagenReport.hashMapImagesData=new HashMap<>();
+
+
         Log.i("imagebrr","probandodebug");
 
 
@@ -2154,23 +2157,15 @@ void checkDataFields(){
     }
 
     if(! Utils.checkifAtach()){
-
       Log.i("test001","no esta lleno  checkifAtach");
-
         FragmentManager fm = getSupportFragmentManager();
         DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
         // alertDialog.setCancelable(false);
         alertDialog.show(fm, "duialoffragment_alertZ");
-
         return;
-    }else
-
-    {
-
-        Log.i("test001","si  esta lleno  checkifAtach");
-
-
     }
+
+
 
 
     openBottomSheet();
@@ -2883,6 +2878,10 @@ private void createObjcInformeAndUpload() {
 
     private boolean existminiumImage(int numImagenNMinimo, int categoriaImagenToSearch){
 
+    Log.i("minimopics","el size de ImagenReport.hashMapImagesData es "+ImagenReport.hashMapImagesData.size());
+
+
+
         int numImagesEcontradas=0;
 
 
@@ -3100,7 +3099,7 @@ private void createObjcInformeAndUpload() {
             ediFotosLlegada.requestFocus();
 
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-            ediFotosLlegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotosLlegada.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
             return false;
         }else{
 
@@ -3165,7 +3164,7 @@ private void createObjcInformeAndUpload() {
             ediFotosPposcosecha.requestFocus();
 
             layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
-            ediFotosPposcosecha.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotosPposcosecha.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
             return false;
 
         }else{
@@ -3257,7 +3256,7 @@ return  true;
             ediFotoContenedor.requestFocus();
 
             layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-            ediFotoContenedor.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotoContenedor.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
             return false;
         }else{
 
@@ -3361,7 +3360,7 @@ return  true;
             ediFotosSellosLLegada.requestFocus();
 
             layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
-            ediFotosSellosLLegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotosSellosLLegada.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
             return false;
         }else{
 
@@ -3618,7 +3617,7 @@ return true;
             ediFotosLlegadaTransport.requestFocus();
 
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
-            ediFotosLlegadaTransport.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotosLlegadaTransport.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
             return false;
         }else{
 
@@ -5158,6 +5157,22 @@ private void checkModeVisualitY(){
 
         }
 
+        if(! Utils.checkifAtach()){
+            ediRacimosRecha.requestFocus();
+            ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            Log.i("test001","no esta lleno  checkifAtach");
+            FragmentManager fm = getSupportFragmentManager();
+            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
+            // alertDialog.setCancelable(false);
+            alertDialog.show(fm, "duialoffragment_alertZ");
+            return false;
+        }
+
+
+
+        /*
         if(ediRacimosRecha.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimosRecha.requestFocus();
             ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
@@ -5165,6 +5180,8 @@ private void checkModeVisualitY(){
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
         }
+
+         */
 
         if(ediRacimProces.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimProces.requestFocus();
@@ -6026,6 +6043,8 @@ if(indice>2) {
     }
 
     /*****
+     * probando parte de selcion almenos una foto...
+     *
      *
      * en tipo de balanza spinner
      * extensionista ci

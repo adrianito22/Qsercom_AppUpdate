@@ -43,9 +43,10 @@
 
             <TextView
                 android:id="@+id/txtConfirmExitenciaData"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center_horizontal"
                 android:text="No hay nada en el periodo selecionado"
                 android:visibility="invisible" />
 

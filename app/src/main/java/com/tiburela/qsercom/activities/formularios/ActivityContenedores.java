@@ -2740,7 +2740,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 
 
-          //  checkDataFields();
+            checkDataFields();
 
 
 
@@ -4074,6 +4074,8 @@ return true;
 
 
 
+
+
         if(ediRacimosCosech.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este espacio es obligatorio");
@@ -4083,6 +4085,23 @@ return true;
 
         }
 
+
+        if(! Utils.checkifAtach()){
+            ediRacimosRecha.requestFocus();
+            ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
+
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            Log.i("test001","no esta lleno  checkifAtach");
+            FragmentManager fm = getSupportFragmentManager();
+            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
+            // alertDialog.setCancelable(false);
+            alertDialog.show(fm, "duialoffragment_alertZ");
+            return false;
+        }
+
+
+
+/*
         if(ediRacimosRecha.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimosRecha.requestFocus();
             ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
@@ -4090,6 +4109,10 @@ return true;
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
         }
+*/
+
+
+
 
         if(ediRacimProces.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimProces.requestFocus();
