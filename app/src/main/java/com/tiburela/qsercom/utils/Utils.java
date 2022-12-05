@@ -3,7 +3,6 @@ package com.tiburela.qsercom.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
-import com.tiburela.qsercom.adapters.CustomAdapter;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -599,11 +598,11 @@ return
 
 
 
-        CustomAdapter.mapWhitIDScontrolCaldVinclds = new HashMap<>();
-        CustomAdapter.mapWhitIdsCuadroMuestreo = new HashMap<>();
+        RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds = new HashMap<>();
+        RecyclerViewAdapLinkage.mapWhitIdsCuadroMuestreo = new HashMap<>();
 
-        CustomAdapter.idsFormsVinucladosControlCalidadString=controlCalidad;
-        CustomAdapter.idCudroMuestreoStringVinuclado=cuadroMuestro;
+        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString=controlCalidad;
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado=cuadroMuestro;
 
 
 
@@ -611,7 +610,7 @@ return
             for(String value : arrayRepportsCONTROLcALIDAD){
                 Log.i("picacins","el key sera "+value);
                 if(! value.trim().isEmpty()){
-                    CustomAdapter.mapWhitIDScontrolCaldVinclds.put(value,value);
+                    RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds.put(value,value);
 
                     Utils.numReportsVinculadsAll++;
                 }
@@ -622,7 +621,7 @@ return
 
                 if(!value.trim().isEmpty()){
 
-                    CustomAdapter.mapWhitIdsCuadroMuestreo.put(value,value);
+                    RecyclerViewAdapLinkage.mapWhitIdsCuadroMuestreo.put(value,value);
                     Utils.numReportsVinculadsAll++;
 
 
@@ -839,8 +838,8 @@ return
         } ///si tenemos data en mabos tambien retorna true
 
 
-          else if(CustomAdapter.mapWhitIDScontrolCaldVinclds.size()==0 &&
-                CustomAdapter.mapWhitIdsCuadroMuestreo.size()==0){
+          else if(RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds.size()==0 &&
+                RecyclerViewAdapLinkage.mapWhitIdsCuadroMuestreo.size()==0){
 
             textoShow= "No tienes vinculado ningun reporte Control calidad y Cuadro Muestreo";
 
@@ -849,13 +848,13 @@ return
         }
 
 
-        else if(CustomAdapter.mapWhitIDScontrolCaldVinclds.size()==0){
+        else if(RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds.size()==0){
             textoShow=        "No tienes vinculado ningun reporte control Calidad";
 
             return false;
         }
 
-        else if(CustomAdapter.mapWhitIdsCuadroMuestreo.size()==0){
+        else if(RecyclerViewAdapLinkage.mapWhitIdsCuadroMuestreo.size()==0){
             textoShow=        "No tienes vinculado ningun reporte cuadro Muestreo";
 
             return false;

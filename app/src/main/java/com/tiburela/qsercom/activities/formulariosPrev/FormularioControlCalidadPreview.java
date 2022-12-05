@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +28,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -658,7 +656,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         txtTotalDefectSelect.setText(String.valueOf(numsValuesSelec));
 
-        muestraResultado();
+        showsumDfectsSelected();
 
 
 
@@ -706,7 +704,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdiVaporzz.setText(controlCalidad.getVapor());
         ediObservacioneszszz.setText(controlCalidad.getObservaciones()); //observaciones
         mEdiProductorzz.setText(controlCalidad.getProductor());
-        mEdiCodigozz .setText(controlCalidad.getCodigo());
+        mEdiCodigozz .setText(controlCalidad.getUniqueId());
         mEdiZonazz .setText(controlCalidad.getZona());
         mEdiHaciendazz .setText(controlCalidad.getHacienda());
         mEdiExportadorazz.setText(controlCalidad.getExportadora());
@@ -1355,11 +1353,16 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         mEdiFechazz.setOnClickListener(this);
 
+
+        mEdiHoraInizz.setOnClickListener(this);
+        mEdiHoraTermizz.setOnClickListener(this);
+
+
     }
 
 
 
-    void muestraResultado()  {
+    void showsumDfectsSelected()  {
 
 
         int keysToAddData1[] ={R.id.imgSelecDefc1,R.id.imgSelecDefc2,R.id.imgSelecDefc3,R.id.imgSelecDefc4,R.id.imgSelecDefc5,
@@ -1421,9 +1424,137 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     }
 
+     boolean chekIfInfoIsComplete()  {
+
+
+        int keysToAddData1[] ={R.id.imgSelecDefc1,R.id.imgSelecDefc2,R.id.imgSelecDefc3,R.id.imgSelecDefc4,R.id.imgSelecDefc5,
+                R.id.imgSelecDefc6,R.id.imgSelecDefc7 ,R.id.imgSelecDefc8,R.id.imgSelecDefc9,R.id.imgSelecDefc10} ;
+
+
+         EditextSupreme [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
+
+       //  EditextSupreme [] arrayPhs = {ediPH1,ediPH2,ediPH3,ediPH4,ediPH5,ediPH6,ediPH7,ediPH7,ediPH8,ediPH9,ediPH10};
+
+
+         EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+                 ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+
+
+        int keysToAddData2[] ={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,R.id.imvEmpaque5,
+                R.id.imvEmpaque6, R.id.imvEmpaque7,R.id.imvEmpaque8,R.id.imvEmpaque9,R.id.imvEmpaque10} ;
+
+
+        TextView ararYTEXVIEWS[] ={txtTotal1,txtTotal2,txtTotal3,txtTotal4,txtTotal5,
+                txtTotal6,txtTotal7,txtTotal8,txtTotal9, txtTotal10} ;
 
 
 
+        for(int indice=0; indice<ararYTEXVIEWS.length; indice++){
+
+            //lso tres deben contener valores,,,,
+            if(!arrayPesoS[indice].getText().toString().isEmpty() && arrayNumeroCLUSTERinspec[indice].getText().toString().isEmpty() ){  //si tiene peso lbras y no tiene  numer clusters inspeccionados
+                arrayNumeroCLUSTERinspec[indice].requestFocus();
+                arrayNumeroCLUSTERinspec[indice].setError("Falta este espacio");
+                return false;
+
+
+
+            }else if(arrayPesoS[indice].getText().toString().isEmpty() && ! arrayNumeroCLUSTERinspec[indice].getText().toString().isEmpty() ){  //si tiene peso lbras y no tiene  numer clusters inspeccionados
+                arrayPesoS[indice].requestFocus();
+                arrayPesoS[indice].setError("Falta este espacio");
+                return false;
+
+
+
+            }
+
+             /**check defectos fruta */
+
+            else if(chekIfDefectosThisLineUserMarcoDefecto(String.valueOf(keysToAddData1[indice]))
+            && arrayPesoS[indice].getText().toString().isEmpty()  ){
+                arrayPesoS[indice].requestFocus();
+                arrayPesoS[indice].setError("Falta este valor");
+                return false;
+
+            }
+
+            else if(chekIfDefectosThisLineUserMarcoDefecto(String.valueOf(keysToAddData1[indice]))
+                    && arrayNumeroCLUSTERinspec[indice].getText().toString().isEmpty()  ){
+                arrayNumeroCLUSTERinspec[indice].requestFocus();
+                arrayNumeroCLUSTERinspec[indice].setError("Falta este valor");
+                return false;
+
+
+            }
+
+
+
+
+
+            /***defectos emaque*/
+
+
+            else if(chekIfDefectosThisLineUserMarcoDefectosEmpaque(String.valueOf(keysToAddData2[indice]))
+                    && arrayPesoS[indice].getText().toString().isEmpty()  ){
+                arrayPesoS[indice].requestFocus();
+                arrayPesoS[indice].setError("Falta este valor");
+                return false;
+            }
+
+            else if(chekIfDefectosThisLineUserMarcoDefectosEmpaque(String.valueOf(keysToAddData2[indice]))
+                    && arrayNumeroCLUSTERinspec[indice].getText().toString().isEmpty()  ){
+                arrayNumeroCLUSTERinspec[indice].requestFocus();
+                arrayNumeroCLUSTERinspec[indice].setError("Falta este valor");
+                return false;
+
+
+            }
+
+
+        }
+
+      return true;
+    }
+
+
+
+private boolean chekIfDefectosThisLineUserMarcoDefecto(String key){
+        ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb.get(key);
+        for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
+
+            if(currentList.get(indice)){ //si es verdadero
+               return true;
+
+            }
+
+        }
+
+
+
+return false;
+
+
+}
+
+
+
+    private boolean chekIfDefectosThisLineUserMarcoDefectosEmpaque(String key){
+        ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb2.get(key);
+        for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
+
+            if(currentList.get(indice)){ //si es verdadero
+                return true;
+
+            }
+
+        }
+
+
+
+        return false;
+
+
+    }
 
     @Override
     public void onClick(View view) {
@@ -1534,7 +1665,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
             case R.id.textView48:
 
-                muestraResultado();
+                showsumDfectsSelected();
 
                 break;
 
@@ -1548,7 +1679,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
             case R.id.imgUpdateNumClusterxCaja:
                 showResultNumeroClusterxCajaProduct();
-
 
                 break;
 
@@ -1567,7 +1697,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             case R.id.imgupdateInfo:
 
                 muestraaLLResults();
-                muestraResultado();
+                showsumDfectsSelected();
                 generatePercentAndCountValuesCheked(numeroClustersInspecc);
 
                 break;
@@ -1579,6 +1709,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
             case R.id.ediHoraInizz:
+                Log.i("horainicio","se pulso hora inicio ");
+
                 showingTimePicker(view);
 
                 break;
@@ -2543,6 +2675,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             public void onClick(View view) {
 
 
+                showsumDfectsSelected();
+
+
                 if(!seLLamoFindViewId){
                     findviewsIds();
 
@@ -2550,13 +2685,18 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
-
-
-
-                if(!cheakIfInfoIsComplete()) {
+                if(!cheakIfInGeneralIsComplete()) {
                     return;
 
                 }
+
+                if(!chekIfInfoIsComplete()) {
+                    return;
+
+                }
+
+
+
 
 
 
@@ -2732,7 +2872,7 @@ return true;
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
     }
 
-    private boolean cheakIfInfoIsComplete() {
+    private boolean cheakIfInGeneralIsComplete() {
 
         if(mEdiVaporzz.getText().toString().trim().isEmpty()){
             mEdiVaporzz.requestFocus() ;
@@ -2950,13 +3090,13 @@ return true;
             return false;
         }
 
-
+/*
         if(!chekeaQueSIsEKECIONAdEFECTOSExistaCantidad()){
 
             return false;
 
         }
-
+*/
 
         return true;
 

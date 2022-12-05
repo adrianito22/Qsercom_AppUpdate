@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:fontFamily="@font/m_medium"
@@ -61,7 +61,7 @@
                 android:id="@+id/txtDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/m_light"
                 android:text="27/02/2022"
                 android:textSize="13sp" />
@@ -73,21 +73,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="Cat."
-                    android:textSize="13sp" />
-
-                <TextView
                     android:id="@+id/txtCategoria"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
+                    android:layout_marginLeft="10dp"
                     android:fontFamily="@font/m_medium"
                     android:text="Carretas"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
 
@@ -95,7 +87,7 @@
                 android:id="@+id/txtStateForm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Revisado"
                 android:textSize="13sp" />
 
@@ -121,7 +113,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:gravity="center"
-                android:text="name" />
+                android:text="name"
+                android:textSize="13sp" />
         </LinearLayout>
 
     </LinearLayout>

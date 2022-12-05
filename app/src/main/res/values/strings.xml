@@ -77,6 +77,9 @@
         <item>ANTEAYER </item>
         <item>FECHA ESPECIFICA</item>
 
+        <item>ULTIMOS 7 DIAS</item>
+        <item>ULTIMOS 15 DIAS</item>
+
     </string-array>
 
 

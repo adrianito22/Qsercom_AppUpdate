@@ -32,7 +32,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.util.Util;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,7 +44,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
@@ -53,9 +51,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.tiburela.qsercom.Constants.Constants;
-import com.tiburela.qsercom.PdfMaker.BackroundUserIsAproveed;
-import com.tiburela.qsercom.PdfMaker.BitmapCreatorBackG;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
@@ -64,16 +59,13 @@ import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
-import com.tiburela.qsercom.adapters.CustomAdapter;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
-import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.models.ReportCamionesyCarretas;
-import com.tiburela.qsercom.models.ReportsAllModel;
 import com.tiburela.qsercom.models.UsuarioQsercom;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
@@ -84,8 +76,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 //package com.tiburela.qsercom.activities.formularios;
 public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation {
@@ -578,6 +568,16 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         PerecentHelp.estateForm= new HashMap<>();
         PerecentHelp.listViewsClickedUser =new ArrayList<>();
         showDataByMode();
+
+        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString= "";
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado= "";
+        RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds=new HashMap<>();
+        RecyclerViewAdapLinkage. mapWhitIdsCuadroMuestreo=new HashMap<>();
+        Utils.numReportsVinculadsAll=0;
+
+           Variables.isClickable = true;
+
+
 
         librearMemor();
 

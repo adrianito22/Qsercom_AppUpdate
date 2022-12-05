@@ -41,7 +41,7 @@ import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivit
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.adapters.AdapterAllReports;
-import com.tiburela.qsercom.adapters.CustomAdapter;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -376,8 +376,8 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
                     if(currentObect!=null){
                         Variables.CurrenReportPart1=currentObect;
 
-                        CustomAdapter.idsFormsVinucladosControlCalidadString =Variables.CurrenReportPart1.getAtachControCalidadInfrms();
-                        CustomAdapter.idCudroMuestreoStringVinuclado =Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
+                        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString =Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+                        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado =Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
 
 
                         break;

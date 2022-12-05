@@ -39,9 +39,10 @@ import com.tiburela.qsercom.activities.formulariosPrev.PackingListPreviewActivit
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.adapters.AdapterAllReports;
-import com.tiburela.qsercom.adapters.CustomAdapter;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -79,7 +80,12 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
     public final int REPORTE_CAMIONES_y_CARRETAS=1204;
     public final int REPORT_CONTROL_CALIDAD=1205;
     public final int MUESTREO_CALIBRA_RECHAZ=1269;
+    Calendar cal = Calendar.getInstance();
+    Calendar cald2= Calendar.getInstance();
 
+
+    //cal = Calendar.getInstance();
+    //  cald2=Calendar.getInstance();
 
 
     HashMap<String, ReportsAllModel> allReportFiltBMap=new HashMap<>();
@@ -201,6 +207,33 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 }
 
+                else if (timeSelecionado.equals("ULTIMOS 7 DIAS")){
+
+                   //cal = Calendar.getInstance();
+                  //  cald2=Calendar.getInstance();
+
+                   cal.add(Calendar.DATE, -7);
+                   cald2.add(Calendar.DATE,0);
+                    dowloadInformRegistrosByDateRange(cal.getTimeInMillis(),cald2.getTimeInMillis());
+
+
+                   // selecionaFecha();
+
+                }
+
+
+
+                else if (timeSelecionado.equals("ULTIMOS 15 DIAS")){
+
+                    cal.add(Calendar.DATE, -15);
+                    cald2.add(Calendar.DATE,0);
+                    dowloadInformRegistrosByDateRange(cal.getTimeInMillis(),cald2.getTimeInMillis());
+
+                   // selecionaFecha();
+
+                }
+
+
 
 
 
@@ -217,6 +250,54 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
     }
+
+
+
+    private void dowloadInformRegistrosByDateRange(long desdeFecha, long hastFecha){
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").
+                orderByChild("dateUploadByinspCampoIformeMillisecond").startAt(desdeFecha).endAt(hastFecha);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                listReport= new ArrayList<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    InformRegister informRegister=ds.getValue(InformRegister.class);
+
+
+                    //agregamos solo los que no esten en esta lista..
+                    if(informRegister!=null){  //creamos un objet
+                        listReport.add(informRegister);
+
+
+                    }
+
+
+                }
+
+                setAdapaterDataAndShow(listReport);
+
+              //  setDataInRecyclerOfBottomSheet(mapCheckedListForms);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+
+    }
+
 
 
     void dowloadinformesby_CONTENEDORES(String dateSelecionado){
@@ -652,8 +733,8 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                     if(currentObect!=null){
                         Variables.CurrenReportPart1=currentObect;
 
-                        CustomAdapter.idsFormsVinucladosControlCalidadString =Variables.CurrenReportPart1.getAtachControCalidadInfrms();
-                        CustomAdapter.idCudroMuestreoStringVinuclado =Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
+                        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString =Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+                        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado =Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
 
 
                         break;

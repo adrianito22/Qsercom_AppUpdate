@@ -48,7 +48,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -67,7 +66,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
-import com.tiburela.qsercom.adapters.CustomAdapter;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -360,10 +359,10 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
-        CustomAdapter.idsFormsVinucladosControlCalidadString ="";//reseteamos
-        CustomAdapter.idCudroMuestreoStringVinuclado ="";
-        CustomAdapter.mapWhitIdsCuadroMuestreo = new HashMap<>();
-        CustomAdapter.mapWhitIDScontrolCaldVinclds= new HashMap<>();
+        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString ="";//reseteamos
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado ="";
+        RecyclerViewAdapLinkage.mapWhitIdsCuadroMuestreo = new HashMap<>();
+        RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds= new HashMap<>();
 
         Utils.userDecidioNoVincularAhora =false;
 
@@ -1246,7 +1245,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
     private ArrayList<String> generateLISTbyStringVinculados(String ValueLineViculados ){
-        CustomAdapter.mapWhitIDScontrolCaldVinclds = new HashMap<>();
+        RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds = new HashMap<>();
 
                  ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
 
@@ -1262,7 +1261,7 @@ Log.i("hellosweer","se ehjecitp onstart");
                              listIdSvINCULADOS.add(value);
                              Log.i("debfggf","sellamoeste este el key es  "+value);
 
-                            CustomAdapter.mapWhitIDScontrolCaldVinclds.put(value,value);
+                            RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds.put(value,value);
 
                      }
 
@@ -1325,13 +1324,13 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
     }
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityContenedores.this);
-    CustomAdapter adapter = new CustomAdapter(ActivityContenedores.this, lista, generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString));
+    RecyclerViewAdapLinkage adapter = new RecyclerViewAdapLinkage(ActivityContenedores.this, lista, generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString));
     //  this.adapter.setPlayPauseClickListener(this);
     reciclerView.setLayoutManager(layoutManager);
     reciclerView.setAdapter(adapter);
 
 
-    adapter.setOnItemClickListener(new CustomAdapter.ClickListener() {
+    adapter.setOnItemClickListener(new RecyclerViewAdapLinkage.ClickListener() {
         @Override
         public void onItemClick(int position, View v) {
 
@@ -5207,13 +5206,13 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                     informe.setUniqueIDinforme(currenTidGenrate);
 
 
-                    if( CustomAdapter.idsFormsVinucladosControlCalidadString!=null){
-                        informe.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
+                    if( RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString!=null){
+                        informe.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
                     }
 
 
-                    if( CustomAdapter.idCudroMuestreoStringVinuclado !=null){
-                        informe.setAtachControCuadroMuestreo(CustomAdapter.idCudroMuestreoStringVinuclado);
+                    if( RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado !=null){
+                        informe.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
                     }
 
@@ -5333,8 +5332,8 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     private void showEditDialogAndSendData() {
 
         Bundle bundle = new Bundle();
-        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS,CustomAdapter.idsFormsVinucladosControlCalidadString);
-        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED,CustomAdapter.idCudroMuestreoStringVinuclado);
+        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS, RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED, RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
 
 
@@ -5362,9 +5361,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
 
 
-        if(!CustomAdapter.idCudroMuestreoStringVinuclado.trim().isEmpty()){ //lodecsrgamos y seteamos info
+        if(!RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()){ //lodecsrgamos y seteamos info
 
-            DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idCudroMuestreoStringVinuclado);
+            DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
         }
 

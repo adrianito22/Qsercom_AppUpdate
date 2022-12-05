@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.StringJoiner;
 
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>  implements   View.OnClickListener  {
+public class RecyclerViewAdapLinkage extends RecyclerView.Adapter<RecyclerViewAdapLinkage.MyViewHolder>  implements   View.OnClickListener  {
     private static ClickListener clickListener;
     private View.OnClickListener listener;
 
@@ -39,7 +39,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private Context ctx;
 
-    public CustomAdapter(Context ctx, ArrayList<CheckedAndAtatch> listCheckedAndAtatch) {
+    public RecyclerViewAdapLinkage(Context ctx, ArrayList<CheckedAndAtatch> listCheckedAndAtatch) {
 
         try {
 
@@ -58,7 +58,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
     @Override
-    public CustomAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerViewAdapLinkage.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.item_control_cald_checkbx, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
@@ -72,7 +72,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
     @Override
-    public void onBindViewHolder(final CustomAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerViewAdapLinkage.MyViewHolder holder, int position) {
 
         holder.checkBx.setText(listCheckedAndAtatch.get(position).getDataChecboxTxt());
 
@@ -125,7 +125,7 @@ if(listCheckedAndAtatch.get(position).getDataChecboxTxt().equalsIgnoreCase("CUAD
 
         String datexxx="FECHA "+listCheckedAndAtatch.get(position).getDataFirst()+" ";
 
-        String hda="HDA: "+listCheckedAndAtatch.get(position).getDataSecond();
+        String hda="De : "+listCheckedAndAtatch.get(position).getDataSecond();
 
 
         Log.i("datasg","date es "+datexxx);
@@ -362,7 +362,7 @@ void udpdateStringVinucldsReports(String tipiInforme) {
             else{
 
                 //significa que no hay ninguno vinculado
-                // CustomAdapter.idsFormsVinucladosCntres);
+                // RecyclerViewAdapLinkage.idsFormsVinucladosCntres);
 
                 Log.i("comercial","es cuadro muestreo se eejxuto el else ");
 
@@ -371,7 +371,7 @@ void udpdateStringVinucldsReports(String tipiInforme) {
 
                 updateNumReportsVinculadosALL(mapWhitIDScontrolCaldVinclds, mapWhitIdsCuadroMuestreo);
 
-                // CustomAdapter.idOFfORMScontrolCaldVds =null;
+                // RecyclerViewAdapLinkage.idOFfORMScontrolCaldVds =null;
 
             }
 
@@ -424,7 +424,7 @@ void udpdateStringVinucldsReports(String tipiInforme) {
 
                 Log.i("somere","el size de all rportes vunculados  es "+  Utils.numReportsVinculadsAll);
 
-                // CustomAdapter.idOFfORMScontrolCaldVds =null;
+                // RecyclerViewAdapLinkage.idOFfORMScontrolCaldVds =null;
 
             }
 
@@ -449,7 +449,7 @@ void udpdateStringVinucldsReports(String tipiInforme) {
 
     }
     public void setOnItemClickListener(ClickListener clickListener) {
-        CustomAdapter.clickListener = clickListener;
+        RecyclerViewAdapLinkage.clickListener = clickListener;
 
 
     }

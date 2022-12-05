@@ -488,9 +488,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:hint="EXTENSIONISTA EN RODILLO"
-                android:visibility="visible"
-                app:endIconMode="clear_text">
+                android:hint="EXTENSIONISTA EN RODILLO">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediExteRodillo"
@@ -504,9 +502,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:hint="EXTENSIONISTA EN GANCHO"
-                android:visibility="visible"
-                app:endIconMode="clear_text">
+                android:hint="EXTENSIONISTA EN GANCHO">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediExtGancho"
@@ -525,6 +521,7 @@
                 android:layout_marginBottom="30dp"
                 android:text="Guardar informe" />
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

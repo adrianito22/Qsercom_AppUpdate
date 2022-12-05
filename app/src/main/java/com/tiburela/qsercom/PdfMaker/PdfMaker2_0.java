@@ -99,6 +99,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
     ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
     HashMap <String, String> hasmapMapControlCalid;
 
+
     Button btnIrAARCHIVOpdf;
 
     String nameOFPDFrEPORTfile;
@@ -114,7 +115,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
     Context contexto;
 
     int numRacimosRechzados = 0;
-    int PERMISION_NEWHERE = 130;
+    final int TWO_PERMISION_REQUEST = 131;
+    final int CODE_WRITE_EXTERNAL_STORAGE = 132;
+    final int CODE_READ_EXTERNAL_STORAGE = 133;
 
 
     LinearLayout layoutDown;
@@ -234,15 +237,21 @@ if(hayFILE){
 
 
                     if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED){ //si tiene permisos
-                        Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE ");
+                            == PackageManager.PERMISSION_GRANTED &&
+                            ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                    == PackageManager.PERMISSION_GRANTED
+
+                    ){ //si tiene permisos
+                        Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
 
                         createPDFContenedores() ;
 
 
                     }else{
-                        Log.i("permisodd","aun no tiene el permiso  READ_EXTERNAL_STORAGE ");
+                        Log.i("permisodd","no tiene ambos permisos ");
+
+
 
                         requestPermision(PdfMaker2_0.this);
 
@@ -1422,11 +1431,13 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
                                            String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case 1: {
+            case TWO_PERMISION_REQUEST: {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
 
                     Log.i("permisodd","es permiso concedido READ_EXTERNAL_STORAGE ");
 
@@ -1450,16 +1461,81 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
                     // functionality that depends on this permission.
                     //   Toast.makeText(ActivityContenedoresPrev.this, "P" , Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
 
 
 
 
+                // final int CODE_WRITE_EXTERNAL_STORAGE = 132;
+            //    final int CODE_READ_EXTERNAL_STORAGE = 133;
+
+            case CODE_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED
+
+                    ){
+
+
+                        try {
+                            createPDFContenedores() ;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
 
 
 
-            case 2: {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    Log.i("permisodd","es permiso denegado CODE_WRITE_EXTERNAL_STORAGE  ");
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    //   Toast.makeText(ActivityContenedoresPrev.this, "P" , Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+
+
+            case CODE_READ_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Log.i("permisodd","es permiso concedido READ_EXTERNAL_STORAGE ");
+
+
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED){
+
+
+                        try {
+                            createPDFContenedores() ;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    Log.i("permisodd","es permiso denegado CODE_READ_EXTERNAL_STORAGE ");
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    //   Toast.makeText(ActivityContenedoresPrev.this, "P" , Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -1482,21 +1558,50 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
             @Override
             public void onClick(View view) {
 
-                ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        1);
 
-                 //probando read external estorage
+                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED &&
+                        ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_DENIED){
+
+                    Log.i("permisodd","SE EJECUTO ESTE IF ");
 
 
-               /*
 
-                ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{WRITE_EXTERNAL_STORAGE},
-                        2);
+                    ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        TWO_PERMISION_REQUEST);
 
-                */
+
+            }
+
+               else if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED){
+                    Log.i("permisodd","SE EJECUTO ES TEELSE  IF 1 ");
+
+                    ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            CODE_READ_EXTERNAL_STORAGE);
+
+
+                }
+
+
+
+               else if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED ){
+                    Log.i("permisodd","SE EJECUTO ES TEELSE  IF 2 ");
+
+                    ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{WRITE_EXTERNAL_STORAGE},
+                            CODE_WRITE_EXTERNAL_STORAGE);
+
+
+                }
+
+
+
+
+
 
                 bottomSheetDialog.dismiss();
-
 
             }
         });

@@ -33,7 +33,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center_horizontal"
-        android:text="Es necesario agregar el permiso  de administrar archivos para Descargar  el archivo Pdf" />
+        android:text="Es necesario conceder permisos para  Descargar  el archivo Pdf" />
 
     <LinearLayout
         android:layout_width="wrap_content"

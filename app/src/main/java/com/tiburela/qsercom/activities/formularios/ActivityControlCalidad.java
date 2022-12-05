@@ -32,10 +32,6 @@ import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.models.InformsRegister;
-import com.tiburela.qsercom.models.SetInformDatsHacienda;
-import com.tiburela.qsercom.models.SetInformEmbarque1;
-import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -958,7 +954,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        findviewsIdsMayoriaViews();
+        if(!sellamoFindViewIds){
+
+            findviewsIdsMayoriaViews();
+
+        }
+
 
 
         String keyOrViewID=String.valueOf(view.getId());
@@ -1891,7 +1892,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-    private boolean cheakIfInfoIsComplete() {
+    private boolean cheakIfInGeneralIsComplete() {
 
 
         if(!sellamoFindViewIds){
@@ -1917,6 +1918,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
 
+
+        /*
         if(mEdiCodigozz.getText().toString().trim().isEmpty()){
             mEdiCodigozz.requestFocus() ;
             mEdiCodigozz.setError("Este espacio es necesario") ;
@@ -1925,7 +1928,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             return false;
         }
 
-
+*/
 
         if(mEdiZonazz.getText().toString().trim().isEmpty()){
             mEdiZonazz.requestFocus() ;
@@ -2130,7 +2133,23 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             public void onClick(View view) {
 
 
-                if(!cheakIfInfoIsComplete()) {
+                if(!sellamoFindViewIds){
+
+                    findviewsIdsMayoriaViews();
+
+                }
+
+
+                showsumDfectsSelected();
+
+
+                if(!cheakIfInGeneralIsComplete()) {
+                    return;
+
+                }
+
+
+                if(!chekIfInfoIsComplete()) {
                     return;
 
                 }
@@ -2190,8 +2209,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 generateUniqueIdInformeAndContinuesIfIdIsUnique(obecjControlCalidad);
 
-
-
                 RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxs,keyDondeEstaraHasmap);
                 RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
 
@@ -2202,7 +2219,143 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         });
 
     }
+    boolean chekIfInfoIsComplete()  {
 
+
+        int keysToAddData1[] ={R.id.imgSelecDefc1,R.id.imgSelecDefc2,R.id.imgSelecDefc3,R.id.imgSelecDefc4,R.id.imgSelecDefc5,
+                R.id.imgSelecDefc6,R.id.imgSelecDefc7 ,R.id.imgSelecDefc8,R.id.imgSelecDefc9,R.id.imgSelecDefc10} ;
+
+
+        EditextSupreme [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
+
+        //  EditextSupreme [] arrayPhs = {ediPH1,ediPH2,ediPH3,ediPH4,ediPH5,ediPH6,ediPH7,ediPH7,ediPH8,ediPH9,ediPH10};
+
+
+        EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+                ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+
+
+        int keysToAddData2[] ={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,R.id.imvEmpaque5,
+                R.id.imvEmpaque6, R.id.imvEmpaque7,R.id.imvEmpaque8,R.id.imvEmpaque9,R.id.imvEmpaque10} ;
+
+
+        TextView ararYTEXVIEWS[] ={txtTotal1,txtTotal2,txtTotal3,txtTotal4,txtTotal5,
+                txtTotal6,txtTotal7,txtTotal8,txtTotal9, txtTotal10} ;
+
+
+
+        for(int indice=0; indice<ararYTEXVIEWS.length; indice++){
+
+            //lso tres deben contener valores,,,,
+            if(!arrayPesoS[indice].getText().toString().isEmpty() && arrayNumeroCLUSTERinspec[indice].getText().toString().isEmpty() ){  //si tiene peso lbras y no tiene  numer clusters inspeccionados
+                arrayNumeroCLUSTERinspec[indice].requestFocus();
+                arrayNumeroCLUSTERinspec[indice].setError("Falta este espacio");
+                return false;
+
+
+
+            }else if(arrayPesoS[indice].getText().toString().isEmpty() && ! arrayNumeroCLUSTERinspec[indice].getText().toString().isEmpty() ){  //si tiene peso lbras y no tiene  numer clusters inspeccionados
+                arrayPesoS[indice].requestFocus();
+                arrayPesoS[indice].setError("Falta este espacio");
+                return false;
+
+
+
+            }
+
+            /**check defectos fruta */
+
+            else if(chekIfDefectosThisLineUserMarcoDefecto(String.valueOf(keysToAddData1[indice]))
+                    && arrayPesoS[indice].getText().toString().isEmpty()  ){
+                arrayPesoS[indice].requestFocus();
+                arrayPesoS[indice].setError("Falta este valor");
+                return false;
+
+            }
+
+            else if(chekIfDefectosThisLineUserMarcoDefecto(String.valueOf(keysToAddData1[indice]))
+                    && arrayNumeroCLUSTERinspec[indice].getText().toString().isEmpty()  ){
+                arrayNumeroCLUSTERinspec[indice].requestFocus();
+                arrayNumeroCLUSTERinspec[indice].setError("Falta este valor");
+                return false;
+
+
+            }
+
+
+
+
+
+            /***defectos emaque*/
+
+
+            else if(chekIfDefectosThisLineUserMarcoDefectosEmpaque(String.valueOf(keysToAddData2[indice]))
+                    && arrayPesoS[indice].getText().toString().isEmpty()  ){
+                arrayPesoS[indice].requestFocus();
+                arrayPesoS[indice].setError("Falta este valor");
+                return false;
+            }
+
+            else if(chekIfDefectosThisLineUserMarcoDefectosEmpaque(String.valueOf(keysToAddData2[indice]))
+                    && arrayNumeroCLUSTERinspec[indice].getText().toString().isEmpty()  ){
+                arrayNumeroCLUSTERinspec[indice].requestFocus();
+                arrayNumeroCLUSTERinspec[indice].setError("Falta este valor");
+                return false;
+
+
+            }
+
+
+        }
+
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+    private boolean chekIfDefectosThisLineUserMarcoDefecto(String key){
+        ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb.get(key);
+        for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
+
+            if(currentList.get(indice)){ //si es verdadero
+                return true;
+
+            }
+
+        }
+
+
+
+        return false;
+
+
+    }
+
+
+
+    private boolean chekIfDefectosThisLineUserMarcoDefectosEmpaque(String key){
+        ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb2.get(key);
+        for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
+
+            if(currentList.get(indice)){ //si es verdadero
+                return true;
+
+            }
+
+        }
+
+
+
+        return false;
+
+
+    }
 
     private void generateUniqueIdInformeAndContinuesIfIdIsUnique( ControlCalidad controlCalidad){
 
@@ -2276,7 +2429,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     private ControlCalidad creaNuevoFormularioByTxtImputEditext(){
 
         ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
-                mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(),mEdiCodigozz.getText().toString(),
+                mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(),"",
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
                 mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
@@ -2937,6 +3090,67 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
         return true;
+
+    }
+    void showsumDfectsSelected()  {
+
+
+        int keysToAddData1[] ={R.id.imgSelecDefc1,R.id.imgSelecDefc2,R.id.imgSelecDefc3,R.id.imgSelecDefc4,R.id.imgSelecDefc5,
+                R.id.imgSelecDefc6,R.id.imgSelecDefc7 ,R.id.imgSelecDefc8,R.id.imgSelecDefc9,R.id.imgSelecDefc10} ;
+
+
+        int keysToAddData2[] ={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,R.id.imvEmpaque5,
+                R.id.imvEmpaque6, R.id.imvEmpaque7,R.id.imvEmpaque8,R.id.imvEmpaque9,R.id.imvEmpaque10} ;
+
+
+        TextView ararYTEXVIEWS[] ={txtTotal1,txtTotal2,txtTotal3,txtTotal4,txtTotal5,
+                txtTotal6,txtTotal7,txtTotal8,txtTotal9, txtTotal10} ;
+
+        int contadorCheked;
+
+
+        for(int indice2=0; indice2<ararYTEXVIEWS.length; indice2++){  //lista de listas
+            contadorCheked=0;
+
+            if (HashMapOfListWhitStatesCHeckb.containsKey(String.valueOf(keysToAddData1[indice2]))) {
+
+                ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb.get(String.valueOf(keysToAddData1[indice2]));
+                for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
+
+                    if(currentList.get(indice)){ //si es verdadero
+                        contadorCheked++;
+
+                    }
+
+                }
+
+            }
+
+
+            //par hasmpa2
+            if (HashMapOfListWhitStatesCHeckb2.containsKey(String.valueOf(String.valueOf(keysToAddData2[indice2])))) {
+
+                ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(String.valueOf(keysToAddData2[indice2])));
+                for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
+
+                    if(currentList.get(indice)){ //si es verdadero
+                        contadorCheked++;
+
+                    }
+
+                }
+
+            }
+
+            ararYTEXVIEWS[indice2].setText(String.valueOf(contadorCheked));
+
+
+        }
+
+
+
+
+
 
     }
 

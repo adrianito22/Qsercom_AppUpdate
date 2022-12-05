@@ -33,7 +33,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
-import com.tiburela.qsercom.adapters.CustomAdapter;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -90,16 +90,16 @@ public class BottonSheetDfragmentVclds extends BottomSheetDialogFragment {
             imgClose=vista.findViewById(R.id.imgClose);
             txtNumReportsVinclds=vista.findViewById(R.id.txtNumReportsVinclds);
 
-//        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED,CustomAdapter.idCudroMuestreoStringVinuclado);
-//        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS,CustomAdapter.idsFormsVinucladosControlCalidadString);
-            CustomAdapter.idCudroMuestreoStringVinuclado = getArguments().getString(Variables.KEY_CUADRO_MUETREO_ATACHED);
-            CustomAdapter.idsFormsVinucladosControlCalidadString = getArguments().getString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS);
+//        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED,RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
+//        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS,RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+            RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = getArguments().getString(Variables.KEY_CUADRO_MUETREO_ATACHED);
+            RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = getArguments().getString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS);
 
 
 
 
-            Log.i("viculados","idCudroMuestreoStringVinuclado es "+CustomAdapter.idCudroMuestreoStringVinuclado);
-            Log.i("viculados","idsFormsVinucladosControlCalidadString es "+CustomAdapter.idsFormsVinucladosControlCalidadString);
+            Log.i("viculados","idCudroMuestreoStringVinuclado es "+ RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
+            Log.i("viculados","idsFormsVinucladosControlCalidadString es "+ RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
 
 
@@ -201,7 +201,7 @@ private void listternSpinner(){
             Calendar cald2 = Calendar.getInstance();
 
 
-            //   idsFormsControlCalidVinculados=generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosCntres);
+            //   idsFormsControlCalidVinculados=generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosCntres);
 
             if(selecionado.equals("Hoy")) {
                 esReportsVinculadosMod=false;
@@ -248,7 +248,7 @@ private void listternSpinner(){
 
 
 
-                //  dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idCudroMuestreoStringVinuclado));
+                //  dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado));
 
 
 
@@ -277,7 +277,7 @@ private void listternSpinner(){
                 cald2.add(Calendar.DATE,0);
                 dowloadInformRegistrosByDateRange(cal.getTimeInMillis(),cald2.getTimeInMillis());
 
-                //  dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(CustomAdapter.idCudroMuestreoStringVinuclado));
+                //  dowloadinformesby_RangeDateAndCallAndCALLdOWLODCuadroMuestreo(cal.getTimeInMillis(),cald2.getTimeInMillis(),generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString),generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado));
 
 
             }
@@ -293,13 +293,13 @@ private void listternSpinner(){
 
                 esReportsVinculadosMod=true;
 
-                Log.i("viculados","2 idCudroMuestreoStringVinuclado es "+CustomAdapter.idCudroMuestreoStringVinuclado);
-                Log.i("viculados","2 idsFormsVinucladosControlCalidadString es "+CustomAdapter.idsFormsVinucladosControlCalidadString);
+                Log.i("viculados","2 idCudroMuestreoStringVinuclado es "+ RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
+                Log.i("viculados","2 idsFormsVinucladosControlCalidadString es "+ RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
 
 
 
-                idsOfReportsVincldsList=  Utils.generateLISTbyStringVinculados(CustomAdapter.idsFormsVinucladosControlCalidadString,CustomAdapter.idCudroMuestreoStringVinuclado);
+                idsOfReportsVincldsList=  Utils.generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString, RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
 
 
@@ -521,7 +521,7 @@ private void listternSpinner(){
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
 
-        CustomAdapter adapter = new CustomAdapter(getActivity(), lista);
+        RecyclerViewAdapLinkage adapter = new RecyclerViewAdapLinkage(getActivity(), lista);
 
 
         //  this.adapter.setPlayPauseClickListener(this);
@@ -530,7 +530,7 @@ private void listternSpinner(){
         mirecyclerViewAtach.setAdapter(adapter);
 
 
-        adapter.setOnItemClickListener(new CustomAdapter.ClickListener() {
+        adapter.setOnItemClickListener(new RecyclerViewAdapLinkage.ClickListener() {
             @Override
             public void onItemClick(int position, View v) {
 

@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginBottom="10dp"
-                android:text="Hacienda: 0255" />
+                android:text="name autor" />
 
         </LinearLayout>
 

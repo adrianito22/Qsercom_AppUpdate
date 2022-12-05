@@ -49,7 +49,7 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
         // Set the data to textview and imageview.
         InformRegister InformRegister = listReports.get(position);
 
-        holder.txtReportCode.setText("cod: "+InformRegister.getInformUniqueIdPertenece());
+        holder.txtReportCode.setText(InformRegister.getInformUniqueIdPertenece());
 
         holder.txtDate.setText(InformRegister.getSimpleDateForm());
         holder.txtCategoria.setText(InformRegister.getTypeReportString());

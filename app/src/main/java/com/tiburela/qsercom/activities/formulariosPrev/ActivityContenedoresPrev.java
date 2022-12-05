@@ -68,7 +68,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.adapters.CustomAdapter;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -383,7 +383,7 @@ String currentIDcUDORmUESTREO;
         super.onCreate(savedInstanceState);
        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
-        CustomAdapter.idsFormsVinucladosControlCalidadString ="";//reseteamos
+        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString ="";//reseteamos
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
@@ -391,7 +391,7 @@ String currentIDcUDORmUESTREO;
         Log.i("imagebrr","probandodebug");
 
 
-        CustomAdapter.idCudroMuestreoStringVinuclado ="";
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado ="";
 
         Utils.userDecidioNoVincularAhora =false;
 
@@ -400,7 +400,7 @@ String currentIDcUDORmUESTREO;
 
         mContext=this;
 
-//        CustomAdapter.idsFormsVinucladosCntres=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+//        RecyclerViewAdapLinkage.idsFormsVinucladosCntres=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
         Variables.activityCurrent=Variables.FormPreviewContenedores;
 
 
@@ -1218,8 +1218,8 @@ String currentIDcUDORmUESTREO;
 
 
         Bundle bundle = new Bundle();
-        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS,CustomAdapter.idsFormsVinucladosControlCalidadString);
-        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED,CustomAdapter.idCudroMuestreoStringVinuclado);
+        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS, RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED, RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
 
 
@@ -2376,18 +2376,18 @@ void checkDataFields(){
       //  int contadroInformsCuadroMuetreo=0;
 
 
-      //  String [] allInformCuadroMuetreo =CustomAdapter.idCudroMuestreoStringVinuclado.split(",");
-       /// String [] allInformcONTROLcALIDA=CustomAdapter.idsFormsVinucladosControlCalidadString.split(",");
+      //  String [] allInformCuadroMuetreo =RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.split(",");
+       /// String [] allInformcONTROLcALIDA=RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.split(",");
 
 
-        if(CustomAdapter.idCudroMuestreoStringVinuclado.trim().isEmpty()){
+        if(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()){
             Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Cuadro de muestreo", Toast.LENGTH_LONG).show();
             return false;
 
         }
 
 
-        if(CustomAdapter.idsFormsVinucladosControlCalidadString.trim().isEmpty()){
+        if(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.trim().isEmpty()){
             Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Control calia", Toast.LENGTH_LONG).show();
 
             return false;
@@ -2453,19 +2453,19 @@ private void openBottomSheet(){
         Variables.CurrenReportPart1.setAtachControCalidadInfrms(atachViucladoControlCalidad);
         Variables.CurrenReportPart1.setAtachControCuadroMuestreo(atachViucladoCuadroX);
 
-        if( CustomAdapter.idsFormsVinucladosControlCalidadString.length()>1){
-            Variables.CurrenReportPart1.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
+        if( RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.length()>1){
+            Variables.CurrenReportPart1.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
         }
 
 
-        if( CustomAdapter.idCudroMuestreoStringVinuclado.length()>1){
-            Variables.CurrenReportPart1.setAtachControCuadroMuestreo(CustomAdapter.idCudroMuestreoStringVinuclado);
+        if( RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.length()>1){
+            Variables.CurrenReportPart1.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
         }
 
 
 
-        Log.i("eldtatashd","el string atch es "+CustomAdapter.idsFormsVinucladosControlCalidadString);
+        Log.i("eldtatashd","el string atch es "+ RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
 
         if(millisDateSelect >0){
@@ -2544,11 +2544,11 @@ private void createObjcInformeAndUpload() {
             ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif);
     informe.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
-    informe.setAtachControCalidadInfrms(CustomAdapter.idsFormsVinucladosControlCalidadString);
+    informe.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
-    informe.setAtachControCuadroMuestreo(CustomAdapter.idCudroMuestreoStringVinuclado); //LE BORRAMOS MASS
+    informe.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado); //LE BORRAMOS MASS
 
-    Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + CustomAdapter.idCudroMuestreoStringVinuclado);
+    Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
     if (millisDateSelect > 0) {
 
@@ -4970,7 +4970,7 @@ private void checkModeVisualitY(){
 
                 if(currentIDcUDORmUESTREO!=null){
 
-                    DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idCudroMuestreoStringVinuclado);
+                    DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
                 }else{ //sino hay ningun cuadro muestreo;
 
@@ -5887,9 +5887,9 @@ if(indice>2) {
         txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
 
 
-        if(!CustomAdapter.idCudroMuestreoStringVinuclado.trim().isEmpty()){ //lodecsrgamos y seteamos info
+        if(!RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()){ //lodecsrgamos y seteamos info
 
-            DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(CustomAdapter.idCudroMuestreoStringVinuclado);
+            DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
         }
 
