@@ -1,0 +1,6 @@
+en numeracion del contenedor que acepte letras y numeros...
+//
+## Getting Started
+- [Algunas notas]
+en codigo debe insertar un codigo nmanualemente , 
+etnonces son doscopdigos...

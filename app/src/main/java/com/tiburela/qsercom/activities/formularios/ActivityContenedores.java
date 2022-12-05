@@ -1932,7 +1932,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
         ediFecha.setOnTouchListener(this);
         ediProductor.setOnTouchListener(this);
         ediHacienda.setOnTouchListener(this);
-      //  ediCodigo.setOnTouchListener(this);
+        ediCodigo.setOnTouchListener(this);
         ediInscirpMagap.setOnTouchListener(this);
         ediPemarque.setOnTouchListener(this);
         ediHoraInicio.setOnTouchListener(this);
@@ -2930,9 +2930,8 @@ private void createObjcInformeAndUpload(){
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
 
     SetInformEmbarque1 informe = new SetInformEmbarque1(ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString(),
-            ediMarca.getText().toString(),
+            ediMarca.getText().toString(), UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
 
-            UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
             Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
             ,ediProductor.getText().toString(),ediCodigo.getText().toString()
             ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
@@ -3337,7 +3336,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
 
 
-/*
+
 
          if(ediCodigo.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCodigo.requestFocus();
@@ -3347,7 +3346,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
             return false;
 
         }
-*/
+
 
         if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediInscirpMagap.requestFocus();
@@ -5202,8 +5201,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                     informe.setUniqueIDinforme(currenTidGenrate);
                     informe2.setUniqueIDinformePart2(currenTidGenrate);
                     informe3.setUniqueIDinformeDatsHda(currenTidGenrate);//ELMISMO ID ,,PERO DIFRENTEPROPIEDAD
-
-                    informe.setUniqueIDinforme(currenTidGenrate);
 
 
                     if( RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString!=null){

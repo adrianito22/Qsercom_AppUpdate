@@ -80,9 +80,7 @@
                 android:id="@+id/ediCodigo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:inputType="text"
-                android:text="xxx-xxx" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
