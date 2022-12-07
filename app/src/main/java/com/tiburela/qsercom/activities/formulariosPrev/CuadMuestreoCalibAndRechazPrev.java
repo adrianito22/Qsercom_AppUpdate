@@ -424,6 +424,12 @@ return object;
             return false;
         }
 
+        if(ediExtCalidad.getText().toString().trim().isEmpty()){
+            ediExtCalidad.requestFocus();
+            ediExtCalidad.setError("Este dato es requerido");
+
+            return false;
+        }
 
 
         return true;

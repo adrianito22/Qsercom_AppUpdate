@@ -7,3 +7,5 @@ etnonces son doscopdigos...
 
 
 //en contenedores,numeero de serie funda editext type text,termografo text
+
+##letras mayiculas todas-

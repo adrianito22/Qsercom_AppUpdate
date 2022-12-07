@@ -543,6 +543,7 @@ return object;
         }
 
 
+        /*
         if(ediExteRodillo.getText().toString().trim().isEmpty()){
             ediExteRodillo.requestFocus();
             ediExteRodillo.setError("Este dato es requerido");
@@ -552,13 +553,13 @@ return object;
 
 
 
-
         if(ediExtGancho.getText().toString().trim().isEmpty()){
             ediExtGancho.requestFocus();
             ediExtGancho.setError("Este dato es requerido");
 
             return false;
         }
+*/
 
 
 

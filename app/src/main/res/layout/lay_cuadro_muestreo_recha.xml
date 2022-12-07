@@ -45,7 +45,7 @@
                             android:layout_height="wrap_content"
                             android:background="#FF4C4C"
                             android:padding="5dp"
-                            android:text="Color de Cintas Semanas"
+                            android:text="COLOR DE CINTAS SEMANAS"
                             android:textColor="@color/white2" />
 
 
