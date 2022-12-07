@@ -8,7 +8,7 @@
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                         android:layout_marginBottom="10dp"
                         android:background="#404040"
                         android:padding="10dp"
-                        android:text="Defectos"
+                        android:text="DEFECTOS"
                         android:textColor="@android:color/white" />
 
                     <ImageView
@@ -75,7 +75,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:gravity="center"
-                        android:text="Peso Lbs." />
+                        android:text="PESO LBS." />
 
                     <TextView
                         android:id="@+id/textView46"
@@ -98,7 +98,8 @@
                             android:layout_gravity="top"
                             android:layout_marginLeft="10dp"
                             android:gravity="top"
-                            android:text="Num  Cluster Inspecc    " />
+                            android:text="Num  Cluster Inspecc    "
+                            android:textAllCaps="true" />
                     </LinearLayout>
 
                     <TextView
@@ -186,11 +187,11 @@
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediNumClusInsp1"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -200,7 +201,7 @@ android:gravity="center"
                         android:id="@+id/imgSelecDefc1"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="10dp"
                         android:src="@drawable/ic_baseline_check_box_24" />
 
                     <ImageView
@@ -214,7 +215,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal1"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -276,12 +278,12 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/ediNumClusInsp2"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -305,7 +307,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal2"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -335,21 +338,21 @@ android:gravity="center"
                         android:text="3" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
-
                         android:id="@+id/ediTimeHoraxx3"
+
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:textSize="13sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediPesoL3"
                         android:layout_width="75dp"
-
                         android:layout_height="wrap_content"
+
                         android:digits="0123456789."
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -366,11 +369,11 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediNumClusInsp3"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -394,7 +397,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal3"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -433,12 +437,12 @@ android:gravity="center"
                         android:textSize="13sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediPesoL4"
                         android:layout_width="75dp"
-
                         android:layout_height="wrap_content"
+
                         android:digits="0123456789."
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -483,7 +487,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal4"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -512,19 +517,19 @@ android:gravity="center"
                         android:text="5" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediTimeHoraxx5"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:textSize="13sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediPesoL5"
                         android:layout_width="75dp"
-
                         android:layout_height="wrap_content"
+
                         android:digits="0123456789."
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -542,11 +547,11 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediNumClusInsp5"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -569,7 +574,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal5"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -599,20 +605,20 @@ android:gravity="center"
                         android:text="6" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
-
                         android:id="@+id/ediTimeHoraxx6"
+
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:textSize="13sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediPesoL6"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789."
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -630,11 +636,11 @@ android:gravity="center"
 
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediNumClusInsp6"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -658,7 +664,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal6"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -689,21 +696,21 @@ android:gravity="center"
                         android:text="7" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
-
                         android:id="@+id/ediTimeHoraxx7"
+
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:textSize="13sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/ediPesoL7"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789."
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -720,12 +727,12 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/ediNumClusInsp7"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -750,7 +757,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal7"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -779,21 +787,21 @@ android:gravity="center"
                         android:text="8" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
-
                         android:id="@+id/ediTimeHoraxx8"
+
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:textSize="13sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediPesoL8"
                         android:layout_width="75dp"
-
                         android:layout_height="wrap_content"
+
                         android:digits="0123456789."
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -810,12 +818,12 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/ediNumClusInsp8"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -840,7 +848,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal8"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -870,19 +879,19 @@ android:gravity="center"
                         android:text="9" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/ediTimeHoraxx9"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:textSize="13sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediPesoL9"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789."
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -899,11 +908,11 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediNumClusInsp9"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -927,7 +936,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal9"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -958,20 +968,20 @@ android:gravity="center"
                         android:text="10" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/ediTimeHoraxx10"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:textSize="13sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/ediPesoL10"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789."
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -985,13 +995,13 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
-
                         android:id="@+id/ediNumClusInsp10"
+
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -1015,7 +1025,8 @@ android:gravity="center"
                         android:id="@+id/txtTotal10"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center" />
 
                     <Spinner
 
@@ -1034,27 +1045,32 @@ android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:divider="@drawable/backage_text"
-                    android:gravity="center"
                     android:orientation="horizontal"
                     android:showDividers="middle">
 
-                    <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
-                        android:id="@+id/editotalHere"
-                        android:layout_width="95dp"
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="10dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:text="0" />
+
+                    <com.tiburela.qsercom.Customviews.EditextSupreme
+                        android:id="@+id/editotalHere"
+
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
                         android:enabled="false"
+                        android:gravity="center"
                         android:hint="TOTAL"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
                         android:id="@+id/ediTotalPesoLAll"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
                         android:enabled="false"
+                        android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -1071,29 +1087,40 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
-
                         android:id="@+id/ediNumClusInspAll"
+
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
                         android:enabled="false"
+                        android:gravity="center"
                         android:inputType="number"
                         android:textSize="14sp" />
 
 
-                    <Space
-                        android:layout_width="195dp"
-                        android:layout_height="wrap_content" />
-
                     <TextView
                         android:id="@+id/txtTotalDefectSelect"
-                        android:layout_width="40dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
+                        android:layout_marginLeft="10dp"
                         android:gravity="center"
-                        android:text="0"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/txtTotalDefectEmpaque"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/txtTotalAllDefects"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
                         android:textSize="17sp" />
 
                 </LinearLayout>
@@ -1114,7 +1141,7 @@ android:gravity="center"
 
                     <TextView
                         android:id="@+id/textView50"
-                        android:layout_width="95dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center"
@@ -1122,12 +1149,12 @@ android:gravity="center"
                         android:textSize="20sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/ediAllPesoLibraPorcent"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:enabled="false"
+                        android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -1141,12 +1168,12 @@ android:gravity="center"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
-android:gravity="center"
-
                         android:id="@+id/alNumClustPercent"
+
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:enabled="false"
+                        android:gravity="center"
                         android:textSize="14sp" />
 
 

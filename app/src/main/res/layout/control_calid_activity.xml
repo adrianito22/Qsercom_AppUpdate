@@ -77,7 +77,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="Guardar Formulario"
+                android:text="GUARDAR FORMULARIO"
                 android:textAllCaps="true" />
 
         </LinearLayout>

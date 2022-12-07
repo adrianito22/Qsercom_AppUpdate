@@ -43,6 +43,7 @@
         android:layout_marginTop="8dp"
         android:paddingBottom="5dp"
         android:text="Modo Visualizacion"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBarFormulario" />
@@ -127,7 +128,8 @@
                     android:id="@+id/txtNumReportsVinclds"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Reportes Vinculados: 0" />
+                    android:text="Reportes Vinculados: 0"
+                    android:textAllCaps="true" />
 
 
             </LinearLayout>
@@ -426,7 +428,7 @@
                 android:layout_height="wrap_content"
                 android:background="#151C47"
                 android:padding="5dp"
-                android:text="Datos Evaluadores"
+                android:text="DATOS EVALUADORES"
                 android:textColor="@color/white2" />
 
             <include

@@ -1156,21 +1156,21 @@ Log.i("hellosweer","se ehjecitp onstart");
         }
 
 
+        EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        EditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        EditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        EditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
 
-        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
-        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
-        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
-        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
-        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
-        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
 
+        EditText ediPorc14=findViewById(R.id.ediPorc14);
+        EditText ediPorc13=findViewById(R.id.ediPorc13);
+        EditText ediPorc12=findViewById(R.id.ediPorc12);
+        EditText ediPorc11=findViewById(R.id.ediPorc11);
+        EditText ediPorc10=findViewById(R.id.ediPorc10);
+        EditText ediPorc9 =findViewById(R.id.ediPorc9);
 
-        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
-        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
-        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
-        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
-        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
-        TextInputEditText ediPorc9 =findViewById(R.id.ediPorc9);
 
 
 
@@ -1181,9 +1181,9 @@ Log.i("hellosweer","se ehjecitp onstart");
         int numeroRacimosContador=0;
 
         //numero de raCimos
-        TextInputEditText [] miArrayNUmrACIMOS ={ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9};
+        EditText [] miArrayNUmrACIMOS ={ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9};
 
-        TextInputEditText [] miArraypORCENTAHJES ={ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPorc9};
+        EditText [] miArraypORCENTAHJES ={ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPorc9};
 
         for(int i=0; i<miArrayNUmrACIMOS.length; i++){
 
@@ -2353,7 +2353,7 @@ private void listennersSpinners() {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String textSelect= spTipoBoquilla.getSelectedItem().toString();
             ediTipoBoquilla.setText(textSelect);
-            if(textSelect.equals("Ninguna")){
+            if(textSelect.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoBoquilla.setText("");
@@ -2375,7 +2375,7 @@ private void listennersSpinners() {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String textSelect= spFumigaCorL1.getSelectedItem().toString();
             ediFumigacionClin1.setText(textSelect);
-            if(textSelect.equals("Ninguna")){
+            if(textSelect.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediFumigacionClin1.setText("");
@@ -2398,7 +2398,7 @@ private void listennersSpinners() {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String textSelect= spFuenteAgua.getSelectedItem().toString();
             ediFuenteAgua.setText(textSelect);
-            if(textSelect.equals("Ninguna")){
+            if(textSelect.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediFuenteAgua.setText("");
@@ -2427,7 +2427,7 @@ private void listennersSpinners() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String zonaEelejida= spinnerSelectZona.getSelectedItem().toString();
                 ediZona.setText(zonaEelejida);
-                if(zonaEelejida.equals("Ninguna")){
+                if(zonaEelejida.equalsIgnoreCase("Ninguna")){
                     //actualizamos
                     Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                     ediZona.setText("");
@@ -2450,7 +2450,7 @@ private void listennersSpinners() {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String condicion= spinnerCondicionBalanza.getSelectedItem().toString();
             ediCondicionBalanza.setText(condicion);
-            if(condicion.equals("Ninguna")){
+            if(condicion.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediCondicionBalanza.setText("");
@@ -2475,7 +2475,7 @@ private void listennersSpinners() {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String zonaEelejida= spinnertipoCaja.getSelectedItem().toString();
             ediTipodeCaja.setText(zonaEelejida);
-            if(zonaEelejida.equals("Ninguna")){
+            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipodeCaja.setText("");
@@ -2498,7 +2498,7 @@ private void listennersSpinners() {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String zonaEelejida= spinnertipodePlastico.getSelectedItem().toString();
             ediTipoPlastico.setText(zonaEelejida);
-            if(zonaEelejida.equals("Ninguna")){
+            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoPlastico.setText("");
@@ -2522,7 +2522,7 @@ private void listennersSpinners() {
             String zonaEelejida= spinnertipodeBlanza.getSelectedItem().toString();
             ediTipoBalanza.setText(zonaEelejida);
 
-            if(zonaEelejida.equals("Ninguna")){
+            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoBalanza.setText("");
@@ -2542,7 +2542,7 @@ private void listennersSpinners() {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String zonaEelejida= spinnertipodeBlanzaRepeso.getSelectedItem().toString();
             editipbalanzaRepeso.setText(zonaEelejida);
-            if(zonaEelejida.equals("Ninguna")){
+            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 editipbalanzaRepeso.setText("");
@@ -2567,7 +2567,7 @@ private void listennersSpinners() {
 
             ediUbicacionBalanza.setText(zonaEelejida);
 
-            if(zonaEelejida.equals("Ninguna")){
+            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediUbicacionBalanza.setText("");
@@ -4770,30 +4770,30 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     private boolean checkQueexistminim() {
 
-        TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
-        TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
-        TextInputEditText ediColortSem12 = findViewById(R.id.ediColortSem12);
-        TextInputEditText ediColortSem11 = findViewById(R.id.ediColortSem11);
-        TextInputEditText ediColortSem10 = findViewById(R.id.ediColortSem10);
-        TextInputEditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+        EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        EditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        EditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        EditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        EditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        EditText ediColortSem9 = findViewById(R.id.ediColortSem9);
 
-        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
-        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
-        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
-        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
-        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
-        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
-
-
-        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
-        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
-        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
-        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
-        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
-        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
+        EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        EditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        EditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        EditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
 
 
-        TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
+        EditText ediPorc14=findViewById(R.id.ediPorc14);
+        EditText ediPorc13=findViewById(R.id.ediPorc13);
+        EditText ediPorc12=findViewById(R.id.ediPorc12);
+        EditText ediPorc11=findViewById(R.id.ediPorc11);
+        EditText ediPorc10=findViewById(R.id.ediPorc10);
+        EditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
+
+
+        EditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
                 ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
                 ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
 
@@ -4803,7 +4803,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         for(int i=0; i<array.length; i++){
 
-            TextInputEditText current =array [i];
+            EditText current =array [i];
 
             if(!current.getText().toString().trim().isEmpty()){
                 String value=current.getText().toString();
@@ -4899,30 +4899,30 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     private boolean updateCaledarioEnfunde(SetInformDatsHacienda informe) {
 
-        TextInputEditText ediColortSem14 = findViewById(R.id.ediColortSem14);
-        TextInputEditText ediColortSem13 = findViewById(R.id.ediColortSem13);
-        TextInputEditText ediColortSem12 = findViewById(R.id.ediColortSem12);
-        TextInputEditText ediColortSem11 = findViewById(R.id.ediColortSem11);
-        TextInputEditText ediColortSem10 = findViewById(R.id.ediColortSem10);
-        TextInputEditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+        EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        EditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        EditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        EditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        EditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        EditText ediColortSem9 = findViewById(R.id.ediColortSem9);
 
-        TextInputEditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
-        TextInputEditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
-        TextInputEditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
-        TextInputEditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
-        TextInputEditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
-        TextInputEditText ediNumRac9 = findViewById(R.id.ediNumRac9);
-
-
-        TextInputEditText ediPorc14=findViewById(R.id.ediPorc14);
-        TextInputEditText ediPorc13=findViewById(R.id.ediPorc13);
-        TextInputEditText ediPorc12=findViewById(R.id.ediPorc12);
-        TextInputEditText ediPorc11=findViewById(R.id.ediPorc11);
-        TextInputEditText ediPorc10=findViewById(R.id.ediPorc10);
-        TextInputEditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
+        EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        EditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        EditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        EditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
 
 
-        TextInputEditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
+        EditText ediPorc14=findViewById(R.id.ediPorc14);
+        EditText ediPorc13=findViewById(R.id.ediPorc13);
+        EditText ediPorc12=findViewById(R.id.ediPorc12);
+        EditText ediPorc11=findViewById(R.id.ediPorc11);
+        EditText ediPorc10=findViewById(R.id.ediPorc10);
+        EditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
+
+
+        EditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
                 ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
                 ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
 
@@ -4932,7 +4932,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         for(int i=0; i<array.length; i++){
 
-            TextInputEditText current =array [i];
+            EditText current =array [i];
 
             if(!current.getText().toString().trim().isEmpty()){
                 String value=current.getText().toString();

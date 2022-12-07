@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Compañia transportista"
+                android:hint="COMPAÑIA TRANSPORTISTA"
                 android:visibility="visible"
                 app:endIconMode="clear_text">
 
@@ -41,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Nombre del chofer"
+                android:hint="NOMBRE DEL CHOFER"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -65,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="cedula"
+                android:hint="CEDULA"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +83,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="celular"
+                android:hint="CELULAR"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -107,7 +107,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Placa"
+                android:hint="PLACA"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -124,7 +124,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Marca de cabezal"
+                android:hint="MARCA DE CABEZAL"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -147,8 +147,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="color de cabezal"
 
+                android:hint="COLOR DE CABEZAL"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="8"
-                android:hint="Fotos "
+                android:hint="FOTOS "
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText

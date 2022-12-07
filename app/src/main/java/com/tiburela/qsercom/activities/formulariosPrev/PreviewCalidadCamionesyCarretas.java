@@ -421,8 +421,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         lyEscontenedor.setVisibility(LinearLayout.GONE);
 
 
-         LinearLayout lyUbicacionBalanza=findViewById(R.id.lyUbicacionBalanza);
-        lyUbicacionBalanza.setVisibility(LinearLayout.GONE);
+      //   LinearLayout lyUbicacionBalanza=findViewById(R.id.lyUbicacionBalanza);
+       // lyUbicacionBalanza.setVisibility(LinearLayout.GONE);
 
         disableEditText(ediFecha);
         disableEditText(ediHoraInicio);

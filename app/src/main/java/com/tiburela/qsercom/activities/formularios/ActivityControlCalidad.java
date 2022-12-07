@@ -44,6 +44,8 @@ import java.util.HashMap;
 public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
 
     private boolean sellamoFindViewIds=false;
+    DecimalFormat df = new DecimalFormat("#.#");
+
 
     private TextInputEditText mEdiVaporzz;
     private TextInputEditText mEdiProductorzz;
@@ -71,7 +73,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     private TextInputEditText mEdiPuertEmbzz;
 
     private EditextSupreme ediObservacioneszszz;
-
 
 
 
@@ -108,8 +109,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     private EditextSupreme mEdiLargDeds29;
     private EditextSupreme mEdiLargDeds30;
 
-    private EditextSupreme mEdiTotalFila1;
-    private EditextSupreme mEdiPromFila1;
 
     private EditextSupreme mEdif2LrgD1;
     private EditextSupreme mEdif2LrgD2;
@@ -253,7 +252,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     EditextSupreme ediNdedoXclust27;
     EditextSupreme ediNdedoXclust28 ;
     EditextSupreme ediNdedoXclust29 ;
-    EditextSupreme ediNdedoXclust30 ;
+    EditextSupreme ediNumPromedioDedsXcaja;
 
 
     //FILA2
@@ -310,8 +309,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     EditextSupreme edif2NdedoXclustxC16 ;
     EditextSupreme edif2NdedoXclustxC17 ;
     EditextSupreme edif2NdedoXclustxC18 ;
-    EditextSupreme edif2NdedoXclustxC19 ;
-    EditextSupreme edif2NdedoXclustxC20 ;
+    EditextSupreme edif2NdedoXclustTotalArriba;
+    EditextSupreme edif2NdedoXclustPromedio;
 
 
 
@@ -333,7 +332,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     EditextSupreme ediNdedoXclustXc16 ;
     EditextSupreme ediNdedoXclustXc17 ;
     EditextSupreme ediNdedoXclustXc18 ;
-    EditextSupreme ediNdedoXclustXc19 ;
+    EditextSupreme ediNdedoXclustXcTotalAbajo;
     EditextSupreme ediNdedoXclustXc20 ;
 
     EditextSupreme ediCalByA1;
@@ -356,7 +355,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     EditextSupreme ediCalByA18 ;
     EditextSupreme ediCalByA19 ;
     EditextSupreme ediCalByA20 ;
-    EditextSupreme ediCalByA21 ;
+    EditextSupreme ediTotalFila1z;
 
 
     ///////////////////
@@ -380,7 +379,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     EditextSupreme edif2Calib18 ;
     EditextSupreme edif2Calib19 ;
     EditextSupreme edif2Calib20 ;
-    EditextSupreme edif2Calib21 ;
+    EditextSupreme ediTotalFila2z;
     EditextSupreme edif2Calib22 ;
     //imgvEMPAQUES
 
@@ -623,7 +622,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         ediNdedoXclust27=findViewById(R.id.ediNdedoXclust27);
         ediNdedoXclust28=findViewById(R.id.ediNdedoXclust28);
         ediNdedoXclust29=findViewById(R.id.ediNdedoXclust29);
-        ediNdedoXclust30=findViewById(R.id.ediNdedoXclust30);
+        ediNumPromedioDedsXcaja =findViewById(R.id.ediNumPromedioDedsXcaja);
 
 
         edif2NdedoXclust1=findViewById(R.id.edif2NdedoXclust1);
@@ -654,8 +653,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         edif2NdedoXclust26=findViewById(R.id.edif2NdedoXclust26);
         edif2NdedoXclust27=findViewById(R.id.edif2NdedoXclust27);
         edif2NdedoXclust28=findViewById(R.id.edif2NdedoXclust28);
-        edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
-        edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
+      //  edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
+       // edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
 
 
         edif2NdedoXclustxC1=findViewById(R.id.edif2NdedoXclustxC1);
@@ -676,8 +675,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         edif2NdedoXclustxC16=findViewById(R.id.edif2NdedoXclustxC16);
         edif2NdedoXclustxC17=findViewById(R.id.edif2NdedoXclustxC17);
         edif2NdedoXclustxC18=findViewById(R.id.edif2NdedoXclustxC18);
-        edif2NdedoXclustxC19=findViewById(R.id.edif2NdedoXclustxC19);
-        edif2NdedoXclustxC20=findViewById(R.id.edif2NdedoXclustxC20);
+        edif2NdedoXclustTotalArriba =findViewById(R.id.edif2NdedoXclustTotalArriba); //edif2NdedoXclustxC19
+        edif2NdedoXclustPromedio =findViewById(R.id.edif2NdedoXclustPromedio);
 
 
 
@@ -701,7 +700,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         ediNdedoXclustXc16=findViewById(R.id.ediNdedoXclustXc16);
         ediNdedoXclustXc17=findViewById(R.id.ediNdedoXclustXc17);
         ediNdedoXclustXc18=findViewById(R.id.ediNdedoXclustXc18);
-        ediNdedoXclustXc19=findViewById(R.id.ediNdedoXclustXc19);
+        ediNdedoXclustXcTotalAbajo =findViewById(R.id.ediNdedoXclustXcTotalAbajo);
         ediNdedoXclustXc20=findViewById(R.id.ediNdedoXclustXc20);
 
 
@@ -725,7 +724,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         ediCalByA18=findViewById(R.id.ediCalByA18);
         ediCalByA19=findViewById(R.id.ediCalByA19);
         ediCalByA20=findViewById(R.id.ediCalByA20);
-        ediCalByA21=findViewById(R.id.ediCalByA21);
+        ediTotalFila1z =findViewById(R.id.ediTotalFila1z);
 
 
         edif2Calib1=findViewById(R.id.edif2Calib1);
@@ -748,7 +747,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         edif2Calib18=findViewById(R.id.edif2Calib18);
         edif2Calib19=findViewById(R.id.edif2Calib19);
         edif2Calib20=findViewById(R.id.edif2Calib20);
-        edif2Calib21=findViewById(R.id.edif2Calib21);
+        ediTotalFila2z =findViewById(R.id.ediTotalFila2z);
         edif2Calib22=findViewById(R.id.edif2Calib22);
 
         mEdiLargDeds1 = findViewById(R.id.ediLargDeds1);
@@ -781,8 +780,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdiLargDeds28 = findViewById(R.id.ediLargDeds28);
         mEdiLargDeds29 = findViewById(R.id.ediLargDeds29);
         mEdiLargDeds30 = findViewById(R.id.ediLargDeds30);
-        mEdiTotalFila1 = findViewById(R.id.ediTotalFila1);
-        mEdiPromFila1 = findViewById(R.id.ediPromFila1);
 
         mEdif2LrgD1 = findViewById(R.id.edif2LrgD1);
         mEdif2LrgD2 = findViewById(R.id.edif2LrgD2);
@@ -896,7 +893,19 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         TextView ararYTEXVIEWS[] ={txtTotal1,txtTotal2,txtTotal3,txtTotal4,txtTotal5,
                 txtTotal6,txtTotal7,txtTotal8,txtTotal9, txtTotal10} ;
 
+
+        TextView txtTotalDefectSelect=findViewById(R.id.txtTotalDefectSelect);
+        TextView txtTotalDefectEmpaque=findViewById(R.id.txtTotalDefectEmpaque);
+        TextView txtTotalAllDefects=findViewById(R.id.txtTotalAllDefects);
+
+
+
+
         int contadorCheked;
+
+        int contadorDefectsSelecion=0;
+        int contadorDefectsEMPAQUE=0;
+
 
 
         for(int indice2=0; indice2<ararYTEXVIEWS.length; indice2++){  //lista de listas
@@ -909,6 +918,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     if(currentList.get(indice)){ //si es verdadero
                         contadorCheked++;
+                        contadorDefectsSelecion++;
 
                     }
 
@@ -925,6 +935,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     if(currentList.get(indice)){ //si es verdadero
                         contadorCheked++;
+                        contadorDefectsEMPAQUE++;
 
                     }
 
@@ -938,8 +949,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
 
+         txtTotalDefectSelect.setText(String.valueOf(contadorDefectsSelecion));
+         txtTotalDefectEmpaque.setText(String.valueOf(contadorDefectsEMPAQUE));
+         txtTotalAllDefects.setText(String.valueOf( contadorDefectsSelecion+contadorDefectsEMPAQUE ));
 
 
+        Log.i("copntadordef","hay "+contadorDefectsSelecion+" de defectos selecion");
+
+        Log.i("copntadordef","hay "+contadorDefectsEMPAQUE+" de defectos empaque");
+
+        Log.i("copntadordef","en total de defectos selecionados hay "+(contadorDefectsSelecion+contadorDefectsEMPAQUE));
 
 
     }
@@ -1088,7 +1107,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 muestraaLLResults();
                 muestraResultado();
-                generatePercent(numeroClustersInspecc);
+               // generatePercent(numeroClustersInspecc);
 
                 break;
 
@@ -1637,7 +1656,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
                 ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
                 ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
-                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNumPromedioDedsXcaja,
 
 
                 edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
@@ -1651,14 +1670,14 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20
+                edif2NdedoXclustxC18 , edif2NdedoXclustTotalArriba, edif2NdedoXclustPromedio
 
 
                 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
                 ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
                 , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
                 ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-                ediNdedoXclustXc19 , ediNdedoXclustXc20
+                ediNdedoXclustXcTotalAbajo, ediNdedoXclustXc20
 
 
 
@@ -1721,7 +1740,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
                 ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
                 ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
-                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNumPromedioDedsXcaja,
                 edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
                 edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
                 edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
@@ -1731,16 +1750,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustTotalArriba, edif2NdedoXclustPromedio, ediNdedoXclustXc1, ediNdedoXclustXc2 ,
                 ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
                 , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
                 ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-                ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediNdedoXclustXcTotalAbajo, ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediTotalFila1z,
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , ediTotalFila2z, edif2Calib22 ,
 
 
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
@@ -1756,6 +1775,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         return arrayEditex;
     }
+
+
+
 
     private TextInputEditText [] creaArryOftEXTiMPUTeditext() {
 
@@ -1919,7 +1941,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        /*
+
         if(mEdiCodigozz.getText().toString().trim().isEmpty()){
             mEdiCodigozz.requestFocus() ;
             mEdiCodigozz.setError("Este espacio es necesario") ;
@@ -1928,7 +1950,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             return false;
         }
 
-*/
+
 
         if(mEdiZonazz.getText().toString().trim().isEmpty()){
             mEdiZonazz.requestFocus() ;
@@ -2429,7 +2451,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     private ControlCalidad creaNuevoFormularioByTxtImputEditext(){
 
         ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
-                mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(),"",
+                mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(), mEdiCodigozz.getText().toString(),
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
                 mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
@@ -2446,6 +2468,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private void setResultNumClusteroManoProduct() {
 
+        float sumaItemsFilaArriba=0;
+        float sumaItemsFilaAbajo=0;
+
+
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26,27,28,29,30  } ;
 
@@ -2456,7 +2482,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ,	ediNdedoXclust16,	ediNdedoXclust17,ediNdedoXclust18,	ediNdedoXclust19
                 ,	ediNdedoXclust20,	ediNdedoXclust21,ediNdedoXclust22,	ediNdedoXclust23,
                 ediNdedoXclust24,	ediNdedoXclust25,	ediNdedoXclust26,	ediNdedoXclust27,
-                ediNdedoXclust28,ediNdedoXclust29, ediNdedoXclust30 };
+                ediNdedoXclust28,ediNdedoXclust29, ediNumPromedioDedsXcaja};
 
 
         EditextSupreme [] arrayEditsFilaAbajo = {
@@ -2483,22 +2509,41 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             }
 
 
-            else {
+            else { //aqui hacemos la multiplicacion..
 
 
                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+
+
+                sumaItemsFilaArriba=sumaItemsFilaArriba + Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+
+                sumaItemsFilaAbajo=sumaItemsFilaAbajo + Integer.parseInt(arrayEditsFilaAbajo[i].getText().toString());
+
             }
 
 
 
         }
 
+
+
+        float result=sumaItemsFilaAbajo/sumaItemsFilaArriba;
+
+
+       String resul= df.format(result)+" %";
+
+        ediNumPromedioDedsXcaja.setText(resul);
+        //por aqwuinmostyramos s
+
     }
 
     private void getNumeroClusterxCajaProduct() {
 
-        //9-26
+        float sumaFilasArriba=0;
+        float sumaFilasAbajo=0;
+
+
 
         final int [] arrayNJumsTOmult = {9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26  } ;
@@ -2536,13 +2581,28 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+
+
+                sumaFilasArriba=sumaFilasArriba+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+
+                sumaFilasAbajo=sumaFilasAbajo+Integer.parseInt(arrayEditsFilaAbajo[i].getText().toString());
+
+
             }
+             //aqui mostramos el resultado..
 
 
 
+            String resultado=df.format(sumaFilasAbajo/sumaFilasArriba);
 
 
+
+            edif2NdedoXclustTotalArriba.setText(String.valueOf((int)sumaFilasArriba));
+            ediNdedoXclustXcTotalAbajo.setText(String.valueOf((int)sumaFilasAbajo));
+
+            edif2NdedoXclustPromedio.setText(resultado);
 
 
 
@@ -2555,9 +2615,14 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private void getCalibraEntreBasalYapiclProduct() {
 
-        //9-26
+       EditextSupreme ediPromediozx=findViewById(R.id.ediPromediozx);
 
         final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
+
+
+
+        float totalFila1=0;
+        float totalFial2=0;
 
 
         EditextSupreme [] arrayEditsFilaArriba = { ediCalByA1	,
@@ -2612,9 +2677,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+
+
+                totalFila1=totalFila1+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+                totalFial2=totalFial2+productResult;
+
+
             }
 
 
+
+        ediTotalFila1z.setText(String.valueOf((int)totalFila1));
+        ediTotalFila2z.setText(String.valueOf((int)totalFial2));
+        String promedio=df.format(totalFial2/totalFila1);
+        ediPromediozx.setText(promedio);
 
 
 
@@ -2626,6 +2702,18 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
     private void getlargoDedosPulgaPulpaApulpa() {
+
+
+        EditextSupreme ediLargDedPulpTotalFila1=findViewById(R.id.ediLargDedPulpTotalFila1);
+        EditextSupreme ediLargDedPulpTotalFila2=findViewById(R.id.ediLargDedPulpTotalFila2);
+        EditextSupreme ediPromedioPulpP=findViewById(R.id.ediPromedioPulpP);
+
+        double resultFila1=0;
+        double resultFila2=0;
+
+
+
+
 
 
         double [][] decimalsToMultiplicar = {
@@ -2708,15 +2796,22 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     }
 
+                    resultFila1=resultFila1+ Double.parseDouble(currentArrayofContainsDataNums[indice].getText().toString());
+                    resultFila2=resultFila2+result;
 
+
+
+                       ediLargDedPulpTotalFila1.setText( df.format(resultFila1));
+                       ediLargDedPulpTotalFila2.setText( df.format(resultFila2));
+
+                       double promedio=resultFila2/resultFila1;
+
+                       ediPromedioPulpP.setText( df.format(promedio));
 
                     // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
                     //colcamos este texto en el editext
 
-
                 }
-
-
 
             }
 
@@ -2849,7 +2944,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
                 ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
                 ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
-                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNumPromedioDedsXcaja ,
                 edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
                 edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
                 edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
@@ -2859,16 +2954,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                edif2NdedoXclustxC18 , edif2NdedoXclustTotalArriba , edif2NdedoXclustPromedio , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
                 ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
                 , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
                 ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-                ediNdedoXclustXc19 , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                ediNdedoXclustXcTotalAbajo , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediCalByA21 ,
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediTotalFila1z ,
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , ediTotalFila2z , edif2Calib22 ,
 
 
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
@@ -2981,7 +3076,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
                 ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
                 ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
-                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNdedoXclust30 ,
+                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNumPromedioDedsXcaja,
 
 
 
@@ -2992,7 +3087,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20
+                edif2NdedoXclustxC18 , edif2NdedoXclustTotalArriba, edif2NdedoXclustPromedio
 
 
         };

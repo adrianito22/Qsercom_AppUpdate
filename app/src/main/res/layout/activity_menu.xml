@@ -31,6 +31,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/m_regular"
         android:text="Employee"
+        android:textAllCaps="true"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/txtHeader" />
@@ -43,6 +44,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/m_medium"
         android:text="Adrianito Vicente"
+        android:textAllCaps="true"
         android:textColor="#FFFFFF"
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -70,7 +72,8 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/m_medium"
             android:gravity="center_horizontal|left"
-            android:text="Menu" />
+            android:text="Menu"
+            android:textAllCaps="true" />
 
         <HorizontalScrollView
             android:scrollbars="none"
@@ -108,7 +111,8 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
-                            android:text="Contenedores " />
+                            android:text="Contenedores "
+                            android:textAllCaps="true" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -130,7 +134,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center_horizontal"
-                            android:text="Contenedores en Acopio" />
+                            android:text="Contenedores en Acopio"
+                            android:textAllCaps="true" />
 
                     </LinearLayout>
 
@@ -154,7 +159,8 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
-                            android:text="Camiones y Carretas" />
+                            android:text="Camiones y Carretas"
+                            android:textAllCaps="true" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -177,7 +183,8 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
-                            android:text="Packing List" />
+                            android:text="Packing List"
+                            android:textAllCaps="true" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -200,7 +207,8 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
-                            android:text="Muestro ,Rechazados" />
+                            android:text="Muestro ,Rechazados"
+                            android:textAllCaps="true" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -224,7 +232,8 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
-                            android:text="Control Calidad" />
+                            android:text="Control Calidad"
+                            android:textAllCaps="true" />
                     </LinearLayout>
 
 
@@ -251,6 +260,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Informes por Revisar : 1"
+        android:textAllCaps="true"
         android:textColor="#434343"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -264,6 +274,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Tienes Tarea"
+        android:textAllCaps="true"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
@@ -278,7 +289,7 @@
         android:background="@drawable/btn4"
         android:fontFamily="sans-serif-medium"
         android:text="Revisar Informes"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"

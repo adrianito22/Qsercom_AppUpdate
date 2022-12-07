@@ -832,7 +832,7 @@ android:gravity="center"
 
 
                         <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:id="@+id/ediTotalFila1"
+                            android:id="@+id/ediLargDedPulpTotalFila1"
 
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -841,8 +841,8 @@ android:gravity="center"
 
 
                         <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:id="@+id/ediPromFila1"
 
+                            android:id="@+id/ediPromedioPulpP"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -1200,7 +1200,7 @@ android:gravity="center"
 
 
                         <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:id="@+id/ediTotalFila2"
+                            android:id="@+id/ediLargDedPulpTotalFila2"
 
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1209,7 +1209,6 @@ android:gravity="center"
 
 
                         <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:id="@+id/ediPromFila2"
 
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"

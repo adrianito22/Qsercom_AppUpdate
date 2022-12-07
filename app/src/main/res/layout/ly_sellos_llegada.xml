@@ -87,16 +87,15 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="n de serie de funda"
+                android:hint="N DE SERIE DE FUNDA"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediNumSerieFunda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
 
-                    />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -112,7 +111,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Sticker de Ventolera externa"
+                android:hint="STICKER DE VENTOLERA EXTERNA"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -137,8 +136,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Cable de rastreo de llegada"
 
+                android:hint="CABLE DE RASTREO DE LLEGADA"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -161,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Sellos plasticos de Naviera"
+                android:hint="SELLOS PLASTICOS DE NAVIERA"
                 android:visibility="visible"
                 app:endIconMode="clear_text">
 
@@ -187,8 +186,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Otros (Especifica)"
 
+                android:hint="OTROS (ESPECIFICA)"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -213,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="8"
-                android:hint="Fotos"
+                android:hint="FOTOS"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText

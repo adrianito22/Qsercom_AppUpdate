@@ -104,7 +104,8 @@
                     android:id="@+id/txtNumReportsVinclds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reportes Vinculados: 0" />
+                    android:text="Reportes Vinculados: 0"
+                    android:textAllCaps="true" />
 
 
             </LinearLayout>
@@ -420,7 +421,8 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/btn"
-                    android:text="Subir Formulario" />
+                    android:text="Subir Formulario"
+                    android:textAllCaps="true" />
 
                 <Button
                     android:id="@+id/btnSaveLocale"
@@ -429,7 +431,9 @@
                     android:layout_marginTop="1dp"
                     android:layout_marginBottom="25dp"
                     android:background="@drawable/btn"
-                    android:text="Guardar Localemente" />
+                    android:text="Guardar Localemente"
+                    android:textAllCaps="true"
+                    android:visibility="gone" />
 
 
                 <Space

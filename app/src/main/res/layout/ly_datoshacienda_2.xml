@@ -59,112 +59,77 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="4dp"
                     android:gravity="center|center_vertical"
                     android:text="SEMANA" />
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <TextView
+                    android:id="@+id/ediColtdigo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="14"
-                    app:endIconMode="clear_text">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edaiCodigo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <TextView
+                    android:id="@+id/edaiCodigo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="13"
-                    app:endIconMode="clear_text">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediColtdigo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <TextView
+                    android:id="@+id/ediCssaodigo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="12"
-                    app:endIconMode="clear_text">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCoadigo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <TextView
+                    android:id="@+id/ediCodiidygo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="11"
-                    app:endIconMode="clear_text">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCssaodigo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <TextView
+                    android:id="@+id/ediCodiiygo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="10"
-                    app:endIconMode="clear_text">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodiiygo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <TextView
+                    android:id="@+id/ediCoadigo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:hint="9"
-                    app:endIconMode="clear_text">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediCodiidygo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -179,100 +144,72 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
                     android:gravity="center"
                     android:text="COLOR " />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediColortSem14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="7dp"
+                    android:textSize="13sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediColortSem14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textSize="13sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediColortSem13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediColortSem13"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediColortSem12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediColortSem12"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediColortSem11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediColortSem11"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediColortSem10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediColortSem10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediColortSem9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediColortSem9"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textSize="13sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
@@ -290,101 +227,70 @@
                     android:text="NUMERACION RACIMOS"
                     android:textSize="13sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediNumRcim14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789"
-                        android:inputType="number"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediNumRcim14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    app:endIconMode="none">
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediNumRcim13"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789"
-                        android:inputType="number"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediNumRcim13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediNumRcim12"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789"
-                        android:inputType="number"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediNumRcim12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediNumRcim11"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789"
-                        android:inputType="number"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediNumRcim11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediNumRcim10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789"
-                        android:inputType="number"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediNumRcim10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediNumRac9"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789"
-                        android:inputType="number"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/ediNumRac9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -399,111 +305,76 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
                     android:gravity="center"
                     android:text="PORCENTAJE"
                     android:textSize="13sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediPorc14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="%"
-                    app:endIconMode="clear_text">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediPorc14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediPorc13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="%"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediPorc13"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediPorc12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="%"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediPorc12"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediPorc11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="%"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediPorc11"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediPorc10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="%"
-                    app:endIconMode="none">
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediPorc10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <EditText
+                    android:id="@+id/ediPorc9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="%"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ediPorc9"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_back_text"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
 
             </LinearLayout>
         </LinearLayout>

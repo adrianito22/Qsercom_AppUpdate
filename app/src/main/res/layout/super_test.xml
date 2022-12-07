@@ -1318,7 +1318,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                        android:id="@+id/ediPromFila1"
+                        android:id="@+id/ediLargDedPulpTotalFila1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="14sp" />
@@ -1869,7 +1869,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                        android:id="@+id/ediTotalFila2"
+                        android:id="@+id/ediLargDedPulpTotalFila2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="14sp" />

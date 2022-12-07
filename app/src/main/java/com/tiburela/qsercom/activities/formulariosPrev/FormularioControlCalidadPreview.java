@@ -1099,7 +1099,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         ediNdedoXclust27=findViewById(R.id.ediNdedoXclust27);
         ediNdedoXclust28=findViewById(R.id.ediNdedoXclust28);
         ediNdedoXclust29=findViewById(R.id.ediNdedoXclust29);
-        ediNdedoXclust30=findViewById(R.id.ediNdedoXclust30);
+        ediNdedoXclust30=findViewById(R.id.ediNumPromedioDedsXcaja);
 
 
         edif2NdedoXclust1=findViewById(R.id.edif2NdedoXclust1);
@@ -1130,8 +1130,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         edif2NdedoXclust26=findViewById(R.id.edif2NdedoXclust26);
         edif2NdedoXclust27=findViewById(R.id.edif2NdedoXclust27);
         edif2NdedoXclust28=findViewById(R.id.edif2NdedoXclust28);
-        edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
-        edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
+      //  edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
+       // edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
 
 
         edif2NdedoXclustxC1=findViewById(R.id.edif2NdedoXclustxC1);
@@ -1152,8 +1152,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         edif2NdedoXclustxC16=findViewById(R.id.edif2NdedoXclustxC16);
         edif2NdedoXclustxC17=findViewById(R.id.edif2NdedoXclustxC17);
         edif2NdedoXclustxC18=findViewById(R.id.edif2NdedoXclustxC18);
-        edif2NdedoXclustxC19=findViewById(R.id.edif2NdedoXclustxC19);
-        edif2NdedoXclustxC20=findViewById(R.id.edif2NdedoXclustxC20);
+        edif2NdedoXclustxC19=findViewById(R.id.edif2NdedoXclustTotalArriba);
+        edif2NdedoXclustxC20=findViewById(R.id.edif2NdedoXclustPromedio);
 
 
 
@@ -1178,7 +1178,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         ediNdedoXclustXc16=findViewById(R.id.ediNdedoXclustXc16);
         ediNdedoXclustXc17=findViewById(R.id.ediNdedoXclustXc17);
         ediNdedoXclustXc18=findViewById(R.id.ediNdedoXclustXc18);
-        ediNdedoXclustXc19=findViewById(R.id.ediNdedoXclustXc19);
+        ediNdedoXclustXc19=findViewById(R.id.ediNdedoXclustXcTotalAbajo);
         ediNdedoXclustXc20=findViewById(R.id.ediNdedoXclustXc20);
 
 
@@ -1202,7 +1202,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         ediCalByA18=findViewById(R.id.ediCalByA18);
         ediCalByA19=findViewById(R.id.ediCalByA19);
         ediCalByA20=findViewById(R.id.ediCalByA20);
-        ediCalByA21=findViewById(R.id.ediCalByA21);
+        ediCalByA21=findViewById(R.id.ediTotalFila1z);
 
 
         edif2Calib1=findViewById(R.id.edif2Calib1);
@@ -1225,7 +1225,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         edif2Calib18=findViewById(R.id.edif2Calib18);
         edif2Calib19=findViewById(R.id.edif2Calib19);
         edif2Calib20=findViewById(R.id.edif2Calib20);
-        edif2Calib21=findViewById(R.id.edif2Calib21);
+        edif2Calib21=findViewById(R.id.ediTotalFila2z);
         edif2Calib22=findViewById(R.id.edif2Calib22);
 
         mEdiLargDeds1 = findViewById(R.id.ediLargDeds1);
@@ -1378,6 +1378,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         int contadorCheked;
 
+        TextView txtTotalDefectSelect=findViewById(R.id.txtTotalDefectSelect);
+        TextView txtTotalDefectEmpaque=findViewById(R.id.txtTotalDefectEmpaque);
+        TextView txtTotalAllDefects=findViewById(R.id.txtTotalAllDefects);
+
+        int contadorDefectsSelecion=0;
+        int contadorDefectsEMPAQUE=0;
 
         for(int indice2=0; indice2<ararYTEXVIEWS.length; indice2++){  //lista de listas
             contadorCheked=0;
@@ -1389,6 +1395,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                     if(currentList.get(indice)){ //si es verdadero
                         contadorCheked++;
+                        contadorDefectsSelecion++;
 
                     }
 
@@ -1405,6 +1412,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                     if(currentList.get(indice)){ //si es verdadero
                         contadorCheked++;
+                        contadorDefectsEMPAQUE++;
 
                     }
 
@@ -1419,6 +1427,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
+
+        txtTotalDefectSelect.setText(String.valueOf(contadorDefectsSelecion));
+        txtTotalDefectEmpaque.setText(String.valueOf(contadorDefectsEMPAQUE));
+        txtTotalAllDefects.setText(String.valueOf( contadorDefectsSelecion+contadorDefectsEMPAQUE ));
 
 
 
@@ -3160,6 +3172,7 @@ return true;
     }
 
 
+/*
     private void updateDatosHdaEnfunde(SetInformDatsHacienda informe) {
 
 
@@ -3301,6 +3314,10 @@ return true;
 
 
     }
+    */
+
+
+
     void muestraaLLResults() {
 
         EditextSupreme ediTotalPesoLAll=findViewById(R.id.ediTotalPesoLAll);

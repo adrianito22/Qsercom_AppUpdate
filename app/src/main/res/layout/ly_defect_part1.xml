@@ -21,6 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
+            android:layout_margin="5dp"
             android:hint="VAPOR"
             app:layout_columnWeight="1">
 
@@ -61,9 +62,7 @@
                 android:id="@+id/ediCodigozz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:inputType="text"
-                android:text="xxx-xxx" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

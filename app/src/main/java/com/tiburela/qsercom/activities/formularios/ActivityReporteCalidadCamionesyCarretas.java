@@ -483,8 +483,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         lyEscontenedor.setVisibility(LinearLayout.GONE);
 
 
-        LinearLayout lyUbicacionBalanza=findViewById(R.id.lyUbicacionBalanza);
-        lyUbicacionBalanza.setVisibility(LinearLayout.GONE);
+      //  LinearLayout lyUbicacionBalanza=findViewById(R.id.lyUbicacionBalanza);
+       // lyUbicacionBalanza.setVisibility(LinearLayout.GONE);
 
 
         disableEditText(ediFecha);

@@ -323,6 +323,8 @@ private void checkExistFile(){
                         .diskCacheStrategy(DiskCacheStrategy.DATA)  //ESTABA EN ALL         //ALL or NONE as your requirementDiskCacheStrategy.DATA
                         //.thumbnail(Glide.with(OfertsAdminActivity.context).load(R.drawable.enviado_icon))
                        //.error(R.drawable.)
+                        //aqi cargamos una version lower
+
                         .into(holder);
 
 

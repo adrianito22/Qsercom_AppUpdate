@@ -3,16 +3,16 @@
 
 
     <string-array name="zonaOpciones">
-        <item>Ninguna</item>
-        <item>Sur</item>
-        <item>Norte</item>
-        <item>Centro</item>
+        <item>NINGUNA</item>
+        <item>SUR</item>
+        <item>NORTE</item>
+        <item>CENTRO</item>
 
     </string-array>
 
 
     <string-array name="condicionde_balanza">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>BUENA</item>
         <item>ACEPTABLE</item>
         <item>REGULAR</item>
@@ -21,15 +21,15 @@
     </string-array>
 
     <string-array name="candadoQsercomArray">
-        <item>Candado 1</item>
-        <item>Candado 2</item>
-        <item>Candado 3</item>
+        <item>CANDADO 1</item>
+        <item>CANDADO 2</item>
+        <item>CANDADO 3</item>
 
     </string-array>
 
 
     <string-array name="tipoCaja">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>22XU</item>
         <item>DISPLAY</item>
         <item>BANAVAC13KG</item>
@@ -39,7 +39,7 @@
     </string-array>
 
     <string-array name="tipodePlastico">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>POLITUBO</item>
         <item>POLIPACK</item>
         <item>BANAVAC</item>
@@ -49,14 +49,14 @@
 
 
     <string-array name="tipodeBlanza">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>BASCULA</item>
         <item>DIGITAL</item>
     </string-array>
 
 
     <string-array name="tipodeBlanzaRepeso">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>BASCULA</item>
         <item>DIGITAL</item>
 
@@ -64,7 +64,7 @@
 
 
     <string-array name="ubicacionBalanza">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>FUERA DE RODILLO</item>
         <item>FINAL DE RODILLO</item>
         <item>MITAD DE RODILLO</item>
@@ -97,7 +97,7 @@
 
 
     <string-array name="fuentesAguaArray">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>AGUA POTABLE</item>
         <item>POZO</item>
         <item>BIDON</item>
@@ -105,7 +105,7 @@
 
 
     <string-array name="fumcionCoronaLin1">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>FOGGING</item>
         <item>BOMBA CP3 MANUAL</item>
         <item>BOMBA CP3 ELECTRICA</item>
@@ -114,19 +114,19 @@
 
 
     <string-array name="tipoBoquilla">
-        <item>Ninguna</item>
+        <item>NINGUNA</item>
         <item>8002</item>
         <item>8003</item>
     </string-array>
 
 
     <string-array name="reportsAjuntados">
-        <item>Reportes Vinculados</item>
-        <item>Hoy</item>
-        <item>Ayer</item>
-        <item>Ultimos 7 dias</item>
-        <item>Ultimos 15 dias</item>
-        <item>Ultimos 30 dias</item>
+        <item>REPORTES VINCULADOS</item>
+        <item>HOY</item>
+        <item>AYER</item>
+        <item>ULTIMOS 7 DIAS</item>
+        <item>ULTIMOS 15 DIAS</item>
+        <item>ULTIMOS 30 DIAS</item>
 
     </string-array>
 
