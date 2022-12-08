@@ -36,6 +36,7 @@ import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -137,6 +138,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         hindeviewTxt=findViewById(R.id.hindeviewTxt);
 
         imageViewUpdate1=findViewById(R.id.imageViewUpdate1);
+
         imageViewUpdate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -880,7 +882,6 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
     private void muestraResultsCuadroMuetreo1(RecyclerView mirecicler){
 
-
         TextView txtTotalSem14=findViewById(R.id.txtTotalSem14);
         TextView txtTotalSem13=findViewById(R.id.txtTotalSem13);
         TextView txtTotalSem12=findViewById(R.id.txtTotalSem12);
@@ -911,11 +912,6 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
 
 
-
-        int total = 0;
-        float calibracion=0;
-        float porcentaje=0;
-
         int totalMuestrasSemana14=0;
         int totalMuestrasSemana13=0;
         int totalMuestrasSemana12=0;
@@ -929,7 +925,7 @@ private TextInputEditText[] devuleArrayTiEditext(){
         float colum11ValuesSum=0;
         float colum12ValuesSum=0;
         float colum13ValuesSum=0;
-        int colum14ValuesSum=0;
+        float colum14ValuesSum=0;
 
 
 
@@ -959,47 +955,29 @@ private TextInputEditText[] devuleArrayTiEditext(){
             if(!holder.ediColum12.getText().toString().trim().isEmpty()){
                 colum12ValuesSum=colum12ValuesSum+Integer.parseInt(holder.ediColum12.getText().toString());
                 totalMuestrasSemana12++;
-
             }
 
             if(!holder.ediColum11.getText().toString().trim().isEmpty()){
                 colum11ValuesSum=colum11ValuesSum+Integer.parseInt(holder.ediColum11.getText().toString());
                 totalMuestrasSemana11++;
-
             }
 
             if(!holder.ediColum10.getText().toString().trim().isEmpty()){
                 colum10ValuesSum=colum10ValuesSum+Integer.parseInt(holder.ediColum10.getText().toString());
                 totalMuestrasSemana10++;
-
             }
 
             if(!holder.ediColum9.getText().toString().trim().isEmpty()){
-                colum9ValuesSum=colum9ValuesSum+Integer.parseInt(holder.ediColum9.getText().toString());
+                colum9ValuesSum=colum9ValuesSum+Float.parseFloat(holder.ediColum9.getText().toString());
                 totalMuestrasSemana9++;
+              //  totalMuestrasSemana9m++;
 
             }
 
 
-            txtTotalSem14.setText( String.valueOf((int)colum14ValuesSum));
-            txtTotalSem13.setText( String.valueOf((int)colum13ValuesSum));
-            txtTotalSem12.setText( String.valueOf((int)colum12ValuesSum));
-            txtTotalSem11.setText( String.valueOf((int)colum11ValuesSum));
-            txtTotalSem10.setText( String.valueOf((int)colum10ValuesSum));
-            txtTotalSem9.setText( String.valueOf((int)colum9ValuesSum));
-
-
-            txtTotalMuestrsSem9.setText(String.valueOf(totalMuestrasSemana9));
-            txtTotalMuestrsSem10.setText(String.valueOf(totalMuestrasSemana10));
-            txtTotalMuestrsSem11.setText(String.valueOf(totalMuestrasSemana11));
-            txtTotalMuestrsSem12.setText(String.valueOf(totalMuestrasSemana12));
-            txtTotalMuestrsSem13.setText(String.valueOf(totalMuestrasSemana13));
-            txtTotalMuestrsSem14.setText(String.valueOf(totalMuestrasSemana14));
 
 
             //  falta   calibracion y porcentajes...
-
-
 
 
         }
@@ -1008,7 +986,56 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
 
 
+        txtTotalSem14.setText( String.valueOf((int)colum14ValuesSum));
+        txtTotalSem13.setText( String.valueOf((int)colum13ValuesSum));
+        txtTotalSem12.setText( String.valueOf((int)colum12ValuesSum));
+        txtTotalSem11.setText( String.valueOf((int)colum11ValuesSum));
+        txtTotalSem10.setText( String.valueOf((int)colum10ValuesSum));
+        txtTotalSem9.setText( String.valueOf((int)colum9ValuesSum));
+        Log.i("minmuestra","el muestra ccc es "+(int)colum9ValuesSum);
+
+
+        txtTotalMuestrsSem9.setText(String.valueOf(totalMuestrasSemana9));
+        txtTotalMuestrsSem10.setText(String.valueOf(totalMuestrasSemana10));
+        txtTotalMuestrsSem11.setText(String.valueOf(totalMuestrasSemana11));
+        txtTotalMuestrsSem12.setText(String.valueOf(totalMuestrasSemana12));
+        txtTotalMuestrsSem13.setText(String.valueOf(totalMuestrasSemana13));
+        txtTotalMuestrsSem14.setText(String.valueOf(totalMuestrasSemana14));
+
+
+        /***calibraciones total cada semana /numero de muestras**/
+
+
+        DecimalFormat df = new DecimalFormat("#.#");
+
+
+        txtCalSem9.setText(df.format(  colum9ValuesSum /totalMuestrasSemana9));
+        txtCalSem10.setText(df.format(colum10ValuesSum  /totalMuestrasSemana10));
+        txtCalSem11.setText(df.format(colum11ValuesSum  /totalMuestrasSemana11));
+        txtCalSem12.setText(df.format(colum12ValuesSum  /totalMuestrasSemana12));
+        txtCalSem13.setText(df.format(colum13ValuesSum  /totalMuestrasSemana13));
+        txtCalSem14.setText(df.format(colum14ValuesSum  /totalMuestrasSemana14));
+
+         /****/
+
+
+         int allMuestras=totalMuestrasSemana9+totalMuestrasSemana10
+                 +totalMuestrasSemana11+totalMuestrasSemana12+totalMuestrasSemana13+totalMuestrasSemana14;
+
+        Log.i("minmuestra","el muestra ccc es "+allMuestras);
+
+
+        txtPercetSem14.setText(df.format((totalMuestrasSemana14* 100)/allMuestras));
+        txtPercetSem13.setText(df.format((totalMuestrasSemana13* 100)/allMuestras));
+        txtPercetSem12.setText(df.format((totalMuestrasSemana12* 100)/allMuestras));
+        txtPercetSem11.setText(df.format((totalMuestrasSemana11* 100)/allMuestras));
+        txtPercetSem10.setText(df.format((totalMuestrasSemana10* 100)/allMuestras));
+        txtPercetSem9.setText(df.format((totalMuestrasSemana9* 100)/allMuestras));
+
+
     }
+
+
 
 }
 

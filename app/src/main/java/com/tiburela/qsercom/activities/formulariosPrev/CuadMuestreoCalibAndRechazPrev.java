@@ -28,6 +28,7 @@ import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
     ImageView imgVupdate;
 
     TextView hindeviewTxt;
-
+    ImageView imageViewUpdate1;
 
 
     //textimputeditexts
@@ -92,6 +93,16 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
 
 
         hindeviewTxt=findViewById(R.id.hindeviewTxt);
+
+        imageViewUpdate1=findViewById(R.id.imageViewUpdate1);
+        imageViewUpdate1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ///agfdfg
+                muestraResultsCuadroMuetreo1(mireciclerv);
+            }
+        });
 
         hindeviewTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +215,7 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
             Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
             getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
             setDataInViews(Variables.currentcuadroMuestreo);
-
+            muestraResultsCuadroMuetreo1(mireciclerv);
          //  Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo);
 
 
@@ -664,6 +675,8 @@ return object;
 
                 getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
                 setDataInViews(Variables.currentcuadroMuestreo);
+                muestraResultsCuadroMuetreo1(mireciclerv);
+
 
             }
 
@@ -779,6 +792,160 @@ return object;
 
 
 
+    private void muestraResultsCuadroMuetreo1(RecyclerView mirecicler){
+
+        TextView txtTotalSem14=findViewById(R.id.txtTotalSem14);
+        TextView txtTotalSem13=findViewById(R.id.txtTotalSem13);
+        TextView txtTotalSem12=findViewById(R.id.txtTotalSem12);
+        TextView txtTotalSem11=findViewById(R.id.txtTotalSem11);
+        TextView txtTotalSem10=findViewById(R.id.txtTotalSem10);
+        TextView txtTotalSem9=findViewById(R.id.txtTotalSem9);
+
+        TextView txtCalSem14=findViewById(R.id.txtCalSem14);
+        TextView txtCalSem13=findViewById(R.id.txtCalSem13);
+        TextView txtCalSem12=findViewById(R.id.txtCalSem12);
+        TextView txtCalSem11=findViewById(R.id.txtCalSem11);
+        TextView txtCalSem10=findViewById(R.id.txtCalSem10);
+        TextView txtCalSem9=findViewById(R.id.txtCalSem9);
+
+        TextView txtPercetSem14=findViewById(R.id.txtPercetSem14);
+        TextView txtPercetSem13=findViewById(R.id.txtPercetSem13);
+        TextView txtPercetSem12=findViewById(R.id.txtPercetSem12);
+        TextView txtPercetSem11=findViewById(R.id.txtPercetSem11);
+        TextView txtPercetSem10=findViewById(R.id.txtPercetSem10);
+        TextView txtPercetSem9=findViewById(R.id.txtPercetSem9);
+
+        TextView txtTotalMuestrsSem14=findViewById(R.id.txtTotalMuestrsSem14);
+        TextView txtTotalMuestrsSem13=findViewById(R.id.txtTotalMuestrsSem13);
+        TextView txtTotalMuestrsSem12=findViewById(R.id.txtTotalMuestrsSem12);
+        TextView txtTotalMuestrsSem11=findViewById(R.id.txtTotalMuestrsSem11);
+        TextView txtTotalMuestrsSem10=findViewById(R.id.txtTotalMuestrsSem10);
+        TextView txtTotalMuestrsSem9=findViewById(R.id.txtTotalMuestrsSem9);
+
+
+
+        int totalMuestrasSemana14=0;
+        int totalMuestrasSemana13=0;
+        int totalMuestrasSemana12=0;
+        int totalMuestrasSemana11=0;
+        int totalMuestrasSemana10=0;
+        int totalMuestrasSemana9=0;
+
+
+        float colum9ValuesSum=0;
+        float colum10ValuesSum=0;
+        float colum11ValuesSum=0;
+        float colum12ValuesSum=0;
+        float colum13ValuesSum=0;
+        float colum14ValuesSum=0;
+
+
+
+        for (int i = 0; i < mirecicler.getChildCount(); i++) {
+            RecyclerVAdapterColorCintSem.RecyclerViewHolder holder = (RecyclerVAdapterColorCintSem.RecyclerViewHolder) mirecicler.findViewHolderForAdapterPosition(i);
+
+            Log.i("samaerino","el value es "+ holder.semnNum.getText().toString());
+
+
+            String uniqueIdObjec=holder.semnNum.getTag().toString();
+            Log.i("samaerino","el tag es  "+uniqueIdObjec);
+
+
+
+            if(! holder.ediColum14.getText().toString().trim().isEmpty()){
+                colum14ValuesSum=colum14ValuesSum+Integer.parseInt(holder.ediColum14.getText().toString());
+                totalMuestrasSemana14++;
+
+            }
+
+            if(!holder.ediColum13.getText().toString().trim().isEmpty()){
+                colum13ValuesSum=colum13ValuesSum+Integer.parseInt(holder.ediColum13.getText().toString());
+                totalMuestrasSemana13++;
+
+            }
+
+            if(!holder.ediColum12.getText().toString().trim().isEmpty()){
+                colum12ValuesSum=colum12ValuesSum+Integer.parseInt(holder.ediColum12.getText().toString());
+                totalMuestrasSemana12++;
+            }
+
+            if(!holder.ediColum11.getText().toString().trim().isEmpty()){
+                colum11ValuesSum=colum11ValuesSum+Integer.parseInt(holder.ediColum11.getText().toString());
+                totalMuestrasSemana11++;
+            }
+
+            if(!holder.ediColum10.getText().toString().trim().isEmpty()){
+                colum10ValuesSum=colum10ValuesSum+Integer.parseInt(holder.ediColum10.getText().toString());
+                totalMuestrasSemana10++;
+            }
+
+            if(!holder.ediColum9.getText().toString().trim().isEmpty()){
+                colum9ValuesSum=colum9ValuesSum+Float.parseFloat(holder.ediColum9.getText().toString());
+                totalMuestrasSemana9++;
+                //  totalMuestrasSemana9m++;
+
+            }
+
+
+
+
+            //  falta   calibracion y porcentajes...
+
+
+        }
+
+
+
+
+
+        txtTotalSem14.setText( String.valueOf((int)colum14ValuesSum));
+        txtTotalSem13.setText( String.valueOf((int)colum13ValuesSum));
+        txtTotalSem12.setText( String.valueOf((int)colum12ValuesSum));
+        txtTotalSem11.setText( String.valueOf((int)colum11ValuesSum));
+        txtTotalSem10.setText( String.valueOf((int)colum10ValuesSum));
+        txtTotalSem9.setText( String.valueOf((int)colum9ValuesSum));
+        Log.i("minmuestra","el muestra ccc es "+(int)colum9ValuesSum);
+
+
+        txtTotalMuestrsSem9.setText(String.valueOf(totalMuestrasSemana9));
+        txtTotalMuestrsSem10.setText(String.valueOf(totalMuestrasSemana10));
+        txtTotalMuestrsSem11.setText(String.valueOf(totalMuestrasSemana11));
+        txtTotalMuestrsSem12.setText(String.valueOf(totalMuestrasSemana12));
+        txtTotalMuestrsSem13.setText(String.valueOf(totalMuestrasSemana13));
+        txtTotalMuestrsSem14.setText(String.valueOf(totalMuestrasSemana14));
+
+
+        /***calibraciones total cada semana /numero de muestras**/
+
+
+        DecimalFormat df = new DecimalFormat("#.#");
+
+
+        txtCalSem9.setText(df.format(  colum9ValuesSum /totalMuestrasSemana9));
+        txtCalSem10.setText(df.format(colum10ValuesSum  /totalMuestrasSemana10));
+        txtCalSem11.setText(df.format(colum11ValuesSum  /totalMuestrasSemana11));
+        txtCalSem12.setText(df.format(colum12ValuesSum  /totalMuestrasSemana12));
+        txtCalSem13.setText(df.format(colum13ValuesSum  /totalMuestrasSemana13));
+        txtCalSem14.setText(df.format(colum14ValuesSum  /totalMuestrasSemana14));
+
+        /****/
+
+
+        int allMuestras=totalMuestrasSemana9+totalMuestrasSemana10
+                +totalMuestrasSemana11+totalMuestrasSemana12+totalMuestrasSemana13+totalMuestrasSemana14;
+
+        Log.i("minmuestra","el muestra ccc es "+allMuestras);
+
+
+        txtPercetSem14.setText(df.format((totalMuestrasSemana14* 100)/allMuestras));
+        txtPercetSem13.setText(df.format((totalMuestrasSemana13* 100)/allMuestras));
+        txtPercetSem12.setText(df.format((totalMuestrasSemana12* 100)/allMuestras));
+        txtPercetSem11.setText(df.format((totalMuestrasSemana11* 100)/allMuestras));
+        txtPercetSem10.setText(df.format((totalMuestrasSemana10* 100)/allMuestras));
+        txtPercetSem9.setText(df.format((totalMuestrasSemana9* 100)/allMuestras));
+
+
+    }
 
 
 
