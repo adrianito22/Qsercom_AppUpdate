@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="8"
-                android:hint="Fotos"
+                android:hint="FOTOS"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -87,7 +87,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="n de serie de funda"
+                android:hint="Nº  DE SERIE DE FUNDA"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -112,7 +112,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Sticker de Ventolera externa"
+                android:hint="STICKER DE VENTOLERA EXTERNA"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -137,8 +137,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Cable de rastreo de llegada"
 
+                android:hint="CABLE DE RASTREO DE LLEGADA"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Sellos plasticos de Naviera"
+                android:hint="SELLOS PLASTICOS DE NAVIERA"
                 android:visibility="visible"
                 app:endIconMode="clear_text">
 
@@ -187,8 +187,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Otros Candados (Especifica)"
 
+                android:hint="OTROS CANDADOS (ESPECIFICA)"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="8"
-                android:hint="Fotos"
+                android:hint="FOTOS"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
