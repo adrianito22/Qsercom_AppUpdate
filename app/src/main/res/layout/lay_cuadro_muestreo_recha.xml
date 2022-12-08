@@ -130,6 +130,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bewlossxx"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
@@ -138,160 +139,378 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/mireciclerv"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/arriba"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:text="TOTAL"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalSem14"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalSem13"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalSem12"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/txtTotalSem11"
+
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalSem10"
+
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalSem9"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:text="CALIBRACION"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtCalSem14"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtCalSem13"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtCalSem12"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/txtCalSem11"
+
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtCalSem10"
+
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtCalSem9"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:text="PORCENTAJE"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtPercetSem14"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtPercetSem13"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtPercetSem12"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/txtPercetSem11"
+
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtPercetSem10"
+
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtPercetSem9"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:text="TOTAL MUESTRAS"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalMuestrsSem14"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalMuestrsSem13"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalMuestrsSem12"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/txtTotalMuestrsSem11"
+
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalMuestrsSem10"
+
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalMuestrsSem9"
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:visibility="visible">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1">
+            <ImageView
+                android:id="@+id/imageViewUpdate1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_baseline_update_24">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:hapticFeedbackEnabled="false"
-                        android:inputType="number"
-                        android:text="TOTAL :"
-                        app:textInputLayoutFocusedRectEnabled="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+            </ImageView>
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="visible">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:visibility="visible">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="number"
-                        android:text="CALIBRACION" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:visibility="visible">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="number"
-                        android:text="PORCENTAJE" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:textColorHint="#151515">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="number"
-                        android:text="TOTAL MUESTRAS" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
 
 
             <TextView
