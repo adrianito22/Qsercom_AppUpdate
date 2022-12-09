@@ -215,7 +215,6 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
             Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap());
             getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
             setDataInViews(Variables.currentcuadroMuestreo);
-            muestraResultsCuadroMuetreo1(mireciclerv);
          //  Log.i("hsmpadat","el key deonde estar hasmapes "+Variables.currentcuadroMuestreo);
 
 
@@ -267,6 +266,9 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
 
         mireciclerv.setAdapter(adapter);
 
+
+       // muestraResultsCuadroMuetreo1(mireciclerv);
+       // muestraResultsCuadroMuetreo1(mireciclerv);
 
 
     }
@@ -675,7 +677,7 @@ return object;
 
                 getAndDowloadHasmapAndCALLSetReciclerV(Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap()); //ESTE ES TEST
                 setDataInViews(Variables.currentcuadroMuestreo);
-                muestraResultsCuadroMuetreo1(mireciclerv);
+               // muestraResultsCuadroMuetreo1(mireciclerv);
 
 
             }
@@ -936,6 +938,11 @@ return object;
 
         Log.i("minmuestra","el muestra ccc es "+allMuestras);
 
+
+        if(allMuestras==0){
+            return;
+
+        }
 
         txtPercetSem14.setText(df.format((totalMuestrasSemana14* 100)/allMuestras));
         txtPercetSem13.setText(df.format((totalMuestrasSemana13* 100)/allMuestras));

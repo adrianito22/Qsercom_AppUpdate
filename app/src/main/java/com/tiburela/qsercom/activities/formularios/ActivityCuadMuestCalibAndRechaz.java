@@ -1024,6 +1024,10 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
         Log.i("minmuestra","el muestra ccc es "+allMuestras);
 
+        if(allMuestras==0){
+            return;
+
+        }
 
         txtPercetSem14.setText(df.format((totalMuestrasSemana14* 100)/allMuestras));
         txtPercetSem13.setText(df.format((totalMuestrasSemana13* 100)/allMuestras));

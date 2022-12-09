@@ -745,7 +745,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
                 edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
                 edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 ,
+                edif2NdedoXclust28 , //edif2NdedoXclust29 , edif2NdedoXclust30 ,
 
                 edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
@@ -2326,8 +2326,8 @@ return false;
                 edif2NdedoXclust13	, edif2NdedoXclust14, edif2NdedoXclust15, edif2NdedoXclust16,
                 edif2NdedoXclust17	, edif2NdedoXclust18, edif2NdedoXclust19, edif2NdedoXclust20,
                 edif2NdedoXclust21	, edif2NdedoXclust22, edif2NdedoXclust23, edif2NdedoXclust24,
-                edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28,
-                edif2NdedoXclust29	, edif2NdedoXclust30,
+                edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28
+               // edif2NdedoXclust29	, edif2NdedoXclust30,
 
         };
 
@@ -2616,7 +2616,7 @@ return false;
                 edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
                 edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
                 edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 ,
+                edif2NdedoXclust28 , //edif2NdedoXclust29 , edif2NdedoXclust30 ,
 
                 edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
