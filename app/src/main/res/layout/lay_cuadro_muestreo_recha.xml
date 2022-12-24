@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".activities.formularios.ActivityCuadMuestCalibAndRechaz"
     android:orientation="vertical" >
 
     <androidx.core.widget.NestedScrollView
@@ -33,6 +34,107 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/changeId"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:textColor="@color/white2" />
+
+
+                        <EditText
+
+                            android:id="@+id/ediColor14"
+                            android:layout_width="130dp"
+                            android:padding="7dp"
+                            android:background="@drawable/round_back_text"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:digits="0123456789."
+                            android:gravity="center_horizontal"
+                            android:inputType="number" />
+
+
+                        <EditText
+
+                            android:id="@+id/ediColor13"
+                            android:background="@drawable/round_back_text"
+
+                            android:padding="7dp"
+
+                            android:layout_width="130dp"
+
+                            android:layout_height="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:digits="0123456789."
+                            android:gravity="center_horizontal"
+                            android:inputType="number" />
+
+
+                        <EditText
+
+                            android:id="@+id/ediColor12"
+                            android:layout_width="130dp"
+                            android:background="@drawable/round_back_text"
+                            android:padding="7dp"
+
+                            android:layout_height="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:digits="0123456789."
+                            android:gravity="center_horizontal"
+                            android:inputType="number" />
+
+
+                        <EditText
+
+                            android:id="@+id/ediColor11"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/round_back_text"
+                            android:padding="7dp"
+
+                            android:layout_margin="5dp"
+                            android:digits="0123456789."
+                            android:gravity="center_horizontal"
+                            android:inputType="number" />
+
+
+                        <EditText
+
+                            android:id="@+id/ediColor10"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:padding="7dp"
+
+                            android:gravity="center_horizontal"
+                            android:inputType="textCapCharacters"
+                            android:textAllCaps="true" />
+
+
+                        <EditText
+                            android:id="@+id/ediColor9"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_back_text"
+                            android:padding="7dp"
+
+                            android:gravity="center_horizontal"
+                            android:inputType="textCapCharacters"
+                            android:textAllCaps="true" />
+
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

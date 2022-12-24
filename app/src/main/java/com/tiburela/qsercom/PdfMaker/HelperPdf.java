@@ -637,15 +637,24 @@ if(contadorProductsPostCosecha>10){
 
         }else if(tableInfo==5){ //SELLOS INSTALADOS
 
-            listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 1",Object2.getTermografo1()));
-            listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"UBICACION PALLET "+Object2.getUbicacionPalletN1()));
-            listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 2",Object2.getTermografo2()));
-            listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACION PALLET "+Object2.getUbicacionPalletN2()));
+            if(!Object2.getTermografo1().trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 1",Object2.getTermografo1()));
+                listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"UBICACION PALLET "+Object2.getUbicacionPalletN1()));
+            }
+
+
+
+            if(!Object2.getTermografo2().trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 2",Object2.getTermografo2()));
+                listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACION PALLET "+Object2.getUbicacionPalletN2()));
+            }
+
+
+
 
 
             listTOrETURN1.add(new NameAndValue("CANDADO QSERCON",Object2.getCandadoQsercom()));
             listTOrETURN1.add(new NameAndValue("CABLE NAVIERA",Object2.getCableNaviera()));
-
 
             listTOrETURN1.add(new NameAndValue("SELLO PLÁSTICO",Object2.getSelloPlastico()));
             listTOrETURN1.add(new NameAndValue("SELLO BOTELLA",Object2.getCandadoBotella()));

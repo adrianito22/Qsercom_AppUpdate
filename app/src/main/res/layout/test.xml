@@ -183,7 +183,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -274,7 +274,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -365,7 +365,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -543,7 +543,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -631,7 +631,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
 
@@ -723,7 +723,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -814,7 +814,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -904,7 +904,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -991,7 +991,7 @@
                         android:layout_height="match_parent"
                         android:enabled="false"
                         android:gravity="center"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -1083,7 +1083,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
@@ -1164,7 +1164,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:gravity="center"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme

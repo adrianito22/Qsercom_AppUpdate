@@ -3748,7 +3748,7 @@ return  true;
     private boolean checkSellosInstaladosIsLleno(){
 
         LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
-
+/*
 
         if(ediTermofrafo1.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediTermofrafo1.requestFocus();
@@ -3758,6 +3758,8 @@ return  true;
             return false;
 
         }
+
+
         if(ediHoraEncendido1.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediHoraEncendido1.requestFocus();
             ediHoraEncendido1.setError("Este espacio es obligatorio");
@@ -3820,6 +3822,10 @@ return  true;
             return false;
 
         }
+
+
+        */
+
 
         if(ediCandadoqsercon.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCandadoqsercon.requestFocus();

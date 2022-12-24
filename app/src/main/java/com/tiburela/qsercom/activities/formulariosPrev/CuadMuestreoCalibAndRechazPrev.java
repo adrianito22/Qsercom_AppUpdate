@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,12 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
     TextInputEditText ediRacimosSinEdintificacion;
 
 
+    EditText ediColor14;
+    EditText ediColor13;
+    EditText ediColor12;
+    EditText ediColor11;
+    EditText ediColor10;
+    EditText ediColor9;
 
 
     @Override
@@ -161,13 +168,24 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
         txtTotalRechazados=findViewById(R.id.txtTotalRechazados);
         imgVupdate=findViewById(R.id.imgVupdate);
 
+
+        ediColor9=findViewById(R.id.ediColor9);
+        ediColor10=findViewById(R.id.ediColor10);
+        ediColor11=findViewById(R.id.ediColor11);
+        ediColor12=findViewById(R.id.ediColor12);
+        ediColor13=findViewById(R.id.ediColor13);
+        ediColor14=findViewById(R.id.ediColor14);
+
+
+
+
         imgVupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 CuadroMuestreo objec= new CuadroMuestreo(0,"","",""
                         ,"", "","","",
-                        "", ""
+                        "", "","","","","","",""
                 );
 
 
@@ -492,6 +510,13 @@ return object;
         ediCochinillaEscamaFumagina.setText(String.valueOf(cuadroMuestreo.getCochinillaEscamaFunagina()));
         ediRacimosSinEdintificacion.setText(String.valueOf(cuadroMuestreo.getRacimosSinEdintificacion()));
 
+        ediColor14.setText(cuadroMuestreo.getColor14());
+        ediColor13.setText(cuadroMuestreo.getColor13());
+        ediColor12.setText(cuadroMuestreo.getColor12());
+        ediColor11.setText(cuadroMuestreo.getColor11());
+        ediColor10.setText(cuadroMuestreo.getColor10());
+        ediColor9.setText(cuadroMuestreo.getColor9());
+
 
     }
 
@@ -600,7 +625,9 @@ return object;
         CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),
                 ediVaporx.getText().toString(), ediProductoras.getText().toString(),ediCodigoxs.getText().toString(),
                 ediEnfundex.getText().toString(), Variables.currentcuadroMuestreo.getNodoKyDondeEstaHasmap(),
-                ediExtCalidad.getText().toString(), ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
+                ediExtCalidad.getText().toString(), ediExteRodillo.getText().toString(),ediExtGancho.getText().toString(),
+                ediColor14.getText().toString(),ediColor13.getText().toString(),ediColor12.getText().toString(),ediColor11.getText().toString()
+                ,ediColor10.getText().toString(),ediColor9.getText().toString());
 
            //LE AGERGAMOS EL MISMO UNIQUE ID
        /// objec.setUniqueIdObject(Variables.currentcuadroMuestreo.getUniqueIdObject());
@@ -920,7 +947,7 @@ return object;
         /***calibraciones total cada semana /numero de muestras**/
 
 
-        DecimalFormat df = new DecimalFormat("#.#");
+        DecimalFormat df = new DecimalFormat("#.##");
 
 
         txtCalSem9.setText(df.format(  colum9ValuesSum /totalMuestrasSemana9));

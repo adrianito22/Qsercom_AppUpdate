@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,6 +89,16 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
     TextInputEditText ediCochinillaEscamaFumagina;
     TextInputEditText ediRacimosSinEdintificacion;
 
+
+    EditText ediColor14;
+    EditText ediColor13;
+    EditText ediColor12;
+    EditText ediColor11;
+    EditText ediColor10;
+    EditText ediColor9;
+
+
+
     TextView txtTotalRechazados;
 
     ImageView imageViewUpdate1;
@@ -139,6 +150,19 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
         imageViewUpdate1=findViewById(R.id.imageViewUpdate1);
 
+         ediColor9=findViewById(R.id.ediColor9);
+        ediColor10=findViewById(R.id.ediColor10);
+        ediColor11=findViewById(R.id.ediColor11);
+        ediColor12=findViewById(R.id.ediColor12);
+        ediColor13=findViewById(R.id.ediColor13);
+        ediColor14=findViewById(R.id.ediColor14);
+
+
+
+
+
+
+
         imageViewUpdate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +202,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
                 CuadroMuestreo objec= new CuadroMuestreo(0,"","",""
                         ,"", "","","",
-                        "", ""
+                        "", "","","","","","",""
                 );
 
                 ///editamos los otos datos de la cantidad de rechzados..
@@ -210,7 +234,12 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
                     CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),ediVaporx.getText().toString(),ediProductoras.getText().toString()
                             ,ediCodigoxs.getText().toString(), ediEnfundex.getText().toString(),keyDondeEstaraHashmap,ediExtCalidad.getText().toString(),
-                            ediExteRodillo.getText().toString(),ediExtGancho.getText().toString());
+                            ediExteRodillo.getText().toString(),ediExtGancho.getText().toString(),
+                            ediColor14.getText().toString(),ediColor13.getText().toString(),ediColor12.getText().toString(),ediColor11.getText().toString()
+                            ,ediColor10.getText().toString(),ediColor9.getText().toString()
+
+
+                            );
 
 
                     ///editamos los otros datos de la cantidad de rechzados..
@@ -1006,7 +1035,7 @@ private TextInputEditText[] devuleArrayTiEditext(){
         /***calibraciones total cada semana /numero de muestras**/
 
 
-        DecimalFormat df = new DecimalFormat("#.#");
+        DecimalFormat df = new DecimalFormat("#.##");
 
 
         txtCalSem9.setText(df.format(  colum9ValuesSum /totalMuestrasSemana9));

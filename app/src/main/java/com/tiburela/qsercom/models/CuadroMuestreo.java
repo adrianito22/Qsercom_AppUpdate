@@ -9,6 +9,72 @@ public class CuadroMuestreo {
 
 
 
+    //COLORES
+    private String color14;
+    private String color13;
+    private String color12;
+
+    public String getColor14() {
+        return color14;
+    }
+
+    public void setColor14(String color14) {
+        this.color14 = color14;
+    }
+
+    public String getColor13() {
+        return color13;
+    }
+
+    public void setColor13(String color13) {
+        this.color13 = color13;
+    }
+
+    public String getColor12() {
+        return color12;
+    }
+
+    public void setColor12(String color12) {
+        this.color12 = color12;
+    }
+
+    public String getColor11() {
+        return color11;
+    }
+
+    public void setColor11(String color11) {
+        this.color11 = color11;
+    }
+
+    public String getColor10() {
+        return color10;
+    }
+
+    public void setColor10(String color10) {
+        this.color10 = color10;
+    }
+
+    public String getColor9() {
+        return color9;
+    }
+
+    public void setColor9(String color9) {
+        this.color9 = color9;
+    }
+
+    public String getExportadora() {
+        return exportadora;
+    }
+
+    public void setExportadora(String exportadora) {
+        this.exportadora = exportadora;
+    }
+
+    private String color11;
+    private String color10;
+    private String color9;
+
+
 
     public CuadroMuestreo(){
 
@@ -340,7 +406,11 @@ public class CuadroMuestreo {
     }
 
     public CuadroMuestreo(int semanaNum, String exportadora, String vapor, String productor, String codigo, String enfunde, String nodoKyDondeEstaHasmap,
-                          String extensionistaCalidad, String extensionistaEnRodillo, String extensionistaEnGancho) {
+                          String extensionistaCalidad, String extensionistaEnRodillo, String extensionistaEnGancho,
+
+                          String color14, String color13, String color12, String color11, String color10, String color9
+
+                          ) {
 
         this.semanaNum = semanaNum;
         this.exportadora=exportadora;
@@ -359,10 +429,14 @@ public class CuadroMuestreo {
         this.extensionistaEnGancho=extensionistaEnGancho;
         keyFirebaseLocation="";
 
-        //EL NUMERO DE RECHAZADOE N TODOS LOS CASO SERA DE 0
+          this. color14=color14;
+          this.color13=color13;
+          this.color12=color12;
+          this.color11=color11;
+          this.color10=color10;
+          this.color9=color9;
 
-
-         mutantes=0;
+          mutantes=0;
           spekling=0;
           ptaAmarillaYb=0;
           cremaAlmendraFloja=0;
