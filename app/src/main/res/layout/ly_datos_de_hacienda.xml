@@ -29,7 +29,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
@@ -60,7 +61,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +94,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Switch
@@ -123,7 +126,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
@@ -154,7 +158,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner

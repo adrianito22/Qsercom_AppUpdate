@@ -537,16 +537,16 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("SEMANA "+Object1.getSemana(),"FECHA: "+Object1.getSimpleDataFormat()));
             listTOrETURN1.add(new NameAndValue("PRODUCTOR ",Object1.getProductor()));
             listTOrETURN1.add(new NameAndValue("HACIENDA ",Object1.getHacienda()));
-            listTOrETURN1.add(new NameAndValue("CODIGO PRODUCTOR ",Object1.getCodigo()));
-            listTOrETURN1.add(new NameAndValue("CODIGO MAGAP ",Object1.getInscirpMagap()));
+            listTOrETURN1.add(new NameAndValue("CÓDIGO PRODUCTOR ",Object1.getCodigo()));
+            listTOrETURN1.add(new NameAndValue("CÓDIGO MAGAP ",Object1.getInscirpMagap()));
             listTOrETURN1.add(new NameAndValue("PUERTO EMBARQUE ",Object1.getPemarque()));
             listTOrETURN1.add(new NameAndValue("ZONA",Object1.getZona()));
             listTOrETURN1.add(new NameAndValue("HORA INICIO",Object1.getHoraInicio()));
             listTOrETURN1.add(new NameAndValue("HORA TERMINO",Object1.getHoraTermino()));
-            listTOrETURN1.add(new NameAndValue("GUIA REMISION",Object1.getNguiaRemision()));
-            listTOrETURN1.add(new NameAndValue("GUIA DE TRASNPORTE",Object1.get_nguia_transporte()));
+            listTOrETURN1.add(new NameAndValue("GUÍA REMISIÓN",Object1.getNguiaRemision()));
+            listTOrETURN1.add(new NameAndValue("GUÍA DE TRANSPORTE",Object1.get_nguia_transporte()));
             listTOrETURN1.add(new NameAndValue("TARJA DE EMBARQUE",Object1.getNtargetaEmbarque()));
-            listTOrETURN1.add(new NameAndValue("HOJA DE EVALUACION",String.valueOf(Object1.getEdiNhojaEvaluacion())));
+            listTOrETURN1.add(new NameAndValue("HOJA DE EVALUACIÓN",String.valueOf(Object1.getEdiNhojaEvaluacion())));
 
         }
 
@@ -617,18 +617,17 @@ if(contadorProductsPostCosecha>10){
         else   if(tableInfo==3){ /**la 3ra tabla datos contenedor*/////vamos con la tercera tabla...
             listTOrETURN1.add(new NameAndValue("DESTINO",Object1.getDestinoContenedor()));
             listTOrETURN1.add(new NameAndValue("VAPOR",Object1.getVapor()));
-            listTOrETURN1.add(new NameAndValue("NUMERACION DE CONTENEDOR",Object1.getNumcionContenedor()));
+            listTOrETURN1.add(new NameAndValue("NUMERACIÓN DE CONTENEDOR",Object1.getNumcionContenedor()));
             listTOrETURN1.add(new NameAndValue("HORA DE LLEGADA",Object1.getHoraLlegadaContenedor()));
             listTOrETURN1.add(new NameAndValue("HORA SALIDA",Object1.getHoraSalidadContenedor()));
-            listTOrETURN1.add(new NameAndValue("DESTINO",Object1.getDestinoContenedor()));
 
 
 
         }else if(tableInfo==4){/**sellos llegada*/
 
-            listTOrETURN1.add(new NameAndValue("SELLO PLASTICO NAVIERA",Object1.getSelloPlasticoNaviera()));
+            listTOrETURN1.add(new NameAndValue("SELLO PLÁSTICO NAVIERA",Object1.getSelloPlasticoNaviera()));
             listTOrETURN1.add(new NameAndValue("STICKER DE PATIO VENTOLERA EXTERNA",Object1.getStickerVentoExtern()));
-            listTOrETURN1.add(new NameAndValue("NUMERO DE SERIE DE FUNDA",Object1.getnSerieFunda()));
+            listTOrETURN1.add(new NameAndValue("NÚMERO DE SERIE DE FUNDA",Object1.getnSerieFunda()));
             listTOrETURN1.add(new NameAndValue("CABLE DE RASTREO LLEGADA",Object1.getCableRastreoLlegada()));
             listTOrETURN1.add(new NameAndValue("BOOKING",Object1.getBooking()));
             listTOrETURN1.add(new NameAndValue("MAX GROSS",Object1.getMaxGross()));
@@ -638,17 +637,17 @@ if(contadorProductsPostCosecha>10){
 
         }else if(tableInfo==5){ //SELLOS INSTALADOS
 
-            listTOrETURN1.add(new NameAndValue("TERMOGRAFO 1",Object2.getTermografo1()));
+            listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 1",Object2.getTermografo1()));
             listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"UBICACION PALLET "+Object2.getUbicacionPalletN1()));
-            listTOrETURN1.add(new NameAndValue("TERMOGRAFO 2",Object2.getTermografo2()));
+            listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 2",Object2.getTermografo2()));
             listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACION PALLET "+Object2.getUbicacionPalletN2()));
 
 
-            listTOrETURN1.add(new NameAndValue("CANDADO QSERCOM",Object2.getCandadoQsercom()));
+            listTOrETURN1.add(new NameAndValue("CANDADO QSERCON",Object2.getCandadoQsercom()));
             listTOrETURN1.add(new NameAndValue("CABLE NAVIERA",Object2.getCableNaviera()));
 
 
-            listTOrETURN1.add(new NameAndValue("SELLO PLASTICO",Object2.getSelloPlastico()));
+            listTOrETURN1.add(new NameAndValue("SELLO PLÁSTICO",Object2.getSelloPlastico()));
             listTOrETURN1.add(new NameAndValue("SELLO BOTELLA",Object2.getCandadoBotella()));
             listTOrETURN1.add(new NameAndValue("CABLE EXPORTADORA",Object2.getCableExportadora()));
             listTOrETURN1.add(new NameAndValue("SELLO ADHESIVO EXPORTADORA",Object2.getSelloAdhesivoExportadora()));
@@ -659,9 +658,9 @@ if(contadorProductsPostCosecha>10){
 
         }else if(tableInfo==6){/**datos transportista */
 
-            listTOrETURN1.add(new NameAndValue("COMPANIA TRANSPORTISTA ",Object2.getCompaniaTranporte()));
+            listTOrETURN1.add(new NameAndValue("COMPAÑIA TRANSPORTISTA ",Object2.getCompaniaTranporte()));
             listTOrETURN1.add(new NameAndValue("NOMBRE CHOFER ",Object2.getNombreChofer()));
-            listTOrETURN1.add(new NameAndValue("CEDULA ",Object2.getCedulaChofer()));
+            listTOrETURN1.add(new NameAndValue("CÉDULA  ",Object2.getCedulaChofer()));
             listTOrETURN1.add(new NameAndValue("CELULAR ",Object2.getCelularChofer()));
             listTOrETURN1.add(new NameAndValue("PLACA ",Object2.getPlacaChofer()));
             listTOrETURN1.add(new NameAndValue("COLOR CABEZAL ",Object2.getColorCAbezal()));
@@ -934,9 +933,9 @@ if(contadorProductsPostCosecha>10){
             table1.addCell(micelda);
         }
 
-        table1.addCell(new Paragraph("BIDON").setFontSize(7.5f).setFont(font));
+        table1.addCell(new Paragraph("BIDÓN").setFontSize(7.5f).setFont(font));
 
-        if(object.getFuenteAgua().equalsIgnoreCase("BIDON")) {
+        if(object.getFuenteAgua().equalsIgnoreCase("BIDÓN")) {
 
             micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(6.5f).add(paragrapMarcado);
             micelda .setWidth(10f);
@@ -1038,7 +1037,7 @@ if(contadorProductsPostCosecha>10){
 
 
         /**fumigacion corona linea `1*/
-        table1.addCell(new Paragraph("FUMIGACION CORONA LINEA 1").setFontSize(7.5f).setFont(font));
+        table1.addCell(new Paragraph("FUMIGACIÓN CORONA LINEA 1").setFontSize(7.5f).setFont(font));
 
         table1.addCell(new Paragraph("FOGGING").setFontSize(7.5f).setFont(font));
 
@@ -1127,7 +1126,7 @@ if(contadorProductsPostCosecha>10){
         //  miTable.addCell(new Cell().add(new Paragraph("TIPO DE PLASTICO").setFontSize(7.5f))) ;
 
 
-        miTable.addCell(new Cell().add(new Paragraph("ENSUCHADO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        miTable.addCell(new Cell().add(new Paragraph("ENZUCHADO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
         miTable.addCell(new Cell().add(new Paragraph("SI").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
 
         if(object2.isHayExcelnsuchado()) {
@@ -1353,7 +1352,7 @@ if(contadorProductsPostCosecha>10){
 
 
         Cell cellHeader2= new Cell(1,4).setBackgroundColor(rgbColorAzulClaro);
-        cellHeader2.add(new Paragraph("CALIBRACION DE FRUTA(CALENDARIO DE ENFUNDE)").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        cellHeader2.add(new Paragraph("CALIBRACIÓN DE FRUTA(CALENDARIO DE ENFUNDE)").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
         table1X.addCell(cellHeader2);
 
 
@@ -1371,7 +1370,7 @@ if(contadorProductsPostCosecha>10){
 
 
         Cell cellNUMrAC= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
-        cellNUMrAC.add(new Paragraph("NUMERACION RACIMOS ").setBold().setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        cellNUMrAC.add(new Paragraph("NUMERACIÓN RACIMOS ").setBold().setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
         table1X.addCell(cellNUMrAC);
 
 
@@ -1476,7 +1475,7 @@ if(contadorProductsPostCosecha>10){
         list.add("ts,dedo corto");
         list.add("fl,flores");
         list.add("ea,empaque alto");
-        list.add("re,residuos quimicos");
+        list.add("re,residuos QUÍMICOS");
         list.add("rr,mancha roja");
         list.add("ps,daño de punta");
         list.add("ab,pulpa crema");
@@ -1495,9 +1494,9 @@ if(contadorProductsPostCosecha>10){
 
         list.add("sre,estropeo empaque");
         list.add("bre,daño empaque");
-        list.add("nie,cullo roto empaque");
+        list.add("nie,cuello roto empaque");
         list.add("pse,daño de punta empaque");
-        list.add("srfe,friccion empaque");
+        list.add("srfe,FRICCIÓN empaque");
         list.add("mfe,mal formado empaque");
 
         //cremoas la primer CELDA

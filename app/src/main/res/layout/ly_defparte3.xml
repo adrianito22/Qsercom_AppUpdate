@@ -51,7 +51,8 @@
 
 
 
-                    <com.tiburela.qsercom.Customviews.EditextSupreme
+                    <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
 android:gravity="center"
                         android:layout_width="365dp"
                         android:layout_height="wrap_content"
@@ -63,7 +64,8 @@ android:gravity="center"
 
 
 
-                    <com.tiburela.qsercom.Customviews.EditextSupreme
+                    <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
 android:gravity="center"
                         android:layout_width="365dp"
                         android:layout_height="wrap_content"
@@ -77,7 +79,8 @@ android:gravity="center"
 
 
 
-                    <com.tiburela.qsercom.Customviews.EditextSupreme
+                    <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
 android:gravity="center"
 
                         android:layout_width="365dp"
@@ -91,7 +94,8 @@ android:gravity="center"
 
 
 
-                    <com.tiburela.qsercom.Customviews.EditextSupreme
+                    <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
 android:gravity="center"
                         android:layout_width="365dp"
                         android:layout_height="wrap_content"
@@ -103,7 +107,8 @@ android:gravity="center"
 
 
 
-                    <com.tiburela.qsercom.Customviews.EditextSupreme
+                    <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
 android:gravity="center"
                         android:layout_width="365dp"
                         android:layout_height="wrap_content"
@@ -116,7 +121,8 @@ android:gravity="center"
 
 
 
-                    <com.tiburela.qsercom.Customviews.EditextSupreme
+                    <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
 android:gravity="center"
                         android:layout_width="365dp"
                         android:layout_height="wrap_content"
@@ -143,7 +149,8 @@ android:gravity="center"
                     android:orientation="horizontal">
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -154,7 +161,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -164,7 +172,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -175,7 +184,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -188,7 +198,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -199,7 +210,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -210,7 +222,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -220,7 +233,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -231,7 +245,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
                             android:layout_height="wrap_content"
@@ -243,7 +258,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -255,7 +271,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -267,7 +284,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -277,7 +295,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
                             android:layout_height="wrap_content"
@@ -288,7 +307,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
                             android:layout_height="wrap_content"
@@ -299,7 +319,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -309,7 +330,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
                             android:layout_height="wrap_content"
@@ -320,7 +342,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:enabled="false"
@@ -330,7 +353,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
                             android:layout_height="wrap_content"
@@ -341,7 +365,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
                             android:layout_height="wrap_content"
@@ -352,7 +377,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -364,66 +390,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:layout_width="65dp"
-
-
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:gravity="center"
-                            android:text="0"
-
-                            android:textSize="14sp" />
-
-
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:layout_width="65dp"
-
-
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:gravity="center"
-                            android:text="2"
-
-                            android:textSize="14sp" />
-
-
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:layout_width="65dp"
-
-
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:gravity="center"
-                            android:text="4"
-
-                            android:textSize="14sp" />
-
-
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:layout_width="65dp"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:gravity="center"
-
-                            android:text="6"
-
-                            android:textSize="14sp" />
-
-
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
-                            android:layout_width="65dp"
-
-
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:gravity="center"
-                            android:text="8"
-
-                            android:textSize="14sp" />
-
-
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -435,7 +403,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -447,7 +416,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -459,19 +429,20 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
-
-
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:gravity="center"
+
                             android:text="6"
 
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -483,7 +454,73 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
+                            android:layout_width="65dp"
+
+
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:gravity="center"
+                            android:text="0"
+
+                            android:textSize="14sp" />
+
+
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
+                            android:layout_width="65dp"
+
+
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:gravity="center"
+                            android:text="2"
+
+                            android:textSize="14sp" />
+
+
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
+                            android:layout_width="65dp"
+
+
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:gravity="center"
+                            android:text="4"
+
+                            android:textSize="14sp" />
+
+
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
+                            android:layout_width="65dp"
+
+
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:gravity="center"
+                            android:text="6"
+
+                            android:textSize="14sp" />
+
+
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
+                            android:layout_width="65dp"
+
+
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:gravity="center"
+                            android:text="8"
+
+                            android:textSize="14sp" />
+
+
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="65dp"
 
 
@@ -495,7 +532,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:layout_width="120dp"
 
 
@@ -521,7 +559,8 @@ android:gravity="center"
                     android:showDividers="middle">
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds1"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -531,7 +570,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds2"
 
                             android:layout_width="65dp"
@@ -542,7 +582,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds3"
 
                             android:layout_width="65dp"
@@ -553,7 +594,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds4"
                             android:layout_width="65dp"
                             android:layout_height="match_parent"
@@ -564,7 +606,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds5"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -575,7 +618,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds6"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -586,7 +630,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds7"
 
                             android:layout_width="65dp"
@@ -597,7 +642,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds8"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -608,7 +654,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds9"
 
                             android:layout_width="65dp"
@@ -619,7 +666,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds10"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -629,7 +677,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds11"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -639,7 +688,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds12"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -649,7 +699,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds13"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -659,7 +710,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds14"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -669,7 +721,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds15"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -679,7 +732,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds16"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -689,7 +743,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds17"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -699,7 +754,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds18"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -709,7 +765,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds19"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -719,7 +776,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds20"
 
                             android:layout_width="65dp"
@@ -730,7 +788,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds21"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -740,7 +799,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds22"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -750,7 +810,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds23"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -760,7 +821,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds24"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -770,7 +832,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds25"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -781,7 +844,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds26"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -791,7 +855,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds27"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -801,7 +866,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds28"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -811,7 +877,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds29"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -821,7 +888,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDeds30"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -831,7 +899,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDedPulpTotalFila1"
 
                             android:layout_width="65dp"
@@ -840,7 +909,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
 
                             android:id="@+id/ediPromedioPulpP"
                             android:layout_width="65dp"
@@ -863,7 +933,8 @@ android:gravity="center"
                     android:showDividers="middle">
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD1"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -874,7 +945,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD2"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -885,7 +957,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD3"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -897,7 +970,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD4"
 
                             android:layout_width="65dp"
@@ -910,7 +984,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD5"
 
                             android:layout_width="65dp"
@@ -923,7 +998,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD6"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -935,7 +1011,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD7"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -946,7 +1023,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD8"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -957,7 +1035,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD9"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -968,7 +1047,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD10"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -979,7 +1059,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD11"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -990,7 +1071,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD12"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1001,7 +1083,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD13"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1012,7 +1095,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD14"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1023,7 +1107,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD15"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1034,7 +1119,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD16"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1045,7 +1131,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD17"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1056,7 +1143,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD18"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1067,7 +1155,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD19"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1078,7 +1167,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD20"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1089,7 +1179,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD21"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1100,7 +1191,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD22"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1111,7 +1203,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD23"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1122,7 +1215,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD24"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1133,7 +1227,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD25"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1144,7 +1239,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD26"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1155,7 +1251,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD27"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1166,7 +1263,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD28"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1177,7 +1275,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD29"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1188,7 +1287,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/edif2LrgD30"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1199,7 +1299,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
                             android:id="@+id/ediLargDedPulpTotalFila2"
 
                             android:layout_width="65dp"
@@ -1208,7 +1309,8 @@ android:gravity="center"
                             android:textSize="14sp" />
 
 
-                        <com.tiburela.qsercom.Customviews.EditextSupreme
+                        <com.google.android.material.textfield.TextInputEditText 
+android:textAllCaps="true"
 
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -1238,6 +1340,8 @@ android:gravity="center"
 
 
             <com.tiburela.qsercom.Customviews.EditextSupreme
+                  android:textAllCaps="true"
+                android:inputType="textCapCharacters"
                 android:id="@+id/ediObservacioneszszz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

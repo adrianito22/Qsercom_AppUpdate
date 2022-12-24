@@ -25,11 +25,12 @@
             android:hint="VAPOR"
             app:layout_columnWeight="1">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText 
                 android:id="@+id/ediVaporzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -44,10 +45,12 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+            android:textAllCaps="true"
+
                 android:id="@+id/ediZonazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -59,10 +62,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediCodigozz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -77,7 +81,8 @@
                 android:id="@+id/ediProductorzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -90,10 +95,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediExportadorazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -107,10 +113,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediHaciendazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -124,10 +131,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediCompaniazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -140,10 +148,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediClientezz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -157,6 +166,7 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediSemanazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -174,10 +184,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+                       android:textAllCaps="true"
                 android:id="@+id/ediFechazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -191,10 +202,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediMagapzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -207,10 +219,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediMarcaCajazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -224,10 +237,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediTipoEmpazz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -240,10 +254,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediDestinzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -257,6 +272,7 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediTotalCajaszz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -274,11 +290,12 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/edioCalidaCampzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -292,10 +309,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediHoraInizz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -308,10 +326,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediHoraTermizz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -325,10 +344,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediContenedorzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -341,10 +361,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediSellosnavzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -358,10 +379,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediSelloVerzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -374,10 +396,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediTermografozz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -391,10 +414,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediPlacaCarrzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -407,10 +431,11 @@
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+android:textAllCaps="true"
                 android:id="@+id/ediPuertEmbzz"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
-                android:inputType="text" />
+                android:inputType="textCapCharacters" />
         </com.google.android.material.textfield.TextInputLayout>
 
 

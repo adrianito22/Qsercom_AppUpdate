@@ -100,7 +100,7 @@
         <item>NINGUNA</item>
         <item>AGUA POTABLE</item>
         <item>POZO</item>
-        <item>BIDON</item>
+        <item>BIDÓN</item>
     </string-array>
 
 
@@ -135,7 +135,7 @@
 
 
     <string-array name="array_defectos_fruta">
-        <item>SRC: ESTROPEO SELECION</item>
+        <item>SRC: ESTROPEO SELECIÓN</item>
         <item>BR: DAÑO PULPA</item>
         <item>CT: CDRTE CUCHILLO</item>
         <item>ML: MAL FORMADO</item>

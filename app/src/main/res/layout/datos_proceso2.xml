@@ -101,7 +101,8 @@
                             android:id="@+id/ediCod1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -179,7 +180,8 @@
                             android:id="@+id/ediCod2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -257,7 +259,8 @@
                             android:id="@+id/ediCod3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -335,7 +338,8 @@
                             android:id="@+id/ediCod4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -413,7 +417,8 @@
                             android:id="@+id/ediCod5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -491,7 +496,8 @@
                             android:id="@+id/ediCod6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -569,7 +575,8 @@
                             android:id="@+id/ediCod7"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -647,7 +654,8 @@
                             android:id="@+id/ediCod8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -694,7 +702,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -711,7 +720,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

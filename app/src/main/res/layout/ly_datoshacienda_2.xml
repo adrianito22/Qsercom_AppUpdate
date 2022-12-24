@@ -71,8 +71,12 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:gravity="center"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
+                    android:text="14"
+                    android:textColor="#575757"
                     android:textSize="14sp" />
 
                 <TextView
@@ -82,8 +86,12 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:gravity="center"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
+                    android:text="13"
+                    android:textColor="#575757"
                     android:textSize="14sp" />
 
                 <TextView
@@ -93,8 +101,12 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:gravity="center"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
+                    android:text="12"
+                    android:textColor="#575757"
                     android:textSize="14sp" />
 
                 <TextView
@@ -104,8 +116,12 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:gravity="center"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
+                    android:text="11"
+                    android:textColor="#575757"
                     android:textSize="14sp" />
 
                 <TextView
@@ -115,8 +131,12 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:gravity="center"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
+                    android:text="10"
+                    android:textColor="#575757"
                     android:textSize="14sp" />
 
                 <TextView
@@ -126,8 +146,12 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:gravity="center"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
+                    android:text="9"
+                    android:textColor="#575757"
                     android:textSize="14sp" />
 
 
@@ -154,7 +178,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:paddingLeft="5dp"
                     android:paddingTop="7dp"
                     android:paddingRight="5dp"
@@ -167,7 +192,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -177,7 +203,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -187,7 +214,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -197,7 +225,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -207,7 +236,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="13sp" />
 
@@ -317,7 +347,8 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -328,7 +359,8 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -339,7 +371,8 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -350,7 +383,8 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -361,7 +395,8 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 
@@ -372,7 +407,8 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/round_back_text"
                     android:enabled="false"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
                     android:padding="7dp"
                     android:textSize="14sp" />
 

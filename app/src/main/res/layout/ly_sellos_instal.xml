@@ -41,7 +41,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
-                            android:inputType="text" />
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +76,8 @@
                             android:id="@+id/ediUbicacion1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -118,7 +120,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
-                            android:inputType="text" />
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -153,7 +156,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
-                            android:inputType="text" />
+                            android:inputType="textCapCharacters"
+android:textAllCaps="true" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -195,7 +199,8 @@
                     android:id="@+id/ediCandadoqsercon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -214,7 +219,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -236,7 +242,8 @@
                     android:id="@+id/ediCableNaviera"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -254,7 +261,8 @@
                     android:id="@+id/ediSelloPlastico"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -279,7 +287,8 @@
                     android:id="@+id/ediCandadoBotella"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -296,7 +305,8 @@
                     android:id="@+id/ediCableExportadora"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -319,7 +329,8 @@
                     android:id="@+id/ediSelloAdesivoexpor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -343,7 +354,8 @@
                     android:id="@+id/esiSelloAdhNaviera"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -366,7 +378,8 @@
                     android:id="@+id/ediOtherSellos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

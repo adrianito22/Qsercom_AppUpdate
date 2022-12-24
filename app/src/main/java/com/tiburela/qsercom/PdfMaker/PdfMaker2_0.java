@@ -754,7 +754,7 @@ if(hayFILE){
         /**Agregamos Certificacion texto yPosicion tabla*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-        Paragraph title= new Paragraph("CERTIFICACION").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
+        Paragraph title= new Paragraph("CERTIFICACIÓN").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
 
         midocumentotoAddData.add(title);
         midocumentotoAddData.add(new Paragraph("Estimados.").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
@@ -768,8 +768,8 @@ if(hayFILE){
         midocumentotoAddData.add(title);
 
 
-        midocumentotoAddData.add(new Paragraph("Acontinuacion describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
-midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
+        midocumentotoAddData.add(new Paragraph("A continuación describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
+midocumentotoAddData.add(new Paragraph("Tabla1.- descripción de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
 
 
            /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
@@ -786,7 +786,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
 
 
-        midocumentotoAddData.add(new Paragraph("Grafico 1.- Demostracion calidad total y Posicion danos - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+        midocumentotoAddData.add(new Paragraph("Gráfico  1.- Demostración calidad total y Posición daños - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
          /**Agregamos pie  Grafico*/
          PieChart pieChart;
@@ -824,7 +824,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
         /**Texto como verfiicadora tenemos...*/
 
-        midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligacion de corregir estos danos en  la fruta para garantizar la calidad den la exportacion del banano  buscando siempre el bienestar de nuestro cliente").
+        midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente").
                 setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
 
         midocumentotoAddData.add(new Paragraph("CLIENTE AQUI").
@@ -857,7 +857,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
             ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
 
               //agregamos el texto en cel centro
-             Paragraph mipara= new Paragraph("GRAFICO"+contadorAllGraficos +".-DEMOSTRACION DE DEFECTOS EMPAQUE "+currenControCaldRep.getTipoEmpaque()+" "+currenControCaldRep.getMarcaCaja())
+             Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getTipoEmpaque()+" "+currenControCaldRep.getMarcaCaja())
                      .setPaddingLeft(60f).setBold();
             mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
@@ -908,7 +908,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
             table1= new Table(1);
 
-            cell1 = new Cell().setBorder(new SolidBorder(rgbColor, 1)).setBorderBottom(Border.NO_BORDER).add(new Paragraph("PORCENTAJE POR DEFECTO EN SELECION Y EMPAQUE").setMarginTop(10f).setTextAlignment(TextAlignment.CENTER));;
+            cell1 = new Cell().setBorder(new SolidBorder(rgbColor, 1)).setBorderBottom(Border.NO_BORDER).add(new Paragraph("PORCENTAJE POR DEFECTO EN SELECCIÓN Y EMPAQUE").setMarginTop(10f).setTextAlignment(TextAlignment.CENTER));;
             table1.addCell(cell1);
 
 
@@ -981,7 +981,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
         /**FOTOS contenedor...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_CONTENEDOR,"*  APERTURA, INSPECCION Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
 
 
         /**FOTOS datos trasnportista...*/
@@ -992,7 +992,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- Descripcion de porcentaje de ca
 
         /**DOCUMENTACION ...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"*  DOCUMENTACION",midocumentotoAddData,pageSize,contexto);
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
 
 
         //agregamaos el header

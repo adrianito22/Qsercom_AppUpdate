@@ -30,7 +30,8 @@
                     android:id="@+id/ediNombreChofer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +98,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -121,7 +123,8 @@
                     android:id="@+id/ediCandadoQsercom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textCapCharacters"
+android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
