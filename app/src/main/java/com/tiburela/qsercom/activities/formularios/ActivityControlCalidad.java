@@ -45,6 +45,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private boolean sellamoFindViewIds=false;
     DecimalFormat df = new DecimalFormat("#.#");
+    float calidadTotal=0;
 
 
     private TextInputEditText mEdiVaporzz;
@@ -961,6 +962,25 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         Log.i("copntadordef","en total de defectos selecionados hay "+(contadorDefectsSelecion+contadorDefectsEMPAQUE));
 
 
+        float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
+        Log.i("calidaddd","el defectosTotal es "+defectosTotal);
+
+
+
+        float porcentajeDefectos=defectosTotal/100 *numeroClustersInspecc;
+
+        Log.i("calidaddd","el porcentaje de defectos es "+porcentajeDefectos);
+
+        calidadTotal=100-porcentajeDefectos;
+
+
+        Log.i("calidaddd","el value es "+calidadTotal);
+
+        DecimalFormat df = new DecimalFormat("#.#");
+
+        mEdioCalidaCampzz.setText(df.format(calidadTotal)+" %");
+
+
     }
 
 
@@ -1104,6 +1124,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
             case R.id.imgupdateInfo:
+
 
                 muestraaLLResults();
                 muestraResultado();
@@ -2474,7 +2495,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
                 mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
-                mEdioCalidaCampzz.getText().toString(),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
+                String.valueOf(calidadTotal),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
                 mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
 
@@ -3221,7 +3242,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 txtTotal6,txtTotal7,txtTotal8,txtTotal9, txtTotal10} ;
 
         int contadorCheked;
-
+        int contadorDefectsSelecion=0;
+        int contadorDefectsEMPAQUE=0;
 
         for(int indice2=0; indice2<ararYTEXVIEWS.length; indice2++){  //lista de listas
             contadorCheked=0;
@@ -3233,6 +3255,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     if(currentList.get(indice)){ //si es verdadero
                         contadorCheked++;
+                        contadorDefectsSelecion++;
 
                     }
 
@@ -3249,7 +3272,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     if(currentList.get(indice)){ //si es verdadero
                         contadorCheked++;
-
+                        contadorDefectsEMPAQUE++;
                     }
 
                 }
@@ -3262,6 +3285,24 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
 
+
+        float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
+        Log.i("calidaddd","el defectosTotal es "+defectosTotal);
+
+
+
+        float porcentajeDefectos=defectosTotal/100 *numeroClustersInspecc;
+
+        Log.i("calidaddd","el porcentaje de defectos es "+porcentajeDefectos);
+
+        calidadTotal=100-porcentajeDefectos;
+
+
+        Log.i("calidaddd","el value es "+calidadTotal);
+
+        DecimalFormat df = new DecimalFormat("#.#");
+
+        mEdioCalidaCampzz.setText(df.format(calidadTotal)+" %");
 
 
 

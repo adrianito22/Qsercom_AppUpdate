@@ -49,7 +49,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     Button btnSaveControlC;
     TextView textView48;
     private boolean seLLamoFindViewId =false;
-
+    float calidadTotal=0;
     int numeroClustersInspecc=0;
     HashMap<String, String> hasHmapFieldsOtherViews= new HashMap<>();
     HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
@@ -704,7 +704,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdiVaporzz.setText(controlCalidad.getVapor());
         ediObservacioneszszz.setText(controlCalidad.getObservaciones()); //observaciones
         mEdiProductorzz.setText(controlCalidad.getProductor());
-        mEdiCodigozz .setText(controlCalidad.getUniqueId());
+        mEdiCodigozz .setText(controlCalidad.getCodigo());
         mEdiZonazz .setText(controlCalidad.getZona());
         mEdiHaciendazz .setText(controlCalidad.getHacienda());
         mEdiExportadorazz.setText(controlCalidad.getExportadora());
@@ -1431,6 +1431,27 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         txtTotalDefectSelect.setText(String.valueOf(contadorDefectsSelecion));
         txtTotalDefectEmpaque.setText(String.valueOf(contadorDefectsEMPAQUE));
         txtTotalAllDefects.setText(String.valueOf( contadorDefectsSelecion+contadorDefectsEMPAQUE ));
+
+
+        /////la calidad es
+
+        float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
+        Log.i("calidaddd","el defectosTotal es "+defectosTotal);
+
+
+
+        float porcentajeDefectos=defectosTotal/100 *numeroClustersInspecc;
+
+        Log.i("calidaddd","el porcentaje de defectos es "+porcentajeDefectos);
+
+        calidadTotal=100-porcentajeDefectos;
+
+
+         Log.i("calidaddd","el value es "+calidadTotal);
+
+        DecimalFormat df = new DecimalFormat("#.#");
+
+        mEdioCalidaCampzz.setText(df.format(calidadTotal)+" %");
 
 
 
@@ -3121,7 +3142,7 @@ return true;
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
                 mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
-                mEdioCalidaCampzz.getText().toString(),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
+                String.valueOf(calidadTotal),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
                 mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
 
@@ -3543,6 +3564,15 @@ return true;
 
     }
 
+
+    private float getCalidadCampo(){
+
+        //
+
+
+
+        return 4;
+    }
 
 
 
