@@ -7,6 +7,8 @@ plugins {
 android {
     signingConfigs {
         release {
+            //C:\Users\CAPSULE\Documents\ClaveAdnminFirebase
+
             storeFile file('C:\\Users\\CAPSULE\\Desktop\\KeyApp\\key')
             storePassword 'holamundo22'
             keyPassword 'holamundo22'
