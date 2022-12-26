@@ -39,26 +39,6 @@
         <entry key="..\:/Users/CAPSULE/Documents/Qsercom_App/app/src/main/res/layout/ly_productos_postcosecha.xml" value="0.33" />
         <entry key="..\:/Users/CAPSULE/Documents/Qsercom_App/app/src/main/res/layout/ly_sellos_instal.xml" value="0.2" />
         <entry key="..\:/Users/CAPSULE/Documents/Qsercom_App/app/src/main/res/layout/ly_sellos_llegada.xml" value="0.25" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/activity_formulario.xml" value="0.264" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/activity_menu.xml" value="0.2" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/activity_preview.xml" value="0.264" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/activity_see_reports.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/bottom_sheet_ver_atachx.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/bottom_sheetx.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/canvas_layout.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/control_calid_activity.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/item_color_cintas_semana.xml" value="0.24270833333333333" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/item_control_cald_checkbx.xml" value="0.4" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/item_of_recycler_report.xml" value="0.4" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/lay_cuadro_muestreo_recha.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/ly_datos_contenedor.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/ly_datos_transportista.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/ly_datosgenerales.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/ly_defect_part1.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/ly_defectos_preview.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/ly_peso_bruto_por_clust_solo_para.xml" value="0.2" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/ly_sellos_llegada.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/QsercomAppv4/app/src/main/res/layout/test.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/activity_formulario.xml" value="0.23072916666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/activity_preview.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/datos_proceso2.xml" value="0.264" />
@@ -76,11 +56,12 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_sellos_llegada.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_App2V/app/src/main/res/layout/ly_sellos_llegada2.xml" value="0.4" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/back_packing.xml" value="0.247" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/backage_text.xml" value="0.252" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/btn.xml" value="0.252" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/btn4.xml" value="0.247" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/btn_preseed.xml" value="0.252" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/clicked_btn.xml" value="0.168" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_formulario.xml" value="0.1" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_formulario.xml" value="0.136" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_menu.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_packing_list2.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_packing_list3.xml" value="0.24635416666666668" />
@@ -124,7 +105,7 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defparte3.xml" value="0.44844124700239807" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_num_deds_x_cluster.xml" value="0.2" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_peso_bruto_por_clust_solo_para.xml" value="0.2" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_peso_bruto_por_clust_solo_para2.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_peso_bruto_por_clust_solo_para2.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_pesobrutox_clusters.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_racimos_recha.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_sellos_instal.xml" value="0.24635416666666668" />

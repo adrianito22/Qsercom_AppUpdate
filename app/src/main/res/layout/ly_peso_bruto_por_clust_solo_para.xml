@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:visibility="visible">
 
 
     <LinearLayout
+
         android:id="@+id/layoutContainerSeccion5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -22,119 +24,173 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                    <TextView
+                        android:id="@+id/textView38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº01"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº1" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+
+                        android:id="@+id/pbCluster01"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="7dp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
 
-                            android:id="@+id/pbCluster01"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster05"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster02"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster03"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster03"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster02"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster04"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster04"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                </LinearLayout>
 
-                            android:id="@+id/pbCluster05"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+
+                        android:background="@drawable/back_edit"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº2" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster010"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster09"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster07"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster08"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster06"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -143,114 +199,88 @@ android:textAllCaps="true" />
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº02"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº3" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
 
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster011"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:id="@+id/pbCluster015"
 
-                            android:id="@+id/pbCluster06"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_width="100dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
 
-                            android:id="@+id/pbCluster07"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster012"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster08"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster013"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster09"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster014"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster010"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -259,114 +289,177 @@ android:textAllCaps="true" />
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº03"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        android:background="@drawable/back_edit"
+                        android:enabled="true"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº4" />
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster016"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster011"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster019"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster012"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster018"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:id="@+id/pbCluster020"
 
-                            android:id="@+id/pbCluster013"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_width="100dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
 
-                            android:id="@+id/pbCluster014"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster017"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                </LinearLayout>
 
-                            android:id="@+id/pbCluster015"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº5" />
+
+                    <EditText
+                        android:id="@+id/pbCluster025"
+
+
+                        android:layout_width="100dp"
+                        android:inputType="number"
+
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+
+                        android:gravity="center_horizontal"
+                        android:padding="7dp" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster024"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster023"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster022"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster021"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -375,114 +468,88 @@ android:textAllCaps="true" />
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº04"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº6" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
 
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster028"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster016"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
 
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster027"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster017"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster029"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster018"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster026"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:id="@+id/pbCluster030"
 
-                            android:id="@+id/pbCluster019"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_width="100dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster020"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:inputType="number"
+                        android:padding="7dp" />
 
                 </LinearLayout>
 
@@ -491,114 +558,88 @@ android:textAllCaps="true" />
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº05"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº7" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
 
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster034"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster021"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster031"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:id="@+id/pbCluster035"
 
-                            android:id="@+id/pbCluster022"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_width="100dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
 
-                            android:id="@+id/pbCluster023"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster033"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster024"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster032"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster025"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -607,114 +648,88 @@ android:textAllCaps="true" />
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº06"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº8" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
 
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster039"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:id="@+id/pbCluster040"
 
-                            android:id="@+id/pbCluster026"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_width="100dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
 
-                            android:id="@+id/pbCluster027"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                    <EditText
+                        android:gravity="center_horizontal"
+
+
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster037"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster028"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster038"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster029"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster036"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster030"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -723,114 +738,87 @@ android:textAllCaps="true" />
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 07"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº9" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
 
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster043"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster031"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster045"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:textAllCaps="false" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster032"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster042"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster033"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster041"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster034"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster044"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster035"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -839,346 +827,88 @@ android:textAllCaps="true" />
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 08"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº10" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
 
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster048"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster036"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster046"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster037"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster050"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        />
 
-                            android:id="@+id/pbCluster038"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:padding="7dp"
+
+                        android:id="@+id/pbCluster047"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                    <EditText
+                        android:gravity="center_horizontal"
 
-                            android:id="@+id/pbCluster039"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="7dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/pbCluster049"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster040"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 09"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster041"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster042"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster043"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster044"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster045"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:hint="PESO BRUTO POR CLUSTER Nº 010"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789."
-
-                            android:enabled="false"
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster046"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster047"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster048"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster049"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:digits="0123456789."
-                            android:inputType="number" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="visible"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/pbCluster050"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:background="@drawable/back_edit"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -1187,8 +917,6 @@ android:textAllCaps="true" />
 
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>
