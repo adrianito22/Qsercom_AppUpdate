@@ -112,7 +112,8 @@
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
                             android:text="Contenedores "
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -135,7 +136,8 @@
                             android:layout_marginTop="10dp"
                             android:gravity="center_horizontal"
                             android:text="Contenedores en Acopio"
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
@@ -160,7 +162,8 @@
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
                             android:text="Camiones y Carretas"
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -184,7 +187,8 @@
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
                             android:text="Packing List"
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -208,7 +212,8 @@
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
                             android:text="Muestro ,Rechazados"
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -233,7 +238,8 @@
                             android:fontFamily="@font/m_medium"
                             android:gravity="center_horizontal"
                             android:text="Control Calidad"
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
 

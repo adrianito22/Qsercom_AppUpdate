@@ -83,17 +83,14 @@
     </string-array>
 
 
-    <item type="id" name="posicion" />
+    <item name="posicion" type="id" />
 
-    <item type="id" name="idOfoBJECT" />
-    <item type="id" name="tipoInforme" />
-
-
-
-    <item type="id" name="tagImgCategory" />
-    <item type="id" name="tagImgUniqueIdItem" />
+    <item name="idOfoBJECT" type="id" />
+    <item name="tipoInforme" type="id" />
 
 
+    <item name="tagImgCategory" type="id" />
+    <item name="tagImgUniqueIdItem" type="id" />
 
 
     <string-array name="fuentesAguaArray">
@@ -129,9 +126,6 @@
         <item>ULTIMOS 30 DIAS</item>
 
     </string-array>
-
-
-
 
 
     <string-array name="array_defectos_fruta">
@@ -227,9 +221,6 @@
     </string-array>
 
 
-
-
-
     <string-array name="array_defectos_empaque">
         <item>LP: LARGA PLANA</item>
         <item>LC: LARGA CURVA</item>
@@ -241,17 +232,12 @@
     </string-array>
 
 
-
-
-
     <string-array name="array_defectos_empaque2">
         <item>BU</item>
         <item>SR</item>
         <item>BR</item>
         <item>NI</item>
     </string-array>
-
-
 
 
     <string-array name="arrayNumeroDedosXclusteroManos">

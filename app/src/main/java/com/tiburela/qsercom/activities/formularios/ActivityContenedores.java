@@ -257,7 +257,13 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     LinearLayout linLayoutHeader7;
     LinearLayout linLayoutHeader8;
 
-       Button btnSaveLocale;
+    LinearLayout layoutPesobrutoPorClusterSolo;
+
+    LinearLayout layPesoBruto2;
+    LinearLayout layPesoBruto1;
+
+
+    Button btnSaveLocale;
 
     Spinner spinnerSelectZona;
     Spinner spinnerCondicionBalanza;
@@ -556,6 +562,16 @@ Log.i("hellosweer","se ehjecitp onstart");
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+
+        layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
+
+
+         layPesoBruto2=findViewById(R.id.layPesoBruto2);
+         layPesoBruto1=findViewById(R.id.layPesoBruto1);
+
+
+
+
         ediExportadoraProcesada = findViewById(R.id.ediExportadoraProcesada);
         ediExportadoraSolicitante = findViewById(R.id.ediExportadoraSolicitante);
         ediMarca = findViewById(R.id.ediMarca);
@@ -781,6 +797,8 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         imgUpdatecAlfrutaEnfunde.setOnClickListener(this);
 
+
+
         linLayoutHeader2.setOnClickListener(this);
         linLayoutHeader1.setOnClickListener(this);
         linLayoutHeader3.setOnClickListener(this);
@@ -789,6 +807,8 @@ Log.i("hellosweer","se ehjecitp onstart");
         linLayoutHeader6.setOnClickListener(this);
         linLayoutHeader7.setOnClickListener(this);
         linLayoutHeader8.setOnClickListener(this);
+
+        layoutPesobrutoPorClusterSolo.setOnClickListener(this);
 
         ediFecha.setOnClickListener(this);
         ediHoraInicio.setOnClickListener(this);
@@ -822,6 +842,24 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
        switch (view.getId()) {
+
+
+
+           case R.id.layoutPesobrutoPorClusterSolo:
+
+               if(layPesoBruto1.getVisibility()==View.VISIBLE){
+                   layPesoBruto1.setVisibility(view.GONE);
+                   layPesoBruto2.setVisibility(view.GONE);
+
+               }else{
+
+                   layPesoBruto2.setVisibility(view.VISIBLE);
+                   layPesoBruto1.setVisibility(view.VISIBLE);
+
+
+               }
+
+               break;
 
 
 
@@ -5488,5 +5526,10 @@ private void callPrefrencesSave(){
 
 
     //Y AHORA SET DATA YN IEWS...
+
+
+
+
+    /***iniciamos find view id en peso burto por clusters... **/
 
 }
