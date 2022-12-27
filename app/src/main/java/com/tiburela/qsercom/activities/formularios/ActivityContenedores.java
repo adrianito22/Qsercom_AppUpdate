@@ -117,7 +117,13 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     private final int CODE_TWO_PERMISIONS = 12;
 
+    LinearLayout layoutContainerDatsProceso;
+
+
     private ImageView imgUpdatecAlfrutaEnfunde;
+
+
+    TextInputEditText ediClienteNombreReporte;
 
     HashMap<String, CuadroMuestreo> mapCudroMuestreo =new HashMap<>();
     HashMap<String,ControlCalidad> mapControlCalidad =new HashMap<>();
@@ -562,6 +568,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+         layoutContainerDatsProceso=findViewById(R.id.layoutContainerDatsProceso);
 
         layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
 
@@ -569,7 +576,7 @@ Log.i("hellosweer","se ehjecitp onstart");
          layPesoBruto2=findViewById(R.id.layPesoBruto2);
          layPesoBruto1=findViewById(R.id.layPesoBruto1);
 
-
+        ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
 
 
         ediExportadoraProcesada = findViewById(R.id.ediExportadoraProcesada);
@@ -773,7 +780,7 @@ Log.i("hellosweer","se ehjecitp onstart");
     private void addClickListeners( ) {
 
         /**todos add a todos clicklistener de la implemntacion*/
-
+      //  layoutContainerDatsProceso.setOnClickListener(this);
 
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
@@ -950,17 +957,17 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
            case R.id.linLayoutHeader7:
-               LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
+               //LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
 
 
-               if(layoutContainerSeccion7.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion7);
+               if(layoutContainerDatsProceso.getVisibility() == View.GONE) {
+                   muestraLinearLayout(layoutContainerDatsProceso);
                }
 
 
 
                else{
-                   oucultaLinearLayout(layoutContainerSeccion7);
+                   oucultaLinearLayout(layoutContainerDatsProceso);
                }
 
 
@@ -3002,7 +3009,7 @@ private void createObjcInformeAndUpload(){
             ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
             ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
             ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
-            ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
+            ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif,ediClienteNombreReporte.getText().toString());
 
 
             informe.setKeyOrNodeLibriadoSiEs(keyWhereLocaleHashMapLibriado);
@@ -3352,6 +3359,43 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     private boolean checkDatosGeneralesIsLleno(){
 
         LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
+
+
+        if(ediExportadoraProcesada.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExportadoraProcesada.requestFocus();
+            ediExportadoraProcesada.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+
+        if(ediExportadoraSolicitante.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExportadoraSolicitante.requestFocus();
+            ediExportadoraSolicitante.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+        if(ediMarca.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediMarca.requestFocus();
+            ediMarca.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+        }
+
+
+
+        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediClienteNombreReporte.requestFocus();
+            ediClienteNombreReporte.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+        }
+
+
+
 
         if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediSemana.requestFocus();
@@ -4272,7 +4316,6 @@ return true;
     }
 
     private boolean checkDatosProcesoIsLleno(){
-        LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
         if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
@@ -4280,7 +4323,7 @@ return true;
             ediCondicionBalanza.setError("Este espacio es obligatorio");
             scroollElementoFaltante(ediCondicionBalanza);
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -4290,30 +4333,20 @@ return true;
             ediTipodeCaja.setError("Este espacio es obligatorio");
             scroollElementoFaltante(ediTipodeCaja);
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
 
 
 
-        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediCondicionBalanza.requestFocus();
-            ediCondicionBalanza.setError("Este espacio es obligatorio");
-
-              scroollElementoFaltante(ediCondicionBalanza);
-
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
 
         if(ediTipoPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediTipoPlastico.requestFocus();
             ediTipoPlastico.setError("Este espacio es obligatorio");
             scroollElementoFaltante(ediTipoPlastico);
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -4325,7 +4358,7 @@ return true;
             ediTipoBalanza.setError("Este espacio es obligatorio");
             scroollElementoFaltante(ediTipoBalanza);
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -4337,7 +4370,7 @@ return true;
             editipbalanzaRepeso.setError("Selecione el tipo de balanza");
             scroollElementoFaltante(editipbalanzaRepeso);
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
              return false;
         }else{
             editipbalanzaRepeso.setText("");
@@ -4362,7 +4395,7 @@ return true;
             ediUbicacionBalanza.setError("Este espacio es obligatorio");
             scroollElementoFaltante(ediUbicacionBalanza);
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }

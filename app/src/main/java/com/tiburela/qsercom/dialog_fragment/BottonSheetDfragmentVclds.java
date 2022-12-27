@@ -283,7 +283,7 @@ private void listternSpinner(){
             }
 
 
-            else if(selecionado.equals("Reportes Vinculados")) {
+            else if(selecionado.equalsIgnoreCase("Reportes Vinculados")) {
 
 
 

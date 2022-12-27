@@ -52,45 +52,45 @@
 
                             android:id="@+id/ediColor14"
                             android:layout_width="130dp"
-                            android:padding="7dp"
-                            android:background="@drawable/round_back_text"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:digits="0123456789."
+                            android:background="@drawable/round_back_text"
                             android:gravity="center_horizontal"
-                            android:inputType="number" />
+                            android:inputType="textCapCharacters"
+                            android:padding="7dp"
+                            android:textAllCaps="true"
+                            android:textSize="14sp" />
 
 
                         <EditText
 
                             android:id="@+id/ediColor13"
-                            android:background="@drawable/round_back_text"
-
-                            android:padding="7dp"
-
                             android:layout_width="130dp"
 
                             android:layout_height="wrap_content"
-
                             android:layout_margin="5dp"
-                            android:digits="0123456789."
+                            android:background="@drawable/round_back_text"
                             android:gravity="center_horizontal"
-                            android:inputType="number" />
+                            android:inputType="textCapCharacters"
+
+                            android:padding="7dp"
+                            android:textAllCaps="true"
+                            android:textSize="14sp" />
 
 
                         <EditText
 
                             android:id="@+id/ediColor12"
                             android:layout_width="130dp"
-                            android:background="@drawable/round_back_text"
-                            android:padding="7dp"
-
                             android:layout_height="wrap_content"
-
                             android:layout_margin="5dp"
-                            android:digits="0123456789."
+                            android:background="@drawable/round_back_text"
+
                             android:gravity="center_horizontal"
-                            android:inputType="number" />
+                            android:inputType="textCapCharacters"
+                            android:padding="7dp"
+                            android:textAllCaps="true"
+                            android:textSize="14sp" />
 
 
                         <EditText
@@ -98,13 +98,13 @@
                             android:id="@+id/ediColor11"
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/round_back_text"
-                            android:padding="7dp"
-
                             android:layout_margin="5dp"
-                            android:digits="0123456789."
+                            android:background="@drawable/round_back_text"
                             android:gravity="center_horizontal"
-                            android:inputType="number" />
+                            android:inputType="textCapCharacters"
+                            android:padding="7dp"
+                            android:textAllCaps="true"
+                            android:textSize="14sp" />
 
 
                         <EditText
@@ -114,11 +114,12 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:background="@drawable/round_back_text"
-                            android:padding="7dp"
-
                             android:gravity="center_horizontal"
                             android:inputType="textCapCharacters"
-                            android:textAllCaps="true" />
+
+                            android:padding="7dp"
+                            android:textAllCaps="true"
+                            android:textSize="14sp" />
 
 
                         <EditText
@@ -127,11 +128,12 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:background="@drawable/round_back_text"
-                            android:padding="7dp"
-
                             android:gravity="center_horizontal"
                             android:inputType="textCapCharacters"
-                            android:textAllCaps="true" />
+
+                            android:padding="7dp"
+                            android:textAllCaps="true"
+                            android:textSize="14sp" />
 
 
                     </LinearLayout>

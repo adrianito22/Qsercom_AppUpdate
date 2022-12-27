@@ -429,7 +429,7 @@ public class CuadroMuestreo {
         this.extensionistaEnGancho=extensionistaEnGancho;
         keyFirebaseLocation="";
 
-          this. color14=color14;
+          this.color14=color14;
           this.color13=color13;
           this.color12=color12;
           this.color11=color11;

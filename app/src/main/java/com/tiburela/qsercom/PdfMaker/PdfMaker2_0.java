@@ -778,7 +778,7 @@ if(hayFILE){
 
 
         midocumentotoAddData.add(new Paragraph("A continuación describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
-midocumentotoAddData.add(new Paragraph("Tabla1.- descripción de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
+        midocumentotoAddData.add(new Paragraph("Tabla1.- Descripción de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
 
 
            /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
@@ -836,7 +836,7 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- descripción de porcentaje de c
         midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente").
                 setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
 
-        midocumentotoAddData.add(new Paragraph("CLIENTE AQUI").
+        midocumentotoAddData.add(new Paragraph(Variables.CurrenReportPart1.getClienteReporte()).
                 setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
 
 
@@ -969,10 +969,12 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- descripción de porcentaje de c
 
         if(Variables.listPromedioLibriado.size()>0){ //si hay libriado
 
-            midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLUSTER,").
+            midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+            midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
                     setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
-            table1=HelperPdf.devulveTablaToLibriado(Variables.listPromedioLibriado);
+            table1=HelperPdf.devulveTablaToLibriado(Variables.listPromedioLibriado,"Marca aqui y name");
             HelperPdf.configTableMaringAndWidth(table1,sizeTable-200);
 
             midocumentotoAddData.add(table1);

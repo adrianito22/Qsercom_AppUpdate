@@ -2,12 +2,22 @@ package com.tiburela.qsercom.models;
 
 public class TableCalidProdc {
 
+    public String getNombreMarcaDeCaja() {
+        return nombreMarcaDeCaja;
+    }
 
-    public TableCalidProdc(String tipoEmpaque, int totalEmbacado, double porcentajeQS,String codigo) {
+    public void setNombreMarcaDeCaja(String nombreMarcaDeCaja) {
+        this.nombreMarcaDeCaja = nombreMarcaDeCaja;
+    }
+
+    private String nombreMarcaDeCaja;
+
+    public TableCalidProdc(String tipoEmpaque, int totalEmbacado, double porcentajeQS,String codigo,String nombreMarcaDeCaja) {
         this.tipoEmpaque = tipoEmpaque;
         this.totalEmbacado = totalEmbacado;
         this.porcentajeQS = porcentajeQS;
         this.codigo=codigo;
+        this.nombreMarcaDeCaja=nombreMarcaDeCaja;
     }
 
     private String tipoEmpaque;

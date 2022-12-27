@@ -56,6 +56,16 @@ public class SetInformEmbarque1 {
     private long fechaCreacionInf;
     private String  numcionContenedor;
 
+    public String getClienteReporte() {
+        return clienteReporte;
+    }
+
+    public void setClienteReporte(String clienteReporte) {
+        this.clienteReporte = clienteReporte;
+    }
+
+    private String clienteReporte;
+
     ////////////////////////////////
 
     public String getExportadoraProcesada() {
@@ -141,7 +151,7 @@ public class SetInformEmbarque1 {
                               String stickerVentoExtern,
                               String cableRastreoLlegada,
                               String selloPlasticoNaviera,
-                              String otroSelloLlegadaEspec) {
+                              String otroSelloLlegadaEspec,String clienteReporte) {
 
         this.exportadoraProcesada =exportadoraProcesada;
         this.exportadoraSolicitante =exportadoraSolicitante;
@@ -196,6 +206,8 @@ public class SetInformEmbarque1 {
         atachControCuadroMuestreo ="";
         keyOrNodeLibriadoSiEs="";
 
+
+        this.clienteReporte=clienteReporte;
     }
 
     /***Datos formulario */
@@ -606,7 +618,7 @@ public class SetInformEmbarque1 {
 
 
         result.put("keyOrNodeLibriadoSiEs",keyOrNodeLibriadoSiEs);
-
+        result.put("clienteReporte",clienteReporte);
 
 
 

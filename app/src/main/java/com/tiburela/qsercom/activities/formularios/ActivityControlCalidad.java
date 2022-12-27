@@ -286,7 +286,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     EditextSupreme edif2NdedoXclust27;
     EditextSupreme edif2NdedoXclust28 ;
     EditextSupreme edif2NdedoXclust29 ;
-   // EditextSupreme edif2NdedoXclust30 ;
+    // EditextSupreme edif2NdedoXclust30 ;
 
 
 
@@ -310,6 +310,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     EditextSupreme edif2NdedoXclustxC16 ;
     EditextSupreme edif2NdedoXclustxC17 ;
     EditextSupreme edif2NdedoXclustxC18 ;
+
     EditextSupreme edif2NdedoXclustTotalArriba;
     EditextSupreme edif2NdedoXclustPromedio;
 
@@ -654,8 +655,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         edif2NdedoXclust26=findViewById(R.id.edif2NdedoXclust26);
         edif2NdedoXclust27=findViewById(R.id.edif2NdedoXclust27);
         edif2NdedoXclust28=findViewById(R.id.edif2NdedoXclust28);
-      //  edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
-       // edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
+        //  edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
+        // edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
 
 
         edif2NdedoXclustxC1=findViewById(R.id.edif2NdedoXclustxC1);
@@ -950,9 +951,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
 
-         txtTotalDefectSelect.setText(String.valueOf(contadorDefectsSelecion));
-         txtTotalDefectEmpaque.setText(String.valueOf(contadorDefectsEMPAQUE));
-         txtTotalAllDefects.setText(String.valueOf( contadorDefectsSelecion+contadorDefectsEMPAQUE ));
+        txtTotalDefectSelect.setText(String.valueOf(contadorDefectsSelecion));
+        txtTotalDefectEmpaque.setText(String.valueOf(contadorDefectsEMPAQUE));
+        txtTotalAllDefects.setText(String.valueOf( contadorDefectsSelecion+contadorDefectsEMPAQUE ));
 
 
         Log.i("copntadordef","hay "+contadorDefectsSelecion+" de defectos selecion");
@@ -1128,7 +1129,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 muestraaLLResults();
                 muestraResultado();
-               // generatePercent(numeroClustersInspecc);
+                // generatePercent(numeroClustersInspecc);
 
                 break;
 
@@ -1779,7 +1780,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
                 edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
                 edif2NdedoXclust28 , //edif2NdedoXclust29 ,// edif2NdedoXclust30
-                 edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
@@ -1816,7 +1817,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         TextInputEditText [] arrayEditex = {
 
-                 mEdiVaporzz,mEdiProductorzz,mEdiCodigozz, mEdiZonazz,mEdiHaciendazz,mEdiExportadorazz,
+                mEdiVaporzz,mEdiProductorzz,mEdiCodigozz, mEdiZonazz,mEdiHaciendazz,mEdiExportadorazz,
                 mEdiCompaniazz,mEdiClientezz,mEdisemanazz, mEdiFechazz,mEdiMagapzz,mEdiMarcaCajazz,
                 mEdiTipoEmpazz,mEdiDestinzz,mEdiTotalCajaszz, mEdioCalidaCampzz,mEdiHoraInizz,mEdiHoraTermizz,
                 mEdiContenedorzz,mEdiSellosnavzz,mEdiSelloVerzz, mEdiTermografozz,mEdiPlacaCarrzz,mEdiPuertEmbzz,
@@ -2533,7 +2534,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2NdedoXclust17	, edif2NdedoXclust18, edif2NdedoXclust19, edif2NdedoXclust20,
                 edif2NdedoXclust21	, edif2NdedoXclust22, edif2NdedoXclust23, edif2NdedoXclust24,
                 edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28,
-               // edif2NdedoXclust29	// edif2NdedoXclust30,
+                // edif2NdedoXclust29	// edif2NdedoXclust30,
 
         };
 
@@ -2571,7 +2572,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         float result=sumaItemsFilaAbajo/sumaItemsFilaArriba;
 
 
-       String resul= df.format(result)+" %";
+        String resul= df.format(result)+" %";
 
         ediNumPromedioDedsXcaja.setText(resul);
         //por aqwuinmostyramos s
@@ -2631,7 +2632,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
             }
-             //aqui mostramos el resultado..
+            //aqui mostramos el resultado..
 
 
 
@@ -2655,7 +2656,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private void getCalibraEntreBasalYapiclProduct() {
 
-       EditextSupreme ediPromediozx=findViewById(R.id.ediPromediozx);
+        EditextSupreme ediPromediozx=findViewById(R.id.ediPromediozx);
 
         final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
 
@@ -2727,10 +2728,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        ediTotalFila1z.setText(String.valueOf((int)totalFila1));
-        ediTotalFila2z.setText(String.valueOf((int)totalFial2));
-        String promedio=df.format(totalFial2/totalFila1);
-        ediPromediozx.setText(promedio);
+            ediTotalFila1z.setText(String.valueOf((int)totalFila1));
+            ediTotalFila2z.setText(String.valueOf((int)totalFial2));
+            String promedio=df.format(totalFial2/totalFila1);
+            ediPromediozx.setText(promedio);
 
 
 
@@ -2841,12 +2842,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-                       ediLargDedPulpTotalFila1.setText( df.format(resultFila1));
-                       ediLargDedPulpTotalFila2.setText( df.format(resultFila2));
+                    ediLargDedPulpTotalFila1.setText( df.format(resultFila1));
+                    ediLargDedPulpTotalFila2.setText( df.format(resultFila2));
 
-                       double promedio=resultFila2/resultFila1;
+                    double promedio=resultFila2/resultFila1;
 
-                       ediPromedioPulpP.setText( df.format(promedio));
+                    ediPromedioPulpP.setText( df.format(promedio));
 
                     // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
                     //colcamos este texto en el editext

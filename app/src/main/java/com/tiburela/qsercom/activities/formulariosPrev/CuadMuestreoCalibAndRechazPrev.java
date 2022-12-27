@@ -510,6 +510,11 @@ return object;
         ediCochinillaEscamaFumagina.setText(String.valueOf(cuadroMuestreo.getCochinillaEscamaFunagina()));
         ediRacimosSinEdintificacion.setText(String.valueOf(cuadroMuestreo.getRacimosSinEdintificacion()));
 
+        ediExportadora.setText(String.valueOf(cuadroMuestreo.getExportadora()));
+
+
+        Log.i("edidbhdh","mostramos el value COLOR Y ES  "+cuadroMuestreo.getColor14());
+
         ediColor14.setText(cuadroMuestreo.getColor14());
         ediColor13.setText(cuadroMuestreo.getColor13());
         ediColor12.setText(cuadroMuestreo.getColor12());

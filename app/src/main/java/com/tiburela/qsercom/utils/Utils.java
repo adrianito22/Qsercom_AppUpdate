@@ -544,7 +544,12 @@ return
 
         for(int indice=0; indice<allArrayViewsTextIMPUTe.length ; indice++){  //iteramos el mapa
 
-            Log.i("midata","el id de este view es es "+allArrayViewsTextIMPUTe[indice].getId());
+
+            if(allArrayViewsTextIMPUTe[indice]==null){
+                Log.i("comenzamos","es nulo la posicion : "+indice);
+             break;
+            }
+
 
             if(allArrayViewsTextIMPUTe[indice].getId()==idViewSearch){
 

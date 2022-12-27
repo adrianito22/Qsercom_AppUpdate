@@ -115,6 +115,10 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     LinearLayout layPesoBruto1;
     ProgressDialog progress;
 
+     TextInputEditText ediClienteNombreReporte;
+    private ImageView imgUpdatecAlfrutaEnfunde;
+
+
     ArrayList<String> listImagesToDelete = new ArrayList<>();
 
 
@@ -564,6 +568,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
     private void findViewsIds() { //configuraremos algos views al iniciar
 
+        ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
+        imgUpdatecAlfrutaEnfunde=findViewById(R.id.imgUpdatecAlfrutaEnfunde);
         layPesoBruto2 = findViewById(R.id.layPesoBruto2);
         layPesoBruto1 = findViewById(R.id.layPesoBruto1);
 
@@ -769,7 +775,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         /**todos add a todos clicklistener de la implemntacion*/
         imgAtachVinculacion.setOnClickListener(this);
         layoutPesobrutoPorClusterSolo.setOnClickListener(this);
-
+        imgUpdatecAlfrutaEnfunde.setOnClickListener(this);
 
         btnGENERARpdf.setOnClickListener(this);
 
@@ -981,14 +987,21 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
             case R.id.linLayoutHeader7:
-                LinearLayout layoutContainerSeccion7 = findViewById(R.id.layoutContainerSeccion7);
+
+
+                  ///AQUI VA,,,,
+
+                LinearLayout layoutContainerSeccion7 = findViewById(R.id.layoutContainerDatsProceso);
+
 
                 if (layoutContainerSeccion7.getVisibility() == View.GONE) {
                     muestraLinearLayout(layoutContainerSeccion7);
                 } else {
-
                     oucultaLinearLayout(layoutContainerSeccion7);
                 }
+
+
+
                 break; //
 
             case R.id.linLayoutHeader8:
@@ -1150,6 +1163,12 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                 currentTypeImage = Variables.FOTO_PROD_POSTCOSECHA;
 
                 takepickNow();
+                break;
+
+
+            case R.id.imgUpdatecAlfrutaEnfunde:
+                Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
+                getResultDatCalibCalEnfundes();
                 break;
 
 
@@ -2275,7 +2294,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                 , ediDestino.getText().toString(), ediNViaje.getText().toString(), ediNumContenedor.getText().toString(), ediVapor.getText().toString(),
                 ediTipoContenedor.getText().toString(), ediTare.getText().toString(), ediBooking.getText().toString(), ediMaxGross.getText().toString(),
                 ediNumSerieFunda.getText().toString(), stikVentolerExterna.getText().toString(),
-                ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif);
+                ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif,
+                ediClienteNombreReporte.getText().toString());
         Variables.CurrenReportPart1.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
@@ -2364,7 +2384,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                 , ediDestino.getText().toString(), ediNViaje.getText().toString(), ediNumContenedor.getText().toString(), ediVapor.getText().toString(),
                 ediTipoContenedor.getText().toString(), ediTare.getText().toString(), ediBooking.getText().toString(), ediMaxGross.getText().toString(),
                 ediNumSerieFunda.getText().toString(), stikVentolerExterna.getText().toString(),
-                ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif);
+                ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif,
+                ediClienteNombreReporte.getText().toString());
         informe.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
         informe.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
@@ -2727,6 +2748,44 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     private boolean checkDatosGeneralesIsLleno() {
 
         LinearLayout layoutContainerSeccion1 = findViewById(R.id.layoutContainerSeccion1);
+
+
+
+        if(ediExportadoraProcesada.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExportadoraProcesada.requestFocus();
+            ediExportadoraProcesada.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+
+        if(ediExportadoraSolicitante.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExportadoraSolicitante.requestFocus();
+            ediExportadoraSolicitante.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+        if(ediMarca.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediMarca.requestFocus();
+            ediMarca.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+
+        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediClienteNombreReporte.requestFocus();
+            ediClienteNombreReporte.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+
 
         if (Objects.requireNonNull(ediSemana.getText()).toString().isEmpty()) { //chekamos que no este vacia
             ediSemana.requestFocus();
@@ -3306,6 +3365,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     }
 
 
+
     private boolean checkDatosTransportistaIsLleno() {
 
         LinearLayout layoutContainerSeccion6 = findViewById(R.id.layoutContainerSeccion6);
@@ -3394,7 +3454,9 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
     private boolean checkDatosProcesoIsLleno() {
-        LinearLayout layoutContainerSeccion7 = findViewById(R.id.layoutContainerSeccion7);
+
+
+        LinearLayout layoutContainerSeccion7 = findViewById(R.id.layoutContainerDatsProceso);
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
         if (ediCondicionBalanza.getText().toString().isEmpty()) { //chekamos que no este vacia
@@ -3888,6 +3950,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
         diseableViewsByTipe(ediExportadoraProcesada);
+        diseableViewsByTipe(ediClienteNombreReporte);
         diseableViewsByTipe(ediExportadoraSolicitante);
         diseableViewsByTipe(ediMarca);
 
@@ -4039,6 +4102,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         activateViewsByTypeView(ediExportadoraProcesada);
         activateViewsByTypeView(ediExportadoraSolicitante);
         activateViewsByTypeView(ediMarca);
+        activateViewsByTypeView(ediClienteNombreReporte);
+
 
 
         activateViewsByTypeView(ediSemana);
@@ -4254,11 +4319,12 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
         String fechaString = formatter.format(info1Object.getFechaCreacionInf());
 
-        Log.i("holabaser", "el fecha string ers " + fechaString);
+        Log.i("SOMERG", "el  CLIENTE RREPORTE ES " + info1Object.getClienteReporte());
 
 
         ediExportadoraProcesada.setText(info1Object.getExportadoraProcesada());
-        ;
+        ediClienteNombreReporte.setText(info1Object.getClienteReporte());
+
         ediExportadoraSolicitante.setText(info1Object.getExportadoraSolicitante());
         ediMarca.setText(info1Object.getMarrca());
 
@@ -5238,6 +5304,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
     private void setDataInMoreViews(SetInformDatsHacienda informe) {
+
         EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
         EditText ediColortSem13 = findViewById(R.id.ediColortSem13);
         EditText ediColortSem12 = findViewById(R.id.ediColortSem12);
@@ -5245,12 +5312,14 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         EditText ediColortSem10 = findViewById(R.id.ediColortSem10);
         EditText ediColortSem9 = findViewById(R.id.ediColortSem9);
 
+
+
         EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
         EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
         EditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
         EditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
         EditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
-        EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+        EditText ediNumRac9   = findViewById(R.id.ediNumRac9);
 
 
         EditText ediPorc14 = findViewById(R.id.ediPorc14);
@@ -5263,9 +5332,9 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         ediColortSem14.setText(informe.getColortSem14());
         ediColortSem13.setText(informe.getColortSem13());
-        ediColortSem12.setText(informe.getColortSem11());
+        ediColortSem12.setText(informe.getColortSem12());
         ediColortSem11.setText(informe.getColortSem11());
-        ediColortSem10.setText(informe.getColortSem11());
+        ediColortSem10.setText(informe.getColortSem10());
         ediColortSem9.setText(informe.getColortSem9());
 
         ediNumRcim14.setText(informe.getNumRcim14());

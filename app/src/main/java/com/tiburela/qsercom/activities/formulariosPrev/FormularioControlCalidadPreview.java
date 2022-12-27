@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,6 +54,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     int numeroClustersInspecc=0;
     HashMap<String, String> hasHmapFieldsOtherViews= new HashMap<>();
     HashMap<String, String> hasMapitemsSelecPosicRechazToUpload;
+    EditextSupreme ediNdedoXclustXcTotalAbajo;
+    EditextSupreme ediTotalFila2z;
+
+    EditextSupreme edif2NdedoXclustTotalArriba;
+    EditextSupreme edif2NdedoXclustPromedio;
+    EditextSupreme ediTotalFila1z;
+    TextInputEditText ediRacimosCosech;
+
 
 
     private TextInputEditText mEdiVaporzz;
@@ -80,6 +89,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     private TextInputEditText mEdiPlacaCarrzz;
     private TextInputEditText mEdiPuertEmbzz;
 
+    EditextSupreme ediNumPromedioDedsXcaja;
+
+    DecimalFormat df = new DecimalFormat("#.#");
 
 
     private EditextSupreme mEdif2LrgD1;
@@ -292,8 +304,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     EditextSupreme edif2NdedoXclust26 ;
     EditextSupreme edif2NdedoXclust27;
     EditextSupreme edif2NdedoXclust28 ;
-    EditextSupreme edif2NdedoXclust29 ;
-    EditextSupreme edif2NdedoXclust30 ;
 
 
 
@@ -317,8 +327,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     EditextSupreme edif2NdedoXclustxC16 ;
     EditextSupreme edif2NdedoXclustxC17 ;
     EditextSupreme edif2NdedoXclustxC18 ;
-    EditextSupreme edif2NdedoXclustxC19 ;
-    EditextSupreme edif2NdedoXclustxC20 ;
 
 
 
@@ -340,7 +348,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     EditextSupreme ediNdedoXclustXc16 ;
     EditextSupreme ediNdedoXclustXc17 ;
     EditextSupreme ediNdedoXclustXc18 ;
-    EditextSupreme ediNdedoXclustXc19 ;
     EditextSupreme ediNdedoXclustXc20 ;
 
     EditextSupreme ediCalByA1;
@@ -684,7 +691,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             //  getPakinkListMap(Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
 
 
-         //   Log.i("huevo","el ediPesoL1  es "+R.id.ediPesoL1);
+            //   Log.i("huevo","el ediPesoL1  es "+R.id.ediPesoL1);
         }else{//
 
             DowloadControlCalidad(Variables.idControCalidadToDowload);
@@ -751,12 +758,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20
+                edif2NdedoXclustxC18
 
                 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
                 ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 ,ediNdedoXclustXc7,
                 ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 , ediNdedoXclustXc14 ,
-                ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 , ediNdedoXclustXc19,ediNdedoXclustXc20 ,
+                ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 , ediNdedoXclustXcTotalAbajo,ediNdedoXclustXc20 ,
 
 
                 ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
@@ -839,9 +846,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                         //realizamos la opreacion con la info de los editext
-                        showResultNumClusteroManoProduct();
+                        setResultNumClusteroManoProduct();
                         showResultNumeroClusterxCajaProduct();
-                        showResultOfCalibraEntreBasalYapiclProduct();
+                        getCalibraEntreBasalYapiclProduct();
                         showResultlargoDedosPulgaPulpaApulpa();
                         configCertainSomeViewsAliniciar();
                         dowloadAllSelectDefectosPosiciones(Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
@@ -923,6 +930,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     private void findviewsIds() {
 
         //first views fields
+        ediNumPromedioDedsXcaja =findViewById(R.id.ediNumPromedioDedsXcaja);
+        ediTotalFila1z =findViewById(R.id.ediTotalFila1z);
+        ediTotalFila2z =findViewById(R.id.ediTotalFila2z);
+        ediRacimosCosech=findViewById(R.id.ediRacimosCosech);
         ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
         imgupdateInfo= findViewById(R.id.imgupdateInfo);
         txtTotalDefectSelect =findViewById(R.id.txtTotalDefectSelect);
@@ -1130,8 +1141,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         edif2NdedoXclust26=findViewById(R.id.edif2NdedoXclust26);
         edif2NdedoXclust27=findViewById(R.id.edif2NdedoXclust27);
         edif2NdedoXclust28=findViewById(R.id.edif2NdedoXclust28);
-      //  edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
-       // edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
+        //  edif2NdedoXclust29=findViewById(R.id.edif2NdedoXclust29);
+        // edif2NdedoXclust30=findViewById(R.id.edif2NdedoXclust30);
 
 
         edif2NdedoXclustxC1=findViewById(R.id.edif2NdedoXclustxC1);
@@ -1152,8 +1163,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         edif2NdedoXclustxC16=findViewById(R.id.edif2NdedoXclustxC16);
         edif2NdedoXclustxC17=findViewById(R.id.edif2NdedoXclustxC17);
         edif2NdedoXclustxC18=findViewById(R.id.edif2NdedoXclustxC18);
-        edif2NdedoXclustxC19=findViewById(R.id.edif2NdedoXclustTotalArriba);
-        edif2NdedoXclustxC20=findViewById(R.id.edif2NdedoXclustPromedio);
+        edif2NdedoXclustTotalArriba=findViewById(R.id.edif2NdedoXclustTotalArriba);
+        edif2NdedoXclustPromedio=findViewById(R.id.edif2NdedoXclustPromedio);
 
 
 
@@ -1178,7 +1189,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         ediNdedoXclustXc16=findViewById(R.id.ediNdedoXclustXc16);
         ediNdedoXclustXc17=findViewById(R.id.ediNdedoXclustXc17);
         ediNdedoXclustXc18=findViewById(R.id.ediNdedoXclustXc18);
-        ediNdedoXclustXc19=findViewById(R.id.ediNdedoXclustXcTotalAbajo);
+        ediNdedoXclustXcTotalAbajo=findViewById(R.id.ediNdedoXclustXcTotalAbajo);
         ediNdedoXclustXc20=findViewById(R.id.ediNdedoXclustXc20);
 
 
@@ -1306,6 +1317,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
     private void addListnners(){
+
+       // imgUpdatecAlfrutaEnfunde.setOnClickListener(this);
 
         imgSelecDefc1.setOnClickListener(this);
         imgSelecDefc2.setOnClickListener(this);
@@ -1447,7 +1460,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         calidadTotal=100-porcentajeDefectos;
 
 
-         Log.i("calidaddd","el value es "+calidadTotal);
+        Log.i("calidaddd","el value es "+calidadTotal);
 
         DecimalFormat df = new DecimalFormat("#.#");
 
@@ -1457,20 +1470,20 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     }
 
-     boolean chekIfInfoIsComplete()  {
+    boolean chekIfInfoIsComplete()  {
 
 
         int keysToAddData1[] ={R.id.imgSelecDefc1,R.id.imgSelecDefc2,R.id.imgSelecDefc3,R.id.imgSelecDefc4,R.id.imgSelecDefc5,
                 R.id.imgSelecDefc6,R.id.imgSelecDefc7 ,R.id.imgSelecDefc8,R.id.imgSelecDefc9,R.id.imgSelecDefc10} ;
 
 
-         EditextSupreme [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
+        EditextSupreme [] arrayPesoS = {ediPesoL1,ediPesoL2,ediPesoL3,ediPesoL4,ediPesoL5,ediPesoL6,ediPesoL7,ediPesoL8,ediPesoL9,ediPesoL10};
 
-       //  EditextSupreme [] arrayPhs = {ediPH1,ediPH2,ediPH3,ediPH4,ediPH5,ediPH6,ediPH7,ediPH7,ediPH8,ediPH9,ediPH10};
+        //  EditextSupreme [] arrayPhs = {ediPH1,ediPH2,ediPH3,ediPH4,ediPH5,ediPH6,ediPH7,ediPH7,ediPH8,ediPH9,ediPH10};
 
 
-         EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
-                 ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+        EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+                ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
 
 
         int keysToAddData2[] ={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,R.id.imvEmpaque5,
@@ -1501,10 +1514,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
             }
 
-             /**check defectos fruta */
+            /**check defectos fruta */
 
             else if(chekIfDefectosThisLineUserMarcoDefecto(String.valueOf(keysToAddData1[indice]))
-            && arrayPesoS[indice].getText().toString().isEmpty()  ){
+                    && arrayPesoS[indice].getText().toString().isEmpty()  ){
                 arrayPesoS[indice].requestFocus();
                 arrayPesoS[indice].setError("Falta este valor");
                 return false;
@@ -1546,17 +1559,17 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         }
 
-      return true;
+        return true;
     }
 
 
 
-private boolean chekIfDefectosThisLineUserMarcoDefecto(String key){
+    private boolean chekIfDefectosThisLineUserMarcoDefecto(String key){
         ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb.get(key);
         for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
 
             if(currentList.get(indice)){ //si es verdadero
-               return true;
+                return true;
 
             }
 
@@ -1564,10 +1577,10 @@ private boolean chekIfDefectosThisLineUserMarcoDefecto(String key){
 
 
 
-return false;
+        return false;
 
 
-}
+    }
 
 
 
@@ -1629,6 +1642,9 @@ return false;
 
 
         switch (view.getId()) {
+
+
+
 
 
             case R.id.ediTimeHoraxx1:
@@ -1705,19 +1721,21 @@ return false;
 
 
             case R.id.imgUpdateCalibBasalYapical:
-                showResultOfCalibraEntreBasalYapiclProduct();
+                getCalibraEntreBasalYapiclProduct();
 
 
                 break;
 
             case R.id.imgUpdateNumClusterxCaja:
-                showResultNumeroClusterxCajaProduct();
+                getNumeroClusterxCajaProduct();
+
+                // getNumeroClusterxCajaProduct();
 
                 break;
 
 
             case R.id.imgUpdateNumDedxClust:
-                showResultNumClusteroManoProduct();
+                setResultNumClusteroManoProduct();
                 break;
 
 
@@ -1732,6 +1750,8 @@ return false;
                 muestraaLLResults();
                 showsumDfectsSelected();
                 generatePercentAndCountValuesCheked(numeroClustersInspecc);
+                getResultDatCalibCalEnfundes();
+
 
                 break;
 
@@ -1760,6 +1780,106 @@ return false;
         }
 
     }
+
+
+
+
+    private boolean getResultDatCalibCalEnfundes(){
+
+
+
+        if(ediRacimosCosech.getText().toString().trim().isEmpty()){
+            ediRacimosCosech.requestFocus();
+            ediRacimosCosech.setError("Este valor es necesesario");
+
+            return false;
+
+        }
+
+
+        EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        EditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        EditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        EditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        EditText ediPorc14=findViewById(R.id.ediPorc14);
+        EditText ediPorc13=findViewById(R.id.ediPorc13);
+        EditText ediPorc12=findViewById(R.id.ediPorc12);
+        EditText ediPorc11=findViewById(R.id.ediPorc11);
+        EditText ediPorc10=findViewById(R.id.ediPorc10);
+        EditText ediPorc9 =findViewById(R.id.ediPorc9);
+
+
+
+
+        int numRacimosCosechados=Integer.parseInt(ediRacimosCosech.getText().toString());
+        float resultpercente;
+        android.icu.text.DecimalFormat format = new android.icu.text.DecimalFormat("#.##");
+
+        int numeroRacimosContador=0;
+
+        //numero de raCimos
+        EditText [] miArrayNUmrACIMOS ={ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9};
+
+        EditText [] miArraypORCENTAHJES ={ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPorc9};
+
+        for(int i=0; i<miArrayNUmrACIMOS.length; i++){
+
+            if(!miArrayNUmrACIMOS[i].getText().toString().trim().isEmpty())
+            {        ///tiene que ser mayor a cero
+                if(Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString())>0)
+                {  //operamoss
+                    resultpercente= (Float.parseFloat(miArrayNUmrACIMOS[i].getText().toString())/numRacimosCosechados)*100;
+
+                    String promDecim=format.format(resultpercente)   ;
+                    miArraypORCENTAHJES[i].setText(promDecim);
+
+                    //sumaoslos racimos totale
+                    numeroRacimosContador=numeroRacimosContador+Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString());
+
+
+
+                }
+
+            }
+
+
+        }
+
+
+
+        //calculo aqwui
+
+        if(numeroRacimosContador!=numRacimosCosechados){
+
+            Snackbar.make(ediRacimosCosech, "El numero de racimos no concuerda con el numero de racimos cosechados", Snackbar.LENGTH_LONG)
+                    .show();
+
+            Log.i("dataracimos","no coincide");
+
+            return false;
+
+
+
+
+        }
+
+        else {
+            Log.i("dataracimos","SI coincide");
+
+            return true;
+
+
+
+        }
+
+
+
+    }
+
     void selecionaFecha(){
 
 
@@ -1790,8 +1910,93 @@ return false;
 
 
 
+    private void getNumeroClusterxCajaProduct() {
+
+        float sumaFilasArriba=0;
+        float sumaFilasAbajo=0;
+
+
+        final int [] arrayNJumsTOmult = {9,10,11,12,13,14,15,16,17,18,19,20,21,
+                22,23,24,25,26  } ;
+
+        EditextSupreme [] arrayEditsFilaArriba = { edif2NdedoXclustxC1	, edif2NdedoXclustxC2	, edif2NdedoXclustxC3	,
+                edif2NdedoXclustxC4	, edif2NdedoXclustxC5, edif2NdedoXclustxC6	, edif2NdedoXclustxC7	,
+                edif2NdedoXclustxC8	, edif2NdedoXclustxC9, edif2NdedoXclustxC10, edif2NdedoXclustxC11, edif2NdedoXclustxC12,
+                edif2NdedoXclustxC13, edif2NdedoXclustxC14, edif2NdedoXclustxC15, edif2NdedoXclustxC16,
+                edif2NdedoXclustxC17, edif2NdedoXclustxC18
+        };
+
+
+        EditextSupreme [] arrayEditsFilaAbajo = {
+                ediNdedoXclustXc1, ediNdedoXclustXc2, ediNdedoXclustXc3	, ediNdedoXclustXc4	,ediNdedoXclustXc5,
+                ediNdedoXclustXc6, ediNdedoXclustXc7, ediNdedoXclustXc8	, ediNdedoXclustXc9	,ediNdedoXclustXc10
+                , ediNdedoXclustXc11, ediNdedoXclustXc12, ediNdedoXclustXc13, ediNdedoXclustXc14
+                , ediNdedoXclustXc15, ediNdedoXclustXc16, ediNdedoXclustXc17, ediNdedoXclustXc18
+
+        };
+
+
+        for (int i = 0; i < arrayNJumsTOmult.length; i++) {
+
+            int productResult =0;
+
+
+            if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
+
+                arrayEditsFilaAbajo [i].getText().clear();
+
+            }
+
+
+            else {
+
+
+                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+
+                arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+
+
+                sumaFilasArriba=sumaFilasArriba+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+
+                sumaFilasAbajo=sumaFilasAbajo+Integer.parseInt(arrayEditsFilaAbajo[i].getText().toString());
+
+
+            }
+            //aqui mostramos el resultado..
+
+
+
+            String resultado=df.format(sumaFilasAbajo/sumaFilasArriba);
+
+
+
+            edif2NdedoXclustTotalArriba.setText(String.valueOf((int)sumaFilasArriba));
+            ediNdedoXclustXcTotalAbajo.setText(String.valueOf((int)sumaFilasAbajo));
+
+            edif2NdedoXclustPromedio.setText(resultado);
+
+
+
+
+
+        }
+
+
+    }
 
     private void getlargoDedosPulgaPulpaApulpa() {
+
+
+        EditextSupreme ediLargDedPulpTotalFila1=findViewById(R.id.ediLargDedPulpTotalFila1);
+        EditextSupreme ediLargDedPulpTotalFila2=findViewById(R.id.ediLargDedPulpTotalFila2);
+        EditextSupreme ediPromedioPulpP=findViewById(R.id.ediPromedioPulpP);
+
+        double resultFila1=0;
+        double resultFila2=0;
+
+
+
+
 
 
         double [][] decimalsToMultiplicar = {
@@ -1849,12 +2054,12 @@ return false;
 
                 else {
 
-                    double result= currentDecimalArray[indice] * Integer.parseInt(currentArrayofContainsDataNums[indice].getText().toString());
+                    double result= currentDecimalArray[indice] * Double.parseDouble(currentArrayofContainsDataNums[indice].getText().toString());
 
 
                     if(String.valueOf(result).length() >5)  {
-                        double roundDbl = Math.round(result*100.0)/100.0;
-                        result= roundDbl;
+                        result = Math.round(result*100.0)/100.0;
+
                     }
                     Log.i("dfgdf","el value es sssss "+String.valueOf(result))  ;
 
@@ -1874,15 +2079,22 @@ return false;
 
                     }
 
+                    resultFila1=resultFila1+ Double.parseDouble(currentArrayofContainsDataNums[indice].getText().toString());
+                    resultFila2=resultFila2+result;
 
+
+
+                    ediLargDedPulpTotalFila1.setText( df.format(resultFila1));
+                    ediLargDedPulpTotalFila2.setText( df.format(resultFila2));
+
+                    double promedio=resultFila2/resultFila1;
+
+                    ediPromedioPulpP.setText( df.format(promedio));
 
                     // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
                     //colcamos este texto en el editext
 
-
                 }
-
-
 
             }
 
@@ -2325,7 +2537,11 @@ return false;
 
     }
 
-    private void showResultNumClusteroManoProduct() {
+    private void setResultNumClusteroManoProduct() {
+
+        float sumaItemsFilaArriba=0;
+        float sumaItemsFilaAbajo=0;
+
 
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26,27,28,29,30  } ;
@@ -2337,7 +2553,7 @@ return false;
                 ,	ediNdedoXclust16,	ediNdedoXclust17,ediNdedoXclust18,	ediNdedoXclust19
                 ,	ediNdedoXclust20,	ediNdedoXclust21,ediNdedoXclust22,	ediNdedoXclust23,
                 ediNdedoXclust24,	ediNdedoXclust25,	ediNdedoXclust26,	ediNdedoXclust27,
-                ediNdedoXclust28,ediNdedoXclust29, ediNdedoXclust30 };
+                ediNdedoXclust28,ediNdedoXclust29, ediNumPromedioDedsXcaja};
 
 
         EditextSupreme [] arrayEditsFilaAbajo = {
@@ -2347,8 +2563,8 @@ return false;
                 edif2NdedoXclust13	, edif2NdedoXclust14, edif2NdedoXclust15, edif2NdedoXclust16,
                 edif2NdedoXclust17	, edif2NdedoXclust18, edif2NdedoXclust19, edif2NdedoXclust20,
                 edif2NdedoXclust21	, edif2NdedoXclust22, edif2NdedoXclust23, edif2NdedoXclust24,
-                edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28
-               // edif2NdedoXclust29	, edif2NdedoXclust30,
+                edif2NdedoXclust25	, edif2NdedoXclust26, edif2NdedoXclust27, edif2NdedoXclust28,
+                // edif2NdedoXclust29	// edif2NdedoXclust30,
 
         };
 
@@ -2364,16 +2580,32 @@ return false;
             }
 
 
-            else {
+            else { //aqui hacemos la multiplicacion..
 
 
                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+
+
+                sumaItemsFilaArriba=sumaItemsFilaArriba + Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+
+                sumaItemsFilaAbajo=sumaItemsFilaAbajo + Integer.parseInt(arrayEditsFilaAbajo[i].getText().toString());
+
             }
 
 
 
         }
+
+
+
+        float result=sumaItemsFilaAbajo/sumaItemsFilaArriba;
+
+
+        String resul= df.format(result)+" %";
+
+        ediNumPromedioDedsXcaja.setText(resul);
+        //por aqwuinmostyramos s
 
     }
 
@@ -2434,11 +2666,16 @@ return false;
 
     }
 
-    private void showResultOfCalibraEntreBasalYapiclProduct() {
+    private void getCalibraEntreBasalYapiclProduct() {
 
-        //9-26
+        EditextSupreme ediPromediozx=findViewById(R.id.ediPromediozx);
 
         final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
+
+
+
+        float totalFila1=0;
+        float totalFial2=0;
 
 
         EditextSupreme [] arrayEditsFilaArriba = { ediCalByA1	,
@@ -2493,9 +2730,20 @@ return false;
 
                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+
+
+                totalFila1=totalFila1+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+                totalFial2=totalFial2+productResult;
+
+
             }
 
 
+
+            ediTotalFila1z.setText(String.valueOf((int)totalFila1));
+            ediTotalFila2z.setText(String.valueOf((int)totalFial2));
+            String promedio=df.format(totalFial2/totalFila1);
+            ediPromediozx.setText(promedio);
 
 
 
@@ -2643,14 +2891,14 @@ return false;
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20
+                edif2NdedoXclustxC18
 
 
                 , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
                 ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
                 , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
                 ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-                ediNdedoXclustXc19 , ediNdedoXclustXc20
+                ediNdedoXclustXcTotalAbajo , ediNdedoXclustXc20
 
 
 
@@ -2797,7 +3045,7 @@ return false;
                 edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                 edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
                 edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustxC19 , edif2NdedoXclustxC20
+                edif2NdedoXclustxC18
 
 
         };
@@ -2894,7 +3142,7 @@ return false;
 
 
 
-return true;
+        return true;
 
     }
 
@@ -3167,10 +3415,10 @@ return true;
 
         //aqui llamaos para mostrra el reuslt...
 
-        showResultNumClusteroManoProduct();
+        setResultNumClusteroManoProduct();
         getlargoDedosPulgaPulpaApulpa();
         showResultNumeroClusterxCajaProduct();
-        showResultOfCalibraEntreBasalYapiclProduct();
+        getCalibraEntreBasalYapiclProduct();
 
 
 

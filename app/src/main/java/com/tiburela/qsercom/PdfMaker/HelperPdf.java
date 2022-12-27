@@ -2071,18 +2071,20 @@ if(contadorProductsPostCosecha>10){
 
         Log.i("debugderor","el calidad total es "+CALIDAD_TOTAL);
 
-        TableCalidProdc.add(new TableCalidProdc(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),objecControlCald.getTotalCajas(),CALIDAD_TOTAL, objecControlCald.getCodigo()));
+        TableCalidProdc.add(new TableCalidProdc(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),objecControlCald.getTotalCajas(),CALIDAD_TOTAL, objecControlCald.getCodigo(),
+                objecControlCald.getMarcaCaja()));
 
 
-
-
-       Table table1 =  createTableWhitDateEvaluacionFrura(objecControlCald.getTipoEmpaque()+" "+objecControlCald.getMarcaCaja(),df.format(PROMEDIO_PESO),
+       Table table1 =  createTableWhitDateEvaluacionFrura(objecControlCald.getMarcaCaja(),df.format(PROMEDIO_PESO),
                df.format(CALIDAD_TOTAL)+"%",df.format(PORCENTAJE_DE_DEFECTOS)+"%",String.valueOf(NUMERO_DEFECTS),String.valueOf(MAYOR_DEFECTO_SELECCION),
                String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+"%",
                df.format(LARGO_DEDOS_PROMEDIO)+"%",String.valueOf(2) //estaba en PH_PROMEDIO
                );
 
         return table1;
+
+
+
     }
 
 
@@ -2292,7 +2294,7 @@ if(contadorProductsPostCosecha>10){
 
 
                 celdaGlobal= new Cell().setBackgroundColor(rgbColor);
-                celdaGlobal.add(new Paragraph(itemCurrent.getTipoEmpaque()).setFontSize(7.5f).setPaddingLeft(5f));
+                celdaGlobal.add(new Paragraph(itemCurrent.getNombreMarcaDeCaja()).setFontSize(7.5f).setPaddingLeft(5f));
                 table.addCell(celdaGlobal);
 
 
@@ -2814,7 +2816,7 @@ if(contadorProductsPostCosecha>10){
 
 
 
-    public static Table devulveTablaToLibriado(ArrayList<PromedioLibriado> listLibriado){
+    public static Table devulveTablaToLibriado(ArrayList<PromedioLibriado> listLibriado,String nameMarcaOtherHere){
       //reoredenamos lis libriado aqui desde el 1
 
 /*
@@ -2842,18 +2844,24 @@ if(contadorProductsPostCosecha>10){
 
       //cremaos la celda del titulo
 
-        miParagraph= new Paragraph("Marca Aqui y nombre").setTextAlignment(TextAlignment.CENTER);
+        miParagraph= new Paragraph("2.- PESO PROMEDIO CLÚSTER").setTextAlignment(TextAlignment.LEFT);
+        miCelda= new Cell(1,2).setBorder(Border.NO_BORDER);
+        miCelda.add(miParagraph);
+        mitab.addCell(miCelda);
+
+
+        miParagraph= new Paragraph(nameMarcaOtherHere).setTextAlignment(TextAlignment.CENTER).setBold();
         miCelda= new Cell(1,2);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
 
-        miParagraph= new Paragraph("NUMERO DE CLUSTERS").setTextAlignment(TextAlignment.CENTER);
+        miParagraph= new Paragraph("NÚMERO DE CLUSTERS").setTextAlignment(TextAlignment.CENTER).setBold();
         miCelda= new Cell(1,1);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
 
 
-        miParagraph= new Paragraph("PESO").setTextAlignment(TextAlignment.CENTER);
+        miParagraph= new Paragraph("PESO").setTextAlignment(TextAlignment.CENTER).setBold();
         miCelda= new Cell(1,1);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
@@ -2880,7 +2888,7 @@ if(contadorProductsPostCosecha>10){
       }
 
 
-        miParagraph= new Paragraph("Total").setTextAlignment(TextAlignment.CENTER);
+        miParagraph= new Paragraph("Total").setTextAlignment(TextAlignment.CENTER).setBold();
         miCelda= new Cell(1,1);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
@@ -2894,7 +2902,7 @@ if(contadorProductsPostCosecha>10){
         mitab.addCell(miCelda);
 
 
-        miParagraph= new Paragraph("Prom. Peso(Libras)").setTextAlignment(TextAlignment.CENTER);
+        miParagraph= new Paragraph("Prom. Peso(Libras)").setTextAlignment(TextAlignment.CENTER).setBold();
         miCelda= new Cell(1,1);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
