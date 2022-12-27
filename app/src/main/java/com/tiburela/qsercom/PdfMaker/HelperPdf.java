@@ -40,10 +40,12 @@ import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsCantdad;
 import com.tiburela.qsercom.models.NameAndValue;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -55,7 +57,10 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class HelperPdf {
 
@@ -2805,4 +2810,108 @@ if(contadorProductsPostCosecha>10){
 
        return table1;
     }
+
+
+
+
+    public static Table devulveTablaToLibriado(ArrayList<PromedioLibriado> listLibriado){
+      //reoredenamos lis libriado aqui desde el 1
+
+/*
+            ArrayList<PromedioLibriado> sortedUsers = (ArrayList<PromedioLibriado>) listLibriado.stream()
+                    .sorted(Comparator.comparing(PromedioLibriado::clusterNum))
+                    .collect(Collectors.toList());
+
+*/
+
+        Collections.sort(listLibriado, new Comparator<PromedioLibriado>()
+        {
+            @Override
+            public int compare(PromedioLibriado lhs, PromedioLibriado rhs) {
+
+                return Integer.valueOf(lhs.clusterNum).compareTo(rhs.clusterNum);
+            }
+        });
+
+
+
+      Table mitab= new Table(2);
+      Cell miCelda;
+      Paragraph miParagraph;
+
+
+      //cremaos la celda del titulo
+
+        miParagraph= new Paragraph("Marca Aqui y nombre").setTextAlignment(TextAlignment.CENTER);
+        miCelda= new Cell(1,2);
+        miCelda.add(miParagraph);
+        mitab.addCell(miCelda);
+
+        miParagraph= new Paragraph("NUMERO DE CLUSTERS").setTextAlignment(TextAlignment.CENTER);
+        miCelda= new Cell(1,1);
+        miCelda.add(miParagraph);
+        mitab.addCell(miCelda);
+
+
+        miParagraph= new Paragraph("PESO").setTextAlignment(TextAlignment.CENTER);
+        miCelda= new Cell(1,1);
+        miCelda.add(miParagraph);
+        mitab.addCell(miCelda);
+
+        DecimalFormat dcx= new DecimalFormat("#.##");
+
+
+          float totalPeso=0;
+
+        for(PromedioLibriado num: listLibriado){
+          miParagraph= new Paragraph(String.valueOf(num.clusterNum)).setTextAlignment(TextAlignment.CENTER);
+          miCelda= new Cell(1,1);
+          miCelda.add(miParagraph);
+          mitab.addCell(miCelda);
+
+
+          miCelda= new Cell(1,1);
+          miParagraph= new Paragraph(String.valueOf(dcx.format(num.numPromedio))).setTextAlignment(TextAlignment.CENTER);
+          miCelda.add(miParagraph);
+          mitab.addCell(miCelda);
+
+          totalPeso=totalPeso+num.numPromedio;
+
+      }
+
+
+        miParagraph= new Paragraph("Total").setTextAlignment(TextAlignment.CENTER);
+        miCelda= new Cell(1,1);
+        miCelda.add(miParagraph);
+        mitab.addCell(miCelda);
+
+
+
+        DecimalFormat dc= new DecimalFormat("#.##");
+        miParagraph= new Paragraph(dc.format(totalPeso)).setTextAlignment(TextAlignment.CENTER).setBold();
+        miCelda= new Cell(1,1);
+        miCelda.add(miParagraph);
+        mitab.addCell(miCelda);
+
+
+        miParagraph= new Paragraph("Prom. Peso(Libras)").setTextAlignment(TextAlignment.CENTER);
+        miCelda= new Cell(1,1);
+        miCelda.add(miParagraph);
+        mitab.addCell(miCelda);
+
+
+         ///Y AQUI SACAMOS EL PROMEDIO
+        float promedio=totalPeso/listLibriado.size();
+        miParagraph= new Paragraph(dc.format(promedio)).setTextAlignment(TextAlignment.CENTER).setBold();
+        DeviceRgb  rgbColor= new DeviceRgb(239, 252, 30); //color
+        miCelda= new Cell(1,1).setBackgroundColor(rgbColor);
+        miCelda.add(miParagraph);
+        mitab.addCell(miCelda);
+
+
+        return mitab;
+
+    }
+
+
 }

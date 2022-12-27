@@ -350,6 +350,16 @@ if(hayFILE){
     public void createPDFContenedores() throws Exception {
 
 
+        //prueba now
+
+       int sizedd= Variables.listPromedioLibriado.size();
+
+        Log.i("superman","el size de libriado es  "+sizedd);
+
+
+
+
+
         String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         //doble chekeo si la current canvas object no fue terminada la finalizamos
         // pdfDocument.finishPage(currentPagePdfObjec) ;
@@ -362,7 +372,6 @@ if(hayFILE){
 
         HelperPdf.initFontx();
 
-      Log.i("debian","sellamoaqui");
 
 
         OutputStream estrema =new FileOutputStream(file);
@@ -954,6 +963,24 @@ midocumentotoAddData.add(new Paragraph("Tabla1.- descripción de porcentaje de c
      //   miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
 
 
+
+        /**libriado**/
+
+
+        if(Variables.listPromedioLibriado.size()>0){ //si hay libriado
+
+            midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLUSTER,").
+                    setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+
+            table1=HelperPdf.devulveTablaToLibriado(Variables.listPromedioLibriado);
+            HelperPdf.configTableMaringAndWidth(table1,sizeTable-200);
+
+            midocumentotoAddData.add(table1);
+
+            Log.i("miodataxx","es mayor a cero");
+
+
+        }
 
 
 

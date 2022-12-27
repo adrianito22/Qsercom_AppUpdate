@@ -49,7 +49,8 @@
                         android:background="@drawable/back_edit"
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil11" />
 
                     <EditText
 
@@ -61,7 +62,8 @@
                         android:background="@drawable/back_edit"
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil11" />
 
                     <EditText
                         android:id="@+id/p2pbCluster03"
@@ -75,7 +77,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil11" />
 
                     <EditText
                         android:id="@+id/p2pbCluster02"
@@ -89,7 +92,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil11" />
 
                     <EditText
                         android:id="@+id/p2pbCluster04"
@@ -103,7 +107,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil11" />
 
                 </LinearLayout>
 
@@ -134,7 +139,8 @@
                         android:gravity="center_horizontal"
 
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil12" />
 
                     <EditText
                         android:id="@+id/p2pbCluster09"
@@ -148,7 +154,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil12" />
 
                     <EditText
                         android:id="@+id/p2pbCluster07"
@@ -162,7 +169,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil12" />
 
                     <EditText
                         android:id="@+id/p2pbCluster08"
@@ -176,7 +184,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil12" />
 
                     <EditText
                         android:id="@+id/p2pbCluster06"
@@ -190,7 +199,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil12" />
 
                 </LinearLayout>
 
@@ -222,7 +232,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil13" />
 
                     <EditText
                         android:id="@+id/p2pbCluster015"
@@ -238,7 +249,8 @@
                         android:inputType="number"
 
 
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil13" />
 
                     <EditText
                         android:id="@+id/p2pbCluster012"
@@ -252,7 +264,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil13" />
 
                     <EditText
                         android:id="@+id/p2pbCluster013"
@@ -266,7 +279,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil13" />
 
                     <EditText
                         android:id="@+id/p2pbCluster014"
@@ -280,7 +294,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil13" />
 
                 </LinearLayout>
 
@@ -313,7 +328,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil14" />
 
                     <EditText
                         android:id="@+id/p2pbCluster019"
@@ -327,7 +343,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil14" />
 
                     <EditText
                         android:id="@+id/p2pbCluster018"
@@ -341,7 +358,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil14" />
 
                     <EditText
                         android:id="@+id/p2pbCluster020"
@@ -357,7 +375,8 @@
                         android:inputType="number"
 
 
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil14" />
 
                     <EditText
                         android:id="@+id/p2pbCluster017"
@@ -371,7 +390,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil14" />
 
                 </LinearLayout>
 
@@ -403,7 +423,8 @@
                         android:gravity="center_horizontal"
 
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil15" />
 
                     <EditText
                         android:id="@+id/p2pbCluster024"
@@ -417,7 +438,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil15" />
 
                     <EditText
                         android:id="@+id/p2pbCluster023"
@@ -431,7 +453,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil15" />
 
                     <EditText
                         android:id="@+id/p2pbCluster022"
@@ -445,7 +468,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil15" />
 
                     <EditText
                         android:id="@+id/p2pbCluster021"
@@ -459,7 +483,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil15" />
 
                 </LinearLayout>
 
@@ -491,7 +516,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil16" />
 
                     <EditText
                         android:id="@+id/p2pbCluster027"
@@ -505,7 +531,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil16" />
 
                     <EditText
                         android:id="@+id/p2pbCluster029"
@@ -519,7 +546,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil16" />
 
                     <EditText
                         android:id="@+id/p2pbCluster026"
@@ -533,7 +561,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil16" />
 
                     <EditText
                         android:id="@+id/p2pbCluster030"
@@ -549,7 +578,8 @@
 
 
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil16" />
 
                 </LinearLayout>
 
@@ -581,7 +611,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster031"
@@ -595,7 +626,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster035"
@@ -611,7 +643,8 @@
                         android:inputType="number"
 
 
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster033"
@@ -625,7 +658,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster032"
@@ -639,7 +673,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil17" />
 
                 </LinearLayout>
 
@@ -671,7 +706,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil18" />
 
                     <EditText
                         android:id="@+id/p2pbCluster040"
@@ -687,7 +723,8 @@
                         android:inputType="number"
 
 
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil18" />
 
                     <EditText
                         android:id="@+id/p2pbCluster037"
@@ -701,7 +738,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil18" />
 
                     <EditText
                         android:id="@+id/p2pbCluster038"
@@ -715,7 +753,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
+                        android:padding="7dp"
+                        android:tag="fil18" />
 
                     <EditText
                         android:id="@+id/p2pbCluster036"
@@ -729,186 +768,8 @@
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:padding="7dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:text="PESO BRUTO POR CLUSTER Nº19" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster043"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster045"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
                         android:padding="7dp"
-                        android:textAllCaps="false" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster042"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster041"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster044"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:text="PESO BRUTO POR CLUSTER Nº20" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster048"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster046"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster050"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp"
-
-                        />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster047"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp" />
-
-                    <EditText
-                        android:id="@+id/p2pbCluster049"
-
-
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:padding="7dp" />
+                        android:tag="fil18" />
 
                 </LinearLayout>
 

@@ -81,6 +81,7 @@ import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -107,70 +108,69 @@ import java.util.Objects;
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
 
-String currentIDcUDORmUESTREO;
- final int   PICK_IMG=590;
-
+    String currentIDcUDORmUESTREO;
+    final int PICK_IMG = 590;
+    LinearLayout layoutPesobrutoPorClusterSolo;
+    LinearLayout layPesoBruto2;
+    LinearLayout layPesoBruto1;
     ProgressDialog progress;
 
-        ArrayList <String>listImagesToDelete= new ArrayList<>();
+    ArrayList<String> listImagesToDelete = new ArrayList<>();
 
 
-        Button btnGuardarCambiosmARKrREVISADO;
+    Button btnGuardarCambiosmARKrREVISADO;
 
-    TextInputEditText ediExportadoraProcesada ;
+    TextInputEditText ediExportadoraProcesada;
     TextInputEditText ediExportadoraSolicitante;
-    TextInputEditText ediMarca ;
+    TextInputEditText ediMarca;
 
-    private static final int PERMISSION_REQUEST_CODE=100;
+    private static final int PERMISSION_REQUEST_CODE = 100;
     ProductPostCosecha products;
     private String UNIQUE_ID_iNFORME;
-    ProductPostCosecha productxGlobal=null;
+    ProductPostCosecha productxGlobal = null;
     ProgressDialog pdialogff;
     public static Context context;
     private int contadorIterador;
-    private boolean isModEdicionFields=false;
-    private boolean esFirstCharge=true;
-   private Switch swAguaCorrida,switchLavdoRacimos;
-   private Spinner spFuenteAgua;
-   private Spinner spFumigaCorL1;
+    private boolean isModEdicionFields = false;
+    private boolean esFirstCharge = true;
+    private Switch swAguaCorrida, switchLavdoRacimos;
+    private Spinner spFuenteAgua;
+    private Spinner spFumigaCorL1;
     ImageView imgAtachVinculacion;
     RecyclerView reciclerViewBottomSheet;
-    TextView    txtAdviseer;
+    TextView txtAdviseer;
     TextView txtAdviserDesvicunlar;
-    ArrayList<ControlCalidad> listFormsControlCalidad =new ArrayList<>();
-    ArrayList<CuadroMuestreo> listCuadrosMuestreos =new ArrayList<>();
+    ArrayList<ControlCalidad> listFormsControlCalidad = new ArrayList<>();
+    ArrayList<CuadroMuestreo> listCuadrosMuestreos = new ArrayList<>();
 
-    HashMap<String,CuadroMuestreo> mapCudroMuestreo =new HashMap<>();
-    HashMap<String,ControlCalidad> mapControlCalidad =new HashMap<>();
-
+    HashMap<String, CuadroMuestreo> mapCudroMuestreo = new HashMap<>();
+    HashMap<String, ControlCalidad> mapControlCalidad = new HashMap<>();
 
 
     TextView txtNumReportsVinclds;
 
 
-    ArrayList<CheckedAndAtatch> checkedListForms =new ArrayList<>();
-   private     long millisDateSelect=0;
+    ArrayList<CheckedAndAtatch> checkedListForms = new ArrayList<>();
+    private long millisDateSelect = 0;
     BottomSheetDialog bottomSheetDialog;
 
-   private Spinner spTipoBoquilla;
-    private static int currentTypeImage=0;
+    private Spinner spTipoBoquilla;
+    private static int currentTypeImage = 0;
     ProgressBar progressBarFormulario;
     private Context mContext;
 
 
-   Button btnGENERARpdf;
-    FloatingActionButton fab ;
+    Button btnGENERARpdf;
+    FloatingActionButton fab;
 
     TextInputEditText ediCjasProcesDespacha;
-    TextInputEditText  ediInspectorAcopio;
+    TextInputEditText ediInspectorAcopio;
     TextInputEditText ediExtCalid;
-    TextInputEditText  ediExtRodillo;
+    TextInputEditText ediExtRodillo;
     TextInputEditText ediExtGancho;
     TextInputEditText ediExtCalidCi;
     TextInputEditText ediExtRodilloCi;
     TextInputEditText ediExtGanchoCi;
-
-
 
 
     TextInputEditText ediSemana;
@@ -257,7 +257,7 @@ String currentIDcUDORmUESTREO;
     TextInputEditText ediOtherSellos;
     TextInputEditText ediEnsunchado;
     TextInputEditText ediBalanzaRepeso;
-     TextInputEditText ediNumContenedor;
+    TextInputEditText ediNumContenedor;
 
     TextInputEditText ediFuenteAgua;
     TextInputEditText ediAguaCorrida;
@@ -279,13 +279,13 @@ String currentIDcUDORmUESTREO;
     LinearLayout linLayoutHeader7;
     LinearLayout linLayoutHeader8;
 
-           Spinner spinnerSelectZona;
+    Spinner spinnerSelectZona;
     Spinner spinnerCondicionBalanza;
     Spinner spinnertipoCaja;
     Spinner spinnertipodePlastico;
-    Spinner spinnertipodeBlanza ;
-    Spinner spinnertipodeBlanzaRepeso ;
-    Spinner spinnerubicacionBalanza ;
+    Spinner spinnertipodeBlanza;
+    Spinner spinnertipodeBlanzaRepeso;
+    Spinner spinnerubicacionBalanza;
 
 
     Switch switchContenedor;
@@ -311,17 +311,16 @@ String currentIDcUDORmUESTREO;
     ImageView imbTakePicPrPostcosecha;
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
 
-        Log.i("lifeclicel","se llamo metoo onstart ");
+        Log.i("lifeclicel", "se llamo metoo onstart ");
 
-        Variables.VienedePreview=true;
+        Variables.VienedePreview = true;
 
-      //  Auth.initAuth(ActivityContenedoresPrev.this);
-       // Auth.signInAnonymously(ActivityContenedoresPrev.this);
+        //  Auth.initAuth(ActivityContenedoresPrev.this);
+        // Auth.signInAnonymously(ActivityContenedoresPrev.this);
 
         try {
             progress.dismiss();
@@ -331,77 +330,74 @@ String currentIDcUDORmUESTREO;
         }
 
 
-        if(esFirstCharge){
-                   findViewsIds();
+        if (esFirstCharge) {
+            findViewsIds();
 
-                   context = getApplicationContext();
-
-
-                   UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinforme();
-
-                    StorageData.uniqueIDImagesSetAndUInforme= Variables.CurrenReportPart1.getUniqueIDinforme();
+            context = getApplicationContext();
 
 
+            UNIQUE_ID_iNFORME = Variables.CurrenReportPart1.getUniqueIDinforme();
 
-                   // FirebaseApp.initializeApp(this);
-                   //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
-
-                   Auth.initAuth(this);
+            StorageData.uniqueIDImagesSetAndUInforme = Variables.CurrenReportPart1.getUniqueIDinforme();
 
 
-                   RealtimeDB.initDatabasesRootOnly();
-                   StorageData. initStorageReference();
+            // FirebaseApp.initializeApp(this);
+            //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
+
+            Auth.initAuth(this);
 
 
-                   listViewsClickedUser=new ArrayList<>();
+            RealtimeDB.initDatabasesRootOnly();
+            StorageData.initStorageReference();
 
 
-                   addClickListeners();
-                  // resultatachImages();
-                   listennersSpinners();
-
-                  // EstateFieldView.adddataListsStateFields();
-                   addOnTouchaMayoriaDeViews();
-                   eventCheckdata();
-                   //creaFotos();
-                   listennersSpinners();
-                   checkModeVisualitY();
-
-                   configCertainSomeViewsAliniciar();
+            listViewsClickedUser = new ArrayList<>();
 
 
+            addClickListeners();
+            // resultatachImages();
+            listennersSpinners();
+
+            // EstateFieldView.adddataListsStateFields();
+            addOnTouchaMayoriaDeViews();
+            eventCheckdata();
+            //creaFotos();
+            listennersSpinners();
+            checkModeVisualitY();
+
+            configCertainSomeViewsAliniciar();
 
 
-                   esFirstCharge=false;
-}
+            esFirstCharge = false;
+        }
 
- 
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // progressDialog=progressDialog
+        // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
-        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString ="";//reseteamos
+        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
 
-        ImagenReport.hashMapImagesData=new HashMap<>();
-
-
-        Log.i("imagebrr","probandodebug");
+        ImagenReport.hashMapImagesData = new HashMap<>();
 
 
-        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado ="";
-
-        Utils.userDecidioNoVincularAhora =false;
+        Log.i("imagebrr", "probandodebug");
 
 
-        Variables.copiamosData=false;
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
-        mContext=this;
+        Utils.userDecidioNoVincularAhora = false;
+
+
+        Variables.copiamosData = false;
+
+        mContext = this;
 
 //        RecyclerViewAdapLinkage.idsFormsVinucladosCntres=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
-        Variables.activityCurrent=Variables.FormPreviewContenedores;
+        Variables.activityCurrent = Variables.FormPreviewContenedores;
 
 
         /*
@@ -443,68 +439,43 @@ String currentIDcUDORmUESTREO;
     }
 
 
-
-
-
-    void showingTimePicker( View vista){
+    void showingTimePicker(View vista) {
 
 
         final Calendar cldr = Calendar.getInstance();
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
         // time picker dialog
-        TimePickerDialog  picker = new TimePickerDialog(ActivityContenedoresPrev.this,
+        TimePickerDialog picker = new TimePickerDialog(ActivityContenedoresPrev.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
 
-                        if(vista.getId()==R.id.ediHoraInicio) {
+                        if (vista.getId() == R.id.ediHoraInicio) {
                             ediHoraInicio.setText(sHour + ":" + sMinute);
 
 
-                        }
-
-
-                        else if (vista.getId()== R.id.ediHoraTermino) {
+                        } else if (vista.getId() == R.id.ediHoraTermino) {
                             ediHoraTermino.setText(sHour + ":" + sMinute);
 
 
-                        }
-
-
-
-                        else if (vista.getId()== R.id.ediHoraLLegadaContenedor) {
+                        } else if (vista.getId() == R.id.ediHoraLLegadaContenedor) {
                             ediHoraLLegadaContenedor.setText(sHour + ":" + sMinute);
 
 
-                        }
-
-
-
-                        else if (vista.getId()== R.id.ediHoraSalidaContenedor) {
+                        } else if (vista.getId() == R.id.ediHoraSalidaContenedor) {
                             ediHoraSalidaContenedor.setText(sHour + ":" + sMinute);
 
 
-                        }
-
-
-                        else if (vista.getId()== R.id.ediHoraEncendido1) {
+                        } else if (vista.getId() == R.id.ediHoraEncendido1) {
                             ediHoraEncendido1.setText(sHour + ":" + sMinute);
 
 
-                        }
-
-
-
-                        else if (vista.getId()== R.id.ediHoraEncendido2) {
+                        } else if (vista.getId() == R.id.ediHoraEncendido2) {
                             ediHoraEncendido2.setText(sHour + ":" + sMinute);
 
 
                         }
-
-
-
-
 
 
                     }
@@ -518,7 +489,7 @@ String currentIDcUDORmUESTREO;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    void selecionaFecha(){
+    void selecionaFecha() {
 
         final Calendar cldr = Calendar.getInstance();
         int year = cldr.get(Calendar.YEAR);
@@ -526,12 +497,12 @@ String currentIDcUDORmUESTREO;
         int mes = cldr.get(Calendar.MONTH);
 
         // time picker dialog
-        DatePickerDialog  picker = new DatePickerDialog(ActivityContenedoresPrev.this,
+        DatePickerDialog picker = new DatePickerDialog(ActivityContenedoresPrev.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-                          String dateSelec=i2+"/"+i1+"/"+i;
+                        String dateSelec = i2 + "/" + i1 + "/" + i;
 
                         ediFecha.setText(dateSelec);
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -548,10 +519,10 @@ String currentIDcUDORmUESTREO;
 
 
                     }
-                }, year,  mes, daySemana);
+                }, year, mes, daySemana);
 
-       picker.setButton(DialogInterface.BUTTON_POSITIVE, "OK", picker);
-       picker.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", picker);
+        picker.setButton(DialogInterface.BUTTON_POSITIVE, "OK", picker);
+        picker.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", picker);
 
 
         picker.show();
@@ -560,16 +531,15 @@ String currentIDcUDORmUESTREO;
 
     private void disableEditText(EditText editText) {
 
-       // editText.setFocusable(false);
-       // editText.setEnabled(false);
+        // editText.setFocusable(false);
+        // editText.setEnabled(false);
         editText.setCursorVisible(false);
         editText.setKeyListener(null);
-      //  editText.setBackgroundColor(Color.TRANSPARENT);
+        //  editText.setBackgroundColor(Color.TRANSPARENT);
     }
 
 
-
-    private void configCertainSomeViewsAliniciar( ) { //configuraremos algos views al iniciar
+    private void configCertainSomeViewsAliniciar() { //configuraremos algos views al iniciar
 
         disableEditText(ediFecha);
         disableEditText(ediHoraInicio);
@@ -592,214 +562,213 @@ String currentIDcUDORmUESTREO;
 
     }
 
-    private void findViewsIds( ) { //configuraremos algos views al iniciar
+    private void findViewsIds() { //configuraremos algos views al iniciar
 
-        ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
-        ediExportadoraSolicitante =findViewById(R.id.ediExportadoraSolicitante);
-        ediMarca=findViewById(R.id.ediMarca);
+        layPesoBruto2 = findViewById(R.id.layPesoBruto2);
+        layPesoBruto1 = findViewById(R.id.layPesoBruto1);
 
-        btnGuardarCambiosmARKrREVISADO=findViewById(R.id.btnGuardarCambiosmARKrREVISADO);
+        layoutPesobrutoPorClusterSolo = findViewById(R.id.layoutPesobrutoPorClusterSolo);
+        ediExportadoraProcesada = findViewById(R.id.ediExportadoraProcesada);
+        ediExportadoraSolicitante = findViewById(R.id.ediExportadoraSolicitante);
+        ediMarca = findViewById(R.id.ediMarca);
 
-
-        ediExtCalid=findViewById(R.id.ediExtCalid);
-        ediExtRodillo=findViewById(R.id.ediExtRodillo);
-        ediExtGancho=findViewById(R.id.ediExtGancho);
-
-        ediExtCalidCi=findViewById(R.id.ediExtCalidCi);
-        ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
-        ediExtGanchoCi=findViewById(R.id.ediExtGanchoCi);
+        btnGuardarCambiosmARKrREVISADO = findViewById(R.id.btnGuardarCambiosmARKrREVISADO);
 
 
-        txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
+        ediExtCalid = findViewById(R.id.ediExtCalid);
+        ediExtRodillo = findViewById(R.id.ediExtRodillo);
+        ediExtGancho = findViewById(R.id.ediExtGancho);
 
-        imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
+        ediExtCalidCi = findViewById(R.id.ediExtCalidCi);
+        ediExtRodilloCi = findViewById(R.id.ediExtRodilloCi);
+        ediExtGanchoCi = findViewById(R.id.ediExtGanchoCi);
 
-         fab = (FloatingActionButton) findViewById(R.id.fab);
-        ediEmpacadora=findViewById(R.id.ediEmpacadora);
-        btnGENERARpdf =findViewById(R.id.btnGENERARpdf);
 
-        spFumigaCorL1=findViewById(R.id.spFumigaCorL1);
+        txtNumReportsVinclds = findViewById(R.id.txtNumReportsVinclds);
 
-          ediCjasProcesDespacha=findViewById(R.id.ediCjasProcesDespacha);
-          ediInspectorAcopio=findViewById(R.id.ediInspectorAcopio);
-        spTipoBoquilla=findViewById(R.id.spTipoBoquilla);
+        imgAtachVinculacion = findViewById(R.id.imgAtachVinculacion);
 
-        spFuenteAgua =findViewById(R.id.spFuenteAgua);
-         ediSemana=findViewById(R.id.ediCajas3);
-         ediFecha=findViewById(R.id.ediCajas7);
-         ediProductor=findViewById(R.id.ediCodigoN2);
-         ediHacienda=findViewById(R.id.ediCodigoN8);
-         ediCodigo=findViewById(R.id.ediCodigo);
-         ediInscirpMagap=findViewById(R.id.ediCajas10);
-         ediPemarque=findViewById(R.id.ediProductor10);
-        ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
-         ediZona=findViewById(R.id.ediZona);
-         ediHoraInicio=findViewById(R.id.ediHoraInicio);
-         ediHoraTermino=findViewById(R.id.ediHoraTermino);
-         ediNguiaRemision=findViewById(R.id.ediNguiaRemision);
-         edi_nguia_transporte=findViewById(R.id.edi_nguia_transporte);
-        edi_nguia_transporte=findViewById(R.id.edi_nguia_transporte);
-         ediNhojaEvaluacion=findViewById(R.id.ediNhojaEvaluacion);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        ediEmpacadora = findViewById(R.id.ediEmpacadora);
+        btnGENERARpdf = findViewById(R.id.btnGENERARpdf);
+
+        spFumigaCorL1 = findViewById(R.id.spFumigaCorL1);
+
+        ediCjasProcesDespacha = findViewById(R.id.ediCjasProcesDespacha);
+        ediInspectorAcopio = findViewById(R.id.ediInspectorAcopio);
+        spTipoBoquilla = findViewById(R.id.spTipoBoquilla);
+
+        spFuenteAgua = findViewById(R.id.spFuenteAgua);
+        ediSemana = findViewById(R.id.ediCajas3);
+        ediFecha = findViewById(R.id.ediCajas7);
+        ediProductor = findViewById(R.id.ediCodigoN2);
+        ediHacienda = findViewById(R.id.ediCodigoN8);
+        ediCodigo = findViewById(R.id.ediCodigo);
+        ediInscirpMagap = findViewById(R.id.ediCajas10);
+        ediPemarque = findViewById(R.id.ediProductor10);
+        ediNtargetaEmbarque = findViewById(R.id.ediNtargetaEmbarque);
+        ediZona = findViewById(R.id.ediZona);
+        ediHoraInicio = findViewById(R.id.ediHoraInicio);
+        ediHoraTermino = findViewById(R.id.ediHoraTermino);
+        ediNguiaRemision = findViewById(R.id.ediNguiaRemision);
+        edi_nguia_transporte = findViewById(R.id.edi_nguia_transporte);
+        edi_nguia_transporte = findViewById(R.id.edi_nguia_transporte);
+        ediNhojaEvaluacion = findViewById(R.id.ediNhojaEvaluacion);
         spinnerSelectZona = findViewById(R.id.spinnerZona);
         ediObservacion = findViewById(R.id.ediObservacion);
-        ediFotosLlegada=findViewById(R.id.ediFotosLlegada);
+        ediFotosLlegada = findViewById(R.id.ediFotosLlegada);
 
-        ediNumContenedor=findViewById(R.id.ediNumContenedor);
-        swAguaCorrida=findViewById(R.id.swAguaCorrida);
-        switchLavdoRacimos=findViewById(R.id.switchLavdoRacimos);
+        ediNumContenedor = findViewById(R.id.ediNumContenedor);
+        swAguaCorrida = findViewById(R.id.swAguaCorrida);
+        switchLavdoRacimos = findViewById(R.id.switchLavdoRacimos);
 
-        ediTare=findViewById(R.id.ediTare);
-        ediBooking=findViewById(R.id.ediBooking);
-        ediMaxGross=findViewById(R.id.ediMaxGross);
-        ediNumSerieFunda=findViewById(R.id.ediNumSerieFunda);
-        stikVentolerExterna=findViewById(R.id.stikVentolerExterna);
-        ediCableRastreoLlegada=findViewById(R.id.ediCableRastreoLlegada);
-        ediSelloPlasticoNaviera=findViewById(R.id.ediSelloPlasticoNaviera);
-        ediOtroSellosLlegada=findViewById(R.id.ediOtroSellosLlegada);
-        ediFotosSellosLLegada=findViewById(R.id.ediFotosSellosLLegada);
+        ediTare = findViewById(R.id.ediTare);
+        ediBooking = findViewById(R.id.ediBooking);
+        ediMaxGross = findViewById(R.id.ediMaxGross);
+        ediNumSerieFunda = findViewById(R.id.ediNumSerieFunda);
+        stikVentolerExterna = findViewById(R.id.stikVentolerExterna);
+        ediCableRastreoLlegada = findViewById(R.id.ediCableRastreoLlegada);
+        ediSelloPlasticoNaviera = findViewById(R.id.ediSelloPlasticoNaviera);
+        ediOtroSellosLlegada = findViewById(R.id.ediOtroSellosLlegada);
+        ediFotosSellosLLegada = findViewById(R.id.ediFotosSellosLLegada);
 
-        ediEnsunchado=findViewById(R.id.ediEnsunchado);
-        ediBalanzaRepeso=findViewById(R.id.ediBalanzaRepeso);
+        ediEnsunchado = findViewById(R.id.ediEnsunchado);
+        ediBalanzaRepeso = findViewById(R.id.ediBalanzaRepeso);
 
-        ediFuenteAgua=findViewById(R.id.ediFuenteAgua);
-        ediAguaCorrida=findViewById(R.id.ediAguaCorrida);
-        ediLavadoRacimos=findViewById(R.id.ediLavadoRacimos);
-        ediFumigacionClin1=findViewById(R.id.ediFumigacionClin1);
-        ediTipoBoquilla=findViewById(R.id.ediTipoBoquilla);
-        ediCajasProcDesp=findViewById(R.id.ediCajasProcDesp);
-        ediRacimosCosech=findViewById(R.id.ediRacimosCosech);
+        ediFuenteAgua = findViewById(R.id.ediFuenteAgua);
+        ediAguaCorrida = findViewById(R.id.ediAguaCorrida);
+        ediLavadoRacimos = findViewById(R.id.ediLavadoRacimos);
+        ediFumigacionClin1 = findViewById(R.id.ediFumigacionClin1);
+        ediTipoBoquilla = findViewById(R.id.ediTipoBoquilla);
+        ediCajasProcDesp = findViewById(R.id.ediCajasProcDesp);
+        ediRacimosCosech = findViewById(R.id.ediRacimosCosech);
 
-        ediRacimosRecha=findViewById(R.id.ediRacimosRecha);
-        ediRacimProces=findViewById(R.id.ediRacimProces);
-
-
-        linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
-        linLayoutHeader2 =findViewById(R.id.linLayoutHeader2);
-        linLayoutHeader3 =findViewById(R.id.linLayoutHeader3);
-        linLayoutHeader4 =findViewById(R.id.linLayoutHeader4);
-        linLayoutHeader5 =findViewById(R.id.linLayoutHeader5);
-        linLayoutHeader6 =findViewById(R.id.linLayoutHeader6);
-        linLayoutHeader7 =findViewById(R.id.linLayoutHeader7);
-        linLayoutHeader8  = findViewById(R.id.linLayoutHeader8) ;
+        ediRacimosRecha = findViewById(R.id.ediRacimosRecha);
+        ediRacimProces = findViewById(R.id.ediRacimProces);
 
 
+        linLayoutHeader1 = findViewById(R.id.linLayoutHeader1);
+        linLayoutHeader2 = findViewById(R.id.linLayoutHeader2);
+        linLayoutHeader3 = findViewById(R.id.linLayoutHeader3);
+        linLayoutHeader4 = findViewById(R.id.linLayoutHeader4);
+        linLayoutHeader5 = findViewById(R.id.linLayoutHeader5);
+        linLayoutHeader6 = findViewById(R.id.linLayoutHeader6);
+        linLayoutHeader7 = findViewById(R.id.linLayoutHeader7);
+        linLayoutHeader8 = findViewById(R.id.linLayoutHeader8);
 
 
-        switchContenedor=findViewById(R.id.switchContenedor);
-        ediContenedor=findViewById(R.id.ediContenedor);
+        switchContenedor = findViewById(R.id.switchContenedor);
+        ediContenedor = findViewById(R.id.ediContenedor);
 
-         imBatach=findViewById(R.id.imbAtach);
-         imBtakePic=findViewById(R.id.imbTakePic);
+        imBatach = findViewById(R.id.imbAtach);
+        imBtakePic = findViewById(R.id.imbTakePic);
 
-        ediPPC01=findViewById(R.id.ediPPC01);
-        ediPPC02=findViewById(R.id.ediPPC02);
-        ediPPC03=findViewById(R.id.ediPPC03);
-        ediPPC04=findViewById(R.id.ediPPC04);
-        ediPPC05=findViewById(R.id.ediPPC05);
-        ediPPC06=findViewById(R.id.ediPPC06);
-        ediPPC07=findViewById(R.id.ediPPC07);
-        ediPPC08=findViewById(R.id.ediPPC08);
-        ediPPC09=findViewById(R.id.ediPPC09);
-        ediPPC010=findViewById(R.id.ediPPC010);
-        ediPPC011=findViewById(R.id.ediPPC011);
-        ediPPC012=findViewById(R.id.ediPPC012);
-        ediPPC013=findViewById(R.id.ediPPC013);
-        ediPPC014=findViewById(R.id.ediPPC014);
-        ediPPC015=findViewById(R.id.ediPPC015);
-        ediPPC016=findViewById(R.id.ediPPC016);
-
-
-          ediDestino=findViewById(R.id.ediDestino);
-          ediNViaje=findViewById(R.id.ediNViaje);
-          ediVapor=findViewById(R.id.ediVapor);
-
-         // ediHOraLllegada=findViewById(R.id.ediHoraLLegadaContenedor);
-          //ediHoraSalida=findViewById(R.id.ediHoraSalida);
-
-        ediHoraLLegadaContenedor=findViewById(R.id.ediHoraLLegadaContenedor);
-        ediHoraSalidaContenedor=findViewById(R.id.ediHoraSalidaContenedor);
+        ediPPC01 = findViewById(R.id.ediPPC01);
+        ediPPC02 = findViewById(R.id.ediPPC02);
+        ediPPC03 = findViewById(R.id.ediPPC03);
+        ediPPC04 = findViewById(R.id.ediPPC04);
+        ediPPC05 = findViewById(R.id.ediPPC05);
+        ediPPC06 = findViewById(R.id.ediPPC06);
+        ediPPC07 = findViewById(R.id.ediPPC07);
+        ediPPC08 = findViewById(R.id.ediPPC08);
+        ediPPC09 = findViewById(R.id.ediPPC09);
+        ediPPC010 = findViewById(R.id.ediPPC010);
+        ediPPC011 = findViewById(R.id.ediPPC011);
+        ediPPC012 = findViewById(R.id.ediPPC012);
+        ediPPC013 = findViewById(R.id.ediPPC013);
+        ediPPC014 = findViewById(R.id.ediPPC014);
+        ediPPC015 = findViewById(R.id.ediPPC015);
+        ediPPC016 = findViewById(R.id.ediPPC016);
 
 
-        ediTipoContenedor=findViewById(R.id.ediTipoContenedor);
+        ediDestino = findViewById(R.id.ediDestino);
+        ediNViaje = findViewById(R.id.ediNViaje);
+        ediVapor = findViewById(R.id.ediVapor);
 
-        ediFotoContenedor=findViewById(R.id.ediFotoContenedor);
+        // ediHOraLllegada=findViewById(R.id.ediHoraLLegadaContenedor);
+        //ediHoraSalida=findViewById(R.id.ediHoraSalida);
 
-        progressBarFormulario=findViewById(R.id.progressBarFormulario);
-
-        ediFotosPposcosecha=findViewById(R.id.ediFotosPposcosecha);
-
-        ediCondicionBalanza=findViewById(R.id.ediCondicionBalanza);
-        ediTipodeCaja=findViewById(R.id.ediTipodeCaja);
-        ediTipoPlastico=findViewById(R.id.ediTipoPlastico);
-        ediTipoBalanza=findViewById(R.id.ediTipoBalanza);
-        editipbalanzaRepeso=findViewById(R.id.editipbalanzaRepeso);
-        ediUbicacionBalanza=findViewById(R.id.ediUbicacionBalanza);
+        ediHoraLLegadaContenedor = findViewById(R.id.ediHoraLLegadaContenedor);
+        ediHoraSalidaContenedor = findViewById(R.id.ediHoraSalidaContenedor);
 
 
+        ediTipoContenedor = findViewById(R.id.ediTipoContenedor);
 
-        ediTermofrafo1=findViewById(R.id.ediTermofrafo1);
-        ediHoraEncendido1=findViewById(R.id.ediHoraEncendido1);
-        ediUbicacion1=findViewById(R.id.ediUbicacion1);
-        ediRuma1=findViewById(R.id.ediRuma1);
-        ediTermofrafo2=findViewById(R.id.ediTermofrafo2);
-        ediHoraEncendido2=findViewById(R.id.ediHoraEncendido2);
-        ediUbicacion2=findViewById(R.id.ediUbicacion2);
-        ediRuma2=findViewById(R.id.ediRuma2);
-        ediCandadoqsercon=findViewById(R.id.ediCandadoqsercon);
+        ediFotoContenedor = findViewById(R.id.ediFotoContenedor);
 
-        ediSelloNaviera=findViewById(R.id.ediSelloNaviera);
-        ediCableNaviera=findViewById(R.id.ediCableNaviera);
-        ediSelloPlastico=findViewById(R.id.ediSelloPlastico);
-        ediCandadoBotella=findViewById(R.id.ediCandadoBotella);
-        ediCableExportadora=findViewById(R.id.ediCableExportadora);
-        ediSelloAdesivoexpor=findViewById(R.id.ediSelloAdesivoexpor);
-        esiSelloAdhNaviera=findViewById(R.id.esiSelloAdhNaviera);
-        ediOtherSellos=findViewById(R.id.ediOtherSellos);
+        progressBarFormulario = findViewById(R.id.progressBarFormulario);
+
+        ediFotosPposcosecha = findViewById(R.id.ediFotosPposcosecha);
+
+        ediCondicionBalanza = findViewById(R.id.ediCondicionBalanza);
+        ediTipodeCaja = findViewById(R.id.ediTipodeCaja);
+        ediTipoPlastico = findViewById(R.id.ediTipoPlastico);
+        ediTipoBalanza = findViewById(R.id.ediTipoBalanza);
+        editipbalanzaRepeso = findViewById(R.id.editipbalanzaRepeso);
+        ediUbicacionBalanza = findViewById(R.id.ediUbicacionBalanza);
 
 
-        ediCompaniaTransporte=findViewById(R.id.ediCompaniaTransporte);
-        ediNombreChofer=findViewById(R.id.ediNombreChofer);
-        ediCedula=findViewById(R.id.ediCedula);
-        ediCelular=findViewById(R.id.ediCelular);
-        ediPLaca=findViewById(R.id.ediPLaca);
-        ediMarcaCabezal=findViewById(R.id.ediMarcaCabezal);
-        ediColorCabezal=findViewById(R.id.ediColorCabezal);
-        ediFotosLlegadaTransport=findViewById(R.id.ediFotosLlegadaTransport);
+        ediTermofrafo1 = findViewById(R.id.ediTermofrafo1);
+        ediHoraEncendido1 = findViewById(R.id.ediHoraEncendido1);
+        ediUbicacion1 = findViewById(R.id.ediUbicacion1);
+        ediRuma1 = findViewById(R.id.ediRuma1);
+        ediTermofrafo2 = findViewById(R.id.ediTermofrafo2);
+        ediHoraEncendido2 = findViewById(R.id.ediHoraEncendido2);
+        ediUbicacion2 = findViewById(R.id.ediUbicacion2);
+        ediRuma2 = findViewById(R.id.ediRuma2);
+        ediCandadoqsercon = findViewById(R.id.ediCandadoqsercon);
+
+        ediSelloNaviera = findViewById(R.id.ediSelloNaviera);
+        ediCableNaviera = findViewById(R.id.ediCableNaviera);
+        ediSelloPlastico = findViewById(R.id.ediSelloPlastico);
+        ediCandadoBotella = findViewById(R.id.ediCandadoBotella);
+        ediCableExportadora = findViewById(R.id.ediCableExportadora);
+        ediSelloAdesivoexpor = findViewById(R.id.ediSelloAdesivoexpor);
+        esiSelloAdhNaviera = findViewById(R.id.esiSelloAdhNaviera);
+        ediOtherSellos = findViewById(R.id.ediOtherSellos);
 
 
+        ediCompaniaTransporte = findViewById(R.id.ediCompaniaTransporte);
+        ediNombreChofer = findViewById(R.id.ediNombreChofer);
+        ediCedula = findViewById(R.id.ediCedula);
+        ediCelular = findViewById(R.id.ediCelular);
+        ediPLaca = findViewById(R.id.ediPLaca);
+        ediMarcaCabezal = findViewById(R.id.ediMarcaCabezal);
+        ediColorCabezal = findViewById(R.id.ediColorCabezal);
+        ediFotosLlegadaTransport = findViewById(R.id.ediFotosLlegadaTransport);
 
 
         //las pics
-         imbAtach_transportista=findViewById(R.id.imbAtach_transportista);
-         imbTakePicTransportista=findViewById(R.id.imbTakePicTransportista);
-         imbAtachSellosLlegada=findViewById(R.id.imbAtachSellosLlegada);
-         imbTakePicSellosLLegada=findViewById(R.id.imbTakePicSellosLLegada);
-         imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
-         imbAtachPrPostcosecha=findViewById(R.id.imbAtachPrPostcosecha);
-         imbTakePicPrPostcosecha=findViewById(R.id.imbTakePicPrPostcosecha);
-        imbTakePicDatosContenedor=findViewById(R.id.imbTakePicDatosContenedor);
+        imbAtach_transportista = findViewById(R.id.imbAtach_transportista);
+        imbTakePicTransportista = findViewById(R.id.imbTakePicTransportista);
+        imbAtachSellosLlegada = findViewById(R.id.imbAtachSellosLlegada);
+        imbTakePicSellosLLegada = findViewById(R.id.imbTakePicSellosLLegada);
+        imbAtachDatosContenedor = findViewById(R.id.imbAtachDatosContenedor);
+        imbAtachPrPostcosecha = findViewById(R.id.imbAtachPrPostcosecha);
+        imbTakePicPrPostcosecha = findViewById(R.id.imbTakePicPrPostcosecha);
+        imbTakePicDatosContenedor = findViewById(R.id.imbTakePicDatosContenedor);
 
 
-         spinnerCondicionBalanza=  findViewById(R.id.spinnerCondicionBalanza);
-         spinnertipoCaja =  findViewById(R.id.spinnertipoCaja);
-         spinnertipodePlastico = findViewById(R.id.spinnertipodePlastico);
-         spinnertipodeBlanza =  findViewById(R.id.spinnertipodeBlanza);
-         spinnertipodeBlanzaRepeso =  findViewById(R.id.spinnertipodeBlanzaRepeso);
-         spinnerubicacionBalanza =  findViewById(R.id.spinnerubicacionBalanza);
+        spinnerCondicionBalanza = findViewById(R.id.spinnerCondicionBalanza);
+        spinnertipoCaja = findViewById(R.id.spinnertipoCaja);
+        spinnertipodePlastico = findViewById(R.id.spinnertipodePlastico);
+        spinnertipodeBlanza = findViewById(R.id.spinnertipodeBlanza);
+        spinnertipodeBlanzaRepeso = findViewById(R.id.spinnertipodeBlanzaRepeso);
+        spinnerubicacionBalanza = findViewById(R.id.spinnerubicacionBalanza);
 
-         switchHaybalanza=findViewById(R.id.switchHaybalanza);
-         switchHayEnsunchado=findViewById(R.id.switchHayEnsunchado);
-         switchBalanzaRep=findViewById(R.id.switchBalanzaRep);
-
+        switchHaybalanza = findViewById(R.id.switchHaybalanza);
+        switchHayEnsunchado = findViewById(R.id.switchHayEnsunchado);
+        switchBalanzaRep = findViewById(R.id.switchBalanzaRep);
 
 
     }
 
 
-    private void addClickListeners( ) {
+    private void addClickListeners() {
 
         /**todos add a todos clicklistener de la implemntacion*/
         imgAtachVinculacion.setOnClickListener(this);
+        layoutPesobrutoPorClusterSolo.setOnClickListener(this);
 
 
         btnGENERARpdf.setOnClickListener(this);
@@ -812,18 +781,17 @@ String currentIDcUDORmUESTREO;
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
 
-         imbAtach_transportista.setOnClickListener(this);
-         imbTakePicTransportista.setOnClickListener(this);
-         imbAtachSellosLlegada.setOnClickListener(this);
-         imbTakePicSellosLLegada.setOnClickListener(this);
-         imbAtachDatosContenedor.setOnClickListener(this);
-         imbTakePicDatosContenedor.setOnClickListener(this);
-         imbAtachPrPostcosecha.setOnClickListener(this);
-         imbTakePicPrPostcosecha.setOnClickListener(this);
+        imbAtach_transportista.setOnClickListener(this);
+        imbTakePicTransportista.setOnClickListener(this);
+        imbAtachSellosLlegada.setOnClickListener(this);
+        imbTakePicSellosLLegada.setOnClickListener(this);
+        imbAtachDatosContenedor.setOnClickListener(this);
+        imbTakePicDatosContenedor.setOnClickListener(this);
+        imbAtachPrPostcosecha.setOnClickListener(this);
+        imbTakePicPrPostcosecha.setOnClickListener(this);
 
         ediHoraEncendido1.setOnClickListener(this);
         ediHoraEncendido2.setOnClickListener(this);
-
 
 
         linLayoutHeader2.setOnClickListener(this);
@@ -844,20 +812,18 @@ String currentIDcUDORmUESTREO;
         ediHoraSalidaContenedor.setOnClickListener(this);
 
 
-
     }
 
     private void oucultaLinearLayout(LinearLayout linearLayout) { //configuraremos algos views al iniciar
-     linearLayout.setVisibility(LinearLayout.GONE);
+        linearLayout.setVisibility(LinearLayout.GONE);
 
 
     }
 
 
-    private void muestraLinearLayout( LinearLayout linearLayout) { //configuraremos algos views al iniciar
+    private void muestraLinearLayout(LinearLayout linearLayout) { //configuraremos algos views al iniciar
 
         linearLayout.setVisibility(LinearLayout.VISIBLE);
-
 
 
     }
@@ -866,346 +832,336 @@ String currentIDcUDORmUESTREO;
     @Override
     public void onClick(View view) {
 
-         Log.i("darterlo","is selñecieo,ages");
+        Log.i("darterlo", "is selñecieo,ages");
 
-       switch (view.getId()) {
+        switch (view.getId()) {
 
+            case R.id.layoutPesobrutoPorClusterSolo:
 
+                if (layPesoBruto1.getVisibility() == View.VISIBLE) {
+                    layPesoBruto1.setVisibility(view.GONE);
+                    layPesoBruto2.setVisibility(view.GONE);
 
+                } else {
 
-           case R.id.btnGuardarCambiosmARKrREVISADO:
-
-               ///cuandole da en genear obtenmos nuevamente la data
-
-               RealtimeDB.marckComoRevisadoInformRegister(ActivityContenedoresPrev.this,Variables.currentInformRegisterSelected.getKeyLoactionThisForm());
-
-               finish();
-
-               //creamosel pdf con la data actual... excepto las imagenes...
-
-               break;
+                    layPesoBruto2.setVisibility(view.VISIBLE);
+                    layPesoBruto1.setVisibility(view.VISIBLE);
 
 
+                }
 
-           case R.id.btnGENERARpdf:
-
-               ///cuandole da en genear obtenmos nuevamente la data
-
-               checkDataToCreatePdf();
-
-               //creamosel pdf con la data actual... excepto las imagenes...
-
-               break;
+                break;
 
 
-           case R.id.fab: //si pulas en btn chekear en que modo esta ...si el modo cambia...
-               TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
+            case R.id.btnGuardarCambiosmARKrREVISADO:
 
-                if(isModEdicionFields){ //si es modo edicion..
+                ///cuandole da en genear obtenmos nuevamente la data
+
+                RealtimeDB.marckComoRevisadoInformRegister(ActivityContenedoresPrev.this, Variables.currentInformRegisterSelected.getKeyLoactionThisForm());
+
+                finish();
+
+                //creamosel pdf con la data actual... excepto las imagenes...
+
+                break;
+
+
+            case R.id.btnGENERARpdf:
+
+                ///cuandole da en genear obtenmos nuevamente la data
+
+
+
+
+                checkDataToCreatePdf();
+
+                //creamosel pdf con la data actual... excepto las imagenes...
+
+                break;
+
+
+            case R.id.fab: //si pulas en btn chekear en que modo esta ...si el modo cambia...
+                TextView txtModeAdviser = findViewById(R.id.txtModeAdviser);
+
+                if (isModEdicionFields) { //si es modo edicion..
                     fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
 
                     txtModeAdviser.setText("Modo Visualizacion ");
 
 
-
                     //cambiamos al modo visualizacion
-                    isModEdicionFields=false;
+                    isModEdicionFields = false;
                     activateModePreview();
 
 
-                }else{ //SI NO ES MODO VISUZALIZACION
+                } else { //SI NO ES MODO VISUZALIZACION
                     fab.setImageResource(R.drawable.ic_baseline_preview_24jhj);
                     txtModeAdviser.setText("Modo Edicion ");
 
-                    isModEdicionFields=true;
+                    isModEdicionFields = true;
                     activateModeEdit();
 
 
-                  //CAMABIAMOS EL MODO
+                    //CAMABIAMOS EL MODO
 
                 }
 
 
+                break; //
 
-               break; //
 
+            case R.id.linLayoutHeader1:
+                LinearLayout layoutContainerSeccion1 = findViewById(R.id.layoutContainerSeccion1);
 
+                if (layoutContainerSeccion1.getVisibility() == View.GONE) {
+                    muestraLinearLayout(layoutContainerSeccion1);
+                } else {
 
-           case R.id.linLayoutHeader1:
-               LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
+                    oucultaLinearLayout(layoutContainerSeccion1);
+                }
+                break; //
 
-               if(layoutContainerSeccion1.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion1);
-               }
-               else{
 
-                   oucultaLinearLayout(layoutContainerSeccion1);
-               }
-               break; //
+            case R.id.linLayoutHeader2:
+                LinearLayout layoutContainerSeccion2 = findViewById(R.id.layoutContainerSeccion2);
 
+                if (layoutContainerSeccion2.getVisibility() == View.GONE) {
+                    muestraLinearLayout(layoutContainerSeccion2);
+                } else {
 
+                    oucultaLinearLayout(layoutContainerSeccion2);
+                }
+                break; //
 
-           case R.id.linLayoutHeader2:
-               LinearLayout layoutContainerSeccion2=findViewById(R.id.layoutContainerSeccion2);
+            case R.id.linLayoutHeader3:
+                LinearLayout layoutContainerSeccion3 = findViewById(R.id.layoutContainerSeccion3);
 
-               if(layoutContainerSeccion2.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion2);
-               }
-               else{
+                if (layoutContainerSeccion3.getVisibility() == View.GONE) {
+                    muestraLinearLayout(layoutContainerSeccion3);
+                } else {
 
-                   oucultaLinearLayout(layoutContainerSeccion2);
-               }
-               break; //
+                    oucultaLinearLayout(layoutContainerSeccion3);
+                }
+                break; //
 
-           case R.id.linLayoutHeader3:
-               LinearLayout layoutContainerSeccion3=findViewById(R.id.layoutContainerSeccion3);
 
-               if(layoutContainerSeccion3.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion3);
-               }
-               else{
+            case R.id.linLayoutHeader4:
+                LinearLayout layoutContainerSeccion4 = findViewById(R.id.layoutContainerSeccion4);
 
-                   oucultaLinearLayout(layoutContainerSeccion3);
-               }
-               break; //
+                if (layoutContainerSeccion4.getVisibility() == View.GONE) {
+                    muestraLinearLayout(layoutContainerSeccion4);
+                } else {
 
+                    oucultaLinearLayout(layoutContainerSeccion4);
+                }
+                break; //
 
-           case R.id.linLayoutHeader4:
-               LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
 
-               if(layoutContainerSeccion4.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion4);
-               }
-               else{
+            case R.id.linLayoutHeader5:
+                LinearLayout layoutContainerSeccion5 = findViewById(R.id.layoutContainerSeccion5);
 
-                   oucultaLinearLayout(layoutContainerSeccion4);
-               }
-               break; //
+                if (layoutContainerSeccion5.getVisibility() == View.GONE) {
+                    muestraLinearLayout(layoutContainerSeccion5);
+                } else {
 
+                    oucultaLinearLayout(layoutContainerSeccion5);
+                }
+                break; //
 
+            case R.id.linLayoutHeader6:
+                LinearLayout layoutContainerSeccion6 = findViewById(R.id.layoutContainerSeccion6);
 
-           case R.id.linLayoutHeader5:
-               LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
+                if (layoutContainerSeccion6.getVisibility() == View.GONE) {
+                    muestraLinearLayout(layoutContainerSeccion6);
+                } else {
 
-               if(layoutContainerSeccion5.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion5);
-               }
-               else{
+                    oucultaLinearLayout(layoutContainerSeccion6);
+                }
+                break; //
 
-                   oucultaLinearLayout(layoutContainerSeccion5);
-               }
-               break; //
 
-           case R.id.linLayoutHeader6:
-               LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
+            case R.id.linLayoutHeader7:
+                LinearLayout layoutContainerSeccion7 = findViewById(R.id.layoutContainerSeccion7);
 
-               if(layoutContainerSeccion6.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion6);
-               }
-               else{
+                if (layoutContainerSeccion7.getVisibility() == View.GONE) {
+                    muestraLinearLayout(layoutContainerSeccion7);
+                } else {
 
-                   oucultaLinearLayout(layoutContainerSeccion6);
-               }
-               break; //
+                    oucultaLinearLayout(layoutContainerSeccion7);
+                }
+                break; //
 
+            case R.id.linLayoutHeader8:
+                LinearLayout layoutContainerSeccion8 = findViewById(R.id.layoutContainerSeccion8);
 
-           case R.id.linLayoutHeader7:
-               LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
+                if (layoutContainerSeccion8.getVisibility() == View.GONE) {
+                    muestraLinearLayout(layoutContainerSeccion8);
+                } else {
 
-               if(layoutContainerSeccion7.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion7);
-               }
-               else{
+                    oucultaLinearLayout(layoutContainerSeccion8);
+                }
+                break; //
 
-                   oucultaLinearLayout(layoutContainerSeccion7);
-               }
-               break; //
 
-           case R.id.linLayoutHeader8:
-               LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
+            case R.id.ediCajas7:
+                // Utils.closeKeyboard(FormularioActivity.this);
 
-               if(layoutContainerSeccion8.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion8);
-               }
-               else{
+                selecionaFecha();
 
-                   oucultaLinearLayout(layoutContainerSeccion8);
-               }
-               break; //
+                break; //
 
 
-           case R.id.ediCajas7:
-              // Utils.closeKeyboard(FormularioActivity.this);
+            case R.id.ediHoraInicio:
+                // Utils.closeKeyboard(FormularioActivity.this);
 
-               selecionaFecha();
+                showingTimePicker(view);
 
-               break; //
+                break; //
 
+            case R.id.ediHoraTermino:
+                // Utils.closeKeyboard(FormularioActivity.this);
+                showingTimePicker(view);
 
+                break; //
+            case R.id.ediHoraSalidaContenedor:
+                // Utils.closeKeyboard(FormularioActivity.this);
+                showingTimePicker(view);
 
-           case R.id.ediHoraInicio:
-              // Utils.closeKeyboard(FormularioActivity.this);
+                break; //
 
-               showingTimePicker(view);
 
-               break; //
+            case R.id.ediHoraLLegadaContenedor:
+                // Utils.closeKeyboard(FormularioActivity.this);
+                showingTimePicker(view);
 
-           case R.id.ediHoraTermino:
-             // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                break; //
 
-               break; //
-           case R.id.ediHoraSalidaContenedor:
-               // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+            case R.id.ediHoraEncendido1:
+                // Utils.closeKeyboard(FormularioActivity.this);
+                showingTimePicker(view);
 
-               break; //
+                break; //
 
+            case R.id.ediHoraEncendido2:
+                // Utils.closeKeyboard(FormularioActivity.this);
+                showingTimePicker(view);
 
-           case R.id.ediHoraLLegadaContenedor:
-               // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                break;
 
-               break; //
+            case R.id.imbAtach:
 
-           case R.id.ediHoraEncendido1:
-               // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                currentTypeImage = Variables.FOTO_LLEGADA;
 
-               break; //
+                //Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                //intent.setType("image/*");
+                //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 
-           case R.id.ediHoraEncendido2:
-               // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                //intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                // intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-               break;
+                // intent.
 
-           case R.id.imbAtach:
+                //  startActivityForResult(intent, PICK_IMG);
 
-               currentTypeImage=Variables.FOTO_LLEGADA;
+                // Intent intent = new Intent(this, SomeActivity.class);
+                // someActivityResultLauncherx.launch(intent);
 
-               //Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-               //intent.setType("image/*");
-               //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                Log.i("miclickimg", "es foto es type Variables.FOTO_LLEGADA");
 
-               //intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-              // intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                activityResultLauncher.launch("image/*");
 
-              // intent.
 
-            //  startActivityForResult(intent, PICK_IMG);
+                // activityResultLauncher.launch(intent);
+                break;
 
-              // Intent intent = new Intent(this, SomeActivity.class);
-              // someActivityResultLauncherx.launch(intent);
 
-               Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
+            case R.id.imbTakePic:
+                Log.i("miclickimg", "es foto es type Variables.FOTO_LLEGADA");
 
-               activityResultLauncher.launch("image/*");
+                currentTypeImage = Variables.FOTO_LLEGADA;
 
+                takepickNow();
+                break;
 
-               // activityResultLauncher.launch(intent);
-               break;
 
+            case R.id.imbAtach_transportista:
+                currentTypeImage = Variables.FOTO_TRANSPORTISTA;
+                Log.i("miclickimg", "es foto es type Variables.FOTO_TRANSPORTISTA");
 
-           case R.id.imbTakePic:
-               Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
+                activityResultLauncher.launch("image/*");
+                break;
 
-               currentTypeImage=Variables.FOTO_LLEGADA;
 
-               takepickNow();
-               break;
+            case R.id.imbTakePicTransportista:
+                currentTypeImage = Variables.FOTO_TRANSPORTISTA;
+                Log.i("miclickimg", "es foto es type Variables.FOTO_TRANSPORTISTA");
 
 
+                takepickNow();
+                break;
 
-           case R.id.imbAtach_transportista:
-               currentTypeImage=Variables.FOTO_TRANSPORTISTA;
-               Log.i("miclickimg","es foto es type Variables.FOTO_TRANSPORTISTA");
 
-               activityResultLauncher.launch("image/*");
-               break;
+            case R.id.imbAtachSellosLlegada:
+                currentTypeImage = Variables.FOTO_SELLO_LLEGADA;
+                Log.i("miclickimg", "es foto es type Variables.FOTO_SELLO_LLEGADA");
 
+                activityResultLauncher.launch("image/*");
+                break;
 
 
-           case R.id.imbTakePicTransportista:
-               currentTypeImage=Variables.FOTO_TRANSPORTISTA;
-               Log.i("miclickimg","es foto es type Variables.FOTO_TRANSPORTISTA");
+            case R.id.imbTakePicSellosLLegada:
+                Log.i("miclickimg", "es foto es type Variables.FOTO_SELLO_LLEGADA");
 
+                currentTypeImage = Variables.FOTO_SELLO_LLEGADA;
 
-               takepickNow();
-               break;
+                takepickNow();
+                break;
 
 
+            case R.id.imbAtachDatosContenedor:
+                currentTypeImage = Variables.FOTO_CONTENEDOR;
+                Log.i("miclickimg", "es foto es type Variables.FOTO_CONTENEDOR");
+                activityResultLauncher.launch("image/*");
 
-           case R.id.imbAtachSellosLlegada:
-               currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
-               Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
 
-               activityResultLauncher.launch("image/*");
-               break;
+                break;
 
 
+            case R.id.imbTakePicDatosContenedor:
+                Log.i("miclickimg", "es foto es type Variables.FOTO_CONTENEDOR");
 
-           case R.id.imbTakePicSellosLLegada:
-               Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
+                currentTypeImage = Variables.FOTO_CONTENEDOR;
 
-               currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
+                takepickNow();
+                break;
 
-               takepickNow();
-               break;
 
+            case R.id.imbAtachPrPostcosecha:
+                currentTypeImage = Variables.FOTO_PROD_POSTCOSECHA;
+                Log.i("miclickimg", "es foto es type Variables.FOTO_PROD_POSTCOSECHA");
 
+                activityResultLauncher.launch("image/*");
+                break;
 
-           case R.id.imbAtachDatosContenedor:
-               currentTypeImage=Variables.FOTO_CONTENEDOR;
-               Log.i("miclickimg","es foto es type Variables.FOTO_CONTENEDOR");
-               activityResultLauncher.launch("image/*");
 
+            case R.id.imbTakePicPrPostcosecha:
+                Log.i("miclickimg", "es foto es type Variables.FOTO_PROD_POSTCOSECHA");
 
-               break;
+                currentTypeImage = Variables.FOTO_PROD_POSTCOSECHA;
 
+                takepickNow();
+                break;
 
-           case R.id.imbTakePicDatosContenedor:
-               Log.i("miclickimg","es foto es type Variables.FOTO_CONTENEDOR");
 
-               currentTypeImage=Variables.FOTO_CONTENEDOR;
+            case R.id.imgAtachVinculacion:
 
-               takepickNow();
-               break;
+                showEditDialogAndSendData();
 
 
+                break;
 
-           case R.id.imbAtachPrPostcosecha:
-               currentTypeImage=Variables.FOTO_PROD_POSTCOSECHA;
-               Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
 
-               activityResultLauncher.launch("image/*");
-               break;
-
-
-           case R.id.imbTakePicPrPostcosecha:
-               Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
-
-               currentTypeImage=Variables.FOTO_PROD_POSTCOSECHA;
-
-               takepickNow();
-               break;
-
-
-           case R.id.imgAtachVinculacion:
-
-               showEditDialogAndSendData();
-
-
-
-               break;
-
-
-
-       }
-
-
-
-
+        }
 
 
         //aqui o
@@ -1216,11 +1172,9 @@ String currentIDcUDORmUESTREO;
     private void showEditDialogAndSendData() {
 
 
-
         Bundle bundle = new Bundle();
         bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS, RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
         bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED, RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
-
 
 
         //
@@ -1234,22 +1188,21 @@ String currentIDcUDORmUESTREO;
         alertDialog.show(fm, "duialoffragment_alert");
 
 
-
     }
 
 
     private void takepickNow() {
 
-        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, ActivityContenedoresPrev.this);
+        Permisionx.checkPermission(Manifest.permission.CAMERA, 1, this, ActivityContenedoresPrev.this);
 
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             ContentValues values = new ContentValues();
             values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
             values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
 
-             cam_uri = ActivityContenedoresPrev.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+            cam_uri = ActivityContenedoresPrev.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
 
@@ -1261,81 +1214,75 @@ String currentIDcUDORmUESTREO;
         }
 
 
-
-
     }
 
-        ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == RESULT_OK) {
-                            // There are no request codes
+    ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == RESULT_OK) {
+                        // There are no request codes
 
 
-                            //  mImageView.setImageURI(cam_uri);
+                        //  mImageView.setImageURI(cam_uri);
 
-                           // showImageByUri(cam_uri);
-                          //  Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.onActivityResult();, imageUri);
-
-
-                           // Uri sourceTreeUri = data.getData();
+                        // showImageByUri(cam_uri);
+                        //  Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.onActivityResult();, imageUri);
 
 
-
-                                ActivityContenedoresPrev.this.getContentResolver().takePersistableUriPermission
-                                        (cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        // Uri sourceTreeUri = data.getData();
 
 
-                            try {
-
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(),cam_uri);
-
-
-                              //  Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
-                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
-
-                                //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,cam_uri),horientacionImg);
-
-                                //agregamos este objeto a la lista
-                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                        ActivityContenedoresPrev.this.getContentResolver().takePersistableUriPermission
+                                (cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
 
-                                showImagesPicShotOrSelectUpdateView(false);
+                        try {
 
-                            }
-
-                          catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(), cam_uri);
 
 
+                            //  Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                            String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
+
+                            //creamos un nuevo objet de tipo ImagenReport
+                            ImagenReport obcjImagenReport = new ImagenReport("", cam_uri.toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, cam_uri), horientacionImg);
+
+                            //agregamos este objeto a la lista
+                            ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+
+                            showImagesPicShotOrSelectUpdateView(false);
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                    }
-                });
 
+
+                    }
+                }
+            });
 
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
 
-        if(motionEvent.getAction()==MotionEvent.ACTION_DOWN ){
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 
             //agregamos esta vista clickada a la lista
 
-            Log.i("casnasd","se llamo on touch ");
+            Log.i("casnasd", "se llamo on touch ");
 
             listViewsClickedUser.add(view);
 
 
-            Log.i("casnasd","el size de la lista es "+listViewsClickedUser.size());
+            Log.i("casnasd", "el size de la lista es " + listViewsClickedUser.size());
 
-            if(listViewsClickedUser.size()>1) {
+            if (listViewsClickedUser.size() > 1) {
                 //obtenemos la lista anterior y verficamos si esta completada;
                 View vistFieldAnterior = getVistaAnteriorClick();
                 checkeamosSiFieldViewIScompleted(vistFieldAnterior);
@@ -1345,15 +1292,13 @@ String currentIDcUDORmUESTREO;
             }
 
 
-
         }
         return false;
     }
 
 
-
     @SuppressLint("ClickableViewAccessibility")
-    private void addOnTouchaMayoriaDeViews(){
+    private void addOnTouchaMayoriaDeViews() {
         ediObservacion.setOnTouchListener(this);
         ediSemana.setOnTouchListener(this);
         ediFecha.setOnTouchListener(this);
@@ -1370,25 +1315,19 @@ String currentIDcUDORmUESTREO;
         ediNhojaEvaluacion.setOnTouchListener(this);
         spinnerSelectZona.setOnTouchListener(this);
 
-         spinnerCondicionBalanza.setOnTouchListener(this);
-         spinnertipoCaja.setOnTouchListener(this);
-         spinnertipodePlastico.setOnTouchListener(this);
-         spinnertipodeBlanza.setOnTouchListener(this);
-         spinnertipodeBlanzaRepeso .setOnTouchListener(this);
-         spinnerubicacionBalanza.setOnTouchListener(this);
-
-
-
-
+        spinnerCondicionBalanza.setOnTouchListener(this);
+        spinnertipoCaja.setOnTouchListener(this);
+        spinnertipodePlastico.setOnTouchListener(this);
+        spinnertipodeBlanza.setOnTouchListener(this);
+        spinnertipodeBlanzaRepeso.setOnTouchListener(this);
+        spinnerubicacionBalanza.setOnTouchListener(this);
 
 
         switchContenedor.setOnTouchListener(this);
         ediEmpacadora.setOnTouchListener(this);
-          imBatach.setOnTouchListener(this);
+        imBatach.setOnTouchListener(this);
 
         imBtakePic.setOnTouchListener(this);
-
-
 
 
         ediPPC01.setOnTouchListener(this);
@@ -1415,111 +1354,90 @@ String currentIDcUDORmUESTREO;
     private View getVistaAnteriorClick() { //el estado puede ser lleno o vacio isEstaLleno
 
 
-        if(listViewsClickedUser.size() ==3) { //SOLO GUARDAMOS DOS NUMEROS para ahorra memoria
+        if (listViewsClickedUser.size() == 3) { //SOLO GUARDAMOS DOS NUMEROS para ahorra memoria
             listViewsClickedUser.remove(0);   //ya no queremoes el primer objeto de la lista siempre y cuando la lista contnega 3 objetos
 
         }
-        Log.i("casnasd","el size aqui en metodo es "+listViewsClickedUser.size());
-
-
+        Log.i("casnasd", "el size aqui en metodo es " + listViewsClickedUser.size());
 
 
         View vistAnterior = listViewsClickedUser.get(0);
-      //  Log.i("soeobjetc","el objeto anterioR TAG ES "+vistAnterior.getTag().toString());
+        //  Log.i("soeobjetc","el objeto anterioR TAG ES "+vistAnterior.getTag().toString());
 
 
-
-        return   vistAnterior;
+        return vistAnterior;
 
     }
 
 
-    private void checkeamosSiFieldViewIScompleted(View view ) {
+    private void checkeamosSiFieldViewIScompleted(View view) {
 
         //revismaos si el usuario lleno el file o completo la tarea solictada
 
-        Log.i("miodata","el id del selecionado anterior es "+view.getResources().getResourceName(view.getId()));
+        Log.i("miodata", "el id del selecionado anterior es " + view.getResources().getResourceName(view.getId()));
 
 
         if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
             EditText editText = (EditText) view; //asi lo convertimos
-             Log.i("miodata","el id es "+view.getResources().getResourceName(view.getId()));
+            Log.i("miodata", "el id es " + view.getResources().getResourceName(view.getId()));
 
-                if ( view.getResources().getResourceName(view.getId()).contains("ediPPC0")){ //asi comprobamos que es un fiel opcional
-                    if (editText.getText().toString().length() > 0) {
-                        if (!editText.getText().toString().equalsIgnoreCase("0")) {
+            if (view.getResources().getResourceName(view.getId()).contains("ediPPC0")) { //asi comprobamos que es un fiel opcional
+                if (editText.getText().toString().length() > 0) {
+                    if (!editText.getText().toString().equalsIgnoreCase("0")) {
 
-                            Log.i("miodata","el state ediPPC/someProductPostCosecha esta lleno ");
-
-
-                            actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
+                        Log.i("miodata", "el state ediPPC/someProductPostCosecha esta lleno ");
 
 
+                        actualizaListStateView("ediPPC/someProductPostCosecha", true);
 
-                        }
+
                     }
-
                 }
 
-                else if(editText.getText().toString().isEmpty()) {
+            } else if (editText.getText().toString().isEmpty()) {
 
 
-                    Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta vacio");
+                Log.i("idCheck", "la data del editext anterior : " + view.getResources().getResourceName(view.getId()) + " esta vacio");
 
 
-                    actualizaListStateView(view.getResources().getResourceName(view.getId()),false) ;
+                actualizaListStateView(view.getResources().getResourceName(view.getId()), false);
 
-                }
-
-
+            }
 
 
-                ////si existe lo cambiamos a tru
+            ////si existe lo cambiamos a tru
 
 
+            else if (!editText.getText().toString().isEmpty()) { //si esta lleno
 
-                else if(! editText.getText().toString().isEmpty()) { //si esta lleno
+                Log.i("idCheck", "la data del editext anterior : " + view.getResources().getResourceName(view.getId()) + " esta lleno");
 
-                    Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta lleno");
-
-                    actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
-
+                actualizaListStateView(view.getResources().getResourceName(view.getId()), true);
 
 
-                }
+            }
 
 
+        } else if (view.getResources().getResourceName(view.getId()).contains("imbAtach") || view.getResources().getResourceName(view.getId()).contains("imbTakePic")) { //imBtakePic
 
-        }
+            //COMPORBAQMOS SI EXISTE AL ME4NOS UN IMAGEN URI LIST..
 
+            if (ImagenReport.hashMapImagesData.size() > 0) {
+                actualizaListStateView("imbAtach/imbTakePic", true);
 
-
-
-        else if (view.getResources().getResourceName(view.getId()).contains("imbAtach")  ||  view.getResources().getResourceName(view.getId()).contains("imbTakePic")){ //imBtakePic
-
-             //COMPORBAQMOS SI EXISTE AL ME4NOS UN IMAGEN URI LIST..
-
-            if(ImagenReport.hashMapImagesData.size()> 0 ) {
-                actualizaListStateView("imbAtach/imbTakePic",true) ;
-
-               Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
+                Log.i("miodata", "el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
 
 
-            }else {
+            } else {
 
-                actualizaListStateView("imbAtach/imbTakePic",false) ;
-                Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y no contiene fotos");
-
+                actualizaListStateView("imbAtach/imbTakePic", false);
+                Log.i("miodata", "el slecionado anteruior es imbAtach/imbTakePic y no contiene fotos");
 
 
             }
 
 
         }
-
-
-
-
 
 
         //seran mas comprobacion para verificar si imagenes por ejemplo fiueron completadas..
@@ -1528,224 +1446,199 @@ String currentIDcUDORmUESTREO;
 
         actualizaProgressBar();
 
-            }
+    }
 
 
-
-    private void actualizaListStateView(String idSearch,boolean isEstaLleno){
+    private void actualizaListStateView(String idSearch, boolean isEstaLleno) {
 ///
 
 
-        final String  idview = idSearch.replace(Variables.paqueteName+":id/","");
+        final String idview = idSearch.replace(Variables.paqueteName + ":id/", "");
 
-       //com.tiburela.qsercom:id/ediCodigo") ;
+        //com.tiburela.qsercom:id/ediCodigo") ;
 
-        Log.i("camisila","el id to search es "+idview) ;
+        Log.i("camisila", "el id to search es " + idview);
 
-        for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
+        for (int i = 0; i < EstateFieldView.listEstateViewField.size(); i++) {
 
-            if(EstateFieldView.listEstateViewField.get(i).getIdOfView().equals(idview)){
+            if (EstateFieldView.listEstateViewField.get(i).getIdOfView().equals(idview)) {
 
                 EstateFieldView.listEstateViewField.get(i).setEstaLleno(isEstaLleno);
 
 
-            }else  {
-
+            } else {
 
 
             }
 
         }
-
-
-
-
-
 
 
     }
 
 
-    private void actualizaProgressBar(){
+    private void actualizaProgressBar() {
 
-             int numero_itemsCompletados=0;
+        int numero_itemsCompletados = 0;
 
-            final int NUMERO_FIELDS_TOTAL=EstateFieldView.listEstateViewField.size(); // 19  ahora items emn total de completar 19,, algunos son opcionales...pero siempre deben haber 19 para que todos esten llenos
-
-
-            for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
-
-                if(EstateFieldView.listEstateViewField.get(i).isEstaLleno()){
-
-                    numero_itemsCompletados =numero_itemsCompletados+1;
+        final int NUMERO_FIELDS_TOTAL = EstateFieldView.listEstateViewField.size(); // 19  ahora items emn total de completar 19,, algunos son opcionales...pero siempre deben haber 19 para que todos esten llenos
 
 
-                }
+        for (int i = 0; i < EstateFieldView.listEstateViewField.size(); i++) {
+
+            if (EstateFieldView.listEstateViewField.get(i).isEstaLleno()) {
+
+                numero_itemsCompletados = numero_itemsCompletados + 1;
+
+
             }
+        }
 
-        Log.i("idCheck","el NUMERO ITEMScOMPLETADOS ES "+numero_itemsCompletados);
+        Log.i("idCheck", "el NUMERO ITEMScOMPLETADOS ES " + numero_itemsCompletados);
 
 
-            //buscamos el porecntaje
+        //buscamos el porecntaje
 
         //int porcentajeDeProgreso= numero_itemsCompletados*NUMERO_FIELDS_TOTAL/100;
 
-        int porcentajeDeProgreso= numero_itemsCompletados*100/NUMERO_FIELDS_TOTAL;
+        int porcentajeDeProgreso = numero_itemsCompletados * 100 / NUMERO_FIELDS_TOTAL;
 
         progressBarFormulario.setProgress(porcentajeDeProgreso);
 
 
-
-           Log.i("maswiso","el porciento es "+porcentajeDeProgreso);
-            //un item opcional vale
-
+        Log.i("maswiso", "el porciento es " + porcentajeDeProgreso);
+        //un item opcional vale
 
 
-        }
+    }
 
 
-
-
-
-
-
-    private void selecImages(){
+    private void selecImages() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 
-      //  resultatachImages();
-
+        //  resultatachImages();
 
 
     }
 
 
-     ActivityResultLauncher   activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
-                    @Override
-                    public void onActivityResult(List<Uri> result) {
-                        if (result != null) {
+    ActivityResultLauncher activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
+                @Override
+                public void onActivityResult(List<Uri> result) {
+                    if (result != null) {
 
-                            //creamos un objeto
+                        //creamos un objeto
 
-                            Log.i("mispiggi","el current type es "+currentTypeImage);
-                            Log.i("mispiggi","el size de la list uris es "+result.size());
-                            Log.i("mispiggi","el size de la  lista antes del for es  hashMapImagesData es "+ ImagenReport.hashMapImagesData.size());
-
-
-                            for(int indice=0; indice<result.size(); indice++){
+                        Log.i("mispiggi", "el current type es " + currentTypeImage);
+                        Log.i("mispiggi", "el size de la list uris es " + result.size());
+                        Log.i("mispiggi", "el size de la  lista antes del for es  hashMapImagesData es " + ImagenReport.hashMapImagesData.size());
 
 
-
-                                try {
-
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(),result.get(indice));
-
-                                   // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
-                                    String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
-
-                                    //creamos un nuevo objet de tipo ImagenReport
-                                    ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)), horientacionImg);
-                                    obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
+                        for (int indice = 0; indice < result.size(); indice++) {
 
 
-                                    //agregamos este objeto a la lista
-                                    ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                            try {
+
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(), result.get(indice));
+
+                                // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
+                                String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
+
+                                //creamos un nuevo objet de tipo ImagenReport
+                                ImagenReport obcjImagenReport = new ImagenReport("", result.get(indice).toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, result.get(indice)), horientacionImg);
+                                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
 
-                                  //  showImagesPicShotOrSelectUpdateView(false);
-
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                //agregamos este objeto a la lista
+                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
-                                showImagesPicShotOrSelectUpdateView(false);
+                                //  showImagesPicShotOrSelectUpdateView(false);
 
-
-
-                           ///     ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)));
-
-                             //   ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
-                              //  Log.i("mispiggi","el size de la  lists  el key del value es "+imagenReportObjc.getUniqueIdNamePic());
-
-
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
 
-                            Log.i("mispiggi","el size de la  lists  hashMapImagesData ahora es  es "+ ImagenReport.hashMapImagesData.size());
 
-                           // showImagesPicShotOrSelectUpdateView(false);
+                            showImagesPicShotOrSelectUpdateView(false);
 
+
+                            ///     ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)));
+
+                            //   ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
+                            //  Log.i("mispiggi","el size de la  lists  el key del value es "+imagenReportObjc.getUniqueIdNamePic());
 
 
                         }
+
+                        Log.i("mispiggi", "el size de la  lists  hashMapImagesData ahora es  es " + ImagenReport.hashMapImagesData.size());
+
+                        // showImagesPicShotOrSelectUpdateView(false);
+
+
                     }
-                });
+                }
+            });
 
 
+    void showImageByUri(Uri uri) {
+        try {
 
-void showImageByUri(Uri uri )  {
-   try {
-
-        // Setting image on image view using Bitmap
-        Bitmap bitmap = MediaStore
-                .Images
-                .Media
-                .getBitmap(
-                        getContentResolver(),
-                      uri);
-
+            // Setting image on image view using Bitmap
+            Bitmap bitmap = MediaStore
+                    .Images
+                    .Media
+                    .getBitmap(
+                            getContentResolver(),
+                            uri);
 
 
-        //escalamos el bitmap
-       Bitmap bitmap2=Bitmap.createScaledBitmap(bitmap, 420, 400, false);
-        Log.i("registrand","los encontrado");
+            //escalamos el bitmap
+            Bitmap bitmap2 = Bitmap.createScaledBitmap(bitmap, 420, 400, false);
+            Log.i("registrand", "los encontrado");
 
 
-        ImageView imageView= new ImageView(this);
+            ImageView imageView = new ImageView(this);
 
 
-       imageView.setImageBitmap(bitmap2);
+            imageView.setImageBitmap(bitmap2);
 
 
-
-
-
-
+        } catch (IOException e) {
+            // Log the exception
+            e.printStackTrace();
+        }
     }
 
-                    catch (IOException e) {
-        // Log the exception
-        e.printStackTrace();
-    }
-}
 
+    private void listennersSpinners() {
 
-private void listennersSpinners() {
-
-        spinnerSelectZona .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerSelectZona.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String zonaEelejida= spinnerSelectZona.getSelectedItem().toString();
+                String zonaEelejida = spinnerSelectZona.getSelectedItem().toString();
                 ediZona.setText(zonaEelejida);
 
 
-                Log.i("mizona","la zona aen listenner spinner es"+zonaEelejida);
+                Log.i("mizona", "la zona aen listenner spinner es" + zonaEelejida);
 
-                if(zonaEelejida.equalsIgnoreCase("Ninguna")){
+                if (zonaEelejida.equalsIgnoreCase("Ninguna")) {
                     //actualizamos
-                    Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
+                    Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
                     ediZona.setText("");
-                    actualizaListStateView("spinnerZona",false) ;
-                }else {
-                    actualizaListStateView("spinnerZona",true) ;
+                    actualizaListStateView("spinnerZona", false);
+                } else {
+                    actualizaListStateView("spinnerZona", true);
                 }
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -1753,430 +1646,398 @@ private void listennersSpinners() {
         });
 
 
-
-    spinnerCondicionBalanza .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            String condicion= spinnerCondicionBalanza.getSelectedItem().toString();
-            ediCondicionBalanza.setText(condicion);
-            if(condicion.equalsIgnoreCase("Ninguna")){
-                //actualizamos
-                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                ediZona.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
-            }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
-            }
-
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    });
-
-
-
-
-
-    spinnertipoCaja .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            String zonaEelejida= spinnertipoCaja.getSelectedItem().toString();
-            ediTipodeCaja.setText(zonaEelejida);
-            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
-                //actualizamos
-                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                ediTipodeCaja.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
-            }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
-            }
-
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    });
-
-
-
-    spinnertipodePlastico .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            String zonaEelejida= spinnertipodePlastico.getSelectedItem().toString();
-            ediTipoPlastico.setText(zonaEelejida);
-            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
-                //actualizamos
-                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                ediTipoPlastico.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
-            }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
-            }
-
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    });
-
-    spinnertipodeBlanza .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            String zonaEelejida= spinnertipodeBlanza.getSelectedItem().toString();
-            ediTipoBalanza.setText(zonaEelejida);
-
-            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
-                //actualizamos
-                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                ediTipoBalanza.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
-            }else {
-
-
-                actualizaListStateView("addetiquetaaqui",true) ;
-            }
-
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    });
-
-
-    spinnertipodeBlanzaRepeso .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            String zonaEelejida= spinnertipodeBlanzaRepeso.getSelectedItem().toString();
-            editipbalanzaRepeso.setText(zonaEelejida);
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    });
-
-
-
-    spinnerubicacionBalanza .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            String zonaEelejida= spinnerubicacionBalanza.getSelectedItem().toString();
-
-            ediUbicacionBalanza.setText(zonaEelejida);
-
-            if(zonaEelejida.equalsIgnoreCase("Ninguna")){
-                //actualizamos
-                Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                ediUbicacionBalanza.setText("");
-                actualizaListStateView("addetiquetaaqui",false) ;
-            }else {
-                actualizaListStateView("addetiquetaaqui",true) ;
-            }
-
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    });
-
-
-    switchContenedor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-            if(switchContenedor.isChecked()){
-
-                ediContenedor.setText(" SI ") ;
-
-            }else {
-                ediContenedor.setText(" NO ") ;
+        spinnerCondicionBalanza.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String condicion = spinnerCondicionBalanza.getSelectedItem().toString();
+                ediCondicionBalanza.setText(condicion);
+                if (condicion.equalsIgnoreCase("Ninguna")) {
+                    //actualizamos
+                    Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
+                    ediZona.setText("");
+                    actualizaListStateView("addetiquetaaqui", false);
+                } else {
+                    actualizaListStateView("addetiquetaaqui", true);
+                }
 
             }
-        }
-    });
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
+        spinnertipoCaja.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String zonaEelejida = spinnertipoCaja.getSelectedItem().toString();
+                ediTipodeCaja.setText(zonaEelejida);
+                if (zonaEelejida.equalsIgnoreCase("Ninguna")) {
+                    //actualizamos
+                    Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
+                    ediTipodeCaja.setText("");
+                    actualizaListStateView("addetiquetaaqui", false);
+                } else {
+                    actualizaListStateView("addetiquetaaqui", true);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
-}
+        spinnertipodePlastico.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String zonaEelejida = spinnertipodePlastico.getSelectedItem().toString();
+                ediTipoPlastico.setText(zonaEelejida);
+                if (zonaEelejida.equalsIgnoreCase("Ninguna")) {
+                    //actualizamos
+                    Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
+                    ediTipoPlastico.setText("");
+                    actualizaListStateView("addetiquetaaqui", false);
+                } else {
+                    actualizaListStateView("addetiquetaaqui", true);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinnertipodeBlanza.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String zonaEelejida = spinnertipodeBlanza.getSelectedItem().toString();
+                ediTipoBalanza.setText(zonaEelejida);
+
+                if (zonaEelejida.equalsIgnoreCase("Ninguna")) {
+                    //actualizamos
+                    Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
+                    ediTipoBalanza.setText("");
+                    actualizaListStateView("addetiquetaaqui", false);
+                } else {
 
 
-private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
+                    actualizaListStateView("addetiquetaaqui", true);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        spinnertipodeBlanzaRepeso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String zonaEelejida = spinnertipodeBlanzaRepeso.getSelectedItem().toString();
+                editipbalanzaRepeso.setText(zonaEelejida);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        spinnerubicacionBalanza.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String zonaEelejida = spinnerubicacionBalanza.getSelectedItem().toString();
+
+                ediUbicacionBalanza.setText(zonaEelejida);
+
+                if (zonaEelejida.equalsIgnoreCase("Ninguna")) {
+                    //actualizamos
+                    Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
+                    ediUbicacionBalanza.setText("");
+                    actualizaListStateView("addetiquetaaqui", false);
+                } else {
+                    actualizaListStateView("addetiquetaaqui", true);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        switchContenedor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (switchContenedor.isChecked()) {
+
+                    ediContenedor.setText(" SI ");
+
+                } else {
+                    ediContenedor.setText(" NO ");
+
+                }
+            }
+        });
+
+
+    }
+
+
+    private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg) {
 
         //si es eliminar comprobar aqui
-    if(isDeleteImg){
+        if (isDeleteImg) {
 
-        Log.i("mispiggi","si es ly_defparte3.xml imgVERGA Y EL SIZE ES  "+ ImagenReport.hashMapImagesData.size());
+            Log.i("mispiggi", "si es ly_defparte3.xml imgVERGA Y EL SIZE ES  " + ImagenReport.hashMapImagesData.size());
 
-        currentTypeImage=Variables.typeoFdeleteImg;
-    }
-
-
-     ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
-
-    RecyclerView recyclerView= findViewById(R.id.recyclerView);
+            currentTypeImage = Variables.typeoFdeleteImg;
+        }
 
 
-    Log.i("mispiggi","el size de la MAPA AHORAXXC ES  "+ ImagenReport.hashMapImagesData.size());
+        ArrayList<ImagenReport> filterListImagesData = new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
 
-    for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
+        Log.i("mispiggi", "el size de la MAPA AHORAXXC ES  " + ImagenReport.hashMapImagesData.size());
 
-        String key = set.getKey();
 
-        ImagenReport value = set.getValue();
+        for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
 
-        if(value.getTipoImagenCategory()==currentTypeImage){
+            String key = set.getKey();
 
-            filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
+            ImagenReport value = set.getValue();
+
+            if (value.getTipoImagenCategory() == currentTypeImage) {
+
+                filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
+
+            }
+
 
         }
 
 
-    }
+        //buscamos este
+
+        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE  es  es " + ImagenReport.hashMapImagesData.size());
 
 
-    //buscamos este
-
-    Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE  es  es "+ ImagenReport.hashMapImagesData.size());
-
-
-    //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
-    if(currentTypeImage== Variables.FOTO_LLEGADA)  {
-         recyclerView= findViewById(R.id.recyclerView);
+        //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
+        if (currentTypeImage == Variables.FOTO_LLEGADA) {
+            recyclerView = findViewById(R.id.recyclerView);
 
 
-    }
-    else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
-         recyclerView= findViewById(R.id.recyclerViewPostcosecha);
+        } else if (currentTypeImage == Variables.FOTO_PROD_POSTCOSECHA) {
+            recyclerView = findViewById(R.id.recyclerViewPostcosecha);
+            // at last set adapter to recycler view.
+
+        } else if (currentTypeImage == Variables.FOTO_TRANSPORTISTA) {
+            recyclerView = findViewById(R.id.recyclerVieDatsTransport);
+
+        } else if (currentTypeImage == Variables.FOTO_CONTENEDOR) {
+            recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
+        } else if (currentTypeImage == Variables.FOTO_SELLO_LLEGADA) {
+            recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+
+        }
+
+
+        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE AA  es  es " + ImagenReport.hashMapImagesData.size());
+
+
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(filterListImagesData, this);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+
+
         // at last set adapter to recycler view.
-
-    }
-
-    else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
-        recyclerView = findViewById(R.id.recyclerVieDatsTransport);
-
-    }
-
-    else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
-        recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
-    }
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE EE  es  es " + ImagenReport.hashMapImagesData.size());
 
 
-    else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
-        recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+        eventoBtnclicklistenerDelete(adapter);
+        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE SA  es  es " + ImagenReport.hashMapImagesData.size());
+
 
     }
 
 
+    private void eventCheckdata() {// verificamos que halla llenado toda la info necesaria..
 
-    Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE AA  es  es "+ ImagenReport.hashMapImagesData.size());
-
-
-    RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
-    GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        Button btnCheck;
+        btnCheck = findViewById(R.id.btnCheck);
 
 
-    // at last set adapter to recycler view.
-    recyclerView.setLayoutManager(layoutManager);
-    recyclerView.setAdapter(adapter);
-    Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE EE  es  es "+ ImagenReport.hashMapImagesData.size());
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+
+                // generatePDFandImport();
+
+                checkDataFields();
 
 
-    eventoBtnclicklistenerDelete(adapter);
-    Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE SA  es  es "+ ImagenReport.hashMapImagesData.size());
+            }
+        });
 
 
+    }
 
-}
+    void checkDataFields() {
 
-
-private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
-
-    Button btnCheck;
-    btnCheck=findViewById(R.id.btnCheck);
+        //  checkDatosGeneralesIsLleno();
 
 
-    btnCheck.setOnClickListener(new View.OnClickListener() {
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        @Override
-        public void onClick(View view) {
-
-           // generatePDFandImport();
-
-            checkDataFields();
+        //ES ETEST
 
 
+        if (!checkDatosGeneralesIsLleno()) {
+
+            Log.i("test001", "no esta lleno  checkDatosGeneralesIsLleno");
+            return;
+        } else {
+            Log.i("test001", "si esta lleno checkDatosGeneralesIsLleno ");
+
+        }
 
 
+        if (!checkcantidadPostcosechaIsLleno()) {
 
 
+            Log.i("test001", "no esta lleno  checkcantidadPostcosechaIsLleno");
+            return;
+        } else {
+            Log.i("test001", "si esta lleno checkcantidadPostcosechaIsLleno ");
+
+        }
+
+
+        if (!checkDatosContenedorIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDatosContenedorIsLleno");
+
+            return;
+        } else {
+
+            Log.i("test001", "si  esta lleno  checkDatosContenedorIsLleno");
+        }
+
+
+        if (!checkDataSellosLlegadaIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDataSellosLlegadaIsLleno");
+
+            return;
+        } else {
+
+            Log.i("test001", "si  esta lleno  checkDataSellosLlegadaIsLleno");
 
 
         }
-    });
 
 
+        if (!checkSellosInstaladosIsLleno()) {
+            Log.i("test001", "no esta lleno  checkSellosInstaladosIsLleno");
+
+            return;
+        } else {
+
+            Log.i("test001", "si  esta lleno  checkSellosInstaladosIsLleno");
 
 
-
-}
-
-void checkDataFields(){
-
-  //  checkDatosGeneralesIsLleno();
+        }
 
 
-    //ES ETEST
+        if (!checkDatosTransportistaIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDatosTransportistaIsLleno");
+
+            return;
+        } else {
+
+            Log.i("test001", "si  esta lleno  checkDatosTransportistaIsLleno");
 
 
-    if(! checkDatosGeneralesIsLleno()){
-
-        Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
-        return;
-    }
+        }
 
 
-    else{
-        Log.i("test001","si esta lleno checkDatosGeneralesIsLleno ");
+        if (!checkDatosProcesoIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDatosProcesoIsLleno");
 
-    }
+            return;
+        } else {
 
-
-
-    if(! checkcantidadPostcosechaIsLleno()){
-
-
-        Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
-        return;
-    }else{
-        Log.i("test001","si esta lleno checkcantidadPostcosechaIsLleno ");
-
-    }
+            Log.i("test001", "si  esta lleno  checkDatosProcesoIsLleno");
 
 
-    if(! checkDatosContenedorIsLleno()){
-        Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
+        }
 
-        return;
-    }else{
+        if (!checkDatosHaciendaIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDatosHaciendaIsLleno");
 
-        Log.i("test001","si  esta lleno  checkDatosContenedorIsLleno");
-    }
+            return;
+        } else {
 
-
-    if(! checkDataSellosLlegadaIsLleno()){
-        Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
-
-        return;
-    }else{
-
-        Log.i("test001","si  esta lleno  checkDataSellosLlegadaIsLleno");
+            Log.i("test001", "si  esta lleno  checkDatosHaciendaIsLleno");
 
 
-    }
+        }
 
 
-    if(! checkSellosInstaladosIsLleno()){
-        Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
+        if (!checkQueexistminim()) {
+            Log.i("test001", "no esta lleno  checkDataCalibFrutaCalEnfn");
 
-        return;
-    }else{
+            return;
+        } else {
 
-        Log.i("test001","si  esta lleno  checkSellosInstaladosIsLleno");
-
-
-    }
+            Log.i("test001", "si  esta lleno  checkDataCalibFrutaCalEnfn");
 
 
-    if(! checkDatosTransportistaIsLleno()){
-        Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
+        }
+        if (!getResultDatCalibCalEnfundes()) {
+            Log.i("test001", "no esta lleno  getResultDatCalibCalEnfundes");
 
-        return;
-    }else{
+            return;
+        } else {
 
-        Log.i("test001","si  esta lleno  checkDatosTransportistaIsLleno");
+            Log.i("test001", "si  esta lleno  getResultDatCalibCalEnfundes");
 
+
+        }
+
+        if (!Utils.checkifAtach()) {
+            Log.i("test001", "no esta lleno  checkifAtach");
+            FragmentManager fm = getSupportFragmentManager();
+            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
+            // alertDialog.setCancelable(false);
+            alertDialog.show(fm, "duialoffragment_alertZ");
+            return;
+        }
+
+
+        openBottomSheet();
 
     }
 
 
-    if(! checkDatosProcesoIsLleno()){
-        Log.i("test001","no esta lleno  checkDatosProcesoIsLleno");
-
-        return;
-    }else{
-
-        Log.i("test001","si  esta lleno  checkDatosProcesoIsLleno");
+    private boolean getResultDatCalibCalEnfundes() {
 
 
-    }
-
-    if(! checkDatosHaciendaIsLleno()){
-        Log.i("test001","no esta lleno  checkDatosHaciendaIsLleno");
-
-        return;
-    }else{
-
-        Log.i("test001","si  esta lleno  checkDatosHaciendaIsLleno");
-
-
-    }
-
-
-    if(! checkQueexistminim()){
-        Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
-
-        return;
-    }else
-
-    {
-
-        Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
-
-
-    }
-    if(!getResultDatCalibCalEnfundes()){
-        Log.i("test001","no esta lleno  getResultDatCalibCalEnfundes");
-
-        return;
-    }else
-
-    {
-
-        Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
-
-
-    }
-
-    if(! Utils.checkifAtach()){
-      Log.i("test001","no esta lleno  checkifAtach");
-        FragmentManager fm = getSupportFragmentManager();
-        DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
-        // alertDialog.setCancelable(false);
-        alertDialog.show(fm, "duialoffragment_alertZ");
-        return;
-    }
-
-
-
-
-    openBottomSheet();
-
-}
-
-
-    private boolean getResultDatCalibCalEnfundes(){
-
-
-
-        if(ediRacimosCosech.getText().toString().trim().isEmpty()){
+        if (ediRacimosCosech.getText().toString().trim().isEmpty()) {
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este valor es necesesario");
 
@@ -2193,41 +2054,36 @@ void checkDataFields(){
         EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
 
 
-        EditText ediPorc14=findViewById(R.id.ediPorc14);
-        EditText ediPorc13=findViewById(R.id.ediPorc13);
-        EditText ediPorc12=findViewById(R.id.ediPorc12);
-        EditText ediPorc11=findViewById(R.id.ediPorc11);
-        EditText ediPorc10=findViewById(R.id.ediPorc10);
-        EditText ediPorc9 =findViewById(R.id.ediPorc9);
+        EditText ediPorc14 = findViewById(R.id.ediPorc14);
+        EditText ediPorc13 = findViewById(R.id.ediPorc13);
+        EditText ediPorc12 = findViewById(R.id.ediPorc12);
+        EditText ediPorc11 = findViewById(R.id.ediPorc11);
+        EditText ediPorc10 = findViewById(R.id.ediPorc10);
+        EditText ediPorc9 = findViewById(R.id.ediPorc9);
 
 
-
-
-        int numRacimosCosechados=Integer.parseInt(ediRacimosCosech.getText().toString());
+        int numRacimosCosechados = Integer.parseInt(ediRacimosCosech.getText().toString());
         float resultpercente;
         DecimalFormat format = new DecimalFormat("#.##");
 
-        int numeroRacimosContador=0;
+        int numeroRacimosContador = 0;
 
         //numero de raCimos
-        EditText [] miArrayNUmrACIMOS ={ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9};
+        EditText[] miArrayNUmrACIMOS = {ediNumRcim14, ediNumRcim13, ediNumRcim12, ediNumRcim11, ediNumRcim10, ediNumRac9};
 
-        EditText [] miArraypORCENTAHJES ={ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPorc9};
+        EditText[] miArraypORCENTAHJES = {ediPorc14, ediPorc13, ediPorc12, ediPorc11, ediPorc10, ediPorc9};
 
-        for(int i=0; i<miArrayNUmrACIMOS.length; i++){
+        for (int i = 0; i < miArrayNUmrACIMOS.length; i++) {
 
-            if(!miArrayNUmrACIMOS[i].getText().toString().trim().isEmpty())
-            {        ///tiene que ser mayor a cero
-                if(Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString())>0)
-                {  //operamoss
-                    resultpercente= (Float.parseFloat(miArrayNUmrACIMOS[i].getText().toString())/numRacimosCosechados)*100;
+            if (!miArrayNUmrACIMOS[i].getText().toString().trim().isEmpty()) {        ///tiene que ser mayor a cero
+                if (Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString()) > 0) {  //operamoss
+                    resultpercente = (Float.parseFloat(miArrayNUmrACIMOS[i].getText().toString()) / numRacimosCosechados) * 100;
 
-                    String promDecim=format.format(resultpercente)   ;
+                    String promDecim = format.format(resultpercente);
                     miArraypORCENTAHJES[i].setText(promDecim);
 
                     //sumaoslos racimos totale
-                    numeroRacimosContador=numeroRacimosContador+Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString());
-
+                    numeroRacimosContador = numeroRacimosContador + Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString());
 
 
                 }
@@ -2238,126 +2094,100 @@ void checkDataFields(){
         }
 
 
-
         //calculo aqwui
 
-        if(numeroRacimosContador!=numRacimosCosechados){
+        if (numeroRacimosContador != numRacimosCosechados) {
 
             Snackbar.make(ediRacimosCosech, "El numero de racimos no concuerda con el numero de racimos cosechados", Snackbar.LENGTH_LONG)
                     .show();
 
-            Log.i("dataracimos","no coincide");
+            Log.i("dataracimos", "no coincide");
 
             return false;
 
 
-
-
-        }
-
-        else {
-            Log.i("dataracimos","SI coincide");
+        } else {
+            Log.i("dataracimos", "SI coincide");
 
             return true;
 
 
-
         }
-
 
 
     }
 
 
-
-
-
-
-
-
-    void checkDataToCreatePdf(){
+    void checkDataToCreatePdf() {
 
         //  checkDatosGeneralesIsLleno();
 
 
+        if (!checkDatosGeneralesIsLleno()) {
 
-        if(! checkDatosGeneralesIsLleno()){
-
-            Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
+            Log.i("test001", "no esta lleno  checkDatosGeneralesIsLleno");
             return;
         }
 
 
-
-        if(! checkcantidadPostcosechaIsLleno()){
-            Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
+        if (!checkcantidadPostcosechaIsLleno()) {
+            Log.i("test001", "no esta lleno  checkcantidadPostcosechaIsLleno");
             return;
         }
 
 
-        if(! checkDatosContenedorIsLleno()){
-            Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
+        if (!checkDatosContenedorIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDatosContenedorIsLleno");
             return;
         }
 
 
-        if(! checkDataSellosLlegadaIsLleno()){
-            Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
+        if (!checkDataSellosLlegadaIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDataSellosLlegadaIsLleno");
             return;
         }
 
 
-        if(! checkSellosInstaladosIsLleno()){
-            Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
+        if (!checkSellosInstaladosIsLleno()) {
+            Log.i("test001", "no esta lleno  checkSellosInstaladosIsLleno");
             return;
         }
 
 
-
-        if(! checkDatosTransportistaIsLleno()){
-            Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
+        if (!checkDatosTransportistaIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDatosTransportistaIsLleno");
             return;
         }
 
 
-
-        if(! checkDatosProcesoIsLleno()){
-            Log.i("test001","no esta lleno  checkDatosProcesoIsLleno");
+        if (!checkDatosProcesoIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDatosProcesoIsLleno");
             return;
         }
 
 
-
-
-        if (! checkDatosHaciendaIsLleno()) {
-            Log.i("test001","no esta lleno  checkDatosHaciendaIsLleno");
+        if (!checkDatosHaciendaIsLleno()) {
+            Log.i("test001", "no esta lleno  checkDatosHaciendaIsLleno");
             return;
         }
 
 
-
-
-        if  (!checkQueexistminim()) {
-            Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
+        if (!checkQueexistminim()) {
+            Log.i("test001", "no esta lleno  checkDataCalibFrutaCalEnfn");
             return;
         }
 
 
-        if  (!cehckExisteMiumReportsVINCULADOS()) {
-            Log.i("test001","no esta lleno  cehckExisteMiumReportsVINCULADOS");
+        if (!cehckExisteMiumReportsVINCULADOS()) {
+            Log.i("test001", "no esta lleno  cehckExisteMiumReportsVINCULADOS");
             return;
         }
-
-
 
 
 //all reportsdfgdf
         // exieste al menos un reporte generado vinuculado///
 
-
-
-
-
+        generateMapLibriadoIfExistAndUpload(true);
 
 
         updateInformeWhitCurrentDataOfViews();
@@ -2370,24 +2200,23 @@ void checkDataFields(){
     }
 
 
-
-    private boolean  cehckExisteMiumReportsVINCULADOS(){
-          //   int contadroInformsControCalidad=0;
-      //  int contadroInformsCuadroMuetreo=0;
-
-
-      //  String [] allInformCuadroMuetreo =RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.split(",");
-       /// String [] allInformcONTROLcALIDA=RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.split(",");
+    private boolean cehckExisteMiumReportsVINCULADOS() {
+        //   int contadroInformsControCalidad=0;
+        //  int contadroInformsCuadroMuetreo=0;
 
 
-        if(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()){
+        //  String [] allInformCuadroMuetreo =RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.split(",");
+        /// String [] allInformcONTROLcALIDA=RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.split(",");
+
+
+        if (RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()) {
             Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Cuadro de muestreo", Toast.LENGTH_LONG).show();
             return false;
 
         }
 
 
-        if(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.trim().isEmpty()){
+        if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.trim().isEmpty()) {
             Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Control calia", Toast.LENGTH_LONG).show();
 
             return false;
@@ -2416,59 +2245,58 @@ void checkDataFields(){
     }
 
 
-private void openBottomSheet(){
+    private void openBottomSheet() {
 
-    DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(Variables.FormPreviewContenedores);
-    addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
-}
+        DialogConfirmChanges addPhotoBottomDialogFragment = DialogConfirmChanges.newInstance(Variables.FormPreviewContenedores);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), DialogConfirmChanges.TAG);
+    }
 
-    private void updateInformeWhitCurrentDataOfViews(){
+    private void updateInformeWhitCurrentDataOfViews() {
 
-        String atachViucladoControlCalidad=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
-        String atachViucladoCuadroX=Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
+        String atachViucladoControlCalidad = Variables.CurrenReportPart1.getAtachControCalidadInfrms();
+        String atachViucladoCuadroX = Variables.CurrenReportPart1.getAtachControCuadroMuestreo();
 
 
         //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
-        Variables.CurrenReportPart1  = new SetInformEmbarque1(
-                ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString(),
+        Variables.CurrenReportPart1 = new SetInformEmbarque1(
+                ediExportadoraProcesada.getText().toString(), ediExportadoraSolicitante.getText().toString(),
                 ediMarca.getText().toString(),
 
 
-                UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
+                UNIQUE_ID_iNFORME, ediCodigo.getText().toString(),
                 Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
-                ,ediProductor.getText().toString(),ediCodigo.getText().toString()
-                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),
-                FieldOpcional.observacionOpcional,ediHoraLLegadaContenedor.getText().toString(),ediHoraSalidaContenedor.getText().toString()
-                ,ediDestino.getText().toString(),ediNViaje.getText().toString(),ediNumContenedor.getText().toString(),ediVapor.getText().toString(),
-                ediTipoContenedor.getText().toString(),ediTare.getText().toString(),ediBooking.getText().toString(),ediMaxGross.getText().toString(),
-                ediNumSerieFunda.getText().toString(),stikVentolerExterna.getText().toString(),
-                ediCableRastreoLlegada.getText().toString(),ediSelloPlasticoNaviera.getText().toString(),FieldOpcional.otrosSellosLLegaEspecif);
-                Variables.CurrenReportPart1.setKeyFirebase( Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+                , ediProductor.getText().toString(), ediCodigo.getText().toString()
+                , ediPemarque.getText().toString(), ediNguiaRemision.getText().toString(), ediHacienda.getText().toString()
+                , edi_nguia_transporte.getText().toString(), ediNtargetaEmbarque.getText().toString(),
+                ediInscirpMagap.getText().toString(), ediHoraInicio.getText().toString(), ediHoraTermino.getText().toString()
+                , ediSemana.getText().toString(), ediEmpacadora.getText().toString(), ediContenedor.getText().toString(),
+                FieldOpcional.observacionOpcional, ediHoraLLegadaContenedor.getText().toString(), ediHoraSalidaContenedor.getText().toString()
+                , ediDestino.getText().toString(), ediNViaje.getText().toString(), ediNumContenedor.getText().toString(), ediVapor.getText().toString(),
+                ediTipoContenedor.getText().toString(), ediTare.getText().toString(), ediBooking.getText().toString(), ediMaxGross.getText().toString(),
+                ediNumSerieFunda.getText().toString(), stikVentolerExterna.getText().toString(),
+                ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif);
+        Variables.CurrenReportPart1.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
         Variables.CurrenReportPart1.setAtachControCalidadInfrms(atachViucladoControlCalidad);
         Variables.CurrenReportPart1.setAtachControCuadroMuestreo(atachViucladoCuadroX);
 
-        if( RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.length()>1){
+        if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.length() > 1) {
             Variables.CurrenReportPart1.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
         }
 
 
-        if( RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.length()>1){
+        if (RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.length() > 1) {
             Variables.CurrenReportPart1.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
         }
 
 
+        Log.i("eldtatashd", "el string atch es " + RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
-        Log.i("eldtatashd","el string atch es "+ RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
-
-        if(millisDateSelect >0){
+        if (millisDateSelect > 0) {
 
             ////CONVERTIMOS A SIMPLE DATE FORMAT
             Format formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -2480,25 +2308,22 @@ private void openBottomSheet(){
         }
 
 
+        Variables.CurrenReportPart2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME, ediTermofrafo1.getText().toString(), ediTermofrafo2.getText().toString()
+                , ediHoraEncendido1.getText().toString(), ediHoraEncendido2.getText().toString(),
+                ediUbicacion1.getText().toString(), ediUbicacion2.getText().toString(), ediRuma1.getText().toString(), ediRuma2.getText().toString()
+                , ediCandadoqsercon.getText().toString(), ediSelloNaviera.getText().toString(), ediCableNaviera.getText().toString(),
+                ediSelloPlasticoNaviera.getText().toString(), ediCandadoBotella.getText().toString(), ediCableExportadora.getText().toString(),
+                ediSelloAdesivoexpor.getText().toString(), esiSelloAdhNaviera.getText().toString(), FieldOpcional.otrosSellosInstalaEsp,
+                ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(), ediCedula.getText().toString(),
+                ediCedula.getText().toString(), ediPLaca.getText().toString(), ediMarcaCabezal.getText().toString(),
+                ediColorCabezal.getText().toString(), ediCondicionBalanza.getText().toString(), ediTipodeCaja.getText().toString()
+                , switchHaybalanza.isChecked(), switchHayEnsunchado.isChecked(), spinnertipodePlastico.getSelectedItem().toString(),
+                switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), FieldOpcional.tipoDeBalanzaRepesoOpcnal);
+
+        Variables.CurrenReportPart2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
-        Variables.CurrenReportPart2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME,ediTermofrafo1.getText().toString(),ediTermofrafo2.getText().toString()
-                ,ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString(),
-                ediUbicacion1.getText().toString(),ediUbicacion2.getText().toString(),ediRuma1.getText().toString(),ediRuma2.getText().toString()
-                ,ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),
-                ediSelloPlasticoNaviera.getText().toString(),ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),
-                ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString(),FieldOpcional.otrosSellosInstalaEsp,
-                ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(),ediCedula.getText().toString(),
-                ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
-                ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
-                ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
-                switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
-
-        Variables.CurrenReportPart2.setKeyFirebase( Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
-
-
-
-        Variables.CurrenReportPart3= new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),
+        Variables.CurrenReportPart3 = new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(), swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
 
                 spFumigaCorL1.getSelectedItem().toString(),
                 spTipoBoquilla.getSelectedItem().toString()
@@ -2506,14 +2331,13 @@ private void openBottomSheet(){
 
                 //ediTipoBoquilla.getText().toString()
 
-                ,ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(),ediRacimosRecha.getText().toString(),ediRacimProces.getText().toString()
-                ,UNIQUE_ID_iNFORME,ediExtCalid.getText().toString(),ediExtCalidCi.getText().toString());
-
+                , ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(), ediRacimosRecha.getText().toString(), ediRacimProces.getText().toString()
+                , UNIQUE_ID_iNFORME, ediExtCalid.getText().toString(), ediExtCalidCi.getText().toString());
 
 
         updateDatosEvaludoresOFinforme3(Variables.CurrenReportPart3);
 
-        Variables.CurrenReportPart3.setKeyFirebase( Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+        Variables.CurrenReportPart3.setKeyFirebase(Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
         updateCaledarioEnfunde(Variables.CurrenReportPart3);
@@ -2522,105 +2346,116 @@ private void openBottomSheet(){
     }
 
 
+    private void createObjcInformeAndUpload() {
 
-private void createObjcInformeAndUpload() {
-
-    //aplicamos la logica PARA CREAR UN NUEVO INFORME
+        //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
-    SetInformEmbarque1 informe = new SetInformEmbarque1(ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString(),
-            ediMarca.getText().toString(),
+        SetInformEmbarque1 informe = new SetInformEmbarque1(ediExportadoraProcesada.getText().toString(), ediExportadoraSolicitante.getText().toString(),
+                ediMarca.getText().toString(),
 
-            UNIQUE_ID_iNFORME, ediCodigo.getText().toString(),
-            Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
-            , ediProductor.getText().toString(), ediCodigo.getText().toString()
-            , ediPemarque.getText().toString(), ediNguiaRemision.getText().toString(), ediHacienda.getText().toString()
-            , edi_nguia_transporte.getText().toString(), ediNtargetaEmbarque.getText().toString(),
-            ediInscirpMagap.getText().toString(), ediHoraInicio.getText().toString(), ediHoraTermino.getText().toString()
-            , ediSemana.getText().toString(), ediEmpacadora.getText().toString(), ediContenedor.getText().toString(),
-            FieldOpcional.observacionOpcional, ediHoraLLegadaContenedor.getText().toString(), ediHoraSalidaContenedor.getText().toString()
-            , ediDestino.getText().toString(), ediNViaje.getText().toString(), ediNumContenedor.getText().toString(), ediVapor.getText().toString(),
-            ediTipoContenedor.getText().toString(), ediTare.getText().toString(), ediBooking.getText().toString(), ediMaxGross.getText().toString(),
-            ediNumSerieFunda.getText().toString(), stikVentolerExterna.getText().toString(),
-            ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif);
-    informe.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+                UNIQUE_ID_iNFORME, ediCodigo.getText().toString(),
+                Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
+                , ediProductor.getText().toString(), ediCodigo.getText().toString()
+                , ediPemarque.getText().toString(), ediNguiaRemision.getText().toString(), ediHacienda.getText().toString()
+                , edi_nguia_transporte.getText().toString(), ediNtargetaEmbarque.getText().toString(),
+                ediInscirpMagap.getText().toString(), ediHoraInicio.getText().toString(), ediHoraTermino.getText().toString()
+                , ediSemana.getText().toString(), ediEmpacadora.getText().toString(), ediContenedor.getText().toString(),
+                FieldOpcional.observacionOpcional, ediHoraLLegadaContenedor.getText().toString(), ediHoraSalidaContenedor.getText().toString()
+                , ediDestino.getText().toString(), ediNViaje.getText().toString(), ediNumContenedor.getText().toString(), ediVapor.getText().toString(),
+                ediTipoContenedor.getText().toString(), ediTare.getText().toString(), ediBooking.getText().toString(), ediMaxGross.getText().toString(),
+                ediNumSerieFunda.getText().toString(), stikVentolerExterna.getText().toString(),
+                ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif);
+        informe.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
-    informe.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+        informe.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
-    informe.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado); //LE BORRAMOS MASS
+        informe.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado); //LE BORRAMOS MASS
 
-    Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
+        Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
-    if (millisDateSelect > 0) {
 
-        ////CONVERTIMOS A SIMPLE DATE FORMAT
-        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String fechaString = formatter.format(Variables.CurrenReportPart1.getFechaCreacionInf());
-        informe.setSimpleDataFormat(fechaString);
-        informe.setFechaCreacionInf(millisDateSelect);
+        //cremaos un hasmpa con los libriados
+        HashMap<String, Float> miMapLbriado = generateMapLibriadoIfExistAndUpload(false);
+        String keyWhereLocaleHashMapLibriado = "";
+
+        //SUBIMOS EL MAPA
+        if (miMapLbriado.size() > 0) {
+            keyWhereLocaleHashMapLibriado = Variables.CurrenReportPart1.getKeyOrNodeLibriadoSiEs();
+            RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado, keyWhereLocaleHashMapLibriado);
+
+        }
+
+
+        informe.setKeyOrNodeLibriadoSiEs(keyWhereLocaleHashMapLibriado);
+
+
+        if (millisDateSelect > 0) {
+            ////CONVERTIMOS A SIMPLE DATE FORMAT
+            Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+            String fechaString = formatter.format(Variables.CurrenReportPart1.getFechaCreacionInf());
+            informe.setSimpleDataFormat(fechaString);
+            informe.setFechaCreacionInf(millisDateSelect);
+        }
+
+
+        SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME, ediTermofrafo1.getText().toString(), ediTermofrafo2.getText().toString()
+                , ediHoraEncendido1.getText().toString(), ediHoraEncendido2.getText().toString(),
+                ediUbicacion1.getText().toString(), ediUbicacion2.getText().toString(), ediRuma1.getText().toString(), ediRuma2.getText().toString()
+                , ediCandadoqsercon.getText().toString(), ediSelloNaviera.getText().toString(), ediCableNaviera.getText().toString(),
+                ediSelloPlasticoNaviera.getText().toString(), ediCandadoBotella.getText().toString(), ediCableExportadora.getText().toString(),
+                ediSelloAdesivoexpor.getText().toString(), esiSelloAdhNaviera.getText().toString(), FieldOpcional.otrosSellosInstalaEsp,
+                ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(), ediCedula.getText().toString(),
+                ediCedula.getText().toString(), ediPLaca.getText().toString(), ediMarcaCabezal.getText().toString(),
+                ediColorCabezal.getText().toString(), ediCondicionBalanza.getText().toString(), ediTipodeCaja.getText().toString()
+                , switchHaybalanza.isChecked(), switchHayEnsunchado.isChecked(), spinnertipodePlastico.getSelectedItem().toString(),
+                switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), FieldOpcional.tipoDeBalanzaRepesoOpcnal);
+
+        informe2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+        SetInformDatsHacienda informe3 = new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(), swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
+
+                spFumigaCorL1.getSelectedItem().toString(),
+                spTipoBoquilla.getSelectedItem().toString()
+                // ediFumigacionClin1.getText().toString()
+
+                //ediTipoBoquilla.getText().toString()
+
+                , ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(), ediRacimosRecha.getText().toString(), ediRacimProces.getText().toString()
+                , UNIQUE_ID_iNFORME, ediExtCalid.getText().toString(), ediExtCalidCi.getText().toString());
+
+
+        updateDatosEvaludoresOFinforme3(informe3);
+
+
+        informe3.setKeyFirebase(Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+        RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
+
+        //agr5egamos la data finalemente
+
+
+        updateCaledarioEnfunde(informe3);
+
+        //checkQueexistminim();
+
+        RealtimeDB.actualizaInformePart1(informe);
+        RealtimeDB.actualizaInformePart2(informe2);
+
+        RealtimeDB.actualizaInformePart3(informe3); //vamos a subir este informe...
+
+        // RealtimeDB.actualizaInformePart3(informe3);
+
+
+        addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
 
 
     }
 
-
-    SetInformEmbarque2 informe2 = new SetInformEmbarque2(UNIQUE_ID_iNFORME, ediTermofrafo1.getText().toString(), ediTermofrafo2.getText().toString()
-            , ediHoraEncendido1.getText().toString(), ediHoraEncendido2.getText().toString(),
-            ediUbicacion1.getText().toString(), ediUbicacion2.getText().toString(), ediRuma1.getText().toString(), ediRuma2.getText().toString()
-            , ediCandadoqsercon.getText().toString(), ediSelloNaviera.getText().toString(), ediCableNaviera.getText().toString(),
-            ediSelloPlasticoNaviera.getText().toString(), ediCandadoBotella.getText().toString(), ediCableExportadora.getText().toString(),
-            ediSelloAdesivoexpor.getText().toString(), esiSelloAdhNaviera.getText().toString(), FieldOpcional.otrosSellosInstalaEsp,
-            ediCompaniaTransporte.getText().toString(), ediNombreChofer.getText().toString(), ediCedula.getText().toString(),
-            ediCedula.getText().toString(), ediPLaca.getText().toString(), ediMarcaCabezal.getText().toString(),
-            ediColorCabezal.getText().toString(), ediCondicionBalanza.getText().toString(), ediTipodeCaja.getText().toString()
-            , switchHaybalanza.isChecked(), switchHayEnsunchado.isChecked(), spinnertipodePlastico.getSelectedItem().toString(),
-            switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), FieldOpcional.tipoDeBalanzaRepesoOpcnal);
-
-    informe2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
-
-
-    SetInformDatsHacienda informe3 = new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(), swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
-
-            spFumigaCorL1.getSelectedItem().toString(),
-            spTipoBoquilla.getSelectedItem().toString()
-            // ediFumigacionClin1.getText().toString()
-
-            //ediTipoBoquilla.getText().toString()
-
-            , ediCajasProcDesp.getText().toString(), ediRacimosCosech.getText().toString(), ediRacimosRecha.getText().toString(), ediRacimProces.getText().toString()
-            , UNIQUE_ID_iNFORME, ediExtCalid.getText().toString(), ediExtCalidCi.getText().toString());
-
-
-             updateDatosEvaludoresOFinforme3(informe3);
-
-
-
-    informe3.setKeyFirebase( Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
-
-
-    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
-
-    //agr5egamos la data finalemente
-
-
-    updateCaledarioEnfunde(informe3);
-
-    //checkQueexistminim();
-
-    RealtimeDB.actualizaInformePart1(informe);
-    RealtimeDB.actualizaInformePart2(informe2);
-
-    RealtimeDB.actualizaInformePart3(informe3); //vamos a subir este informe...
-
-    // RealtimeDB.actualizaInformePart3(informe3);
-
-
-    addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
-
-
-}
-
     private void updateDatosEvaludoresOFinforme3(SetInformDatsHacienda informe3) {
 
-        if(!ediExtRodillo.getText().toString().trim().isEmpty()){
+        if (!ediExtRodillo.getText().toString().trim().isEmpty()) {
 
             informe3.setExtensionistDeRodillo(ediExtRodillo.getText().toString());
             informe3.setCI_extensionistDeRodillo(ediExtRodilloCi.getText().toString());
@@ -2628,7 +2463,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-        if(!ediExtGancho.getText().toString().trim().isEmpty()){
+        if (!ediExtGancho.getText().toString().trim().isEmpty()) {
             informe3.setExtensionistEnGancho(ediExtGancho.getText().toString());
             informe3.setCI_extensionistEnGancho(ediExtGanchoCi.getText().toString());
 
@@ -2638,8 +2473,6 @@ private void createObjcInformeAndUpload() {
     }
 
 
-
-
     private void eventoBtnclicklistenerDelete(RecyclerViewAdapter adapter) {
 
         adapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
@@ -2647,8 +2480,8 @@ private void createObjcInformeAndUpload() {
 
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
-                Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
-                Log.i("mispiggi","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                Variables.typeoFdeleteImg = ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
+                Log.i("mispiggi", "el size antes de eliminar es " + ImagenReport.hashMapImagesData.size());
 
                 listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
@@ -2662,7 +2495,7 @@ private void createObjcInformeAndUpload() {
                     e.printStackTrace();
                 }
 
-                Log.i("mispiggi","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                Log.i("mispiggi", "el size despues de eliminar es " + ImagenReport.hashMapImagesData.size());
 
                 showImagesPicShotOrSelectUpdateView(true);
 
@@ -2673,75 +2506,63 @@ private void createObjcInformeAndUpload() {
     }
 
 
-
     void uploadImagesInStorageAndInfoPICS() {
-   //una lista de Uris
+        //una lista de Uris
 
-        Log.i("imagheddd","sellamo method here");
+        Log.i("imagheddd", "sellamo method here");
 
-        Log.i("imagheddd"," fue return"+ImagenReport.hashMapImagesData.size()+" ye l otro esw "+Variables.hashMapImagesStart.size());
+        Log.i("imagheddd", " fue return" + ImagenReport.hashMapImagesData.size() + " ye l otro esw " + Variables.hashMapImagesStart.size());
 
 
-        if(ImagenReport.hashMapImagesData.size() ==0){
-            Log.i("imagheddd"," fue return");
+        if (ImagenReport.hashMapImagesData.size() == 0) {
+            Log.i("imagheddd", " fue return");
 
-             return;
+            return;
         }
 
 
-
-
-        Log.i("imagheddd","no fue return");
+        Log.i("imagheddd", "no fue return");
 
         //si introdujo texto en el recicler actualizar los objetos
 
 
+        //boorara desee aqui
+        if (!Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())) { //si no son iguales
 
+            Log.i("imagheddd", "alguno o toos son diferentes images llamaos metodo filtra");
 
+            ArrayList<ImagenReport> list = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
+            StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
 
-
-
-
-
-
-          //boorara desee aqui
-        if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
-
-            Log.i("imagheddd","alguno o toos son diferentes images llamaos metodo filtra");
-
-            ArrayList<ImagenReport>list=Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
-            StorageData.counTbucle=0; //resetemoa esta variable que sera indice en la reflexion
-
-            ArrayList<ImagenReport>list2=Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
+            ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
             StorageData.uploaddata(list2);
 
 
-
-        }else{
-            Log.i("imagheddd","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
+        } else {
+            Log.i("imagheddd", "el size de hashMapImagesStart es  " + Variables.hashMapImagesStart.size() + " y el size de hashMapImagesData es" + ImagenReport.hashMapImagesData.size());
 
         }
 
-            if(Utils.objsIdsDecripcionImgsMOreDescripc.size()>0) {
+        if (Utils.objsIdsDecripcionImgsMOreDescripc.size() > 0) {
 
-                RealtimeDB.initDatabasesReferenceImagesData();
-                RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
+            RealtimeDB.initDatabasesReferenceImagesData();
+            RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
 
-            }
+        }
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void generatePDFandImport(){
-     //generate pdf
+    private void generatePDFandImport() {
+        //generate pdf
 
 
-        if(!checkPermission()){
+        if (!checkPermission()) {
 
             requestPermission();
             //   Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-           // checkPermission2();
+            // checkPermission2();
 
             /****por aqui pedir permisos antes **/
 
@@ -2749,17 +2570,12 @@ private void createObjcInformeAndUpload() {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-         //   Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
-         //  startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
+            //   Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+            //  startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
         }
 
 
-
-
-
-
-
-      //  startActivity(new Intent(FormularioActivity.this,PdfPreviewActivity.class));
+        //  startActivity(new Intent(FormularioActivity.this,PdfPreviewActivity.class));
 
         //generamos un pdf con la data que tenemos()
 
@@ -2776,8 +2592,6 @@ private void createObjcInformeAndUpload() {
 */
 
 
-
-
     }
 
 
@@ -2787,7 +2601,6 @@ private void createObjcInformeAndUpload() {
         int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
         return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -2814,7 +2627,7 @@ private void createObjcInformeAndUpload() {
 
 
         try {
-            ActivityCompat.requestPermissions(this, new String[]{ READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
 
 
         } catch (Exception e) {
@@ -2823,7 +2636,6 @@ private void createObjcInformeAndUpload() {
 
 
     }
-
 
 
     @Override
@@ -2865,36 +2677,31 @@ private void createObjcInformeAndUpload() {
     }
 
 
-
-
-
-
     ///vamos a cehekar que exista al menos una imagen en cada categoria...
     //comprbar que exista un objeto imagen.....
 
     //primero chekeamos el el uri exista...
 
 
-    private boolean existminiumImage(int numImagenNMinimo, int categoriaImagenToSearch){
+    private boolean existminiumImage(int numImagenNMinimo, int categoriaImagenToSearch) {
 
-    Log.i("minimopics","el size de ImagenReport.hashMapImagesData es "+ImagenReport.hashMapImagesData.size());
+        Log.i("minimopics", "el size de ImagenReport.hashMapImagesData es " + ImagenReport.hashMapImagesData.size());
 
 
-
-        int numImagesEcontradas=0;
+        int numImagesEcontradas = 0;
 
 
         for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) { //revismao en todo el map
 
-         //   String key = set.getKey();
+            //   String key = set.getKey();
 
             ImagenReport value = set.getValue();
 
-            if(value.getTipoImagenCategory()==categoriaImagenToSearch){
+            if (value.getTipoImagenCategory() == categoriaImagenToSearch) {
 
                 numImagesEcontradas++;
 
-                if(numImagesEcontradas >=numImagenNMinimo){
+                if (numImagesEcontradas >= numImagenNMinimo) {
                     break;
 
                 }
@@ -2905,25 +2712,23 @@ private void createObjcInformeAndUpload() {
         }
 
 
-       if(numImagesEcontradas>=numImagenNMinimo){
-           return true;
-       }else{
-           return false;
+        if (numImagesEcontradas >= numImagenNMinimo) {
+            return true;
+        } else {
+            return false;
 
 
-       }
-
+        }
 
 
     }
 
 
+    private boolean checkDatosGeneralesIsLleno() {
 
-    private boolean checkDatosGeneralesIsLleno(){
+        LinearLayout layoutContainerSeccion1 = findViewById(R.id.layoutContainerSeccion1);
 
-        LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
-
-        if(Objects.requireNonNull(ediSemana.getText()).toString().isEmpty()){ //chekamos que no este vacia
+        if (Objects.requireNonNull(ediSemana.getText()).toString().isEmpty()) { //chekamos que no este vacia
             ediSemana.requestFocus();
             ediSemana.setError("Este espacio es obligatorio");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
@@ -2932,7 +2737,7 @@ private void createObjcInformeAndUpload() {
 
         }
 
-         if (ediFecha.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediFecha.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediFecha.requestFocus();
             ediFecha.setError("Debe selecionar una fecha");
 
@@ -2942,12 +2747,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-
-
-
-
-
-         if(ediProductor.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediProductor.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediProductor.requestFocus();
             ediProductor.setError("Este espacio es obligatorio");
 
@@ -2957,9 +2757,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-
-
-         if(ediHacienda.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediHacienda.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediHacienda.requestFocus();
             ediHacienda.setError("Este espacio es obligatorio");
 
@@ -2969,11 +2767,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-
-
-
-
-         if(ediCodigo.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCodigo.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCodigo.requestFocus();
             ediCodigo.setError("Este espacio es obligatorio");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
@@ -2982,11 +2776,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-
-
-
-
-        if(ediInscirpMagap.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediInscirpMagap.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediInscirpMagap.requestFocus();
             ediInscirpMagap.setError("Este espacio es obligatorio");
             ediInscirpMagap.setText("_");
@@ -2995,7 +2785,7 @@ private void createObjcInformeAndUpload() {
 
         }
 
-        if(ediPemarque.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediPemarque.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediPemarque.requestFocus();
             ediPemarque.setError("Este espacio es obligatorio");
 
@@ -3005,7 +2795,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-        if(ediZona.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediZona.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediZona.requestFocus();
             ediZona.setError("Debe selecionar una zona");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
@@ -3014,7 +2804,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-        if(ediHoraInicio.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediHoraInicio.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediHoraInicio.requestFocus();
             ediHoraInicio.setError("Este espacio es obligatorio");
 
@@ -3024,7 +2814,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-        if(ediHoraTermino.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediHoraTermino.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediHoraTermino.requestFocus();
             ediHoraTermino.setError("Este espacio es obligatorio");
 
@@ -3034,8 +2824,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-
-         if(ediNguiaRemision.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediNguiaRemision.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediNguiaRemision.requestFocus();
             ediNguiaRemision.setError("Este espacio es obligatorio");
 
@@ -3044,7 +2833,7 @@ private void createObjcInformeAndUpload() {
 
         }
 
-         if(edi_nguia_transporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (edi_nguia_transporte.getText().toString().isEmpty()) { //chekamos que no este vacia
             edi_nguia_transporte.requestFocus();
             edi_nguia_transporte.setError("Este espacio es obligatorio");
 
@@ -3054,7 +2843,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-         if(ediNtargetaEmbarque.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediNtargetaEmbarque.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediNtargetaEmbarque.requestFocus();
             ediNtargetaEmbarque.setError("Este espacio es obligatorio");
 
@@ -3064,9 +2853,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-
-
-           if(ediNhojaEvaluacion.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediNhojaEvaluacion.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediNhojaEvaluacion.requestFocus();
             ediNhojaEvaluacion.setError("Este espacio es obligatorio");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
@@ -3076,8 +2863,7 @@ private void createObjcInformeAndUpload() {
         }
 
 
-
-        if(ediEmpacadora.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediEmpacadora.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediEmpacadora.requestFocus();
             ediEmpacadora.setError("Este espacio es obligatorio");
 
@@ -3087,20 +2873,20 @@ private void createObjcInformeAndUpload() {
         }
 
 
-          if(!ediObservacion.getText().toString().isEmpty()){ //si esta lleno
+        if (!ediObservacion.getText().toString().isEmpty()) { //si esta lleno
 
-              FieldOpcional.observacionOpcional=ediObservacion.getText().toString();
+            FieldOpcional.observacionOpcional = ediObservacion.getText().toString();
 
         }
 
 
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
+        if (!existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY, Variables.FOTO_LLEGADA)) {
             ediFotosLlegada.requestFocus();
 
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-            ediFotosLlegada.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotosLlegada.setError("Adjunte minimo " + Variables.MINIMO_FOTOS_ALL_CATEGORY + " foto");
             return false;
-        }else{
+        } else {
 
             ediFotosLlegada.clearFocus();
             ediFotosLlegada.setError(null);
@@ -3114,41 +2900,39 @@ private void createObjcInformeAndUpload() {
     }
 
 
+    private boolean checkcantidadPostcosechaIsLleno() {
+        LinearLayout layoutContainerSeccion2 = findViewById(R.id.layoutContainerSeccion2);
+        Log.i("camisad", "se llamo este ");
 
-    private boolean  checkcantidadPostcosechaIsLleno(){
-        LinearLayout layoutContainerSeccion2=findViewById(R.id.layoutContainerSeccion2);
-        Log.i("camisad" ,"se llamo este ");
-
-        if(ediPPC01.getText().toString().isEmpty() && ediPPC02.getText().toString().isEmpty()&& ediPPC03.getText().toString().isEmpty()
-                && ediPPC04.getText().toString().isEmpty()&& ediPPC05.getText().toString().isEmpty()&& ediPPC06.getText().toString().isEmpty()
-                && ediPPC07.getText().toString().isEmpty()&& ediPPC08.getText().toString().isEmpty() && ediPPC09.getText().toString().isEmpty()
+        if (ediPPC01.getText().toString().isEmpty() && ediPPC02.getText().toString().isEmpty() && ediPPC03.getText().toString().isEmpty()
+                && ediPPC04.getText().toString().isEmpty() && ediPPC05.getText().toString().isEmpty() && ediPPC06.getText().toString().isEmpty()
+                && ediPPC07.getText().toString().isEmpty() && ediPPC08.getText().toString().isEmpty() && ediPPC09.getText().toString().isEmpty()
                 && ediPPC010.getText().toString().isEmpty() && ediPPC011.getText().toString().isEmpty() && ediPPC012.getText().toString().isEmpty()
                 && ediPPC013.getText().toString().isEmpty() && ediPPC014.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty()
                 && ediPPC016.getText().toString().isEmpty()
-        ){ //chekamos que no este vacia
+        ) { //chekamos que no este vacia
             ediPPC01.requestFocus();
             ediPPC01.setError("Inserte al menos 1 producto");
             layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
 
-            Log.i("camisad" ,"se eejcuto este");
+            Log.i("camisad", "se eejcuto este");
 
             return false;
 
         }
 
 
-
-        if(! ediPPC015.getText().toString().isEmpty() && ediPPC016.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if (!ediPPC015.getText().toString().isEmpty() && ediPPC016.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediPPC016.requestFocus();
             ediPPC016.setError("Inserte cantidad");
 
             layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
-            return false ;
+            return false;
 
         }
 
 
-        if(! ediPPC016.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if (!ediPPC016.getText().toString().isEmpty() && ediPPC015.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediPPC015.requestFocus();
             ediPPC015.setError("inserte nombre producto");
 
@@ -3159,14 +2943,14 @@ private void createObjcInformeAndUpload() {
 
 
         ///y chekeamos al menos una imagen del pridcutp
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PROD_POSTCOSECHA)){
+        if (!existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY, Variables.FOTO_PROD_POSTCOSECHA)) {
             ediFotosPposcosecha.requestFocus();
 
             layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
-            ediFotosPposcosecha.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotosPposcosecha.setError("Adjunte minimo " + Variables.MINIMO_FOTOS_ALL_CATEGORY + " foto");
             return false;
 
-        }else{
+        } else {
 
             ediFotosPposcosecha.clearFocus();
             ediFotosPposcosecha.setError(null);
@@ -3174,20 +2958,19 @@ private void createObjcInformeAndUpload() {
         }
 
 
-return  true;
+        return true;
 
     }
 
 
+    private boolean checkDatosContenedorIsLleno() {
 
-    private boolean checkDatosContenedorIsLleno(){
-
-        LinearLayout layoutContainerSeccion3=findViewById(R.id.layoutContainerSeccion3);
+        LinearLayout layoutContainerSeccion3 = findViewById(R.id.layoutContainerSeccion3);
 
 
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
-        if(ediDestino.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediDestino.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediDestino.requestFocus();
             ediDestino.setError("Este espacio es obligatorio");
 
@@ -3197,7 +2980,7 @@ return  true;
         }
 
 
-        if(ediNViaje.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediNViaje.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediNViaje.requestFocus();
             ediNViaje.setError("Este espacio es obligatorio");
 
@@ -3207,7 +2990,7 @@ return  true;
         }
 
 
-        if(ediVapor.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediVapor.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediVapor.requestFocus();
             ediVapor.setError("Este espacio es obligatorio");
 
@@ -3217,8 +3000,7 @@ return  true;
         }
 
 
-
-        if(ediTipoContenedor.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediTipoContenedor.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediTipoContenedor.requestFocus();
             ediTipoContenedor.setError("Este espacio es obligatorio");
 
@@ -3228,7 +3010,7 @@ return  true;
         }
 
 
-        if(ediHoraLLegadaContenedor.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediHoraLLegadaContenedor.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediHoraLLegadaContenedor.requestFocus();
             ediHoraLLegadaContenedor.setError("Este espacio es obligatorio");
 
@@ -3238,7 +3020,7 @@ return  true;
         }
 
 
-        if(ediHoraSalidaContenedor.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediHoraSalidaContenedor.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediHoraSalidaContenedor.requestFocus();
             ediHoraSalidaContenedor.setError("Este espacio es obligatorio");
 
@@ -3251,13 +3033,13 @@ return  true;
         //chekamos que al menos exista una imagen...
 
 
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CONTENEDOR)){
+        if (!existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY, Variables.FOTO_CONTENEDOR)) {
             ediFotoContenedor.requestFocus();
 
             layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-            ediFotoContenedor.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotoContenedor.setError("Adjunte minimo " + Variables.MINIMO_FOTOS_ALL_CATEGORY + " foto");
             return false;
-        }else{
+        } else {
 
             ediFotoContenedor.clearFocus();
             ediFotoContenedor.setError(null);
@@ -3265,20 +3047,16 @@ return  true;
         }
 
 
-
-
-return  true;
+        return true;
 
     }
 
 
+    private boolean checkDataSellosLlegadaIsLleno() {
+        LinearLayout layoutContainerSeccion4 = findViewById(R.id.layoutContainerSeccion4);
 
 
-    private boolean checkDataSellosLlegadaIsLleno(){
-        LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
-
-
-        if(ediTare.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediTare.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediTare.requestFocus();
             ediTare.setError("Este espacio es obligatorio");
 
@@ -3289,7 +3067,7 @@ return  true;
 
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
-        if(ediBooking.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediBooking.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediBooking.requestFocus();
             ediBooking.setError("Este espacio es obligatorio");
 
@@ -3299,8 +3077,7 @@ return  true;
         }
 
 
-
-        if(ediMaxGross.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediMaxGross.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediMaxGross.requestFocus();
             ediMaxGross.setError("Este espacio es obligatorio");
 
@@ -3309,7 +3086,7 @@ return  true;
 
         }
 
-        if(ediNumSerieFunda.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediNumSerieFunda.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediNumSerieFunda.requestFocus();
             ediNumSerieFunda.setError("Este espacio es obligatorio");
 
@@ -3318,7 +3095,7 @@ return  true;
 
         }
 
-        if(stikVentolerExterna.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (stikVentolerExterna.getText().toString().isEmpty()) { //chekamos que no este vacia
             stikVentolerExterna.requestFocus();
             stikVentolerExterna.setError("Este espacio es obligatorio");
 
@@ -3327,7 +3104,7 @@ return  true;
 
         }
 
-        if(ediCableRastreoLlegada.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCableRastreoLlegada.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCableRastreoLlegada.requestFocus();
             ediCableRastreoLlegada.setError("Este espacio es obligatorio");
 
@@ -3336,7 +3113,7 @@ return  true;
 
         }
 
-        if(ediSelloPlasticoNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediSelloPlasticoNaviera.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediSelloPlasticoNaviera.requestFocus();
             ediSelloPlasticoNaviera.setError("Este espacio es obligatorio");
 
@@ -3346,29 +3123,24 @@ return  true;
         }
 
 
-        if(!ediOtroSellosLlegada.getText().toString().isEmpty()){ //este es opcional... si esta vacio
+        if (!ediOtroSellosLlegada.getText().toString().isEmpty()) { //este es opcional... si esta vacio
 
-            FieldOpcional.otrosSellosLLegaEspecif =ediOtroSellosLlegada.getText().toString();
+            FieldOpcional.otrosSellosLLegaEspecif = ediOtroSellosLlegada.getText().toString();
         }
 
 
-
-
-
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
+        if (!existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY, Variables.FOTO_SELLO_LLEGADA)) {
             ediFotosSellosLLegada.requestFocus();
 
             layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
-            ediFotosSellosLLegada.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotosSellosLLegada.setError("Adjunte minimo " + Variables.MINIMO_FOTOS_ALL_CATEGORY + " foto");
             return false;
-        }else{
+        } else {
 
             ediFotosSellosLLegada.clearFocus();
             ediFotosSellosLLegada.setError(null);
 
         }
-
-
 
 
         return true;
@@ -3377,9 +3149,9 @@ return  true;
     }
 
 
-    private boolean checkSellosInstaladosIsLleno(){
+    private boolean checkSellosInstaladosIsLleno() {
 
-        LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
+        LinearLayout layoutContainerSeccion5 = findViewById(R.id.layoutContainerSeccion5);
 
 /*
         if(ediTermofrafo1.getText().toString().isEmpty()){ //chekamos que no este vacia
@@ -3453,7 +3225,7 @@ return  true;
 
         }
 */
-        if(ediCandadoqsercon.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCandadoqsercon.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCandadoqsercon.requestFocus();
             ediCandadoqsercon.setError("Este espacio es obligatorio");
 
@@ -3462,7 +3234,7 @@ return  true;
 
         }
 
-        if(ediSelloNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediSelloNaviera.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediSelloNaviera.requestFocus();
             ediSelloNaviera.setError("Este espacio es obligatorio");
 
@@ -3470,7 +3242,7 @@ return  true;
             return false;
 
         }
-        if(ediCableNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCableNaviera.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCableNaviera.requestFocus();
             ediCableNaviera.setError("Este espacio es obligatorio");
 
@@ -3479,7 +3251,7 @@ return  true;
 
         }
 
-        if(ediSelloPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediSelloPlastico.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediSelloPlastico.requestFocus();
             ediSelloPlastico.setError("Este espacio es obligatorio");
 
@@ -3488,7 +3260,7 @@ return  true;
 
         }
 
-        if(ediCandadoBotella.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCandadoBotella.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCandadoBotella.requestFocus();
             ediCandadoBotella.setError("Este espacio es obligatorio");
 
@@ -3496,7 +3268,7 @@ return  true;
             return false;
 
         }
-        if(ediCableExportadora.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCableExportadora.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCableExportadora.requestFocus();
             ediCableExportadora.setError("Este espacio es obligatorio");
 
@@ -3504,7 +3276,7 @@ return  true;
             return false;
 
         }
-        if(ediSelloAdesivoexpor.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediSelloAdesivoexpor.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediSelloAdesivoexpor.requestFocus();
             ediSelloAdesivoexpor.setError("Este espacio es obligatorio");
 
@@ -3513,7 +3285,7 @@ return  true;
 
         }
 
-        if(esiSelloAdhNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (esiSelloAdhNaviera.getText().toString().isEmpty()) { //chekamos que no este vacia
             esiSelloAdhNaviera.requestFocus();
             esiSelloAdhNaviera.setError("Este espacio es obligatorio");
 
@@ -3523,26 +3295,23 @@ return  true;
         }
 
 
-        if(! ediOtherSellos.getText().toString().isEmpty()){ //si esta lleno
-        FieldOpcional.otrosSellosInstalaEsp =ediOtherSellos.getText().toString();
+        if (!ediOtherSellos.getText().toString().isEmpty()) { //si esta lleno
+            FieldOpcional.otrosSellosInstalaEsp = ediOtherSellos.getText().toString();
 
 
         }
 
 
-
-
-return true;
+        return true;
     }
 
 
+    private boolean checkDatosTransportistaIsLleno() {
 
-    private boolean checkDatosTransportistaIsLleno(){
-
-        LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
+        LinearLayout layoutContainerSeccion6 = findViewById(R.id.layoutContainerSeccion6);
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
-        if(ediCompaniaTransporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCompaniaTransporte.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCompaniaTransporte.requestFocus();
             ediCompaniaTransporte.setError("Este espacio es obligatorio");
 
@@ -3552,7 +3321,7 @@ return true;
         }
 
 
-        if(ediNombreChofer.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediNombreChofer.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediNombreChofer.requestFocus();
             ediNombreChofer.setError("Este espacio es obligatorio");
 
@@ -3562,8 +3331,7 @@ return true;
         }
 
 
-
-        if(ediCedula.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCedula.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCedula.requestFocus();
             ediCedula.setError("Este espacio es obligatorio");
 
@@ -3572,7 +3340,7 @@ return true;
 
         }
 
-        if(ediCelular.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCelular.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCelular.requestFocus();
             ediCelular.setError("Este espacio es obligatorio");
 
@@ -3581,7 +3349,7 @@ return true;
 
         }
 
-        if(ediPLaca.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediPLaca.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediPLaca.requestFocus();
             ediPLaca.setError("Este espacio es obligatorio");
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
@@ -3590,8 +3358,7 @@ return true;
         }
 
 
-
-        if(ediMarcaCabezal.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediMarcaCabezal.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediMarcaCabezal.requestFocus();
             ediMarcaCabezal.setError("Este espacio es obligatorio");
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
@@ -3600,25 +3367,20 @@ return true;
         }
 
 
-        if(ediColorCabezal.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediColorCabezal.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediColorCabezal.requestFocus();
             ediColorCabezal.setError("Este espacio es obligatorio");
 
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
             return false;
 
-        }
-
-
-
-
-        else if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_TRANSPORTISTA)){
+        } else if (!existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY, Variables.FOTO_TRANSPORTISTA)) {
             ediFotosLlegadaTransport.requestFocus();
 
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
-            ediFotosLlegadaTransport.setError("Adjunte minimo "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            ediFotosLlegadaTransport.setError("Adjunte minimo " + Variables.MINIMO_FOTOS_ALL_CATEGORY + " foto");
             return false;
-        }else{
+        } else {
 
             ediFotosLlegadaTransport.clearFocus();
             ediFotosLlegadaTransport.setError(null);
@@ -3626,20 +3388,16 @@ return true;
         }
 
 
-
-      return true;
+        return true;
 
     }
 
 
-
-
-
-    private boolean checkDatosProcesoIsLleno(){
-        LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
+    private boolean checkDatosProcesoIsLleno() {
+        LinearLayout layoutContainerSeccion7 = findViewById(R.id.layoutContainerSeccion7);
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
-        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCondicionBalanza.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCondicionBalanza.requestFocus();
             ediCondicionBalanza.setError("Este espacio es obligatorio");
 
@@ -3648,7 +3406,7 @@ return true;
 
         }
 
-        if(ediTipodeCaja.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediTipodeCaja.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediTipodeCaja.requestFocus();
             ediTipodeCaja.setError("Este espacio es obligatorio");
 
@@ -3658,8 +3416,7 @@ return true;
         }
 
 
-
-        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCondicionBalanza.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCondicionBalanza.requestFocus();
             ediCondicionBalanza.setError("Este espacio es obligatorio");
 
@@ -3668,7 +3425,7 @@ return true;
 
         }
 
-        if(ediTipoPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediTipoPlastico.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediTipoPlastico.requestFocus();
             ediTipoPlastico.setError("Este espacio es obligatorio");
 
@@ -3678,8 +3435,7 @@ return true;
         }
 
 
-
-        if(ediTipoBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediTipoBalanza.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediTipoBalanza.requestFocus();
             ediTipoBalanza.setError("Este espacio es obligatorio");
 
@@ -3689,31 +3445,25 @@ return true;
         }
 
 
+        if (editipbalanzaRepeso.getText().toString().isEmpty()) { //si no esta vacia
 
-
-
-
-        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //si no esta vacia
-
-          // FieldOpcional.tipoDeBalanzaRepesoOpcnal AQUI GAURDAMOS EL VALOR DEL EDITEXT
-              FieldOpcional.tipoDeBalanzaRepesoOpcnal ="";
+            // FieldOpcional.tipoDeBalanzaRepesoOpcnal AQUI GAURDAMOS EL VALOR DEL EDITEXT
+            FieldOpcional.tipoDeBalanzaRepesoOpcnal = "";
 
             //editipbalanzaRepeso.requestFocus();
             //editipbalanzaRepeso.setError("Este espacio es obligatorio");
 
             //layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
-          //  return false;
+            //  return false;
 
-        }
-
-        else {
-              FieldOpcional.tipoDeBalanzaRepesoOpcnal =editipbalanzaRepeso.getText().toString();
+        } else {
+            FieldOpcional.tipoDeBalanzaRepesoOpcnal = editipbalanzaRepeso.getText().toString();
 
 
         }
 
 
-        if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediUbicacionBalanza.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediUbicacionBalanza.requestFocus();
             ediUbicacionBalanza.setError("Este espacio es obligatorio");
 
@@ -3723,94 +3473,91 @@ return true;
         }
 
 
-return true;
+        return true;
 
     }
 
 
+    private void updaTeProductsPostCosecha() {
 
-
-    private void  updaTeProductsPostCosecha(){
-
-        products=new ProductPostCosecha(UNIQUE_ID_iNFORME);
+        products = new ProductPostCosecha(UNIQUE_ID_iNFORME);
         //creamos un array de editext
-        products.keyFirebase=productxGlobal.keyFirebase;
+        products.keyFirebase = productxGlobal.keyFirebase;
 
-        EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
-                ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+        EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
+                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
 
 
-        for (int indice =0; indice<editextArray.length; indice++) {
-            EditText currentEditext=editextArray[indice];
-            if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
+        for (int indice = 0; indice < editextArray.length; indice++) {
+            EditText currentEditext = editextArray[indice];
+            if (!currentEditext.getText().toString().isEmpty()) { //si no esta vacioo
                 if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
                 {
 
-                    switch (currentEditext.getId()){
+                    switch (currentEditext.getId()) {
 
                         case R.id.ediPPC01:
-                            products.alumbre=currentEditext.getText().toString();
+                            products.alumbre = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC02:
-                            products.bc100=currentEditext.getText().toString();
+                            products.bc100 = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC03:
-                            products.sb100=currentEditext.getText().toString();
+                            products.sb100 = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC04:
-                            products.eclipse=currentEditext.getText().toString();
+                            products.eclipse = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC05:
-                            products.acido_citrico=currentEditext.getText().toString();
+                            products.acido_citrico = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC06:
-                            products.biottol=currentEditext.getText().toString();
+                            products.biottol = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC07:
-                            products.bromorux=currentEditext.getText().toString();
+                            products.bromorux = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC08:
-                            products.ryzuc=currentEditext.getText().toString();
+                            products.ryzuc = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC09:
-                            products.mertec=currentEditext.getText().toString();
+                            products.mertec = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC010:
-                            products.sastifar=currentEditext.getText().toString();
+                            products.sastifar = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC011:
-                            products.xtrata=currentEditext.getText().toString();
+                            products.xtrata = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC012:
-                            products.nlarge=currentEditext.getText().toString();
+                            products.nlarge = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC013:
-                            products.gib_bex=currentEditext.getText().toString();
+                            products.gib_bex = currentEditext.getText().toString();
                             break;
 
 
-
                         case R.id.ediPPC014:
-                            products.cloro=currentEditext.getText().toString();
+                            products.cloro = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC015:
-                            products.otro_especifique=currentEditext.getText().toString();
+                            products.otro_especifique = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC016:
-                            products.cantidadOtro=currentEditext.getText().toString();
+                            products.cantidadOtro = currentEditext.getText().toString();
                             break;
 
 
@@ -3827,93 +3574,89 @@ return true;
         }
 
 
-
     }
 
 
+    private void addProdcutsPostCosechaAndUpload() {
 
-
-    private void  addProdcutsPostCosechaAndUpload(){
-
-        ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
+        ProductPostCosecha producto = new ProductPostCosecha(UNIQUE_ID_iNFORME);
         //creamos un array de editext
-        producto.keyFirebase=productxGlobal.keyFirebase;
+        producto.keyFirebase = productxGlobal.keyFirebase;
 
-        EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
-                ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+        EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
+                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
 
 
-        for (int indice =0; indice<editextArray.length; indice++) {
-            EditText currentEditext=editextArray[indice];
-            if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
+        for (int indice = 0; indice < editextArray.length; indice++) {
+            EditText currentEditext = editextArray[indice];
+            if (!currentEditext.getText().toString().isEmpty()) { //si no esta vacioo
                 if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
                 {
 
-                    switch (currentEditext.getId()){
+                    switch (currentEditext.getId()) {
 
                         case R.id.ediPPC01:
-                            producto.alumbre=currentEditext.getText().toString();
+                            producto.alumbre = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC02:
-                            producto.bc100=currentEditext.getText().toString();
+                            producto.bc100 = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC03:
-                            producto.sb100=currentEditext.getText().toString();
+                            producto.sb100 = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC04:
-                            producto.eclipse=currentEditext.getText().toString();
+                            producto.eclipse = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC05:
-                            producto.acido_citrico=currentEditext.getText().toString();
+                            producto.acido_citrico = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC06:
-                            producto.biottol=currentEditext.getText().toString();
+                            producto.biottol = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC07:
-                            producto.bromorux=currentEditext.getText().toString();
+                            producto.bromorux = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC08:
-                            producto.ryzuc=currentEditext.getText().toString();
+                            producto.ryzuc = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC09:
-                            producto.mertec=currentEditext.getText().toString();
+                            producto.mertec = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC010:
-                            producto.sastifar=currentEditext.getText().toString();
+                            producto.sastifar = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC011:
-                            producto.xtrata=currentEditext.getText().toString();
+                            producto.xtrata = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC012:
-                            producto.nlarge=currentEditext.getText().toString();
+                            producto.nlarge = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC013:
-                            producto.gib_bex=currentEditext.getText().toString();
+                            producto.gib_bex = currentEditext.getText().toString();
                             break;
 
 
-
                         case R.id.ediPPC014:
-                            producto.cloro=currentEditext.getText().toString();
+                            producto.cloro = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC015:
-                            producto.otro_especifique=currentEditext.getText().toString();
+                            producto.otro_especifique = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC016:
-                            producto.cantidadOtro=currentEditext.getText().toString();
+                            producto.cantidadOtro = currentEditext.getText().toString();
                             break;
 
 
@@ -3928,7 +3671,6 @@ return true;
 
 
         }
-
 
 
         RealtimeDB.UpdateProductosPostCosecha(producto);
@@ -3942,96 +3684,92 @@ return true;
         }
 
 
-
-
-
         Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
-              finish();
-      //  startActivity(new Intent(ActivityContenedoresPrev.this, ActivitySeeReports.class));
+        finish();
+        //  startActivity(new Intent(ActivityContenedoresPrev.this, ActivitySeeReports.class));
 
     }
 
-    private ProductPostCosecha  onlYCreatrePrudcPostCosecha(){
-        ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
+    private ProductPostCosecha onlYCreatrePrudcPostCosecha() {
+        ProductPostCosecha producto = new ProductPostCosecha(UNIQUE_ID_iNFORME);
         //creamos un array de editext
-        producto.keyFirebase=productxGlobal.keyFirebase;
+        producto.keyFirebase = productxGlobal.keyFirebase;
 
-        EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
-                ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
+        EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
+                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
 
 
-        for (int indice =0; indice<editextArray.length; indice++) {
-            EditText currentEditext=editextArray[indice];
-            if (!currentEditext.getText().toString().isEmpty()){ //si no esta vacioo
+        for (int indice = 0; indice < editextArray.length; indice++) {
+            EditText currentEditext = editextArray[indice];
+            if (!currentEditext.getText().toString().isEmpty()) { //si no esta vacioo
                 if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
                 {
 
-                    switch (currentEditext.getId()){
+                    switch (currentEditext.getId()) {
 
                         case R.id.ediPPC01:
-                            producto.alumbre=currentEditext.getText().toString();
+                            producto.alumbre = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC02:
-                            producto.bc100=currentEditext.getText().toString();
+                            producto.bc100 = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC03:
-                            producto.sb100=currentEditext.getText().toString();
+                            producto.sb100 = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC04:
-                            producto.eclipse=currentEditext.getText().toString();
+                            producto.eclipse = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC05:
-                            producto.acido_citrico=currentEditext.getText().toString();
+                            producto.acido_citrico = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC06:
-                            producto.biottol=currentEditext.getText().toString();
+                            producto.biottol = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC07:
-                            producto.bromorux=currentEditext.getText().toString();
+                            producto.bromorux = currentEditext.getText().toString();
                             break;
                         case R.id.ediPPC08:
-                            producto.ryzuc=currentEditext.getText().toString();
+                            producto.ryzuc = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC09:
-                            producto.mertec=currentEditext.getText().toString();
+                            producto.mertec = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC010:
-                            producto.sastifar=currentEditext.getText().toString();
+                            producto.sastifar = currentEditext.getText().toString();
                             break;
 
                         case R.id.ediPPC011:
-                            producto.xtrata=currentEditext.getText().toString();
+                            producto.xtrata = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC012:
-                            producto.nlarge=currentEditext.getText().toString();
+                            producto.nlarge = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC013:
-                            producto.gib_bex=currentEditext.getText().toString();
+                            producto.gib_bex = currentEditext.getText().toString();
                             break;
 
 
-
                         case R.id.ediPPC014:
-                            producto.cloro=currentEditext.getText().toString();
+                            producto.cloro = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC015:
-                            producto.otro_especifique=currentEditext.getText().toString();
+                            producto.otro_especifique = currentEditext.getText().toString();
                             break;
 
 
                         case R.id.ediPPC016:
-                            producto.cantidadOtro=currentEditext.getText().toString();
+                            producto.cantidadOtro = currentEditext.getText().toString();
                             break;
 
 
@@ -4048,7 +3786,7 @@ return true;
         }
 
 
-       return producto;
+        return producto;
 
     }
 
@@ -4056,41 +3794,33 @@ return true;
 
     private void diseableViewsByTipe(View view) {
 
-        if (view instanceof TextInputEditText ) { //asi es un editex compobamos si esta lleno
+        if (view instanceof TextInputEditText) { //asi es un editex compobamos si esta lleno
 
             TextInputEditText editText = (TextInputEditText) view; //asi lo convertimos
 
             // editText.setFocusable(false);
-             editText.setEnabled(false);
-           // editText.setCursorVisible(false);
-           // editText.setKeyListener(null);
+            editText.setEnabled(false);
+            // editText.setCursorVisible(false);
+            // editText.setKeyListener(null);
             //  editText.setBackgroundColor(Color.TRANSPARENT);
 
-        }
-
-        else if(view instanceof Spinner){
+        } else if (view instanceof Spinner) {
             Spinner spinner = (Spinner) view; //asi lo convertimos
             spinner.setEnabled(false);
             spinner.setClickable(false);
 
-        }
-
-
-
-        else if(view instanceof Switch) {
+        } else if (view instanceof Switch) {
             @SuppressLint("UseSwitchCompatOrMaterialCode") Switch swichtView = (Switch) view; //asi lo convertimos
             swichtView.setEnabled(false);
             swichtView.setClickable(false);
 
-        }
-        else if(view instanceof ImageView) {
+        } else if (view instanceof ImageView) {
             ImageView imagev = (ImageView) view; //asi lo convertimos
             imagev.setEnabled(false);
             imagev.setClickable(false);
 
 
-        }
-        else if(view instanceof Button) {
+        } else if (view instanceof Button) {
             Button btn = (Button) view; //asi lo convertimos
             btn.setEnabled(false);
             btn.setClickable(false);
@@ -4111,47 +3841,36 @@ return true;
 
         if (view instanceof TextInputEditText) { //asi es un editex compobamos si esta lleno
 
-           TextInputEditText editText = (TextInputEditText) view; //asi lo convertimos
+            TextInputEditText editText = (TextInputEditText) view; //asi lo convertimos
 
             editText.setEnabled(true);
 
 
             //  editText.requestFocus();
 
-           // editText.setFocusable(true);
-          //  editText.setEnabled(true);
-           // editText.setCursorVisible(true);
-           // editText.setKeyListener(false);
+            // editText.setFocusable(true);
+            //  editText.setEnabled(true);
+            // editText.setCursorVisible(true);
+            // editText.setKeyListener(false);
             //  editText.setBackgroundColor(Color.TRANSPARENT);
 
-        }
-
-        else if(view instanceof Spinner){
+        } else if (view instanceof Spinner) {
             Spinner spinner = (Spinner) view; //asi lo convertimos
             spinner.setEnabled(true);
             spinner.setClickable(true);
 
-        }
-
-
-
-        else if(view instanceof Switch) {
+        } else if (view instanceof Switch) {
             @SuppressLint("UseSwitchCompatOrMaterialCode") Switch swichtView = (Switch) view; //asi lo convertimos
             swichtView.setEnabled(true);
             swichtView.setClickable(true);
 
-        }
-
-
-        else if(view instanceof Button) {
+        } else if (view instanceof Button) {
             Button btn = (Button) view; //asi lo convertimos
             btn.setEnabled(true);
             btn.setClickable(true);
 
 
-        }
-
-        else if(view instanceof ImageView) {
+        } else if (view instanceof ImageView) {
             ImageView btn = (ImageView) view; //asi lo convertimos
             btn.setEnabled(true);
             btn.setClickable(true);
@@ -4162,101 +3881,101 @@ return true;
     }
 
 
-    private void activateModePreview( ) {
+    private void activateModePreview() {
 
-        Log.i("extra","se llamo activateModePreview descativamos ");
-          Variables.isClickable=false;
-
-
-        diseableViewsByTipe(    ediExportadoraProcesada);
-        diseableViewsByTipe(    ediExportadoraSolicitante);
-        diseableViewsByTipe(    ediMarca);
+        Log.i("extra", "se llamo activateModePreview descativamos ");
+        Variables.isClickable = false;
 
 
-        diseableViewsByTipe(    ediSemana);
-        diseableViewsByTipe(    ediFecha);
-        diseableViewsByTipe(    ediProductor);
-        diseableViewsByTipe(    ediHacienda);
-        diseableViewsByTipe(    ediCodigo);
-        diseableViewsByTipe(    ediInscirpMagap);
-        diseableViewsByTipe(    ediPemarque);
-        diseableViewsByTipe(    ediZona);
-        diseableViewsByTipe(    ediHoraInicio);
-        diseableViewsByTipe(    ediHoraTermino);
-        diseableViewsByTipe(    ediHoraLLegadaContenedor);
-        diseableViewsByTipe(    ediHoraSalidaContenedor);
-        diseableViewsByTipe(    ediNguiaRemision);
-        diseableViewsByTipe(    edi_nguia_transporte);
-        diseableViewsByTipe(    ediNtargetaEmbarque);
-        diseableViewsByTipe(    ediNhojaEvaluacion);
-        diseableViewsByTipe(    ediObservacion);
-        diseableViewsByTipe(    ediEmpacadora);
-        diseableViewsByTipe(    ediFotosLlegada);
-        diseableViewsByTipe(    ediContenedor);
-        diseableViewsByTipe(    ediPPC01);
-        diseableViewsByTipe(    ediPPC02);
-        diseableViewsByTipe(    ediPPC03);
-        diseableViewsByTipe(    ediPPC04);
-        diseableViewsByTipe(    ediPPC05);
-        diseableViewsByTipe(    ediPPC06);
-        diseableViewsByTipe(    ediPPC07);
-        diseableViewsByTipe(    ediPPC08);
-        diseableViewsByTipe(    ediPPC09);
-        diseableViewsByTipe(    ediPPC010);
-        diseableViewsByTipe(    ediPPC011);
-        diseableViewsByTipe(    ediPPC012);
-        diseableViewsByTipe(    ediPPC013);
-        diseableViewsByTipe(    ediPPC014);
-        diseableViewsByTipe(    ediPPC015);
-        diseableViewsByTipe(    ediPPC016);
-        diseableViewsByTipe(    ediDestino);
-        diseableViewsByTipe(    ediNViaje);
-        diseableViewsByTipe(    ediTipoContenedor);
-        diseableViewsByTipe(    ediVapor);
-        diseableViewsByTipe(    ediFotoContenedor);
-        diseableViewsByTipe(    ediFotosPposcosecha);
-        diseableViewsByTipe(    ediCompaniaTransporte);
-        diseableViewsByTipe(    ediNombreChofer);
-        diseableViewsByTipe(    ediCedula);
-        diseableViewsByTipe(    ediCelular);
-        diseableViewsByTipe(    ediPLaca);
-        diseableViewsByTipe(    ediMarcaCabezal);
-        diseableViewsByTipe(    ediColorCabezal);
-        diseableViewsByTipe(    ediFotosLlegadaTransport);
-        diseableViewsByTipe(    ediTare);
-        diseableViewsByTipe(    ediBooking);
-        diseableViewsByTipe(    ediMaxGross);
-        diseableViewsByTipe(    ediNumSerieFunda);
-        diseableViewsByTipe(    stikVentolerExterna);
-        diseableViewsByTipe(    ediCableRastreoLlegada);
-        diseableViewsByTipe(    ediSelloPlasticoNaviera);
-        diseableViewsByTipe(    ediOtroSellosLlegada);
-        diseableViewsByTipe(    ediFotosSellosLLegada);
-        diseableViewsByTipe(    ediCondicionBalanza);
-        diseableViewsByTipe(    ediTipodeCaja);
-        diseableViewsByTipe(    ediTipoPlastico);
-        diseableViewsByTipe(    ediTipoBalanza);
-        diseableViewsByTipe(    editipbalanzaRepeso);
-        diseableViewsByTipe(    ediUbicacionBalanza);
-        diseableViewsByTipe(    ediTermofrafo1);
-        diseableViewsByTipe(    ediHoraEncendido1);
-        diseableViewsByTipe(    ediUbicacion1);
-        diseableViewsByTipe(    ediRuma1);
-        diseableViewsByTipe(    ediTermofrafo2);
-        diseableViewsByTipe(    ediHoraEncendido2);
-        diseableViewsByTipe(    ediUbicacion2);
-        diseableViewsByTipe(    ediRuma2);
-        diseableViewsByTipe(    ediCandadoqsercon);
-        diseableViewsByTipe(    ediSelloNaviera);
-        diseableViewsByTipe(    ediCableNaviera);
-        diseableViewsByTipe(    ediSelloPlastico);
-        diseableViewsByTipe(    ediCandadoBotella);
-        diseableViewsByTipe(    ediCableExportadora);
-        diseableViewsByTipe(    ediSelloAdesivoexpor);
-        diseableViewsByTipe(    esiSelloAdhNaviera);
-        diseableViewsByTipe(    ediOtherSellos);
+        diseableViewsByTipe(ediExportadoraProcesada);
+        diseableViewsByTipe(ediExportadoraSolicitante);
+        diseableViewsByTipe(ediMarca);
+
+
+        diseableViewsByTipe(ediSemana);
+        diseableViewsByTipe(ediFecha);
+        diseableViewsByTipe(ediProductor);
+        diseableViewsByTipe(ediHacienda);
+        diseableViewsByTipe(ediCodigo);
+        diseableViewsByTipe(ediInscirpMagap);
+        diseableViewsByTipe(ediPemarque);
+        diseableViewsByTipe(ediZona);
+        diseableViewsByTipe(ediHoraInicio);
+        diseableViewsByTipe(ediHoraTermino);
+        diseableViewsByTipe(ediHoraLLegadaContenedor);
+        diseableViewsByTipe(ediHoraSalidaContenedor);
+        diseableViewsByTipe(ediNguiaRemision);
+        diseableViewsByTipe(edi_nguia_transporte);
+        diseableViewsByTipe(ediNtargetaEmbarque);
+        diseableViewsByTipe(ediNhojaEvaluacion);
+        diseableViewsByTipe(ediObservacion);
+        diseableViewsByTipe(ediEmpacadora);
+        diseableViewsByTipe(ediFotosLlegada);
+        diseableViewsByTipe(ediContenedor);
+        diseableViewsByTipe(ediPPC01);
+        diseableViewsByTipe(ediPPC02);
+        diseableViewsByTipe(ediPPC03);
+        diseableViewsByTipe(ediPPC04);
+        diseableViewsByTipe(ediPPC05);
+        diseableViewsByTipe(ediPPC06);
+        diseableViewsByTipe(ediPPC07);
+        diseableViewsByTipe(ediPPC08);
+        diseableViewsByTipe(ediPPC09);
+        diseableViewsByTipe(ediPPC010);
+        diseableViewsByTipe(ediPPC011);
+        diseableViewsByTipe(ediPPC012);
+        diseableViewsByTipe(ediPPC013);
+        diseableViewsByTipe(ediPPC014);
+        diseableViewsByTipe(ediPPC015);
+        diseableViewsByTipe(ediPPC016);
+        diseableViewsByTipe(ediDestino);
+        diseableViewsByTipe(ediNViaje);
+        diseableViewsByTipe(ediTipoContenedor);
+        diseableViewsByTipe(ediVapor);
+        diseableViewsByTipe(ediFotoContenedor);
+        diseableViewsByTipe(ediFotosPposcosecha);
+        diseableViewsByTipe(ediCompaniaTransporte);
+        diseableViewsByTipe(ediNombreChofer);
+        diseableViewsByTipe(ediCedula);
+        diseableViewsByTipe(ediCelular);
+        diseableViewsByTipe(ediPLaca);
+        diseableViewsByTipe(ediMarcaCabezal);
+        diseableViewsByTipe(ediColorCabezal);
+        diseableViewsByTipe(ediFotosLlegadaTransport);
+        diseableViewsByTipe(ediTare);
+        diseableViewsByTipe(ediBooking);
+        diseableViewsByTipe(ediMaxGross);
+        diseableViewsByTipe(ediNumSerieFunda);
+        diseableViewsByTipe(stikVentolerExterna);
+        diseableViewsByTipe(ediCableRastreoLlegada);
+        diseableViewsByTipe(ediSelloPlasticoNaviera);
+        diseableViewsByTipe(ediOtroSellosLlegada);
+        diseableViewsByTipe(ediFotosSellosLLegada);
+        diseableViewsByTipe(ediCondicionBalanza);
+        diseableViewsByTipe(ediTipodeCaja);
+        diseableViewsByTipe(ediTipoPlastico);
+        diseableViewsByTipe(ediTipoBalanza);
+        diseableViewsByTipe(editipbalanzaRepeso);
+        diseableViewsByTipe(ediUbicacionBalanza);
+        diseableViewsByTipe(ediTermofrafo1);
+        diseableViewsByTipe(ediHoraEncendido1);
+        diseableViewsByTipe(ediUbicacion1);
+        diseableViewsByTipe(ediRuma1);
+        diseableViewsByTipe(ediTermofrafo2);
+        diseableViewsByTipe(ediHoraEncendido2);
+        diseableViewsByTipe(ediUbicacion2);
+        diseableViewsByTipe(ediRuma2);
+        diseableViewsByTipe(ediCandadoqsercon);
+        diseableViewsByTipe(ediSelloNaviera);
+        diseableViewsByTipe(ediCableNaviera);
+        diseableViewsByTipe(ediSelloPlastico);
+        diseableViewsByTipe(ediCandadoBotella);
+        diseableViewsByTipe(ediCableExportadora);
+        diseableViewsByTipe(ediSelloAdesivoexpor);
+        diseableViewsByTipe(esiSelloAdhNaviera);
+        diseableViewsByTipe(ediOtherSellos);
         diseableViewsByTipe(ediEnsunchado);
-        diseableViewsByTipe(    ediBalanzaRepeso);
+        diseableViewsByTipe(ediBalanzaRepeso);
 
         diseableViewsByTipe(ediCajasProcDesp);
         diseableViewsByTipe(ediRacimosCosech);
@@ -4271,152 +3990,150 @@ return true;
         diseableViewsByTipe(ediExtGanchoCi);
 
 
-
-
         //SPINNERS
-        diseableViewsByTipe(  spinnerSelectZona);
-        diseableViewsByTipe(  spinnerCondicionBalanza);
-        diseableViewsByTipe( spinnertipoCaja);
-        diseableViewsByTipe(  spinnertipodePlastico);
-        diseableViewsByTipe( spinnertipodeBlanza) ;
-        diseableViewsByTipe( spinnertipodeBlanzaRepeso) ;
-        diseableViewsByTipe( spinnerubicacionBalanza) ;
+        diseableViewsByTipe(spinnerSelectZona);
+        diseableViewsByTipe(spinnerCondicionBalanza);
+        diseableViewsByTipe(spinnertipoCaja);
+        diseableViewsByTipe(spinnertipodePlastico);
+        diseableViewsByTipe(spinnertipodeBlanza);
+        diseableViewsByTipe(spinnertipodeBlanzaRepeso);
+        diseableViewsByTipe(spinnerubicacionBalanza);
 
 
-        diseableViewsByTipe( spFuenteAgua) ;
-        diseableViewsByTipe( swAguaCorrida) ;
-        diseableViewsByTipe( switchLavdoRacimos) ;
-        diseableViewsByTipe( spFumigaCorL1) ;
-        diseableViewsByTipe( spTipoBoquilla) ;
+        diseableViewsByTipe(spFuenteAgua);
+        diseableViewsByTipe(swAguaCorrida);
+        diseableViewsByTipe(switchLavdoRacimos);
+        diseableViewsByTipe(spFumigaCorL1);
+        diseableViewsByTipe(spTipoBoquilla);
 
         //SWITCHSÇ
-        diseableViewsByTipe( switchContenedor);
-        diseableViewsByTipe( switchHaybalanza);
-        diseableViewsByTipe( switchHayEnsunchado);
-        diseableViewsByTipe( switchBalanzaRep);
+        diseableViewsByTipe(switchContenedor);
+        diseableViewsByTipe(switchHaybalanza);
+        diseableViewsByTipe(switchHayEnsunchado);
+        diseableViewsByTipe(switchBalanzaRep);
 
 
 //iMAGEVIEWS
-        diseableViewsByTipe( imBtakePic);
-        diseableViewsByTipe( imBatach);
-        diseableViewsByTipe( imbAtach_transportista);
-        diseableViewsByTipe( imbTakePicTransportista);
-        diseableViewsByTipe( imbAtachSellosLlegada);
-        diseableViewsByTipe( imbTakePicSellosLLegada);
-        diseableViewsByTipe( imbAtachDatosContenedor);
-        diseableViewsByTipe( imbTakePicDatosContenedor);
-        diseableViewsByTipe( imbAtachPrPostcosecha);
-        diseableViewsByTipe( imbTakePicPrPostcosecha);
+        diseableViewsByTipe(imBtakePic);
+        diseableViewsByTipe(imBatach);
+        diseableViewsByTipe(imbAtach_transportista);
+        diseableViewsByTipe(imbTakePicTransportista);
+        diseableViewsByTipe(imbAtachSellosLlegada);
+        diseableViewsByTipe(imbTakePicSellosLLegada);
+        diseableViewsByTipe(imbAtachDatosContenedor);
+        diseableViewsByTipe(imbTakePicDatosContenedor);
+        diseableViewsByTipe(imbAtachPrPostcosecha);
+        diseableViewsByTipe(imbTakePicPrPostcosecha);
 
 
         //Buttons
-        Button  btnCheck=findViewById(R.id.btnCheck);
-        diseableViewsByTipe( btnCheck);
+        Button btnCheck = findViewById(R.id.btnCheck);
+        diseableViewsByTipe(btnCheck);
 
 
     }
 
     private void activateModeEdit() {
-        Variables.isClickable=true;
+        Variables.isClickable = true;
 
-        activateViewsByTypeView(    ediExportadoraProcesada);
-        activateViewsByTypeView(    ediExportadoraSolicitante);
-        activateViewsByTypeView(    ediMarca);
+        activateViewsByTypeView(ediExportadoraProcesada);
+        activateViewsByTypeView(ediExportadoraSolicitante);
+        activateViewsByTypeView(ediMarca);
 
 
-        activateViewsByTypeView(    ediSemana);
-        activateViewsByTypeView(    ediFecha);
-        activateViewsByTypeView(    ediProductor);
-        activateViewsByTypeView(    ediHacienda);
-        activateViewsByTypeView(    ediCodigo);
-        activateViewsByTypeView(    ediInscirpMagap);
-        activateViewsByTypeView(    ediPemarque);
-        activateViewsByTypeView(    ediZona);
-        activateViewsByTypeView(    ediHoraInicio);
-        activateViewsByTypeView(    ediHoraTermino);
-        activateViewsByTypeView(    ediHoraLLegadaContenedor);
-        activateViewsByTypeView(    ediHoraSalidaContenedor);
-        activateViewsByTypeView(    ediNguiaRemision);
-        activateViewsByTypeView(    edi_nguia_transporte);
-        activateViewsByTypeView(    ediNtargetaEmbarque);
-        activateViewsByTypeView(    ediNhojaEvaluacion);
-        activateViewsByTypeView(    ediObservacion);
-        activateViewsByTypeView(    ediEmpacadora);
-        activateViewsByTypeView(    ediFotosLlegada);
-        activateViewsByTypeView(    ediContenedor);
-        activateViewsByTypeView(    ediPPC01);
-        activateViewsByTypeView(    ediPPC02);
-        activateViewsByTypeView(    ediPPC03);
-        activateViewsByTypeView(    ediPPC04);
-        activateViewsByTypeView(    ediPPC05);
-        activateViewsByTypeView(    ediPPC06);
-        activateViewsByTypeView(    ediPPC07);
-        activateViewsByTypeView(    ediPPC08);
-        activateViewsByTypeView(    ediPPC09);
-        activateViewsByTypeView(    ediPPC010);
-        activateViewsByTypeView(    ediPPC011);
-        activateViewsByTypeView(    ediPPC012);
-        activateViewsByTypeView(    ediPPC013);
-        activateViewsByTypeView(    ediPPC014);
-        activateViewsByTypeView(    ediPPC015);
-        activateViewsByTypeView(    ediPPC016);
-        activateViewsByTypeView(    ediDestino);
-        activateViewsByTypeView(    ediNViaje);
-        activateViewsByTypeView(    ediTipoContenedor);
-        activateViewsByTypeView(    ediVapor);
-        activateViewsByTypeView(    ediFotoContenedor);
-        activateViewsByTypeView(    ediFotosPposcosecha);
-        activateViewsByTypeView(    ediCompaniaTransporte);
-        activateViewsByTypeView(    ediNombreChofer);
-        activateViewsByTypeView(    ediCedula);
-        activateViewsByTypeView(    ediCelular);
-        activateViewsByTypeView(    ediPLaca);
-        activateViewsByTypeView(    ediMarcaCabezal);
-        activateViewsByTypeView(    ediColorCabezal);
-        activateViewsByTypeView(    ediFotosLlegadaTransport);
-        activateViewsByTypeView(    ediTare);
-        activateViewsByTypeView(    ediBooking);
-        activateViewsByTypeView(    ediMaxGross);
-        activateViewsByTypeView(    ediNumSerieFunda);
-        activateViewsByTypeView(    stikVentolerExterna);
-        activateViewsByTypeView(    ediCableRastreoLlegada);
-        activateViewsByTypeView(    ediSelloPlasticoNaviera);
-        activateViewsByTypeView(    ediOtroSellosLlegada);
-        activateViewsByTypeView(    ediFotosSellosLLegada);
-        activateViewsByTypeView(    ediCondicionBalanza);
-        activateViewsByTypeView(    ediTipodeCaja);
-        activateViewsByTypeView(    ediTipoPlastico);
-        activateViewsByTypeView(    ediTipoBalanza);
-      //  activateViewsByTypeView(    editipbalanzaRepeso);
-        activateViewsByTypeView(    ediUbicacionBalanza);
-        activateViewsByTypeView(    ediTermofrafo1);
-        activateViewsByTypeView(    ediHoraEncendido1);
-        activateViewsByTypeView(    ediUbicacion1);
-        activateViewsByTypeView(    ediRuma1);
-        activateViewsByTypeView(    ediTermofrafo2);
-        activateViewsByTypeView(    ediHoraEncendido2);
-        activateViewsByTypeView(    ediUbicacion2);
-        activateViewsByTypeView(    ediRuma2);
-        activateViewsByTypeView(    ediCandadoqsercon);
-        activateViewsByTypeView(    ediSelloNaviera);
-        activateViewsByTypeView(    ediCableNaviera);
-        activateViewsByTypeView(    ediSelloPlastico);
-        activateViewsByTypeView(    ediCandadoBotella);
-        activateViewsByTypeView(    ediCableExportadora);
-        activateViewsByTypeView(    ediSelloAdesivoexpor);
-        activateViewsByTypeView(    esiSelloAdhNaviera);
-        activateViewsByTypeView(    ediOtherSellos);
+        activateViewsByTypeView(ediSemana);
+        activateViewsByTypeView(ediFecha);
+        activateViewsByTypeView(ediProductor);
+        activateViewsByTypeView(ediHacienda);
+        activateViewsByTypeView(ediCodigo);
+        activateViewsByTypeView(ediInscirpMagap);
+        activateViewsByTypeView(ediPemarque);
+        activateViewsByTypeView(ediZona);
+        activateViewsByTypeView(ediHoraInicio);
+        activateViewsByTypeView(ediHoraTermino);
+        activateViewsByTypeView(ediHoraLLegadaContenedor);
+        activateViewsByTypeView(ediHoraSalidaContenedor);
+        activateViewsByTypeView(ediNguiaRemision);
+        activateViewsByTypeView(edi_nguia_transporte);
+        activateViewsByTypeView(ediNtargetaEmbarque);
+        activateViewsByTypeView(ediNhojaEvaluacion);
+        activateViewsByTypeView(ediObservacion);
+        activateViewsByTypeView(ediEmpacadora);
+        activateViewsByTypeView(ediFotosLlegada);
+        activateViewsByTypeView(ediContenedor);
+        activateViewsByTypeView(ediPPC01);
+        activateViewsByTypeView(ediPPC02);
+        activateViewsByTypeView(ediPPC03);
+        activateViewsByTypeView(ediPPC04);
+        activateViewsByTypeView(ediPPC05);
+        activateViewsByTypeView(ediPPC06);
+        activateViewsByTypeView(ediPPC07);
+        activateViewsByTypeView(ediPPC08);
+        activateViewsByTypeView(ediPPC09);
+        activateViewsByTypeView(ediPPC010);
+        activateViewsByTypeView(ediPPC011);
+        activateViewsByTypeView(ediPPC012);
+        activateViewsByTypeView(ediPPC013);
+        activateViewsByTypeView(ediPPC014);
+        activateViewsByTypeView(ediPPC015);
+        activateViewsByTypeView(ediPPC016);
+        activateViewsByTypeView(ediDestino);
+        activateViewsByTypeView(ediNViaje);
+        activateViewsByTypeView(ediTipoContenedor);
+        activateViewsByTypeView(ediVapor);
+        activateViewsByTypeView(ediFotoContenedor);
+        activateViewsByTypeView(ediFotosPposcosecha);
+        activateViewsByTypeView(ediCompaniaTransporte);
+        activateViewsByTypeView(ediNombreChofer);
+        activateViewsByTypeView(ediCedula);
+        activateViewsByTypeView(ediCelular);
+        activateViewsByTypeView(ediPLaca);
+        activateViewsByTypeView(ediMarcaCabezal);
+        activateViewsByTypeView(ediColorCabezal);
+        activateViewsByTypeView(ediFotosLlegadaTransport);
+        activateViewsByTypeView(ediTare);
+        activateViewsByTypeView(ediBooking);
+        activateViewsByTypeView(ediMaxGross);
+        activateViewsByTypeView(ediNumSerieFunda);
+        activateViewsByTypeView(stikVentolerExterna);
+        activateViewsByTypeView(ediCableRastreoLlegada);
+        activateViewsByTypeView(ediSelloPlasticoNaviera);
+        activateViewsByTypeView(ediOtroSellosLlegada);
+        activateViewsByTypeView(ediFotosSellosLLegada);
+        activateViewsByTypeView(ediCondicionBalanza);
+        activateViewsByTypeView(ediTipodeCaja);
+        activateViewsByTypeView(ediTipoPlastico);
+        activateViewsByTypeView(ediTipoBalanza);
+        //  activateViewsByTypeView(    editipbalanzaRepeso);
+        activateViewsByTypeView(ediUbicacionBalanza);
+        activateViewsByTypeView(ediTermofrafo1);
+        activateViewsByTypeView(ediHoraEncendido1);
+        activateViewsByTypeView(ediUbicacion1);
+        activateViewsByTypeView(ediRuma1);
+        activateViewsByTypeView(ediTermofrafo2);
+        activateViewsByTypeView(ediHoraEncendido2);
+        activateViewsByTypeView(ediUbicacion2);
+        activateViewsByTypeView(ediRuma2);
+        activateViewsByTypeView(ediCandadoqsercon);
+        activateViewsByTypeView(ediSelloNaviera);
+        activateViewsByTypeView(ediCableNaviera);
+        activateViewsByTypeView(ediSelloPlastico);
+        activateViewsByTypeView(ediCandadoBotella);
+        activateViewsByTypeView(ediCableExportadora);
+        activateViewsByTypeView(ediSelloAdesivoexpor);
+        activateViewsByTypeView(esiSelloAdhNaviera);
+        activateViewsByTypeView(ediOtherSellos);
 
         activateViewsByTypeView(ediCajasProcDesp);
         activateViewsByTypeView(ediRacimosCosech);
-       // activateViewsByTypeView(ediRacimosRecha);
+        // activateViewsByTypeView(ediRacimosRecha);
         activateViewsByTypeView(ediRacimProces);
 
-        activateViewsByTypeView( spFuenteAgua) ;
-        activateViewsByTypeView( swAguaCorrida) ;
-        activateViewsByTypeView( switchLavdoRacimos) ;
-        activateViewsByTypeView( spFumigaCorL1) ;
-        activateViewsByTypeView( spTipoBoquilla) ;
+        activateViewsByTypeView(spFuenteAgua);
+        activateViewsByTypeView(swAguaCorrida);
+        activateViewsByTypeView(switchLavdoRacimos);
+        activateViewsByTypeView(spFumigaCorL1);
+        activateViewsByTypeView(spTipoBoquilla);
 
 
         activateViewsByTypeView(ediExtCalid);
@@ -4428,91 +4145,85 @@ return true;
 
 
         //SPINNERS
-        activateViewsByTypeView(  spinnerSelectZona);
-        activateViewsByTypeView(  spinnerCondicionBalanza);
-        activateViewsByTypeView( spinnertipoCaja);
-        activateViewsByTypeView(  spinnertipodePlastico);
-        activateViewsByTypeView( spinnertipodeBlanza) ;
-        activateViewsByTypeView( spinnertipodeBlanzaRepeso) ;
-        activateViewsByTypeView( spinnerubicacionBalanza) ;
+        activateViewsByTypeView(spinnerSelectZona);
+        activateViewsByTypeView(spinnerCondicionBalanza);
+        activateViewsByTypeView(spinnertipoCaja);
+        activateViewsByTypeView(spinnertipodePlastico);
+        activateViewsByTypeView(spinnertipodeBlanza);
+        activateViewsByTypeView(spinnertipodeBlanzaRepeso);
+        activateViewsByTypeView(spinnerubicacionBalanza);
 
         //SWITCHSÇ
-        activateViewsByTypeView( switchContenedor);
-        activateViewsByTypeView( switchHaybalanza);
-        activateViewsByTypeView( switchHayEnsunchado);
-        activateViewsByTypeView( switchBalanzaRep);
+        activateViewsByTypeView(switchContenedor);
+        activateViewsByTypeView(switchHaybalanza);
+        activateViewsByTypeView(switchHayEnsunchado);
+        activateViewsByTypeView(switchBalanzaRep);
 
 
 //iMAGEVIEWS
-        activateViewsByTypeView( imBtakePic);
-        activateViewsByTypeView( imBatach);
-        activateViewsByTypeView( imbAtach_transportista);
-        activateViewsByTypeView( imbTakePicTransportista);
-        activateViewsByTypeView( imbAtachSellosLlegada);
-        activateViewsByTypeView( imbTakePicSellosLLegada);
-        activateViewsByTypeView( imbAtachDatosContenedor);
-        activateViewsByTypeView( imbTakePicDatosContenedor);
-        activateViewsByTypeView( imbAtachPrPostcosecha);
-        activateViewsByTypeView( imbTakePicPrPostcosecha);
+        activateViewsByTypeView(imBtakePic);
+        activateViewsByTypeView(imBatach);
+        activateViewsByTypeView(imbAtach_transportista);
+        activateViewsByTypeView(imbTakePicTransportista);
+        activateViewsByTypeView(imbAtachSellosLlegada);
+        activateViewsByTypeView(imbTakePicSellosLLegada);
+        activateViewsByTypeView(imbAtachDatosContenedor);
+        activateViewsByTypeView(imbTakePicDatosContenedor);
+        activateViewsByTypeView(imbAtachPrPostcosecha);
+        activateViewsByTypeView(imbTakePicPrPostcosecha);
 
 
         //Buttons
-        Button  btnCheck=findViewById(R.id.btnCheck);
-        activateViewsByTypeView( btnCheck);
+        Button btnCheck = findViewById(R.id.btnCheck);
+        activateViewsByTypeView(btnCheck);
 
     }
 
 
-
-    private  void setDtaInOthersViews(SetInformEmbarque1 info1Object, SetInformEmbarque2 info2Object
+    private void setDtaInOthersViews(SetInformEmbarque1 info1Object, SetInformEmbarque2 info2Object
             , SetInformDatsHacienda info3Object) {
 
 
+        Log.i("mizona", "la zona obtenida en addDataENfiledsoTHERviews (data descargada ) es  " + info1Object.getZona());
 
-        Log.i("mizona","la zona obtenida en addDataENfiledsoTHERviews (data descargada ) es  "+info1Object.getZona());
+        selectValue(spinnerSelectZona, info1Object.getZona());
 
-        selectValue(spinnerSelectZona,info1Object.getZona()) ;
+        selectValue(spinnerCondicionBalanza, info2Object.getCondicionBalanza());
+        selectValue(spinnertipoCaja, info2Object.getTipoCaja());
+        selectValue(spinnertipodePlastico, info2Object.getTipoPlastico());
 
-        selectValue(spinnerCondicionBalanza,info2Object.getCondicionBalanza()) ;
-        selectValue(spinnertipoCaja,info2Object.getTipoCaja()) ;
-        selectValue(spinnertipodePlastico,info2Object.getTipoPlastico()) ;
-
-        Log.i("balznas","el tipo de balanza es "+info2Object.getTipoDeBalanza());
-
+        Log.i("balznas", "el tipo de balanza es " + info2Object.getTipoDeBalanza());
 
 
-        selectValue(spinnertipodeBlanza,info2Object.getTipoDeBalanza()) ;
+        selectValue(spinnertipodeBlanza, info2Object.getTipoDeBalanza());
 
 
+        selectValue(spinnertipodeBlanzaRepeso, info2Object.getTipoDeBalanzaRepeso());
+        selectValue(spinnerubicacionBalanza, info2Object.getUbicacionBalanza());
 
-
-        selectValue(spinnertipodeBlanzaRepeso,info2Object.getTipoDeBalanzaRepeso()) ;
-        selectValue(spinnerubicacionBalanza,info2Object.getUbicacionBalanza()) ;
-
-        selectValue(spFuenteAgua,info3Object.getFuenteAgua()) ;
-        selectValue(spFumigaCorL1,info3Object.getFumigacionClin1()) ;
-        selectValue(spTipoBoquilla,info3Object.getEdiTipoBoquilla()) ;
+        selectValue(spFuenteAgua, info3Object.getFuenteAgua());
+        selectValue(spFumigaCorL1, info3Object.getFumigacionClin1());
+        selectValue(spTipoBoquilla, info3Object.getEdiTipoBoquilla());
 
 
         swAguaCorrida.setChecked(info3Object.isHayAguaCorrida());
         switchLavdoRacimos.setChecked(info3Object.isHayLavadoRacimos());
 
 
-
-        if(info1Object.getContenedor().equalsIgnoreCase(" SI ")) {
+        if (info1Object.getContenedor().equalsIgnoreCase(" SI ")) {
 
             switchContenedor.setChecked(true);
 
 
-        }else{
+        } else {
             switchContenedor.setChecked(false);
 
 
         }
 
-         switchHaybalanza.setChecked(info2Object.isHayBalanza());
-         switchHayEnsunchado.setChecked(info2Object.isHayExcelnsuchado());
-         switchBalanzaRep.setChecked(info2Object.getHayBalanzaRepeso());
+        switchHaybalanza.setChecked(info2Object.isHayBalanza());
+        switchHayEnsunchado.setChecked(info2Object.isHayExcelnsuchado());
+        switchBalanzaRep.setChecked(info2Object.getHayBalanzaRepeso());
 
     }
 
@@ -4521,14 +4232,12 @@ return true;
         for (int i = 0; i < spinner.getCount(); i++) {
             if (spinner.getItemAtPosition(i).equals(value)) {
                 spinner.setSelection(i);
-                Log.i("mizona","existe hurra"+value);
+                Log.i("mizona", "existe hurra" + value);
                 break;
 
-            }else
+            } else {
 
-            {
-
-                Log.i("mizona","no exiwste "+value);
+                Log.i("mizona", "no exiwste " + value);
 
             }
         }
@@ -4536,53 +4245,53 @@ return true;
     }
 
 
-    private  void setDataInfields(SetInformEmbarque1 info1Object, SetInformEmbarque2 info2Object, SetInformDatsHacienda info3Object)  {
+    private void setDataInfields(SetInformEmbarque1 info1Object, SetInformEmbarque2 info2Object, SetInformDatsHacienda info3Object) {
         //usamos los 2 objetos para establecer esta data..
 
-        Log.i("jamisama","la semana es "+info1Object.getSemana());
+        Log.i("jamisama", "la semana es " + info1Object.getSemana());
 
         ediSemana.setText(info1Object.getSemana());
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
         String fechaString = formatter.format(info1Object.getFechaCreacionInf());
 
-        Log.i("holabaser","el fecha string ers "+fechaString);
+        Log.i("holabaser", "el fecha string ers " + fechaString);
 
 
-         ediExportadoraProcesada.setText(info1Object.getExportadoraProcesada()); ;
-         ediExportadoraSolicitante.setText(info1Object.getExportadoraSolicitante());
-         ediMarca.setText(info1Object.getMarrca());
-
+        ediExportadoraProcesada.setText(info1Object.getExportadoraProcesada());
+        ;
+        ediExportadoraSolicitante.setText(info1Object.getExportadoraSolicitante());
+        ediMarca.setText(info1Object.getMarrca());
 
 
         ediFecha.setText(fechaString);
 
         ediProductor.setText(info1Object.getProductor());
-                ediHacienda.setText(info1Object.getHacienda());
+        ediHacienda.setText(info1Object.getHacienda());
         ediCodigo.setText(info1Object.getCodeInforme());
-                ediInscirpMagap.setText(info1Object.getInscirpMagap());
+        ediInscirpMagap.setText(info1Object.getInscirpMagap());
         ediPemarque.setText(info1Object.getPemarque());
-                ediZona.setText(info1Object.getZona());
+        ediZona.setText(info1Object.getZona());
         ediHoraInicio.setText(info1Object.getHoraInicio());
         ediNumContenedor.setText(info1Object.getNumcionContenedor());
-                ediHoraTermino.setText(info1Object.getHoraTermino());
+        ediHoraTermino.setText(info1Object.getHoraTermino());
         ediHoraLLegadaContenedor.setText(info1Object.getHoraLlegadaContenedor());
 
-                ediHoraSalidaContenedor.setText(info1Object.getHoraSalidadContenedor());
+        ediHoraSalidaContenedor.setText(info1Object.getHoraSalidadContenedor());
         ediNguiaRemision.setText(info1Object.getNguiaRemision());
-                edi_nguia_transporte.setText(info1Object.get_nguia_transporte());
+        edi_nguia_transporte.setText(info1Object.get_nguia_transporte());
         ediNtargetaEmbarque.setText(info1Object.getNtargetaEmbarque());
-                ediNhojaEvaluacion.setText(String.valueOf(info1Object.getEdiNhojaEvaluacion()));
+        ediNhojaEvaluacion.setText(String.valueOf(info1Object.getEdiNhojaEvaluacion()));
         ediObservacion.setText(info1Object.getObservacion());
-                ediEmpacadora.setText(info1Object.getEmpacadora());
-                ediContenedor.setText(info1Object.getContenedor());
+        ediEmpacadora.setText(info1Object.getEmpacadora());
+        ediContenedor.setText(info1Object.getContenedor());
 
-                /*faltan los prouctos postcosecha agregamos usando un for**/
+        /*faltan los prouctos postcosecha agregamos usando un for**/
 
 
         ediDestino.setText(info1Object.getDestinoContenedor());
-                ediNViaje.setText(info1Object.getNumeroViajeContenedor());
+        ediNViaje.setText(info1Object.getNumeroViajeContenedor());
         ediTipoContenedor.setText(info1Object.getTipoContenedor());
-                ediVapor.setText(info1Object.getVapor());
+        ediVapor.setText(info1Object.getVapor());
 
         ediCompaniaTransporte.setText(info2Object.getCompaniaTranporte());
         ediNombreChofer.setText(info2Object.getNombreChofer());
@@ -4613,7 +4322,7 @@ return true;
         ediUbicacion2.setText(info2Object.getUbicacionPalletN2());
         ediRuma2.setText(info2Object.getRumaPalletN2());
 
-        Log.i("objec2searcg","el value es "+info2Object.getCandadoQsercom());
+        Log.i("objec2searcg", "el value es " + info2Object.getCandadoQsercom());
 
 
         ediCandadoqsercon.setText(info2Object.getCandadoQsercom());
@@ -4628,7 +4337,7 @@ return true;
         ediCajasProcDesp.setText(info3Object.getEdiCajasProcDesp());
         ediRacimosCosech.setText(info3Object.getEdiRacimosCosech());
 
-       // ediRacimosRecha.setText(info3Object.getEdiRacimosRecha());
+        // ediRacimosRecha.setText(info3Object.getEdiRacimosRecha());
 
         ediRacimProces.setText(info3Object.getEdiRacimProces());
         ediExtCalid.setText(info3Object.getExtensionistCalid());
@@ -4636,147 +4345,149 @@ return true;
         ediExtRodillo.setText(info3Object.getExtensionistDeRodillo());
         ediExtRodilloCi.setText(info3Object.getCI_extensionistDeRodillo());
         ediExtGancho.setText(info3Object.getExtensionistEnGancho());
-        ediExtGanchoCi .setText(info3Object.getCI_extensionistEnGancho());
+        ediExtGanchoCi.setText(info3Object.getCI_extensionistEnGancho());
 
 
         /**inicilizamos variable global Utils.numReportsVinculadsAll ,map de vinuclads,etc */
-        Utils.initializeAndGETnuMSvinuclads(info1Object.getAtachControCalidadInfrms(),info1Object.getAtachControCuadroMuestreo());
+        Utils.initializeAndGETnuMSvinuclads(info1Object.getAtachControCalidadInfrms(), info1Object.getAtachControCuadroMuestreo());
 
         txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
 
 
-
-
     }
 
 
+    private void checkModeVisualitY() {
 
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            isModEdicionFields = extras.getBoolean(Variables.KEYEXTRAPREVIEW);
 
-private void checkModeVisualitY(){
+            Log.i("extra", "el modo es " + isModEdicionFields);
+            //The key argument here must match that used in the other activity
+        }
 
 
-    Bundle extras = getIntent().getExtras();
-    if (extras != null) {
-        isModEdicionFields = extras.getBoolean(Variables.KEYEXTRAPREVIEW);
+        if (isModEdicionFields) {
+            TextView txtModeAdviser = findViewById(R.id.txtModeAdviser);
+            activateModeEdit();
+            txtModeAdviser.setText("Modo Edicion ");
 
-        Log.i("extra","el modo es "+isModEdicionFields);
-        //The key argument here must match that used in the other activity
+            Log.i("isclkiel", "es clickeable es " + Variables.isClickable);
+
+        } else {
+            fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
+            activateModePreview();
+            Log.i("isclkiel", "es clickeable es " + Variables.isClickable);
+
+        }
+
+
+        Variables.modoRecicler = Variables.DOWLOAD_IMAGES;
+
+
+        //aqui llamadmosasg
+        dowloadSecondPART_Report(Variables.CurrenReportPart1.getUniqueIDinforme(), 1);
+
+        //inicializamos STORAGE..
+        StorageData.initStorageReference();
+        dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinforme());
+
+        dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinforme());
+
+
+        /**si existe lirbiado lo descrfamos*/
+
+
+        Log.i("libiadod", "el value de libriado es " + Variables.CurrenReportPart1.getKeyOrNodeLibriadoSiEs());
+
+        if (Variables.CurrenReportPart1.getKeyOrNodeLibriadoSiEs().length() > 1) {
+
+            getLibriadoMap(Variables.CurrenReportPart1.getKeyOrNodeLibriadoSiEs());
+            //si existe libriado lo descragamos...
+
+        }
+
     }
-
-
-    if(isModEdicionFields){
-        TextView txtModeAdviser=findViewById(R.id.txtModeAdviser);
-        activateModeEdit();
-        txtModeAdviser.setText("Modo Edicion ");
-
-        Log.i("isclkiel","es clickeable es "+ Variables.isClickable);
-
-    }else{
-        fab.setImageResource(R.drawable.ic_baseline_edit_24aa);
-        activateModePreview();
-        Log.i("isclkiel","es clickeable es "+ Variables.isClickable);
-
-    }
-
-
-     Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
-
-
-    //aqui llamadmosasg
-    dowloadSecondPART_Report(Variables.CurrenReportPart1.getUniqueIDinforme(),1);
-    //inicializamos STORAGE..
-    StorageData.initStorageReference();
-    dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinforme());
-
-    dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinforme());
-
-
-
-}
 
 
 //descargamos las imagenes path....
 
 
-
     //descargamos prodcutos postcosecha...
 
-     void createlistsForReciclerviewsImages(ArrayList<ImagenReport> listImagenReports){
+    void createlistsForReciclerviewsImages(ArrayList<ImagenReport> listImagenReports) {
 
 
+        ArrayList<ImagenReport> lisFiltrada;
 
-        ArrayList<ImagenReport>lisFiltrada;
+        int[] arrayTiposImagenes = {Variables.FOTO_LLEGADA, Variables.FOTO_PROD_POSTCOSECHA, Variables.FOTO_TRANSPORTISTA, Variables.FOTO_SELLO_LLEGADA, Variables.FOTO_CONTENEDOR};
 
-        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_PROD_POSTCOSECHA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
+        for (int indice = 0; indice < arrayTiposImagenes.length; indice++) {
 
-      for(int indice=0; indice<arrayTiposImagenes.length; indice++){
+            lisFiltrada = new ArrayList<>();
 
-          lisFiltrada=new ArrayList<>();
+            for (int indice2 = 0; indice2 < listImagenReports.size(); indice2++) {
 
-          for(int indice2=0; indice2<listImagenReports.size(); indice2++){
+                if (listImagenReports.get(indice2).getTipoImagenCategory() == arrayTiposImagenes[indice]) { //entonces usamos este
 
-                  if(listImagenReports.get(indice2).getTipoImagenCategory()==arrayTiposImagenes[indice]){ //entonces usamos este
-
-                      lisFiltrada.add(listImagenReports.get(indice2));
-
-
-                  }
-
-          }
-
-          currentTypeImage=arrayTiposImagenes[indice];
-          //lalamos el recicler que
-          addImagesInRecyclerviews(lisFiltrada);
+                    lisFiltrada.add(listImagenReports.get(indice2));
 
 
-      }
+                }
+
+            }
+
+            currentTypeImage = arrayTiposImagenes[indice];
+            //lalamos el recicler que
+            addImagesInRecyclerviews(lisFiltrada);
 
 
-      Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
+        }
 
+
+        Variables.modoRecicler = Variables.SELEC_AND_TAKE_iMAGES;
 
 
     }
 
 
-    void addInfotomap(ArrayList<ImagenReport>listImagenReports){
-       //
+    void addInfotomap(ArrayList<ImagenReport> listImagenReports) {
+        //
 
 
-        ImagenReport.hashMapImagesData= new HashMap<>();
+        ImagenReport.hashMapImagesData = new HashMap<>();
 
         //agregamos adata al mapusnado un bucle
 
-        for(int indice2=0; indice2<listImagenReports.size(); indice2++){
+        for (int indice2 = 0; indice2 < listImagenReports.size(); indice2++) {
 
-          ImagenReport currentImareportObj=listImagenReports.get(indice2);
+            ImagenReport currentImareportObj = listImagenReports.get(indice2);
 
-          ImagenReport.hashMapImagesData.put(currentImareportObj.getUniqueIdNamePic(),currentImareportObj);
+            ImagenReport.hashMapImagesData.put(currentImareportObj.getUniqueIdNamePic(), currentImareportObj);
 
         }
 
-        Log.i("sucecia","se llamo method here");
+        Log.i("sucecia", "se llamo method here");
 
-        if(!Variables.copiamosData) {
-           // Variables.hashMapImagesStart =ImagenReport.hashMapImagesData;
+        if (!Variables.copiamosData) {
+            // Variables.hashMapImagesStart =ImagenReport.hashMapImagesData;
 
             //CREAMOS UNA COPIA USANDO UN BUCLE
 
-            Variables.hashMapImagesStart=new HashMap<>();
+            Variables.hashMapImagesStart = new HashMap<>();
 
 
             for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) {
                 String key = entry.getKey();
                 ImagenReport value = entry.getValue();
 
-                Variables.hashMapImagesStart.put(key,value);
+                Variables.hashMapImagesStart.put(key, value);
                 // ...
             }
 
-            Variables.copiamosData =true;
-
-
+            Variables.copiamosData = true;
 
 
         }
@@ -4784,61 +4495,47 @@ private void checkModeVisualitY(){
 
     }
 
-     void addImagesInRecyclerviews(ArrayList<ImagenReport> listImagenReports){
+    void addImagesInRecyclerviews(ArrayList<ImagenReport> listImagenReports) {
 
-            //agregamos data al map
-
-
-          RecyclerView recyclerView= findViewById(R.id.recyclerView);
-
-           //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
-           if(currentTypeImage== Variables.FOTO_LLEGADA)  {
-               recyclerView= findViewById(R.id.recyclerView);
+        //agregamos data al map
 
 
-           }
-           else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
-               recyclerView= findViewById(R.id.recyclerViewPostcosecha);
-               // at last set adapter to recycler view.
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
-           }
-
-           else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
-               recyclerView = findViewById(R.id.recyclerVieDatsTransport);
-
-           }
-
-           else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
-               recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
-           }
+        //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
+        if (currentTypeImage == Variables.FOTO_LLEGADA) {
+            recyclerView = findViewById(R.id.recyclerView);
 
 
-           else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
-               recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+        } else if (currentTypeImage == Variables.FOTO_PROD_POSTCOSECHA) {
+            recyclerView = findViewById(R.id.recyclerViewPostcosecha);
+            // at last set adapter to recycler view.
 
-           }
+        } else if (currentTypeImage == Variables.FOTO_TRANSPORTISTA) {
+            recyclerView = findViewById(R.id.recyclerVieDatsTransport);
+
+        } else if (currentTypeImage == Variables.FOTO_CONTENEDOR) {
+            recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
+        } else if (currentTypeImage == Variables.FOTO_SELLO_LLEGADA) {
+            recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+
+        }
 
 
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(listImagenReports, this);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
 
 
-
-           RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
-           GridLayoutManager layoutManager=new GridLayoutManager(this,2);
-
-
-           // at last set adapter to recycler view.
-           recyclerView.setLayoutManager(layoutManager);
-           recyclerView.setAdapter(adapter);
-           eventoBtnclicklistenerDelete(adapter);
+        // at last set adapter to recycler view.
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        eventoBtnclicklistenerDelete(adapter);
 
 
     }
 
 
-
-
-
-    void dowLoadProducsPostC(String idAlquePERTENECE){
+    void dowLoadProducsPostC(String idAlquePERTENECE) {
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = RealtimeDB.rootDatabaseReference.child("Informes").
@@ -4849,35 +4546,34 @@ private void checkModeVisualitY(){
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               // Map<String, Object> map = null;
-              //  Map<String, String> map = dataSnapshot.getValue(Map.class);
-              //  Log.i("sliexsa","el size de map es "+map.size());
+                // Map<String, Object> map = null;
+                //  Map<String, String> map = dataSnapshot.getValue(Map.class);
+                //  Log.i("sliexsa","el size de map es "+map.size());
 
 
-
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    productxGlobal=ds.getValue(ProductPostCosecha.class);
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    productxGlobal = ds.getValue(ProductPostCosecha.class);
                 }
 
-              //  Log.i("sliexsa","existe"+product.cantidadOtro);
+                //  Log.i("sliexsa","existe"+product.cantidadOtro);
 
 
-                         if(productxGlobal!=null){
+                if (productxGlobal != null) {
 
-                             Variables.currenProductPostCosecha=productxGlobal;
-                             setProductosPostcosecha(productxGlobal);
+                    Variables.currenProductPostCosecha = productxGlobal;
+                    setProductosPostcosecha(productxGlobal);
 
-                         }
+                }
 
 
-               // createlistsForReciclerviewsImages(listImagenData);
+                // createlistsForReciclerviewsImages(listImagenData);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Log.i("sliexsa","el error es "+error.getMessage());
+                Log.i("sliexsa", "el error es " + error.getMessage());
 
             }
         });
@@ -4886,44 +4582,37 @@ private void checkModeVisualitY(){
     }
 
 
+    void setProductosPostcosecha(ProductPostCosecha objProducto) {
 
- void setProductosPostcosecha( ProductPostCosecha objProducto) {
+        TextInputEditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
+                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
 
-     TextInputEditText [] editextArray = {  ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
-             ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
-
-     ediPPC01.setText(objProducto.alumbre);
-     ediPPC02.setText(objProducto.bc100);
-     ediPPC03.setText(objProducto.sb100);
-     ediPPC04.setText(objProducto.eclipse);
-     ediPPC05.setText(objProducto.acido_citrico);
-     ediPPC06.setText(objProducto.biottol);
-     ediPPC07.setText(objProducto.bromorux);
-     ediPPC08.setText(objProducto.ryzuc);
-     ediPPC09.setText(objProducto.mertec);
-     ediPPC010.setText(objProducto.sastifar);
-     ediPPC011.setText(objProducto.xtrata);
-     ediPPC012.setText(objProducto.nlarge);
-     ediPPC013.setText(objProducto.gib_bex);
-     ediPPC014.setText(objProducto.cloro);
-     ediPPC015.setText(objProducto.otro_especifique);
-     ediPPC016.setText(objProducto.cantidadOtro);
-
+        ediPPC01.setText(objProducto.alumbre);
+        ediPPC02.setText(objProducto.bc100);
+        ediPPC03.setText(objProducto.sb100);
+        ediPPC04.setText(objProducto.eclipse);
+        ediPPC05.setText(objProducto.acido_citrico);
+        ediPPC06.setText(objProducto.biottol);
+        ediPPC07.setText(objProducto.bromorux);
+        ediPPC08.setText(objProducto.ryzuc);
+        ediPPC09.setText(objProducto.mertec);
+        ediPPC010.setText(objProducto.sastifar);
+        ediPPC011.setText(objProducto.xtrata);
+        ediPPC012.setText(objProducto.nlarge);
+        ediPPC013.setText(objProducto.gib_bex);
+        ediPPC014.setText(objProducto.cloro);
+        ediPPC015.setText(objProducto.otro_especifique);
+        ediPPC016.setText(objProducto.cantidadOtro);
 
 
-    // Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
+        // Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
 
- }
-
-
+    }
 
 
+    void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH) { //DESCRAGAMOS EL SEGUNDO
 
-
-
-    void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH){ //DESCRAGAMOS EL SEGUNDO
-
-        Log.i("imagheddd","elreport unique id es  "+reportUNIQUEidtoSEARCH);
+        Log.i("imagheddd", "elreport unique id es  " + reportUNIQUEidtoSEARCH);
 
         RealtimeDB.initDatabasesReferenceImagesData(); //borrar
 
@@ -4934,59 +4623,50 @@ private void checkModeVisualitY(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-               // ArrayList<ImagenReport>listImagenData=new ArrayList<>();
-                Variables.listImagenDataGlobalCurrentReport= new ArrayList<>();
+                // ArrayList<ImagenReport>listImagenData=new ArrayList<>();
+                Variables.listImagenDataGlobalCurrentReport = new ArrayList<>();
 
 
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    ImagenReport imagenReport=ds.getValue(ImagenReport.class);
-                  //  listImagenData.add(imagenReport);
+                    ImagenReport imagenReport = ds.getValue(ImagenReport.class);
+                    //  listImagenData.add(imagenReport);
 
                     Variables.listImagenDataGlobalCurrentReport.add(imagenReport);
 
-                    Log.i("imagheddd","key uninque id es "+imagenReport.getUniqueIdNamePic());
-                    Log.i("imagheddd","el url es  "+imagenReport.getUrlStoragePic());
-
-
+                    Log.i("imagheddd", "key uninque id es " + imagenReport.getUniqueIdNamePic());
+                    Log.i("imagheddd", "el url es  " + imagenReport.getUrlStoragePic());
 
 
                 }
-
-
 
 
                 createlistsForReciclerviewsImages(Variables.listImagenDataGlobalCurrentReport);
 
 
-                Utils.objsIdsDecripcionImgsMOreDescripc =new ArrayList<>();
+                Utils.objsIdsDecripcionImgsMOreDescripc = new ArrayList<>();
 
 
+                //solo un archivo
+                //s
 
 
-                 //solo un archivo
-                 //s
-
-
-                if(currentIDcUDORmUESTREO!=null){
+                if (currentIDcUDORmUESTREO != null) {
 
                     DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
-                }else{ //sino hay ningun cuadro muestreo;
+                } else { //sino hay ningun cuadro muestreo;
 
-                     btnGENERARpdf.setEnabled(true);
+                    btnGENERARpdf.setEnabled(true);
 
                 }
 
 
+                //  btnGENERARpdf.setEnabled(true);
 
-
-              //  btnGENERARpdf.setEnabled(true);
-
-                Log.i("mispiggi","se llamo a: addInfotomap");
+                Log.i("mispiggi", "se llamo a: addInfotomap");
 
                 addInfotomap(Variables.listImagenDataGlobalCurrentReport);
-
 
 
                 //este metodo lo llamaremos ahora
@@ -4999,7 +4679,7 @@ private void checkModeVisualitY(){
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Log.i("sliexsa","el error es "+error.getMessage());
+                Log.i("sliexsa", "el error es " + error.getMessage());
 
             }
         });
@@ -5008,17 +4688,16 @@ private void checkModeVisualitY(){
     }
 
 
-
     //nevcesitamos un metodo para eliminar un nodo en imagenes y borrarlo de storage..
     //por ahora solo con borrarlo de rtdabase
-    private void geTidAndDelete( String idUniqueToDelete){ //busca el que tenga esa propieda y obtiene el id node child
+    private void geTidAndDelete(String idUniqueToDelete) { //busca el que tenga esa propieda y obtiene el id node child
 
-        Log.i("imagheddd","se lamo to delete");
+        Log.i("imagheddd", "se lamo to delete");
 
-               Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
 
-        DatabaseReference usersdRef= RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
-      //  Query query = usersdRef.orderByChild("uniqueIdNamePic").equalTo(Variables.currentCuponObjectGlob.getUniqueIdCupòn());
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
+        //  Query query = usersdRef.orderByChild("uniqueIdNamePic").equalTo(Variables.currentCuponObjectGlob.getUniqueIdCupòn());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -5046,8 +4725,6 @@ private void checkModeVisualitY(){
                 }
 
 
-
-
             }
 
             @Override
@@ -5059,29 +4736,23 @@ private void checkModeVisualitY(){
     }
 
 
-   void addDataHashMapTypeImagesToPdf(ArrayList<ImagenReport>miLisAllImages){
+    void addDataHashMapTypeImagesToPdf(ArrayList<ImagenReport> miLisAllImages) {
 
 
-        for(ImagenReport imageb:miLisAllImages ){
-
-
+        for (ImagenReport imageb : miLisAllImages) {
 
 
         }
 
 
-   }
+    }
 
 
+    private boolean checkDatosHaciendaIsLleno() {
+        LinearLayout layoutContainerSeccion8 = findViewById(R.id.layoutContainerSeccion8);
 
 
-    private boolean checkDatosHaciendaIsLleno(){
-        LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
-
-
-
-
-        if(spFuenteAgua.getSelectedItem().toString().equalsIgnoreCase("Ninguna")){ //chekamos que no este vacia
+        if (spFuenteAgua.getSelectedItem().toString().equalsIgnoreCase("Ninguna")) { //chekamos que no este vacia
             ediFuenteAgua.requestFocus();
             ediFuenteAgua.setError("Fuente de agua requerido");
 
@@ -5137,7 +4808,7 @@ private void checkModeVisualitY(){
         }
 */
 
-        if(ediCajasProcDesp.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediCajasProcDesp.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediCajasProcDesp.requestFocus();
             ediCajasProcDesp.setError("Este espacio es obligatorio");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -5146,8 +4817,7 @@ private void checkModeVisualitY(){
         }
 
 
-
-        if(ediRacimosCosech.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediRacimosCosech.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este espacio es obligatorio");
 
@@ -5156,12 +4826,12 @@ private void checkModeVisualitY(){
 
         }
 
-        if(! Utils.checkifAtach()){
+        if (!Utils.checkifAtach()) {
             ediRacimosRecha.requestFocus();
             ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
 
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
-            Log.i("test001","no esta lleno  checkifAtach");
+            Log.i("test001", "no esta lleno  checkifAtach");
             FragmentManager fm = getSupportFragmentManager();
             DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
             // alertDialog.setCancelable(false);
@@ -5182,7 +4852,7 @@ private void checkModeVisualitY(){
 
          */
 
-        if(ediRacimProces.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediRacimProces.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediRacimProces.requestFocus();
             ediRacimProces.setError("Este espacio es obligatorio");
 
@@ -5192,9 +4862,7 @@ private void checkModeVisualitY(){
         }
 
 
-
-
-        if(ediExtCalid.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediExtCalid.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediExtCalid.requestFocus();
             ediExtCalid.setError("Este espacio es obligatorio");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -5202,8 +4870,7 @@ private void checkModeVisualitY(){
         }
 
 
-
-        if(ediExtCalidCi.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if (ediExtCalidCi.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediExtCalidCi.requestFocus();
             ediExtCalidCi.setError("Este espacio es obligatorio");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -5212,11 +4879,9 @@ private void checkModeVisualitY(){
         }
 
 
-
-
         ///LOS DEMAS DATOS OPCIONALES
 
-        if(!ediExtRodillo.getText().toString().isEmpty() && ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if (!ediExtRodillo.getText().toString().isEmpty() && ediExtRodilloCi.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediExtRodilloCi.requestFocus();
             ediExtRodilloCi.setError("Se requiere La C.I");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -5225,9 +4890,7 @@ private void checkModeVisualitY(){
         }
 
 
-
-
-        if(ediExtRodillo.getText().toString().isEmpty() && !ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if (ediExtRodillo.getText().toString().isEmpty() && !ediExtRodilloCi.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediExtRodillo.requestFocus();
             ediExtRodillo.setError("Se requiere el nombre");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -5236,8 +4899,7 @@ private void checkModeVisualitY(){
         }
 
 
-
-        if(!ediExtGancho.getText().toString().isEmpty() && ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if (!ediExtGancho.getText().toString().isEmpty() && ediExtGanchoCi.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediExtGanchoCi.requestFocus();
             ediExtGanchoCi.setError("Se requiere La C.I");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -5246,9 +4908,7 @@ private void checkModeVisualitY(){
         }
 
 
-
-
-        if(ediExtGancho.getText().toString().isEmpty() && !ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if (ediExtGancho.getText().toString().isEmpty() && !ediExtGanchoCi.getText().toString().isEmpty()) { //chekamos que no este vacia
             ediExtGancho.requestFocus();
             ediExtGancho.setError("Se requiere el nombre");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -5257,10 +4917,7 @@ private void checkModeVisualitY(){
         }
 
 
-
         ///vamos con los datos de semananas y esoRe
-
-
 
 
         return true;
@@ -5268,42 +4925,40 @@ private void checkModeVisualitY(){
     }
 
 
-    private boolean checkDataCalibFrutaCalEnfn(){
+    private boolean checkDataCalibFrutaCalEnfn() {
         //le decimos que esta todo bien y omitiremos estos datos....
         return true;
     }
 
 
+    public void saveInfo() {
 
-    public void saveInfo(){
+        Log.i("test001", "toda la data esta completa HUrra ");
 
-            Log.i("test001","toda la data esta completa HUrra ");
-
-               pdialogff = new ProgressDialog(ActivityContenedoresPrev.this);
-             pdialogff.setMessage("Actualizando data ");
-             pdialogff.show();
+        pdialogff = new ProgressDialog(ActivityContenedoresPrev.this);
+        pdialogff.setMessage("Actualizando data ");
+        pdialogff.show();
 
 
-        Log.i("imagheddd","hemos pulsado save info ");
+        Log.i("imagheddd", "hemos pulsado save info ");
 
-        Log.i("imagheddd","el size de la list imagees es "+ImagenReport.hashMapImagesData.size());
-
+        Log.i("imagheddd", "el size de la list imagees es " + ImagenReport.hashMapImagesData.size());
 
 
         uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
-            //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+        //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
-            for(int i=0; i<listImagesToDelete.size() ; i++) {
+        for (int i = 0; i < listImagesToDelete.size(); i++) {
 
-                geTidAndDelete(listImagesToDelete.get(i));
+            geTidAndDelete(listImagesToDelete.get(i));
 
-            }
+        }
 
-            //aliminamos cambios
+        //aliminamos cambios
 
-            createObjcInformeAndUpload();
+        createObjcInformeAndUpload();
 
     }
 
@@ -5312,7 +4967,6 @@ private void checkModeVisualitY(){
 
         EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
         EditText ediColortSem13 = findViewById(R.id.ediColortSem13);
-
 
 
         EditText ediColortSem12 = findViewById(R.id.ediColortSem12);
@@ -5328,35 +4982,31 @@ private void checkModeVisualitY(){
         EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
 
 
-        EditText ediPorc14=findViewById(R.id.ediPorc14);
-        EditText ediPorc13=findViewById(R.id.ediPorc13);
-        EditText ediPorc12=findViewById(R.id.ediPorc12);
-        EditText ediPorc11=findViewById(R.id.ediPorc11);
-        EditText ediPorc10=findViewById(R.id.ediPorc10);
-        EditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
+        EditText ediPorc14 = findViewById(R.id.ediPorc14);
+        EditText ediPorc13 = findViewById(R.id.ediPorc13);
+        EditText ediPorc12 = findViewById(R.id.ediPorc12);
+        EditText ediPorc11 = findViewById(R.id.ediPorc11);
+        EditText ediPorc10 = findViewById(R.id.ediPorc10);
+        EditText ediPsgddsorc9 = findViewById(R.id.ediPorc9);
 
 
+        EditText[] array = {ediColortSem14, ediColortSem13, ediColortSem12, ediColortSem11, ediColortSem10, ediColortSem9,
+                ediNumRcim14, ediNumRcim13, ediNumRcim12, ediNumRcim11, ediNumRcim10, ediNumRac9,
+                ediPorc14, ediPorc13, ediPorc12, ediPorc11, ediPorc10, ediPsgddsorc9};
 
 
+        int indice = 0;
 
 
-        EditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
-                ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
-                ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
+        for (int i = 0; i < array.length; i++) {
 
+            EditText current = array[i];
 
-          int indice=0;
-
-
-        for(int i=0; i<array.length; i++){
-
-            EditText current =array [i];
-
-            if(!current.getText().toString().trim().isEmpty()){
-                String value=current.getText().toString();
+            if (!current.getText().toString().trim().isEmpty()) {
+                String value = current.getText().toString();
                 indice++;
 
-                switch(current.getId()){
+                switch (current.getId()) {
                     case R.id.ediColortSem14:
                         break;
 
@@ -5379,7 +5029,6 @@ private void checkModeVisualitY(){
                     case R.id.ediColortSem9:
 
                         break;
-
 
 
                     case R.id.ediNumRcim14:
@@ -5423,24 +5072,22 @@ private void checkModeVisualitY(){
                         break;
 
 
-
-
                 }
 
             }
 
         }
 
-if(indice>2) {
-   return true;
+        if (indice > 2) {
+            return true;
 
-}else{
-    ediPsgddsorc9.requestFocus();
-    ediPsgddsorc9.setError("Inserte al menos un valor en este cuadro");
+        } else {
+            ediPsgddsorc9.requestFocus();
+            ediPsgddsorc9.setError("Inserte al menos un valor en este cuadro");
 
-    return false;
+            return false;
 
-}
+        }
 
     }
 
@@ -5462,33 +5109,31 @@ if(indice>2) {
         EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
 
 
-        EditText ediPorc14=findViewById(R.id.ediPorc14);
-        EditText ediPorc13=findViewById(R.id.ediPorc13);
-        EditText ediPorc12=findViewById(R.id.ediPorc12);
-        EditText ediPorc11=findViewById(R.id.ediPorc11);
-        EditText ediPorc10=findViewById(R.id.ediPorc10);
-        EditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
+        EditText ediPorc14 = findViewById(R.id.ediPorc14);
+        EditText ediPorc13 = findViewById(R.id.ediPorc13);
+        EditText ediPorc12 = findViewById(R.id.ediPorc12);
+        EditText ediPorc11 = findViewById(R.id.ediPorc11);
+        EditText ediPorc10 = findViewById(R.id.ediPorc10);
+        EditText ediPsgddsorc9 = findViewById(R.id.ediPorc9);
 
 
+        EditText[] array = {ediColortSem14, ediColortSem13, ediColortSem12, ediColortSem11, ediColortSem10, ediColortSem9,
+                ediNumRcim14, ediNumRcim13, ediNumRcim12, ediNumRcim11, ediNumRcim10, ediNumRac9,
+                ediPorc14, ediPorc13, ediPorc12, ediPorc11, ediPorc10, ediPsgddsorc9};
 
 
-        EditText [] array = {ediColortSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10, ediColortSem9,
-                ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9,
-                ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPsgddsorc9};
+        int indice = 0;
 
 
-        int indice=0;
+        for (int i = 0; i < array.length; i++) {
 
+            EditText current = array[i];
 
-        for(int i=0; i<array.length; i++){
-
-            EditText current =array [i];
-
-            if(!current.getText().toString().trim().isEmpty()){
-                String value=current.getText().toString();
+            if (!current.getText().toString().trim().isEmpty()) {
+                String value = current.getText().toString();
                 indice++;
 
-                switch(current.getId()){
+                switch (current.getId()) {
                     case R.id.ediColortSem14:
                         informe.setColortSem14(value);
                         break;
@@ -5517,7 +5162,6 @@ if(indice>2) {
                         informe.setColortSem9(value);
 
                         break;
-
 
 
                     case R.id.ediNumRcim14:
@@ -5573,18 +5217,16 @@ if(indice>2) {
                         break;
 
 
-
-
                 }
 
             }
 
         }
 
-        if(indice>2) {
+        if (indice > 2) {
             return true;
 
-        }else{
+        } else {
             ediPsgddsorc9.requestFocus();
             ediPsgddsorc9.setError("Inserte al menos un valor en este cuadro");
 
@@ -5611,21 +5253,19 @@ if(indice>2) {
         EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
 
 
-        EditText ediPorc14=findViewById(R.id.ediPorc14);
-        EditText ediPorc13=findViewById(R.id.ediPorc13);
-        EditText ediPorc12=findViewById(R.id.ediPorc12);
-        EditText ediPorc11=findViewById(R.id.ediPorc11);
-        EditText ediPorc10=findViewById(R.id.ediPorc10);
-        EditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
-
-
+        EditText ediPorc14 = findViewById(R.id.ediPorc14);
+        EditText ediPorc13 = findViewById(R.id.ediPorc13);
+        EditText ediPorc12 = findViewById(R.id.ediPorc12);
+        EditText ediPorc11 = findViewById(R.id.ediPorc11);
+        EditText ediPorc10 = findViewById(R.id.ediPorc10);
+        EditText ediPsgddsorc9 = findViewById(R.id.ediPorc9);
 
 
         ediColortSem14.setText(informe.getColortSem14());
         ediColortSem13.setText(informe.getColortSem13());
-        ediColortSem12 .setText(informe.getColortSem11());
-        ediColortSem11 .setText(informe.getColortSem11());
-        ediColortSem10 .setText(informe.getColortSem11());
+        ediColortSem12.setText(informe.getColortSem11());
+        ediColortSem11.setText(informe.getColortSem11());
+        ediColortSem10.setText(informe.getColortSem11());
         ediColortSem9.setText(informe.getColortSem9());
 
         ediNumRcim14.setText(informe.getNumRcim14());
@@ -5644,41 +5284,40 @@ if(indice>2) {
         ediPsgddsorc9.setText(informe.getPorc9());
 
 
-
     }
 
 
-    void dowloadSecondPART_Report(String reportUNIQUEidtoSEARCH, int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
+    void dowloadSecondPART_Report(String reportUNIQUEidtoSEARCH, int modo) { //DESCRAGAMOS EL SEGUNDO REPORTE
 
-        Log.i("secondInform","el curren report id es "+reportUNIQUEidtoSEARCH);
-         RealtimeDB.initDatabasesRootOnly();
+        Log.i("secondInform", "el curren report id es " + reportUNIQUEidtoSEARCH);
+        RealtimeDB.initDatabasesRootOnly();
 
         Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listInformes").orderByChild("uniqueIDinformePart2").equalTo(reportUNIQUEidtoSEARCH);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    SetInformEmbarque2 informEmbarque2= ds.getValue(SetInformEmbarque2.class);
+                    SetInformEmbarque2 informEmbarque2 = ds.getValue(SetInformEmbarque2.class);
 
-                    if(informEmbarque2!=null){
-                        Variables.CurrenReportPart2=informEmbarque2;
+                    if (informEmbarque2 != null) {
+                        Variables.CurrenReportPart2 = informEmbarque2;
                         break;
                     }
                 }
-                Log.i("secondInform","el id del secon resport es "+Variables.CurrenReportPart2.getUniqueIDinformePart2());
-                Log.i("secondInform","el CANDAO ES "+Variables.CurrenReportPart2.getCandadoQsercom());
+                Log.i("secondInform", "el id del secon resport es " + Variables.CurrenReportPart2.getUniqueIDinformePart2());
+                Log.i("secondInform", "el CANDAO ES " + Variables.CurrenReportPart2.getCandadoQsercom());
 
 
-                dowloadThirdReportAndCallSetData(reportUNIQUEidtoSEARCH,modo);
+                dowloadThirdReportAndCallSetData(reportUNIQUEidtoSEARCH, modo);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Log.i("sliexsa","el error es "+error.getMessage());
+                Log.i("sliexsa", "el error es " + error.getMessage());
 
             }
         });
@@ -5686,9 +5325,9 @@ if(indice>2) {
 
     }
 
-    void dowloadThirdReportAndCallSetData(String reportUNIQUEidtoSEARCH,int modo){ //DESCRAGAMOS EL SEGUNDO REPORTE
+    void dowloadThirdReportAndCallSetData(String reportUNIQUEidtoSEARCH, int modo) { //DESCRAGAMOS EL SEGUNDO REPORTE
 
-        Log.i("secondInform","el curren report id es "+reportUNIQUEidtoSEARCH);
+        Log.i("secondInform", "el curren report id es " + reportUNIQUEidtoSEARCH);
 
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
@@ -5698,28 +5337,27 @@ if(indice>2) {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    SetInformDatsHacienda inform= ds.getValue(SetInformDatsHacienda.class);
+                    SetInformDatsHacienda inform = ds.getValue(SetInformDatsHacienda.class);
 
-                    if(inform!=null){
-                        Variables.CurrenReportPart3=inform;
+                    if (inform != null) {
+                        Variables.CurrenReportPart3 = inform;
                         break;
                     }
                 }
 
 
-
                 //AGREGMOS LA DATA EN LOS FILEDS
-                setDataInfields(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
+                setDataInfields(Variables.CurrenReportPart1, Variables.CurrenReportPart2, Variables.CurrenReportPart3);
                 setDataInMoreViews(Variables.CurrenReportPart3);
-                setDtaInOthersViews(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3);
+                setDtaInOthersViews(Variables.CurrenReportPart1, Variables.CurrenReportPart2, Variables.CurrenReportPart3);
 
-                if(Variables.CurrenReportPart1.getAtachControCuadroMuestreo().trim().length()>1){
+
+                if (Variables.CurrenReportPart1.getAtachControCuadroMuestreo().trim().length() > 1) {
                     //descragamos cuadro muestreo adn se data..
 
                     DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(Variables.CurrenReportPart1.getAtachControCuadroMuestreo());
-
 
 
                 }
@@ -5730,7 +5368,7 @@ if(indice>2) {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Log.i("sliexsa","el error es "+error.getMessage());
+                Log.i("sliexsa", "el error es " + error.getMessage());
 
             }
         });
@@ -5741,19 +5379,15 @@ if(indice>2) {
 
     @Override
     public void onBackPressed() {
-       finish();
+        finish();
     }
 
 
+    private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int contador, int sizeListIterate) {
 
+        Variables.listReprsVinculads = new ArrayList<>();
 
-
-    private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int contador,int sizeListIterate ) {
-
-        Variables.listReprsVinculads=new ArrayList<>();
-
-        Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
-
+        Log.i("salero", "bsucando este reporte con este id  " + reportidToSearch);
 
 
         RealtimeDB.initDatabasesRootOnly();
@@ -5765,34 +5399,31 @@ if(indice>2) {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    ControlCalidad  user=ds.getValue(ControlCalidad.class);
+                    ControlCalidad user = ds.getValue(ControlCalidad.class);
 
-                    if(user != null) {
+                    if (user != null) {
 
                         Variables.listReprsVinculads.add(user);
 
                     }
                 }
 
-                if( sizeListIterate == contador){
+                if (sizeListIterate == contador) {
 
 
-                    String nameFilePdf="TTNU-"+Variables.CurrenReportPart1.getUniqueIDinforme()+" "+ Variables.CurrenReportPart1.getProductor();
+                    String nameFilePdf = "TTNU-" + Variables.CurrenReportPart1.getUniqueIDinforme() + " " + Variables.CurrenReportPart1.getProductor();
 
 
-                    Log.i("comnadaer","bien vamos a activity pdf maker");
+                    Log.i("comnadaer", "bien vamos a activity pdf maker");
 
                     //vamos a  activity
 // createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
-                    int numsPriodcutsPost= cuentaProdcutosposTcosechaAndUpdateGlobaProducPost();
+                    int numsPriodcutsPost = cuentaProdcutosposTcosechaAndUpdateGlobaProducPost();
 
                     Intent intent = new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class);
-                    intent.putExtra(Variables.KEY_PDF_MAKER,Variables.FormPreviewContenedores);
-                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NAME ,nameFilePdf);
-                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NUM_PR_POST ,numsPriodcutsPost);
-
-
-
+                    intent.putExtra(Variables.KEY_PDF_MAKER, Variables.FormPreviewContenedores);
+                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NAME, nameFilePdf);
+                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NUM_PR_POST, numsPriodcutsPost);
 
 
                     startActivity(intent);
@@ -5807,33 +5438,28 @@ if(indice>2) {
         });
 
 
-
     }
 
 
-
-    private void DowloadControlcalidadVinculadosandDecideIRpdfMAKER(String valueVinculds){
+    private void DowloadControlcalidadVinculadosandDecideIRpdfMAKER(String valueVinculds) {
 
         // Utils.generateLISTbyStringVinculados
-      ArrayList<String> listIdSvINCULADOS=Utils.generateLISTbyStringVinculados(valueVinculds,"");
+        ArrayList<String> listIdSvINCULADOS = Utils.generateLISTbyStringVinculados(valueVinculds, "");
 
-        if(listIdSvINCULADOS.size()>0 ){  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
+        if (listIdSvINCULADOS.size() > 0) {  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
 
-          //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
-               int contadorx=0;
+            //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
+            int contadorx = 0;
 
-            for(String value: listIdSvINCULADOS){
+            for (String value : listIdSvINCULADOS) {
                 contadorx++;
 
-                Log.i("comnadaer","se ejecuto esto veces, buscamos este "+value);
+                Log.i("comnadaer", "se ejecuto esto veces, buscamos este " + value);
 
-                dowloadReportsVinucLADSAndGOcREATEpdf (value,contadorx,listIdSvINCULADOS.size());
+                dowloadReportsVinucLADSAndGOcREATEpdf(value, contadorx, listIdSvINCULADOS.size());
 
             }
-        }
-
-
-        else {
+        } else {
 
             Toast.makeText(ActivityContenedoresPrev.this, "No Hay reportes vinculados ", Toast.LENGTH_SHORT).show();
 
@@ -5842,10 +5468,7 @@ if(indice>2) {
     }
 
 
-
-
-
-    private void DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(String currentIDoBJECTvinuc ){
+    private void DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(String currentIDoBJECTvinuc) {
 
         DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
 
@@ -5857,15 +5480,15 @@ if(indice>2) {
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
-                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
-                    Log.i("holerd","aqui se encontro un cuadro muestreo......");
+                    CuadroMuestreo informe = ds.getValue(CuadroMuestreo.class);
+                    Log.i("holerd", "aqui se encontro un cuadro muestreo......");
 
-                    if(informe!=null){
+                    if (informe != null) {
 
-                        Variables.CurrenReportPart3.setEdiRacimosRecha(  String.valueOf(informe.getTotalRechazadosAll()));
+                        Variables.CurrenReportPart3.setEdiRacimosRecha(String.valueOf(informe.getTotalRechazadosAll()));
 
                         ediRacimosRecha.setText(String.valueOf(informe.getTotalRechazadosAll()));
-                            btnGENERARpdf.setEnabled(true);
+                        btnGENERARpdf.setEnabled(true);
 
                         break;
                     }
@@ -5874,29 +5497,26 @@ if(indice>2) {
                 }
 
 
-
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("misdata","el error es  "+ error.getMessage());
+                Log.i("misdata", "el error es  " + error.getMessage());
 
             }
-        } );
+        });
 
     }
 
 
-    public void updateVinucladosObject(){
+    public void updateVinucladosObject() {
 
-        TextView txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
+        TextView txtNumReportsVinclds = findViewById(R.id.txtNumReportsVinclds);
 
         txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
 
 
-        if(!RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()){ //lodecsrgamos y seteamos info
+        if (!RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()) { //lodecsrgamos y seteamos info
 
             DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
@@ -5905,13 +5525,13 @@ if(indice>2) {
 
     }
 
-    public void decideaAtachReport(boolean userSelecion){
+    public void decideaAtachReport(boolean userSelecion) {
 
 
-        if(userSelecion){ //SELECIONO ATCH
-            Log.i("test001"," seleciono 200");
+        if (userSelecion) { //SELECIONO ATCH
+            Log.i("test001", " seleciono 200");
 
-            ScrollView scrollView2 =findViewById(R.id.scrollView2);
+            ScrollView scrollView2 = findViewById(R.id.scrollView2);
 
             scrollView2.post(new Runnable() {
                 public void run() {
@@ -5938,10 +5558,7 @@ if(indice>2) {
 */
 
 
-
     }
-
-
 
 
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
@@ -5951,7 +5568,7 @@ if(indice>2) {
                 @Override
                 public void onActivityResult(ActivityResult result) {
 
-                    if(result.getResultCode()== Activity.RESULT_OK){
+                    if (result.getResultCode() == Activity.RESULT_OK) {
 
                         Intent data = result.getData();
 
@@ -5967,22 +5584,22 @@ if(indice>2) {
 
                                 Bitmap bitmap = null;
                                 try {
-                                    bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(),imageuri);
+                                    bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(), imageuri);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
 
                                 // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
-                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+                                String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
 
 
-                                ImagenReport obcjImagenReport = new ImagenReport("",imageuri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,imageuri), horientacionImg);
+                                ImagenReport obcjImagenReport = new ImagenReport("", imageuri.toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, imageuri), horientacionImg);
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
-                                Utils.mapUris.put(obcjImagenReport.getUniqueIdNamePic(),imageuri);
+                                Utils.mapUris.put(obcjImagenReport.getUniqueIdNamePic(), imageuri);
                                 CurrentImageSelect = CurrentImageSelect + 1;
                             }
 
@@ -5996,15 +5613,10 @@ if(indice>2) {
 
                     }
 
-                    }
-
-
-
+                }
 
 
             });
-
-
 
 
     @SuppressLint("SetTextI18n")
@@ -6021,29 +5633,29 @@ if(indice>2) {
 
                     while (CurrentImageSelect < count) {
                         Uri imageuri = data.getClipData().getItemAt(CurrentImageSelect).getUri();
-                     //   ImageList.add(imageuri);
+                        //   ImageList.add(imageuri);
 
                         Bitmap bitmap = null;
                         try {
-                            bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(),imageuri);
+                            bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(), imageuri);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
                         // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
-                        String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+                        String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
 
 
-                        ImagenReport obcjImagenReport = new ImagenReport("",imageuri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this,imageuri), horientacionImg);
+                        ImagenReport obcjImagenReport = new ImagenReport("", imageuri.toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, imageuri), horientacionImg);
 
                         //agregamos este objeto a la lista
                         ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
-                        Utils.mapUris.put(obcjImagenReport.getUniqueIdNamePic(),imageuri);
+                        Utils.mapUris.put(obcjImagenReport.getUniqueIdNamePic(), imageuri);
                         CurrentImageSelect = CurrentImageSelect + 1;
                     }
-                   // textView.setVisibility(View.VISIBLE);
+                    // textView.setVisibility(View.VISIBLE);
                     //textView.setText("You Have Selected " + ImageList.size() + " Pictures");
                     //choose.setVisibility(View.GONE);
                 }
@@ -6055,19 +5667,15 @@ if(indice>2) {
     }
 
 
+    private int cuentaProdcutosposTcosechaAndUpdateGlobaProducPost() {
+        EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
+                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
 
+        int contadorpRODUCTS = 0;
 
+        for (EditText editext : editextArray) {
 
-
-    private int cuentaProdcutosposTcosechaAndUpdateGlobaProducPost(){
-        EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
-                ediPPC08,ediPPC09, ediPPC010,ediPPC011,ediPPC012,ediPPC013,ediPPC014,ediPPC015,ediPPC016} ;
-
-        int contadorpRODUCTS=0;
-
-        for(EditText editext : editextArray){
-
-            if(!editext.getText().toString().trim().isEmpty() && editext.getText().toString().length()>1){
+            if (!editext.getText().toString().trim().isEmpty() && editext.getText().toString().length() > 1) {
 
                 contadorpRODUCTS++;
             }
@@ -6076,82 +5684,79 @@ if(indice>2) {
         }
 
         //update productos postcosechafsdfsd
-        for (int indice =0; indice<editextArray.length; indice++) {
-            EditText currentEditext=editextArray[indice];
-            if (!currentEditext.getText().toString().trim().isEmpty()){ //si no esta vacioo
+        for (int indice = 0; indice < editextArray.length; indice++) {
+            EditText currentEditext = editextArray[indice];
+            if (!currentEditext.getText().toString().trim().isEmpty()) { //si no esta vacioo
 
 
-                    switch (currentEditext.getId()){
+                switch (currentEditext.getId()) {
 
-                        case R.id.ediPPC01:
-                            Variables.currenProductPostCosecha.alumbre=currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC02:
-                            Variables.currenProductPostCosecha.bc100=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC01:
+                        Variables.currenProductPostCosecha.alumbre = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC02:
+                        Variables.currenProductPostCosecha.bc100 = currentEditext.getText().toString();
+                        break;
 
-                        case R.id.ediPPC03:
-                            Variables.currenProductPostCosecha.sb100=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC03:
+                        Variables.currenProductPostCosecha.sb100 = currentEditext.getText().toString();
+                        break;
 
-                        case R.id.ediPPC04:
-                            Variables.currenProductPostCosecha.eclipse=currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC05:
-                            Variables.currenProductPostCosecha.acido_citrico=currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC06:
-                            Variables.currenProductPostCosecha.biottol=currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC07:
-                            Variables.currenProductPostCosecha.bromorux=currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC08:
-                            Variables.currenProductPostCosecha.ryzuc=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC04:
+                        Variables.currenProductPostCosecha.eclipse = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC05:
+                        Variables.currenProductPostCosecha.acido_citrico = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC06:
+                        Variables.currenProductPostCosecha.biottol = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC07:
+                        Variables.currenProductPostCosecha.bromorux = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC08:
+                        Variables.currenProductPostCosecha.ryzuc = currentEditext.getText().toString();
+                        break;
 
-                        case R.id.ediPPC09:
-                            Variables.currenProductPostCosecha.mertec=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC09:
+                        Variables.currenProductPostCosecha.mertec = currentEditext.getText().toString();
+                        break;
 
-                        case R.id.ediPPC010:
-                            Variables.currenProductPostCosecha.sastifar=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC010:
+                        Variables.currenProductPostCosecha.sastifar = currentEditext.getText().toString();
+                        break;
 
-                        case R.id.ediPPC011:
-                            Variables.currenProductPostCosecha.xtrata=currentEditext.getText().toString();
-                            break;
-
-
-                        case R.id.ediPPC012:
-                            Variables.currenProductPostCosecha.nlarge=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC011:
+                        Variables.currenProductPostCosecha.xtrata = currentEditext.getText().toString();
+                        break;
 
 
-                        case R.id.ediPPC013:
-                            Variables.currenProductPostCosecha.gib_bex=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC012:
+                        Variables.currenProductPostCosecha.nlarge = currentEditext.getText().toString();
+                        break;
 
 
-
-                        case R.id.ediPPC014:
-                            Variables.currenProductPostCosecha.cloro=currentEditext.getText().toString();
-                            break;
-
-
-                        case R.id.ediPPC015:
-                            Variables.currenProductPostCosecha.otro_especifique=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC013:
+                        Variables.currenProductPostCosecha.gib_bex = currentEditext.getText().toString();
+                        break;
 
 
-                        case R.id.ediPPC016:
-                            Variables.currenProductPostCosecha.cantidadOtro=currentEditext.getText().toString();
-                            break;
+                    case R.id.ediPPC014:
+                        Variables.currenProductPostCosecha.cloro = currentEditext.getText().toString();
+                        break;
 
 
-                    }
+                    case R.id.ediPPC015:
+                        Variables.currenProductPostCosecha.otro_especifique = currentEditext.getText().toString();
+                        break;
 
 
+                    case R.id.ediPPC016:
+                        Variables.currenProductPostCosecha.cantidadOtro = currentEditext.getText().toString();
+                        break;
+
+
+                }
 
 
             }
@@ -6162,31 +5767,396 @@ if(indice>2) {
         }
 
 
-
-
         return contadorpRODUCTS;
     }
 
+    private void getLibriadoMap(String nodeLocalizeMap) {
+        Log.i("hameha", "el NODEKey es : " + nodeLocalizeMap);
+
+        ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("MapsPesoBrutoCloster2y3l").
+                child(nodeLocalizeMap).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                        HashMap<String, Float> mimapa = new HashMap<>();
+
+
+                        for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                            String key = dss.getKey();
+
+                            Float fieldData = dss.getValue(Float.class);
+
+                            if (fieldData != null) {///
+                                mimapa.put(key, fieldData);
+
+                            }
+                        }
+
+
+                        Log.i("libiadod", "el sz de  libriado es " + mimapa.size());
+
+                        setDataLibriado(mimapa);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.i("libiadod", "el error es " + databaseError.getMessage());
+
+
+                    }
+                });
+
+
+    }
+
+
+    void setDataLibriado(HashMap<String, Float> miMap) {
+
+        EditText pbCluster01 = findViewById(R.id.pbCluster01);
+        EditText pbCluster05 = findViewById(R.id.pbCluster05);
+        EditText pbCluster03 = findViewById(R.id.pbCluster03);
+        EditText pbCluster02 = findViewById(R.id.pbCluster02);
+        EditText pbCluster04 = findViewById(R.id.pbCluster04);
+        EditText pbCluster010 = findViewById(R.id.pbCluster010);
+        EditText pbCluster09 = findViewById(R.id.pbCluster09);
+        EditText pbCluster07 = findViewById(R.id.pbCluster07);
+        EditText pbCluster08 = findViewById(R.id.pbCluster08);
+        EditText pbCluster06 = findViewById(R.id.pbCluster06);
+        EditText pbCluster011 = findViewById(R.id.pbCluster011);
+        EditText pbCluster015 = findViewById(R.id.pbCluster015);
+        EditText pbCluster012 = findViewById(R.id.pbCluster012);
+        EditText pbCluster013 = findViewById(R.id.pbCluster013);
+        EditText pbCluster014 = findViewById(R.id.pbCluster014);
+        EditText pbCluster016 = findViewById(R.id.pbCluster016);
+        EditText pbCluster019 = findViewById(R.id.pbCluster019);
+        EditText pbCluster018 = findViewById(R.id.pbCluster018);
+        EditText pbCluster020 = findViewById(R.id.pbCluster020);
+        EditText pbCluster017 = findViewById(R.id.pbCluster017);
+        EditText pbCluster025 = findViewById(R.id.pbCluster025);
+        EditText pbCluster024 = findViewById(R.id.pbCluster024);
+        EditText pbCluster023 = findViewById(R.id.pbCluster023);
+        EditText pbCluster022 = findViewById(R.id.pbCluster022);
+        EditText pbCluster021 = findViewById(R.id.pbCluster021);
+        EditText pbCluster028 = findViewById(R.id.pbCluster028);
+        EditText pbCluster027 = findViewById(R.id.pbCluster027);
+        EditText pbCluster029 = findViewById(R.id.pbCluster029);
+        EditText pbCluster026 = findViewById(R.id.pbCluster026);
+        EditText pbCluster030 = findViewById(R.id.pbCluster030);
+        EditText pbCluster034 = findViewById(R.id.pbCluster034);
+        EditText pbCluster031 = findViewById(R.id.pbCluster031);
+        EditText pbCluster035 = findViewById(R.id.pbCluster035);
+        EditText pbCluster033 = findViewById(R.id.pbCluster033);
+        EditText pbCluster032 = findViewById(R.id.pbCluster032);
+        EditText pbCluster039 = findViewById(R.id.pbCluster039);
+        EditText pbCluster040 = findViewById(R.id.pbCluster040);
+        EditText pbCluster037 = findViewById(R.id.pbCluster037);
+        EditText pbCluster038 = findViewById(R.id.pbCluster038);
+        EditText pbCluster036 = findViewById(R.id.pbCluster036);
+        EditText pbCluster043 = findViewById(R.id.pbCluster043);
+        EditText pbCluster045 = findViewById(R.id.pbCluster045);
+        EditText pbCluster042 = findViewById(R.id.pbCluster042);
+        EditText pbCluster041 = findViewById(R.id.pbCluster041);
+        EditText pbCluster044 = findViewById(R.id.pbCluster044);
+        EditText pbCluster048 = findViewById(R.id.pbCluster048);
+        EditText pbCluster046 = findViewById(R.id.pbCluster046);
+        EditText pbCluster050 = findViewById(R.id.pbCluster050);
+        EditText pbCluster047 = findViewById(R.id.pbCluster047);
+        EditText pbCluster049 = findViewById(R.id.pbCluster049);
+        EditText p2pbCluster01 = findViewById(R.id.p2pbCluster01);
+        EditText p2pbCluster05 = findViewById(R.id.p2pbCluster05);
+        EditText p2pbCluster03 = findViewById(R.id.p2pbCluster03);
+        EditText p2pbCluster02 = findViewById(R.id.p2pbCluster02);
+        EditText p2pbCluster04 = findViewById(R.id.p2pbCluster04);
+        EditText p2pbCluster010 = findViewById(R.id.p2pbCluster010);
+        EditText p2pbCluster09 = findViewById(R.id.p2pbCluster09);
+        EditText p2pbCluster07 = findViewById(R.id.p2pbCluster07);
+        EditText p2pbCluster08 = findViewById(R.id.p2pbCluster08);
+        EditText p2pbCluster06 = findViewById(R.id.p2pbCluster06);
+        EditText p2pbCluster011 = findViewById(R.id.p2pbCluster011);
+        EditText p2pbCluster015 = findViewById(R.id.p2pbCluster015);
+        EditText p2pbCluster012 = findViewById(R.id.p2pbCluster012);
+        EditText p2pbCluster013 = findViewById(R.id.p2pbCluster013);
+        EditText p2pbCluster014 = findViewById(R.id.p2pbCluster014);
+        EditText p2pbCluster016 = findViewById(R.id.p2pbCluster016);
+        EditText p2pbCluster019 = findViewById(R.id.p2pbCluster019);
+        EditText p2pbCluster018 = findViewById(R.id.p2pbCluster018);
+        EditText p2pbCluster020 = findViewById(R.id.p2pbCluster020);
+        EditText p2pbCluster017 = findViewById(R.id.p2pbCluster017);
+        EditText p2pbCluster025 = findViewById(R.id.p2pbCluster025);
+        EditText p2pbCluster024 = findViewById(R.id.p2pbCluster024);
+        EditText p2pbCluster023 = findViewById(R.id.p2pbCluster023);
+        EditText p2pbCluster022 = findViewById(R.id.p2pbCluster022);
+        EditText p2pbCluster021 = findViewById(R.id.p2pbCluster021);
+        EditText p2pbCluster028 = findViewById(R.id.p2pbCluster028);
+        EditText p2pbCluster027 = findViewById(R.id.p2pbCluster027);
+        EditText p2pbCluster029 = findViewById(R.id.p2pbCluster029);
+        EditText p2pbCluster026 = findViewById(R.id.p2pbCluster026);
+        EditText p2pbCluster030 = findViewById(R.id.p2pbCluster030);
+        EditText p2pbCluster034 = findViewById(R.id.p2pbCluster034);
+        EditText p2pbCluster031 = findViewById(R.id.p2pbCluster031);
+        EditText p2pbCluster035 = findViewById(R.id.p2pbCluster035);
+        EditText p2pbCluster033 = findViewById(R.id.p2pbCluster033);
+        EditText p2pbCluster032 = findViewById(R.id.p2pbCluster032);
+        EditText p2pbCluster039 = findViewById(R.id.p2pbCluster039);
+        EditText p2pbCluster040 = findViewById(R.id.p2pbCluster040);
+        EditText p2pbCluster037 = findViewById(R.id.p2pbCluster037);
+        EditText p2pbCluster038 = findViewById(R.id.p2pbCluster038);
+        EditText p2pbCluster036 = findViewById(R.id.p2pbCluster036);
+
+
+        EditText[] miArray = {
+                pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
+                pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
+                pbCluster024, pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
+                pbCluster031, pbCluster035, pbCluster033, pbCluster032, pbCluster039, pbCluster040, pbCluster037, pbCluster038, pbCluster036, pbCluster043,
+                pbCluster045, pbCluster042, pbCluster041, pbCluster044, pbCluster048, pbCluster046, pbCluster050, pbCluster047, pbCluster049, p2pbCluster01,
+                p2pbCluster05, p2pbCluster03, p2pbCluster02, p2pbCluster04, p2pbCluster010, p2pbCluster09, p2pbCluster07, p2pbCluster08, p2pbCluster06,
+                p2pbCluster011, p2pbCluster015, p2pbCluster012, p2pbCluster013, p2pbCluster014, p2pbCluster016, p2pbCluster019, p2pbCluster018,
+                p2pbCluster020, p2pbCluster017, p2pbCluster025, p2pbCluster024, p2pbCluster023, p2pbCluster022, p2pbCluster021, p2pbCluster028,
+                p2pbCluster027, p2pbCluster029, p2pbCluster026, p2pbCluster030, p2pbCluster034, p2pbCluster031, p2pbCluster035, p2pbCluster033,
+                p2pbCluster032, p2pbCluster039, p2pbCluster040, p2pbCluster037, p2pbCluster038, p2pbCluster036
+        };
+
+
+        for (HashMap.Entry<String, Float> entry : miMap.entrySet()) {
+            String keyHashMap = entry.getKey();
+            Float value = entry.getValue();
+
+
+            //buscamos en el attay de editext el que contega este id
+            for (EditText edi : miArray) {
+
+                String keyOFeditextCurrent = edi.getId() + "-" + edi.getTag();
+
+                if (keyHashMap.equals(keyOFeditextCurrent)) {
+                    edi.setText(String.valueOf(value));
+                    break;
+                }
+
+            }
+
+            ///entonces buscamos el que contenga este
+
+
+        }
+
+
+    }
+
+
+    HashMap<String, Float> generateMapLibriadoIfExistAndUpload(boolean isGeneratePdf) {
+
+
+        EditText pbCluster01 = findViewById(R.id.pbCluster01);
+        EditText pbCluster05 = findViewById(R.id.pbCluster05);
+        EditText pbCluster03 = findViewById(R.id.pbCluster03);
+        EditText pbCluster02 = findViewById(R.id.pbCluster02);
+        EditText pbCluster04 = findViewById(R.id.pbCluster04);
+        EditText pbCluster010 = findViewById(R.id.pbCluster010);
+        EditText pbCluster09 = findViewById(R.id.pbCluster09);
+        EditText pbCluster07 = findViewById(R.id.pbCluster07);
+        EditText pbCluster08 = findViewById(R.id.pbCluster08);
+        EditText pbCluster06 = findViewById(R.id.pbCluster06);
+        EditText pbCluster011 = findViewById(R.id.pbCluster011);
+        EditText pbCluster015 = findViewById(R.id.pbCluster015);
+        EditText pbCluster012 = findViewById(R.id.pbCluster012);
+        EditText pbCluster013 = findViewById(R.id.pbCluster013);
+        EditText pbCluster014 = findViewById(R.id.pbCluster014);
+        EditText pbCluster016 = findViewById(R.id.pbCluster016);
+        EditText pbCluster019 = findViewById(R.id.pbCluster019);
+        EditText pbCluster018 = findViewById(R.id.pbCluster018);
+        EditText pbCluster020 = findViewById(R.id.pbCluster020);
+        EditText pbCluster017 = findViewById(R.id.pbCluster017);
+        EditText pbCluster025 = findViewById(R.id.pbCluster025);
+        EditText pbCluster024 = findViewById(R.id.pbCluster024);
+        EditText pbCluster023 = findViewById(R.id.pbCluster023);
+        EditText pbCluster022 = findViewById(R.id.pbCluster022);
+        EditText pbCluster021 = findViewById(R.id.pbCluster021);
+        EditText pbCluster028 = findViewById(R.id.pbCluster028);
+        EditText pbCluster027 = findViewById(R.id.pbCluster027);
+        EditText pbCluster029 = findViewById(R.id.pbCluster029);
+        EditText pbCluster026 = findViewById(R.id.pbCluster026);
+        EditText pbCluster030 = findViewById(R.id.pbCluster030);
+        EditText pbCluster034 = findViewById(R.id.pbCluster034);
+        EditText pbCluster031 = findViewById(R.id.pbCluster031);
+        EditText pbCluster035 = findViewById(R.id.pbCluster035);
+        EditText pbCluster033 = findViewById(R.id.pbCluster033);
+        EditText pbCluster032 = findViewById(R.id.pbCluster032);
+        EditText pbCluster039 = findViewById(R.id.pbCluster039);
+        EditText pbCluster040 = findViewById(R.id.pbCluster040);
+        EditText pbCluster037 = findViewById(R.id.pbCluster037);
+        EditText pbCluster038 = findViewById(R.id.pbCluster038);
+        EditText pbCluster036 = findViewById(R.id.pbCluster036);
+        EditText pbCluster043 = findViewById(R.id.pbCluster043);
+        EditText pbCluster045 = findViewById(R.id.pbCluster045);
+        EditText pbCluster042 = findViewById(R.id.pbCluster042);
+        EditText pbCluster041 = findViewById(R.id.pbCluster041);
+        EditText pbCluster044 = findViewById(R.id.pbCluster044);
+        EditText pbCluster048 = findViewById(R.id.pbCluster048);
+        EditText pbCluster046 = findViewById(R.id.pbCluster046);
+        EditText pbCluster050 = findViewById(R.id.pbCluster050);
+        EditText pbCluster047 = findViewById(R.id.pbCluster047);
+        EditText pbCluster049 = findViewById(R.id.pbCluster049);
+        EditText p2pbCluster01 = findViewById(R.id.p2pbCluster01);
+        EditText p2pbCluster05 = findViewById(R.id.p2pbCluster05);
+        EditText p2pbCluster03 = findViewById(R.id.p2pbCluster03);
+        EditText p2pbCluster02 = findViewById(R.id.p2pbCluster02);
+        EditText p2pbCluster04 = findViewById(R.id.p2pbCluster04);
+        EditText p2pbCluster010 = findViewById(R.id.p2pbCluster010);
+        EditText p2pbCluster09 = findViewById(R.id.p2pbCluster09);
+        EditText p2pbCluster07 = findViewById(R.id.p2pbCluster07);
+        EditText p2pbCluster08 = findViewById(R.id.p2pbCluster08);
+        EditText p2pbCluster06 = findViewById(R.id.p2pbCluster06);
+        EditText p2pbCluster011 = findViewById(R.id.p2pbCluster011);
+        EditText p2pbCluster015 = findViewById(R.id.p2pbCluster015);
+        EditText p2pbCluster012 = findViewById(R.id.p2pbCluster012);
+        EditText p2pbCluster013 = findViewById(R.id.p2pbCluster013);
+        EditText p2pbCluster014 = findViewById(R.id.p2pbCluster014);
+        EditText p2pbCluster016 = findViewById(R.id.p2pbCluster016);
+        EditText p2pbCluster019 = findViewById(R.id.p2pbCluster019);
+        EditText p2pbCluster018 = findViewById(R.id.p2pbCluster018);
+        EditText p2pbCluster020 = findViewById(R.id.p2pbCluster020);
+        EditText p2pbCluster017 = findViewById(R.id.p2pbCluster017);
+        EditText p2pbCluster025 = findViewById(R.id.p2pbCluster025);
+        EditText p2pbCluster024 = findViewById(R.id.p2pbCluster024);
+        EditText p2pbCluster023 = findViewById(R.id.p2pbCluster023);
+        EditText p2pbCluster022 = findViewById(R.id.p2pbCluster022);
+        EditText p2pbCluster021 = findViewById(R.id.p2pbCluster021);
+        EditText p2pbCluster028 = findViewById(R.id.p2pbCluster028);
+        EditText p2pbCluster027 = findViewById(R.id.p2pbCluster027);
+        EditText p2pbCluster029 = findViewById(R.id.p2pbCluster029);
+        EditText p2pbCluster026 = findViewById(R.id.p2pbCluster026);
+        EditText p2pbCluster030 = findViewById(R.id.p2pbCluster030);
+        EditText p2pbCluster034 = findViewById(R.id.p2pbCluster034);
+        EditText p2pbCluster031 = findViewById(R.id.p2pbCluster031);
+        EditText p2pbCluster035 = findViewById(R.id.p2pbCluster035);
+        EditText p2pbCluster033 = findViewById(R.id.p2pbCluster033);
+        EditText p2pbCluster032 = findViewById(R.id.p2pbCluster032);
+        EditText p2pbCluster039 = findViewById(R.id.p2pbCluster039);
+        EditText p2pbCluster040 = findViewById(R.id.p2pbCluster040);
+        EditText p2pbCluster037 = findViewById(R.id.p2pbCluster037);
+        EditText p2pbCluster038 = findViewById(R.id.p2pbCluster038);
+        EditText p2pbCluster036 = findViewById(R.id.p2pbCluster036);
+
+
+        EditText[] miArray = {
+                pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
+                pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
+                pbCluster024, pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
+                pbCluster031, pbCluster035, pbCluster033, pbCluster032, pbCluster039, pbCluster040, pbCluster037, pbCluster038, pbCluster036, pbCluster043,
+                pbCluster045, pbCluster042, pbCluster041, pbCluster044, pbCluster048, pbCluster046, pbCluster050, pbCluster047, pbCluster049, p2pbCluster01,
+                p2pbCluster05, p2pbCluster03, p2pbCluster02, p2pbCluster04, p2pbCluster010, p2pbCluster09, p2pbCluster07, p2pbCluster08, p2pbCluster06,
+                p2pbCluster011, p2pbCluster015, p2pbCluster012, p2pbCluster013, p2pbCluster014, p2pbCluster016, p2pbCluster019, p2pbCluster018,
+                p2pbCluster020, p2pbCluster017, p2pbCluster025, p2pbCluster024, p2pbCluster023, p2pbCluster022, p2pbCluster021, p2pbCluster028,
+                p2pbCluster027, p2pbCluster029, p2pbCluster026, p2pbCluster030, p2pbCluster034, p2pbCluster031, p2pbCluster035, p2pbCluster033,
+                p2pbCluster032, p2pbCluster039, p2pbCluster040, p2pbCluster037, p2pbCluster038, p2pbCluster036
+
+        };
+
+        HashMap<String, Float> miMapData = new HashMap<>();
+
+
+        for (EditText currentEdit : miArray) {
+
+            if (!currentEdit.getText().toString().trim().isEmpty()) {
+
+                //le agregamos un slash al id key mas o menos este fomrato idddd/fil1
+
+                miMapData.put(String.valueOf(currentEdit.getId()) + "-" + currentEdit.getTag(), Float.parseFloat(currentEdit.getText().toString()));
+
+                Log.i("miodataxx","hay texto aqui");
+
+            }
+
+
+        }
+
+
+        if (isGeneratePdf) {
+            //obtenemos el p
+
+            //fil1
+
+            Variables.listPromedioLibriado= new ArrayList<>();
+
+            float sumFilas;
+            int contadorItemsConTag;
+
+
+            for (int indice = 0; indice < 18; indice++) {
+                //                String keyOFeditextCurrent = edi.getId() + "-" + edi.getTag();
+
+                sumFilas=0;
+                contadorItemsConTag=0;
+
+               // String keyActualToSearch=
+
+
+                //buscamos solo los que contengan esta key
+
+
+                for (HashMap.Entry<String, Float> entry : miMapData.entrySet()) {
+
+                    String keyHashMap = entry.getKey();
+                    Float value = entry.getValue();
+
+
+                    Log.i("miodataxx","hay texto aqui"+keyHashMap+" el value es "+"fil"+(indice+1));
+
+
+                    if(keyHashMap.contains("fil"+(indice+1)) ){
+                        contadorItemsConTag++;
+
+                        sumFilas=sumFilas+value;
+
+
+                    }
+
+
+                }
+
+
+
+
+                //ahora creamos un nuevo objet[
+
+                if(sumFilas>0){
+
+                    Variables.listPromedioLibriado.add(new PromedioLibriado(indice+1,sumFilas/contadorItemsConTag));
+
+                }
+
+
+
+
+            }
+
+            Log.i("miodataxx","el size es: "+Variables.listPromedioLibriado.size());
+
+
+        }
+
+        return miMapData;
+
+    }
 
 
 }
 
+
+
+
+
     /*****
      * probando parte de selcion almenos una foto...
-     *
-     *
      * en tipo de balanza spinner
      * extensionista ci
      * fotos llegada  dice selcione al menos una foto.....incluso en otras secciones
      *cuando vamos a check racimos rechzados mostrar el dilgo frag,et con confirmacion........
      * ////crear nuevo reporte antes agergarle eso...
      * //y revisar resportes...
-     *
      * cuando estamos en activity preview y vamos a activity no deja delete... resetear eso.. en actvity menu.... onstart...o see reports...
-     *
-     *
-     *
      * en el recicler deberi estar el onclick o en el callback de la actividad
      * **/
-
-

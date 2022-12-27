@@ -15,6 +15,7 @@ import com.tiburela.qsercom.models.ImagesToPdf;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
@@ -28,7 +29,7 @@ public class Variables {
 
  public static String  KEY_CONTENEDORES_EXTRA="MIKEYXTR";
 
-
+public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>();
 
  public static String  KEY_CONTROL_CALIDAD_ATACHEDS="MICTRNLDLD";
  public static String  KEY_CUADRO_MUETREO_ATACHED="MICUDAROR";

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tiburela.qsercom.R;
 
+import java.util.HashMap;
+
 public class TestFindViewsId extends AppCompatActivity {
 
     private EditText pbCluster01;
@@ -204,15 +206,50 @@ public class TestFindViewsId extends AppCompatActivity {
         p2pbCluster037 = findViewById(R.id.p2pbCluster037);
         p2pbCluster038 = findViewById(R.id.p2pbCluster038);
         p2pbCluster036 = findViewById(R.id.p2pbCluster036);
-        p2pbCluster043 = findViewById(R.id.p2pbCluster043);
-        p2pbCluster045 = findViewById(R.id.p2pbCluster045);
-        p2pbCluster042 = findViewById(R.id.p2pbCluster042);
-        p2pbCluster041 = findViewById(R.id.p2pbCluster041);
-        p2pbCluster044 = findViewById(R.id.p2pbCluster044);
-        p2pbCluster048 = findViewById(R.id.p2pbCluster048);
-        p2pbCluster046 = findViewById(R.id.p2pbCluster046);
-        p2pbCluster050 = findViewById(R.id.p2pbCluster050);
-        p2pbCluster047 = findViewById(R.id.p2pbCluster047);
-        p2pbCluster049 = findViewById(R.id.p2pbCluster049);
+
     }
+
+
+
+    private  void createMapLibriadoForm(){
+
+        EditText [] miArray= {
+                pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
+                pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
+                pbCluster024 , pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
+                pbCluster031, pbCluster035, pbCluster033, pbCluster032, pbCluster039, pbCluster040, pbCluster037, pbCluster038, pbCluster036, pbCluster043,
+                pbCluster045, pbCluster042, pbCluster041, pbCluster044, pbCluster048, pbCluster046, pbCluster050, pbCluster047, pbCluster049, p2pbCluster01,
+                p2pbCluster05, p2pbCluster03, p2pbCluster02, p2pbCluster04, p2pbCluster010, p2pbCluster09, p2pbCluster07, p2pbCluster08, p2pbCluster06,
+                p2pbCluster011, p2pbCluster015, p2pbCluster012, p2pbCluster013, p2pbCluster014, p2pbCluster016, p2pbCluster019, p2pbCluster018,
+                p2pbCluster020, p2pbCluster017, p2pbCluster025, p2pbCluster024, p2pbCluster023, p2pbCluster022, p2pbCluster021, p2pbCluster028,
+                p2pbCluster027, p2pbCluster029, p2pbCluster026, p2pbCluster030, p2pbCluster034, p2pbCluster031, p2pbCluster035, p2pbCluster033,
+                p2pbCluster032, p2pbCluster039, p2pbCluster040, p2pbCluster037, p2pbCluster038, p2pbCluster036
+
+        };
+
+        HashMap<String,String>miMapData= new HashMap<>();
+
+
+        for(EditText currentEdit: miArray){
+
+            if(! currentEdit.getText().toString().trim().isEmpty()){
+
+                //le agregamos un slash al id key mas o menos este fomrato idddd/fil1
+
+                miMapData.put(String.valueOf(currentEdit.getId())+"/"+currentEdit.getTag(),currentEdit.getText().toString());
+            }
+
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+
 }

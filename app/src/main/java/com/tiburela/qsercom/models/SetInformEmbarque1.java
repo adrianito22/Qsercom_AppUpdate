@@ -17,6 +17,16 @@ public class SetInformEmbarque1 {
 
     private String codeInforme;
 
+    public String getKeyOrNodeLibriadoSiEs() {
+        return keyOrNodeLibriadoSiEs;
+    }
+
+    public void setKeyOrNodeLibriadoSiEs(String keyOrNodeLibriadoSiEs) {
+        this.keyOrNodeLibriadoSiEs = keyOrNodeLibriadoSiEs;
+    }
+
+    private String keyOrNodeLibriadoSiEs;
+
 
 
 
@@ -184,8 +194,7 @@ public class SetInformEmbarque1 {
         keyFirebase="";
         atachControCalidadInfrms="";
         atachControCuadroMuestreo ="";
-
-
+        keyOrNodeLibriadoSiEs="";
 
     }
 
@@ -593,9 +602,10 @@ public class SetInformEmbarque1 {
         result.put("exportadoraProcesada", exportadoraProcesada);
         result.put("exportadoraSolicitante", exportadoraSolicitante);
         result.put("marrca", marrca);
-
         result.put("atachControCuadroMuestreo", atachControCuadroMuestreo);
 
+
+        result.put("keyOrNodeLibriadoSiEs",keyOrNodeLibriadoSiEs);
 
 
 

@@ -536,7 +536,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         ediPPC015=findViewById(R.id.ediPPC015);
         ediPPC016=findViewById(R.id.ediPPC016);
 
-        p2pbCluster01=findViewById(R.id.p2pbCluster01);
+       // p2pbCluster01=findViewById(R.id.p2pbCluster01);
 
 
         ediNViaje=findViewById(R.id.ediNViaje);
@@ -1959,7 +1959,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         addCalibracionFutaC_enfAndUpload();
 
-        updateOrUploadNewHashmapPesoBrutoCloster2y3l(Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l());
+      //  updateOrUploadNewHashmapPesoBrutoCloster2y3l(Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l());
 
         addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
 
@@ -2923,8 +2923,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         CalibrFrutCalEnf calibrFrutCalEnf=new CalibrFrutCalEnf(UNIQUE_ID_iNFORME);
         //creamos un array de editext
         //editext here
-        TextInputEditText  ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9;
-        TextInputEditText  ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9;
+        EditText ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9;
+        EditText  ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9;
 
 
         //findviewsid
@@ -3259,12 +3259,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
 
+
+    /*
     private void updateOrUploadNewHashmapPesoBrutoCloster2y3l(String keyNodoToUpload){
 
         boolean sixisteUnHasmapDescargado=true;
 
 
-       //Creamos un super array teximputeditext...con todas las casillas
         TextInputEditText mPbCluster01 = findViewById(R.id.pbCluster01);
         TextInputEditText mPbCluster02 = findViewById(R.id.pbCluster02);
         TextInputEditText mPbCluster03 = findViewById(R.id.pbCluster03);
@@ -3317,7 +3318,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         TextInputEditText mPbCluster050 = findViewById(R.id.pbCluster050);
 
 
-        //vamos con la otra sheet
         TextInputEditText mP2pbCluster01 = findViewById(R.id.p2pbCluster01);
         TextInputEditText mP2pbCluster02 = findViewById(R.id.p2pbCluster02);
         TextInputEditText mP2pbCluster03 = findViewById(R.id.p2pbCluster03);
@@ -3370,7 +3370,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         TextInputEditText mP2pbCluster050 = findViewById(R.id.p2pbCluster050);
 
 
-        //creamos el array...
 
           TextInputEditText[]arraYedistClusters={
          mPbCluster01, mPbCluster02, mPbCluster03, mPbCluster04, mPbCluster05, mPbCluster06, mPbCluster07, mPbCluster08, mPbCluster09, mPbCluster010,
@@ -3442,7 +3441,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     }
 
-
+*/
 
 
 
@@ -3559,7 +3558,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                         }
 
 
-                        SetinFieldsPesoBrutoCloster2y3l(hasmapPesoBrutoClosters2y3L);
+                        setDataLibriado(hasmapPesoBrutoClosters2y3L);
 
                     }
 
@@ -3581,170 +3580,150 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
-    private void SetinFieldsPesoBrutoCloster2y3l(HashMap <String, Float> mihasmap){
-        //Creamos un super array teximputeditext...con todas las casillas
-        TextInputEditText mPbCluster01 = findViewById(R.id.pbCluster01);
-        TextInputEditText mPbCluster02 = findViewById(R.id.pbCluster02);
-        TextInputEditText mPbCluster03 = findViewById(R.id.pbCluster03);
-        TextInputEditText mPbCluster04 = findViewById(R.id.pbCluster04);
-        TextInputEditText mPbCluster05 = findViewById(R.id.pbCluster05);
-        TextInputEditText mPbCluster06 = findViewById(R.id.pbCluster06);
-        TextInputEditText mPbCluster07 = findViewById(R.id.pbCluster07);
-        TextInputEditText mPbCluster08 = findViewById(R.id.pbCluster08);
-        TextInputEditText mPbCluster09 = findViewById(R.id.pbCluster09);
-        TextInputEditText mPbCluster010 = findViewById(R.id.pbCluster010);
-        TextInputEditText mPbCluster011 = findViewById(R.id.pbCluster011);
-        TextInputEditText mPbCluster012 = findViewById(R.id.pbCluster012);
-        TextInputEditText mPbCluster013 = findViewById(R.id.pbCluster013);
-        TextInputEditText mPbCluster014 = findViewById(R.id.pbCluster014);
-        TextInputEditText mPbCluster015 = findViewById(R.id.pbCluster015);
-        TextInputEditText mPbCluster016 = findViewById(R.id.pbCluster016);
-        TextInputEditText mPbCluster017 = findViewById(R.id.pbCluster017);
-        TextInputEditText mPbCluster018 = findViewById(R.id.pbCluster018);
-        TextInputEditText mPbCluster019 = findViewById(R.id.pbCluster019);
-        TextInputEditText mPbCluster020 = findViewById(R.id.pbCluster020);
-        TextInputEditText mPbCluster021 = findViewById(R.id.pbCluster021);
-        TextInputEditText mPbCluster022 = findViewById(R.id.pbCluster022);
-        TextInputEditText mPbCluster023 = findViewById(R.id.pbCluster023);
-        TextInputEditText mPbCluster024 = findViewById(R.id.pbCluster024);
-        TextInputEditText mPbCluster025 = findViewById(R.id.pbCluster025);
-        TextInputEditText mPbCluster026 = findViewById(R.id.pbCluster026);
-        TextInputEditText mPbCluster027 = findViewById(R.id.pbCluster027);
-        TextInputEditText mPbCluster028 = findViewById(R.id.pbCluster028);
-        TextInputEditText mPbCluster029 = findViewById(R.id.pbCluster029);
-        TextInputEditText mPbCluster030 = findViewById(R.id.pbCluster030);
-        TextInputEditText mPbCluster031 = findViewById(R.id.pbCluster031);
-        TextInputEditText mPbCluster032 = findViewById(R.id.pbCluster032);
-        TextInputEditText mPbCluster033 = findViewById(R.id.pbCluster033);
-        TextInputEditText mPbCluster034 = findViewById(R.id.pbCluster034);
-        TextInputEditText mPbCluster035 = findViewById(R.id.pbCluster035);
-        TextInputEditText mPbCluster036 = findViewById(R.id.pbCluster036);
-        TextInputEditText mPbCluster037 = findViewById(R.id.pbCluster037);
-        TextInputEditText mPbCluster038 = findViewById(R.id.pbCluster038);
-        TextInputEditText mPbCluster039 = findViewById(R.id.pbCluster039);
-        TextInputEditText mPbCluster040 = findViewById(R.id.pbCluster040);
-        TextInputEditText mPbCluster041 = findViewById(R.id.pbCluster041);
-        TextInputEditText mPbCluster042 = findViewById(R.id.pbCluster042);
-        TextInputEditText mPbCluster043 = findViewById(R.id.pbCluster043);
-        TextInputEditText mPbCluster044 = findViewById(R.id.pbCluster044);
-        TextInputEditText mPbCluster045 = findViewById(R.id.pbCluster045);
-        TextInputEditText mPbCluster046 = findViewById(R.id.pbCluster046);
-        TextInputEditText mPbCluster047 = findViewById(R.id.pbCluster047);
-        TextInputEditText mPbCluster048 = findViewById(R.id.pbCluster048);
-        TextInputEditText mPbCluster049 = findViewById(R.id.pbCluster049);
-        TextInputEditText mPbCluster050 = findViewById(R.id.pbCluster050);
+    void  setDataLibriado(HashMap<String,Float>miMap){
 
 
-        //vamos con la otra sheet
-        TextInputEditText mP2pbCluster01 = findViewById(R.id.p2pbCluster01);
-        TextInputEditText mP2pbCluster02 = findViewById(R.id.p2pbCluster02);
-        TextInputEditText mP2pbCluster03 = findViewById(R.id.p2pbCluster03);
-        TextInputEditText mP2pbCluster04 = findViewById(R.id.p2pbCluster04);
-        TextInputEditText mP2pbCluster05 = findViewById(R.id.p2pbCluster05);
-        TextInputEditText mP2pbCluster06 = findViewById(R.id.p2pbCluster06);
-        TextInputEditText mP2pbCluster07 = findViewById(R.id.p2pbCluster07);
-        TextInputEditText mP2pbCluster08 = findViewById(R.id.p2pbCluster08);
-        TextInputEditText mP2pbCluster09 = findViewById(R.id.p2pbCluster09);
-        TextInputEditText mP2pbCluster010 = findViewById(R.id.p2pbCluster010);
-        TextInputEditText mP2pbCluster011 = findViewById(R.id.p2pbCluster011);
-        TextInputEditText mP2pbCluster012 = findViewById(R.id.p2pbCluster012);
-        TextInputEditText mP2pbCluster013 = findViewById(R.id.p2pbCluster013);
-        TextInputEditText mP2pbCluster014 = findViewById(R.id.p2pbCluster014);
-        TextInputEditText mP2pbCluster015 = findViewById(R.id.p2pbCluster015);
-        TextInputEditText mP2pbCluster016 = findViewById(R.id.p2pbCluster016);
-        TextInputEditText mP2pbCluster017 = findViewById(R.id.p2pbCluster017);
-        TextInputEditText mP2pbCluster018 = findViewById(R.id.p2pbCluster018);
-        TextInputEditText mP2pbCluster019 = findViewById(R.id.p2pbCluster019);
-        TextInputEditText mP2pbCluster020 = findViewById(R.id.p2pbCluster020);
-        TextInputEditText mP2pbCluster021 = findViewById(R.id.p2pbCluster021);
-        TextInputEditText mP2pbCluster022 = findViewById(R.id.p2pbCluster022);
-        TextInputEditText mP2pbCluster023 = findViewById(R.id.p2pbCluster023);
-        TextInputEditText mP2pbCluster024 = findViewById(R.id.p2pbCluster024);
-        TextInputEditText mP2pbCluster025 = findViewById(R.id.p2pbCluster025);
-        TextInputEditText mP2pbCluster026 = findViewById(R.id.p2pbCluster026);
-        TextInputEditText mP2pbCluster027 = findViewById(R.id.p2pbCluster027);
-        TextInputEditText mP2pbCluster028 = findViewById(R.id.p2pbCluster028);
-        TextInputEditText mP2pbCluster029 = findViewById(R.id.p2pbCluster029);
-        TextInputEditText mP2pbCluster030 = findViewById(R.id.p2pbCluster030);
-        TextInputEditText mP2pbCluster031 = findViewById(R.id.p2pbCluster031);
-        TextInputEditText mP2pbCluster032 = findViewById(R.id.p2pbCluster032);
-        TextInputEditText mP2pbCluster033 = findViewById(R.id.p2pbCluster033);
-        TextInputEditText mP2pbCluster034 = findViewById(R.id.p2pbCluster034);
-        TextInputEditText mP2pbCluster035 = findViewById(R.id.p2pbCluster035);
-        TextInputEditText mP2pbCluster036 = findViewById(R.id.p2pbCluster036);
-        TextInputEditText mP2pbCluster037 = findViewById(R.id.p2pbCluster037);
-        TextInputEditText mP2pbCluster038 = findViewById(R.id.p2pbCluster038);
-        TextInputEditText mP2pbCluster039 = findViewById(R.id.p2pbCluster039);
-        TextInputEditText mP2pbCluster040 = findViewById(R.id.p2pbCluster040);
-        TextInputEditText mP2pbCluster041 = findViewById(R.id.p2pbCluster041);
-        TextInputEditText mP2pbCluster042 = findViewById(R.id.p2pbCluster042);
-        TextInputEditText mP2pbCluster043 = findViewById(R.id.p2pbCluster043);
-        TextInputEditText mP2pbCluster044 = findViewById(R.id.p2pbCluster044);
-        TextInputEditText mP2pbCluster045 = findViewById(R.id.p2pbCluster045);
-        TextInputEditText mP2pbCluster046 = findViewById(R.id.p2pbCluster046);
-        TextInputEditText mP2pbCluster047 = findViewById(R.id.p2pbCluster047);
-        TextInputEditText mP2pbCluster048 = findViewById(R.id.p2pbCluster048);
-        TextInputEditText mP2pbCluster049 = findViewById(R.id.p2pbCluster049);
-        TextInputEditText mP2pbCluster050 = findViewById(R.id.p2pbCluster050);
+        EditText        pbCluster01 = findViewById(R.id.pbCluster01);
+        EditText        pbCluster05 = findViewById(R.id.pbCluster05);
+        EditText        pbCluster03 = findViewById(R.id.pbCluster03);
+        EditText        pbCluster02 = findViewById(R.id.pbCluster02);
+        EditText        pbCluster04 = findViewById(R.id.pbCluster04);
+        EditText        pbCluster010 = findViewById(R.id.pbCluster010);
+        EditText        pbCluster09 = findViewById(R.id.pbCluster09);
+        EditText        pbCluster07 = findViewById(R.id.pbCluster07);
+        EditText        pbCluster08 = findViewById(R.id.pbCluster08);
+        EditText        pbCluster06 = findViewById(R.id.pbCluster06);
+        EditText        pbCluster011 = findViewById(R.id.pbCluster011);
+        EditText        pbCluster015 = findViewById(R.id.pbCluster015);
+        EditText        pbCluster012 = findViewById(R.id.pbCluster012);
+        EditText        pbCluster013 = findViewById(R.id.pbCluster013);
+        EditText        pbCluster014 = findViewById(R.id.pbCluster014);
+        EditText        pbCluster016 = findViewById(R.id.pbCluster016);
+        EditText        pbCluster019 = findViewById(R.id.pbCluster019);
+        EditText        pbCluster018 = findViewById(R.id.pbCluster018);
+        EditText        pbCluster020 = findViewById(R.id.pbCluster020);
+        EditText        pbCluster017 = findViewById(R.id.pbCluster017);
+        EditText        pbCluster025 = findViewById(R.id.pbCluster025);
+        EditText        pbCluster024 = findViewById(R.id.pbCluster024);
+        EditText        pbCluster023 = findViewById(R.id.pbCluster023);
+        EditText        pbCluster022 = findViewById(R.id.pbCluster022);
+        EditText        pbCluster021 = findViewById(R.id.pbCluster021);
+        EditText        pbCluster028 = findViewById(R.id.pbCluster028);
+        EditText        pbCluster027 = findViewById(R.id.pbCluster027);
+        EditText        pbCluster029 = findViewById(R.id.pbCluster029);
+        EditText        pbCluster026 = findViewById(R.id.pbCluster026);
+        EditText        pbCluster030 = findViewById(R.id.pbCluster030);
+        EditText        pbCluster034 = findViewById(R.id.pbCluster034);
+        EditText        pbCluster031 = findViewById(R.id.pbCluster031);
+        EditText        pbCluster035 = findViewById(R.id.pbCluster035);
+        EditText        pbCluster033 = findViewById(R.id.pbCluster033);
+        EditText        pbCluster032 = findViewById(R.id.pbCluster032);
+        EditText        pbCluster039 = findViewById(R.id.pbCluster039);
+        EditText        pbCluster040 = findViewById(R.id.pbCluster040);
+        EditText        pbCluster037 = findViewById(R.id.pbCluster037);
+        EditText        pbCluster038 = findViewById(R.id.pbCluster038);
+        EditText        pbCluster036 = findViewById(R.id.pbCluster036);
+        EditText        pbCluster043 = findViewById(R.id.pbCluster043);
+        EditText        pbCluster045 = findViewById(R.id.pbCluster045);
+        EditText        pbCluster042 = findViewById(R.id.pbCluster042);
+        EditText        pbCluster041 = findViewById(R.id.pbCluster041);
+        EditText        pbCluster044 = findViewById(R.id.pbCluster044);
+        EditText        pbCluster048 = findViewById(R.id.pbCluster048);
+        EditText        pbCluster046 = findViewById(R.id.pbCluster046);
+        EditText        pbCluster050 = findViewById(R.id.pbCluster050);
+        EditText        pbCluster047 = findViewById(R.id.pbCluster047);
+        EditText        pbCluster049 = findViewById(R.id.pbCluster049);
+        EditText        p2pbCluster01 = findViewById(R.id.p2pbCluster01);
+        EditText        p2pbCluster05 = findViewById(R.id.p2pbCluster05);
+        EditText        p2pbCluster03 = findViewById(R.id.p2pbCluster03);
+        EditText        p2pbCluster02 = findViewById(R.id.p2pbCluster02);
+        EditText        p2pbCluster04 = findViewById(R.id.p2pbCluster04);
+        EditText        p2pbCluster010 = findViewById(R.id.p2pbCluster010);
+        EditText        p2pbCluster09 = findViewById(R.id.p2pbCluster09);
+        EditText        p2pbCluster07 = findViewById(R.id.p2pbCluster07);
+        EditText        p2pbCluster08 = findViewById(R.id.p2pbCluster08);
+        EditText        p2pbCluster06 = findViewById(R.id.p2pbCluster06);
+        EditText        p2pbCluster011 = findViewById(R.id.p2pbCluster011);
+        EditText        p2pbCluster015 = findViewById(R.id.p2pbCluster015);
+        EditText        p2pbCluster012 = findViewById(R.id.p2pbCluster012);
+        EditText        p2pbCluster013 = findViewById(R.id.p2pbCluster013);
+        EditText        p2pbCluster014 = findViewById(R.id.p2pbCluster014);
+        EditText        p2pbCluster016 = findViewById(R.id.p2pbCluster016);
+        EditText        p2pbCluster019 = findViewById(R.id.p2pbCluster019);
+        EditText        p2pbCluster018 = findViewById(R.id.p2pbCluster018);
+        EditText        p2pbCluster020 = findViewById(R.id.p2pbCluster020);
+        EditText        p2pbCluster017 = findViewById(R.id.p2pbCluster017);
+        EditText        p2pbCluster025 = findViewById(R.id.p2pbCluster025);
+        EditText        p2pbCluster024 = findViewById(R.id.p2pbCluster024);
+        EditText        p2pbCluster023 = findViewById(R.id.p2pbCluster023);
+        EditText        p2pbCluster022 = findViewById(R.id.p2pbCluster022);
+        EditText        p2pbCluster021 = findViewById(R.id.p2pbCluster021);
+        EditText        p2pbCluster028 = findViewById(R.id.p2pbCluster028);
+        EditText        p2pbCluster027 = findViewById(R.id.p2pbCluster027);
+        EditText        p2pbCluster029 = findViewById(R.id.p2pbCluster029);
+        EditText        p2pbCluster026 = findViewById(R.id.p2pbCluster026);
+        EditText        p2pbCluster030 = findViewById(R.id.p2pbCluster030);
+        EditText        p2pbCluster034 = findViewById(R.id.p2pbCluster034);
+        EditText        p2pbCluster031 = findViewById(R.id.p2pbCluster031);
+        EditText        p2pbCluster035 = findViewById(R.id.p2pbCluster035);
+        EditText        p2pbCluster033 = findViewById(R.id.p2pbCluster033);
+        EditText        p2pbCluster032 = findViewById(R.id.p2pbCluster032);
+        EditText        p2pbCluster039 = findViewById(R.id.p2pbCluster039);
+        EditText        p2pbCluster040 = findViewById(R.id.p2pbCluster040);
+        EditText        p2pbCluster037 = findViewById(R.id.p2pbCluster037);
+        EditText        p2pbCluster038 = findViewById(R.id.p2pbCluster038);
+        EditText        p2pbCluster036 = findViewById(R.id.p2pbCluster036);
 
 
-        //creamos el array...
-
-        TextInputEditText[]arraYedistClusters={
-                mPbCluster01, mPbCluster02, mPbCluster03, mPbCluster04, mPbCluster05, mPbCluster06, mPbCluster07, mPbCluster08, mPbCluster09, mPbCluster010,
-                mPbCluster011, mPbCluster012, mPbCluster013, mPbCluster014, mPbCluster015, mPbCluster016, mPbCluster017, mPbCluster018, mPbCluster019,
-                mPbCluster020, mPbCluster021, mPbCluster022, mPbCluster023, mPbCluster024, mPbCluster025, mPbCluster026, mPbCluster027,
-                mPbCluster028, mPbCluster029, mPbCluster030, mPbCluster031, mPbCluster032, mPbCluster033, mPbCluster034, mPbCluster035,
-                mPbCluster036, mPbCluster037, mPbCluster038, mPbCluster039, mPbCluster040, mPbCluster041, mPbCluster042, mPbCluster043,
-                mPbCluster044, mPbCluster045, mPbCluster046, mPbCluster047, mPbCluster048, mPbCluster049, mPbCluster050,
-
-                mP2pbCluster01, mP2pbCluster02, mP2pbCluster03, mP2pbCluster04, mP2pbCluster05, mP2pbCluster06, mP2pbCluster07,
-                mP2pbCluster08, mP2pbCluster09, mP2pbCluster010, mP2pbCluster011, mP2pbCluster012, mP2pbCluster013,
-                mP2pbCluster014, mP2pbCluster015, mP2pbCluster016, mP2pbCluster017, mP2pbCluster018, mP2pbCluster019,
-                mP2pbCluster020, mP2pbCluster021, mP2pbCluster022, mP2pbCluster023, mP2pbCluster024, mP2pbCluster025,
-                mP2pbCluster026, mP2pbCluster027, mP2pbCluster028, mP2pbCluster029, mP2pbCluster030, mP2pbCluster031,
-                mP2pbCluster032, mP2pbCluster033, mP2pbCluster034, mP2pbCluster035, mP2pbCluster036, mP2pbCluster037,
-                mP2pbCluster038, mP2pbCluster039, mP2pbCluster040, mP2pbCluster041, mP2pbCluster042, mP2pbCluster043,
-                mP2pbCluster044, mP2pbCluster045, mP2pbCluster046, mP2pbCluster047, mP2pbCluster048, mP2pbCluster049, mP2pbCluster050,
+        EditText [] miArray= {
+                pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
+                pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
+                pbCluster024 ,pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
+                pbCluster031, pbCluster035, pbCluster033, pbCluster032, pbCluster039, pbCluster040, pbCluster037, pbCluster038, pbCluster036, pbCluster043,
+                pbCluster045, pbCluster042, pbCluster041, pbCluster044, pbCluster048, pbCluster046, pbCluster050, pbCluster047, pbCluster049, p2pbCluster01,
+                p2pbCluster05, p2pbCluster03, p2pbCluster02, p2pbCluster04, p2pbCluster010, p2pbCluster09, p2pbCluster07, p2pbCluster08, p2pbCluster06,
+                p2pbCluster011, p2pbCluster015, p2pbCluster012, p2pbCluster013, p2pbCluster014, p2pbCluster016, p2pbCluster019, p2pbCluster018,
+                p2pbCluster020, p2pbCluster017, p2pbCluster025, p2pbCluster024, p2pbCluster023, p2pbCluster022, p2pbCluster021, p2pbCluster028,
+                p2pbCluster027, p2pbCluster029, p2pbCluster026, p2pbCluster030, p2pbCluster034, p2pbCluster031, p2pbCluster035, p2pbCluster033,
+                p2pbCluster032, p2pbCluster039, p2pbCluster040, p2pbCluster037, p2pbCluster038, p2pbCluster036
 
         };
 
 
-        ///recorremos el mapa
-
-        for (Map.Entry<String, Float > entry : mihasmap.entrySet()) {
 
 
-            String keyAndIdOfView = entry.getKey();
-            float valueOfItem = entry.getValue();
 
-            TextInputEditText currenTextImput= getTexImputEditextByidORkey(arraYedistClusters,Integer.parseInt(keyAndIdOfView));
-
-            if(currenTextImput==null){ //si es nulo
-
-                Log.i("midata","este teximputeditext es nulo" +keyAndIdOfView);
-
-                return;
+        for (HashMap.Entry<String, Float> entry : miMap.entrySet()) {
+            String keyHashMap = entry.getKey();
+            Float value = entry.getValue();
 
 
-            }else{
+            //buscamos en el attay de editext el que contega este id
+            for(EditText edi: miArray){
+                //buscamos el que contenga este
 
-                currenTextImput.setText(String.valueOf(valueOfItem));
+                String keyOFeditextCurrent=edi.getId()+"-"+edi.getTag();
+
+
+                if(keyHashMap.equals(keyOFeditextCurrent)){
+
+                    edi.setText(String.valueOf(value));
+
+                    break;
+                }
+
+
+
 
 
             }
 
 
-            //Agregamos este valor en este edi text
+            ///entonces buscamos el que contenga este
+
 
         }
 
-
-
-
-
-
-        Log.i("debugmapa","el size de el hasmap es ; "+hasmapPesoBrutoClosters2y3L.size());
 
     }
 
@@ -4175,19 +4154,19 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 //unicmante set si el valor es mayor a 0 y si el texto .trim no es empty
 //
 
-    TextInputEditText ediColorSem14=findViewById(R.id.ediColortSem14);
-    TextInputEditText ediColorSem13=findViewById(R.id.ediColortSem13);
-    TextInputEditText ediColorSem12=findViewById(R.id.ediColortSem12);
-    TextInputEditText ediColorSem11=findViewById(R.id.ediColortSem11);
-    TextInputEditText ediColorSem10=findViewById(R.id.ediColortSem10);
-    TextInputEditText ediColorSem9=findViewById(R.id.ediColortSem9);
+    EditText ediColorSem14=findViewById(R.id.ediColortSem14);
+    EditText ediColorSem13=findViewById(R.id.ediColortSem13);
+    EditText ediColorSem12=findViewById(R.id.ediColortSem12);
+    EditText ediColorSem11=findViewById(R.id.ediColortSem11);
+    EditText ediColorSem10=findViewById(R.id.ediColortSem10);
+    EditText ediColorSem9=findViewById(R.id.ediColortSem9);
 
-    TextInputEditText ediNumRcim14=findViewById(R.id.ediNumRcim14);
-    TextInputEditText ediNumRcim13=findViewById(R.id.ediNumRcim13);
-    TextInputEditText ediNumRcim12=findViewById(R.id.ediNumRcim12);
-    TextInputEditText ediNumRcim11=findViewById(R.id.ediNumRcim11);
-    TextInputEditText ediNumRcim10=findViewById(R.id.ediNumRcim10);
-    TextInputEditText ediNumRac9=findViewById(R.id.ediNumRac9);
+    EditText ediNumRcim14=findViewById(R.id.ediNumRcim14);
+    EditText ediNumRcim13=findViewById(R.id.ediNumRcim13);
+    EditText ediNumRcim12=findViewById(R.id.ediNumRcim12);
+    EditText ediNumRcim11=findViewById(R.id.ediNumRcim11);
+    EditText ediNumRcim10=findViewById(R.id.ediNumRcim10);
+    EditText ediNumRac9=findViewById(R.id.ediNumRac9);
 
 
 
