@@ -480,8 +480,6 @@ return object;
          ediCodigoxs.setText(cuadroMuestreo.getCodigo());
          ediEnfundex.setText(cuadroMuestreo.getEnfunde());
 
-
-
         ediExtCalidad.setText(cuadroMuestreo.getExtensionistaCalidad());
         ediExteRodillo.setText(cuadroMuestreo.getExtensionistaEnRodillo());
         ediExtGancho.setText(cuadroMuestreo.getExtensionistaEnGancho());

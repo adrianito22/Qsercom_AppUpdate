@@ -290,12 +290,11 @@ android:textAllCaps="true"
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
-android:textAllCaps="true"
                 android:id="@+id/edioCalidaCampzz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:inputType="textCapCharacters" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
 

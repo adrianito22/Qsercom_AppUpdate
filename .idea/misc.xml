@@ -67,7 +67,7 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_packing_list3.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_pdf_maker20.xml" value="0.176" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_pesoburotsolopa.xml" value="0.1" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_preview.xml" value="0.2" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_preview.xml" value="0.20222317229585293" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_reporte_calidad_camionesy_carretas.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_see_reports.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_selector.xml" value="0.4" />
@@ -81,7 +81,7 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/bottom_sheet_ver_atachx.xml" value="0.2" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/bottom_sheetx.xml" value="0.4" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/char_layout.xml" value="0.1" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/control_calid_activity.xml" value="0.176" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/control_calid_activity.xml" value="0.20222317229585293" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/deletexx.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/form_datos_contene_acopio.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/form_datos_contene_acopio_prev.xml" value="0.2" />
@@ -104,9 +104,9 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defect_part1.xml" value="0.176" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defectos.xml" value="0.4" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defectos_preview.xml" value="0.152" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defparte3.xml" value="0.2" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defparte3.xml" value="0.18984375" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_defparte33.xml" value="0.176" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_num_deds_x_cluster.xml" value="0.2" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_num_deds_x_cluster.xml" value="0.128" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_peso_bruto_por_clust_solo_para.xml" value="0.2" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_peso_bruto_por_clust_solo_para2.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_pesobrutox_clusters.xml" value="0.24635416666666668" />

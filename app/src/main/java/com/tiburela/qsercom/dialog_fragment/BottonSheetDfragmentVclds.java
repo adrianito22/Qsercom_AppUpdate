@@ -203,7 +203,7 @@ private void listternSpinner(){
 
             //   idsFormsControlCalidVinculados=generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosCntres);
 
-            if(selecionado.equals("Hoy")) {
+            if(selecionado.equalsIgnoreCase("Hoy")) {
                 esReportsVinculadosMod=false;
 
                 // long timeCurrent = new Date().getTime();
@@ -215,7 +215,7 @@ private void listternSpinner(){
 
             }
 
-            else if(selecionado.equals("Ayer")) {
+            else if(selecionado.equalsIgnoreCase("Ayer")) {
                 esReportsVinculadosMod=false;
 
 
@@ -232,7 +232,7 @@ private void listternSpinner(){
 
 
 
-            else if(selecionado.equals("Ultimos 7 dias")) {
+            else if(selecionado.equalsIgnoreCase("Ultimos 7 dias")) {
 
                 Log.i("heurrr","es reportes 7 dias ");
 
@@ -255,7 +255,7 @@ private void listternSpinner(){
             }
 
 
-            else if(selecionado.equals("Ultimos 15 dias")) {
+            else if(selecionado.equalsIgnoreCase("Ultimos 15 dias")) {
                 esReportsVinculadosMod=false;
 
 
@@ -267,7 +267,7 @@ private void listternSpinner(){
 
             }
 
-            else if(selecionado.equals("Ultimos 30 dias")) {
+            else if(selecionado.equalsIgnoreCase("Ultimos 30 dias")) {
                 Log.i("heurrr","es reportes 30dias ");
 
                 esReportsVinculadosMod=false;

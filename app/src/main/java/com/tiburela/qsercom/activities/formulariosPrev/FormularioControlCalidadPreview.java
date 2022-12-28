@@ -663,7 +663,18 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         txtTotalDefectSelect.setText(String.valueOf(numsValuesSelec));
 
+
+
+        /**MOSTRAMOS EL RESULTADO DE ALGUNOS DATOS XX*/
+
+        muestraaLLResults();
         showsumDfectsSelected();
+
+        //AQUI MOSTRAMOS LOS DEMAS... VALUES..
+
+        getlargoDedosPulgaPulpaApulpa();
+        setResultNumClusteroManoProduct();
+        getCalibraEntreBasalYapiclProduct();
 
 
 
@@ -724,6 +735,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdiTipoEmpazz .setText(controlCalidad.getTipoEmpaque());
         mEdiDestinzz .setText(controlCalidad.getDestino());
         mEdiTotalCajaszz.setText(String.valueOf(controlCalidad.getTotalCajas()));
+
+
+        Log.i("micalidacampo","micalidadcampo es"+controlCalidad.getCalidaCamp());
+
         mEdioCalidaCampzz .setText(controlCalidad.getCalidaCamp());
         mEdiHoraInizz .setText(controlCalidad.getHoraIni());
         mEdiHoraTermizz .setText(controlCalidad.getHoraTermi());
@@ -1449,22 +1464,15 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         /////la calidad es
 
         float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
-        Log.i("calidaddd","el defectosTotal es "+defectosTotal);
 
+        float resultRestDefects=numeroClustersInspecc-defectosTotal;
+        float calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
 
-
-        float porcentajeDefectos=defectosTotal/100 *numeroClustersInspecc;
-
-        Log.i("calidaddd","el porcentaje de defectos es "+porcentajeDefectos);
-
-        calidadTotal=100-porcentajeDefectos;
-
-
-        Log.i("calidaddd","el value es "+calidadTotal);
 
         DecimalFormat df = new DecimalFormat("#.#");
 
-        mEdioCalidaCampzz.setText(df.format(calidadTotal)+" %");
+        mEdioCalidaCampzz.setText(df.format(calidadTotALX)+" %");
+
 
 
 
@@ -1750,7 +1758,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 muestraaLLResults();
                 showsumDfectsSelected();
                 generatePercentAndCountValuesCheked(numeroClustersInspecc);
-                getResultDatCalibCalEnfundes();
+               // getResultDatCalibCalEnfundes();
 
 
                 break;
@@ -1787,7 +1795,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     private boolean getResultDatCalibCalEnfundes(){
 
 
-
+/*
         if(ediRacimosCosech.getText().toString().trim().isEmpty()){
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este valor es necesesario");
@@ -1795,7 +1803,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             return false;
 
         }
-
+*/
 
         EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
         EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
@@ -2542,6 +2550,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         float sumaItemsFilaArriba=0;
         float sumaItemsFilaAbajo=0;
 
+        EditextSupreme ediTOTlafila1zx=findViewById(R.id.ediTOTlafila1zx);
+        EditextSupreme  ediTotalFila2zxc=findViewById(R.id.ediTotalFila2zxc);
+
+
 
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26,27,28,29,30  } ;
@@ -2606,6 +2618,17 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         ediNumPromedioDedsXcaja.setText(resul);
         //por aqwuinmostyramos s
+
+
+   /**probar esto noww */
+
+        ediNdedoXclust29.setText(df.format(sumaItemsFilaAbajo));
+
+        //mostramos estos totales tambien
+        ediTOTlafila1zx.setText(String.valueOf(sumaItemsFilaArriba));
+        ediTotalFila2zxc.setText(String.valueOf(sumaItemsFilaAbajo));
+
+
 
     }
 
@@ -3390,7 +3413,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
                 mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
-                String.valueOf(calidadTotal),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
+                mEdioCalidaCampzz.getText().toString(),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
                 mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
 

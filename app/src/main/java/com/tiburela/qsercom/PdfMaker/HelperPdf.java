@@ -1595,7 +1595,7 @@ if(contadorProductsPostCosecha>10){
         int NUMERO_DE_DEDOS;
         double GRADO_CALIBRE_PROMEDIO;
         double LARGO_DEDOS_PROMEDIO;
-        double PH_PROMEDIO=0;
+        final double PH_PROMEDIO=3;
 
 
 
@@ -1825,6 +1825,8 @@ if(contadorProductsPostCosecha>10){
             /**PH_PROMEDIO*/
         /**PH PROMEDIO */  //SI NO TIENE PH AGREGAMOS 0
 
+
+        /*
         for(int indice =0; indice <keyDatPh.length; indice++){
             String keyValue = String.valueOf(keyDatPh[indice]);
             if(hashMapControlCald.containsKey(keyValue)) {
@@ -1836,7 +1838,9 @@ if(contadorProductsPostCosecha>10){
 
         }
 
-        PH_PROMEDIO =  PH_PROMEDIO/numeroItemsEcontrados;
+        */
+
+      //  PH_PROMEDIO =  PH_PROMEDIO/numeroItemsEcontrados;
         Log.i("ELWEIGTH","EN PH  PROMEDIO ES "+PH_PROMEDIO);
 
        // PROMEDIO_PESO=PROMEDIO_PESO + Double.parseDouble(hashMapControlCald.get(keyCurrent));
@@ -1995,10 +1999,21 @@ if(contadorProductsPostCosecha>10){
         listNumClustersInspec.add(NUMERO_DE_CLUSTERS_iNSPECCIONADOS);
 
 
-        PORCENTAJE_DE_DEFECTOS=((double)NUMERO_DEFECTS/100) * NUMERO_DE_CLUSTERS_iNSPECCIONADOS;
-        Log.i("ELWEIGTH","el PORCENTAJE_DE_DEFECTOS es "+PORCENTAJE_DE_DEFECTOS);
 
-        CALIDAD_TOTAL=100-PORCENTAJE_DE_DEFECTOS;
+       // CALIDAD_TOTAL=100-PORCENTAJE_DE_DEFECTOS;
+
+        String calidadStrinNow= objecControlCald.getCalidaCamp().replace("%","");
+
+
+        CALIDAD_TOTAL=Float.valueOf(calidadStrinNow);
+
+        PORCENTAJE_DE_DEFECTOS=100-CALIDAD_TOTAL;
+
+       // PORCENTAJE_DE_DEFECTOS=((double)NUMERO_DEFECTS/100) * NUMERO_DE_CLUSTERS_iNSPECCIONADOS;
+
+
+        //SDFDSHJ
+
         Log.i("ELWEIGTH","el CALIDAD_TOTAL es "+CALIDAD_TOTAL);
 
 

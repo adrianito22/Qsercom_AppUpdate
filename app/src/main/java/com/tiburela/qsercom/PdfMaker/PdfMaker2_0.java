@@ -866,7 +866,7 @@ if(hayFILE){
             ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
 
               //agregamos el texto en cel centro
-             Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getTipoEmpaque()+" "+currenControCaldRep.getMarcaCaja())
+             Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getMarcaCaja())
                      .setPaddingLeft(60f).setBold();
             mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
@@ -882,7 +882,6 @@ if(hayFILE){
 
 
             Log.i("posicuon","el posicon  es "+y2);
-
 
 
 

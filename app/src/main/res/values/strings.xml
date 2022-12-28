@@ -131,7 +131,7 @@
     <string-array name="array_defectos_fruta">
         <item>SRC: ESTROPEO SELECIÓN</item>
         <item>BR: DAÑO PULPA</item>
-        <item>CT: CDRTE CUCHILLO</item>
+        <item>CT: CORTE CUCHILLO</item>
         <item>ML: MAL FORMADO</item>
         <item>NL: CUELLO ROTO</item>
         <item>BM: DAÑO COLAPSIS</item>

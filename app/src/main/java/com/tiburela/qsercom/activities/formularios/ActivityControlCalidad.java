@@ -2098,6 +2098,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
+
+        if(mEdioCalidaCampzz.getText().toString().contains("NaN")){
+            mEdioCalidaCampzz.requestFocus() ;
+            mEdioCalidaCampzz.setError("Calidad de campo incorrecta") ;
+
+            return false;
+        }
+
+
         if(mEdioCalidaCampzz.getText().toString().trim().isEmpty()){
             mEdioCalidaCampzz.requestFocus() ;
             mEdioCalidaCampzz.setError("Este espacio es necesario") ;
@@ -2450,7 +2459,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     informRegister= new InformRegister(currenTidGenrate,Constants.CONTROL_CALIDAD,
 
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
+                            Variables.usuarioQsercomGlobal.getNombreUsuario(), //EEROR
                             Variables.usuarioQsercomGlobal.getUniqueIDuser()
                             , "CONTROL CALIDAD ");
 
@@ -2509,8 +2518,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private void setResultNumClusteroManoProduct() {
 
+
+
         float sumaItemsFilaArriba=0;
         float sumaItemsFilaAbajo=0;
+
+
+        EditextSupreme ediTOTlafila1zx=findViewById(R.id.ediTOTlafila1zx);
+        EditextSupreme  ediTotalFila2zxc=findViewById(R.id.ediTotalFila2zxc);
+
+
 
 
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
@@ -2570,12 +2587,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
         float result=sumaItemsFilaAbajo/sumaItemsFilaArriba;
-
-
         String resul= df.format(result)+" %";
+        ediNdedoXclust29.setText(df.format(sumaItemsFilaAbajo));
 
         ediNumPromedioDedsXcaja.setText(resul);
-        //por aqwuinmostyramos s
+
+        //mostramos estos totales tambien
+        ediTOTlafila1zx.setText(String.valueOf(sumaItemsFilaArriba));
+        ediTotalFila2zxc.setText(String.valueOf(sumaItemsFilaAbajo));
+
 
     }
 
@@ -3290,20 +3310,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
         Log.i("calidaddd","el defectosTotal es "+defectosTotal);
 
-
-
-        float porcentajeDefectos=defectosTotal/100 *numeroClustersInspecc;
-
-        Log.i("calidaddd","el porcentaje de defectos es "+porcentajeDefectos);
-
-        calidadTotal=100-porcentajeDefectos;
-
-
-        Log.i("calidaddd","el value es "+calidadTotal);
+        float resultRestDefects=numeroClustersInspecc-defectosTotal;
+        float calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
 
         DecimalFormat df = new DecimalFormat("#.#");
+        mEdioCalidaCampzz.setText(df.format(calidadTotALX)+" %");
 
-        mEdioCalidaCampzz.setText(df.format(calidadTotal)+" %");
 
 
 
