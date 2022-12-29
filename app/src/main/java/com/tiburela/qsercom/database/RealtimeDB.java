@@ -84,7 +84,6 @@ public class RealtimeDB {
         // Map<String, Object> mapValues = informeObjct.toMap();
 
 
-
         mibasedata.child(PuskEY).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
