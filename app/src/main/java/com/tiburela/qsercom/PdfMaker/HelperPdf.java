@@ -644,14 +644,14 @@ if(contadorProductsPostCosecha>10){
 
             if(!Object2.getTermografo1().trim().isEmpty()){
                 listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 1",Object2.getTermografo1()));
-                listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"UBICACION PALLET "+Object2.getUbicacionPalletN1()));
+                listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"UBICACIÓN PALLET "+Object2.getUbicacionPalletN1()));
             }
 
 
 
             if(!Object2.getTermografo2().trim().isEmpty()){
                 listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 2",Object2.getTermografo2()));
-                listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACION PALLET "+Object2.getUbicacionPalletN2()));
+                listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACIÓN PALLET "+Object2.getUbicacionPalletN2()));
             }
 
 
@@ -755,7 +755,7 @@ if(contadorProductsPostCosecha>10){
 
 
         //FALTA AGREGAR A LAS TABLAS
-        miTable.addCell(cellTipPlastic.add(new Paragraph("TIPO DE PLASTICO").setFontSize(7f).setFont(font))) ;
+        miTable.addCell(cellTipPlastic.add(new Paragraph("TIPO DE PLÁSTICO").setFontSize(7f).setFont(font))) ;
         miTable.addCell(cellPolitubo.add(new Paragraph("POLITUBO").setFontSize(7f).setFont(font))) ;
         //tipo de caja
 
@@ -1098,10 +1098,10 @@ if(contadorProductsPostCosecha>10){
 
      //   table1.addCell();
 
-        if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3 ELECTRICA")) {
+        if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3 ELÉCTRICA")) {
 
             micelda = new Cell(1,3).setBackgroundColor(rgbColorVerdeCana).
-                    setFontSize(7.5f).add(new Paragraph("ELECTRICA").setFontSize(7.5f).setFont(font));
+                    setFontSize(7.5f).add(new Paragraph("ELÉCTRICA").setFontSize(7.5f).setFont(font));
 
             micelda .setWidth(10f);
             table1.addCell(micelda);
@@ -1195,13 +1195,12 @@ if(contadorProductsPostCosecha>10){
 
         /**condicion de  BALANZA*///*/
 
-        miTable.addCell(new Cell().add(new Paragraph("CONDICION DE BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        miTable.addCell(new Cell().add(new Paragraph("CONDICIÓN DE BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         //BUENO ,ALO Y REGUKLAR
 
         if(object2.getCondicionBalanza().equalsIgnoreCase("ACEPTABLE")) {
 
-            Log.i("condicoon","es buena se ejecuto esto ") ;
 
             miTable.addCell(new Cell().add(new Paragraph("ACEPTABLE").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
 
