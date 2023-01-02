@@ -37,9 +37,11 @@ import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
 
@@ -1558,91 +1560,103 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
         // time picker dialog
+
+
         TimePickerDialog picker = new TimePickerDialog(ActivityControlCalidad.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+
+
+                        String minutes=String.valueOf(sMinute);
+                        String AM_PM ;
+
+
+                        if(sHour < 12) {
+                            AM_PM = "AM";
+                        } else {
+                            AM_PM = "PM";
+                        }
+
+                        if(minutes.equals("0")){
+
+                            minutes="00";
+                        }
+
+
+
                         if(vista.getId()==R.id.ediTimeHoraxx1) {
-                            ediTimeHoraxx1.setText(sHour + ":" + sMinute);
 
-
+                            ediTimeHoraxx1.setText(sHour + ":" + minutes+" "+AM_PM);
                         }
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx2) {
-                            ediTimeHoraxx2.setText(sHour + ":" + sMinute);
 
+                            ediTimeHoraxx2.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
 
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx3) {
-                            ediTimeHoraxx3.setText(sHour + ":" + sMinute);
 
+                            ediTimeHoraxx3.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
 
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx4) {
-                            ediTimeHoraxx4.setText(sHour + ":" + sMinute);
-
+                            ediTimeHoraxx4.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx5) {
-                            ediTimeHoraxx5.setText(sHour + ":" + sMinute);
-
+                            ediTimeHoraxx5.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
 
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx6) {
-                            ediTimeHoraxx6.setText(sHour + ":" + sMinute);
-
-
+                            ediTimeHoraxx6.setText(sHour + ":" + minutes+" "+AM_PM);
                         }
 
+
                         else if (vista.getId()== R.id.ediTimeHoraxx7) {
-                            ediTimeHoraxx7.setText(sHour + ":" + sMinute);
-
-
+                            ediTimeHoraxx7.setText(sHour + ":" + minutes+" "+AM_PM);
                         }
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx8) {
-                            ediTimeHoraxx8.setText(sHour + ":" + sMinute);
-
-
+                            ediTimeHoraxx8.setText(sHour + ":" + minutes+" "+AM_PM);
                         }
-
 
 
 
                         else if (vista.getId()== R.id.ediTimeHoraxx9) {
-                            ediTimeHoraxx9.setText(sHour + ":" + sMinute);
 
+                            ediTimeHoraxx9.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
 
 
-
                         else if (vista.getId()== R.id.ediTimeHoraxx10) {
-                            ediTimeHoraxx10.setText(sHour + ":" + sMinute);
+                            ediTimeHoraxx10.setText(sHour + ":" + minutes+" "+AM_PM);
+
                         }
 
 
                         else if (vista.getId()== R.id.ediHoraInizz) {
-                            mEdiHoraInizz.setText(sHour + ":" + sMinute);
+                            mEdiHoraInizz.setText(sHour + ":" + minutes+" "+AM_PM);
+
                         }
 
 
                         else if (vista.getId()== R.id.ediHoraTermizz) {
-                            mEdiHoraTermizz.setText(sHour + ":" + sMinute);
-
+                            mEdiHoraTermizz.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
 
@@ -1888,19 +1902,27 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private void createItemsSelectDefectsEmpqTOuPLOAD() {
 
-        ImageView  [] imgSelecArray= {
+        ImageView  [] imgSelecArrayEmpaques= {
                 imvEmpaque1,imvEmpaque2,imvEmpaque3,imvEmpaque4,imvEmpaque5,imvEmpaque6,
                 imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10} ;
 
+
+
+
+        /**iteramos una lista de listas */
+
+
         for (int i = 0; i <10 ; i++) {
 
-            ArrayList<Boolean> currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(imgSelecArray[i].getId()));
 
-            String value="";
+            //usamos el id de  imageviews como keys...
+            ArrayList<Boolean> currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(imgSelecArrayEmpaques[i].getId()));
+
+            String value=""; //string que contendra las posiciones de los defectos marcados para ese spinner ,
 
             for (int j = 0; j < currentList.size(); j++) {  //recorreemos la lista  ///
 
-                if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
+                if(currentList.get(j)) {  //si esta marcado o es true lo agregamos al string
 
 
                     if(value.equals("")){
@@ -1922,7 +1944,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 Log.i("adirnir","el value es "+value);
 
-                hasMapitemsSelecPosicRechazToUpload.put(String.valueOf(imgSelecArray[i].getId()) ,value);
+                hasMapitemsSelecPosicRechazToUpload.put(String.valueOf(imgSelecArrayEmpaques[i].getId()) ,value);
 
 
             }
@@ -2132,7 +2154,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             return false;
         }
 
-
+/*
         if(mEdiContenedorzz.getText().toString().trim().isEmpty()){
             mEdiContenedorzz.requestFocus() ;
             mEdiContenedorzz.setError("Este espacio es necesario") ;
@@ -2149,6 +2171,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             return false;
         }
 
+*/
 
 
 
@@ -2161,14 +2184,14 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-
+/*
         if(mEdiTermografozz.getText().toString().trim().isEmpty()){
             mEdiTermografozz.requestFocus() ;
             mEdiTermografozz.setError("Este espacio es necesario") ;
-            return false;
+            //return false;
         }
 
-
+*/
 
 
         if(mEdiPlacaCarrzz.getText().toString().trim().isEmpty()){
@@ -3313,7 +3336,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         float resultRestDefects=numeroClustersInspecc-defectosTotal;
         float calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
 
-        DecimalFormat df = new DecimalFormat("#.#");
+
+
+        DecimalFormat df = new DecimalFormat("#.##");
         mEdioCalidaCampzz.setText(df.format(calidadTotALX)+" %");
 
 

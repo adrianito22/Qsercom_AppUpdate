@@ -136,15 +136,15 @@
         <item>NL: CUELLO ROTO</item>
         <item>BM: DAÑO COLAPSIS</item>
         <item>TS: DEDO CORTO</item>
-        <item>RE: RESIDUOS QUIMICOS</item>
+        <item>RE: RESIDUOS QUÍMICOS </item>
         <item>AB: PULPA CREMA</item>
         <item>MF: MUTILADO</item>
         <item>TF: EXCESO DE DEDOS</item>
         <item>FR: DEDO PODRIDO</item>
         <item>TC: MOQUILLO</item>
         <item>FF: DEDOS MELLIZOS </item>
-        <item>IG: LATEX GELATINOSO</item>
-        <item>IS: MANCHAS DE LATEX</item>
+        <item>LG: LÁTEX GELATINOSO</item>
+        <item>LS: MANCHAS DE LÁTEX</item>
         <item>US: BAJO GRADO</item>
         <item>OG: SOBRE GRADO </item>
         <item>FL: FLORES </item>
@@ -170,8 +170,8 @@
         <item>FR</item>
         <item>TC</item>
         <item>FF</item>
-        <item>IG</item>
-        <item>IS</item>
+        <item>LG</item>
+        <item>LS</item>
         <item>US</item>
         <item>OG</item>
         <item>FL</item>
@@ -196,8 +196,8 @@
         <item>FR</item>
         <item>TC</item>
         <item>FF</item>
-        <item>IG</item>
-        <item>IS</item>
+        <item>LG</item>
+        <item>LS</item>
         <item>US</item>
         <item>OG</item>
         <item>FL</item>
@@ -209,13 +209,10 @@
         <item>Empty</item>
         <item>Empty</item>
 
-        <item>LP</item>
-        <item>LC</item>
-        <item>P</item>
-        <item>F</item>
-        <item>M</item>
-        <item>V</item>
-        <item>EA</item>
+        <item>BU</item>
+        <item>SR</item>
+        <item>BR</item>
+        <item>NI</item>
 
 
     </string-array>

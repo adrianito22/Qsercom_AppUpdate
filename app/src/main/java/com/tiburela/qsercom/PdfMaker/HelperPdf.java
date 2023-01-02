@@ -6,13 +6,14 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.fonts.Font;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -21,7 +22,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.itextpdf.io.font.constants.StandardFonts;
@@ -38,9 +38,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.VerticalAlignment;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsCantdad;
 import com.tiburela.qsercom.models.NameAndValue;
@@ -60,7 +58,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 public class HelperPdf {
 
@@ -75,7 +72,7 @@ public class HelperPdf {
 
 
 
-    public static   double CALIDAD_TOTAL;
+    public static float CALIDAD_TOTAL;
     public static  double PORCENTAJE_DE_DEFECTOS;
     public static  ArrayList<TableCalidProdc> TableCalidProdc;
     public static ArrayList<Integer>listNumClustersInspec= new ArrayList<>();
@@ -623,8 +620,11 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("DESTINO",Object1.getDestinoContenedor()));
             listTOrETURN1.add(new NameAndValue("VAPOR",Object1.getVapor()));
             listTOrETURN1.add(new NameAndValue("NUMERACIÓN DE CONTENEDOR",Object1.getNumcionContenedor()));
+
             listTOrETURN1.add(new NameAndValue("HORA DE LLEGADA",Object1.getHoraLlegadaContenedor()));
             listTOrETURN1.add(new NameAndValue("HORA SALIDA",Object1.getHoraSalidadContenedor()));
+
+
 
 
 
@@ -1397,34 +1397,93 @@ if(contadorProductsPostCosecha>10){
         values.add(" 14 ");
         values.add(inform.getColortSem14());
         values.add(inform.getNumRcim14());
-        values.add(inform.getPorc14());
+       // values.add(inform.getPorc14());
+
+        if(!inform.getPorc14().trim().isEmpty()){
+            values.add(inform.getPorc14()+"%");
+
+        }else{
+            values.add(inform.getPorc14());
+
+            Log.i("samerr","14 ES EMPTY");
+
+        }
 
         values.add(" 13 ");
         values.add(inform.getColortSem13());
         values.add(inform.getNumRcim13());
-        values.add(inform.getPorc13());
+        //values.add(inform.getPorc13());
+
+        if(!inform.getPorc13().trim().isEmpty()){
+            values.add(inform.getPorc13()+"%");
+
+            Log.i("samerr","el informe es "+inform.getPorc13());
+
+        }else
+            values.add(inform.getPorc13());
+
+        Log.i("samerr","13 ES EMPTY");
 
 
         values.add(" 12 ");
         values.add(inform.getColortSem12());
         values.add(inform.getNumRcim12());
-        values.add(inform.getPorc12());
+       // values.add(inform.getPorc12());
+
+
+        if(!inform.getPorc12().trim().isEmpty()){
+            Log.i("samerr","el informe es "+inform.getPorc12());
+            values.add(inform.getPorc12()+"%");
+
+        }else
+            values.add(inform.getPorc12());
+
+        Log.i("samerr","12 ES EMPTY");
 
 
         values.add(" 11 ");
         values.add(inform.getColortSem11());
         values.add(inform.getNumRcim11());
-        values.add(inform.getPorc11());
+
+
+        if(!inform.getPorc11().trim().isEmpty()){
+            values.add(inform.getPorc11());
+
+        }else
+            values.add(inform.getPorc11());
+
 
         values.add(" 10 ");
         values.add(inform.getColortSem10());
         values.add(inform.getNumRcim10());
-        values.add(inform.getPorc10());
+
+        if(!inform.getPorc10().trim().isEmpty()){
+            values.add(inform.getPorc10());
+
+        }else
+            values.add(inform.getPorc10());
+
+
+
+
 
         values.add(" 9 ");
         values.add(inform.getColortSem9()); //CORREGIR
         values.add(inform.getNumRcim9());
-        values.add(inform.getPorc9());
+
+
+
+        if(!inform.getPorc9().trim().isEmpty()){
+            values.add(inform.getPorc9());
+
+        }
+
+        else
+            values.add(inform.getPorc9());
+
+
+
+
 
 
         int  [] arranumsAddOtherFontSize  = {0,4,8,12,16,20} ;
@@ -1465,6 +1524,8 @@ if(contadorProductsPostCosecha>10){
 
 
 
+
+
     public static Table descripciondEFECXTOSFRUTA(Table table){
         ArrayList<String> list = new ArrayList<String>();
         list.add("sr,estropeo");
@@ -1474,10 +1535,10 @@ if(contadorProductsPostCosecha>10){
         list.add("ff,dedos mellizos");
         list.add("lc,larga curva");
         list.add("ct,corte de cuchillo");
-        list.add("lg,latex gelatinoso");
+        list.add("lg,LÁTEX  gelatinoso");
         list.add("p,pequeña");
         list.add("ml,mal formado");
-        list.add("is,manchas de latex");
+        list.add("Ls,manchas de LÁTEX");
         list.add("f,flojo");
         list.add("ni,cuello roto");
         list.add("ug,bajo grado");
@@ -1615,7 +1676,7 @@ if(contadorProductsPostCosecha>10){
 
 
 
-        int  [] keyDatsNumDefectSempqs={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,
+        int  [] arrayWhitKeysDefectsEmmpaque={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,
                 R.id.imvEmpaque5,R.id.imvEmpaque6,R.id.imvEmpaque7, R.id.imvEmpaque8,R.id.imvEmpaque9,R.id.imvEmpaque10};
 
 
@@ -1845,8 +1906,6 @@ if(contadorProductsPostCosecha>10){
        // PROMEDIO_PESO=PROMEDIO_PESO + Double.parseDouble(hashMapControlCald.get(keyCurrent));
 
 
-
-
         /**DEFECTOS SELECION*/
           String  [] arrayuDefectsSeleccNames =contexto.getResources().getStringArray(R.array.array_defectos_fruta);
 
@@ -1883,25 +1942,38 @@ if(contadorProductsPostCosecha>10){
 
         /**DEFECTOS EMPAQUE*/
 
-        String   [] arrayuDefectSeMPAQUENames =contexto.getResources().getStringArray(R.array.array_defectos_empaque);
+        String   [] arrayuDefectSeMPAQUENames =contexto.getResources().getStringArray(R.array.array_defectos_empaque2);
 
-        for(int i=0; i<keyDatsNumDefectSempqs.length ;i++) {
+
+
+        for(int i=0; i<arrayWhitKeysDefectsEmmpaque.length ;i++) { ///recorremos el numero de keys que hay para defects empaque
             //iteramos arry con las keys
-            String keyCurrent= String.valueOf(keyDatsNumDefectSempqs[i])  ;
+            String keyCurrent= String.valueOf(arrayWhitKeysDefectsEmmpaque[i])  ;
 
             if(hashMapDefctChecked.containsKey(keyCurrent)){
 
                 String value =hashMapDefctChecked.get(keyCurrent);
-                //cremoas un array con el valor de ese string..
-                String [] posicionDefectoEncontrados=value.split(",");
 
-                for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
+                String [] defectsPosicionSeparateByCommma=value.split(",");
 
-                    int posicionDefecto=Integer.parseInt(posicionDefectoEncontrados [indice2]);
+                //iteramos este array
+
+
+                for(int indice2=0; indice2<defectsPosicionSeparateByCommma.length ;indice2++){
+
+
+                    //obtenemos la poscion de este dfecto,, recuerda que gaurdamos un set de defectos  en un string con commas..
+                    int posicionDefecto=Integer.parseInt(defectsPosicionSeparateByCommma [indice2]);
                     //posicion 0 yPosicion 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
+
+                        //guardamos el nombre de este defecto
+
+                    Log.i("eldefecta","el defecto selecioando es "+arrayuDefectSeMPAQUENames[posicionDefecto]);
                     defectsEmpaque.add(new DefectsCantdad(0,arrayuDefectSeMPAQUENames[posicionDefecto]));
 
                 }
+
+
             }
 
         }
@@ -1911,11 +1983,16 @@ if(contadorProductsPostCosecha>10){
 
 
 
-
-
-
-
         defectsEmpaqueHashMapOfLists.put(String.valueOf(contador-1),defectsEmpaque);
+
+
+        /***obtenemos el mayor defecto empaque ahora*/
+
+
+
+
+
+
 
 
 
@@ -1924,7 +2001,7 @@ if(contadorProductsPostCosecha>10){
                 Log.i("ELWEIGTH","EN TOTAL TODOS LOS DEFECTOE ES "+NUMERO_DEFECTS);
 
 
-                //los nombre de los defectos que selecionaron
+                //obtenemos los nombre de los defectos que selecionaron
         ArrayList<String>defectsSelecNames = new ArrayList<>();
 
         for(int indice2=0; indice2<defectsSeleccionList.size() ;indice2++){
@@ -1940,41 +2017,56 @@ if(contadorProductsPostCosecha>10){
         }
 
 
-                 /***MAYOR DEFECTO SELECION*/
 
 
+        /**OBTIENE MAYOR DEFECTO selecion pilas cuando sean defectos iguales*/
 
-        int numeroDfectosCurrentDefect;
-        int numeroDefectosMayor=0;
+        String nombreMayorDefectoSelecion="NO";
+        int numeroMayorDefectoselecion=0;
+        int numeroDfectosCurrentDefectSelecion;
 
         for(int indice2=0; indice2<defectsSelecNames.size() ;indice2++){
+            numeroDfectosCurrentDefectSelecion=0;
 
-            String currentNombreDefecto =defectsSelecNames.get(indice2);
+            //buscamos cada uno de  los nombre selecionados como defectos
+            String currenTnameDefectToContar=defectsSelecNames.get(indice2);
 
-            numeroDfectosCurrentDefect=0;
+            Log.i("elmayirr","buscamos este defecto "+currenTnameDefectToContar);
 
 
             for(int indice3=0; indice3<defectsSeleccionList.size() ;indice3++){
-                            DefectsCantdad currnetdefc= defectsSeleccionList.get(indice2);
+                Log.i("elmayirr","buscamos este defecto "+defectsSeleccionList.get(indice3).getNombreDefect());
 
-                            if(currnetdefc.getNombreDefect().equals(currentNombreDefecto)){
-                                numeroDfectosCurrentDefect++;
-                            }
-             }
-          //  DefectsCantdad defctCantidad =  new DefectsCantdad(numeroDfectosCurrentDefect,currentNombreDefecto);
-           // numeroDefectosCada1.add(defctCantidad);
-
-            if(numeroDfectosCurrentDefect>=numeroDefectosMayor){
-                numeroDefectosMayor =numeroDfectosCurrentDefect;
-                MAYOR_DEFECTO_SELECCION=currentNombreDefecto;
+                if(defectsSeleccionList.get(indice3).getNombreDefect().equals(currenTnameDefectToContar)){
+                    numeroDfectosCurrentDefectSelecion++;
+                }
+            }
 
 
+            if(numeroDfectosCurrentDefectSelecion>numeroMayorDefectoselecion){
+                numeroMayorDefectoselecion=numeroDfectosCurrentDefectSelecion;
+                nombreMayorDefectoSelecion=currenTnameDefectToContar;
 
             }
 
         }
 
-        Log.i("ELWEIGTH","el defecto mayor en selecion es  es "+MAYOR_DEFECTO_SELECCION);
+
+
+        MAYOR_DEFECTO_SELECCION=nombreMayorDefectoSelecion;
+
+        if(MAYOR_DEFECTO_SELECCION.contains(":")){
+
+            String [] array=MAYOR_DEFECTO_SELECCION.split(":");
+            MAYOR_DEFECTO_SELECCION=array[0];
+
+        }
+        Log.i("elmayirr","el mayor defecto SELECION NOW es "+MAYOR_DEFECTO_SELECCION);
+
+
+
+
+
 
 
         /**numero de CLUSTERS INSPECCIONADOS */
@@ -2032,55 +2124,54 @@ if(contadorProductsPostCosecha>10){
         }
 
 
-       /**OBTIENE MAYOR DEFECTO EMPAQUE*/
+        /**OBTIENE MAYOR DEFECTO EMPAQUE*/
 
-      numeroDefectosMayor=0;
+         String nombreMayorDefecto="NO";
+        int numeroMayorDefecto=0;
+        int numeroDfectosCurrentDefectx;
+
 
         for(int indice2=0; indice2<defectsSelecNames.size() ;indice2++){
+            numeroDfectosCurrentDefectx=0;
 
-            String currentNombreDefecto =defectsSelecNames.get(indice2);
+             //buscamos cada uno de  los nombre selecionados como defectos
+            String currenTnameDefectToContar=defectsSelecNames.get(indice2);
 
-            numeroDfectosCurrentDefect=0;
+            Log.i("elmayirr","buscamos este defecto "+currenTnameDefectToContar);
 
 
             for(int indice3=0; indice3<defectsEmpaque.size() ;indice3++){
-                DefectsCantdad currnetdefc= defectsEmpaque.get(indice2);
+                Log.i("elmayirr","buscamos este defecto "+defectsEmpaque.get(indice3).getNombreDefect());
 
-                if(currnetdefc.getNombreDefect().equals(currentNombreDefecto)){
-                    numeroDfectosCurrentDefect++;
+                if(defectsEmpaque.get(indice3).getNombreDefect().equals(currenTnameDefectToContar)){
+                    numeroDfectosCurrentDefectx++;
                 }
             }
 
+            if(numeroDfectosCurrentDefectx>numeroMayorDefecto){
+                numeroMayorDefecto=numeroDfectosCurrentDefectx;
+                nombreMayorDefecto=currenTnameDefectToContar;
 
-            if(numeroDfectosCurrentDefect>=numeroDefectosMayor){
-
-                numeroDefectosMayor =numeroDfectosCurrentDefect;
-                MAYOR_DEFECTO_EMPAQUE=currentNombreDefecto;
             }
+
+
+
         }
 
-        Log.i("ELWEIGTH","el defecto MAYOR_DEFECTO_EMPAQUE ES "+MAYOR_DEFECTO_EMPAQUE);
+
+        MAYOR_DEFECTO_EMPAQUE=nombreMayorDefecto;
+        Log.i("elmayirr","el mayor defecto es "+nombreMayorDefecto);
+
+
+
+
 
 
         ///entonces vamos a crear la tabla
       DecimalFormat df = new DecimalFormat("#.##");
-        // String pesoLibrastext= df.format(pesoLibras);
 
 
-         if(MAYOR_DEFECTO_SELECCION.contains(":")){
-            String array[]=MAYOR_DEFECTO_SELECCION.split(":");
 
-
-            MAYOR_DEFECTO_SELECCION=array[0];
-         }
-
-
-        if(MAYOR_DEFECTO_EMPAQUE.contains(":")){
-            String array[]=MAYOR_DEFECTO_EMPAQUE.split(":");
-
-
-            MAYOR_DEFECTO_EMPAQUE=array[0];
-        }
 
 
         Log.i("debugderor","el calidad total es "+CALIDAD_TOTAL);
@@ -2264,37 +2355,14 @@ if(contadorProductsPostCosecha>10){
         table.addCell(celdaGlobal);
 
         celdaGlobal= new Cell(2,1).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph("POCERCENTAJE QS %").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
+        celdaGlobal.add(new Paragraph("PORCENTAJE QS %").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
         table.addCell(celdaGlobal);
 
-/*
-        celdaGlobal= new Cell();
-        celdaGlobal.add(new Paragraph("").setTextAlignment(TextAlignment.CENTER).setFontSize(4.5f));
-        table.addCell(celdaGlobal);
-
-        celdaGlobal= new Cell();
-        celdaGlobal.add(new Paragraph("").setTextAlignment(TextAlignment.CENTER).setFontSize(4.5f));
-        table.addCell(celdaGlobal);
-
-        celdaGlobal= new Cell();
-        celdaGlobal.add(new Paragraph("").setTextAlignment(TextAlignment.CENTER).setFontSize(4.5f));
-        table.addCell(celdaGlobal);
-
-        celdaGlobal= new Cell();
-        celdaGlobal.add(new Paragraph("").setTextAlignment(TextAlignment.CENTER).setFontSize(4.5f));
-        table.addCell(celdaGlobal);
-
-*/
 
 
           /***codigo el numero de rowspan sera del tamaano  TableCalidProdc .size*/
          rgbColor= new DeviceRgb(242, 242, 242); //color
 
-        /*
-        celdaGlobal= new Cell(TableCalidProdc.size(),1).setBackgroundColor(rgbColor);
-        celdaGlobal.add(new Paragraph("CODIGO Aqui").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
-        table.addCell(celdaGlobal);
-*/
 
         DecimalFormat df = new DecimalFormat("#.##");
 
@@ -2314,15 +2382,16 @@ if(contadorProductsPostCosecha>10){
 
 
                 celdaGlobal= new Cell().setBackgroundColor(rgbColor);
-                celdaGlobal.add(new Paragraph(String.valueOf(itemCurrent.getTotalEmbacado())).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER));
+                celdaGlobal.add(new Paragraph(String.valueOf(itemCurrent.getTotalEmbacado()+" cajas")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER));
                 table.addCell(celdaGlobal);
 
 
                 celdaGlobal= new Cell().setBackgroundColor(rgbColor);
-                Log.i("debugderor","el value es "+itemCurrent.getPorcentajeQS());
+                Log.i("debugderor","el  "+itemCurrent.getPorcentajeQS());
 
-                String caliddTotal=df.format(Double.valueOf(itemCurrent.getPorcentajeQS()));
-                celdaGlobal.add(new Paragraph(caliddTotal+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+                //String caliddTotal=df.format(itemCurrent.getPorcentajeQS());
+
+                celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
                 table.addCell(celdaGlobal);
 
 
@@ -2354,14 +2423,19 @@ if(contadorProductsPostCosecha>10){
         rgbColor= new DeviceRgb(226, 239, 218); //color
         celdaGlobal= new Cell().setBackgroundColor(rgbColor);
 
-        String porcentajeFinalx=df.format(Double.valueOf(porcentajeFinal));
-        celdaGlobal.add(new Paragraph(porcentajeFinalx+"%").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
+        Log.i("holaddd","el porcentaje final double es "+porcentajeFinal);
+
+
+        String porcentajeFinalxString=df.format(porcentajeFinal);
+
+        Log.i("holaddd","el porcentaje final string es  "+porcentajeFinalxString);
+
+        celdaGlobal.add(new Paragraph(porcentajeFinalxString+"%").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
         table.addCell(celdaGlobal);
 
 
-        //por aqqui podemos conseguior el porcentaje final..
-
         return table;
+
     }
 
 
@@ -2445,14 +2519,18 @@ if(contadorProductsPostCosecha>10){
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleRadius(0f);
 
+
         pieChart.getDescription().setEnabled(false);
+
+        pieChart.getLegend().setEnabled(false);
+
 
         // pieChart.setDrawCenterText(false);
         // https://medium.com/@clyeung0714/using-mpandroidchart-for-android-application-piechart-123d62d4ddc0
         // pieChart.setDrawEntryLabels(false);
         // pieChart.getDescription().setEnabled(false);
 
-        pieData.setValueFormatter(new PercentFormatter(pieChart));
+        pieData.setValueFormatter(new PercentFormatterPie(pieChart));
         pieChart.setUsePercentValues(true);
         pieChart.setData(pieData);
 
@@ -2530,7 +2608,7 @@ if(contadorProductsPostCosecha>10){
         String defectOfItemHasmap;
 
 
-        for(int indice=0; indice<arrayAllDefecstSelecion.length-7; indice++){
+        for(int indice=0; indice<arrayAllDefecstSelecion.length-6; indice++){
                  contadorDefectoEnonctrado=0;
                  String defectoActualToSearch=arrayAllDefecstSelecion[indice];
 
@@ -2585,7 +2663,7 @@ if(contadorProductsPostCosecha>10){
 
 
 
-        for(int indice=27; indice<arrayAllDefecstSelecion.length; indice++){
+        for(int indice=25; indice<arrayAllDefecstSelecion.length; indice++){
             contadorDefectoEnonctrado=0;
             String defectoActualToSearch=arrayAllDefecstSelecion[indice];
 

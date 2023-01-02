@@ -736,6 +736,7 @@ public class HelperAdImgs implements LifecycleOwner {
 
             Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical.setAutoScale(true);
+            imagVertical.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
 
             if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
@@ -745,15 +746,19 @@ public class HelperAdImgs implements LifecycleOwner {
             else {
 
                 cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical); //estaba asi
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
             }
 
 
             table.addCell(cell);
 
             table.setHeight(heigthImg);  //Primera tabla ///este ancho...
-            table.setWidth(pageSize.getWidth()-100);
-            table.setMarginLeft(40f);
-            table.setMarginRight(40f);
+           // table.setWidth(pageSize.getWidth()-100);
+            table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+            //table.setMarginLeft(40f);
+            //table.setMarginRight(40f);
 
             //configtable(table,pageSize);
             espcioCuparaThisItem= yPosicion +8+ heigthImg ; //8 es margin

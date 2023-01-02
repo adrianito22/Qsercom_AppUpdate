@@ -93,10 +93,12 @@ import com.tiburela.qsercom.utils.Variables;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -433,21 +435,46 @@ Log.i("hellosweer","se ehjecitp onstart");
         final Calendar cldr = Calendar.getInstance();
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
+
+        String amPm = new SimpleDateFormat("aa").format(cldr.getTimeInMillis());
+
         // time picker dialog
         TimePickerDialog  picker = new TimePickerDialog(ActivityContenedores.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
 
+                          String minutes=String.valueOf(sMinute);
+
+
+                          String AM_PM ;
+
+
+                        if(sHour < 12) {
+                            AM_PM = "AM";
+                        } else {
+                            AM_PM = "PM";
+                        }
+
+
+                        if(minutes.equals("0")){
+
+                              minutes="00";
+                          }
+
+
                         if(vista.getId()==R.id.ediHoraInicio) {
-                            ediHoraInicio.setText(sHour + ":" + sMinute);
+
+                            ediHoraInicio.setText(sHour + ":" + minutes+" "+AM_PM);
 
 
                         }
 
 
                         else if (vista.getId()== R.id.ediHoraTermino) {
-                            ediHoraTermino.setText(sHour + ":" + sMinute);
+
+                            ediHoraTermino.setText(sHour + ":" + minutes+" "+AM_PM);
+
 
 
                         }
@@ -455,35 +482,29 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
                         else if (vista.getId()== R.id.ediHoraLLegadaContenedor) {
-                            ediHoraLLegadaContenedor.setText(sHour + ":" + sMinute);
 
+                            ediHoraLLegadaContenedor.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
 
 
 
                         else if (vista.getId()== R.id.ediHoraSalidaContenedor) {
-                            ediHoraSalidaContenedor.setText(sHour + ":" + sMinute);
 
-
-                        }
-
-
-                        else if (vista.getId()== R.id.ediTipoEmp2) {
-                            ediHoraEncendido1.setText(sHour + ":" + sMinute);
-
+                            ediHoraSalidaContenedor.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
+
 
                         else if (vista.getId()== R.id.ediHoraEncendido1) {
-                            ediHoraEncendido1.setText(sHour + ":" + sMinute);
+                            ediHoraEncendido1.setText(sHour + ":" + minutes+" "+AM_PM);
 
 
                         }
 
 
                         else if (vista.getId()== R.id.ediHoraEncendido2) {
-                            ediHoraEncendido2.setText(sHour + ":" + sMinute);
+                            ediHoraEncendido2.setText(sHour + ":" + minutes+" "+AM_PM);
 
 
                         }
@@ -3945,6 +3966,8 @@ return  true;
 
         }
 
+
+        /*
         if(ediSelloNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediSelloNaviera.requestFocus();
             ediSelloNaviera.setError("Este espacio es obligatorio");
@@ -3953,6 +3976,10 @@ return  true;
             return false;
 
         }
+
+        */
+
+
         if(ediCableNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCableNaviera.requestFocus();
             ediCableNaviera.setError("Este espacio es obligatorio");

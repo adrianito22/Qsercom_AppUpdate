@@ -12,7 +12,7 @@ public class TableCalidProdc {
 
     private String nombreMarcaDeCaja;
 
-    public TableCalidProdc(String tipoEmpaque, int totalEmbacado, double porcentajeQS,String codigo,String nombreMarcaDeCaja) {
+    public TableCalidProdc(String tipoEmpaque, int totalEmbacado, float porcentajeQS, String codigo, String nombreMarcaDeCaja) {
         this.tipoEmpaque = tipoEmpaque;
         this.totalEmbacado = totalEmbacado;
         this.porcentajeQS = porcentajeQS;
@@ -50,14 +50,14 @@ public class TableCalidProdc {
         this.totalEmbacado = totalEmbacado;
     }
 
-    public double getPorcentajeQS() {
+    public float getPorcentajeQS() {
         return porcentajeQS;
     }
 
-    public void setPorcentajeQS(double porcentajeQS) {
+    public void setPorcentajeQS(float porcentajeQS) {
         this.porcentajeQS = porcentajeQS;
     }
 
-    private double  porcentajeQS;
+    private float porcentajeQS;
 
 }

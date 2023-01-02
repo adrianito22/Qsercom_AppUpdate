@@ -1469,7 +1469,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         float calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
 
 
-        DecimalFormat df = new DecimalFormat("#.#");
+        DecimalFormat df = new DecimalFormat("#.##");
 
         mEdioCalidaCampzz.setText(df.format(calidadTotALX)+" %");
 
@@ -3342,7 +3342,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             return false;
         }
 
-
+/*
         if(mEdiContenedorzz.getText().toString().trim().isEmpty()){
             mEdiContenedorzz.requestFocus() ;
             mEdiContenedorzz.setError("Este espacio es necesario") ;
@@ -3359,7 +3359,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             return false;
         }
 
-
+*/
 
 
         if(mEdiSelloVerzz.getText().toString().trim().isEmpty()){
@@ -3371,14 +3371,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
-
+/*
         if(mEdiTermografozz.getText().toString().trim().isEmpty()){
             mEdiTermografozz.requestFocus() ;
             mEdiTermografozz.setError("Este espacio es necesario") ;
             return false;
         }
 
-
+*/
 
 
         if(mEdiPlacaCarrzz.getText().toString().trim().isEmpty()){

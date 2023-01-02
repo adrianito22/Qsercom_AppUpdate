@@ -1377,10 +1377,10 @@ if(hayFILE){
 
 
 
-                    checkIfFileisSaveINsRORAGE(uriThiSfile);
+                 //   checkIfFileisSaveINsRORAGE(uriThiSfile);
 
 
-                    Toast.makeText(PdfMaker2_0.this, "Se Guardo el Pdf", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
 
 
                     /*
