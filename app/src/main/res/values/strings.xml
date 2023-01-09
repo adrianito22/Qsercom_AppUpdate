@@ -154,6 +154,29 @@
         <item>SK: SPEKLING </item>
     </string-array>
 
+    <string-array name="array_defectos_frutax2">
+        <item>SR: ESTROPEO SELECIÓN</item>
+        <item>BR: DAÑO PULPA</item>
+        <item>LS: MANCHAS DE LATEX</item>
+        <item>TS: DEDO CORTO</item>
+        <item>OG: SOBRE GRADO</item>
+        <item>UG: BAJO GRADO</item>
+        <item>AB: PULPA CREMA</item>
+        <item>LG: LATEX GELATINOSO </item>
+        <item>WI: CHOCHINILLA</item>
+        <item>BM: DAÑO DE COLAPSIS</item>
+        <item>SM: FUMAGINA</item>
+        <item>CT: CORTE DE CUCHILLO</item>
+        <item>FL: FLORES</item>
+        <item>SC: RASGUÑO </item>
+        <item>DP: NO ESPCFICIADO</item>
+        <item>LF: NO ESPCFICADO</item>
+        <item>NI: CUELLO ROTO</item>
+        <item>MS: NO ESPECIFICADO </item>
+        <item>RR: MANCHA ROJA </item>
+        <item>SK: SPEKLING</item>
+    </string-array>
+
 
     <string-array name="array_defectos_frutax">
         <item>SRC</item>
@@ -182,28 +205,25 @@
     </string-array>
 
     <string-array name="array_defectos_all">
-        <item>SRC</item>
+        <item>SR</item>
         <item>BR</item>
-        <item>CT</item>
-        <item>ML</item>
-        <item>NL</item>
-        <item>BM</item>
-        <item>TS</item>
-        <item>RE</item>
-        <item>AB</item>
-        <item>MF</item>
-        <item>TF</item>
-        <item>FR</item>
-        <item>TC</item>
-        <item>FF</item>
-        <item>LG</item>
         <item>LS</item>
-        <item>US</item>
+        <item>TS</item>
         <item>OG</item>
-        <item>FL</item>
-        <item>RR</item>
+        <item>UG</item>
+        <item>AB</item>
+        <item>LG </item>
         <item>WI</item>
+        <item>BM</item>
         <item>SM</item>
+        <item>CT</item>
+        <item>FL</item>
+        <item>SC </item>
+        <item>DP</item>
+        <item>LF</item>
+        <item>NI</item>
+        <item>MS</item>
+        <item>RR</item>
         <item>SK</item>
 
         <item>Empty</item>

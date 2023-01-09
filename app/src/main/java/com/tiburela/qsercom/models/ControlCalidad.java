@@ -256,11 +256,11 @@ public class ControlCalidad {
         this.totalCajas = totalCajas;
     }
 
-    public String getCalidaCamp() {
+    public float getCalidaCamp() {
         return calidaCamp;
     }
 
-    public void setCalidaCamp(String calidaCamp) {
+    public void setCalidaCamp(float calidaCamp) {
         this.calidaCamp = calidaCamp;
     }
 
@@ -328,7 +328,7 @@ public class ControlCalidad {
         this.puertEmbarq = puertEmbarq;
     }
 
-    private String calidaCamp;
+    private float calidaCamp;
     private String horaIni;
     private String horaTermi;
     private String contenedor;
@@ -358,7 +358,7 @@ public class ControlCalidad {
     public ControlCalidad(String observaciones, String nodekeyLocation, String keyWhereLocateasHmapFieldsRecha, String vapor,
                           String productor, String codigo, String zona, String hacienda, String exportadora, String compania,
                           String cliente, int semana, String fecha, String magap, String marcaCaja, String tipoEmpaque,
-                          String destino, int totalCajas, String calidaCamp, String horaIni, String horaTermi, String contenedor,
+                          String destino, int totalCajas, float calidaCamp, String horaIni, String horaTermi, String contenedor,
                           String sellosnav, String selloVerificadora, String termografo, String placaCarro, String puertEmbarq) {
 
         uniqueId = UUID.randomUUID().toString();

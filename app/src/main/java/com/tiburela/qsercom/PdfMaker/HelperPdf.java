@@ -70,7 +70,7 @@ public class HelperPdf {
     public static DeviceRgb rgbColorNaranja= new DeviceRgb(255, 217, 102);
     public static DeviceRgb rgbColorDurazno= new DeviceRgb(247, 202, 172);
 
-
+    public static double promedioPOrcetajeQS;
 
     public static float CALIDAD_TOTAL;
     public static  double PORCENTAJE_DE_DEFECTOS;
@@ -545,9 +545,11 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("ZONA",Object1.getZona()));
             listTOrETURN1.add(new NameAndValue("HORA INICIO",Object1.getHoraInicio()));
             listTOrETURN1.add(new NameAndValue("HORA TERMINO",Object1.getHoraTermino()));
+
             listTOrETURN1.add(new NameAndValue("GUÍA REMISIÓN",Object1.getNguiaRemision()));
             listTOrETURN1.add(new NameAndValue("GUÍA DE TRANSPORTE",Object1.get_nguia_transporte()));
             listTOrETURN1.add(new NameAndValue("TARJA DE EMBARQUE",Object1.getNtargetaEmbarque()));
+
             listTOrETURN1.add(new NameAndValue("HOJA DE EVALUACIÓN",String.valueOf(Object1.getEdiNhojaEvaluacion())));
 
         }
@@ -1553,7 +1555,7 @@ if(contadorProductsPostCosecha>10){
         list.add("rr,mancha roja");
         list.add("ps,daño de punta");
         list.add("ab,pulpa crema");
-        list.add("wl,cochinilla");
+        list.add("wi,cochinilla");
         list.add("lg,latex gelatinoso");
         list.add("mf,mutilado");
         list.add("sm,fumagina");
@@ -1907,7 +1909,7 @@ if(contadorProductsPostCosecha>10){
 
 
         /**DEFECTOS SELECION*/
-          String  [] arrayuDefectsSeleccNames =contexto.getResources().getStringArray(R.array.array_defectos_fruta);
+          String  [] arrayuDefectsSeleccNames =contexto.getResources().getStringArray(R.array.array_defectos_frutax2);
 
 
         for(int i=0; i<keyDatsNumDefectSelecion.length ;i++) {
@@ -1921,9 +1923,13 @@ if(contadorProductsPostCosecha>10){
                 String [] posicionDefectoEncontrados=value.split(",");
 
                 for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
-                         int posicionDefecto=Integer.parseInt(posicionDefectoEncontrados [indice2]);
+                       // String [] posicionAndNUmDefects=
+                                String   [] arrayIndiceAndNum =posicionDefectoEncontrados[indice2].split("-");
+
+                    int posicionDefecto=Integer.parseInt(arrayIndiceAndNum[0]);
                          //posicion 0 yPosicion 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
-                    defectsSeleccionList.add(new DefectsCantdad(0,arrayuDefectsSeleccNames[posicionDefecto]));
+                    defectsSeleccionList.add(new DefectsCantdad(Integer.parseInt(arrayIndiceAndNum[1]),arrayuDefectsSeleccNames[posicionDefecto]));
+
 
                         }
             }
@@ -1962,14 +1968,18 @@ if(contadorProductsPostCosecha>10){
                 for(int indice2=0; indice2<defectsPosicionSeparateByCommma.length ;indice2++){
 
 
+                    String   [] arrayIndiceAndNum =defectsPosicionSeparateByCommma[indice2].split("-");
+
+                    int posicionDefecto=Integer.parseInt(arrayIndiceAndNum[0]);
+
                     //obtenemos la poscion de este dfecto,, recuerda que gaurdamos un set de defectos  en un string con commas..
-                    int posicionDefecto=Integer.parseInt(defectsPosicionSeparateByCommma [indice2]);
+                  //  int posicionDefecto=Integer.parseInt(defectsPosicionSeparateByCommma [indice2]);
                     //posicion 0 yPosicion 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
 
                         //guardamos el nombre de este defecto
 
                     Log.i("eldefecta","el defecto selecioando es "+arrayuDefectSeMPAQUENames[posicionDefecto]);
-                    defectsEmpaque.add(new DefectsCantdad(0,arrayuDefectSeMPAQUENames[posicionDefecto]));
+                    defectsEmpaque.add(new DefectsCantdad(Integer.parseInt(arrayIndiceAndNum[1]),arrayuDefectSeMPAQUENames[posicionDefecto]));
 
                 }
 
@@ -1985,18 +1995,10 @@ if(contadorProductsPostCosecha>10){
 
         defectsEmpaqueHashMapOfLists.put(String.valueOf(contador-1),defectsEmpaque);
 
+        NUMERO_DEFECTS=getNumDefectsAll(defectsSeleccionList, defectsEmpaque);
 
         /***obtenemos el mayor defecto empaque ahora*/
 
-
-
-
-
-
-
-
-
-        NUMERO_DEFECTS=defectsSeleccionList.size()+defectsEmpaque.size();
 
                 Log.i("ELWEIGTH","EN TOTAL TODOS LOS DEFECTOE ES "+NUMERO_DEFECTS);
 
@@ -2038,7 +2040,7 @@ if(contadorProductsPostCosecha>10){
                 Log.i("elmayirr","buscamos este defecto "+defectsSeleccionList.get(indice3).getNombreDefect());
 
                 if(defectsSeleccionList.get(indice3).getNombreDefect().equals(currenTnameDefectToContar)){
-                    numeroDfectosCurrentDefectSelecion++;
+                    numeroDfectosCurrentDefectSelecion=numeroDfectosCurrentDefectSelecion+defectsSeleccionList.get(indice3).getNumeroDefectos();
                 }
             }
 
@@ -2091,12 +2093,10 @@ if(contadorProductsPostCosecha>10){
 
 
 
-       // CALIDAD_TOTAL=100-PORCENTAJE_DE_DEFECTOS;
+       // Log.i("cality es ","el CALIDAD_TOTAL es "+objecControlCald.getCalidaCamp());
 
-        String calidadStrinNow= objecControlCald.getCalidaCamp().replace("%","");
-
-
-        CALIDAD_TOTAL=Float.valueOf(calidadStrinNow);
+        CALIDAD_TOTAL=objecControlCald.getCalidaCamp();
+        Log.i("cality es ","el CALIDAD_TOTAL  down es es "+CALIDAD_TOTAL);
 
         PORCENTAJE_DE_DEFECTOS=100-CALIDAD_TOTAL;
 
@@ -2144,7 +2144,7 @@ if(contadorProductsPostCosecha>10){
                 Log.i("elmayirr","buscamos este defecto "+defectsEmpaque.get(indice3).getNombreDefect());
 
                 if(defectsEmpaque.get(indice3).getNombreDefect().equals(currenTnameDefectToContar)){
-                    numeroDfectosCurrentDefectx++;
+                    numeroDfectosCurrentDefectx=numeroDfectosCurrentDefectx+defectsEmpaque.get(indice3).getNumeroDefectos();
                 }
             }
 
@@ -2183,7 +2183,7 @@ if(contadorProductsPostCosecha>10){
        Table table1 =  createTableWhitDateEvaluacionFrura(objecControlCald.getMarcaCaja(),df.format(PROMEDIO_PESO),
                df.format(CALIDAD_TOTAL)+"%",df.format(PORCENTAJE_DE_DEFECTOS)+"%",String.valueOf(NUMERO_DEFECTS),String.valueOf(MAYOR_DEFECTO_SELECCION),
                String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+"%",
-               df.format(LARGO_DEDOS_PROMEDIO)+"%",String.valueOf(2) //estaba en PH_PROMEDIO
+               df.format(LARGO_DEDOS_PROMEDIO)+"%","3.0" //estaba en PH_PROMEDIO
                );
 
         return table1;
@@ -2191,6 +2191,7 @@ if(contadorProductsPostCosecha>10){
 
 
     }
+
 
 
     private static Table createTableWhitDateEvaluacionFrura(String empaqueNombre,String promedioPeso,String calidadTotal,String porcenjeDefects,
@@ -2368,6 +2369,8 @@ if(contadorProductsPostCosecha>10){
 
                int totalEMbracado=0;
                double sumaPorcentajes=0;
+                int numsEmpaques=0;
+
         for(TableCalidProdc itemCurrent :TableCalidProdc){
 
               celdaGlobal= new Cell( ).setBackgroundColor(rgbColor);
@@ -2398,11 +2401,15 @@ if(contadorProductsPostCosecha>10){
             totalEMbracado=totalEMbracado+itemCurrent.getTotalEmbacado();
             sumaPorcentajes=sumaPorcentajes+itemCurrent.getPorcentajeQS();
 
+            numsEmpaques++;
+
             }
 
 
 
         double porcentajeFinal=sumaPorcentajes/TableCalidProdc.size();
+
+         promedioPOrcetajeQS=  porcentajeFinal;
         //Tabla total
          rgbColor= new DeviceRgb(231, 230, 230); //color
 
@@ -2432,6 +2439,8 @@ if(contadorProductsPostCosecha>10){
 
         celdaGlobal.add(new Paragraph(porcentajeFinalxString+"%").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
         table.addCell(celdaGlobal);
+
+
 
 
         return table;
@@ -2495,9 +2504,8 @@ if(contadorProductsPostCosecha>10){
         colors.add(Color.parseColor("#ed7d31"));  //narnja el rechzado
 
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry((float) CALIDAD_TOTAL,"Calidad"));
-        pieEntries.add(new PieEntry((float) PORCENTAJE_DE_DEFECTOS,"Defectos"));
-
+        pieEntries.add(new PieEntry((float) promedioPOrcetajeQS,"Calidad"));
+        pieEntries.add(new PieEntry((float) ((float) 100-promedioPOrcetajeQS),"Defectos"));
 
         PieDataSet pieDataSet = new PieDataSet(pieEntries,label);
         pieDataSet.setValueTextSize(23f);
@@ -2558,16 +2566,18 @@ if(contadorProductsPostCosecha>10){
 
         barChart.getXAxis().setDrawGridLines(false);
 
-        final String [] arrayAllDefecstSelecion= context. getResources().getStringArray(R.array.array_defectos_all);
+        final String [] arrayAllDefects = context. getResources().getStringArray(R.array.array_defectos_all);
 
 
         /**si tiene empty le agragamos pensar si podemos agregarle commas mejor es mas rapido*/
-        for(int indice=0; indice<arrayAllDefecstSelecion.length; indice++){
+        for(int indice=0; indice<arrayAllDefects.length; indice++){
 
-           if(arrayAllDefecstSelecion[indice].equalsIgnoreCase("empty")){
-               arrayAllDefecstSelecion[indice]=" ";
+
+           if(arrayAllDefects[indice].equalsIgnoreCase("empty")){
+               arrayAllDefects[indice]=" ";
 
            }
+
 
         }
 
@@ -2584,75 +2594,73 @@ if(contadorProductsPostCosecha>10){
         ValueFormatter formatter = new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
-                return arrayAllDefecstSelecion[(int) value];
+                return arrayAllDefects[(int) value];
             }
         };
 
 
 
-
-
-    // defectsSeleccionHashMapOfList = new HashMap<>();
-    // defectsEmpaqueHashMapOfLists = new HashMap<>();
-           ///recorremos yPosicion buscamos este defecto
-       //
-
-         //agregamos los defectos empaque a map defectos alll
-
-
-
-
-        int contadorDefectoEnonctrado;
+        int contadorCurrrentDefect=0;
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        String defectOfItemHasmap;
+        String defectOfItemHasmap="";
 
-
-        for(int indice=0; indice<arrayAllDefecstSelecion.length-6; indice++){
-                 contadorDefectoEnonctrado=0;
-                 String defectoActualToSearch=arrayAllDefecstSelecion[indice];
+int contadorAlldefectos=0;
+        for(int indice=0; indice<arrayAllDefects.length-6; indice++){ //buscamos cada unos de los defectos
+                 contadorCurrrentDefect=0;
+                 String defectoActualToSearch=arrayAllDefects[indice];
 
             ArrayList<DefectsCantdad>currentArraylist=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
 
-                       Log.i("SUEPREME","se llamo yPosicion el size es "+currentArraylist.size());
+             contadorAlldefectos=cuentaDeFECTOS(currentArraylist,defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador)));
+            Log.i("sukerber","el contador defectos encontradoff es "+contadorAlldefectos);
 
-                 for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){
+
+                 for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){ //buscamos este defecto
                      defectOfItemHasmap=currentArraylist.get(indice2).getNombreDefect();
 
 
-
-
                      if(defectOfItemHasmap.contains(":")){
-                         String array[]=defectOfItemHasmap.split(":");
-                         defectOfItemHasmap=array[0];
+                      String defect[]=defectOfItemHasmap.split(":");
+                         defectOfItemHasmap=defect[0];
+
                      }
 
-                     Log.i("entriesd","comparamos defectOfItemHasmap "+defectOfItemHasmap+" con  defectoActualToSearch:q es  "+ defectoActualToSearch);
-
                      if(defectOfItemHasmap.equals(defectoActualToSearch)){
-                          contadorDefectoEnonctrado++;
+                         contadorCurrrentDefect=contadorCurrrentDefect+currentArraylist.get(indice2).getNumeroDefectos();
                       }
-
 
                  }
 
 
-                 if(contadorDefectoEnonctrado==0){
+            Log.i("sukerber","buscamos el defecto de"+defectOfItemHasmap+"y hay "+ contadorCurrrentDefect);
+
+
+                 if(contadorCurrrentDefect==0){
                      barEntries.add(new BarEntry((float)indice ,roundTwoDecimals((float)0)));
+                 }
 
-                 }else{
-                     Log.i("entriesd","Es mayor a cero en first");
+                 else {
 
-                     float porcentaje= contadorDefectoEnonctrado * ((float)listNumClustersInspec.get(contadorIterador)/100);
+                  //   float porcentaje= contadorCurrrentDefect * ((float)listNumClustersInspec.get(contadorIterador)/100);
 
-                     Log.i("sumaerr","El porcentaje es "+porcentaje);
-                     Log.i("entriesd","El contadorDefectoEnonctrado es "+contadorDefectoEnonctrado);
-                     Log.i("entriesd","El  total de inspeccionados es "+listNumClustersInspec.get(contadorIterador));
+                     float porcentajex= ((float) contadorCurrrentDefect /listNumClustersInspec.get(contadorIterador))*100;
 
 
-                     float roundedY = (float) ((float) Math.round(porcentaje * 100.0) / 100.0);
+                     Log.i("howasr","El numero de cluster inspecionados es  "+listNumClustersInspec.get(contadorIterador));
 
-                     Log.i("Hawai","El porcentaje es "+roundedY);
+                     Log.i("howasr","El pocerntaje here es   "+porcentajex);
+
+
+
+                     float roundedY = (float) ((float) Math.round(porcentajex * 100.0) / 100.0);
+
+                      //calculamos el porcentaje que respresenta esto sobre el total de
+
+                     Log.i("howasr","El numero de defecto de "+contadorCurrrentDefect+" es "+defectoActualToSearch);
+
+                     Log.i("howasr","El porcentaje es new ws bb "+porcentajex);
+
 
                      barEntries.add(new BarEntry((float)indice, roundedY));
 
@@ -2663,43 +2671,66 @@ if(contadorProductsPostCosecha>10){
 
 
 
-        for(int indice=25; indice<arrayAllDefecstSelecion.length; indice++){
-            contadorDefectoEnonctrado=0;
-            String defectoActualToSearch=arrayAllDefecstSelecion[indice];
+
+               /**si no funciona vamos cone indice -2 ,eso deberia crear un espacio defectos empaque */
+        for(int indice=20; indice<arrayAllDefects.length; indice++){
+            contadorCurrrentDefect=0;
+            String defectoActualToSearch=arrayAllDefects[indice];
 
 
             ArrayList<DefectsCantdad>currentArraylist=defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador));
+
+
 
 
             for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){
 
                   defectOfItemHasmap=currentArraylist.get(indice2).getNombreDefect();
 
+
+                if(defectOfItemHasmap.contains(":")){
+                    String[] defect =defectOfItemHasmap.split(":");
+                    defectOfItemHasmap=defect[0];
+
+                }
+
                 Log.i("entriesd","comparamos defectOfItemHasmap "+defectOfItemHasmap+" con  defectoActualToSearch:q es  "+ defectoActualToSearch);
 
 
-                if(defectOfItemHasmap.contains(":")){
-                    String array[]=defectOfItemHasmap.split(":");
-                    defectOfItemHasmap=array[0];
-                }
-
-
                 if(defectOfItemHasmap.equals(defectoActualToSearch)){
-                    contadorDefectoEnonctrado++;
+                    //contadorDefectoEnonctrado++;
+
+                    contadorCurrrentDefect=contadorCurrrentDefect+currentArraylist.get(indice2).getNumeroDefectos();
+
                 }
             }
-            if(contadorDefectoEnonctrado==0){
+            if(contadorCurrrentDefect==0){
 
                 barEntries.add(new BarEntry((float)indice,roundTwoDecimals((float)0)));
 
             }else{
                 Log.i("entriesd","Es mayor a cero");
 
-                float porcentaje= contadorDefectoEnonctrado * ((float)listNumClustersInspec.get(contadorIterador)/100);
+             //   float porcentaje= contadorCurrrentDefect * ((float)listNumClustersInspec.get(contadorIterador)/100);
 
-                float roundedX = (float) ((float) Math.round(porcentaje * 100.0) / 100.0);
+                float porcentajex= ((float) contadorCurrrentDefect /listNumClustersInspec.get(contadorIterador))*100;
+
+
+                float porcentajeNewRepresenta= contadorCurrrentDefect*contadorAlldefectos /100;
+                Log.i("howasr","El porcentaje es new ws  "+porcentajeNewRepresenta);
+
+
+                Log.i("howasr","El numero de defecto empaque : "+contadorCurrrentDefect+" es "+defectoActualToSearch);
+
+
+                Log.i("sumaerr","en psquqete defect es "+porcentajex);
+
+                Log.i("salerod","el porcentaje 2  es  "+ porcentajex);
+
+                float roundedX = (float) ((float) Math.round(porcentajex * 100.0) / 100.0);
                 barEntries.add(new BarEntry((float)indice,roundedX));
 
+                Log.i("salerod","con contador defecto encontrado es "+ contadorCurrrentDefect);
 
             }
         }
@@ -2709,7 +2740,10 @@ if(contadorProductsPostCosecha>10){
 
 
         Log.i("entriesd","el size de entries es "+barEntries.size());
-        Log.i("entriesd","el size array es  "+arrayAllDefecstSelecion.length);
+        Log.i("entriesd","el size array es  "+arrayAllDefects.length);
+
+        Log.i("salerod","con contador defecto encontrado es "+ contadorCurrrentDefect);
+
 
 
         for(BarEntry entry: barEntries){
@@ -2735,9 +2769,13 @@ if(contadorProductsPostCosecha>10){
 
 
 
-        BarDataSet barDataSet = new BarDataSet(barEntries,"Defectos");
+        BarDataSet barDataSet = new BarDataSet(barEntries,"");
         barDataSet.setValueTextSize(9f);
         barDataSet.setFormSize(9f);
+        barDataSet.setDrawIcons(false);  //es este
+        // barDataSet.setDrawValues(false); //si no es este
+
+
 
 
 
@@ -2758,7 +2796,8 @@ if(contadorProductsPostCosecha>10){
         // barChart
         barChart.setDrawGridBackground(false);
         //barChart.getXAxis().setSpaceMax(3);
-
+       barChart.getDescription().setEnabled(false); ///vanos ahber lo activamos
+        barChart.getLegend().setEnabled(false);
 
         barDataSet.setColors(new int[]{
                 R.color.durazon , R.color.durazon
@@ -3013,5 +3052,55 @@ if(contadorProductsPostCosecha>10){
 
     }
 
+
+    static int getNumDefectsAll(ArrayList<DefectsCantdad> defectsSeleccion, ArrayList<DefectsCantdad> defectsEmpq){
+       int numDefectosAll=0;
+
+       for(DefectsCantdad defec : defectsSeleccion){ //defectos selecion
+
+           numDefectosAll=numDefectosAll+defec.getNumeroDefectos();
+
+       }
+
+
+        for(DefectsCantdad defec : defectsEmpq){ //defectos selecion
+
+            numDefectosAll=numDefectosAll+defec.getNumeroDefectos();
+
+        }
+
+return  numDefectosAll;
+
+    }
+
+
+
+    private static int cuentaDeFECTOS(ArrayList<DefectsCantdad>ARRAlIST1,ArrayList<DefectsCantdad>arrayListEmpaque ) {
+
+        int contadorDefectosinArrayList=0;
+
+        for(DefectsCantdad objec: ARRAlIST1){
+            if(objec.getNumeroDefectos()>0){
+
+                contadorDefectosinArrayList=contadorDefectosinArrayList+ objec.getNumeroDefectos();
+
+            }
+
+        }
+
+        for(DefectsCantdad objec: arrayListEmpaque){
+            if(objec.getNumeroDefectos()>0){
+
+                contadorDefectosinArrayList=contadorDefectosinArrayList+ objec.getNumeroDefectos();
+
+            }
+
+        }
+
+
+
+        return  contadorDefectosinArrayList;
+
+    }
 
 }

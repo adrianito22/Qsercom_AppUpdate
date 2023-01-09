@@ -795,7 +795,7 @@ if(hayFILE){
 
 
 
-        midocumentotoAddData.add(new Paragraph("Gráfico  1.- Demostración calidad total y Posición daños - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+        midocumentotoAddData.add(new Paragraph("Gráfico 1.- Demostración calidad total y Posición daños - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
          /**Agregamos pie  Grafico*/
          PieChart pieChart;
@@ -870,7 +870,9 @@ if(hayFILE){
                      .setPaddingLeft(60f).setBold();
             mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
+
           //  midocumentotoAddData.add(new Paragraph("textaqui").setFontSize(5f));
+
 
             remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
             float y2 = remaining.getTop();

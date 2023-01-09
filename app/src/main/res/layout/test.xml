@@ -455,7 +455,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="2"
+                        android:text="3"
                         android:textSize="14sp" />
 
 

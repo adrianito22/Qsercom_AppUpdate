@@ -2,8 +2,8 @@ package com.tiburela.qsercom.activities.formularios;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,25 +31,26 @@ import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanos;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanosEmpaque;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
 
     private boolean sellamoFindViewIds=false;
     DecimalFormat df = new DecimalFormat("#.#");
     float calidadTotal=0;
-
+   private float calidadFinally;
 
     private TextInputEditText mEdiVaporzz;
     private TextInputEditText mEdiProductorzz;
@@ -429,11 +431,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
     ArrayList<Integer> langList = new ArrayList<>();
-
-
-    HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb = new HashMap<>(); //serian unas dies listas...
-    HashMap<String , ArrayList<Boolean>> HashMapOfListWhitStatesCHeckb2 = new HashMap<>(); //serian unas dies listas...
-
 
 
 
@@ -905,7 +902,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        int contadorCheked;
+        int contadorNumDefects;
 
         int contadorDefectsSelecion=0;
         int contadorDefectsEMPAQUE=0;
@@ -913,33 +910,40 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
         for(int indice2=0; indice2<ararYTEXVIEWS.length; indice2++){  //lista de listas
-            contadorCheked=0;
+            contadorNumDefects=0;
 
-            if (HashMapOfListWhitStatesCHeckb.containsKey(String.valueOf(keysToAddData1[indice2]))) {
+            if (Utils.HashMapOfListWhitStatesCHeckb.containsKey(String.valueOf(keysToAddData1[indice2]))) {
 
-                ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb.get(String.valueOf(keysToAddData1[indice2]));
+                ArrayList<DefectsAndNumber>currentList = Utils.HashMapOfListWhitStatesCHeckb.get(String.valueOf(keysToAddData1[indice2]));
                 for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
 
-                    if(currentList.get(indice)){ //si es verdadero
-                        contadorCheked++;
-                        contadorDefectsSelecion++;
+                    if(currentList.get(indice).isIschekedDefecto()){ //si es verdadero
+                       // contadorNumDefects++;
+                        contadorNumDefects=contadorNumDefects+currentList.get(indice).getNumDefects();
+
+                       // contadorDefectsSelecion++;
+                        contadorDefectsSelecion = contadorDefectsSelecion+currentList.get(indice).getNumDefects();
 
                     }
-
                 }
 
             }
 
 
             //par hasmpa2
-            if (HashMapOfListWhitStatesCHeckb2.containsKey(String.valueOf(String.valueOf(keysToAddData2[indice2])))) {
+            if (Utils.HashMapOfListWhitStatesCHeckb2.containsKey(String.valueOf(keysToAddData2[indice2]))) {
 
-                ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(String.valueOf(keysToAddData2[indice2])));
+                ArrayList<DefectsAndNumber>currentList = Utils.HashMapOfListWhitStatesCHeckb2.get(String.valueOf(keysToAddData2[indice2]));
                 for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
 
-                    if(currentList.get(indice)){ //si es verdadero
-                        contadorCheked++;
-                        contadorDefectsEMPAQUE++;
+                    if(currentList.get(indice).isIschekedDefecto()){ //si es verdadero
+                      //  contadorNumDefects++;
+
+                        contadorNumDefects=contadorNumDefects+currentList.get(indice).getNumDefects();
+
+                      //  contadorDefectsEMPAQUE++;
+                        contadorDefectsEMPAQUE=contadorDefectsEMPAQUE+currentList.get(indice).getNumDefects();
+
 
                     }
 
@@ -947,18 +951,18 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
             }
 
-            ararYTEXVIEWS[indice2].setText(String.valueOf(contadorCheked));
+            ararYTEXVIEWS[indice2].setText(String.valueOf(contadorNumDefects));
 
 
         }
 
+        Log.i("copntadordef","hay "+contadorDefectsSelecion+" de defectos selecion");
 
         txtTotalDefectSelect.setText(String.valueOf(contadorDefectsSelecion));
         txtTotalDefectEmpaque.setText(String.valueOf(contadorDefectsEMPAQUE));
         txtTotalAllDefects.setText(String.valueOf( contadorDefectsSelecion+contadorDefectsEMPAQUE ));
 
 
-        Log.i("copntadordef","hay "+contadorDefectsSelecion+" de defectos selecion");
 
         Log.i("copntadordef","hay "+contadorDefectsEMPAQUE+" de defectos empaque");
 
@@ -968,13 +972,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
         Log.i("calidaddd","el defectosTotal es "+defectosTotal);
 
-
-
-        float porcentajeDefectos=defectosTotal/100 *numeroClustersInspecc;
-
-        Log.i("calidaddd","el porcentaje de defectos es "+porcentajeDefectos);
-
-        calidadTotal=100-porcentajeDefectos;
+        float resultRestDefects=numeroClustersInspecc-defectosTotal;
+        calidadTotal=  resultRestDefects/ numeroClustersInspecc *100;
 
 
         Log.i("calidaddd","el value es "+calidadTotal);
@@ -989,10 +988,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-
     @Override
     public void onClick(View view) {
-        boolean[] estates;
+        DefectsAndNumber [] estates;
 
 
 
@@ -1012,8 +1010,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 idPulsado== R.id.imgSelecDefc5  || idPulsado== R.id.imgSelecDefc6   || idPulsado== R.id.imgSelecDefc7  ||
                 idPulsado== R.id.imgSelecDefc8   ||  idPulsado== R.id.imgSelecDefc9   ||  idPulsado== R.id.imgSelecDefc10 ){
 
-            estates =listToAarray(HashMapOfListWhitStatesCHeckb.get(keyOrViewID));
-            showDialogx(estates,keyOrViewID);
+          //  estates =listToAarray(Utils.HashMapOfListWhitStatesCHeckb.get(keyOrViewID));
+
+
+
+          //  showDialogx(estates,keyOrViewID);
+
+            Log.i("somerlier","el ukey aqui es  "+keyOrViewID);
+
+            FragmentManager fm = getSupportFragmentManager();
+            BottonSheetSelecDanos alertDialog = BottonSheetSelecDanos.newInstance(keyOrViewID);
+            alertDialog.setCancelable(false);
+            alertDialog.show(fm, "heleornd");
+
+
 
 
         }
@@ -1023,9 +1033,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 idPulsado== R.id.imvEmpaque5  || idPulsado== R.id.imvEmpaque6   || idPulsado== R.id.imvEmpaque7  ||
                 idPulsado== R.id.imvEmpaque8   ||  idPulsado== R.id.imvEmpaque9   ||  idPulsado== R.id.imvEmpaque10 ){
 
-            estates =listToAarray(HashMapOfListWhitStatesCHeckb2.get(keyOrViewID));
-            showDialogx2(estates,keyOrViewID);
 
+            FragmentManager fm = getSupportFragmentManager();
+            BottonSheetSelecDanosEmpaque alertDialog = BottonSheetSelecDanosEmpaque.newInstance(keyOrViewID);
+            alertDialog.setCancelable(false);
+            alertDialog.show(fm, "heleorndvv");
 
         }
 
@@ -1235,9 +1247,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         int value =0;
 
 
-        for(ArrayList<Boolean> listArray: HashMapOfListWhitStatesCHeckb.values()){
+        for(ArrayList<DefectsAndNumber> listArray: Utils.HashMapOfListWhitStatesCHeckb.values()){
             for(int indice2=0; indice2<listArray.size(); indice2++){  //lista de listas
-                if(listArray.get(indice2)) { //si es verdadero
+                if(listArray.get(indice2).isIschekedDefecto()) { //si es verdadero
                     value =1;
                 }else{
                     value =0;
@@ -1367,14 +1379,14 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     }
 
 
-
-    void showDialogx(boolean[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
+/*
+    void showDialogx(DefectsAndNumber[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
 
         // Initialize alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityControlCalidad.this);
 
         // set title
-        builder.setTitle("Selecciones Defectos");
+        builder.setTitle("Seleccione Defectos");
 
         // set dialog non cancelable
         builder.setCancelable(false);
@@ -1387,7 +1399,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     //cuando selecione une ...obtenemos la poisicion..
                     //j
 
-                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,true);
+                    Utils.HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,5,true);
 
                     // when checkbox selected
                     // Add position  in lang list
@@ -1398,7 +1410,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     // when checkbox unselected
                     // Remove position from langList
 
-                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,false);
+                    Utils.HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,false);
 
                     //  langList.remove(Integer.valueOf(i));
                 }
@@ -1432,9 +1444,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 //aqui necesitamos obtener el hasmapa
 
-                for (int j = 0; j < HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).size(); j++) {
+                for (int j = 0; j < Utils.HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).size(); j++) {
 
-                    HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(j,false);
+                    Utils.HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(j,false);
 
 
                 }
@@ -1451,7 +1463,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     }
 
+*/
 
+
+    /*
     void showDialogx2(boolean[] itemsChekeds,String keyCurrentListOFmap) {
 
         // Initialize alert dialog
@@ -1471,7 +1486,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     //cuando selecione une ...obtenemos la poisicion..
                     //
 
-                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,true);
+                    Utils.HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,true);
 
 
                     // when checkbox selected
@@ -1483,7 +1498,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     // when checkbox unselected
                     // Remove position from langList
 
-                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,false);
+                    Utils.HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,false);
 
                     //  langList.remove(Integer.valueOf(i));
                 }
@@ -1515,9 +1530,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             public void onClick(DialogInterface dialogInterface, int i) {
                 // use for loop
 
-                for (int j = 0; j < HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).size(); j++) {
+                for (int j = 0; j < Utils.HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).size(); j++) {
 
-                    HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(j,false);
+                    Utils.HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(j,false);
 
 
                 }
@@ -1534,10 +1549,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     }
 
+*/
+    private DefectsAndNumber [] listToAarray(ArrayList<DefectsAndNumber>list){
 
-    private boolean [] listToAarray(ArrayList<Boolean>list){
-
-        boolean array[]= new boolean[list.size()];
+        DefectsAndNumber array[]= new DefectsAndNumber[list.size()];
 
 
         for(int indice=0; indice< list.size(); indice++){
@@ -1856,27 +1871,25 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         for (int i = 0; i<10; i++) {
 
-            ArrayList<Boolean> currentList =  HashMapOfListWhitStatesCHeckb.get(String.valueOf(imgSelecArray[i].getId()));
-
+            ArrayList<DefectsAndNumber> currentList =  Utils.HashMapOfListWhitStatesCHeckb.get(String.valueOf(imgSelecArray[i].getId()));
             String value="";
 
 
             for (int j = 0; j < currentList.size(); j++) {  //iteramos cada elemento del hasm,ap q es una lista
-                if(currentList.get(j)) {  //si es verdaqdfero ,lol agragmos
+
+                if(currentList.get(j).isIschekedDefecto()) {  //si es verdaqdfero ,lol agragmos
                     Log.i("adirnir","encontro value ttr ");
-
-                    if(value.equals("")){
-
-                        value=value+j;
-
+                    if(value.equals("")){//sii es el primer valor...
+                        value=value+j+"-"+currentList.get(j).getNumDefects(); //podemos mantenerlo asi..... 0-2,
                     }else {
-                        value=value+","+j;
+                        value=value+","+j+"-"+currentList.get(j).getNumDefects();
+
                     }
-
-
                 }
-
             }
+
+
+
 
 
             if((!value.equals(""))) {
@@ -1888,6 +1901,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
         }
+
+
+
+
+
 
         if(hasMapitemsSelecPosicRechazToUpload.size() ==0 ){
 
@@ -1904,9 +1922,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         ImageView  [] imgSelecArrayEmpaques= {
                 imvEmpaque1,imvEmpaque2,imvEmpaque3,imvEmpaque4,imvEmpaque5,imvEmpaque6,
-                imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10} ;
-
-
+                imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10
+        };
 
 
         /**iteramos una lista de listas */
@@ -1916,22 +1933,32 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
             //usamos el id de  imageviews como keys...
-            ArrayList<Boolean> currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(imgSelecArrayEmpaques[i].getId()));
+            ArrayList<DefectsAndNumber> currentList = Utils.HashMapOfListWhitStatesCHeckb2.get(String.valueOf(imgSelecArrayEmpaques[i].getId()));
 
             String value=""; //string que contendra las posiciones de los defectos marcados para ese spinner ,
 
             for (int j = 0; j < currentList.size(); j++) {  //recorreemos la lista  ///
 
-                if(currentList.get(j)) {  //si esta marcado o es true lo agregamos al string
+                if(currentList.get(j).isIschekedDefecto()) {  //si esta marcado o es true lo agregamos al string
 
+                    //"ader"-"gdff",  //primero el posicion y despues el - numero de items..
 
                     if(value.equals("")){
-                        value=value+j;
 
-                    }else {
-                        value=value+","+j;
+                        value=value+j+"-"+currentList.get(j).getNumDefects();
 
                     }
+
+
+
+                    else {
+
+                        value=value+","+j+"-"+currentList.get(j).getNumDefects();
+
+
+                    }
+
+
 
                 }
                 //agregamos valors a esta lista
@@ -2414,42 +2441,37 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
     private boolean chekIfDefectosThisLineUserMarcoDefecto(String key){
-        ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb.get(key);
+        ArrayList <DefectsAndNumber> currentList = Utils.HashMapOfListWhitStatesCHeckb.get(key);
         for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
 
-            if(currentList.get(indice)){ //si es verdadero
+            if(currentList.get(indice).isIschekedDefecto()){ //si es verdadero
                 return true;
-
             }
-
         }
 
 
-
         return false;
-
 
     }
 
 
 
     private boolean chekIfDefectosThisLineUserMarcoDefectosEmpaque(String key){
-        ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb2.get(key);
+        ArrayList<DefectsAndNumber>currentList = Utils.HashMapOfListWhitStatesCHeckb2.get(key);
         for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
 
-            if(currentList.get(indice)){ //si es verdadero
+            if(currentList.get(indice).isIschekedDefecto()){ //si es verdadero
                 return true;
-
             }
-
         }
-
 
 
         return false;
 
-
     }
+
+
+
 
     private void generateUniqueIdInformeAndContinuesIfIdIsUnique( ControlCalidad controlCalidad){
 
@@ -2528,7 +2550,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
                 mEdiCompaniazz.getText().toString(),mEdiClientezz.getText().toString(),Integer.parseInt(mEdisemanazz.getText().toString()), mEdiFechazz.getText().toString(),mEdiMagapzz.getText().toString(),mEdiMarcaCajazz.getText().toString(),
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
-                String.valueOf(calidadTotal),mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
+                calidadFinally,mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
                 mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
 
@@ -2923,23 +2945,23 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 imvEmpaque6, imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10 } ;
 
 
-        arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
+        arrayDefect1 = getResources().getStringArray(R.array.array_defectos_frutax2);
         arrayDefect2 = getResources().getStringArray(R.array.array_defectos_empaque2);
 
 
         for (int i = 0; i <10; i++) {
 
-            ArrayList<Boolean> listItem = new ArrayList<>(); //serian unas dies listas...
+            ArrayList<DefectsAndNumber> listItem = new ArrayList<>(); //serian unas dies listas...
 
 
-            for (int j = 0; j < arrayDefect1.length; j++) {
+            for (int j = 0; j <arrayDefect1.length; j++) {
 
-                listItem.add(false);
+                listItem.add(new DefectsAndNumber(false,0));
                 //agregamos valors a esta lista
             }
 
 
-            HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
+            Utils.HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
 
         }
 
@@ -2947,22 +2969,22 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         for (int i = 0; i <10; i++) {
 
-            ArrayList<Boolean> listItem2 = new ArrayList<>(); //serian unas dies listas...
+            ArrayList<DefectsAndNumber> listItem2 = new ArrayList<>(); //serian unas dies listas...
 
-            for (int j = 0; j < arrayDefect2.length; j++) {
+            for (int j = 0; j <arrayDefect2.length; j++) {
 
-                listItem2.add(false);
+                listItem2.add(new DefectsAndNumber(false,0));
+
                 //agregamos valors a esta lista
             }
 
-            HashMapOfListWhitStatesCHeckb2.put(String.valueOf(arrayImgsSelect2[i].getId()),listItem2);
+            Utils.HashMapOfListWhitStatesCHeckb2.put(String.valueOf(arrayImgsSelect2[i].getId()),listItem2);
 
         }
 
 
 
     }
-
 
 
 
@@ -2978,10 +3000,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         //convertimos esto en un  array by (,)
         //el leng del for sera el lengt del array creado...
         //entoces iteramos en en for...  dame la posicion[i].set
-
-
-
-
 
     }
 
@@ -3285,21 +3303,25 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         TextView ararYTEXVIEWS[] ={txtTotal1,txtTotal2,txtTotal3,txtTotal4,txtTotal5,
                 txtTotal6,txtTotal7,txtTotal8,txtTotal9, txtTotal10} ;
 
-        int contadorCheked;
+        int contadorNumDefects;
         int contadorDefectsSelecion=0;
         int contadorDefectsEMPAQUE=0;
 
         for(int indice2=0; indice2<ararYTEXVIEWS.length; indice2++){  //lista de listas
-            contadorCheked=0;
+            contadorNumDefects=0;
 
-            if (HashMapOfListWhitStatesCHeckb.containsKey(String.valueOf(keysToAddData1[indice2]))) {
+            if (Utils.HashMapOfListWhitStatesCHeckb.containsKey(String.valueOf(keysToAddData1[indice2]))) {
 
-                ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb.get(String.valueOf(keysToAddData1[indice2]));
+                ArrayList<DefectsAndNumber>currentList = Utils.HashMapOfListWhitStatesCHeckb.get(String.valueOf(keysToAddData1[indice2]));
                 for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
 
-                    if(currentList.get(indice)){ //si es verdadero
-                        contadorCheked++;
-                        contadorDefectsSelecion++;
+                    if(currentList.get(indice).isIschekedDefecto()){ //si es verdadero
+
+                       // contadorNumDefects++;
+                        contadorNumDefects=contadorNumDefects+currentList.get(indice).getNumDefects();
+
+                        contadorDefectsSelecion=contadorDefectsSelecion+currentList.get(indice).getNumDefects();
+
 
                     }
 
@@ -3309,21 +3331,25 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
             //par hasmpa2
-            if (HashMapOfListWhitStatesCHeckb2.containsKey(String.valueOf(String.valueOf(keysToAddData2[indice2])))) {
+            if (Utils.HashMapOfListWhitStatesCHeckb2.containsKey(String.valueOf(String.valueOf(keysToAddData2[indice2])))) {
 
-                ArrayList<Boolean>currentList = HashMapOfListWhitStatesCHeckb2.get(String.valueOf(String.valueOf(keysToAddData2[indice2])));
+                ArrayList<DefectsAndNumber>currentList = Utils.HashMapOfListWhitStatesCHeckb2.get(String.valueOf(String.valueOf(keysToAddData2[indice2])));
                 for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
 
-                    if(currentList.get(indice)){ //si es verdadero
-                        contadorCheked++;
-                        contadorDefectsEMPAQUE++;
+                    if(currentList.get(indice).isIschekedDefecto()){ //si es verdadero
+                       // contadorNumDefects++;
+                        contadorNumDefects=contadorNumDefects+currentList.get(indice).getNumDefects();
+
+
+                        contadorDefectsEMPAQUE=contadorDefectsEMPAQUE+currentList.get(indice).getNumDefects();
+
                     }
 
                 }
 
             }
 
-            ararYTEXVIEWS[indice2].setText(String.valueOf(contadorCheked));
+            ararYTEXVIEWS[indice2].setText(String.valueOf(contadorNumDefects));
 
 
         }
@@ -3342,10 +3368,67 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdioCalidaCampzz.setText(df.format(calidadTotALX)+" %");
 
 
-
+        calidadFinally=calidadTotALX;
 
 
     }
+
+
+
+
+
+    private void showSheetNumDefectos(){
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityControlCalidad.this);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_sure_delete);
+
+
+        TextInputEditText ediNumDefecto=bottomSheetDialog.findViewById(R.id.ediNumDefecto);
+        Button btnContinuar=bottomSheetDialog.findViewById(R.id.btnContinuar);
+
+
+        btnContinuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(ediNumDefecto.getText().toString().trim().isEmpty()){ //si es empty
+                    ediNumDefecto.requestFocus();
+                    ediNumDefecto.setError("no puede estar vacio");
+
+                    return;
+
+                }
+
+
+
+
+                if(Integer.parseInt(ediNumDefecto.getText().toString())==0){
+                    ediNumDefecto.requestFocus();
+                    ediNumDefecto.setError("no puede ser cero");
+
+                    return;
+
+                }
+
+
+
+                //aqui mostramos el otro dialogo
+
+
+                bottomSheetDialog.dismiss();
+
+
+            }
+        });
+
+
+
+
+
+        bottomSheetDialog.show();
+
+    }
+
 
 
 }

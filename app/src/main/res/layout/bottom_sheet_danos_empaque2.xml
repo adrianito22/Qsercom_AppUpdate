@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="selecione o deselecione defectos"
+            android:textAllCaps="true" />
+
+        <ImageView
+            android:id="@+id/imgCloseSheet"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            android:src="@drawable/ic_baseline_close_24" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/checkBoxBu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="3dp"
+                android:text="BU" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="3dp"
+                android:text="SR" />
+
+
+            <CheckBox
+                android:id="@+id/checkBoxBr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="3dp"
+                android:text="BR" />
+
+            <CheckBox
+                android:id="@+id/checkBoxNi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="3dp"
+                android:text="NI" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/ediNUmDef1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/round_back_text"
+                android:gravity="center"
+                android:hint="NUM DEFECTOS"
+                android:inputType="number"
+                android:padding="7dp"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/ediNUmDef2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/round_back_text"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="NUM DEFECTOS"
+                android:inputType="number"
+                android:padding="7dp"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/ediNUmDef3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/round_back_text"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="NUM DEFECTOS"
+                android:inputType="number"
+                android:padding="7dp"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/ediNUmDef4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/round_back_text"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="NUM DEFECTOS"
+                android:inputType="number"
+                android:padding="7dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
