@@ -6,6 +6,12 @@ import java.util.Date;
 
 public class ContenedoresEnAcopio {
 
+    public String getClienteReporte() {
+        return clienteReporte;
+    }
+
+    private String clienteReporte;
+
 
     public ContenedoresEnAcopio(){
 
@@ -40,8 +46,8 @@ public class ContenedoresEnAcopio {
                                 String cableExportadora, String selloAdhesivoExportadora, String selloAdhesivoNaviera,
                                 String otrosSellos, String companiaTranportista, String nombredeChofer, String cedula,
                                 String celular, String placa, String marcaCabezal, String colorCabezal,
-
-                                 int cajasProcesadasDespachadas, String inspectorAcopio, int cedulaIdenti) {
+                                int cajasProcesadasDespachadas, String inspectorAcopio, int cedulaIdenti
+                                ,String clienteReporte) {
 
 
         this.uniqueIDinforme = uniqueIDinforme;
@@ -97,6 +103,7 @@ public class ContenedoresEnAcopio {
          this.cajasProcesadasDespachadas=cajasProcesadasDespachadas;
         this. inspectorAcopio=inspectorAcopio;
         this. cedulaIdenti=cedulaIdenti;
+        this.clienteReporte=clienteReporte;
 
 
         }

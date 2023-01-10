@@ -54,8 +54,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
     Button btnSaveCambios;
 
-
-
     long millisDateSelect;
     TextView hindeviewTxt;
 

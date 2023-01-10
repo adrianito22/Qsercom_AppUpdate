@@ -1865,7 +1865,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
     private void takepickNow() {
 
-       // Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, ActivityContenedores.this)
 
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
@@ -1874,34 +1873,17 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 takePickCamera();
 
                 Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
-
-
             }
 
             else
 
             {
-
-
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
                         CODE_TWO_PERMISIONS);
 
-
-
-             //   ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE,CODE_TWO_PERMISIONS}
-              //          );
-
-
                 Log.i("codereister","permiso DENEGADO SOLICTAMOS PERMISO") ;
 
-               // ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                     //   CODE_TWO_PERMISIONS);
-
             }
-
-
-
-
     }
 
         ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
@@ -1917,22 +1899,15 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedores.this.getContentResolver(),cam_uri);
 
-
-                               // Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
-
-
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
-                                showImagesPicShotOrSelectUpdateView(false);
-
-                                //creamos un nuevo objet de tipo ImagenReport
                                 ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri)),horientacionImg);
 
-                                //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
                                 Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
 
+                                showImagesPicShotOrSelectUpdateView(false);
 
                             }
 
@@ -2792,23 +2767,6 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         @Override
         public void onClick(View view) {
 
-            //esto de prueba...
-
-
-            /*
-            RealtimeDB.initDatabasesRootOnly();
-            
-            HashMap<String,Float>miMapLbriado=generateMapLibriadoIfExistAndUpload();
-            String keyWhereLocaleHashMapLibriado="NIVDhWUPYRDisdWZjtNkk";
-
-            if(miMapLbriado.size()>0){
-
-                keyWhereLocaleHashMapLibriado=RealtimeDB.rootDatabaseReference.push().getKey();
-
-                RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,keyWhereLocaleHashMapLibriado);
-
-            }
-*/
 
             checkDataFields();
 
@@ -2828,14 +2786,12 @@ void checkDataFields(){ //
 
 
 
-
-
-
     if(! checkDatosGeneralesIsLleno()){
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
         return;
     }
+
 
 
     else{
@@ -3303,8 +3259,6 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
                     Log.i("codereisterxcc","no se concedieron") ;
 
                 }
-
-
     }
 
     }

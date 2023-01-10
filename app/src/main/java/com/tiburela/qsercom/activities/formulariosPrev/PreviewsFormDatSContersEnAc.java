@@ -56,6 +56,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -82,7 +83,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
-public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener {
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -91,6 +92,9 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     int contadorIterador=0;
     boolean copiamosDatax;
     private int currentTypeImage=0;
+    private final int CODE_TWO_PERMISIONS = 12;
+    TextInputEditText ediClienteNombreReporte;
+
     ProgressBar progressBarFormulario;
     String keyNodeActualizar="";
     TextInputEditText ediFechaInicio;
@@ -265,6 +269,9 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
             //The key argument here must match that used in the other activity
         }
 
+
+        ImagenReport.hashMapImagesData=new HashMap<>();
+
         context = getApplicationContext();
 
 
@@ -288,7 +295,6 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         resultatachImages();
         listennersSpinners();
 
-        addOnTouchaMayoriaDeViews();
         eventCheckdata();
         //creaFotos();
 
@@ -382,13 +388,14 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
+                        String dateSelec=i2+"/"+i1+"/"+i;
 
                         if(idView==R.id.ediFechaInicio){
-                            ediFechaInicio.setText(daySemana+"/"+mes+"/"+year);
+                            ediFechaInicio.setText(dateSelec);
 
                         }else{
 
-                            fechDetermino.setText(daySemana+"/"+mes+"/"+year);
+                            fechDetermino.setText(dateSelec);
 
                         }
 
@@ -441,7 +448,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-
+        ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
          ediHoraInicio=findViewById(R.id.ediHoraInicio);
@@ -926,19 +933,30 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
     private void takepickNow() {
 
-        Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, PreviewsFormDatSContersEnAc.this);
+        // Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, ActivityContenedores.this)
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
-            values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
-             cam_uri = PreviewsFormDatSContersEnAc.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
+        ){
+            takePickCamera();
 
-            //startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE); // OLD WAY
-            startCamera.launch(cameraIntent);                // VERY NEW WAY
+            Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
+
+
+        }
+
+        else
+
+        {
+
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                    CODE_TWO_PERMISIONS);
+
+
+
+
 
 
         }
@@ -996,112 +1014,9 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-
-        if(motionEvent.getAction()==MotionEvent.ACTION_DOWN ){
-
-            //agregamos esta vista clickada a la lista
-
-            Log.i("casnasd","se llamo on touch ");
-
-            listViewsClickedUser.add(view);
-
-
-            Log.i("casnasd","el size de la lista es "+listViewsClickedUser.size());
-
-            if(listViewsClickedUser.size()>1) {
-                //obtenemos la lista anterior y verficamos si esta completada;
-                View vistFieldAnterior = getVistaAnteriorClick();
-                checkeamosSiFieldViewIScompleted(vistFieldAnterior);
-                //actualizamos
-
-
-            }
 
 
 
-        }
-        return false;
-    }
-
-
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void addOnTouchaMayoriaDeViews(){
-
-        ediHoraInicio.setOnTouchListener(this);
-        ediHoraTermino.setOnTouchListener(this);
-        ediNguiaRemision.setOnTouchListener(this);
-        ediNtargetaEmbarque.setOnTouchListener(this);
-        spinnerSelectZona.setOnTouchListener(this);
-
-//          imBatach.setOnTouchListener(this);
-
-     //   imBtakePic.setOnTouchListener(this);
-
-
-
-
-
-        ediHoraLLegadaContenedor.setOnTouchListener(this);
-        ediHoraSalidaContenedor.setOnTouchListener(this);
-        ediDestino.setOnTouchListener(this);
-
-        ediVapor.setOnTouchListener(this);
-    //HAST AQUI.setOnTouchListener(this);
-        ediTare.setOnTouchListener(this);
-        ediBooking.setOnTouchListener(this);
-        ediMaxGross.setOnTouchListener(this);
-
-        ediNumSerieFunda.setOnTouchListener(this);
-        stikVentolerExterna.setOnTouchListener(this);
-        ediCableRastreoLlegada.setOnTouchListener(this);
-
-        ediSelloPlasticoNaviera.setOnTouchListener(this);
-        ediOtroSellosLlegada.setOnTouchListener(this);
-
-        ediTermofrafo1.setOnTouchListener(this);
-
-        ediHoraEncendido1.setOnTouchListener(this);
-        ediUbicacion1.setOnTouchListener(this);
-        ediRuma1.setOnTouchListener(this);
-        ediTermofrafo2.setOnTouchListener(this);
-        ediHoraEncendido2.setOnTouchListener(this);
-        ediUbicacion2.setOnTouchListener(this);
-        ediRuma2.setOnTouchListener(this);
-
-
-        ediCandadoqsercon.setOnTouchListener(this);
-        ediSelloNaviera.setOnTouchListener(this);
-        ediCableNaviera.setOnTouchListener(this);
-
-        ediSelloPlastico.setOnTouchListener(this);
-        ediCandadoBotella.setOnTouchListener(this);
-        ediCableExportadora.setOnTouchListener(this);
-        ediSelloAdesivoexpor.setOnTouchListener(this);
-        esiSelloAdhNaviera.setOnTouchListener(this);
-
-
-
-        ediCompaniaTransporte.setOnTouchListener(this);
-        ediNombreChofer.setOnTouchListener(this);
-        ediCedula.setOnTouchListener(this);
-        ediCelular.setOnTouchListener(this);
-
-        ediPLaca.setOnTouchListener(this);
-        ediMarcaCabezal.setOnTouchListener(this);
-        ediColorCabezal.setOnTouchListener(this);
-
-
-
-
-
-
-
-
-    }
 
 
     private View getVistaAnteriorClick() { //el estado puede ser lleno o vacio isEstaLleno
@@ -1583,7 +1498,7 @@ void checkDataFields(){ //
     }
 
 
-    /*
+
 
     if(! checkSellosInstaladosIsLleno()){
         Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
@@ -1595,7 +1510,7 @@ void checkDataFields(){ //
 
 
     }
-*/
+
 
     if(! checkDatosTransportistaIsLleno()){
         Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
@@ -1947,9 +1862,8 @@ private void createObjcInformeAndUpload(){
             ,ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString()
             ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
             ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
-            Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString() )
-
-            );
+            Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString()),
+            ediClienteNombreReporte.getText().toString());
 
 
 
@@ -2156,39 +2070,29 @@ private void createObjcInformeAndUpload(){
 
 
 
+
+
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0) {
-
-                // after requesting permissions we are showing
-                // users a toast message of permission granted.
-
-               /*
-
-                boolean writeStorage = grantResults[0] == PackageManager.MANAGE;
-                boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-
-                if ( readStorage) {
-                    Toast.makeText(this, "Permission Granted..", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-
-                */
+        if (requestCode == CODE_TWO_PERMISIONS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Log.i("codereisterxcc","permisos concedidos") ;
+                takePickCamera();
 
             }
+
+            else{
+                Log.i("codereisterxcc","no se concedieron") ;
+
+            }
+
+
         }
+
     }
-
-
-
-
-
-
-
 
 
 
@@ -2271,6 +2175,15 @@ private void createObjcInformeAndUpload(){
 
         }
 
+
+        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediClienteNombreReporte.requestFocus();
+            ediClienteNombreReporte.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
 
 
 
@@ -2595,7 +2508,7 @@ return  true;
     private boolean checkSellosInstaladosIsLleno(){
 
         LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
-
+/*
 
         if(ediTermofrafo1.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediTermofrafo1.requestFocus();
@@ -2667,6 +2580,8 @@ return  true;
             return false;
 
         }
+
+ */
 
         if(ediCandadoqsercon.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCandadoqsercon.requestFocus();
@@ -3814,5 +3729,22 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     }
+
+    void takePickCamera() {
+
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
+
+        cam_uri = PreviewsFormDatSContersEnAc.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
+
+        //startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE); // OLD WAY
+        startCamera.launch(cameraIntent);                // VERY NEW WAY
+
+    }
+
 
 }

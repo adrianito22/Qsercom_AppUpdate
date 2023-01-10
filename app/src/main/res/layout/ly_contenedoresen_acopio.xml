@@ -86,8 +86,26 @@ android:textAllCaps="true" />
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                android:textAllCaps="true" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="NOMBRE CLIENTE REPORTE "
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ediClienteNombreReporte"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -174,14 +192,15 @@ android:textAllCaps="true" />
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Nº GUIA REMISION"
+            android:hint="Nº GUIA REMISION ( , )"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediNguiaRemision"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:digits="0123456789, "
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -190,14 +209,15 @@ android:textAllCaps="true" />
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Nº  TARJA DE EMBARQUE"
+            android:hint="Nº  TARJA DE EMBARQUE ( , )"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediNtargetaEmbarque"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:digits="0123456789, "
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -235,6 +255,7 @@ android:textAllCaps="true" />
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 

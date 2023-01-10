@@ -19,6 +19,12 @@ public class ReportCamionesyCarretas {
     private long fechaCreacionInf;
     private String  numcionContenedor;
 
+    public String getClienteReporte() {
+        return clienteReporte;
+    }
+
+    private String clienteReporte;
+
     public String getNodoQueContieneMapPesoBrutoCloster2y3l() {
         return nodoQueContieneMapPesoBrutoCloster2y3l;
     }
@@ -455,7 +461,8 @@ public class ReportCamionesyCarretas {
 
                                    int racimosCosechados, int racimosRechazados, int racimosProcesados, int cajasProcesadasDespachadas,
                                    String extensionistaEnCalidad, String extensionistaEnRodillo, String extensionistaEnGancho
-                                   , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc,String nodoQueContieneMapPesoBrutoCloster2y3l) {
+                                   , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc,String nodoQueContieneMapPesoBrutoCloster2y3l
+                                   ,String clienteReporte) {
 
         keyFirebase="";
         this.uniqueIDinforme=uniqueIDinforme;
@@ -505,11 +512,12 @@ public class ReportCamionesyCarretas {
         this.extensionistaEnCalidad=extensionistaEnCalidad;
         this.extensionistaEnRodillo=extensionistaEnRodillo;
         this.extensionistaEnGancho=extensionistaEnGancho;
-       this.calidadCi=calidadCi;
-       this.extRodilloCi=extRodilloCi;
+        this.calidadCi=calidadCi;
+        this.extRodilloCi=extRodilloCi;
         this.ganchoCi=ganchoCi;
         this.observacionOpc=observacionOpc;
-         this.nodoQueContieneMapPesoBrutoCloster2y3l=nodoQueContieneMapPesoBrutoCloster2y3l;
+        this.nodoQueContieneMapPesoBrutoCloster2y3l=nodoQueContieneMapPesoBrutoCloster2y3l;
+        this.clienteReporte=clienteReporte;
 
     }
 
