@@ -23,7 +23,7 @@ import com.tiburela.qsercom.utils.Utils;
 import java.util.ArrayList;
 
 public class BottonSheetSelecDanosEmpaque extends BottomSheetDialogFragment {
-    public static final String TAG = "ActionBottomDialog";
+    public static final String TAG = "ActionBottomDialogx";
     private View vista;
     static String curreyKeyIdView;
 

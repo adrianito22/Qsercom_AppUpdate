@@ -536,7 +536,7 @@ Log.i("hellosweer","se ehjecitp onstart");
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-                        String dateSelec=i2+"/"+i1+"/"+i;
+                        String dateSelec=i2+"/"+(i1+1)+"/"+i;
 
                         ediFecha.setText(dateSelec);
 

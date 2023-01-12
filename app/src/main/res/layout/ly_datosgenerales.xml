@@ -206,14 +206,14 @@ android:textAllCaps="true" />
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Nº GUIA REMISIÓN ( , )"
+            android:hint="Nº GUIA REMISIÓN ( - )"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediNguiaRemision"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="0123456789, "
+                android:digits="0123456789- "
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -222,14 +222,14 @@ android:textAllCaps="true" />
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Nº GUIA TRANSPORTE ( , )"
+            android:hint="Nº GUIA TRANSPORTE ( - )"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edi_nguia_transporte"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="0123456789, "
+                android:digits="0123456789- "
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -239,14 +239,14 @@ android:textAllCaps="true" />
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Nº  TARJA DE EMBARQUE ( , )"
+            android:hint="Nº  TARJA DE EMBARQUE ( - )"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediNtargetaEmbarque"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="0123456789, "
+                android:digits="0123456789- "
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 

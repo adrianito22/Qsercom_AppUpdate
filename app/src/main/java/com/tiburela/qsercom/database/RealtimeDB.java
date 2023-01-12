@@ -824,6 +824,8 @@ public class RealtimeDB {
     }
 
 
+
+
     public static void UploadCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal");

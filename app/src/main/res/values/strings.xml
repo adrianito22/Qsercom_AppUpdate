@@ -169,10 +169,7 @@
         <item>CT: CORTE DE CUCHILLO</item>
         <item>FL: FLORES</item>
         <item>SC: RASGUÑO </item>
-        <item>DP: NO ESPCFICIADO</item>
-        <item>LF: NO ESPCFICADO</item>
         <item>NI: CUELLO ROTO</item>
-        <item>MS: NO ESPECIFICADO </item>
         <item>RR: MANCHA ROJA </item>
         <item>SK: SPEKLING</item>
     </string-array>
@@ -219,10 +216,7 @@
         <item>CT</item>
         <item>FL</item>
         <item>SC </item>
-        <item>DP</item>
-        <item>LF</item>
         <item>NI</item>
-        <item>MS</item>
         <item>RR</item>
         <item>SK</item>
 

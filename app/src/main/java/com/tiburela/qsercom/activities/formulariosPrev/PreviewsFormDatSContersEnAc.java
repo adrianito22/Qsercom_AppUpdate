@@ -317,15 +317,25 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
 
+
+                        String AM_PM ;
+
+                        if(sHour < 12) {
+                            AM_PM = "am";
+                        } else {
+                            AM_PM = "pm";
+                        }
+
+
                         if(vista.getId()==R.id.ediHoraInicio) {
-                            ediHoraInicio.setText(sHour + ":" + sMinute);
+                            ediHoraInicio.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
 
 
                         else if (vista.getId()== R.id.ediHoraTermino) {
-                            ediHoraTermino.setText(sHour + ":" + sMinute);
+                            ediHoraTermino.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -333,7 +343,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
                         else if (vista.getId()== R.id.ediHoraLLegadaContenedor) {
-                            ediHoraLLegadaContenedor.setText(sHour + ":" + sMinute);
+                            ediHoraLLegadaContenedor.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -341,14 +351,14 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
                         else if (vista.getId()== R.id.ediHoraSalidaContenedor) {
-                            ediHoraSalidaContenedor.setText(sHour + ":" + sMinute);
+                            ediHoraSalidaContenedor.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
 
 
                         else if (vista.getId()== R.id.ediTipoEmp2) {
-                            ediHoraEncendido1.setText(sHour + ":" + sMinute);
+                            ediHoraEncendido1.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -356,7 +366,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
                         else if (vista.getId()== R.id.ediHoraEncendido2) {
-                            ediHoraEncendido2.setText(sHour + ":" + sMinute);
+                            ediHoraEncendido2.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
                         }
@@ -388,7 +398,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-                        String dateSelec=i2+"/"+i1+"/"+i;
+                        String dateSelec=i2+"/"+(i1+1)+"/"+i;
 
                         if(idView==R.id.ediFechaInicio){
                             ediFechaInicio.setText(dateSelec);

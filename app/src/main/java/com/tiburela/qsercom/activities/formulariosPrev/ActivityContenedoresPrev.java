@@ -396,49 +396,13 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         Utils.userDecidioNoVincularAhora = false;
 
-
         Variables.copiamosData = false;
 
         mContext = this;
 
-//        RecyclerViewAdapLinkage.idsFormsVinucladosCntres=Variables.CurrenReportPart1.getAtachControCalidadInfrms();
         Variables.activityCurrent = Variables.FormPreviewContenedores;
 
 
-        /*
-        findViewsIds();
-
-        context = getApplicationContext();
-
-
-        UNIQUE_ID_iNFORME= Variables.CurrenReportPart1.getUniqueIDinformePart2();
-
-
-      // FirebaseApp.initializeApp(this);
-      //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
-
-        Auth.initAuth(this);
-
-        StorageData. initStorageReference();
-
-
-        listViewsClickedUser=new ArrayList<>();
-
-
-        addClickListeners();
-        resultatachImages();
-        listennersSpinners();
-
-        EstateFieldView.adddataListsStateFields();
-        addOnTouchaMayoriaDeViews();
-        eventCheckdata();
-        //creaFotos();
-        listennersSpinners();
-        checkModeVisualitY();
-
-        configCertainSomeViewsAliniciar();
-
-*/
 
 
     }
@@ -451,7 +415,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
 
-        String amPm;
 
 
         // time picker dialog
@@ -472,7 +435,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                         }
 
                         if(minutes.equals("0")){
-
                             minutes="00";
                         }
 
@@ -529,7 +491,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-                        String dateSelec = i2 + "/" + i1 + "/" + i;
+                        String dateSelec = i2 + "/" + (i1+1) + "/" + i;
 
                         ediFecha.setText(dateSelec);
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

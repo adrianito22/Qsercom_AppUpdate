@@ -9,6 +9,13 @@ public class ControlCalidad {
 
     private String uniqueId;
 
+    public String getCustomDefectosNodeAtach() {
+        return customDefectosNodeAtach;
+    }
+
+    private String customDefectosNodeAtach;
+
+
     public boolean isEstaCheckeed() {
         return estaCheckeed;
     }
@@ -399,6 +406,8 @@ public class ControlCalidad {
         idDelInformePeretenece="";
         idInformesVinculadosContCald ="";
         estaCheckeed =false;
+
+        customDefectosNodeAtach="";
 
     }
 

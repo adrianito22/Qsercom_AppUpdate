@@ -96,6 +96,9 @@ import java.util.UUID;
 public class PdfMaker2_0 extends AppCompatActivity {
     int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
+
+
+
     ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
     HashMap <String, String> hasmapMapControlCalid;
 
@@ -908,6 +911,11 @@ if(hayFILE){
 
             bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
 
+
+
+
+
+
             imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
             imagen.setHeight(185f); //SI NO QUITAMOS 5
 
@@ -1116,46 +1124,6 @@ if(hayFILE){
 */
 
 
-    void dowloaDinformControlCalidAndGeneratePICsATATICITIS(String idReporActivityContenedores){
-        /*   DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
-
-        Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);*/
-      //  Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
-      //  Log.i("sliexsa","el size de lista here call es  "+allReportFiltB.size());
-
-        RealtimeDB.initDatabasesRootOnly();
-
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("idDelInformePeretenece").equalTo(idReporActivityContenedores);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ControlCalidad controlcalidad=null;
-
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                     controlcalidad=ds.getValue(ControlCalidad.class);
-
-
-                }
-
-                if(controlcalidad!=null){
-                    createChar(controlcalidad);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Log.i("sliexsa","el error es "+error.getMessage());
-
-            }
-        });
-
-
-    }
 
 
 
@@ -1166,8 +1134,7 @@ if(hayFILE){
         barChart.getXAxis().setDrawGridLines(false);  //ocultamos algunas lineas
 
         final String [] quarters=  getResources().getStringArray(R.array.array_defectos_frutax);
-        ///
-        // barChart.setBackground(getDrawable(R.drawable.bacgroundsercom));
+
 
         ValueFormatter formatter = new ValueFormatter() {
             @Override

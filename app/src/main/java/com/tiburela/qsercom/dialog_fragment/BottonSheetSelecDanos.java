@@ -55,20 +55,21 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
     private EditText ediNUmDef13;
     private CheckBox checkBsc;
     private EditText ediNUmDef14;
-    private CheckBox checkBdp;
-    private EditText ediNUmDef15;
-    private CheckBox checkBlf;
-    private EditText ediNUmDef16;
+    private EditText ediEspecifiName1;
+    private EditText ediEspecificNum1;
+    private EditText ediEspecifiName2;
+    private EditText ediEspecificNum2;
     private CheckBox checkBbNi;
     private EditText ediNUmDef17;
-    private CheckBox checkBms;
-    private EditText ediNUmDef18;
+    private EditText ediEspecifiName3;
+    private EditText ediEspecificNum3;
     private CheckBox checkBrr;
     private CheckBox checkBsk;
-    private EditText ediNUmDef19;
-    private EditText ediNUmDef20;
+    private EditText ediNUmDef16;
 
     private ImageView imgCloseSheet;
+
+    private EditText ediNUmDef15;
 
 
 
@@ -156,196 +157,336 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
 
     }
 
-void findViewsid(){
+    void findViewsid(){
+
+        ediNUmDef15=vista.findViewById(R.id.ediNUmDef15);
 
 
-    checkBsr = vista.findViewById(R.id.checkBsr);
-    ediNUmDef1 = vista.findViewById(R.id.ediNUmDef1);
-    checkBbr = vista.findViewById(R.id.checkBbr);
-    ediNUmDef2 = vista.findViewById(R.id.ediNUmDef2);
-    checkBls = vista.findViewById(R.id.checkBls);
-    ediNUmDef3 = vista.findViewById(R.id.ediNUmDef3);
-    checkBts = vista.findViewById(R.id.checkBts);
-    ediNUmDef4 = vista.findViewById(R.id.ediNUmDef4);
-    checkBog = vista.findViewById(R.id.checkBog);
-    ediNUmDef5 =vista. findViewById(R.id.ediNUmDef5);
-    checkBug = vista.findViewById(R.id.checkBug);
-    ediNUmDef6 = vista.findViewById(R.id.ediNUmDef6);
-    checkBab = vista.findViewById(R.id.checkBab);
-    ediNUmDef7 =vista. findViewById(R.id.ediNUmDef7);
-    checkBlg = vista.findViewById(R.id.checkBlg);
-    ediNUmDef8 =vista. findViewById(R.id.ediNUmDef8);
-    checkBwi = vista.findViewById(R.id.checkBwi);
-    ediNUmDef9 =vista. findViewById(R.id.ediNUmDef9);
-    checkBbm = vista.findViewById(R.id.checkBbm);
-    ediNUmDef10 =vista. findViewById(R.id.ediNUmDef10);
-    checkBsm = vista.findViewById(R.id.checkBsm);
-    ediNUmDef11 =vista. findViewById(R.id.ediNUmDef11);
-    checkBct = vista.findViewById(R.id.checkBct);
-    ediNUmDef12 =vista. findViewById(R.id.ediNUmDef12);
-    checkBfl = vista.findViewById(R.id.checkBfl);
-    ediNUmDef13 = vista.findViewById(R.id.ediNUmDef13);
-    checkBsc = vista.findViewById(R.id.checkBsc);
-    ediNUmDef14 = vista.findViewById(R.id.ediNUmDef14);
-    checkBdp = vista.findViewById(R.id.checkBdp);
-    ediNUmDef15 =vista. findViewById(R.id.ediNUmDef15);
-    checkBlf =vista. findViewById(R.id.checkBlf);
-    ediNUmDef16 =vista. findViewById(R.id.ediNUmDef16);
-    checkBbNi = vista.findViewById(R.id.checkBbNi);
-    ediNUmDef17 =vista. findViewById(R.id.ediNUmDef17);
-    checkBms = vista.findViewById(R.id.checkBmc);
-    ediNUmDef18 =vista. findViewById(R.id.ediNUmDef18);
-    checkBrr = vista.findViewById(R.id.checkBrr);
-    checkBsk =vista. findViewById(R.id.checkBsk);
-    ediNUmDef19 =vista. findViewById(R.id.ediNUmDef19);
-    ediNUmDef20=vista.findViewById(R.id.ediNUmDef20);
+        checkBsr = vista.findViewById(R.id.checkBsr);
+        ediNUmDef1 = vista.findViewById(R.id.ediNUmDef1);
+        checkBbr = vista.findViewById(R.id.checkBbr);
+        ediNUmDef2 = vista.findViewById(R.id.ediNUmDef2);
+        checkBls = vista.findViewById(R.id.checkBls);
+        ediNUmDef3 = vista.findViewById(R.id.ediNUmDef3);
+        checkBts = vista.findViewById(R.id.checkBts);
+        ediNUmDef4 = vista.findViewById(R.id.ediNUmDef4);
+        checkBog = vista.findViewById(R.id.checkBog);
+        ediNUmDef5 =vista. findViewById(R.id.ediNUmDef5);
+        checkBug = vista.findViewById(R.id.checkBug);
+        ediNUmDef6 = vista.findViewById(R.id.ediNUmDef6);
+        checkBab = vista.findViewById(R.id.checkBab);
+        ediNUmDef7 =vista. findViewById(R.id.ediNUmDef7);
+        checkBlg = vista.findViewById(R.id.checkBlg);
+        ediNUmDef8 =vista. findViewById(R.id.ediNUmDef8);
+        checkBwi = vista.findViewById(R.id.checkBwi);
+        ediNUmDef9 =vista. findViewById(R.id.ediNUmDef9);
+        checkBbm = vista.findViewById(R.id.checkBbm);
+        ediNUmDef10 =vista. findViewById(R.id.ediNUmDef10);
+        checkBsm = vista.findViewById(R.id.checkBsm);
+        ediNUmDef11 =vista. findViewById(R.id.ediNUmDef11);
+        checkBct = vista.findViewById(R.id.checkBct);
+        ediNUmDef12 =vista. findViewById(R.id.ediNUmDef12);
+        checkBfl = vista.findViewById(R.id.checkBfl);
+        ediNUmDef13 = vista.findViewById(R.id.ediNUmDef13);
+        checkBsc = vista.findViewById(R.id.checkBsc);
+        ediNUmDef14 = vista.findViewById(R.id.ediNUmDef14);
 
 
-    imgCloseSheet=vista.findViewById(R.id.imgCloseSheet);
-    imgCloseSheet.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+        ediEspecifiName1 = vista.findViewById(R.id.ediEspecifiName1);
+        ediEspecifiName2 =vista. findViewById(R.id.ediEspecifiName2);
+        ediEspecifiName3 = vista.findViewById(R.id.ediEspecifiName3);
 
-            savestateMap();
-
-
-        }
-    });
-
-}
+        ediEspecificNum1 =vista. findViewById(R.id.ediEspecificNum1);
+        ediEspecificNum2 =vista. findViewById(R.id.ediEspecificNum2);
+        ediEspecificNum3 =vista. findViewById(R.id.ediEspecificNum3);
 
 
 
-private void savestateMap(){
 
-    CheckBox [] checkBoxAll={
-    checkBsr , checkBbr , checkBls ,
-    checkBts , checkBog , checkBug ,
-    checkBab, checkBlg, checkBwi,
-    checkBbm, checkBsm, checkBct,
-    checkBfl, checkBsc, checkBdp,
-    checkBlf, checkBbNi, checkBms,
-    checkBrr, checkBsk
-    };
+        checkBbNi = vista.findViewById(R.id.checkBbNi);
+        ediNUmDef16 =vista. findViewById(R.id.ediNUmDef16);
+        ediNUmDef17 =vista. findViewById(R.id.ediNUmDef17);
 
 
+        checkBrr = vista.findViewById(R.id.checkBrr);
+        checkBsk =vista. findViewById(R.id.checkBsk);
 
-    EditText [] editextsAll={
-    ediNUmDef1, ediNUmDef2 , ediNUmDef3 ,
-    ediNUmDef4 , ediNUmDef5 , ediNUmDef6 ,
-    ediNUmDef7 , ediNUmDef8 ,
-    ediNUmDef9 , ediNUmDef10, ediNUmDef11,
-    ediNUmDef12, ediNUmDef13, ediNUmDef14,
-    ediNUmDef15 , ediNUmDef16 , ediNUmDef17 ,
-    ediNUmDef18 , ediNUmDef19 ,ediNUmDef20
+        imgCloseSheet=vista.findViewById(R.id.imgCloseSheet);
+        imgCloseSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
-
-    };
+                savestateMap();
 
 
-
-    for(int indice=0; indice<editextsAll.length; indice++){
-
-        //chekeamos que si el user dio check tambien alla selecionado el defecto
-
-        if(checkBoxAll[indice].isChecked() && editextsAll[indice].getText().toString().trim().isEmpty()){
-            editextsAll[indice].requestFocus();
-            editextsAll[indice].setError("ingrese un valor ");
-
-                  return;
-        }
-
-
-        if(!checkBoxAll[indice].isChecked() && !editextsAll[indice].getText().toString().trim().isEmpty()){
-            Toast.makeText(getActivity(), "selecione el defecto", Toast.LENGTH_LONG).show();
-                return;
-
-        }
-
-
-        if(!(editextsAll[indice].getText().toString().trim().isEmpty())){
-            Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).set(indice,new DefectsAndNumber(checkBoxAll[indice].isChecked(),
-                    Integer.parseInt(editextsAll[indice].getText().toString())));
-
-        }
-
-        //aqui elimiamos en caso que ya no este chekeed...pero antes si lo estaba
-        if(Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).get(indice).isIschekedDefecto() &&
-        !checkBoxAll[indice].isChecked()
-        ){ //entramos a la array list y chekeamos si esta chekeed
-
-
-            //eliminamos este estado en chekeed
-            Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).set(indice,new DefectsAndNumber(false,0));
-
-
-        }
-
-
+            }
+        });
 
     }
 
 
-    dismiss();
 
-}
+    private void savestateMap(){
 
+        View [] viewschekboxAndEdit={
+                ediEspecifiName1,ediEspecifiName2,
+                ediEspecifiName3,checkBbNi,   checkBsr,
+                checkBbr,checkBls,checkBts,
+                checkBog,checkBug,checkBab,checkBlg,
+                checkBwi,checkBbm,checkBsm,checkBct,
+                checkBfl,checkBsc,
+                checkBrr,checkBsk
 
-
-private void setStatesChekeedAndNumber() {
-
-    CheckBox[] checkBoxAll = {
-            checkBsr, checkBbr, checkBls,
-            checkBts, checkBog, checkBug,
-            checkBab, checkBlg, checkBwi,
-            checkBbm, checkBsm, checkBct,
-            checkBfl, checkBsc, checkBdp,
-            checkBlf, checkBbNi, checkBms,
-            checkBrr, checkBsk
-    };
-
-
-    EditText[] editextsAll = {
-            ediNUmDef1, ediNUmDef2, ediNUmDef3,
-            ediNUmDef4, ediNUmDef5, ediNUmDef6,
-            ediNUmDef7, ediNUmDef8,
-            ediNUmDef9, ediNUmDef10, ediNUmDef11,
-            ediNUmDef12, ediNUmDef13, ediNUmDef14,
-            ediNUmDef15, ediNUmDef16, ediNUmDef17,
-            ediNUmDef18, ediNUmDef19, ediNUmDef20
-
-
-    };
+        };
 
 
 
-
-    Log.i("somerlier","el ukey es "+curreyKeyIdView);
-
-    ArrayList<DefectsAndNumber>lis=Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView);
-
-    Log.i("somerlier","el size es  "+lis.size());
-
-    DefectsAndNumber [] statesArray =listToAarray(Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView));
-
-
+        EditText [] editextsAll={
+                ediEspecificNum1,ediEspecificNum2,
+                ediEspecificNum3, ediNUmDef1, ediNUmDef2 , ediNUmDef3 ,
+                ediNUmDef4 , ediNUmDef5 , ediNUmDef6 ,
+                ediNUmDef7 , ediNUmDef8 ,
+                ediNUmDef9 , ediNUmDef10, ediNUmDef11,
+                ediNUmDef12, ediNUmDef13, ediNUmDef14,
+                ediNUmDef15,ediNUmDef16,ediNUmDef17
 
 
 
-    for(int indice=0; indice<statesArray.length; indice++){
-        checkBoxAll[indice].setChecked(statesArray[indice].isIschekedDefecto());
+        };
+
+        if(!checkifCorrectAllCustomDefectos()){
+            return;
+        }
 
 
-        if(statesArray[indice].getNumDefects()>0){
-            editextsAll[indice].setText(String.valueOf(statesArray[indice].getNumDefects()));
+        for(int indice=0; indice<editextsAll.length; indice++){
+
+            //chekeamos que si el user dio check tambien alla selecionado el defecto
+            checkifCorrectAllCustomDefectos();
+
+            if(viewschekboxAndEdit[indice] instanceof CheckBox){
+
+                if(((CheckBox) viewschekboxAndEdit[indice]).isChecked()&& editextsAll[indice].getText().toString().trim().isEmpty()){
+                    editextsAll[indice].requestFocus();
+                    editextsAll[indice].setError("ingrese un valor ");
+
+                    return;
+                }
+
+
+
+                if(!((CheckBox) viewschekboxAndEdit[indice]).isChecked() && !editextsAll[indice].getText().toString().trim().isEmpty()){
+                    Toast.makeText(getActivity(), "selecione el defecto", Toast.LENGTH_LONG).show();
+                    return;
+
+                }
+
+
+            }
+
+
+
+
+            if(!(editextsAll[indice].getText().toString().trim().isEmpty())){
+
+
+                Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).set(indice,new DefectsAndNumber(true,
+                        Integer.parseInt(editextsAll[indice].getText().toString())));
+
+                Log.i("slerhhr","hay texto en editextsAll posicion  "+indice);
+
+
+            }
+
+
+
+
+
+
+
+            //aqui elimiamos en caso que ya no este chekeed...pero antes si lo estaba y ademas es un checkbox
+            if(Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).get(indice).isIschekedDefecto() &&
+                    (viewschekboxAndEdit[indice] instanceof CheckBox)){ //entramos a la array list y chekeamos si esta chekeed
+
+                  Log.i("slerhhr","es un checkbox en la posicion "+indice);
+
+                if(!((CheckBox)viewschekboxAndEdit[indice]).isChecked()){ //si ahora no esta en chekeed
+
+                    Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).set(indice,new DefectsAndNumber(false,0));
+
+
+                }
+
+
+            }
+
+
+
+            if(Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).get(indice).isIschekedDefecto() &&
+                    (viewschekboxAndEdit[indice] instanceof EditText)){ //si est selecionado y es editext
+
+
+                if(((EditText) viewschekboxAndEdit[indice]).getText().toString().trim().isEmpty()){ //si ahora no contiene texto en editext
+
+                    Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).set(indice,new DefectsAndNumber(false,0));
+
+
+                }else{ //si contiene texto
+
+                    DefectsAndNumber defecObjc= new DefectsAndNumber(true, Integer.parseInt(((EditText) editextsAll[indice]).getText().toString()));
+                    defecObjc.setDefectName(((EditText) viewschekboxAndEdit[indice]).getText().toString());
+
+                    Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView).set(indice,defecObjc);
+
+
+
+                }
+
+
+            }
+
+
 
         }
+
+
+
+        dismiss();
 
     }
 
 
-}
+    private boolean checkifCorrectAllCustomDefectos(){
+        if(!ediEspecifiName1.getText().toString().trim().isEmpty() &&  ediEspecificNum1.getText().toString().trim().isEmpty()){
+            //el primero esta lleno
+            ediEspecificNum1.requestFocus();
+            ediEspecificNum1.setError("Agrege una cantidad");
+
+            return false;
+        }
+
+        if(ediEspecifiName1.getText().toString().trim().isEmpty() &&  !ediEspecificNum1.getText().toString().trim().isEmpty()){
+            //el primero esta lleno
+            ediEspecifiName1.requestFocus();
+            ediEspecifiName1.setError("Agrege un Nombre");
+            return false;
+        }
+
+
+        if(!ediEspecifiName2.getText().toString().trim().isEmpty() &&  ediEspecificNum2.getText().toString().trim().isEmpty()){
+            //el primero esta lleno
+            ediEspecificNum2.requestFocus();
+            ediEspecificNum2.setError("Agrege una cantidad");
+            return false;
+
+        }
+
+
+
+        if(ediEspecifiName2.getText().toString().trim().isEmpty() &&  !ediEspecificNum2.getText().toString().trim().isEmpty()){
+            //el primero esta lleno
+            ediEspecifiName2.requestFocus();
+            ediEspecifiName2.setError("Agrege un Nombre");
+            return false;
+
+        }
+
+
+
+
+
+
+
+        if(!ediEspecifiName3.getText().toString().trim().isEmpty() &&  ediEspecificNum3.getText().toString().trim().isEmpty()){
+            //el primero esta lleno
+            ediEspecificNum3.requestFocus();
+            ediEspecificNum3.setError("Agrege una cantidad");
+            return false;
+
+        }
+
+        if(ediEspecifiName3.getText().toString().trim().isEmpty() &&  !ediEspecificNum3.getText().toString().trim().isEmpty()){
+            //el primero esta lleno
+            ediEspecifiName3.requestFocus();
+            ediEspecifiName3.setError("Agrege un Nombre");
+            return false;
+
+        }
+
+        return true;
+    }
+
+
+
+    private void setStatesChekeedAndNumber() {
+
+        View[] checkBoxAll = {
+                ediEspecifiName1,ediEspecifiName2,
+                ediEspecifiName3,
+                checkBbNi, checkBsr,
+                checkBbr,checkBls,checkBts,
+                checkBog,checkBug,checkBab,checkBlg,
+                checkBwi,checkBbm,checkBsm,checkBct,
+                checkBfl,checkBsc,
+                checkBrr,checkBsk
+
+        };
+
+
+        EditText[] editextsAll = {
+                ediEspecificNum1,ediEspecificNum2,
+                ediEspecificNum3, ediNUmDef1,
+                ediNUmDef2, ediNUmDef3,
+                ediNUmDef4, ediNUmDef5, ediNUmDef6,
+                ediNUmDef7, ediNUmDef8, ediNUmDef9,
+                ediNUmDef10, ediNUmDef11, ediNUmDef12,
+                ediNUmDef13, ediNUmDef14, ediNUmDef15,
+                ediNUmDef16, ediNUmDef17
+
+
+        };
+
+        Log.i("somerlier","el ukey es "+curreyKeyIdView);
+
+        ArrayList<DefectsAndNumber>lis=Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView);
+
+        Log.i("somerlier","el size es  "+lis.size());
+
+        DefectsAndNumber [] statesArray =listToAarray(lis);
+
+        Log.i("elsizelist","el size de arry generado  es   "+statesArray.length);
+
+        Log.i("elsizelist","el size de list es  es   "+lis.size());
+
+
+        for(int indice=0; indice<statesArray.length; indice++) {
+
+
+            if (checkBoxAll[indice] instanceof EditText) { //si es un editext
+
+                ((EditText) checkBoxAll[indice]).setText(statesArray[indice].getDefectName());
+
+
+                if(statesArray[indice].getNumDefects()>0) {  //SI ES MAYOR A CERO
+                    editextsAll[indice].setText(String.valueOf(statesArray[indice].getNumDefects()));
+
+                }
+
+            } else { //SI NO ES UN CHECBOX
+
+                ((CheckBox) checkBoxAll[indice]).setChecked(statesArray[indice].isIschekedDefecto());
+
+
+                   if(statesArray[indice].getNumDefects()>0) {  //SI ES MAYOR A CERO
+                       editextsAll[indice].setText(String.valueOf(statesArray[indice].getNumDefects()));
+
+                   }
+
+                }
+
+        }
+
+    }
 
     private DefectsAndNumber [] listToAarray(ArrayList<DefectsAndNumber> list){
 

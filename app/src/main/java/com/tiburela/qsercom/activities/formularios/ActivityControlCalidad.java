@@ -983,6 +983,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdioCalidaCampzz.setText(df.format(calidadTotal)+" %");
 
 
+
     }
 
 
@@ -1142,7 +1143,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
                 muestraaLLResults();
-                muestraResultado();
+                //muestraResultado();
+                showsumDfectsSelected();
                 // generatePercent(numeroClustersInspecc);
 
                 break;
@@ -1238,49 +1240,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-    void  generatePercent(int numeroClustersInspecc)  {
-
-        int porcetDefectFruta[] ={0,0,0,0,0,0,0,0,0,0,
-                0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-        int porcetDefectEmpq[] ={0,0,0,0,0,0,0};
-        int value =0;
-
-
-        for(ArrayList<DefectsAndNumber> listArray: Utils.HashMapOfListWhitStatesCHeckb.values()){
-            for(int indice2=0; indice2<listArray.size(); indice2++){  //lista de listas
-                if(listArray.get(indice2).isIschekedDefecto()) { //si es verdadero
-                    value =1;
-                }else{
-                    value =0;
-                }
-
-                porcetDefectFruta[indice2] =porcetDefectFruta[indice2]+value;
-
-            }
-        }
-
-        int indice=0;
-
-
-        Log.i("saludo","el numeroClustersInspecc es "+numeroClustersInspecc);
-
-        for(int valuex :porcetDefectFruta ) {
-
-            //ACTUALIZAMOS LOS RPOICENTAJES
-
-            int porcentajeThisValue =  valuex*100/numeroClustersInspecc;
-
-            porcetDefectFruta[indice]=porcentajeThisValue;
-
-            Log.i("saludo","el porcentaje es "+porcentajeThisValue);
-
-
-
-            indice++;
-
-        }
-    }
 
 
     void muestraaLLResults() {
@@ -1378,195 +1337,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     }
 
-
-/*
-    void showDialogx(DefectsAndNumber[] estatesCurrentListItem,String keyOFcURRENTiTEMOFhasmap) {
-
-        // Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityControlCalidad.this);
-
-        // set title
-        builder.setTitle("Seleccione Defectos");
-
-        // set dialog non cancelable
-        builder.setCancelable(false);
-
-        builder.setMultiChoiceItems(arrayDefect1, estatesCurrentListItem, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                // check condition
-                if (b) {
-                    //cuando selecione une ...obtenemos la poisicion..
-                    //j
-
-                    Utils.HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,5,true);
-
-                    // when checkbox selected
-                    // Add position  in lang list
-                    //  langList.add(i);
-                    // Sort array list
-                    //   Collections.sort(langList);
-                } else {  //CUANDO LO DESELECIONA
-                    // when checkbox unselected
-                    // Remove position from langList
-
-                    Utils.HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(i,false);
-
-                    //  langList.remove(Integer.valueOf(i));
-                }
-            }
-        });
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Initialize string builder
-                dialogInterface.dismiss();
-
-            }
-        });
-
-
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // dismiss dialog
-                dialogInterface.dismiss();
-            }
-        });
-
-
-        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // use for loop
-
-                //aqui necesitamos obtener el hasmapa
-
-                for (int j = 0; j < Utils.HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).size(); j++) {
-
-                    Utils.HashMapOfListWhitStatesCHeckb.get(keyOFcURRENTiTEMOFhasmap).set(j,false);
-
-
-                }
-
-
-
-
-            }
-        });
-        // show dialog
-        builder.show();
-
-
-
-    }
-
-*/
-
-
-    /*
-    void showDialogx2(boolean[] itemsChekeds,String keyCurrentListOFmap) {
-
-        // Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityControlCalidad.this);
-
-        // set title
-        builder.setTitle("Seleccione Defectos");
-
-        // set dialog non cancelable
-        builder.setCancelable(false);
-
-        builder.setMultiChoiceItems(arrayDefect2, itemsChekeds, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                // check condition
-                if (b) {
-                    //cuando selecione une ...obtenemos la poisicion..
-                    //
-
-                    Utils.HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,true);
-
-
-                    // when checkbox selected
-                    // Add position  in lang list
-                    //  langList.add(i);
-                    // Sort array list
-                    //   Collections.sort(langList);
-                } else {  //CUANDO LO DESELECIONA
-                    // when checkbox unselected
-                    // Remove position from langList
-
-                    Utils.HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(i,false);
-
-                    //  langList.remove(Integer.valueOf(i));
-                }
-            }
-        });
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Initialize string builder
-                dialogInterface.dismiss();
-
-            }
-        });
-
-
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // dismiss dialog
-                dialogInterface.dismiss();
-            }
-        });
-
-
-        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // use for loop
-
-                for (int j = 0; j < Utils.HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).size(); j++) {
-
-                    Utils.HashMapOfListWhitStatesCHeckb2.get(keyCurrentListOFmap).set(j,false);
-
-
-                }
-
-
-
-
-            }
-        });
-        // show dialog
-        builder.show();
-
-
-
-    }
-
-*/
-    private DefectsAndNumber [] listToAarray(ArrayList<DefectsAndNumber>list){
-
-        DefectsAndNumber array[]= new DefectsAndNumber[list.size()];
-
-
-        for(int indice=0; indice< list.size(); indice++){
-
-            array[indice]=list.get(indice);
-
-
-        }
-
-
-        return  array;
-
-
-    }
 
 
     void showingTimePicker( View vista){
@@ -1872,19 +1642,46 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         for (int i = 0; i<10; i++) {
 
             ArrayList<DefectsAndNumber> currentList =  Utils.HashMapOfListWhitStatesCHeckb.get(String.valueOf(imgSelecArray[i].getId()));
+
+
             String value="";
 
 
             for (int j = 0; j < currentList.size(); j++) {  //iteramos cada elemento del hasm,ap q es una lista
 
                 if(currentList.get(j).isIschekedDefecto()) {  //si es verdaqdfero ,lol agragmos
-                    Log.i("adirnir","encontro value ttr ");
-                    if(value.equals("")){//sii es el primer valor...
-                        value=value+j+"-"+currentList.get(j).getNumDefects(); //podemos mantenerlo asi..... 0-2,
-                    }else {
-                        value=value+","+j+"-"+currentList.get(j).getNumDefects();
+
+
+
+                    if(value.equals("")){  // 1-2-3   //si es el primer defecto
+
+                        if(!currentList.get(j).getDefectName().trim().isEmpty()){ // si existe un nombre
+                            value=value+j+"-"+currentList.get(j).getNumDefects()+"-"+currentList.get(j).getDefectName();
+
+                        }else{
+                            value=value+j+"-"+currentList.get(j).getNumDefects();
+
+                        }
+                    }
+
+                    else {
+
+                        if(!currentList.get(j).getDefectName().trim().isEmpty()){ // si existe un nombre
+
+                            value=value+","+j+"-"+currentList.get(j).getNumDefects()+"-"+currentList.get(j).getDefectName();
+
+
+
+                        }else{
+                            value=value+","+j+"-"+currentList.get(j).getNumDefects();
+
+                        }
+
 
                     }
+
+
+
                 }
             }
 
@@ -1943,17 +1740,31 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     //"ader"-"gdff",  //primero el posicion y despues el - numero de items..
 
-                    if(value.equals("")){
+                    if(value.equals("")){  // 1-2-3   //si es el primer defecto
 
-                        value=value+j+"-"+currentList.get(j).getNumDefects();
+                        if(!currentList.get(j).getDefectName().trim().isEmpty()){ // si existe un nombre
+                            value=value+j+"-"+currentList.get(j).getNumDefects()+"-"+currentList.get(j).getDefectName();
 
+                        }else{
+                            value=value+j+"-"+currentList.get(j).getNumDefects();
+
+                        }
                     }
 
 
 
                     else {
 
-                        value=value+","+j+"-"+currentList.get(j).getNumDefects();
+                        if(!currentList.get(j).getDefectName().trim().isEmpty()){ // si existe un nombre
+
+                            value=value+","+j+"-"+currentList.get(j).getNumDefects()+"-"+currentList.get(j).getDefectName();
+
+
+
+                        }else{
+                            value=value+","+j+"-"+currentList.get(j).getNumDefects();
+
+                        }
 
 
                     }
@@ -2005,7 +1816,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         }
 
-
+/*
         if(mEdiVaporzz.getText().toString().trim().isEmpty()){
             mEdiVaporzz.requestFocus() ;
             mEdiVaporzz.setError("Este espacio es necesario") ;
@@ -2013,6 +1824,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
             return false;
         }
+*/
 
         if(mEdiProductorzz.getText().toString().trim().isEmpty()){
             mEdiProductorzz.requestFocus() ;
@@ -2254,10 +2066,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 }
 
-                createMapInBYothersTextimpuEdFields();//debvug
-
-
+                muestraaLLResults();
                 showsumDfectsSelected();
+
+
+                if (Double.isNaN(calidadFinally)) {
+                    Log.i("misdatassd","el numero es nam");
+                    return;
+                }
+
+
 
 
                 if(!cheakIfInGeneralIsComplete()) {
@@ -2270,6 +2088,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     return;
 
                 }
+
+
 
                 if(ediPesoL1.getText().toString().trim().isEmpty()) {
                     ediPesoL1.requestFocus() ;
@@ -2294,23 +2114,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-
-
-
-
-
-
-
                 setResultNumClusteroManoProduct();
                 getlargoDedosPulgaPulpaApulpa();
                 getNumeroClusterxCajaProduct();
                 getCalibraEntreBasalYapiclProduct();
 
 
-
                 createMapInBYothersTextimpuEdFields();
-                createInfoToHashmapRechazaSelecToUpload(); // RECHZADOS Y PAQUETErRCHZADOS
-                createItemsSelectDefectsEmpqTOuPLOAD();
+                createInfoToHashmapRechazaSelecToUpload(); // RECHZADOS sleecion
+                createItemsSelectDefectsEmpqTOuPLOAD();   //rechzados empque
 
                 RealtimeDB.initDatabasesRootOnly();
                 String keyDondeEstaraHasmap=RealtimeDB.rootDatabaseReference.push().getKey();
@@ -2332,7 +2144,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 Toast.makeText(ActivityControlCalidad.this, "Guardado", Toast.LENGTH_SHORT).show();
 
-
+                Log.i("saasberr","bien llegamos a save y depsues finish activity");
 
                 finish();
 
@@ -2501,7 +2313,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 if(informRegister == null) { //quiere decir que no existe
 
-
                     informRegister= new InformRegister(currenTidGenrate,Constants.CONTROL_CALIDAD,
 
                             Variables.usuarioQsercomGlobal.getNombreUsuario(), //EEROR
@@ -2509,6 +2320,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                             , "CONTROL CALIDAD ");
 
 
+                    Log.i("misdatassd","la calidad es "+controlCalidad.getCalidaCamp());
 
 
                     /**AQUI SUBIMOS ESTOS FORMS*/
@@ -2516,9 +2328,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     RealtimeDB.UploadControlcalidadInform(controlCalidad);
                     RealtimeDB.addNewRegistroInforme(ActivityControlCalidad.this,informRegister);
 
-                    //aqui subimos..
+                }
 
-                }else {  //si exite creamos otro value...
+                else {
 
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(controlCalidad);
 
@@ -2954,12 +2766,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             ArrayList<DefectsAndNumber> listItem = new ArrayList<>(); //serian unas dies listas...
 
 
-            for (int j = 0; j <arrayDefect1.length; j++) {
+            for (int j = 0; j <arrayDefect1.length+3; j++) { //cada lista cpmetndra este numero de elementos
 
                 listItem.add(new DefectsAndNumber(false,0));
                 //agregamos valors a esta lista
             }
 
+
+
+            Log.i("elsizelist","el size de la lista es "+listItem.size());
 
             Utils.HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
 
@@ -2981,6 +2796,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             Utils.HashMapOfListWhitStatesCHeckb2.put(String.valueOf(arrayImgsSelect2[i].getId()),listItem2);
 
         }
+
+
+
+
 
 
 
@@ -3027,67 +2846,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     }
 
 
-    /*
-    private void addTOUCH(){
-
-
-        EditextSupreme [] arrayEditex = {
-
-                ediObservacioneszszz, mEdiVaporzz,mEdiProductorzz,mEdiCodigozz, mEdiZonazz,mEdiHaciendazz,mEdiExportadorazz,
-                mEdiCompaniazz,mEdiClientezz,mEdisemanazz, mEdiFechazz,mEdiMagapzz,mEdiMarcaCajazz,
-                mEdiTipoEmpazz,mEdiDestinzz,mEdiTotalCajaszz, mEdioCalidaCampzz,mEdiHoraInizz,mEdiHoraTermizz,
-                mEdiContenedorzz,mEdiSellosnavzz,mEdiSelloVerzz, mEdiTermografozz,mEdiPlacaCarrzz,mEdiPuertEmbzz,
-
-                ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
-                ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
-                ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
-                ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
-                ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
-                ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
-                ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
-                ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
-                ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNumPromedioDedsXcaja ,
-                edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
-                edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
-                edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
-                edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
-                edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-                edif2NdedoXclust28 , edif2NdedoXclust29 , edif2NdedoXclust30 , edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
-                edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
-                edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
-                edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
-                edif2NdedoXclustxC18 , edif2NdedoXclustTotalArriba , edif2NdedoXclustPromedio , ediNdedoXclustXc1, ediNdedoXclustXc2 ,
-                ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
-                , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
-                ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
-                ediNdedoXclustXcTotalAbajo , ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
-                ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediTotalFila1z ,
-                edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
-                edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , ediTotalFila2z , edif2Calib22 ,
-
-
-                mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
-                mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
-                mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
-                mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
-                mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
-                mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,} ;
-
-
-
-        for (int i = 0; i <arrayEditex.length; i++){
-
-            arrayEditex[i].setOnTouchListener(this);
-
-
-        }
-
-
-    }
-*/
-
     private void addPreferencesHashMap(){
 
         if(!sellamoFindViewIds){
@@ -3096,24 +2854,18 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
 
+
         HashMap<String, String> currentMapPreferences=new HashMap<>();
 
         EditextSupreme [] arrayTexImputEdit= creaArryOfEditextSupreme();
-
 
         for(EditextSupreme editextCurrent: arrayTexImputEdit){
             if(!editextCurrent.getText().toString().trim().isEmpty()){
 
                 currentMapPreferences.put(String.valueOf(editextCurrent.getId()),editextCurrent.getText().toString());
-
             }
 
-
         }
-
-
-
-
     }
 
 
@@ -3307,6 +3059,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         int contadorDefectsSelecion=0;
         int contadorDefectsEMPAQUE=0;
 
+
+
+        TextView txtTotalDefectSelect=findViewById(R.id.txtTotalDefectSelect);
+        TextView txtTotalDefectEmpaque=findViewById(R.id.txtTotalDefectEmpaque);
+        TextView txtTotalAllDefects=findViewById(R.id.txtTotalAllDefects);
+
+
         for(int indice2=0; indice2<ararYTEXVIEWS.length; indice2++){  //lista de listas
             contadorNumDefects=0;
 
@@ -3331,7 +3090,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
             //par hasmpa2
-            if (Utils.HashMapOfListWhitStatesCHeckb2.containsKey(String.valueOf(String.valueOf(keysToAddData2[indice2])))) {
+            if (Utils.HashMapOfListWhitStatesCHeckb2.containsKey(String.valueOf(keysToAddData2[indice2]))) {
 
                 ArrayList<DefectsAndNumber>currentList = Utils.HashMapOfListWhitStatesCHeckb2.get(String.valueOf(String.valueOf(keysToAddData2[indice2])));
                 for(int indice=0; indice<currentList.size(); indice++){  //recorremos la lista actual
@@ -3362,13 +3121,24 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         float resultRestDefects=numeroClustersInspecc-defectosTotal;
         float calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
 
+        Log.i("misdatassd","el defectos totall es "+defectosTotal);
+        Log.i("misdatassd","el result rest defectos es  "+resultRestDefects);
+        Log.i("misdatassd","el calidad totalx es   "+calidadTotALX);
 
 
         DecimalFormat df = new DecimalFormat("#.##");
         mEdioCalidaCampzz.setText(df.format(calidadTotALX)+" %");
 
 
+        txtTotalDefectSelect.setText(String.valueOf(contadorDefectsSelecion));
+        txtTotalDefectEmpaque.setText(String.valueOf(contadorDefectsEMPAQUE));
+        txtTotalAllDefects.setText(String.valueOf( contadorDefectsSelecion+contadorDefectsEMPAQUE ));
+
+
         calidadFinally=calidadTotALX;
+
+
+        Log.i("misdatassd","el calidad finallay here es  "+calidadFinally);
 
 
     }

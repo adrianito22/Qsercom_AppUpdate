@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -93,59 +94,65 @@
 
             <EditText
                 android:id="@+id/ediNUmDef1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/round_back_text"
-                android:gravity="center"
+                android:ems="10"
+                android:gravity="center_horizontal"
                 android:hint="NUM DEFECTOS"
                 android:inputType="number"
-                android:padding="7dp"
+                android:padding="9dp"
                 android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/ediNUmDef2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/round_back_text"
                 android:ems="10"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:hint="NUM DEFECTOS"
                 android:inputType="number"
-                android:padding="7dp"
+                android:padding="9dp"
                 android:textSize="14sp" />
 
 
             <EditText
                 android:id="@+id/ediNUmDef3"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/round_back_text"
                 android:ems="10"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:hint="NUM DEFECTOS"
                 android:inputType="number"
-                android:padding="7dp"
+                android:padding="9dp"
                 android:textSize="14sp" />
 
 
             <EditText
                 android:id="@+id/ediNUmDef4"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/round_back_text"
                 android:ems="10"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:hint="NUM DEFECTOS"
                 android:inputType="number"
-                android:padding="7dp"
+                android:padding="9dp"
                 android:textSize="14sp" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
 
 </LinearLayout>

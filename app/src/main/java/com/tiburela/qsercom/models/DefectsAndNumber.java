@@ -5,10 +5,33 @@ public class DefectsAndNumber {
     private int numDefects;
     private boolean ischekedDefecto;
 
+    public String getTagDefect() {
+        return tagDefect;
+    }
+
+    public void setTagDefect(String tagDefect) {
+        this.tagDefect = tagDefect;
+    }
+
+    private String tagDefect;
+
+
+    public String getDefectName() {
+        return defectName;
+    }
+
+    public void setDefectName(String defectName) {
+        this.defectName = defectName;
+    }
+
+    private String defectName;
+
 
     public DefectsAndNumber(boolean ischekedDefecto, int numDefects) {
         this.ischekedDefecto = ischekedDefecto;
         this.numDefects = numDefects;
+        defectName="";
+        tagDefect="";
     }
 
 

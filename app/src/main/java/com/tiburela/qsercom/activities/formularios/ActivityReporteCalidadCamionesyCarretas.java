@@ -388,15 +388,31 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
 
+
+                        String minutes=String.valueOf(sMinute);
+
+                        String AM_PM ;
+
+                        if(sHour < 12) {
+                            AM_PM = "AM";
+                        } else {
+                            AM_PM = "PM";
+                        }
+
+                        if(minutes.equals("0")){
+                            minutes="00";
+                        }
+
+
+
                         if(vista.getId()==R.id.ediHoraInicio) {
-                            ediHoraInicio.setText(sHour + ":" + sMinute);
 
-
+                            ediHoraInicio.setText(sHour + ":" + minutes+" "+ AM_PM);
                         }
 
 
                         else if (vista.getId()== R.id.ediHoraTermino) {
-                            ediHoraTermino.setText(sHour + ":" + sMinute);
+                            ediHoraTermino.setText(sHour + ":" + minutes+" "+ AM_PM);
 
 
                         }
@@ -404,22 +420,20 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
                         else if (vista.getId()== R.id.ediHoraLLegadaContenedor) {
-                            ediHoraLLegadaContenedor.setText(sHour + ":" + sMinute);
-
-
+                            ediHoraLLegadaContenedor.setText(sHour + ":" + minutes+" "+ AM_PM);
                         }
 
 
 
                         else if (vista.getId()== R.id.ediHoraSalidaContenedor) {
-                            ediHoraSalidaContenedor.setText(sHour + ":" + sMinute);
+                            ediHoraSalidaContenedor.setText(sHour + ":" + minutes+" "+ AM_PM);
 
 
                         }
 
 
                         else if (vista.getId()== R.id.ediTipoEmp2) {
-                            ediHoraEncendido1.setText(sHour + ":" + sMinute);
+                            ediHoraEncendido1.setText(sHour + ":" + minutes+" "+ AM_PM);
 
 
                         }
@@ -427,7 +441,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
                         else if (vista.getId()== R.id.ediHoraEncendido2) {
-                            ediHoraEncendido2.setText(sHour + ":" + sMinute);
+                            ediHoraEncendido2.setText(sHour + ":" + minutes+" "+ AM_PM);
 
 
                         }
@@ -459,7 +473,10 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-                        ediFecha.setText(daySemana+"/"+mes+"/"+year);
+                        String dateSelec=i2+"/"+(i1+1)+"/"+i;
+
+
+                        ediFecha.setText(dateSelec);
 
                     }
                 }, year,  mes, daySemana);

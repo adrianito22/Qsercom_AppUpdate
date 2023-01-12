@@ -1636,128 +1636,124 @@ if(contadorProductsPostCosecha>10){
 
 
     /**ESTO CREARA UN TABLE CADA VEZ QUE SE LLAMA**/
-    public static  Table createTableEvaluacionYcondcionFruta(ControlCalidad objecControlCald,HashMap <String, String> hashMapControlCald,HashMap <String, String> hashMapDefctChecked,Context contexto,int contador){
+    public static  Table createTableEvaluacionYcondcionFruta(ControlCalidad objecControlCald,HashMap <String, String> hashMapControlCald,HashMap <String, String> hashMapDefctChecked,Context contexto,int contador) {
         //aqui creamos la info con esta data.....
 
-        ArrayList<Double>listPh = new ArrayList<>();
-        ArrayList<DefectsCantdad>defectsSeleccionList= new ArrayList<>();
-        ArrayList<DefectsCantdad>defectsEmpaque= new ArrayList<>();
+        ArrayList<Double> listPh = new ArrayList<>();
+        ArrayList<DefectsCantdad> defectsSeleccionList = new ArrayList<>();
+        ArrayList<DefectsCantdad> defectsEmpaque = new ArrayList<>();
 
-      //  TableCalidProdc=new ArrayList<>();//le agergue
+        //  TableCalidProdc=new ArrayList<>();//le agergue
 
         //DATOS QUE NECESITAMOS OBTENERdoub
-        double PROMEDIO_PESO=0;
+        double PROMEDIO_PESO = 0;
 
         int NUMERO_DEFECTS;
-        String MAYOR_DEFECTO_SELECCION="NO";
-        String MAYOR_DEFECTO_EMPAQUE="NO";
-        int NUMERO_DE_CLUSTERS_iNSPECCIONADOS=0;
+        String MAYOR_DEFECTO_SELECCION = "NO";
+        String MAYOR_DEFECTO_EMPAQUE = "NO";
+        int NUMERO_DE_CLUSTERS_iNSPECCIONADOS = 0;
         int NUMERO_DE_CLUSTERS_POR_CAJA;
 
         int NUMERO_DE_DEDOS;
         double GRADO_CALIBRE_PROMEDIO;
         double LARGO_DEDOS_PROMEDIO;
-        final double PH_PROMEDIO=3;
+        final double PH_PROMEDIO = 3;
 
 
+        int[] keyDatPh = {R.id.ediPH1, R.id.ediPH2, R.id.ediPH3, R.id.ediPH4, R.id.ediPH5, R.id.ediPH6, R.id.ediPH7,
+                R.id.ediPH8, R.id.ediPH9, R.id.ediPH10};
+
+        int[] keyDatsPeso = {R.id.ediPesoL1, R.id.ediPesoL2, R.id.ediPesoL3, R.id.ediPesoL4, R.id.ediPesoL5, R.id.ediPesoL6, R.id.ediPesoL7,
+                R.id.ediPesoL8, R.id.ediPesoL9, R.id.ediPesoL10};
 
 
-        int  []keyDatPh  ={R.id.ediPH1,R.id.ediPH2,R.id.ediPH3,R.id.ediPH4,R.id.ediPH5,R.id.ediPH6,R.id.ediPH7,
-                R.id.ediPH8,R.id.ediPH9,R.id.ediPH10};
-
-        int  [] keyDatsPeso={R.id.ediPesoL1,R.id.ediPesoL2,R.id.ediPesoL3,R.id.ediPesoL4,R.id.ediPesoL5,R.id.ediPesoL6,R.id.ediPesoL7,
-                R.id.ediPesoL8,R.id.ediPesoL9,R.id.ediPesoL10};
+        int[] keyDatsNumClusters = {R.id.ediNumClusInsp1, R.id.ediNumClusInsp2, R.id.ediNumClusInsp3, R.id.ediNumClusInsp4,
+                R.id.ediNumClusInsp5, R.id.ediNumClusInsp6, R.id.ediNumClusInsp7, R.id.ediNumClusInsp8, R.id.ediNumClusInsp9, R.id.ediNumClusInsp10};
 
 
-        int  [] keyDatsNumClusters={R.id.ediNumClusInsp1,R.id.ediNumClusInsp2,R.id.ediNumClusInsp3,R.id.ediNumClusInsp4,
-                R.id.ediNumClusInsp5,R.id.ediNumClusInsp6,R.id.ediNumClusInsp7, R.id.ediNumClusInsp8,R.id.ediNumClusInsp9,R.id.ediNumClusInsp10};
+        int[] keyDatsNumDefectSelecion = {R.id.imgSelecDefc1, R.id.imgSelecDefc2, R.id.imgSelecDefc3, R.id.imgSelecDefc4,
+                R.id.imgSelecDefc5, R.id.imgSelecDefc6, R.id.imgSelecDefc7, R.id.imgSelecDefc8, R.id.imgSelecDefc9, R.id.imgSelecDefc10};
 
 
-        int  [] keyDatsNumDefectSelecion={R.id.imgSelecDefc1,R.id.imgSelecDefc2,R.id.imgSelecDefc3,R.id.imgSelecDefc4,
-                R.id.imgSelecDefc5,R.id.imgSelecDefc6,R.id.imgSelecDefc7, R.id.imgSelecDefc8,R.id.imgSelecDefc9,R.id.imgSelecDefc10};
+        int[] arrayWhitKeysDefectsEmmpaque = {R.id.imvEmpaque1, R.id.imvEmpaque2, R.id.imvEmpaque3, R.id.imvEmpaque4,
+                R.id.imvEmpaque5, R.id.imvEmpaque6, R.id.imvEmpaque7, R.id.imvEmpaque8, R.id.imvEmpaque9, R.id.imvEmpaque10};
 
 
+        int[] keyaRRAYnumClustXcajaLine1 = {R.id.edif2NdedoXclustxC1, R.id.edif2NdedoXclustxC2, R.id.edif2NdedoXclustxC3, R.id.edif2NdedoXclustxC4,
+                R.id.edif2NdedoXclustxC5, R.id.edif2NdedoXclustxC6, R.id.edif2NdedoXclustxC7, R.id.edif2NdedoXclustxC8, R.id.edif2NdedoXclustxC9, R.id.edif2NdedoXclustxC10
+                , R.id.edif2NdedoXclustxC11, R.id.edif2NdedoXclustxC12, R.id.edif2NdedoXclustxC13, R.id.edif2NdedoXclustxC14, R.id.edif2NdedoXclustxC15, R.id.edif2NdedoXclustxC16,
+                R.id.edif2NdedoXclustxC17, R.id.edif2NdedoXclustxC18};
 
-        int  [] arrayWhitKeysDefectsEmmpaque={R.id.imvEmpaque1,R.id.imvEmpaque2,R.id.imvEmpaque3,R.id.imvEmpaque4,
-                R.id.imvEmpaque5,R.id.imvEmpaque6,R.id.imvEmpaque7, R.id.imvEmpaque8,R.id.imvEmpaque9,R.id.imvEmpaque10};
-
-
-        int  [] keyaRRAYnumClustXcajaLine1={R.id.edif2NdedoXclustxC1,R.id.edif2NdedoXclustxC2,R.id.edif2NdedoXclustxC3,R.id.edif2NdedoXclustxC4,
-                R.id.edif2NdedoXclustxC5,R.id.edif2NdedoXclustxC6,R.id.edif2NdedoXclustxC7, R.id.edif2NdedoXclustxC8,R.id.edif2NdedoXclustxC9,R.id.edif2NdedoXclustxC10
-                ,R.id.edif2NdedoXclustxC11,R.id.edif2NdedoXclustxC12,R.id.edif2NdedoXclustxC13,R.id.edif2NdedoXclustxC14,R.id.edif2NdedoXclustxC15,R.id.edif2NdedoXclustxC16,
-                R.id.edif2NdedoXclustxC17,R.id.edif2NdedoXclustxC18};
-
-        int  [] keyaRRAYnumClustXcajaLine2={R.id.ediNdedoXclustXc1,R.id.ediNdedoXclustXc2,R.id.ediNdedoXclustXc3,R.id.ediNdedoXclustXc4,
-                R.id.ediNdedoXclustXc5,R.id.ediNdedoXclustXc6,R.id.ediNdedoXclustXc7, R.id.ediNdedoXclustXc8,R.id.ediNdedoXclustXc9,R.id.ediNdedoXclustXc10
-                ,R.id.ediNdedoXclustXc11,R.id.ediNdedoXclustXc12,R.id.ediNdedoXclustXc13,R.id.ediNdedoXclustXc14,R.id.ediNdedoXclustXc15,R.id.ediNdedoXclustXc16
-                ,R.id.ediNdedoXclustXc17,R.id.ediNdedoXclustXc18};
+        int[] keyaRRAYnumClustXcajaLine2 = {R.id.ediNdedoXclustXc1, R.id.ediNdedoXclustXc2, R.id.ediNdedoXclustXc3, R.id.ediNdedoXclustXc4,
+                R.id.ediNdedoXclustXc5, R.id.ediNdedoXclustXc6, R.id.ediNdedoXclustXc7, R.id.ediNdedoXclustXc8, R.id.ediNdedoXclustXc9, R.id.ediNdedoXclustXc10
+                , R.id.ediNdedoXclustXc11, R.id.ediNdedoXclustXc12, R.id.ediNdedoXclustXc13, R.id.ediNdedoXclustXc14, R.id.ediNdedoXclustXc15, R.id.ediNdedoXclustXc16
+                , R.id.ediNdedoXclustXc17, R.id.ediNdedoXclustXc18};
 
 
-        int  [] keyaRRAYnumnUMdedosFil1={R.id.ediNdedoXclust1,R.id.ediNdedoXclust2,R.id.ediNdedoXclust3,R.id.ediNdedoXclust4,
-                R.id.ediNdedoXclust5,R.id.ediNdedoXclust6,R.id.ediNdedoXclust7, R.id.ediNdedoXclust8,R.id.ediNdedoXclust9,R.id.ediNdedoXclust10
-                ,R.id.ediNdedoXclust11,R.id.ediNdedoXclust12,R.id.ediNdedoXclust13,R.id.ediNdedoXclust14,R.id.ediNdedoXclust15,R.id.ediNdedoXclust16,
-                R.id.ediNdedoXclust17,R.id.ediNdedoXclust18
-                ,R.id.ediNdedoXclust19,R.id.ediNdedoXclust20,R.id.ediNdedoXclust21,R.id.ediNdedoXclust22,R.id.ediNdedoXclust23,R.id.ediNdedoXclust24
-                ,R.id.ediNdedoXclust25,R.id.ediNdedoXclust26,R.id.ediNdedoXclust27,R.id.ediNdedoXclust28
+        int[] keyaRRAYnumnUMdedosFil1 = {R.id.ediNdedoXclust1, R.id.ediNdedoXclust2, R.id.ediNdedoXclust3, R.id.ediNdedoXclust4,
+                R.id.ediNdedoXclust5, R.id.ediNdedoXclust6, R.id.ediNdedoXclust7, R.id.ediNdedoXclust8, R.id.ediNdedoXclust9, R.id.ediNdedoXclust10
+                , R.id.ediNdedoXclust11, R.id.ediNdedoXclust12, R.id.ediNdedoXclust13, R.id.ediNdedoXclust14, R.id.ediNdedoXclust15, R.id.ediNdedoXclust16,
+                R.id.ediNdedoXclust17, R.id.ediNdedoXclust18
+                , R.id.ediNdedoXclust19, R.id.ediNdedoXclust20, R.id.ediNdedoXclust21, R.id.ediNdedoXclust22, R.id.ediNdedoXclust23, R.id.ediNdedoXclust24
+                , R.id.ediNdedoXclust25, R.id.ediNdedoXclust26, R.id.ediNdedoXclust27, R.id.ediNdedoXclust28
 
         };
 
 
-        int  [] keyaRRAYnumnUMdedosFil2={R.id.edif2NdedoXclust1,R.id.edif2NdedoXclust2,R.id.edif2NdedoXclust3,R.id.edif2NdedoXclust4,
-                R.id.edif2NdedoXclust5,R.id.edif2NdedoXclust6,R.id.edif2NdedoXclust7, R.id.edif2NdedoXclust8,R.id.edif2NdedoXclust9,R.id.edif2NdedoXclust10
-                ,R.id.edif2NdedoXclust11,R.id.edif2NdedoXclust12,R.id.edif2NdedoXclust13,R.id.edif2NdedoXclust14,R.id.edif2NdedoXclust15,R.id.edif2NdedoXclust16,
-                R.id.edif2NdedoXclust17,R.id.edif2NdedoXclust18
-                ,R.id.edif2NdedoXclust19,R.id.edif2NdedoXclust20,R.id.edif2NdedoXclust21,R.id.edif2NdedoXclust22,R.id.edif2NdedoXclust23
-                ,R.id.edif2NdedoXclust24,R.id.edif2NdedoXclust25,R.id.edif2NdedoXclust26,R.id.edif2NdedoXclust27,R.id.edif2NdedoXclust28
+        int[] keyaRRAYnumnUMdedosFil2 = {R.id.edif2NdedoXclust1, R.id.edif2NdedoXclust2, R.id.edif2NdedoXclust3, R.id.edif2NdedoXclust4,
+                R.id.edif2NdedoXclust5, R.id.edif2NdedoXclust6, R.id.edif2NdedoXclust7, R.id.edif2NdedoXclust8, R.id.edif2NdedoXclust9, R.id.edif2NdedoXclust10
+                , R.id.edif2NdedoXclust11, R.id.edif2NdedoXclust12, R.id.edif2NdedoXclust13, R.id.edif2NdedoXclust14, R.id.edif2NdedoXclust15, R.id.edif2NdedoXclust16,
+                R.id.edif2NdedoXclust17, R.id.edif2NdedoXclust18
+                , R.id.edif2NdedoXclust19, R.id.edif2NdedoXclust20, R.id.edif2NdedoXclust21, R.id.edif2NdedoXclust22, R.id.edif2NdedoXclust23
+                , R.id.edif2NdedoXclust24, R.id.edif2NdedoXclust25, R.id.edif2NdedoXclust26, R.id.edif2NdedoXclust27, R.id.edif2NdedoXclust28
         };
 
 
-        int  [] keyaRRAYcalibracionesFil1={R.id.ediCalByA1,R.id.ediCalByA2,R.id.ediCalByA3,R.id.ediCalByA4,
-                R.id.ediCalByA5,R.id.ediCalByA6,R.id.ediCalByA7, R.id.ediCalByA8,R.id.ediCalByA9,R.id.ediCalByA10
-                ,R.id.ediCalByA11,R.id.ediCalByA12,R.id.ediCalByA13,R.id.ediCalByA14,R.id.ediCalByA15,R.id.ediCalByA16,
-                R.id.ediCalByA17,R.id.ediCalByA18};
+        int[] keyaRRAYcalibracionesFil1 = {R.id.ediCalByA1, R.id.ediCalByA2, R.id.ediCalByA3, R.id.ediCalByA4,
+                R.id.ediCalByA5, R.id.ediCalByA6, R.id.ediCalByA7, R.id.ediCalByA8, R.id.ediCalByA9, R.id.ediCalByA10
+                , R.id.ediCalByA11, R.id.ediCalByA12, R.id.ediCalByA13, R.id.ediCalByA14, R.id.ediCalByA15, R.id.ediCalByA16,
+                R.id.ediCalByA17, R.id.ediCalByA18};
 
 
-        int  [] keyaRRAYcalibracionesFil2={R.id.edif2Calib1,R.id.edif2Calib2,R.id.edif2Calib3,R.id.edif2Calib4,
-                R.id.edif2Calib5,R.id.edif2Calib6,R.id.edif2Calib7, R.id.edif2Calib8,R.id.edif2Calib9,R.id.edif2Calib10
-                ,R.id.edif2Calib11,R.id.edif2Calib12,R.id.edif2Calib13,R.id.edif2Calib14,R.id.edif2Calib15,R.id.edif2Calib16,
-                R.id.edif2Calib17,R.id.edif2Calib18};
+        int[] keyaRRAYcalibracionesFil2 = {R.id.edif2Calib1, R.id.edif2Calib2, R.id.edif2Calib3, R.id.edif2Calib4,
+                R.id.edif2Calib5, R.id.edif2Calib6, R.id.edif2Calib7, R.id.edif2Calib8, R.id.edif2Calib9, R.id.edif2Calib10
+                , R.id.edif2Calib11, R.id.edif2Calib12, R.id.edif2Calib13, R.id.edif2Calib14, R.id.edif2Calib15, R.id.edif2Calib16,
+                R.id.edif2Calib17, R.id.edif2Calib18};
 
 
-        int  [] keyaRRAYlargoFil1={R.id.ediLargDeds1,R.id.ediLargDeds2,R.id.ediLargDeds3,R.id.ediLargDeds4,
-                R.id.ediLargDeds5,R.id.ediLargDeds6,R.id.ediLargDeds7, R.id.ediLargDeds8,R.id.ediLargDeds9,R.id.ediLargDeds10
-                ,R.id.ediLargDeds11,R.id.ediLargDeds12,R.id.ediLargDeds13,R.id.ediLargDeds14,R.id.ediLargDeds15,R.id.ediLargDeds16,
-                R.id.ediLargDeds17,R.id.ediLargDeds18,R.id.ediLargDeds19,R.id.ediLargDeds20,R.id.ediLargDeds21,R.id.ediLargDeds22
-                ,R.id.ediLargDeds23,R.id.ediLargDeds24,R.id.ediLargDeds25,R.id.ediLargDeds26,R.id.ediLargDeds27,R.id.ediLargDeds28
-                ,R.id.ediLargDeds29,R.id.ediLargDeds30};
+        int[] keyaRRAYlargoFil1 = {R.id.ediLargDeds1, R.id.ediLargDeds2, R.id.ediLargDeds3, R.id.ediLargDeds4,
+                R.id.ediLargDeds5, R.id.ediLargDeds6, R.id.ediLargDeds7, R.id.ediLargDeds8, R.id.ediLargDeds9, R.id.ediLargDeds10
+                , R.id.ediLargDeds11, R.id.ediLargDeds12, R.id.ediLargDeds13, R.id.ediLargDeds14, R.id.ediLargDeds15, R.id.ediLargDeds16,
+                R.id.ediLargDeds17, R.id.ediLargDeds18, R.id.ediLargDeds19, R.id.ediLargDeds20, R.id.ediLargDeds21, R.id.ediLargDeds22
+                , R.id.ediLargDeds23, R.id.ediLargDeds24, R.id.ediLargDeds25, R.id.ediLargDeds26, R.id.ediLargDeds27, R.id.ediLargDeds28
+                , R.id.ediLargDeds29, R.id.ediLargDeds30};
 
 
-        int  [] keyaRRAYlargoFil2={R.id.edif2LrgD1,R.id.edif2LrgD2,R.id.edif2LrgD3,R.id.edif2LrgD4,
-                R.id.edif2LrgD5,R.id.edif2LrgD6,R.id.edif2LrgD7, R.id.edif2LrgD8,R.id.edif2LrgD9,R.id.edif2LrgD10
-                ,R.id.edif2LrgD11,R.id.edif2LrgD12,R.id.edif2LrgD13,R.id.edif2LrgD14,R.id.edif2LrgD15,R.id.edif2LrgD16,
-                R.id.edif2LrgD17,R.id.edif2LrgD18 ,R.id.edif2LrgD19,R.id.edif2LrgD20,R.id.edif2LrgD21,R.id.edif2LrgD22
-                ,R.id.edif2LrgD23,R.id.edif2LrgD24,R.id.edif2LrgD25,R.id.edif2LrgD26,R.id.edif2LrgD27,R.id.edif2LrgD28
-                ,R.id.edif2LrgD29,R.id.edif2LrgD30};
-
+        int[] keyaRRAYlargoFil2 = {R.id.edif2LrgD1, R.id.edif2LrgD2, R.id.edif2LrgD3, R.id.edif2LrgD4,
+                R.id.edif2LrgD5, R.id.edif2LrgD6, R.id.edif2LrgD7, R.id.edif2LrgD8, R.id.edif2LrgD9, R.id.edif2LrgD10
+                , R.id.edif2LrgD11, R.id.edif2LrgD12, R.id.edif2LrgD13, R.id.edif2LrgD14, R.id.edif2LrgD15, R.id.edif2LrgD16,
+                R.id.edif2LrgD17, R.id.edif2LrgD18, R.id.edif2LrgD19, R.id.edif2LrgD20, R.id.edif2LrgD21, R.id.edif2LrgD22
+                , R.id.edif2LrgD23, R.id.edif2LrgD24, R.id.edif2LrgD25, R.id.edif2LrgD26, R.id.edif2LrgD27, R.id.edif2LrgD28
+                , R.id.edif2LrgD29, R.id.edif2LrgD30};
 
 
         int resultLine1;
         int resultLine2;
 
-        double resultLine1Double=0;
-        double resultLine2Double=0;
+        double resultLine1Double = 0;
+        double resultLine2Double = 0;
 
-        for(int i=0; i<keyaRRAYlargoFil1.length ;i++) {
+        for (int i = 0; i < keyaRRAYlargoFil1.length; i++) {
             //keyDatsPesoarray
             //itremoas
-            String keyCurrent1= String.valueOf(keyaRRAYlargoFil1[i])  ;
-            if(hashMapControlCald.containsKey(keyCurrent1)){
-                resultLine1Double=resultLine1Double +Double.parseDouble(hashMapControlCald.get(keyCurrent1));
+            String keyCurrent1 = String.valueOf(keyaRRAYlargoFil1[i]);
+            if (hashMapControlCald.containsKey(keyCurrent1)) {
+                resultLine1Double = resultLine1Double + Double.parseDouble(hashMapControlCald.get(keyCurrent1));
             }
 
-            String keyCurrent2= String.valueOf(keyaRRAYlargoFil2[i])  ;
-            if(hashMapControlCald.containsKey(keyCurrent2)){
-                resultLine2Double=resultLine2Double +Double.parseDouble(hashMapControlCald.get(keyCurrent2));
+            String keyCurrent2 = String.valueOf(keyaRRAYlargoFil2[i]);
+            if (hashMapControlCald.containsKey(keyCurrent2)) {
+                resultLine2Double = resultLine2Double + Double.parseDouble(hashMapControlCald.get(keyCurrent2));
 
             }
 
@@ -1765,24 +1761,24 @@ if(contadorProductsPostCosecha>10){
         }
 
         /**gheneramos numero de LARGO_DEDOS_PROMEDIO*/
-        LARGO_DEDOS_PROMEDIO=resultLine2Double/resultLine1Double;
+        LARGO_DEDOS_PROMEDIO = resultLine2Double / resultLine1Double;
 
-        Log.i("ELWEIGTH","EL LARGO_DEDOS_PROMEDIO  ES "+LARGO_DEDOS_PROMEDIO);
+        Log.i("ELWEIGTH", "EL LARGO_DEDOS_PROMEDIO  ES " + LARGO_DEDOS_PROMEDIO);
 
-         resultLine1Double=0;
-         resultLine2Double=0;
+        resultLine1Double = 0;
+        resultLine2Double = 0;
 
-        for(int i=0; i<keyaRRAYcalibracionesFil1.length ;i++) {
+        for (int i = 0; i < keyaRRAYcalibracionesFil1.length; i++) {
             //keyDatsPesoarray
             //itremoas
-            String keyCurrent1= String.valueOf(keyaRRAYcalibracionesFil1[i])  ;
-            if(hashMapControlCald.containsKey(keyCurrent1)){
-                resultLine1Double=resultLine1Double +Double.parseDouble(hashMapControlCald.get(keyCurrent1));
+            String keyCurrent1 = String.valueOf(keyaRRAYcalibracionesFil1[i]);
+            if (hashMapControlCald.containsKey(keyCurrent1)) {
+                resultLine1Double = resultLine1Double + Double.parseDouble(hashMapControlCald.get(keyCurrent1));
             }
 
-            String keyCurrent2= String.valueOf(keyaRRAYcalibracionesFil2[i])  ;
-            if(hashMapControlCald.containsKey(keyCurrent2)){
-                resultLine2Double=resultLine2Double +Double.parseDouble(hashMapControlCald.get(keyCurrent2));
+            String keyCurrent2 = String.valueOf(keyaRRAYcalibracionesFil2[i]);
+            if (hashMapControlCald.containsKey(keyCurrent2)) {
+                resultLine2Double = resultLine2Double + Double.parseDouble(hashMapControlCald.get(keyCurrent2));
 
             }
 
@@ -1790,30 +1786,25 @@ if(contadorProductsPostCosecha>10){
         }
 
         /**gheneramos numero de GRADO_CALIBRE_PROMEDIO*/
-        GRADO_CALIBRE_PROMEDIO=resultLine2Double/resultLine1Double;
+        GRADO_CALIBRE_PROMEDIO = resultLine2Double / resultLine1Double;
 
-        Log.i("ELWEIGTH","EL GRADO_CALIBRE_PROMEDIO  PROMEDIO ES "+GRADO_CALIBRE_PROMEDIO);
-
-
+        Log.i("ELWEIGTH", "EL GRADO_CALIBRE_PROMEDIO  PROMEDIO ES " + GRADO_CALIBRE_PROMEDIO);
 
 
+        resultLine1 = 0;
+        resultLine2 = 0;
 
-
-
-         resultLine1=0;
-         resultLine2=0;
-
-        for(int i=0; i<keyaRRAYnumnUMdedosFil1.length ;i++) {
+        for (int i = 0; i < keyaRRAYnumnUMdedosFil1.length; i++) {
             //keyDatsPesoarray
             //itremoas
-            String keyCurrent1= String.valueOf(keyaRRAYnumnUMdedosFil1[i])  ;
-            if(hashMapControlCald.containsKey(keyCurrent1)){
-                resultLine1=resultLine1 +Integer.parseInt(hashMapControlCald.get(keyCurrent1));
+            String keyCurrent1 = String.valueOf(keyaRRAYnumnUMdedosFil1[i]);
+            if (hashMapControlCald.containsKey(keyCurrent1)) {
+                resultLine1 = resultLine1 + Integer.parseInt(hashMapControlCald.get(keyCurrent1));
             }
 
-            String keyCurrent2= String.valueOf(keyaRRAYnumnUMdedosFil2[i])  ;
-            if(hashMapControlCald.containsKey(keyCurrent2)){
-                resultLine2=resultLine2 +Integer.parseInt(hashMapControlCald.get(keyCurrent2));
+            String keyCurrent2 = String.valueOf(keyaRRAYnumnUMdedosFil2[i]);
+            if (hashMapControlCald.containsKey(keyCurrent2)) {
+                resultLine2 = resultLine2 + Integer.parseInt(hashMapControlCald.get(keyCurrent2));
 
             }
 
@@ -1821,27 +1812,25 @@ if(contadorProductsPostCosecha>10){
         }
 
         /**gheneramos numero de NUMERO_DE_DEDOS*/
-        NUMERO_DE_DEDOS=resultLine2/resultLine1;
+        NUMERO_DE_DEDOS = resultLine2 / resultLine1;
 
-        Log.i("ELWEIGTH","EL NUMERO_DE_DEDOS  PROMEDIO ES "+NUMERO_DE_DEDOS);
-
-
+        Log.i("ELWEIGTH", "EL NUMERO_DE_DEDOS  PROMEDIO ES " + NUMERO_DE_DEDOS);
 
 
-        resultLine1=0;
-         resultLine2=0;
+        resultLine1 = 0;
+        resultLine2 = 0;
 
-        for(int i=0; i<keyaRRAYnumClustXcajaLine1.length ;i++) {
+        for (int i = 0; i < keyaRRAYnumClustXcajaLine1.length; i++) {
             //keyDatsPesoarray
             //itremoas
-            String keyCurrent1= String.valueOf(keyaRRAYnumClustXcajaLine1[i])  ;
-            if(hashMapControlCald.containsKey(keyCurrent1)){
-                resultLine1=resultLine1 +Integer.parseInt(hashMapControlCald.get(keyCurrent1));
+            String keyCurrent1 = String.valueOf(keyaRRAYnumClustXcajaLine1[i]);
+            if (hashMapControlCald.containsKey(keyCurrent1)) {
+                resultLine1 = resultLine1 + Integer.parseInt(hashMapControlCald.get(keyCurrent1));
             }
 
-            String keyCurrent2= String.valueOf(keyaRRAYnumClustXcajaLine2[i])  ;
-            if(hashMapControlCald.containsKey(keyCurrent2)){
-                resultLine2=resultLine2 +Integer.parseInt(hashMapControlCald.get(keyCurrent2));
+            String keyCurrent2 = String.valueOf(keyaRRAYnumClustXcajaLine2[i]);
+            if (hashMapControlCald.containsKey(keyCurrent2)) {
+                resultLine2 = resultLine2 + Integer.parseInt(hashMapControlCald.get(keyCurrent2));
 
             }
 
@@ -1849,42 +1838,39 @@ if(contadorProductsPostCosecha>10){
         }
 
         /**gheneramos numero de CLUSTERS*/
-        NUMERO_DE_CLUSTERS_POR_CAJA=resultLine2/resultLine1;
+        NUMERO_DE_CLUSTERS_POR_CAJA = resultLine2 / resultLine1;
 
-        Log.i("ELWEIGTH","EN NUMERO_DE_CLUSTERS_POR_CAJA  PROMEDIO ES "+NUMERO_DE_CLUSTERS_POR_CAJA);
-
+        Log.i("ELWEIGTH", "EN NUMERO_DE_CLUSTERS_POR_CAJA  PROMEDIO ES " + NUMERO_DE_CLUSTERS_POR_CAJA);
 
 
         ///            listTOrETURN1.add(new NameAndValue("DESTINO",Object1.getDestinoContenedor()));
 
-       /**GENERAMNOS PROMOEDIO PESO*/
-           int numeroItemsEcontrados =0;
+        /**GENERAMNOS PROMOEDIO PESO*/
+        int numeroItemsEcontrados = 0;
 
-        for(int i=0; i<keyDatsPeso.length ;i++) {
-              //keyDatsPesoarray
-              //itremoas
-              String keyCurrent= String.valueOf(keyDatsPeso[i])  ;
+        for (int i = 0; i < keyDatsPeso.length; i++) {
+            //keyDatsPesoarray
+            //itremoas
+            String keyCurrent = String.valueOf(keyDatsPeso[i]);
 
-              if(hashMapControlCald.containsKey(keyCurrent)){
+            if (hashMapControlCald.containsKey(keyCurrent)) {
 
-                  PROMEDIO_PESO=PROMEDIO_PESO + Double.parseDouble(hashMapControlCald.get(keyCurrent));
-                  numeroItemsEcontrados++;
+                PROMEDIO_PESO = PROMEDIO_PESO + Double.parseDouble(hashMapControlCald.get(keyCurrent));
+                numeroItemsEcontrados++;
 
-              }
+            }
 
-          }
+        }
         //tenemos que redondiar el peso lñibras
-        PROMEDIO_PESO =  PROMEDIO_PESO/numeroItemsEcontrados;
+        PROMEDIO_PESO = PROMEDIO_PESO / numeroItemsEcontrados;
 
-        Log.i("ELWEIGTH","EN PESO PROMEDIO ES "+PROMEDIO_PESO);
-
-
+        Log.i("ELWEIGTH", "EN PESO PROMEDIO ES " + PROMEDIO_PESO);
 
 
         //agregamos el peso libras
-       // dataTotable.add(new NameAndValue( "PROMEDIO PESO",pesoLibrastext));
-       // Log.i("ELWEIGTH","EL PESO PROMEDIO  ES "+pesoLibrastext);
-            /**PH_PROMEDIO*/
+        // dataTotable.add(new NameAndValue( "PROMEDIO PESO",pesoLibrastext));
+        // Log.i("ELWEIGTH","EL PESO PROMEDIO  ES "+pesoLibrastext);
+        /**PH_PROMEDIO*/
         /**PH PROMEDIO */  //SI NO TIENE PH AGREGAMOS 0
 
 
@@ -1902,14 +1888,48 @@ if(contadorProductsPostCosecha>10){
 
         */
 
-      //  PH_PROMEDIO =  PH_PROMEDIO/numeroItemsEcontrados;
-        Log.i("ELWEIGTH","EN PH  PROMEDIO ES "+PH_PROMEDIO);
+        //  PH_PROMEDIO =  PH_PROMEDIO/numeroItemsEcontrados;
+        Log.i("ELWEIGTH", "EN PH  PROMEDIO ES " + PH_PROMEDIO);
 
-       // PROMEDIO_PESO=PROMEDIO_PESO + Double.parseDouble(hashMapControlCald.get(keyCurrent));
+        // PROMEDIO_PESO=PROMEDIO_PESO + Double.parseDouble(hashMapControlCald.get(keyCurrent));
 
 
         /**DEFECTOS SELECION*/
-          String  [] arrayuDefectsSeleccNames =contexto.getResources().getStringArray(R.array.array_defectos_frutax2);
+        String[] arrayuDefectsSeleccNames = contexto.getResources().getStringArray(R.array.array_defectos_frutax2);
+
+        ArrayList<String> defectosNamesSelecion = new ArrayList<>();
+
+        ///a esta le agregamos los defectos custom si existen...
+
+        //buscamos los defectos custom
+
+
+        int indice = 0;
+        for (String valuex : hashMapDefctChecked.values()) { //el custom defecto contiene hasta 3 lugares..
+
+            Log.i("misdata", "la data es " + valuex);
+
+            if (valuex.contains(",")) { //si contiene una comma
+                String[] posicionesEditarArray = valuex.split(","); //  1-4, 5-2, 5-8,9-9
+                String[] arrayIndiceAndNum = posicionesEditarArray[indice].split("-");
+
+                if (arrayIndiceAndNum.length == 3) {
+                    defectosNamesSelecion.add(arrayIndiceAndNum[2]);
+                    //es un custom
+                }
+
+
+            }
+
+
+            indice++;
+
+
+            //copiamos los defectos
+            defectosNamesSelecion.addAll(Arrays.asList(arrayuDefectsSeleccNames));
+
+        }
+
 
 
         for(int i=0; i<keyDatsNumDefectSelecion.length ;i++) {
@@ -1919,19 +1939,38 @@ if(contadorProductsPostCosecha>10){
             if(hashMapDefctChecked.containsKey(keyCurrent)){
 
                 String value =hashMapDefctChecked.get(keyCurrent);
-                //cremoas un array con el valor de ese string..
-                String [] posicionDefectoEncontrados=value.split(",");
 
-                for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
-                       // String [] posicionAndNUmDefects=
-                                String   [] arrayIndiceAndNum =posicionDefectoEncontrados[indice2].split("-");
+
+                if(value.contains(",")){
+
+                    String [] posicionDefectoEncontrados=value.split(",");
+
+                    for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
+
+                        String   [] arrayIndiceAndNum =posicionDefectoEncontrados[indice2].split("-");
+
+                        int posicionDefecto=Integer.parseInt(arrayIndiceAndNum[0]);
+                        //posicion 0 yPosicion 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
+                        defectsSeleccionList.add(new DefectsCantdad(Integer.parseInt(arrayIndiceAndNum[1]),defectosNamesSelecion.get(posicionDefecto)));
+
+
+                    }
+
+                }else{
+                    String   [] arrayIndiceAndNum =value.split("-");
 
                     int posicionDefecto=Integer.parseInt(arrayIndiceAndNum[0]);
-                         //posicion 0 yPosicion 1 example//en caos qu queramos la fila podemos usar el nuemro defe4ctos por ahora esta en 0
-                    defectsSeleccionList.add(new DefectsCantdad(Integer.parseInt(arrayIndiceAndNum[1]),arrayuDefectsSeleccNames[posicionDefecto]));
 
 
-                        }
+                    defectsSeleccionList.add(new DefectsCantdad(Integer.parseInt(arrayIndiceAndNum[1]),defectosNamesSelecion.get(posicionDefecto)));
+
+
+
+                }
+
+
+                //cremoas un array con el valor de ese string..
+
             }
 
         }
@@ -1947,6 +1986,8 @@ if(contadorProductsPostCosecha>10){
 
 
         /**DEFECTOS EMPAQUE*/
+
+
 
         String   [] arrayuDefectSeMPAQUENames =contexto.getResources().getStringArray(R.array.array_defectos_empaque2);
 
@@ -2069,12 +2110,10 @@ if(contadorProductsPostCosecha>10){
 
 
 
-
-
         /**numero de CLUSTERS INSPECCIONADOS */
-        for(int indice =0; indice <keyDatsNumClusters.length; indice++){
+        for(int indicex =0; indicex <keyDatsNumClusters.length; indicex++){
 
-            String keyValue = String.valueOf(keyDatsNumClusters[indice]);
+            String keyValue = String.valueOf(keyDatsNumClusters[indicex]);
 
             if(hashMapControlCald.containsKey(keyValue)) {
                 NUMERO_DE_CLUSTERS_iNSPECCIONADOS=NUMERO_DE_CLUSTERS_iNSPECCIONADOS+Integer.parseInt(hashMapControlCald.get(keyValue));
@@ -2569,12 +2608,40 @@ if(contadorProductsPostCosecha>10){
         final String [] arrayAllDefects = context. getResources().getStringArray(R.array.array_defectos_all);
 
 
+        ArrayList<String>defectosNamesSelecion= new ArrayList<>();
+
+        ///a esta le agregamos los defectos custom si existen...
+
+        //buscamos los defectos custom
+
+        ArrayList<DefectsCantdad>currentArraylistx=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
+
+        for(DefectsCantdad objec: currentArraylistx){ //el custom defecto contiene hasta 3 lugares..
+            if(objec.getNombreDefect().trim().isEmpty() && objec.getNumeroDefectos()>0){
+                defectosNamesSelecion.add(objec.getNombreDefect());
+                //es un custom
+            }
+
+
+        }
+
+
+        //copiamos los defectos
+        defectosNamesSelecion.addAll(Arrays.asList(arrayAllDefects));
+
+
+
+
+        ///array all defectos tiene que tener este defecto
+
+
+
         /**si tiene empty le agragamos pensar si podemos agregarle commas mejor es mas rapido*/
-        for(int indice=0; indice<arrayAllDefects.length; indice++){
+        for(int indice=0; indice<defectosNamesSelecion.size(); indice++){
 
 
-           if(arrayAllDefects[indice].equalsIgnoreCase("empty")){
-               arrayAllDefects[indice]=" ";
+           if(defectosNamesSelecion.get(indice).equalsIgnoreCase("empty")){
+               defectosNamesSelecion.set(indice,"");
 
            }
 
@@ -2582,19 +2649,10 @@ if(contadorProductsPostCosecha>10){
         }
 
 
-
-        ///
-        // barChart.setBackground(getDrawable(R.drawable.bacgroundsercom));
-
-
-      //  MyValueFormatter formater2= new MyValueFormatter();
-        //formater2.getAxisLabel();
-
-
         ValueFormatter formatter = new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
-                return arrayAllDefects[(int) value];
+                return defectosNamesSelecion.get((int) value);
             }
         };
 
@@ -2606,13 +2664,17 @@ if(contadorProductsPostCosecha>10){
         String defectOfItemHasmap="";
 
 int contadorAlldefectos=0;
-        for(int indice=0; indice<arrayAllDefects.length-6; indice++){ //buscamos cada unos de los defectos
+        for(int indice=0; indice<defectosNamesSelecion.size()-6; indice++){ //buscamos cada unos de los defectos
                  contadorCurrrentDefect=0;
-                 String defectoActualToSearch=arrayAllDefects[indice];
+
+
+                 String defectoActualToSearch=defectosNamesSelecion.get(indice);
 
             ArrayList<DefectsCantdad>currentArraylist=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
 
              contadorAlldefectos=cuentaDeFECTOS(currentArraylist,defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador)));
+
+
             Log.i("sukerber","el contador defectos encontradoff es "+contadorAlldefectos);
 
 
@@ -2670,17 +2732,13 @@ int contadorAlldefectos=0;
 
 
 
-
-
                /**si no funciona vamos cone indice -2 ,eso deberia crear un espacio defectos empaque */
-        for(int indice=20; indice<arrayAllDefects.length; indice++){
+        for(int indice=20; indice<defectosNamesSelecion.size(); indice++){
             contadorCurrrentDefect=0;
-            String defectoActualToSearch=arrayAllDefects[indice];
+            String defectoActualToSearch=defectosNamesSelecion.get(indice);
 
 
             ArrayList<DefectsCantdad>currentArraylist=defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador));
-
-
 
 
             for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){
@@ -2740,7 +2798,7 @@ int contadorAlldefectos=0;
 
 
         Log.i("entriesd","el size de entries es "+barEntries.size());
-        Log.i("entriesd","el size array es  "+arrayAllDefects.length);
+        Log.i("entriesd","el size array es  "+defectosNamesSelecion.size());
 
         Log.i("salerod","con contador defecto encontrado es "+ contadorCurrrentDefect);
 

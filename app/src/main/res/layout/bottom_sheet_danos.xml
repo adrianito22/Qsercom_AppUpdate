@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+
             <androidx.gridlayout.widget.GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,13 +53,92 @@
                 android:layout_marginRight="10dp"
                 app:columnCount="2">
 
-                <CheckBox
-                    android:id="@+id/checkBsr"
+                <EditText
+                    android:id="@+id/ediEspecifiName1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="SR.: ESTROPEO SELECIÓN"
+                    android:background="@drawable/round_back_text"
+                    android:gravity="center_horizontal"
+                    android:hint="Defecto Custom"
+                    android:padding="6dp"
+                    android:textSize="18sp"
+                    app:layout_columnWeight="1" />
+
+                <EditText
+                    android:id="@+id/ediEspecificNum1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:ems="10"
+                    android:gravity="center_horizontal"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    app:layout_columnWeight="1" />
+
+                <EditText
+                    android:id="@+id/ediEspecifiName2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/round_back_text"
+                    android:gravity="center_horizontal"
+                    android:hint="Defecto Custom"
+                    android:padding="6dp"
+                    android:textSize="18sp"
+                    app:layout_columnWeight="1" />
+
+                <EditText
+                    android:id="@+id/ediEspecificNum2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:ems="10"
+                    android:gravity="center_horizontal"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    app:layout_columnWeight="1"
+                    app:layout_row="0" />
+
+                <EditText
+                    android:id="@+id/ediEspecifiName3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/round_back_text"
+                    android:gravity="center_horizontal"
+                    android:hint="Defecto Custom"
+                    android:padding="6dp"
+                    android:textSize="18sp"
+                    app:layout_columnWeight="1" />
+
+                <EditText
+                    android:id="@+id/ediEspecificNum3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:ems="10"
+                    android:gravity="center_horizontal"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    app:layout_columnWeight="1" />
+
+                <CheckBox
+                    android:id="@+id/checkBbNi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="NI: CUELLO ROTO"
                     app:layout_columnWeight="1" />
 
                 <EditText
@@ -67,6 +147,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
+                    android:ems="10"
+                    android:gravity="center_horizontal"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    app:layout_columnWeight="1" />
+
+                <CheckBox
+                    android:id="@+id/checkBsr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="SR.: ESTROPEO SELECIÓN"
+                    android:textSize="13sp"
+                    app:layout_columnWeight="1" />
+
+                <EditText
+                    android:id="@+id/ediNUmDef2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="number"
@@ -84,11 +188,12 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef2"
+                    android:id="@+id/ediNUmDef3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/round_back_text"
+                    android:digits="0123456789"
                     android:ems="10"
                     android:gravity="center_horizontal"
                     android:inputType="number"
@@ -106,7 +211,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef3"
+                    android:id="@+id/ediNUmDef4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -128,7 +233,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef4"
+                    android:id="@+id/ediNUmDef5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -149,7 +254,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef5"
+                    android:id="@+id/ediNUmDef6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -171,7 +276,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef6"
+                    android:id="@+id/ediNUmDef7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -192,7 +297,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef7"
+                    android:id="@+id/ediNUmDef8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -214,7 +319,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef8"
+                    android:id="@+id/ediNUmDef9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -236,7 +341,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef9"
+                    android:id="@+id/ediNUmDef10"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -258,7 +363,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef10"
+                    android:id="@+id/ediNUmDef11"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -280,7 +385,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef11"
+                    android:id="@+id/ediNUmDef12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -302,7 +407,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef12"
+                    android:id="@+id/ediNUmDef13"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -323,7 +428,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef13"
+                    android:id="@+id/ediNUmDef14"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -346,28 +451,6 @@
 
 
                 <EditText
-                    android:id="@+id/ediNUmDef14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/round_back_text"
-                    android:ems="10"
-                    android:gravity="center_horizontal"
-                    android:inputType="number"
-                    android:padding="5dp"
-                    app:layout_columnWeight="1" />
-
-
-                <CheckBox
-                    android:id="@+id/checkBdp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="DP: NO ESPCFICIADO"
-                    app:layout_columnWeight="1" />
-
-                <EditText
                     android:id="@+id/ediNUmDef15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -381,73 +464,6 @@
 
 
                 <CheckBox
-                    android:id="@+id/checkBlf"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="LF: NO ESPCFICIADO"
-                    app:layout_columnWeight="1" />
-
-
-                <EditText
-                    android:id="@+id/ediNUmDef16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/round_back_text"
-                    android:ems="10"
-                    android:gravity="center_horizontal"
-                    android:inputType="number"
-                    android:padding="5dp"
-                    app:layout_columnWeight="1"
-                    app:layout_row="0" />
-
-                <CheckBox
-                    android:id="@+id/checkBbNi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="NI: CUELLO ROTO"
-                    app:layout_columnWeight="1" />
-
-                <EditText
-                    android:id="@+id/ediNUmDef17"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/round_back_text"
-                    android:ems="10"
-                    android:gravity="center_horizontal"
-                    android:inputType="number"
-                    android:padding="5dp"
-                    app:layout_columnWeight="1" />
-
-
-                <CheckBox
-                    android:id="@+id/checkBmc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="MS : NO ESPECIFICADO"
-                    app:layout_columnWeight="1" />
-
-
-                <EditText
-                    android:id="@+id/ediNUmDef18"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/round_back_text"
-                    android:ems="10"
-                    android:gravity="center_horizontal"
-                    android:inputType="number"
-                    android:padding="5dp"
-                    app:layout_columnWeight="1" />
-
-                <CheckBox
                     android:id="@+id/checkBrr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -457,7 +473,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef19"
+                    android:id="@+id/ediNUmDef16"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -479,7 +495,7 @@
                     app:layout_columnWeight="1" />
 
                 <EditText
-                    android:id="@+id/ediNUmDef20"
+                    android:id="@+id/ediNUmDef17"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -493,7 +509,16 @@
 
 
             </androidx.gridlayout.widget.GridLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
         </LinearLayout>
+
+
+
+
 
     </ScrollView>
 

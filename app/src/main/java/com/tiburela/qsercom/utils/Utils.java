@@ -47,7 +47,12 @@ public static int numReportsVinculadsAll =0;
   public static   HashMap<String , ArrayList<DefectsAndNumber>> HashMapOfListWhitStatesCHeckb = new HashMap<>(); //serian unas dies listas...
   public static   HashMap<String , ArrayList<DefectsAndNumber>> HashMapOfListWhitStatesCHeckb2 = new HashMap<>(); //serian unas dies listas...
 
-public static boolean userDecidioNoVincularAhora =false;
+
+
+
+
+
+    public static boolean userDecidioNoVincularAhora =false;
 public static boolean userDecidioNoVincularCuadroMuestreo  =false;
 
 public static String textoShow="";

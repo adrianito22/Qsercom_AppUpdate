@@ -48,9 +48,11 @@ import java.util.Map;
 
 public class FormularioControlCalidadPreview extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
-    TextView textView;
-    boolean[] selectedLanguage;
     HashMap <String, String> hasmapMapControlCalid;
+
+    int contadorDefectosMap1=0;
+
+
     Button btnSaveControlC;
     TextView textView48;
     private boolean seLLamoFindViewId =false;
@@ -483,27 +485,26 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 imvEmpaque6, imvEmpaque7,imvEmpaque8, imvEmpaque9,imvEmpaque10 } ;
 
 
+
         arrayDefect1 = getResources().getStringArray(R.array.array_defectos_frutax2);
         arrayDefect2 = getResources().getStringArray(R.array.array_defectos_empaque2);
 
 
-        for (int i = 0; i <10; i++) {
+        for (int i = 0; i <10; i++) {  //en total este hasmpa cont
 
             ArrayList<DefectsAndNumber> listItem = new ArrayList<>(); //serian unas dies listas...
 
 
-            for (int j = 0; j <arrayDefect1.length; j++) {
+            for (int j = 0; j <arrayDefect1.length+3; j++) { //creramos una lista por cada defecto y mas 3 primeros para los defectos custom...
 
-                listItem.add(new DefectsAndNumber(false,0));
+                listItem.add(new DefectsAndNumber(false,0));  ///podemos crear 3 defectos mas
                 //agregamos valors a esta lista
+
             }
 
 
             Utils.HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
 
-
-          //  Utils.HashMapOfListWhitStatesCHeckb.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
-            ///  listOfLISTState.add(listItem);
 
         }
 
@@ -522,122 +523,38 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
             Utils.HashMapOfListWhitStatesCHeckb2.put(String.valueOf(arrayImgsSelect2[i].getId()),listItem2);
+
         }
 
+
+
+        /*
+
+        for (int i = 0; i <10; i++) { //iniclizamos lista custom defectos
+
+            ArrayList<DefectsAndNumber> listItem = new ArrayList<>(); //serian unas dies listas...
+
+
+            for (int j = 0; j <3; j++) {
+
+                listItem.add(new DefectsAndNumber(false,0));
+                //agregamos valors a esta lista
+            }
+
+
+            Utils.hasmpaCustomDefectos.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
+
+
+
+        }
+*/
 
 
     }
 
 
-    void generatePercentAndCountValuesCheked(int numeroClustersInspecc)  {
 
-        int porcetDefectFruta[] ={0,0,0,0,0,0,0,0,0,0,
-                0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-        int porcetDefectEmpq[] ={0,0,0,0,0,0,0};
-        int value ;
-
-        int contadorDefectosAll=0;
-
-        for(ArrayList<DefectsAndNumber> listArray: Utils.HashMapOfListWhitStatesCHeckb.values()){
-            for(int indice2=0; indice2<listArray.size(); indice2++){  //lista de listas
-                if(listArray.get(indice2).isIschekedDefecto()) { //si es verdadero
-                    value =1;
-                    contadorDefectosAll=contadorDefectosAll+listArray.get(indice2).getNumDefects();
-                }else{
-                    value =0;
-                }
-
-             //   porcetDefectFruta[indice2] =porcetDefectFruta[indice2]+value;
-
-            }
-        }
-
-
-
-
-
-        for(ArrayList<DefectsAndNumber> listArray: Utils.HashMapOfListWhitStatesCHeckb2.values()){
-            for(int indice2=0; indice2<listArray.size(); indice2++){  //lista de listas
-                if(listArray.get(indice2).isIschekedDefecto()) { //si es verdadero
-                    value =1;
-                    contadorDefectosAll=contadorDefectosAll+listArray.get(indice2).getNumDefects();
-
-                }else{
-                    value =0;
-                }
-
-              //  porcetDefectEmpq[indice2] =porcetDefectEmpq[indice2]+value;
-
-            }
-        }
-
-
-
-        int indice=0;
-
-
-        Log.i("saludo","el numeroClustersInspecc es "+numeroClustersInspecc);
-
-        for(int valuex :porcetDefectFruta ) {  //el numero de cluster inspeccion es 18
-
-            //ACTUALIZAMOS LOS RPOICENTAJES
-
-            Log.i("saludo","el valor alamcendado en el array es "+valuex);
-
-            //el valor piemr es 1
-
-           // int porcentajeThisValue =  valuex*100/numeroClustersInspecc;
-
-          //  porcetDefectFruta[indice]=porcentajeThisValue;
-
-           // Log.i("saludo","el porcentaje de la posicion "+indice +"es : " +porcentajeThisValue);
-
-
-
-            indice++;
-
-        }
-
-
-
-
-        int indice2z=0;
-
-        for(int valuex :porcetDefectFruta ) {  //el numero de cluster inspeccion es 18
-
-            //ACTUALIZAMOS LOS RPOICENTAJES
-
-            Log.i("saludo","el valor alamcendado en el array es "+valuex);
-
-            //el valor piemr es 1
-
-          //  int porcentajeThisValue =  valuex*100/numeroClustersInspecc;
-
-          //  porcetDefectFruta[indice2z]=porcentajeThisValue;
-
-          //  Log.i("saludo","el porcentaje de la posicion "+indice2z +"es : " +porcentajeThisValue);
-
-
-            indice2z++;
-
-
-
-        }
-
-
-
-        Log.i("saludo","se ejecuto :"+indice+" veces");
-
-        txtTotalDefectSelect.setText(String.valueOf(contadorDefectosAll));
-
-    }
-
-    void  configInitialHashasmapsChekedItemsWhitDowload(HashMap<String , ArrayList<DefectsAndNumber>> HashMapOfListWhitStatesCHeckb ,
-                                                        HashMap<String , ArrayList<DefectsAndNumber>>  HashMapOfListWhitStatesCHeckb2,
-                                                        HashMap<String , String>  HashMapDowload) {
-
-
+    void  configInitialHashasmapsChekedItemsWhitDowload(HashMap<String , String>  HashMapDowload) {
         int numsValuesSelec= 0;
 
 
@@ -645,11 +562,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             String key = entry.getKey();
             String  value = entry.getValue();
 
+            Log.i("misda","el value es "+value);
 
-            String   [] posicionesEditarArray = value.split(",") ; //  1-4, 5-2, 5-8,9-9
+            String [] posicionesEditarArray = value.split(",") ; //  1-4 //puede haber uno asi
 
 
-            if(HashMapOfListWhitStatesCHeckb.containsKey(key)){
+            if(Utils.HashMapOfListWhitStatesCHeckb.containsKey(key)){
 
 
                 for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
@@ -657,21 +575,27 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                     String   [] arrayIndiceAndNum =posicionesEditarArray[indice2].split("-");
 
                     int currrentPoscionParaCambiar=Integer.parseInt(arrayIndiceAndNum[0]);
-
                     numsValuesSelec++;
 
 
                     Log.i("smakader","el texta es"+posicionesEditarArray[indice2]);
 
 
-
                     int sizeArrayList= Utils.HashMapOfListWhitStatesCHeckb.get(key).size();
 
-                    Log.i("smakader","el size de la lista es "+sizeArrayList);
+                               //1-4-nombre
+                    ///////////////////////////////////
 
+                    if(arrayIndiceAndNum.length==3){  //es un defecto custom
+                        DefectsAndNumber defectObjec= new DefectsAndNumber(true,Integer.parseInt(arrayIndiceAndNum[1]));
+                        defectObjec.setDefectName(arrayIndiceAndNum[2]);
+                        Utils.HashMapOfListWhitStatesCHeckb.get(key).set(currrentPoscionParaCambiar, defectObjec);
+                    }
 
-                   Utils.HashMapOfListWhitStatesCHeckb.get(key).set(currrentPoscionParaCambiar,
-                            new DefectsAndNumber(true,Integer.parseInt(arrayIndiceAndNum[1])));
+                    else {
+                        Utils.HashMapOfListWhitStatesCHeckb.get(key).set(currrentPoscionParaCambiar,
+                                new DefectsAndNumber(true,Integer.parseInt(arrayIndiceAndNum[1])));
+                    }
 
 
 
@@ -681,7 +605,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             }
 
 
-            else if(HashMapOfListWhitStatesCHeckb2.containsKey(key)) {
+            else if(Utils.HashMapOfListWhitStatesCHeckb2.containsKey(key)) {
 
 
                 for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
@@ -722,7 +646,50 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     }
 
 
+/*
 
+    void  configInitialHashasmapCustomDefectsWhitDowload(HashMap<String , String>  HashMapDowload) {
+
+        int numsValuesSelec= 0;
+
+        for (Map.Entry<String, String> entry : HashMapDowload.entrySet()) {
+            String key = entry.getKey();
+            String  value = entry.getValue();
+
+            String   [] posicionesEditarArray = value.split(",") ; //  1-4-nombre    //posicion nombre defecto....
+
+            if(Utils.hasmpaCustomDefectos.containsKey(key)){
+
+                for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
+
+                    String   [] arrayIndiceAndNum =posicionesEditarArray[indice2].split("-");
+
+                    int currrentPoscionParaCambiar=Integer.parseInt(arrayIndiceAndNum[0]);
+
+                    numsValuesSelec++;
+
+                    Log.i("smakader","el texta es"+posicionesEditarArray[indice2]);
+
+                    int sizeArrayList= Utils.hasmpaCustomDefectos.get(key).size();
+
+                    Log.i("smakader","el size de la lista es "+sizeArrayList);
+
+
+                          DefectsAndNumber defectObjec= new DefectsAndNumber(true,Integer.parseInt(arrayIndiceAndNum[1]));
+                          defectObjec.setDefectName(arrayIndiceAndNum[2]);
+                    Utils.hasmpaCustomDefectos.get(key).set(currrentPoscionParaCambiar, defectObjec);
+
+                }
+
+                //editamos este valor
+            }
+
+        }
+      //  txtTotalDefectSelect.setText(String.valueOf(numsValuesSelec));
+
+    }
+
+*/
 
     //determinar que posicion pulso o si pusla este hacer esto
 
@@ -909,6 +876,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     }
 
 
+
+
     private void dowloadAllSelectDefectosPosiciones(String nodeLocateHasmapDefectSelecc){
 
         Log.i("debsumas","el key es "+nodeLocateHasmapDefectSelecc);
@@ -937,7 +906,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
-                configInitialHashasmapsChekedItemsWhitDowload(Utils.HashMapOfListWhitStatesCHeckb,Utils.HashMapOfListWhitStatesCHeckb2,hasmapMapdEFECTOSchekeed);
+
+                configInitialHashasmapsChekedItemsWhitDowload(hasmapMapdEFECTOSchekeed);
 
 
                 Log.i("debsumas"," el size de  "+hasmapMapdEFECTOSchekeed.size());
@@ -957,6 +927,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
     }
+
+
 
 
 
@@ -1936,8 +1908,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int mes, int daySemana) {
+                        String dateSelec=daySemana+"/"+(mes+1)+"/"+year;
 
-                        mEdiFechazz.setText(daySemana+"/"+mes+"/"+year);
+                        mEdiFechazz.setText(dateSelec);
 
 
 
@@ -2192,7 +2165,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+
                         String AM_PM ;
+
                         if(sHour < 12) {
                             AM_PM = "am";
                         } else {
@@ -2325,13 +2300,38 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
                     if(value.equals("")){
+                        if(!currentList.get(j).getDefectName().trim().isEmpty()){ // si existe un nombre
+                            value=value+j+"-"+currentList.get(j).getNumDefects()+"-"+currentList.get(j).getDefectName();
+
+                        }else{
+                            value=value+j+"-"+currentList.get(j).getNumDefects();
+
+                        }
+
+
+
+
                       //  value=value+j;
-                        value=value+j+"-"+currentList.get(j).getNumDefects();
+                       // value=value+j+"-"+currentList.get(j).getNumDefects();
 
 
                     }else {
 
-                        value=value+","+j+"-"+currentList.get(j).getNumDefects();
+
+                        if(!currentList.get(j).getDefectName().trim().isEmpty()){ // si existe un nombre
+
+                            value=value+","+j+"-"+currentList.get(j).getNumDefects()+"-"+currentList.get(j).getDefectName();
+
+
+
+                        }else{
+                            value=value+","+j+"-"+currentList.get(j).getNumDefects();
+
+                        }
+
+
+
+                        // value=value+","+j+"-"+currentList.get(j).getNumDefects();
 
                         //  value=value+","+j;
 
@@ -2386,18 +2386,37 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 if(currentList.get(j).isIschekedDefecto()) {  //si es verdaqdfero ,lol agragmos
                     Log.i("adirnir","encontro value ttr ");
 
-                    if(value.equals("")){
 
-                        value=value+j+"-"+currentList.get(j).getNumDefects(); //podemos mantenerlo asi..... 0-2,
+                    if(value.equals("")){  // 1-2-3   //si es el primer defecto
+
+                        if(!currentList.get(j).getDefectName().trim().isEmpty()){ // si existe un nombre
+                            value=value+j+"-"+currentList.get(j).getNumDefects()+"-"+currentList.get(j).getDefectName();
+
+                        }else{
+                            value=value+j+"-"+currentList.get(j).getNumDefects();
+
+                        }
+                    }
+
+                    else {
+
+                        if(!currentList.get(j).getDefectName().trim().isEmpty()){ // si existe un nombre
+
+                            value=value+","+j+"-"+currentList.get(j).getNumDefects()+"-"+currentList.get(j).getDefectName();
 
 
-                    }else {
 
-                        value=value+","+j+"-"+currentList.get(j).getNumDefects();
+                        }else{
+                            value=value+","+j+"-"+currentList.get(j).getNumDefects();
+
+                        }
+
 
                     }
+
                 }
             }
+
 
 
             if((!value.equals(""))) {
@@ -2853,9 +2872,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             @Override
             public void onClick(View view) {
 
+                muestraaLLResults();
 
                 showsumDfectsSelected();
 
+                if (Double.isNaN(calidadFinally)) {
+                    Log.i("misdatassd","el numero es nam");
+                    return;
+                }
 
                 if(!seLLamoFindViewId){
                     findviewsIds();
@@ -3053,13 +3077,16 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     private boolean cheakIfInGeneralIsComplete() {
 
+
+
+        /*
         if(mEdiVaporzz.getText().toString().trim().isEmpty()){
             mEdiVaporzz.requestFocus() ;
             mEdiVaporzz.setError("Este espacio es necesario") ;
-
-
             return false;
         }
+*/
+
 
         if(mEdiProductorzz.getText().toString().trim().isEmpty()){
             mEdiProductorzz.requestFocus() ;
