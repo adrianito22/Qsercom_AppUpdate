@@ -174,6 +174,25 @@
         <item>SK: SPEKLING</item>
     </string-array>
 
+    <string-array name="array_defectos_frutselecion">
+        <item>NI</item>
+        <item>SR</item>
+        <item>BR</item>
+        <item>LS</item>
+        <item>TS</item>
+        <item>OG</item>
+        <item>UG</item>
+        <item>AB</item>
+        <item>LG </item>
+        <item>WI</item>
+        <item>BM</item>
+        <item>SM</item>
+        <item>CT</item>
+        <item>FL</item>
+        <item>SC </item>
+        <item>RR</item>
+        <item>SK</item>
+    </string-array>
 
     <string-array name="array_defectos_frutax">
         <item>SRC</item>
@@ -202,6 +221,37 @@
     </string-array>
 
     <string-array name="array_defectos_all">
+        <item>NI</item>
+        <item>SR</item>
+        <item>BR</item>
+        <item>LS</item>
+        <item>TS</item>
+        <item>OG</item>
+        <item>UG</item>
+        <item>AB</item>
+        <item>LG </item>
+        <item>WI</item>
+        <item>BM</item>
+        <item>SM</item>
+        <item>CT</item>
+        <item>FL</item>
+        <item>SC </item>
+        <item>RR</item>
+        <item>SK</item>
+
+        <item>Empty</item>
+
+        <item>BU</item>
+        <item>SR</item>
+        <item>BR</item>
+        <item>NI</item>
+
+
+    </string-array>
+
+
+    <string-array name="array_defectos_all23">
+        <item>23</item>
         <item>SR</item>
         <item>BR</item>
         <item>LS</item>
@@ -230,6 +280,42 @@
 
 
     </string-array>
+
+
+    <string-array name="array_defectos_selecionx">
+        <item>SR</item>
+        <item>BR</item>
+        <item>LS</item>
+        <item>TS</item>
+        <item>OG</item>
+        <item>UG</item>
+        <item>AB</item>
+        <item>LG </item>
+        <item>WI</item>
+        <item>BM</item>
+        <item>SM</item>
+        <item>CT</item>
+        <item>FL</item>
+        <item>SC </item>
+        <item>NI</item>
+        <item>RR</item>
+        <item>SK</item>
+
+        <item>Empty</item>
+        <item>Empty</item>
+    </string-array>
+
+    <string-array name="array_defectos_empaquex">
+
+        <item>BU</item>
+        <item>SR</item>
+        <item>BR</item>
+        <item>NI</item>
+
+
+    </string-array>
+
+
 
 
     <string-array name="array_defectos_empaque">

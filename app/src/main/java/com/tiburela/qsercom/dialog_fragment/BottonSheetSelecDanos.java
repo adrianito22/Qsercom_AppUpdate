@@ -27,7 +27,7 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
     private View vista;
     Context context;
     static String curreyKeyIdView;
-    private CheckBox checkBsr;
+    private CheckBox checkSrx;
     private EditText ediNUmDef1;
     private CheckBox checkBbr;
     private EditText ediNUmDef2;
@@ -162,7 +162,7 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
         ediNUmDef15=vista.findViewById(R.id.ediNUmDef15);
 
 
-        checkBsr = vista.findViewById(R.id.checkBsr);
+        checkSrx = vista.findViewById(R.id.checkSrx);
         ediNUmDef1 = vista.findViewById(R.id.ediNUmDef1);
         checkBbr = vista.findViewById(R.id.checkBbr);
         ediNUmDef2 = vista.findViewById(R.id.ediNUmDef2);
@@ -230,7 +230,8 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
 
         View [] viewschekboxAndEdit={
                 ediEspecifiName1,ediEspecifiName2,
-                ediEspecifiName3,checkBbNi,   checkBsr,
+                ediEspecifiName3,
+                checkBbNi, checkSrx,
                 checkBbr,checkBls,checkBts,
                 checkBog,checkBug,checkBab,checkBlg,
                 checkBwi,checkBbm,checkBsm,checkBct,
@@ -423,7 +424,7 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
         View[] checkBoxAll = {
                 ediEspecifiName1,ediEspecifiName2,
                 ediEspecifiName3,
-                checkBbNi, checkBsr,
+                checkBbNi, checkSrx,
                 checkBbr,checkBls,checkBts,
                 checkBog,checkBug,checkBab,checkBlg,
                 checkBwi,checkBbm,checkBsm,checkBct,

@@ -360,6 +360,8 @@ if(hayFILE){
         Log.i("superman","el size de libriado es  "+sizedd);
 
 
+       HelperPdf. hasmapOfListwhitNamesFefectsCurrentControlCalidadFOmr= new HashMap<>();//reseteamos este
+       HelperPdf.listNumsCustomDefects= new ArrayList<>();
 
 
 
@@ -1126,89 +1128,6 @@ if(hayFILE){
 
 
 
-
-    private void createChar(ControlCalidad controlCalidad){
-
-
-        BarChart barChart=findViewById(R.id.barChartView);
-        barChart.getXAxis().setDrawGridLines(false);  //ocultamos algunas lineas
-
-        final String [] quarters=  getResources().getStringArray(R.array.array_defectos_frutax);
-
-
-        ValueFormatter formatter = new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                return quarters[(int) value];
-            }
-        };
-
-
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(0f,30f));
-        barEntries.add(new BarEntry(1f,80f));
-        barEntries.add(new BarEntry(2f,60f));
-        barEntries.add(new BarEntry(3f,50f));
-        barEntries.add(new BarEntry(4f,70f));
-        barEntries.add(new BarEntry(5f,35f));
-        barEntries.add(new BarEntry(6f,85f));
-        barEntries.add(new BarEntry(7f,65f));
-        barEntries.add(new BarEntry(8f,55f));
-        barEntries.add(new BarEntry(9f,75f));
-        barEntries.add(new BarEntry(10f,40f));
-        barEntries.add(new BarEntry(11f,90f));
-        barEntries.add(new BarEntry(12f,70f));
-        barEntries.add(new BarEntry(13f,60f));
-        barEntries.add(new BarEntry(14f,75f));
-        barEntries.add(new BarEntry(15f,30f));
-        barEntries.add(new BarEntry(16f,80f));
-        barEntries.add(new BarEntry(17f,60f));
-        barEntries.add(new BarEntry(18f,50f));
-        barEntries.add(new BarEntry(19f,70f));
-        barEntries.add(new BarEntry(20f,30f));
-        barEntries.add(new BarEntry(21f,80f));
-        barEntries.add(new BarEntry(22f,60f));
-
-
-        BarDataSet barDataSet = new BarDataSet(barEntries,"Defectos");
-        barDataSet.setValueTextSize(10f);
-        barDataSet.setFormSize(9f);
-        //barDataSet.setDrawIcons(true);
-
-
-        BarData theData = new BarData(barDataSet);
-        theData.setBarWidth(0.9f);
-        barChart.setData(theData);
-        //barChart.setTouchEnabled(true);
-        // barChart.set
-        //barChart.setDragEnabled(true);
-        // barChart.setScaleEnabled(true);
-        barChart.setFitBars(true);
-        // barChart
-        barChart.setDrawGridBackground(false);
-
-        barDataSet.setColors(new int[]{
-                R.color.durazon , R.color.durazon
-
-
-        } , PdfMaker2_0.this);
-
-
-
-
-        //  barChart.setDescription("hola");
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(formatter);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelCount(23);
-        // Bitmap b = getChartBitmap();
-
-
-        xAxis.setTextSize(7/*textSize*/);
-
-
-    }
 
 
 
