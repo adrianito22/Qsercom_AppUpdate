@@ -227,13 +227,14 @@ android:textAllCaps="true" />
                     android:id="@+id/ediFotosSellosLLegada"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/imbAtachSellosLlegada"
                 android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_baseline_attach_file_24" />

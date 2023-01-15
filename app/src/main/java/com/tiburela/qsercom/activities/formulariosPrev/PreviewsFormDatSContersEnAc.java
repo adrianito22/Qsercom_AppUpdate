@@ -80,6 +80,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 
@@ -1263,7 +1264,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                                 //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice)), horientacionImg);
+                                ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice))),horientacionImg);
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -1533,7 +1534,8 @@ void checkDataFields(){ //
 
     }
 
-    if(! checkaDatosProcesoISllENO()){
+    /*
+    if(! checkDatosProcesoIsLleno()){
         Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
 
         return;
@@ -1544,6 +1546,7 @@ void checkDataFields(){ //
 
     }
 
+*/
 
      keyNodeActualizar =Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(); //que que cotienen este nodo
 
@@ -1667,12 +1670,99 @@ void checkDataFields(){ //
 
     }
 
-private boolean checkaDatosProcesoISllENO(){
+
+
+/*
+    private boolean checkDatosProcesoIsLleno(){
+
+        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediCondicionBalanza.requestFocus();
+            ediCondicionBalanza.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediCondicionBalanza);
+
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+        if(ediTipodeCaja.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipodeCaja.requestFocus();
+            ediTipodeCaja.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediTipodeCaja);
+
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+
+        if(ediTipoPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipoPlastico.requestFocus();
+            ediTipoPlastico.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediTipoPlastico);
+
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+
+        if(ediTipoBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediTipoBalanza.requestFocus();
+            ediTipoBalanza.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediTipoBalanza);
+
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
+
+
+        if(switchBalanzaRep.isChecked()  && editipbalanzaRepeso.getText().toString().trim().isEmpty() ){
+
+            editipbalanzaRepeso.requestFocus();
+            editipbalanzaRepeso.setError("Selecione el tipo de balanza");
+            scroollElementoFaltante(editipbalanzaRepeso);
+
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
+            return false;
+        }else{
+            editipbalanzaRepeso.setText("");
+
+        }
+
+
+/*
+        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //chekamos que no este vacia
+           // editipbalanzaRepeso.requestFocus();
+            //editipbalanzaRepeso.setError("Este espacio es obligatorio");
+            //scroollElementoFaltante(editipbalanzaRepeso);
+
+            //layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+           // return false;
+
+        }
+
+
+        if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediUbicacionBalanza.requestFocus();
+            ediUbicacionBalanza.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediUbicacionBalanza);
+
+            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
 
 
         return true;
-}
 
+    }
+
+*/
 
 
 
@@ -2291,7 +2381,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-/*
+
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
             ediFotosLlegada.requestFocus();
 
@@ -2304,7 +2394,7 @@ private void createObjcInformeAndUpload(){
             ediFotosLlegada.setError(null);
 
         }
-*/
+
 
 
 

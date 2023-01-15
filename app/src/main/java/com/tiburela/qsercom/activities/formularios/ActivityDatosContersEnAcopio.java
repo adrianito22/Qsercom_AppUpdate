@@ -594,7 +594,6 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
          imbAtachSellosLlegada=findViewById(R.id.imbAtachSellosLlegada);
          imbTakePicSellosLLegada=findViewById(R.id.imbTakePicSellosLLegada);
          imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
-        imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
          imbAtachPrPostcosecha=findViewById(R.id.imbAtachPrPostcosecha);
          imbTakePicPrPostcosecha=findViewById(R.id.imbTakePicPrPostcosecha);
         imbTakePicDatosContenedor=findViewById(R.id.imbTakePicDatosContenedor);
@@ -870,6 +869,8 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
                currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
 
                takepickNow();
+
+
                break;
 
 
@@ -1026,195 +1027,8 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     }
 
 
-    private void checkeamosSiFieldViewIScompleted(View view ) {
 
-        //revismaos si el usuario lleno el file o completo la tarea solictada
 
-        Log.i("miodata","el id del selecionado anterior es "+view.getResources().getResourceName(view.getId()));
-
-
-        if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
-            EditText editText = (EditText) view; //asi lo convertimos
-             Log.i("miodata","el id es "+view.getResources().getResourceName(view.getId()));
-
-                if ( view.getResources().getResourceName(view.getId()).contains("ediPPC0")){ //asi comprobamos que es un fiel opcional
-                    if (editText.getText().toString().length() > 0) {
-                        if (!editText.getText().toString().equals("0")) {
-
-                            Log.i("miodata","el state ediPPC/someProductPostCosecha esta lleno ");
-
-
-                          //  actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-                           //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", ActivityDatosContersEnAcopio.this);
-
-
-                        }
-                    }
-
-                }
-
-                else if(editText.getText().toString().isEmpty()) {
-
-
-                    Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta vacio");
-
-
-                   // actualizaListStateView(view.getResources().getResourceName(view.getId()),false) ;
-
-                }
-
-
-
-
-                ////si existe lo cambiamos a tru
-
-
-
-                else if(! editText.getText().toString().isEmpty()) { //si esta lleno
-
-                    Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta lleno");
-
-                 //   actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
-
-                  //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", ActivityDatosContersEnAcopio.this);
-
-
-
-                }
-
-
-        }
-
-
-
-
-        else if (view.getResources().getResourceName(view.getId()).contains("imbAtach")  ||  view.getResources().getResourceName(view.getId()).contains("imbTakePic")){ //imBtakePic
-
-             //COMPORBAQMOS SI EXISTE AL ME4NOS UN IMAGEN URI LIST..
-
-            if(ImagenReport.hashMapImagesData.size()> 0 ) {
-              //  actualizaListStateView("imbAtach/imbTakePic",true) ;
-
-               Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
-
-
-            }else {
-
-              //  actualizaListStateView("imbAtach/imbTakePic",false) ;
-                Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y no contiene fotos");
-
-
-
-            }
-
-
-        }
-
-
-
-
-
-
-        //seran mas comprobacion para verificar si imagenes por ejemplo fiueron completadas..
-        //otra para radiobutton y otr para otro tipo de view..tec
-
-
-       // actualizaProgressBar();
-
-            }
-
-
-
-    private void actualizaListStateView(String idSearch,boolean isEstaLleno){
-///
-
-
-        final String  idview = idSearch.replace(Variables.paqueteName+":id/","");
-
-
-        Log.i("camisila","el id to search es "+idview) ;
-
-        for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
-
-            if(EstateFieldView.listEstateViewField.get(i).getIdOfView().equals(idview)){
-
-                EstateFieldView.listEstateViewField.get(i).setEstaLleno(isEstaLleno);
-
-
-            }else  {
-
-
-
-            }
-
-        }
-
-
-
-
-
-
-
-    }
-
-
-    private void actualizaProgressBar(){
-
-             int numero_itemsCompletados=0;
-
-            final int NUMERO_FIELDS_TOTAL=EstateFieldView.listEstateViewField.size(); // 19  ahora items emn total de completar 19,, algunos son opcionales...pero siempre deben haber 19 para que todos esten llenos
-
-
-            for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
-
-                if(EstateFieldView.listEstateViewField.get(i).isEstaLleno()){
-
-                    numero_itemsCompletados =numero_itemsCompletados+1;
-
-
-                }
-
-            }
-
-        Log.i("idCheck","el NUMERO ITEMScOMPLETADOS ES "+numero_itemsCompletados);
-
-
-            //buscamos el porecntaje
-
-        //int porcentajeDeProgreso= numero_itemsCompletados*NUMERO_FIELDS_TOTAL/100;
-
-
-
-        int porcentajeDeProgreso= numero_itemsCompletados*100/NUMERO_FIELDS_TOTAL;
-
-        progressBarFormulario.setProgress(porcentajeDeProgreso);
-
-
-
-           Log.i("maswiso","el porciento es "+porcentajeDeProgreso);
-            //un item opcional vale
-
-
-
-        }
-
-
-
-
-
-
-
-    private void selecImages(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-
-        resultatachImages();
-
-
-
-    }
 
 
       private void resultatachImages() {
@@ -1236,7 +1050,10 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                                 //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice)), horientacionImg);
+                               // ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice)), horientacionImg);
+
+                                ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice))),horientacionImg);
+
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -1392,9 +1209,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     }
 
 
-
-
-    Log.i("isdeletyin","el value de first uri  items es "+filterListImagesData.get(0).geturiImage());
 
     RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
     GridLayoutManager layoutManager=new GridLayoutManager(this,2);
@@ -1859,10 +1673,6 @@ private void createObjcInformeAndUpload(){
 
 
 
-                //   Log.i("dtaas","switch a" + "ctivate is "+Variables.currentCuponObjectGlob.isEsActivateCupon());
-                //  Log.i("dtaas","switch destacado  is "+Variables.currentCuponObjectGlob.isEsDestacadoCupon());
-
-
             }
 
         });
@@ -2198,20 +2008,22 @@ private void createObjcInformeAndUpload(){
 
 
 
-/*
+
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
             ediFotosLlegada.requestFocus();
 
+            Log.i("test001","falta here photos");
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             ediFotosLlegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
             return false;
         }else{
+            Log.i("test001","todo bien  here photos");
 
             ediFotosLlegada.clearFocus();
             ediFotosLlegada.setError(null);
 
         }
-*/
+
 
 
 
@@ -2405,11 +2217,18 @@ return  true;
 
             layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
             ediFotosSellosLLegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+
+            Log.i("test001","se jecuto este if no hay minimo 1 foto");
+
             return false;
-        }else{
+
+        }
+        else{
 
             ediFotosSellosLLegada.clearFocus();
             ediFotosSellosLLegada.setError(null);
+            Log.i("test001","se jecuto este else no hay minimo 1 foto");
+
 
         }
 

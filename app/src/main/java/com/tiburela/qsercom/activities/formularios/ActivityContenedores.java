@@ -1066,40 +1066,8 @@ Log.i("hellosweer","se ehjecitp onstart");
 
                Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
 
-
-               // Configure chooser
-              // Intent chooser = new Intent();
-
-               //Intent intent = new Intent();
-               //intent.setType("image/*");
-              // intent.setAction(Intent.ACTION_GET_CONTENT);
-              // chooser.addCategory(Intent.CATEGORY_OPENABLE);
-              // chooser.setType("image/*");
-
-              // activityResultLauncher.launch("image/*");
-
-             //  chooser.setAction(Intent.ACTION_GET_CONTENT);
-             //  Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-              // mGetContent.launch(intent);
-
-               // activityResultLauncher.setAction(Intent.ACTION_PICK);
-               //activityResultLauncher.launch(intent);
-
-
-               //   Intent intent = new Intent();
-             //  intent.setType("*/*");
-               //Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-
-               //chooser.setType("image/*");
-
-               //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-               //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-              // intent.addCategory(Intent.CATEGORY_OPENABLE);
-              // someActivityResultLauncher.launch(intent);
-
                activityResultLauncher.launch("image/*");
 
-            //  activityResultLauncher.launch(intent);
 
                break;
 
@@ -1918,7 +1886,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                             }
 
 
-                            showImagesPicShotOrSelectUpdateView(false);
+                           // showImagesPicShotOrSelectUpdateView(false);
 
                         }
                     }
@@ -2294,6 +2262,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
       private void resultatachImages() {
+
         activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
                 @Override
@@ -2314,9 +2283,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                                 ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
 
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
-                                showImagesPicShotOrSelectUpdateView(false);
 
 
                                 //agregamos este objeto a la lista
@@ -2349,41 +2315,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                   });
       }
 
-void showImageByUri(Uri uri )  {
-   try {
-
-        // Setting image on image view using Bitmap
-        Bitmap bitmap = MediaStore
-                .Images
-                .Media
-                .getBitmap(
-                        getContentResolver(),
-                      uri);
-
-
-
-        //escalamos el bitmap
-       Bitmap bitmap2=Bitmap.createScaledBitmap(bitmap, 420, 400, false);
-        Log.i("registrand","los encontrado");
-
-
-        ImageView imageView= new ImageView(this);
-
-
-       imageView.setImageBitmap(bitmap2);
-
-
-
-
-
-
-    }
-
-                    catch (IOException e) {
-        // Log the exception
-        e.printStackTrace();
-    }
-}
 
 
 private void listennersSpinners() {
