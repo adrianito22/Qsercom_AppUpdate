@@ -196,8 +196,8 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     protected void onStart() {
         super.onStart();
 
-        Auth.initAuth(ActivityDatosContersEnAcopio.this);
-        Auth.signInAnonymously(ActivityDatosContersEnAcopio.this);
+      //  Auth.initAuth(ActivityDatosContersEnAcopio.this);
+       // Auth.signInAnonymously(ActivityDatosContersEnAcopio.this);
 
 
 
@@ -308,7 +308,10 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
 
         findViewsIds();
+
         configCertainSomeViewsAliniciar();
+        ocultaCertainViews();
+
         listViewsClickedUser=new ArrayList<>();
 
         addClickListeners();
@@ -383,7 +386,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
                         }
 
 
-                        else if (vista.getId()== R.id.ediTipoEmp2) {
+                        else if (vista.getId()== R.id.ediHoraEncendido1) {
                             ediHoraEncendido1.setText(sHour + ":" + sMinute);
 
 
@@ -556,11 +559,11 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
 
 
-        ediTermofrafo1=findViewById(R.id.ediNombProd1);
-        ediHoraEncendido1=findViewById(R.id.ediTipoEmp2);
-        ediUbicacion1=findViewById(R.id.ediCod2);
-        ediRuma1=findViewById(R.id.edinCajas3);
+        ediTermofrafo1=findViewById(R.id.ediTermofrafo1);
+        ediUbicacion1=findViewById(R.id.ediUbicacion1);
+        ediRuma1=findViewById(R.id.ediRuma1);
         ediTermofrafo2=findViewById(R.id.ediTermofrafo2);
+        ediHoraEncendido1=findViewById(R.id.ediHoraEncendido1);
         ediHoraEncendido2=findViewById(R.id.ediHoraEncendido2);
         ediUbicacion2=findViewById(R.id.ediUbicacion2);
         ediRuma2=findViewById(R.id.ediRuma2);
@@ -803,11 +806,12 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
                break; //
 
-           case R.id.ediTipoEmp2:
+           case R.id.ediHoraEncendido1:
                // Utils.closeKeyboard(FormularioActivity.this);
                showingTimePicker(view);
 
                break; //
+
 
            case R.id.ediHoraEncendido2:
                // Utils.closeKeyboard(FormularioActivity.this);
@@ -1235,7 +1239,14 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         @Override
         public void onClick(View view) {
 
+
+         //   Log.i("misdtaxxss","el value es "+ediCjasProcesDespacha.getText().toString());
+
            // generatePDFandImport();
+
+           // RealtimeDB realtime= new RealtimeDB(ActivityDatosContersEnAcopio.this);
+            //  realtime.closeActivity();
+
 
             checkDataFields();
 
@@ -1324,7 +1335,6 @@ void checkDataFields(){ //
 
     Log.i("test001","toda la data esta completa HUrra ");
 
-    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
     createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
@@ -1468,7 +1478,7 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
 
                  tipoEmpaque="";
                  cod="";
-                 numeroCajas=0;
+                 //numeroCajas=0;
                  nombreProd="";
 
                  //String InformePertenece;  //subimos el primero al menos..
@@ -1498,10 +1508,9 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
 
     }
 
+   // RealtimeDB.initContext(ActivityDatosContersEnAcopio.this); //inicilizamos el contexto actual en la clase realtimeDB
 
    RealtimeDB. addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);  //subimos
-
-
 
 
   }
@@ -1541,15 +1550,7 @@ private void createObjcInformeAndUpload(){
     RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     //agr5egamos la data finalemente
-
-
-
     //obtenemos el pushkey
-    DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
-    String PuskEY = mibasedata.push().getKey(); //que que cotienen este nodo
-
-
-    informe.setDatosProcesoContenAcopioKEYFather(PuskEY); //le agregamos esa propiedad
 
 
 
@@ -1557,8 +1558,6 @@ private void createObjcInformeAndUpload(){
     generateUniqueIdInformeAndContinuesIfIdIsUnique(informe);
 
 
-
-    creaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME,PuskEY,mibasedata);
 
 
 
@@ -1572,7 +1571,7 @@ private void createObjcInformeAndUpload(){
     private void generateUniqueIdInformeAndContinuesIfIdIsUnique( ContenedoresEnAcopio contenedores_acopio){
 
         String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
-        Log.i("elnumber","el numero generado es ss"+uniqueId);
+        Log.i("elnumber","el numero generado es ss" +uniqueId);
 
         checkIfExistIdAndUpload(uniqueId,contenedores_acopio);
 
@@ -1581,7 +1580,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-    private void checkIfExistIdAndUpload (String currenTidGenrate, ContenedoresEnAcopio conetnedores){
+    private void checkIfExistIdAndUpload (String currenTidGenrate, ContenedoresEnAcopio conetnedoresEnAcopioForm){
 
         //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
         //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
@@ -1607,20 +1606,36 @@ private void createObjcInformeAndUpload(){
 
                     //informe register
                     RealtimeDB.addNewRegistroInforme(ActivityDatosContersEnAcopio.this,informRegister);
+                    StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
+
+                    conetnedoresEnAcopioForm.setUniqueIDinforme(currenTidGenrate);
+
+                    DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
+                    String PuskEY = mibasedata.push().getKey(); //que que cotienen este nodo
+                    conetnedoresEnAcopioForm.setDatosProcesoContenAcopioKEYFather(PuskEY); //le agregamos esa propiedad
 
 
-                    conetnedores.setUniqueIDinforme(currenTidGenrate);
+                    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
                     //informe actual
 
                   // DDFG RealtimeDB.AddNewPackingListObject(packingListMod);
+                    Log.i("COMENMZAR","por aqui");
 
-                    RealtimeDB.addNewInformContenresAcopio(conetnedores,currenTidGenrate);
+
+                     RealtimeDB.initContext(ActivityDatosContersEnAcopio.this);
+
+                    creaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME,PuskEY,mibasedata);
+
+
+                    RealtimeDB.addNewInformContenresAcopio(conetnedoresEnAcopioForm,currenTidGenrate);
+                    Log.i("COMENMZAR","lalamos aqui");
 
                     //aqui subimos..
 
                 }else {  //si exite creamos otro value...
 
-                    generateUniqueIdInformeAndContinuesIfIdIsUnique(conetnedores);
+                    generateUniqueIdInformeAndContinuesIfIdIsUnique(conetnedoresEnAcopioForm);
 
                 }
 
@@ -1691,9 +1706,13 @@ private void createObjcInformeAndUpload(){
         }
 
         //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
+        ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
+        ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
+        StorageData.uploaddata(list);
+
 
         //aqui subimos
-       StorageData.uploadImage(ActivityDatosContersEnAcopio.this, ImagenReport.hashMapImagesData);
+    //   StorageData.uploadImage(ActivityDatosContersEnAcopio.this, ImagenReport.hashMapImagesData);
 
     }
 
@@ -2665,7 +2684,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_PROD_POSTCOSECHA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
+        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
 
         for(int indice=0; indice<arrayTiposImagenes.length; indice++){
 
@@ -2722,5 +2741,19 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         startCamera.launch(cameraIntent);                // VERY NEW WAY
 
     }
+
+
+
+    private void ocultaCertainViews(){
+
+        ediRuma1.setVisibility(View.GONE);
+        ediRuma2.setVisibility(View.GONE);
+        ediHoraEncendido1.setVisibility(View.GONE);
+        ediHoraEncendido2.setVisibility(View.GONE);
+        ediUbicacion1.setVisibility(View.GONE);
+        ediUbicacion2.setVisibility(View.GONE);
+
+    }
+
 
 }

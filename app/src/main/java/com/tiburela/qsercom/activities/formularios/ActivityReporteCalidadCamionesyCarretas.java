@@ -1789,7 +1789,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         Log.i("test001","toda la data esta completa HUrra ");
 
-        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
         createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
@@ -1881,12 +1880,14 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
                     //informe register
                     RealtimeDB.addNewRegistroInforme(ActivityReporteCalidadCamionesyCarretas.this,informRegister);
+                    StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
 
                     objecCamionesyCarretas.setUniqueIDinforme(currenTidGenrate);
                      //informe actual
                     RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
 
+                    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
                     //aqui subimos..
@@ -1958,16 +1959,24 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         //una lista de Uris
 
 
+        Log.i("imagheddd","se llamometodoel size de lista es "+ImagenReport.hashMapImagesData.size());
+
         if(ImagenReport.hashMapImagesData.size() ==0 ){
+            Log.i("imagheddd","es igual a cero");
 
             Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
+        Log.i("imagheddd","es difrente de cero");
 
-        //aqui subimos
-        StorageData.uploadImage(ActivityReporteCalidadCamionesyCarretas.this, ImagenReport.hashMapImagesData);
+
+
+
+        ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
+        ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
+        StorageData.uploaddata(list);
+
 
     }
 

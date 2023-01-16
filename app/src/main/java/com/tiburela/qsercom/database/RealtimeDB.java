@@ -1,5 +1,6 @@
 package com.tiburela.qsercom.database;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -44,12 +45,17 @@ public class RealtimeDB {
 
     static  public  DatabaseReference mibasedataPathImages;
 
-
+public static  Context myContext;
 
 
 
     //ESTA VCLASED VA A ENCRAGARSE DE CREAR MODIFICAR ,BORRAR DATOS DE LA BASE DE DATOS REALTIME
 
+
+    public static void  initContext(Context context){
+        myContext=context;
+
+    }
 
     public static  void initDatabasesReferenceImagesData(){
 
@@ -92,16 +98,40 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                    Toast.makeText(myContext, "Se subio", Toast.LENGTH_SHORT).show();
 
-                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                    Log.i("COMENMZAR","es succes");
+
+                    ((Activity)myContext).finish();
+
 
                 }else  {
 
+                    Log.i("COMENMZAR","es else");
+
+
+                    Toast.makeText(myContext, "Se produjo un erro   r", Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
 
+
+    }
+
+
+
+    public void  closeActivity(){
+
+        ((Activity)myContext).finish();
+
+
+    }
+
+
+    public RealtimeDB (Context context){
+
+        this.myContext = context;
 
     }
 
@@ -523,37 +553,18 @@ public class RealtimeDB {
 
     public static void addDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,DatabaseReference mibasedata,String Pushkey) {
 
-
-        //    DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
-        //agregamos la propiedad keyFirebase a al objeto
-        //  String PuskEY = mibasedata.push().getKey();
-
-        //  datosProcesoMap.put("keyfirebase","sfgd").setKeyFirebase(PuskEY);
-
-        //   Map<String, Object> mapValues = informeObjct.toMap();
-
-        //SUBE MAPA
         mibasedata.child(Pushkey).setValue(datosProcesoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    //lo borramos...
-
-                    try {
-                        // Utils.deleteMap(context);
-
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
+                  //  ((Activity)myContext).finish();
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
 
-
+                    Toast.makeText( myContext, "Se produjo un error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -682,7 +693,7 @@ public class RealtimeDB {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Log.i("imagheddd","se subio set data");
+                    Log.i("imagheddd","se subio set data y el id pertence es "+objecImageReport.getIdReportePerteence());
 
 
                   //  Toast.makeText(context, "HECHO", Toast.LENGTH_SHORT).show();

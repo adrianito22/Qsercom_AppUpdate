@@ -106,7 +106,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
 
     String currentIDcUDORmUESTREO;
@@ -1252,6 +1251,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
                             //creamos un nuevo objet de tipo ImagenReport
                             ImagenReport obcjImagenReport = new ImagenReport("", cam_uri.toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, cam_uri), horientacionImg);
+                            obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -2537,10 +2537,11 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
             Log.i("imagheddd", "alguno o toos son diferentes images llamaos metodo filtra");
 
-            ArrayList<ImagenReport> list = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
             StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
 
             ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
+
+
 
             StorageData.uploaddata(list2);
 
@@ -2579,23 +2580,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
             //   Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
             //  startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
         }
-
-
-        //  startActivity(new Intent(FormularioActivity.this,PdfPreviewActivity.class));
-
-        //generamos un pdf con la data que tenemos()
-
-        /*
-
-        PdfMaker.generatePdfReport1(FormularioActivity.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
-                ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
-                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString()
-                );
-
-*/
 
 
     }
@@ -4509,9 +4493,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
     void addInfotomap(ArrayList<ImagenReport> listImagenReports) {
-        //
-
-
         ImagenReport.hashMapImagesData = new HashMap<>();
 
         //agregamos adata al mapusnado un bucle
@@ -5619,62 +5600,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     }
 
 
-    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
-    ActivityResultLauncher<Intent> someActivityResultLauncherx = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-
-                        Intent data = result.getData();
-
-
-                        if (data.getClipData() != null) {
-                            int count = data.getClipData().getItemCount();
-
-                            int CurrentImageSelect = 0;
-
-                            while (CurrentImageSelect < count) {
-                                Uri imageuri = data.getClipData().getItemAt(CurrentImageSelect).getUri();
-                                //   ImageList.add(imageuri);
-
-                                Bitmap bitmap = null;
-                                try {
-                                    bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(), imageuri);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                                // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
-                                String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
-
-
-                                ImagenReport obcjImagenReport = new ImagenReport("", imageuri.toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, imageuri), horientacionImg);
-
-                                //agregamos este objeto a la lista
-                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
-                                Utils.mapUris.put(obcjImagenReport.getUniqueIdNamePic(), imageuri);
-                                CurrentImageSelect = CurrentImageSelect + 1;
-                            }
-
-                            showImagesPicShotOrSelectUpdateView(false);
-
-
-                            // textView.setVisibility(View.VISIBLE);
-                            //textView.setText("You Have Selected " + ImageList.size() + " Pictures");
-                            //choose.setVisibility(View.GONE);
-                        }
-
-                    }
-
-                }
-
-
-            });
 
 
     @SuppressLint("SetTextI18n")
@@ -5705,6 +5630,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
                         ImagenReport obcjImagenReport = new ImagenReport("", imageuri.toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, imageuri), horientacionImg);
+                        obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
                         //agregamos este objeto a la lista
                         ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);

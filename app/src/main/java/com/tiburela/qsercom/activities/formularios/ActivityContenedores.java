@@ -315,8 +315,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     protected void onStart() {
         super.onStart();
 
-        Auth.initAuth(ActivityContenedores.this);
-        Auth.signInAnonymously(ActivityContenedores.this);
+       // Auth.initAuth(ActivityContenedores.this);
+     //   Auth.signInAnonymously(ActivityContenedores.this);
 
 Log.i("hellosweer","se ehjecitp onstart");
 
@@ -3057,18 +3057,10 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
         Log.i("imagheddd","es difrente de cero");
 
 
-        //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
 
 
-        ///aqui le cambiamos...
             ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
-
-           // StorageData.counTbucle=0;
-
-            //cremaos un array list  a partir de ka info de el map
            ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-        //aqui subimos
-        // StorageData.uploadFile(ActivityContenedores.this,list);
          StorageData.uploaddata(list);
 
 

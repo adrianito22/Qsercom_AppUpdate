@@ -519,6 +519,7 @@ public static int counTbucle=0;
         /**SI HAY PROBELASM DE URI PERMISOS ASEGURARSE QUE EL URI CONTENGA UNA PROPIEDAD QUE HACER QUE LE DE PERMISOS DE
          * LECTURA ALGO AS..ESO EN INTENT AL SELECIONAR IMAGENES*/
 
+        Log.i("imagheddd", "el size de ImageList es "+ImageList.size());
 
 
         final StorageReference ImageFolder =  FirebaseStorage.getInstance().getReference().child("imagenes_all_reports");
@@ -556,13 +557,7 @@ public static int counTbucle=0;
                             Log.i("imagheddd","info es on success  y path es  "+iconPathFirebase);
 
 
-                         //   if(counTbucle < listImageReport.size()) {
-                           //     counTbucle++;
-                               // uploadImages(context,listImageReport);
-                           // }
 
-
-                            // Log.i("imagheddd","info "+counTbucle+" = "+hasmapImagenData.size());
                             RealtimeDB.addNewSetPicsInforme(currenImageReport);
 
 

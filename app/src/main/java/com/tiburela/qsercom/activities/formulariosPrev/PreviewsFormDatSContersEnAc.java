@@ -200,55 +200,11 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     protected void onStart() {
         super.onStart();
 
-        Auth.initAuth(PreviewsFormDatSContersEnAc.this);
-        Auth.signInAnonymously(PreviewsFormDatSContersEnAc.this);
-
-
-            checkModeVisualitY(); //despues lo llamaremos solo una vez
-
-            addDataEnFields(Variables.CurrenReportContensEnACp);
-            //imagenes set
-
-        RealtimeDB.initDatabasesRootOnly();
-
-        dowloadImagesDataReport(Variables.CurrenReportContensEnACp.getUniqueIDinforme());
-
-
-            Log.i("misadhd","el value es  "+ Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
-
-            dowLOADAndCallSETdatosAcopioprocesO(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
+        //Auth.initAuth(PreviewsFormDatSContersEnAc.this);
+       // Auth.signInAnonymously(PreviewsFormDatSContersEnAc.this);
 
 
 
-/*
-        if(hayUnformularioIcompleto){
-
-             TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
-
-            Utils.addDataOfPrefrencesInView(arrayEditex);
-
-            Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityDatosContersEnAcopio.this);
-
-
-            ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
-
-
-              //if el formulario no es nulo
-
-            if(listImagesToSaVE!=null ) {
-
-                addInfotomap(listImagesToSaVE);
-                createlistsForReciclerviewsImages(listImagesToSaVE);
-
-            }
-
-
-
-
-
-        }
-
-*/
 
         // Check if user is signed in (non-null) and update UI accordingly.
        // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
@@ -283,13 +239,14 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
         Variables.activityCurrent=Variables.FormatDatsContAcopiPREVIEW;
-        Auth.initAuth(this);
+      //  Auth.initAuth(this);
 
         StorageData. initStorageReference();
 
 
         findViewsIds();
         configCertainSomeViewsAliniciar();
+        ocultaCertainViews();
         listViewsClickedUser=new ArrayList<>();
 
         addClickListeners();
@@ -297,6 +254,17 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         listennersSpinners();
 
         eventCheckdata();
+
+
+
+
+        checkModeVisualitY(); //despues lo llamaremos solo una vez
+        addDataEnFields(Variables.CurrenReportContensEnACp);
+        RealtimeDB.initDatabasesRootOnly();
+        dowloadImagesDataReport(Variables.CurrenReportContensEnACp.getUniqueIDinforme());
+        Log.i("misadhd","el value es  "+ Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
+        dowLOADAndCallSETdatosAcopioprocesO(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
+
         //creaFotos();
 
 
@@ -358,7 +326,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                         }
 
 
-                        else if (vista.getId()== R.id.ediTipoEmp2) {
+                        else if (vista.getId()== R.id.ediHoraEncendido1) {
                             ediHoraEncendido1.setText(sHour + ":" + sMinute+" "+AM_PM);
 
 
@@ -535,10 +503,10 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
 
-        ediTermofrafo1=findViewById(R.id.ediNombProd1);
-        ediHoraEncendido1=findViewById(R.id.ediTipoEmp2);
-        ediUbicacion1=findViewById(R.id.ediCod2);
-        ediRuma1=findViewById(R.id.edinCajas3);
+        ediTermofrafo1=findViewById(R.id.ediTermofrafo1);
+        ediHoraEncendido1=findViewById(R.id.ediHoraEncendido1);
+        ediUbicacion1=findViewById(R.id.ediUbicacion1);
+        ediRuma1=findViewById(R.id.ediRuma1);
         ediTermofrafo2=findViewById(R.id.ediTermofrafo2);
         ediHoraEncendido2=findViewById(R.id.ediHoraEncendido2);
         ediUbicacion2=findViewById(R.id.ediUbicacion2);
@@ -825,7 +793,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
                break; //
 
-           case R.id.ediTipoEmp2:
+           case R.id.ediHoraEncendido1:
                // Utils.closeKeyboard(FormularioActivity.this);
                showingTimePicker(view);
 
@@ -995,6 +963,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
                                 //creamos un nuevo objet de tipo ImagenReport
                                 ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,cam_uri),horientacionImg);
+                                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -1265,6 +1234,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
                                 //creamos un nuevo objet de tipo ImagenReport
                                 ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice))),horientacionImg);
+                                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -1533,20 +1503,6 @@ void checkDataFields(){ //
 
 
     }
-
-    /*
-    if(! checkDatosProcesoIsLleno()){
-        Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
-
-        return;
-    }else{
-
-        Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
-
-
-    }
-
-*/
 
      keyNodeActualizar =Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(); //que que cotienen este nodo
 
@@ -1895,7 +1851,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
             tipoEmpaque="";
             cod="";
-            numeroCajas=0;
+           // numeroCajas=0;
             nombreProd="";
 
             //String InformePertenece;  //subimos el primero al menos..
@@ -1982,7 +1938,6 @@ private void createObjcInformeAndUpload(){
     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
-
     Toast.makeText(context, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
     finish();
@@ -2046,21 +2001,18 @@ private void createObjcInformeAndUpload(){
              return;
         }
 
+
         if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
-            Log.i("elfile","alguno o toos son diferentes images llamaos metodo filtra");
+            Log.i("imagheddd", "alguno o toos son diferentes images llamaos metodo filtra");
 
+            StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
+            ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
+            StorageData.uploaddata(list2);
 
-            HashMap<String , ImagenReport>mihasmap= Utils.creaHahmapNoDuplicado();
+          ///  HashMap<String , ImagenReport>mihasmap= Utils.creaHahmapNoDuplicado();
 
-
-            if(mihasmap.size()>0){
-
-                StorageData.uploadImage(PreviewsFormDatSContersEnAc.this,mihasmap);
-
-
-            }
 
         }
 
@@ -2069,6 +2021,13 @@ private void createObjcInformeAndUpload(){
 
 
             Log.i("elfile","son iguales las imagenes");
+
+        }
+
+        if (Utils.objsIdsDecripcionImgsMOreDescripc.size() > 0) {
+
+            RealtimeDB.initDatabasesReferenceImagesData();
+            RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
 
         }
 
@@ -2101,23 +2060,6 @@ private void createObjcInformeAndUpload(){
 
 
 
-
-
-      //  startActivity(new Intent(FormularioActivity.this,PdfPreviewActivity.class));
-
-        //generamos un pdf con la data que tenemos()
-
-        /*
-
-        PdfMaker.generatePdfReport1(FormularioActivity.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
-                ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
-                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString()
-                );
-
-*/
 
 
 
@@ -2608,80 +2550,6 @@ return  true;
     private boolean checkSellosInstaladosIsLleno(){
 
         LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
-/*
-
-        if(ediTermofrafo1.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediTermofrafo1.requestFocus();
-            ediTermofrafo1.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-        if(ediHoraEncendido1.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediHoraEncendido1.requestFocus();
-            ediHoraEncendido1.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-        if(ediUbicacion1.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediUbicacion1.requestFocus();
-            ediUbicacion1.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-        if(ediRuma1.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediRuma1.requestFocus();
-            ediRuma1.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-
-        if(ediTermofrafo2.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediTermofrafo2.requestFocus();
-            ediTermofrafo2.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-        if(ediHoraEncendido2.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediHoraEncendido2.requestFocus();
-            ediHoraEncendido2.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-        if(ediUbicacion2.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediUbicacion2.requestFocus();
-            ediUbicacion2.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-        if(ediRuma2.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediRuma2.requestFocus();
-            ediRuma2.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
- */
 
         if(ediCandadoqsercon.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCandadoqsercon.requestFocus();
@@ -3036,7 +2904,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_PROD_POSTCOSECHA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
+        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
 
         for(int indice=0; indice<arrayTiposImagenes.length; indice++){
 
@@ -3114,6 +2982,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     private void dowLOADAndCallSETdatosAcopioprocesO(String fathherNode){
+
+        Log.i("COMENMZAR","el FATHER NODE  es "+ fathherNode);
+
         ValueEventListener seenListener;
 
         seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").child(fathherNode).addValueEventListener(new ValueEventListener() {
@@ -3130,7 +3001,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                         Variables.mimapaDatosProcesMapCurrent.put(datosProceso.getKey1(),datosProceso);
 
-                        Log.i("misadhd","el size del mapa es "+ Variables.mimapaDatosProcesMapCurrent.size());
+                        Log.i("COMENMZAR","el size del mapa es "+ Variables.mimapaDatosProcesMapCurrent.size());
 
                     //    Map<String, Object> hashMap = new HashMap<>();
                     //    hashMap.put("isseen", new DatosDeProceso("",1,"","",2,""));
@@ -3160,7 +3031,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
     private void setDatosProcesODataInViews(HashMap<String, DatosDeProceso> mimapaDatosProcesMapCurrent) {
-
 
 
         TextInputEditText ediNombProd1;
@@ -3278,7 +3148,10 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                         DatosDeProceso currenObjDaProc= mimapaDatosProcesMapCurrent.get(keySearch);
 
-
+                      Log.i("saminamas","valuexxxc"+currenObjDaProc.getNumeroCajas());
+                Log.i("saminamas","valuexxxc"+currenObjDaProc.getCod());
+                Log.i("saminamas","valuexxxc "+currenObjDaProc.getTipoEmpaque());
+                Log.i("saminamas","valuexxxc NOMBRE PRODUCTO"+currenObjDaProc.getNombreProd());
 
                 arrayNmbresProd [indice].setText(currenObjDaProc.getNombreProd());
                         arrayTiposEmpaque [indice].setText(currenObjDaProc.getTipoEmpaque());
@@ -3373,7 +3246,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 ediCandadoBotella,    ediCableExportadora,    ediSelloAdesivoexpor,    esiSelloAdhNaviera,    ediOtherSellos,
                 spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla ,    imBatach,    imBtakePic,    imbAtach_transportista,    imbTakePicTransportista,
                 imbAtachSellosLlegada,    imbTakePicSellosLLegada,    imbAtachDatosContenedor,    imbTakePicDatosContenedor,    imbAtachPrPostcosecha,
-                imbTakePicPrPostcosecha,    imbTakePic,
+                imbTakePicPrPostcosecha,    imbTakePic,ediClienteNombreReporte
 
     };
 
@@ -3568,9 +3441,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 ediCandadoBotella,    ediCableExportadora,    ediSelloAdesivoexpor,    esiSelloAdhNaviera,    ediOtherSellos,
                 spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla ,    imBatach,    imBtakePic,    imbAtach_transportista,    imbTakePicTransportista,
                 imbAtachSellosLlegada,    imbTakePicSellosLLegada,    imbAtachDatosContenedor,    imbTakePicDatosContenedor,    imbAtachPrPostcosecha,
-                imbTakePicPrPostcosecha,    imbTakePic,
-
-        };
+                imbTakePicPrPostcosecha,    imbTakePic,ediClienteNombreReporte};
 
 
         HelperEditAndPreviewmode.diseableViewsByTipe(misViewsArray);
@@ -3578,7 +3449,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
-    // ();
+    //
 
 
 
@@ -3610,7 +3481,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         ediPuerto.setText(currentInform.getPuerto());
                 ediNumContenedor.setText(currentInform.getNumContenedor());
         ediAgenciaNav.setText(currentInform.getAgenciaNaviera());
-
+        ediClienteNombreReporte.setText(currentInform.getClienteReporte());
         ediFechaInicio.setText(currentInform.getFechaInicio());
        // Format formatter = new SimpleDateFormat("dd-MM-yyyy");
        // String fechaString = formatter.format(currentInform.get);
@@ -3645,9 +3516,11 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         stikVentolerExterna.setText(currentInform.getStickerDeVentolExternn1());
         ediCableRastreoLlegada.setText(currentInform.getCableRastreoLlegada());
         ediSelloPlasticoNaviera.setText(currentInform.getSellosPlasticoNaviera());
-        ediTermofrafo1.setText(currentInform.getTermografoN1());
 
-       // ediHoraEncendido1.setText(currentInform.geth);
+        Log.i("termografo","el termografo 1 es "+currentInform.getTermografoN1());
+
+        ediTermofrafo1.setText(currentInform.getTermografoN1());
+       // ediHoraEncendido1.setText(currentInform.getho);
 
        // ediUbicacion1.setText(currentInform.ubi);
       //  ediRuma1.setText(currentInform.);
@@ -3714,6 +3587,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 //dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
                 Log.i("mispiggi","se llamo a: addInfotomap");
+
+
+                createlistsForReciclerviewsImages(Variables.listImagenDataGlobalCurrentReport);
 
                 addInfotomap(Variables.listImagenDataGlobalCurrentReport);
 
@@ -3846,5 +3722,20 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
+
+
+    private void ocultaCertainViews(){
+        ediRuma1.setVisibility(View.GONE);
+        ediRuma2.setVisibility(View.GONE);
+        ediHoraEncendido1.setVisibility(View.GONE);
+        ediHoraEncendido2.setVisibility(View.GONE);
+        ediUbicacion1.setVisibility(View.GONE);
+        ediUbicacion2.setVisibility(View.GONE);
+
+
+
+
+
+    }
 
 }

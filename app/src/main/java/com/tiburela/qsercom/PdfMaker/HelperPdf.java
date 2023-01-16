@@ -1877,32 +1877,6 @@ if(contadorProductsPostCosecha>10){
         Log.i("ELWEIGTH", "EN PESO PROMEDIO ES " + PROMEDIO_PESO);
 
 
-        //agregamos el peso libras
-        // dataTotable.add(new NameAndValue( "PROMEDIO PESO",pesoLibrastext));
-        // Log.i("ELWEIGTH","EL PESO PROMEDIO  ES "+pesoLibrastext);
-        /**PH_PROMEDIO*/
-        /**PH PROMEDIO */  //SI NO TIENE PH AGREGAMOS 0
-
-
-        /*
-        for(int indice =0; indice <keyDatPh.length; indice++){
-            String keyValue = String.valueOf(keyDatPh[indice]);
-            if(hashMapControlCald.containsKey(keyValue)) {
-                listPh.add(Double.parseDouble(hashMapControlCald.get(keyValue)));
-
-                PH_PROMEDIO=PH_PROMEDIO + Double.parseDouble(hashMapControlCald.get(keyValue));
-
-            }
-
-        }
-
-        */
-
-        //  PH_PROMEDIO =  PH_PROMEDIO/numeroItemsEcontrados;
-        Log.i("ELWEIGTH", "EN PH  PROMEDIO ES " + PH_PROMEDIO);
-
-        // PROMEDIO_PESO=PROMEDIO_PESO + Double.parseDouble(hashMapControlCald.get(keyCurrent));
-
 
         /**DEFECTOS SELECION*/
         String[] arrayuDefectsSeleccNames = contexto.getResources().getStringArray(R.array.array_defectos_frutselecion); //estaba en ararydefectx
@@ -1911,17 +1885,14 @@ if(contadorProductsPostCosecha>10){
 
 
 
-
         ///a esta le agregamos los defectos custom si existen...
-
-
 
         int contadorCustomDefects=0;
         for (String valuex : hashMapDefctChecked.values()) { //el custom defecto contiene hasta 3 length size..
 
             Log.i("hasmpadefectchekeed", "la data es " + valuex);
 
-            /**buscamos otros defcetos names **/
+            /**buscamos otros defcetos names y si hay los agregamos a la lista de names **/
 
 
             if (valuex.contains(",")) { //si contiene una comma
@@ -1978,19 +1949,30 @@ if(contadorProductsPostCosecha>10){
 
         int numRestaR=0;
 
-        if(listNumsCustomDefects.get(contador-1)==1){
+
+        if(listNumsCustomDefects.get(contador-1)==0){
+
+            numRestaR=numRestaR+3;
+
+        }
+
+        else if(listNumsCustomDefects.get(contador-1)==1){
 
             numRestaR=numRestaR+2;
 
-        }else if(listNumsCustomDefects.get(contador-1)==2){
+        }
+
+
+        else if(listNumsCustomDefects.get(contador-1)==2){
 
             numRestaR=numRestaR+1;
 
         }
 
 
+        Log.i("eomcnezamos ", "aqui le vamos a restar  "+numRestaR);
 
-       // Log.i("suoerdefect", "vamos a sumar: "+numSumarDefecto+" el num defectos defecto es "+);
+        // Log.i("suoerdefect", "vamos a sumar: "+numSumarDefecto+" el num defectos defecto es "+);
 
 
 

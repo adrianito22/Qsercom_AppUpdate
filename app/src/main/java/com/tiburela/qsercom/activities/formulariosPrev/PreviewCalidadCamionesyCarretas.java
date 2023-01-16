@@ -999,6 +999,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
                             //creamos un nuevo objet de tipo ImagenReport
                             ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,cam_uri),horientacionImg);
+                            obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -3616,7 +3617,11 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
             Log.i("isclkiel","es clickeable es "+ Variables.isClickable);
 
-        }else{
+        }
+
+        else
+
+        {
             fab2.setImageResource(R.drawable.ic_baseline_edit_24aa);
             activateModePreview();
             Log.i("isclkiel","es clickeable es "+ Variables.isClickable);
@@ -3625,16 +3630,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         Variables.modoRecicler=Variables.DOWLOAD_IMAGES;
-        //AGREGMOS LA DATA EN LOS FILEDS
+
+
         addDataEnFields(Variables.currenReportCamionesyCarretas);
-
-
 
         addDataENfiledsoTHERviews(Variables.currenReportCamionesyCarretas);
 
 
-
-        //inicializamos STORAGE..
         StorageData.initStorageReference();
 
 
@@ -3659,10 +3661,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
     private void addDataEnFields(ReportCamionesyCarretas currenReport) {
-
-
         Log.i("jamisama","la semana es "+currenReport.getSemana());
-
+        ediClienteNombreReporte.setText(currenReport.getClienteReporte());
         ediSemana.setText(currenReport.getSemana());
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
         String fechaString = formatter.format(currenReport.getFechaCreacionInf());
