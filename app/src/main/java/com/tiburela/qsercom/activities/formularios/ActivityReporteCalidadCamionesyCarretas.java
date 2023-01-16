@@ -99,7 +99,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     HashMap<String,Float> hasmapPesoBrutoClosters2y3L;
     private int currentTypeImage=0;
-    ProgressBar progressBarFormulario;
 
     TextInputEditText ediSemana;
     TextInputEditText ediClienteNombreReporte;
@@ -654,7 +653,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
        // ediFotoContenedor=findViewById(R.id.ediFotoContenedor);
 
-        progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
         ediFotosPposcosecha=findViewById(R.id.ediFotosPposcosecha);
 
@@ -882,7 +880,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
             case R.id.linLayoutHeader7:
-                LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
+                LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerDatsProceso);
 
                 if(layoutContainerSeccion7.getVisibility() == GONE) {
                     muestraLinearLayout(layoutContainerSeccion7);
@@ -1162,34 +1160,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
 
-
-
-
-
-    private void actualizaProgressBar(){
-        int porcentajeForm=PerecentHelp.generatePercetProgress(Variables.FormCamionesyCarretasActivity);
-        progressBarFormulario.setProgress(porcentajeForm);
-        Log.i("maswiso","el porciento es "+porcentajeForm);
-        //un item opcional vale
-    }
-
-
-
-
-
-
-
-    private void selecImages(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-
-        resultatachImages();
-
-
-
-    }
 
 
     private void resultatachImages() {
@@ -2907,7 +2877,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
     private boolean checkDatosProcesoIsLleno(){
-        LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerSeccion7);
+        LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerDatsProceso);
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
         if(ediCondicionBalanza.getText().toString().equalsIgnoreCase("ninguna")){ //chekamos que no este vacia
@@ -2916,6 +2886,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
             layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
+
 
         }
 
