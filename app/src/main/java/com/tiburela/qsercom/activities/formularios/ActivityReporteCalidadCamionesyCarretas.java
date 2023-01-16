@@ -1684,18 +1684,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
 
-        /*
-        if(! checkDatosContenedorIsLleno()){
-            Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
-
-            return;
-        }else{
-
-            Log.i("test001","si  esta lleno  checkDatosContenedorIsLleno");
-        }
-       */
-
-
         if(! checkDatosTransportistaIsLleno()){
             Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
 
@@ -2154,10 +2142,14 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
 
+
+        if(layoutContainerSeccion1.getVisibility()== GONE){
+            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
+        }
+
         if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediSemana.requestFocus();
             ediSemana.setError("Este espacio es obligatorio");
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
             //obtiene el padre del padre
 
@@ -2167,7 +2159,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediFecha.requestFocus();
             ediFecha.setError("Debe selecionar una fecha");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2182,7 +2173,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediProductor.requestFocus();
             ediProductor.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2194,7 +2184,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediHacienda.requestFocus();
             ediHacienda.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2204,7 +2193,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediClienteNombreReporte.requestFocus();
             ediClienteNombreReporte.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2215,7 +2203,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediCodigo.requestFocus();
             ediCodigo.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2225,7 +2212,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediInscirpMagap.requestFocus();
             ediInscirpMagap.setError("Este espacio es obligatorio");
             ediInscirpMagap.setText("_");
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2234,7 +2220,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediPemarque.requestFocus();
             ediPemarque.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2243,7 +2228,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         if(ediZona.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediZona.requestFocus();
             ediZona.setError("Debe selecionar una zona");
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2253,7 +2237,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediHoraInicio.requestFocus();
             ediHoraInicio.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2263,7 +2246,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediHoraTermino.requestFocus();
             ediHoraTermino.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2274,7 +2256,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediNguiaRemision.requestFocus();
             ediNguiaRemision.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2283,7 +2264,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             edi_nguia_transporte.requestFocus();
             edi_nguia_transporte.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2293,7 +2273,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediNtargetaEmbarque.requestFocus();
             ediNtargetaEmbarque.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2304,7 +2283,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         if(ediNhojaEvaluacion.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediNhojaEvaluacion.requestFocus();
             ediNhojaEvaluacion.setError("Este espacio es obligatorio");
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
             //obtiene el padre del padre
 
@@ -2316,7 +2294,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediEmpacadora.requestFocus();
             ediEmpacadora.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2620,13 +2597,15 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
+        if(layoutContainerSeccion6.getVisibility()== GONE){
+            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
 
+        }
 
         if(ediNombreChofer.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediNombreChofer.requestFocus();
             ediNombreChofer.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2637,7 +2616,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediCedula.requestFocus();
             ediCedula.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2646,7 +2624,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediCelular.requestFocus();
             ediCelular.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2654,7 +2631,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         if(ediPLaca.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediPLaca.requestFocus();
             ediPLaca.setError("Este espacio es obligatorio");
-            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2708,13 +2684,17 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
 
 
+        if(layoutContainerSeccion8.getVisibility()== GONE){
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+
+
+        }
 
 
         if(ediFuenteAgua.getText().toString().equalsIgnoreCase("ninguna")){ //chekamos que no este vacia
             ediFuenteAgua.requestFocus();
             ediFuenteAgua.setError("Selecione una opcion");
 
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2726,7 +2706,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediLavadoRacimos.requestFocus();
             ediLavadoRacimos.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2735,7 +2714,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediFumigacionClin1.requestFocus();
             ediFumigacionClin1.setError("Selecione una opcion");
 
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2746,7 +2724,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediTipoBoquilla.requestFocus();
             ediTipoBoquilla.setError("Selecione una opcion");
 
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2755,7 +2732,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         if(ediCajasProcDesp.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCajasProcDesp.requestFocus();
             ediCajasProcDesp.setError("Este espacio es obligatorio");
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2766,7 +2742,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2775,7 +2750,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediRacimosRecha.requestFocus();
             ediRacimosRecha.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
         }
 
@@ -2783,7 +2757,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediRacimProces.requestFocus();
             ediRacimProces.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2880,31 +2853,36 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerDatsProceso);
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
+        if(layoutContainerSeccion7.getVisibility()== GONE){
+            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
+
+        }
+
         if(ediCondicionBalanza.getText().toString().equalsIgnoreCase("ninguna")){ //chekamos que no este vacia
+
             ediCondicionBalanza.requestFocus();
             ediCondicionBalanza.setError("Selecione una opcion");
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
 
 
         }
 
         if(ediTipodeCaja.getText().toString().equalsIgnoreCase("ninguna")){ //chekamos que no este vacia
+
             ediTipodeCaja.requestFocus();
             ediTipodeCaja.setError("Selecione una opcion");
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
 
 
         if(ediTipoPlastico.getText().toString().equalsIgnoreCase("ninguna")){ //chekamos que no este vacia
+
             ediTipoPlastico.requestFocus();
             ediTipoPlastico.setError("Selecione una opcion");
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -2915,7 +2893,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             ediTipoBalanza.requestFocus();
             ediTipoBalanza.setError("Selecione una opcion");
 
-            layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
