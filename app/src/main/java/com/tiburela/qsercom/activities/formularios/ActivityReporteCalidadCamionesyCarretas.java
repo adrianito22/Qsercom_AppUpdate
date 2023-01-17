@@ -52,6 +52,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
@@ -1835,6 +1836,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
                 if(informRegister == null)
+
                 {
                     informRegister= new InformRegister(currenTidGenrate,Constants.CAMIONES_Y_CARRETAS,
                             Variables.usuarioQsercomGlobal.getNombreUsuario(),
@@ -1847,6 +1849,12 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                     StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
                     objecCamionesyCarretas.setUniqueIDinforme(currenTidGenrate);
+
+                    DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference;
+                    String PuskEY = mibasedata.push().getKey();
+
+                    objecCamionesyCarretas.setNodoQueContieneMapPesoBrutoCloster2y3l(PuskEY);
+
                      //informe actual
                     RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
 
@@ -1854,8 +1862,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
                     addCalibracionFutaC_enfAndUpload();
                     addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
-
-                    createHashmapPesoBrutoCloster2y3lAndUpload(Variables.nodoDondeEstaraPesoBruto2y3l);
+                    createHashmapPesoBrutoCloster2y3lAndUpload(PuskEY);
 
 
                 }
