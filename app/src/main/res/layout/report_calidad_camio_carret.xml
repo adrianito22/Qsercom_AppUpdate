@@ -260,7 +260,8 @@
                     android:padding="5dp"
                     android:text="PESO BRUTO POR CLUSTER (SOLO PARA QUIENES PROCESEN CAJAS  DE 2 Y 3 LIBRAS)"
                     android:textAllCaps="true"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/imvOcultaLayout"
@@ -269,7 +270,8 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:src="@android:drawable/arrow_down_float" />
+                    android:src="@android:drawable/arrow_down_float"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

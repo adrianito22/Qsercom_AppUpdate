@@ -96,6 +96,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     boolean hayUnformularioIcompleto ;
     public static Context context;
     private final int CODE_TWO_PERMISIONS = 12;
+    LinearLayout layoutPesobrutoPorClusterSolo;
 
     HashMap<String,Float> hasmapPesoBrutoClosters2y3L;
     private int currentTypeImage=0;
@@ -531,17 +532,17 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
         ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
-
+        layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
         ediCandadoQsercom=findViewById(R.id.ediCandadoQsercom);
         lyEscontenedor=findViewById(R.id.lyEscontenedor);
-        ediSemana=findViewById(R.id.ediCajas3);
-        ediFecha=findViewById(R.id.ediCajas7);
-        ediProductor=findViewById(R.id.ediCodigoN2);
-        ediHacienda=findViewById(R.id.ediCodigoN8);
+        ediSemana=findViewById(R.id.ediSemana);
+        ediFecha=findViewById(R.id.ediFecha);
+        ediProductor=findViewById(R.id.ediProductor);
+        ediHacienda=findViewById(R.id.ediHacienda);
         ediCodigo=findViewById(R.id.ediCodigo);
-        ediInscirpMagap=findViewById(R.id.ediCajas10);
-        ediPemarque=findViewById(R.id.ediProductor10);
+        ediInscirpMagap=findViewById(R.id.ediInscirpMagap);
+        ediPemarque=findViewById(R.id.ediPemarque);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
         ediZona=findViewById(R.id.ediZona);
         ediHoraInicio=findViewById(R.id.ediHoraInicio);
@@ -732,7 +733,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
-
+        layoutPesobrutoPorClusterSolo.setOnClickListener(this);
         imbAtach_transportista.setOnClickListener(this);
         imbTakePicTransportista.setOnClickListener(this);
       //  imbAtachSellosLlegada.setOnClickListener(this);
@@ -801,6 +802,21 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         switch (view.getId()) {
 
 
+
+            case R.id.layoutPesobrutoPorClusterSolo:
+
+                  LinearLayout layPesoBruto1=findViewById(R.id.layPesoBruto1);
+
+                if(layPesoBruto1.getVisibility() == GONE) {
+                    muestraLinearLayout(layPesoBruto1);
+                }
+                else{
+
+                    oucultaLinearLayout(layPesoBruto1);
+                }
+                break; //
+
+
             case R.id.linLayoutHeader1:
                 LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
 
@@ -854,7 +870,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
 
-            case R.id.linLayoutHeader5:
+            case R.id.layoutContainerSeccion5:
                 LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
 
                 if(layoutContainerSeccion5.getVisibility() == GONE) {
@@ -1788,16 +1804,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
 
-        addCalibracionFutaC_enfAndUpload();
-        addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
-
-
-        createHashmapPesoBrutoCloster2y3lAndUpload(Variables.nodoDondeEstaraPesoBruto2y3l);
-
-
-
-
-
 
     }
 
@@ -1828,8 +1834,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 }
 
 
-                if(informRegister == null) { //quiere decir que no existe
-
+                if(informRegister == null)
+                {
                     informRegister= new InformRegister(currenTidGenrate,Constants.CAMIONES_Y_CARRETAS,
                             Variables.usuarioQsercomGlobal.getNombreUsuario(),
                             Variables.usuarioQsercomGlobal.getUniqueIDuser()
@@ -1840,17 +1846,25 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                     RealtimeDB.addNewRegistroInforme(ActivityReporteCalidadCamionesyCarretas.this,informRegister);
                     StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
-
                     objecCamionesyCarretas.setUniqueIDinforme(currenTidGenrate);
                      //informe actual
                     RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
 
                     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
+                    addCalibracionFutaC_enfAndUpload();
+                    addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
 
-                    //aqui subimos..
+                    createHashmapPesoBrutoCloster2y3lAndUpload(Variables.nodoDondeEstaraPesoBruto2y3l);
 
-                }else {  //si exite creamos otro value...
+
+                }
+
+
+
+                else
+
+                {  //si exite creamos otro value...
 
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(objecCamionesyCarretas);
 
@@ -3055,20 +3069,21 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         EditText [] editextArrayColorSeman = {ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9} ;
-        EditText [] editextNumRacimsArray =           {ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9} ;
+        EditText [] editextNumRacimsArray =  {ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9} ;
 
 
         for (int indice =0; indice<editextArrayColorSeman.length; indice++) {
             EditText currentEditextColorSem=editextArrayColorSeman[indice];
             EditText currentEditextNumRacims=editextNumRacimsArray[indice];
 
-            if (!currentEditextColorSem.getText().toString().isEmpty()){ //si no esta vacioo
-                if (!currentEditextColorSem.getText().toString().trim().isEmpty())  //si no es un espacio vacio
+            if (!currentEditextColorSem.getText().toString().trim().isEmpty()){ //si no esta vacioo
+                if (!currentEditextNumRacims.getText().toString().trim().isEmpty())  //si no es un espacio vacio
                 {
 
                     switch (currentEditextColorSem.getId()){
 
                         case R.id.ediColortSem14:
+
                             calibrFrutCalEnf.setColorSemana14(currentEditextColorSem.getText().toString());
                             calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
 

@@ -4,7 +4,6 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
@@ -19,7 +18,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -44,7 +42,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,22 +50,16 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.SharePref.SharePref;
-import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
-import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
-import com.tiburela.qsercom.utils.PerecentHelp;
-import com.tiburela.qsercom.utils.Permisionx;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -80,7 +71,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 
 public class ActivityDatosContersEnAcopio extends AppCompatActivity implements View.OnClickListener  {
@@ -89,6 +79,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     boolean hayUnformularioIcompleto ;
     private final int CODE_TWO_PERMISIONS = 12;
     TextInputEditText ediClienteNombreReporte;
+    HashMap<String, DatosDeProceso> mimapaDatosProcesMap=new HashMap<>();
 
 
     private int currentTypeImage=0;
@@ -1340,7 +1331,6 @@ void checkDataFields(){ //
 
 
 
-
 }
 
 
@@ -1354,7 +1344,10 @@ private boolean checkaDatosProcesoISllENO(){
 
 
 
-private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY, DatabaseReference mibasedata){
+private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String PuskEY, DatabaseReference mibasedata){
+
+    Log.i("samamf","se llamo creaDatosProcesoMapAndUpload");
+    boolean isReady=true;
 
 
     TextInputEditText ediNombProd1;
@@ -1437,13 +1430,9 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
 
 
   TextInputEditText [] arrayNmbresProd= {ediNombProd1, ediNombProd2, ediNombProd3, ediNombProd4, ediNombProd5, ediNombProd6, ediNombProd7, ediNombProd8
-
   };
 
-
-
     TextInputEditText [] arrayTiposEmpaque= {ediTipoEmp1, ediTipoEmp2, ediTipoEmp3, ediTipoEmp4, ediTipoEmp5, ediTipoEmp6, ediTipoEmp7, ediTipoEmp8
-
     };
 
 
@@ -1458,7 +1447,7 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
 
 
     //cremaos un mapa
-    HashMap<String, DatosDeProceso> mimapaDatosProcesMap=new HashMap<>();
+    int numeroCajas=0;
 
     for(int indice=0; indice<arraynCajas.length; indice++){
 
@@ -1466,11 +1455,21 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
          String tipoEmpaque=arrayTiposEmpaque[indice].getText().toString();
          String cod=arrayCodigos[indice].getText().toString();
         String nombreProd=arrayNmbresProd[indice].getText().toString();
-        int numeroCajas=0;
 
-         if(Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
 
-           return;
+
+          if(!arraynCajas[indice].getText().toString().trim().isEmpty()){
+
+              numeroCajas=Integer.parseInt(arraynCajas[indice].getText().toString());
+
+          }
+
+
+
+        if(! Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
+             Log.i("samamf","es return aqui");
+
+            return false;
          }
 
              if(indice==0 & tipoEmpaque.trim().isEmpty()  & cod.trim().isEmpty()  & nombreProd.trim().isEmpty()
@@ -1478,26 +1477,26 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
 
                  tipoEmpaque="";
                  cod="";
-                 //numeroCajas=0;
+                 numeroCajas=0;
                  nombreProd="";
 
                  //String InformePertenece;  //subimos el primero al menos..
                  DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
-                 midatosProceso.setKeyFirebase(PuskEY);
+                 //midatosProceso.setKeyFirebase(PuskEY);
                  mimapaDatosProcesMap.put(KeyDataIdOfView,midatosProceso);
 
              }
 
 
 
-           if(indice != 0 && ! tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
+          else if(!tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
                    & ! arraynCajas[indice].getText().toString().trim().isEmpty()  ) {  //si es diferente de 0
 
                //entonces subimos la data.....
 
                //String InformePertenece;
                DatosDeProceso midatosProceso= new DatosDeProceso(nombreProd,tipoEmpaque,cod,numeroCajas,informePertenece,KeyDataIdOfView);
-               midatosProceso.setKeyFirebase(PuskEY);
+              // midatosProceso.setKeyFirebase(PuskEY);
 
                mimapaDatosProcesMap.put(KeyDataIdOfView,midatosProceso);
 
@@ -1510,8 +1509,14 @@ private void creaDatosProcesoMapAndUpload(String informePertenece, String PuskEY
 
    // RealtimeDB.initContext(ActivityDatosContersEnAcopio.this); //inicilizamos el contexto actual en la clase realtimeDB
 
-   RealtimeDB. addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);  //subimos
+    Log.i("samamf","subimos en este nodo "+PuskEY);
+    Log.i("samamf","el size de map now ahora es "+mimapaDatosProcesMap.size());
+    Log.i("samamf","vamos a subir datos procesoen este nodo  "+PuskEY);
 
+
+
+
+    return isReady;
 
   }
 
@@ -1615,21 +1620,32 @@ private void createObjcInformeAndUpload(){
                     conetnedoresEnAcopioForm.setDatosProcesoContenAcopioKEYFather(PuskEY); //le agregamos esa propiedad
 
 
-                    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
-
-                    //informe actual
-
-                  // DDFG RealtimeDB.AddNewPackingListObject(packingListMod);
-                    Log.i("COMENMZAR","por aqui");
+                    Log.i("samamf","el objec conetnedoresEnAcopioForm getDatosProcesoContenAcopio es  "+conetnedoresEnAcopioForm.getDatosProcesoContenAcopioKEYFather());
 
 
                      RealtimeDB.initContext(ActivityDatosContersEnAcopio.this);
 
-                    creaDatosProcesoMapAndUpload(UNIQUE_ID_iNFORME,PuskEY,mibasedata);
+                    Log.i("samamf","vamos a crea datos proceso");
 
 
-                    RealtimeDB.addNewInformContenresAcopio(conetnedoresEnAcopioForm,currenTidGenrate);
-                    Log.i("COMENMZAR","lalamos aqui");
+                    if(creaAcMapDatosProcesoAndCheck(currenTidGenrate,PuskEY,mibasedata)){
+
+                        RealtimeDB.addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);  //subimos
+
+                        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+                        RealtimeDB.addNewInformContenresAcopio(conetnedoresEnAcopioForm,currenTidGenrate);
+
+                        Log.i("samamf","hemos pasado add new inform");
+
+                    }else{
+
+                        Log.i("samamf","HAY UN DATO INCOMPLETO HEN DATOS PROCESO");
+
+                        Toast.makeText(ActivityDatosContersEnAcopio.this, "Hay un dato incompleto en datos de Proceso", Toast.LENGTH_LONG).show();
+
+                    }
+
 
                     //aqui subimos..
 

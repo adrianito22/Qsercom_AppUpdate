@@ -3065,9 +3065,6 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
 
         // StorageData.uploadImage(ActivityContenedores.this, ImagenReport.hashMapImagesData);
-
-
-
     }
 
 

@@ -272,7 +272,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <Button
@@ -291,12 +291,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="100dp"
                 android:orientation="vertical">
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="100dp" />
             </LinearLayout>
 
 

@@ -262,7 +262,8 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         addDataEnFields(Variables.CurrenReportContensEnACp);
         RealtimeDB.initDatabasesRootOnly();
         dowloadImagesDataReport(Variables.CurrenReportContensEnACp.getUniqueIDinforme());
-        Log.i("misadhd","el value es  "+ Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
+
+        Log.i("samamf","el value es  "+ Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
         dowLOADAndCallSETdatosAcopioprocesO(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
 
         //creaFotos();
@@ -1553,6 +1554,7 @@ void checkDataFields(){ //
 
         Log.i("caramba","si  esta lleno  todo en orden");
 
+        Toast.makeText(PreviewsFormDatSContersEnAc.this, "Hay un dato incompleto en datos de Proceso", Toast.LENGTH_LONG).show();
 
     }
 
@@ -1752,7 +1754,6 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
     TextInputEditText  ediCod7;
     TextInputEditText  ediCod8;
 
-
     TextInputEditText  edinCajas1;
     TextInputEditText  edinCajas2;
     TextInputEditText  edinCajas3;
@@ -1761,9 +1762,6 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
     TextInputEditText  edinCajas6;
     TextInputEditText  edinCajas7;
     TextInputEditText  edinCajas8;
-
-
-
 
  ///vamos con findview id
      ediNombProd1=findViewById(R.id.ediNombProd1);
@@ -1835,6 +1833,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
     }
 
 
+    int numeroCajas=0;
 
     for(int indice=0; indice<arraynCajas.length; indice++){
 
@@ -1842,8 +1841,12 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
         String tipoEmpaque=arrayTiposEmpaque[indice].getText().toString();
         String cod=arrayCodigos[indice].getText().toString();
         String nombreProd=arrayNmbresProd[indice].getText().toString();
-        int numeroCajas=0;
 
+        if(!arraynCajas[indice].getText().toString().trim().isEmpty()){
+
+            numeroCajas=Integer.parseInt(arraynCajas[indice].getText().toString());
+
+        }
 
 
         if(indice==0 && tipoEmpaque.trim().isEmpty()  && cod.trim().isEmpty()  && nombreProd.trim().isEmpty()
@@ -1851,7 +1854,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
             tipoEmpaque="";
             cod="";
-           // numeroCajas=0;
+            numeroCajas=0;
             nombreProd="";
 
             //String InformePertenece;  //subimos el primero al menos..
@@ -1863,7 +1866,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
 
 
-        if(! tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
+        else if(! tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
                 & ! arraynCajas[indice].getText().toString().trim().isEmpty()  ) {  //si es diferente de 0
 
             //entonces subimos la data.....
@@ -2947,37 +2950,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
-    private void ediDatosAcopio(final String keyIdTOEdit ){
-        ValueEventListener seenListener;
-        seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    for (DataSnapshot dss : dataSnapshot.getChildren()) {
-
-                        DatosDeProceso datosProceso = dss.getValue(DatosDeProceso.class);
-
-                        if (datosProceso.getKeyFirebase().equals(keyIdTOEdit) ) {///
-
-                           // Map<String, Object> hashMap = new HashMap<>();
-                          //  hashMap.put("isseen", new DatosDeProceso("",1,"","",2,""));
-                           // dss.getRef().updateChildren(hashMap);
-
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-
-
-
-    }
 
 
 
@@ -3007,12 +2979,14 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                     //    hashMap.put("isseen", new DatosDeProceso("",1,"","",2,""));
                      //   dss.getRef().updateChildren(hashMap);
 
-                        setDatosProcesODataInViews(Variables.mimapaDatosProcesMapCurrent);
 
 
 
                     }
                 }
+
+                setDatosProcesODataInViews(Variables.mimapaDatosProcesMapCurrent);
+
 
             }
 

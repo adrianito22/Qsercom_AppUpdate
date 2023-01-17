@@ -102,7 +102,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     FloatingActionButton fab2;
     private final int CODE_TWO_PERMISIONS = 12;
     TextInputEditText ediClienteNombreReporte;
-
+    LinearLayout layoutPesobrutoPorClusterSolo;
 
     boolean isModEdicionFields;
     HashMap<String,Float> hasmapPesoBrutoClosters2y3L;
@@ -468,17 +468,17 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     private void findViewsIds( ) { //configuraremos algos views al iniciar
         fab2=findViewById(R.id.fab2);
         ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
-
+        layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
         ediCandadoQsercom=findViewById(R.id.ediCandadoQsercom);
         lyEscontenedor=findViewById(R.id.lyEscontenedor);
-        ediSemana=findViewById(R.id.ediCajas3);
-        ediFecha=findViewById(R.id.ediCajas7);
-        ediProductor=findViewById(R.id.ediCodigoN2);
-        ediHacienda=findViewById(R.id.ediCodigoN8);
-        ediCodigo=findViewById(R.id.ediCodigoN7);
-        ediInscirpMagap=findViewById(R.id.ediCajas10);
-        ediPemarque=findViewById(R.id.ediProductor10);
+        ediSemana=findViewById(R.id.ediSemana);
+        ediFecha=findViewById(R.id.ediFecha);
+        ediProductor=findViewById(R.id.ediProductor);
+        ediHacienda=findViewById(R.id.ediHacienda);
+        ediCodigo=findViewById(R.id.ediCodigo);
+        ediInscirpMagap=findViewById(R.id.ediInscirpMagap);
+        ediPemarque=findViewById(R.id.ediPemarque);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
         ediZona=findViewById(R.id.ediZona);
         ediHoraInicio=findViewById(R.id.ediHoraInicio);
@@ -490,9 +490,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         spinnerSelectZona = findViewById(R.id.spinnerZona);
         ediObservacion = findViewById(R.id.ediObservacion);
         ediFotosLlegada=findViewById(R.id.ediFotosLlegada);
-
-
-
 
 
         ediEnsunchado=findViewById(R.id.ediEnsunchado);
@@ -521,8 +518,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
          ediExtGanchoCi =findViewById(R.id.ediExtGanchoCi);
 
         spinnerCandadoQsercon=findViewById(R.id.spinnerCandadoQsercon);
-
-
 
 
         linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
@@ -624,8 +619,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         /**todos add a todos clicklistener de la implemntacion*/
 
-        p2pbCluster01.setOnClickListener(this);
+    //    p2pbCluster01.setOnClickListener(this);
 
+        layoutPesobrutoPorClusterSolo.setOnClickListener(this);
 
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
@@ -731,6 +727,21 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
+                break; //
+
+
+
+            case R.id.layoutPesobrutoPorClusterSolo:
+
+                LinearLayout layPesoBruto1=findViewById(R.id.layPesoBruto1);
+
+                if(layPesoBruto1.getVisibility() == GONE) {
+                    muestraLinearLayout(layPesoBruto1);
+                }
+                else{
+
+                    oucultaLinearLayout(layPesoBruto1);
+                }
                 break; //
 
 

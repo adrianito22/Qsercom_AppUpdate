@@ -102,7 +102,7 @@ public static  Context myContext;
 
                     Log.i("COMENMZAR","es succes");
 
-                    ((Activity)myContext).finish();
+                  //  ((Activity)myContext).finish();
 
 
                 }else  {
@@ -110,7 +110,7 @@ public static  Context myContext;
                     Log.i("COMENMZAR","es else");
 
 
-                    Toast.makeText(myContext, "Se produjo un erro   r", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(myContext, "Se produjo un erro   r", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -558,11 +558,14 @@ public static  Context myContext;
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+
+                    Log.i("samamf","task is succes ! ");
                   //  ((Activity)myContext).finish();
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
+                    Log.i("samamf","task is else no succes ");
 
                     Toast.makeText( myContext, "Se produjo un error", Toast.LENGTH_SHORT).show();
                 }
