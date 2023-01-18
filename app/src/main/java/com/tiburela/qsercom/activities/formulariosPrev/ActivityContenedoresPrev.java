@@ -589,13 +589,13 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         spTipoBoquilla = findViewById(R.id.spTipoBoquilla);
 
         spFuenteAgua = findViewById(R.id.spFuenteAgua);
-        ediSemana = findViewById(R.id.ediCajas3);
-        ediFecha = findViewById(R.id.ediCajas7);
-        ediProductor = findViewById(R.id.ediCodigoN2);
-        ediHacienda = findViewById(R.id.ediCodigoN8);
+        ediSemana = findViewById(R.id.ediSemana);
+        ediFecha = findViewById(R.id.ediFecha);
+        ediProductor = findViewById(R.id.ediProductor);
+        ediHacienda = findViewById(R.id.ediHacienda);
         ediCodigo = findViewById(R.id.ediCodigo);
-        ediInscirpMagap = findViewById(R.id.ediCajas10);
-        ediPemarque = findViewById(R.id.ediProductor10);
+        ediInscirpMagap = findViewById(R.id.ediInscirpMagap);
+        ediPemarque = findViewById(R.id.ediPemarque);
         ediNtargetaEmbarque = findViewById(R.id.ediNtargetaEmbarque);
         ediZona = findViewById(R.id.ediZona);
         ediHoraInicio = findViewById(R.id.ediHoraInicio);
@@ -2381,15 +2381,33 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
         //cremaos un hasmpa con los libriados
+
         HashMap<String, Float> miMapLbriado = generateMapLibriadoIfExistAndUpload(false);
         String keyWhereLocaleHashMapLibriado = "";
 
+
+
         //SUBIMOS EL MAPA
         if (miMapLbriado.size() > 0) {
-            keyWhereLocaleHashMapLibriado = Variables.CurrenReportPart1.getKeyOrNodeLibriadoSiEs();
+
+            if(!Variables.CurrenReportPart1.getKeyOrNodeLibriadoSiEs().trim().isEmpty()){
+                keyWhereLocaleHashMapLibriado = Variables.CurrenReportPart1.getKeyOrNodeLibriadoSiEs();
+            }
+            else  { //pero si esta vacio
+
+                keyWhereLocaleHashMapLibriado=RealtimeDB.rootDatabaseReference.push().getKey();
+
+
+            }
+
+
             RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado, keyWhereLocaleHashMapLibriado);
 
         }
+
+        Log.i("simasss", "el size de libriado es   " +miMapLbriado.size());
+        Log.i("simasss", "el keyWhereLocaleHashMapLibriado es   " +keyWhereLocaleHashMapLibriado);
+
 
 
         informe.setKeyOrNodeLibriadoSiEs(keyWhereLocaleHashMapLibriado);
@@ -6048,7 +6066,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
                 //le agregamos un slash al id key mas o menos este fomrato idddd/fil1
 
-                miMapData.put(String.valueOf(currentEdit.getId()) + "-" + currentEdit.getTag(), Float.parseFloat(currentEdit.getText().toString()));
+                miMapData.put(currentEdit.getId() + "-" + currentEdit.getTag(), Float.parseFloat(currentEdit.getText().toString()));
 
                 Log.i("miodataxx","hay texto aqui");
 

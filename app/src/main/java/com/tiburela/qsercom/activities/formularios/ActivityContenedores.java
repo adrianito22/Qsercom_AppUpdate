@@ -2889,13 +2889,14 @@ private void createObjcInformeAndUpload(){
     HashMap<String,Float>miMapLbriado=generateMapLibriadoIfExistAndUpload();
     String keyWhereLocaleHashMapLibriado="";
 
-    //SUBIMOS EL MAPA
+
     if(miMapLbriado.size()>0){
+
          keyWhereLocaleHashMapLibriado=RealtimeDB.rootDatabaseReference.push().getKey();
 
         RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,keyWhereLocaleHashMapLibriado);
 
-        //
+
     }
 
 

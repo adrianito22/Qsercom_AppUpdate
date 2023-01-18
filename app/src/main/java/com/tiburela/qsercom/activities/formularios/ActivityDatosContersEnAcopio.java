@@ -1727,9 +1727,6 @@ private void createObjcInformeAndUpload(){
         StorageData.uploaddata(list);
 
 
-        //aqui subimos
-    //   StorageData.uploadImage(ActivityDatosContersEnAcopio.this, ImagenReport.hashMapImagesData);
-
     }
 
 

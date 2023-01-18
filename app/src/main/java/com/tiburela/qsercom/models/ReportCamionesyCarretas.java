@@ -19,6 +19,20 @@ public class ReportCamionesyCarretas {
     private long fechaCreacionInf;
     private String  numcionContenedor;
 
+    public String getKeyOrNodeLibriadoSiEs() {
+        return keyOrNodeLibriadoSiEs;
+    }
+
+    public void setKeyOrNodeLibriadoSiEs(String keyOrNodeLibriadoSiEs) {
+        this.keyOrNodeLibriadoSiEs = keyOrNodeLibriadoSiEs;
+    }
+
+    public void setClienteReporte(String clienteReporte) {
+        this.clienteReporte = clienteReporte;
+    }
+
+    private String keyOrNodeLibriadoSiEs;
+
     public String getClienteReporte() {
         return clienteReporte;
     }
@@ -518,6 +532,8 @@ public class ReportCamionesyCarretas {
         this.observacionOpc=observacionOpc;
         this.nodoQueContieneMapPesoBrutoCloster2y3l=nodoQueContieneMapPesoBrutoCloster2y3l;
         this.clienteReporte=clienteReporte;
+
+        keyOrNodeLibriadoSiEs="";
 
     }
 
