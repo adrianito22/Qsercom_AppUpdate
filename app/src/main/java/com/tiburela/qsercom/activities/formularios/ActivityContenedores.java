@@ -5464,24 +5464,6 @@ private void callPrefrencesSave(){
 
 
 
-
-/*
-
-            Log.i("test001"," seleciono 200");
-
-            ScrollView scrollView2 =findViewById(R.id.scrollView2);
-
-            scrollView2.post(new Runnable() {
-                public void run() {
-                    scrollView2.scrollTo(0, vistFocus.getBottom());
-                }
-            });
-
-*/
-
-
-
-
     }
 
 
