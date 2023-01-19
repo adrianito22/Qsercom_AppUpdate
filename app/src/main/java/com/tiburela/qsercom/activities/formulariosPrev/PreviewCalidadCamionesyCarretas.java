@@ -1761,6 +1761,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         RealtimeDB.updateCalidaCamionCarrretas(informe,Variables.currenReportCamionesyCarretas);
 
+
         addCalibracionFutaC_enfAndUpload();
 
 
@@ -3002,8 +3003,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
             RealtimeDB.UpdateCalibracionFrutCal(calibrFrutCalEnf,calEnfundeGLOB.getKeyFirebase());
 
+               Log.i("somewrlals","es difrente de nulo  lo actualizamos");
 
         } else{
+            Log.i("somewrlals","es nulo crearemos now ");
 
             RealtimeDB.UploadCalibracionFrutCal(calibrFrutCalEnf);
 
@@ -4231,6 +4234,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 // Map<String, Object> map = null;
                 //  Map<String, String> map = dataSnapshot.getValue(Map.class);
                 //  Log.i("sliexsa","el size de map es "+map.size());
@@ -4240,10 +4244,12 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
                     calEnfundeGLOB=ds.getValue(CalibrFrutCalEnf.class);
                 }
 
-                //  Log.i("sliexsa","existe"+product.cantidadOtro);
 
 
                 if(calEnfundeGLOB!=null){
+
+                    Log.i("somewrlals","es difrente de nulo");
+
                     setCalibrCalEndInViews(calEnfundeGLOB);
 
                 }
