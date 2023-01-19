@@ -34,7 +34,7 @@
                         android:layout_margin="5dp"
                         android:hint="TERMOGRAFO N 1"
                         android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediTermofrafo1"
@@ -52,7 +52,7 @@ android:textAllCaps="true" />
                         android:layout_margin="5dp"
                         android:hint="HORA DE ENCENDIDO"
                         android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediHoraEncendido1"
@@ -70,7 +70,7 @@ android:textAllCaps="true" />
                         android:layout_margin="5dp"
                         android:hint="UBICACION PALET N"
                         android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediUbicacion1"
@@ -89,7 +89,7 @@ android:textAllCaps="true"
                         android:layout_margin="5dp"
                         android:hint="RUMA  O PALLET N"
                         android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediRuma1"
@@ -113,7 +113,7 @@ android:textAllCaps="true"
                         android:layout_margin="5dp"
                         android:hint="TERMOGRAFO N 2"
                         android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediTermofrafo2"
@@ -131,7 +131,7 @@ android:textAllCaps="true" />
                         android:layout_margin="5dp"
                         android:hint="HORA DE ENCENDIDO"
                         android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediHoraEncendido2"
@@ -149,7 +149,7 @@ android:textAllCaps="true" />
                         android:layout_margin="5dp"
                         android:hint="UBICACION PALET N"
                         android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediUbicacion2"
@@ -167,7 +167,7 @@ android:textAllCaps="true" />
                         android:layout_margin="5dp"
                         android:hint="RUMA  O PALLET N"
                         android:visibility="visible"
-                        app:endIconMode="clear_text">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediRuma2"
@@ -193,7 +193,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="CANDADO DE QSERCON"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediCandadoqsercon"
@@ -212,7 +212,7 @@ android:textAllCaps="true"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="SELLO DE NAVIERA"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediSelloNaviera"
@@ -236,7 +236,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="CABLE DE NAVIERA"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediCableNaviera"
@@ -255,7 +255,7 @@ android:textAllCaps="true"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="SELLO PLASTICO"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediSelloPlastico"
@@ -281,7 +281,7 @@ android:textAllCaps="true"
                 android:layout_weight="1"
 
                 android:hint="CANDADO DE BOTELLA"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediCandadoBotella"
@@ -299,7 +299,7 @@ android:textAllCaps="true" />
                 android:layout_weight="1"
 
                 android:hint="CABLE EXPORTADORA"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediCableExportadora"
@@ -323,7 +323,7 @@ android:textAllCaps="true" />
                 android:layout_weight="1"
 
                 android:hint="SELLO ADHESIVO DE EXPORTADORA"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediSelloAdesivoexpor"
@@ -348,7 +348,7 @@ android:textAllCaps="true" />
                 android:layout_weight="1"
 
                 android:hint="SELLO ADHESIVO DE NAVIERA"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/esiSelloAdhNaviera"
@@ -372,7 +372,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="OTROS SELLOS (ESPECIFIQUE)"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediOtherSellos"

@@ -54,7 +54,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="AGUA CORRIDA"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediAguaCorrida"
@@ -151,7 +151,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="TIPO DE BOQUILLA"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediTipoBoquilla"
@@ -195,7 +195,7 @@ android:textAllCaps="true" />
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="CAJAS PROCESADAS DESPACHADAS"
-            app:endIconMode="clear_text">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediCajasProcDesp"
@@ -212,7 +212,7 @@ android:textAllCaps="true" />
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="RACIMOS COSECHADOS"
-            app:endIconMode="clear_text">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediRacimosCosech"
@@ -228,7 +228,7 @@ android:textAllCaps="true" />
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="RACIMOS RECHAZADOS"
-            app:endIconMode="clear_text">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediRacimosRecha"
@@ -244,7 +244,7 @@ android:textAllCaps="true" />
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="RACIMOS PROCESADOS"
-            app:endIconMode="clear_text">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediRacimProces"

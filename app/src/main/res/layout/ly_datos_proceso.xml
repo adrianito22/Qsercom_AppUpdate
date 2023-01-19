@@ -21,7 +21,7 @@
             android:layout_margin="5dp"
             android:hint="CONDICION DE BALANZA"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -47,7 +47,7 @@
             android:layout_margin="5dp"
             android:hint="TIPO DE CAJA"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -74,7 +74,7 @@
             android:layout_margin="5dp"
             android:hint="BALANZA"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -102,7 +102,7 @@
             android:layout_margin="5dp"
             android:hint="ENZUNCHADO"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -130,7 +130,7 @@
             android:layout_margin="5dp"
             android:hint="TIPO DE PLASTICO"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -158,7 +158,7 @@
             android:enabled="false"
             android:hint="TIPO DE BALANZA"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -185,7 +185,7 @@
             android:layout_margin="5dp"
             android:hint="BALANZA  DE REPESO"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -213,7 +213,7 @@
             android:layout_margin="5dp"
             android:hint="TIPO DE BALANZA DE REPESO"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -240,7 +240,7 @@
             android:layout_margin="5dp"
             android:hint="UBICACION DE BALANZA"
             android:visibility="visible"
-            app:endIconMode="clear_text"
+            
             app:layout_columnWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText

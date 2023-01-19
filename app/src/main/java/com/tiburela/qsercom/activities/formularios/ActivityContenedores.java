@@ -621,13 +621,13 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
 
-         ediSemana=findViewById(R.id.ediCajas3);
-         ediFecha=findViewById(R.id.ediCajas7);
-         ediProductor=findViewById(R.id.ediCodigoN2);
-         ediHacienda=findViewById(R.id.ediCodigoN8);
+         ediSemana=findViewById(R.id.ediSemana);
+         ediFecha=findViewById(R.id.ediFecha);
+         ediProductor=findViewById(R.id.ediProductor);
+         ediHacienda=findViewById(R.id.ediHacienda);
          ediCodigo=findViewById(R.id.ediCodigo);
-         ediInscirpMagap=findViewById(R.id.ediCajas10);
-         ediPemarque=findViewById(R.id.ediProductor10);
+         ediInscirpMagap=findViewById(R.id.ediInscirpMagap);
+         ediPemarque=findViewById(R.id.ediPemarque);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
          ediHoraInicio=findViewById(R.id.ediHoraInicio);
@@ -1005,7 +1005,7 @@ Log.i("hellosweer","se ehjecitp onstart");
                }
                break; //
 
-           case R.id.ediCajas7:
+           case R.id.ediFecha:
               // Utils.closeKeyboard(ActivityContenedores.this);
 
                selecionaFecha();

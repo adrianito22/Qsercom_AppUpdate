@@ -170,7 +170,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:layout_weight="8"
                 android:hint="FOTOS"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediFotoContenedor"

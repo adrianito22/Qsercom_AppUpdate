@@ -1000,7 +1000,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
                 break; //
 
 
-            case R.id.ediCajas7:
+            case R.id.ediFecha:
                 // Utils.closeKeyboard(FormularioActivity.this);
 
                 selecionaFecha();

@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="CANTIDAD OTRO"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -39,7 +39,7 @@ android:textAllCaps="true" />
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="OTRO  (ESPECIFIQUE)"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -56,7 +56,7 @@ android:textAllCaps="true" />
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="BIOTTOL"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -75,7 +75,7 @@ android:textAllCaps="true"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="ACIDO CITRICO"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -95,7 +95,7 @@ android:textAllCaps="true"
                 android:layout_margin="5dp"
                 android:hint="ALUMBRE"
                 android:visibility="visible"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -114,7 +114,7 @@ android:textAllCaps="true"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="SB100"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -133,7 +133,7 @@ android:textAllCaps="true"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="CLORO"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -150,7 +150,7 @@ android:textAllCaps="true" />
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="BC100"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -169,7 +169,7 @@ android:textAllCaps="true"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="ECLIPSE"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -177,7 +177,7 @@ android:textAllCaps="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapCharacters"
-android:textAllCaps="true"
+                    android:textAllCaps="true"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -188,7 +188,7 @@ android:textAllCaps="true"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:hint="GIB-BEX"
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -196,7 +196,7 @@ android:textAllCaps="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -206,7 +206,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:hint="NLARGE"
 
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -224,7 +224,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:hint="XTRATA"
 
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -242,7 +242,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:hint="SASTIFAR"
 
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -260,7 +260,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:hint="MERTEC"
 
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -278,7 +278,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:hint="BROMORUX"
 
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -296,7 +296,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:hint="RYZUC"
 
-                app:endIconMode="clear_text"
+                
                 app:layout_columnWeight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -323,7 +323,7 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:layout_weight="8"
                 android:hint="FOTOS PRODUCTOS"
-                app:endIconMode="clear_text">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediFotosPposcosecha"
