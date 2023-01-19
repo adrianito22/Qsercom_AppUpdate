@@ -1698,16 +1698,34 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         HashMap<String, Float> miMapLbriado = generateMapLibriadoIfExistAndUpload(false);
+
+
+        Log.i("simener","el size de lista es "+miMapLbriado.size());
+
+
         String keyWhereLocaleHashMapLibriado = "";
         if (miMapLbriado.size() > 0) {
-            if(!Variables.currenReportCamionesyCarretas.getKeyOrNodeLibriadoSiEs().trim().isEmpty()){
+            if(!Variables.currenReportCamionesyCarretas.getKeyOrNodeLibriadoSiEs().trim().isEmpty() &&
+                    Variables.currenReportCamionesyCarretas.getKeyOrNodeLibriadoSiEs().length()>1){
+
                 keyWhereLocaleHashMapLibriado = Variables.currenReportCamionesyCarretas.getKeyOrNodeLibriadoSiEs();
+
+                Log.i("simener","el keyWhereLocaleHashMapLibriado ES  "+keyWhereLocaleHashMapLibriado);
+
             }
             else  { //pero si esta vacio
                 keyWhereLocaleHashMapLibriado=RealtimeDB.rootDatabaseReference.push().getKey();
+                Log.i("simener","ESTA VACIO Y AHORA ES "+keyWhereLocaleHashMapLibriado);
+
             }
+
+
             RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado, keyWhereLocaleHashMapLibriado);
         }
+
+
+        Log.i("simener","el keyWhereLocaleHashMapLibriado ES AQUI ES  "+keyWhereLocaleHashMapLibriado);
+
         informe.setKeyOrNodeLibriadoSiEs(keyWhereLocaleHashMapLibriado);
 
 
@@ -3866,17 +3884,15 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
-        Log.i("simener","el nodo que contiene es: "+Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l());
+        Log.i("simener","el nodo que contiene es: "+Variables.currenReportCamionesyCarretas.getKeyOrNodeLibriadoSiEs());
 
-        if(!Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l().trim().isEmpty()){
 
-            dowLoadMapPesoBrutoCloster2y3l((Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l()));
+
+        if(!Variables.currenReportCamionesyCarretas.getKeyOrNodeLibriadoSiEs().trim().isEmpty()){
+
+            dowLoadMapPesoBrutoCloster2y3l((Variables.currenReportCamionesyCarretas.getKeyOrNodeLibriadoSiEs()));
 
         }
-
-
-
-
 
 
 

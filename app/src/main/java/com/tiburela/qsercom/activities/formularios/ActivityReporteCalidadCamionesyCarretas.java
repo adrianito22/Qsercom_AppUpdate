@@ -1953,6 +1953,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
 
+
+
     private void generateUniqueIdInformeAndContinuesIfIdIsUnique( ReportCamionesyCarretas cmaionesyCarretasObjc){
 
         String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
@@ -1992,11 +1994,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
                     objecCamionesyCarretas.setUniqueIDinforme(currenTidGenrate);
 
-                    DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference;
-                    String PuskEY = mibasedata.push().getKey();
-
-
-                    objecCamionesyCarretas.setNodoQueContieneMapPesoBrutoCloster2y3l(PuskEY);
 
                      //informe actual
                     RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
@@ -2005,8 +2002,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
                     addCalibracionFutaC_enfAndUpload();
                     addProdcutsPostCosechaAndUpload(currenTidGenrate); //agregamos y subimos los productos postcosecha..
-
-                    //createHashmapPesoBrutoCloster2y3lAndUpload(PuskEY);
 
 
                 }
