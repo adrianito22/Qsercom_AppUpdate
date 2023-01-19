@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.text.DecimalFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -104,6 +106,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     TextInputEditText ediSemana;
     TextInputEditText ediClienteNombreReporte;
+
+    ImageView imgUpdatecAlfrutaEnfunde;
 
     TextInputEditText ediFecha;
     TextInputEditText ediProductor;
@@ -533,6 +537,9 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        imgUpdatecAlfrutaEnfunde=findViewById(R.id.imgUpdatecAlfrutaEnfunde);
+
         ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
         layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
@@ -732,6 +739,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         /**todos add a todos clicklistener de la implemntacion*/
 
+        imgUpdatecAlfrutaEnfunde.setOnClickListener(this);
 
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
@@ -802,6 +810,13 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         switch (view.getId()) {
+
+
+            case R.id.imgUpdatecAlfrutaEnfunde:
+                Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
+                getResultDatCalibCalEnfundes();
+                break;
+
 
 
             case R.id.ediFecha:
@@ -1280,14 +1295,9 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         spTipoBoquilla .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 String textSelect= spTipoBoquilla.getSelectedItem().toString();
                 ediTipoBoquilla.setText(textSelect);
-                if(textSelect.equals("Ninguna")){
-                    //actualizamos
-                    Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                    ediTipoBoquilla.setText("");
-                }
-
 
             }
             @Override
@@ -1790,7 +1800,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 Integer.parseInt(ediRacimosCosech.getText().toString()) ,Integer.parseInt(ediRacimosRecha.getText().toString()),Integer.parseInt(ediRacimProces.getText().toString()),Integer .parseInt(ediCajasProcDesp.getText().toString()),
                 ediExtCalid.getText().toString(),ediExtRodillo.getText().toString(), ediExtGancho.getText().toString(),
                 ediExtCalidCi.getText().toString(),ediExtRodilloCi.getText().toString(),ediExtGanchoCi.getText().toString(),FieldOpcional.observacionOpcional,""
-                ,ediClienteNombreReporte.getText().toString()
+                ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString()
 
         ) ;
 
@@ -1817,6 +1827,11 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
     }
+
+
+
+
+
 
     HashMap<String, Float> generateMapLibriadoIfExistAndUpload(){
 
@@ -2000,7 +2015,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
                     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
-                    addCalibracionFutaC_enfAndUpload();
+                    addCalibracionFutaC_enfAndUpload(currenTidGenrate);
                     addProdcutsPostCosechaAndUpload(currenTidGenrate); //agregamos y subimos los productos postcosecha..
 
 
@@ -2957,7 +2972,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         }
 
-
+/*
         if(ediExtRodillo.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediExtRodillo.requestFocus();
             ediExtRodillo.setError("Este espacio es obligatorio");
@@ -2998,7 +3013,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         }
 
-
+*/
 
 
         return true;
@@ -3183,12 +3198,12 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     }
 
-    private void  addCalibracionFutaC_enfAndUpload(){
+    private void  addCalibracionFutaC_enfAndUpload(String reportPerteence){
 
         //recorremos un array de editext y creamos un objeto de tipo CalibrFrutCalEnf..
         //si no tiene data agregamos cero u comillas...
 
-        CalibrFrutCalEnf calibrFrutCalEnf=new CalibrFrutCalEnf(UNIQUE_ID_iNFORME);
+        CalibrFrutCalEnf calibrFrutCalEnf=new CalibrFrutCalEnf(reportPerteence);
         //creamos un array de editext
         //editext here
         EditText  ediColorSem14,ediColortSem13,ediColortSem12,ediColortSem11,ediColortSem10,ediColortSem9;
@@ -3233,29 +3248,33 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                             break;
                         case R.id.ediColortSem13:
                             calibrFrutCalEnf.setColorSemana13(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem13(Integer.parseInt(currentEditextNumRacims.getText().toString()));
 
                             break;
 
                         case R.id.ediColortSem12:
+
                             calibrFrutCalEnf.setColorSemana12(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem12(Integer.parseInt(currentEditextNumRacims.getText().toString()));
 
                             break;
 
                         case R.id.ediColortSem11:
+
                             calibrFrutCalEnf.setColorSemana11(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem11(Integer.parseInt(currentEditextNumRacims.getText().toString()));
 
                             break;
                         case R.id.ediColortSem10:
+
                             calibrFrutCalEnf.setColorSemana10(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem10(Integer.parseInt(currentEditextNumRacims.getText().toString()));
 
                             break;
                         case R.id.ediColortSem9:
+
                             calibrFrutCalEnf.setColorSemana9(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem9(Integer.parseInt(currentEditextNumRacims.getText().toString()));
 
                             break;
 
@@ -3674,8 +3693,105 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     void ocultaoTherVIEWs(){
         ediUbicacionBalanza.setVisibility(View.GONE);
         spinnerubicacionBalanza.setVisibility(View.GONE);
+    }
+
+
+
+    private boolean getResultDatCalibCalEnfundes(){
+
+
+
+        if(ediRacimosCosech.getText().toString().trim().isEmpty()){
+            ediRacimosCosech.requestFocus();
+            ediRacimosCosech.setError("Este valor es necesesario");
+
+            return false;
+
+        }
+
+
+        EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        EditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        EditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        EditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+        EditText ediPorc14=findViewById(R.id.ediPorc14);
+        EditText ediPorc13=findViewById(R.id.ediPorc13);
+        EditText ediPorc12=findViewById(R.id.ediPorc12);
+        EditText ediPorc11=findViewById(R.id.ediPorc11);
+        EditText ediPorc10=findViewById(R.id.ediPorc10);
+        EditText ediPorc9 =findViewById(R.id.ediPorc9);
+
+
+
+
+        int numRacimosCosechados=Integer.parseInt(ediRacimosCosech.getText().toString());
+        float resultpercente;
+        DecimalFormat format = new DecimalFormat("#.##");
+
+        int numeroRacimosContador=0;
+
+        //numero de raCimos
+        EditText [] miArrayNUmrACIMOS ={ediNumRcim14,ediNumRcim13,ediNumRcim12,ediNumRcim11,ediNumRcim10,ediNumRac9};
+
+        EditText [] miArraypORCENTAHJES ={ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPorc9};
+
+        for(int i=0; i<miArrayNUmrACIMOS.length; i++){
+
+            if(!miArrayNUmrACIMOS[i].getText().toString().trim().isEmpty())
+            {        ///tiene que ser mayor a cero
+                if(Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString())>0)
+                {  //operamoss
+                    resultpercente= (Float.parseFloat(miArrayNUmrACIMOS[i].getText().toString())/numRacimosCosechados)*100;
+
+                    String promDecim=format.format(resultpercente)   ;
+                    miArraypORCENTAHJES[i].setText(promDecim);
+
+                    //sumaoslos racimos totale
+                    numeroRacimosContador=numeroRacimosContador+Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString());
+
+
+
+                }
+
+            }
+
+
+        }
+
+
+
+        //calculo aqwui
+
+        if(numeroRacimosContador!=numRacimosCosechados){
+
+            Snackbar.make(ediRacimosCosech, "El numero de racimos no concuerda con el numero de racimos cosechados", Snackbar.LENGTH_LONG)
+                    .show();
+
+            Log.i("dataracimos","no coincide");
+
+            return false;
+
+
+
+
+        }
+
+        else {
+            Log.i("dataracimos","SI coincide");
+
+            return true;
+
+
+
+        }
+
 
 
     }
+
 
 }

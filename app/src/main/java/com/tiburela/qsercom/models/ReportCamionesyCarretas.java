@@ -19,12 +19,23 @@ public class ReportCamionesyCarretas {
     private long fechaCreacionInf;
     private String  numcionContenedor;
 
+    private String  tipoBoquilla;
+
+
     public String getKeyOrNodeLibriadoSiEs() {
         return keyOrNodeLibriadoSiEs;
     }
 
     public void setKeyOrNodeLibriadoSiEs(String keyOrNodeLibriadoSiEs) {
         this.keyOrNodeLibriadoSiEs = keyOrNodeLibriadoSiEs;
+    }
+
+    public String getTipoBoquilla() {
+        return tipoBoquilla;
+    }
+
+    public void setTipoBoquilla(String tipoBoquilla) {
+        this.tipoBoquilla = tipoBoquilla;
     }
 
     public void setClienteReporte(String clienteReporte) {
@@ -476,7 +487,7 @@ public class ReportCamionesyCarretas {
                                    int racimosCosechados, int racimosRechazados, int racimosProcesados, int cajasProcesadasDespachadas,
                                    String extensionistaEnCalidad, String extensionistaEnRodillo, String extensionistaEnGancho
                                    , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc,String nodoQueContieneMapPesoBrutoCloster2y3l
-                                   ,String clienteReporte) {
+                                   ,String clienteReporte,String tipoBoquilla) {
 
         keyFirebase="";
         this.uniqueIDinforme=uniqueIDinforme;
@@ -534,6 +545,8 @@ public class ReportCamionesyCarretas {
         this.clienteReporte=clienteReporte;
 
         keyOrNodeLibriadoSiEs="";
+        this.tipoBoquilla=tipoBoquilla;
+
 
     }
 
