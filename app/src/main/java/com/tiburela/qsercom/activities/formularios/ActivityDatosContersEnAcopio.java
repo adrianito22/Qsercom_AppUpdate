@@ -1638,7 +1638,12 @@ private void createObjcInformeAndUpload(){
 
                         Log.i("samamf","hemos pasado add new inform");
 
-                    }else{
+                        finish();
+
+                    }
+
+
+                    else{
 
                         Log.i("samamf","HAY UN DATO INCOMPLETO HEN DATOS PROCESO");
 
@@ -2259,7 +2264,7 @@ return  true;
 
             ediFotosSellosLLegada.clearFocus();
             ediFotosSellosLLegada.setError(null);
-            Log.i("test001","se jecuto este else no hay minimo 1 foto");
+            Log.i("test001","se jecuto este else hay minimo 1 foto");
 
 
         }
