@@ -2854,6 +2854,16 @@ int contadorAlldefectos=0;
 
                   //   float porcentaje= contadorCurrrentDefect * ((float)listNumClustersInspec.get(contadorIterador)/100);
 
+
+
+                     float valuefist= ((float)contadorCurrrentDefect/listNumClustersInspec.get(contadorIterador));
+                     Log.i("howasr","El value es first  "+valuefist); //no usamos value first pero si no podemos usarlo despues
+
+
+
+
+                     Log.i("howasr","El numero de cluster inspecionados es  "+listNumClustersInspec.get(contadorIterador));
+
                      float porcentajex= ((float) contadorCurrrentDefect /listNumClustersInspec.get(contadorIterador))*100;
 
 

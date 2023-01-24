@@ -424,14 +424,6 @@
                     android:text="SUBIR FORMULARIO"
                     android:textAllCaps="true" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:orientation="vertical">
-
-
-                </LinearLayout>
-
                 <Button
                     android:id="@+id/btnSaveLocale"
                     android:layout_width="match_parent"
@@ -441,7 +433,15 @@
                     android:background="@drawable/btn"
                     android:text="Guardar Localemente"
                     android:textAllCaps="true"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
 
 
             </LinearLayout>

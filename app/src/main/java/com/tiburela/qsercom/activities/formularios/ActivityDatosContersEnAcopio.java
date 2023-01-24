@@ -192,13 +192,13 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
 
 
-        if(Variables.hayUnFormIncompleto){
+        if(Variables.esUnFormularioOfflienSharePref){
 
 
             AddDataFormOfSharePrefe() ;
 
             //
-            Variables.hayUnFormIncompleto=false;
+            Variables.esUnFormularioOfflienSharePref =false;
 
         }
 

@@ -915,9 +915,6 @@ if(hayFILE){
 
 
 
-
-
-
             imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
             imagen.setHeight(185f); //SI NO QUITAMOS 5
 

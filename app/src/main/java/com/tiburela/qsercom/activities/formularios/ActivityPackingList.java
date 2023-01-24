@@ -22,7 +22,6 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
-import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -255,13 +254,13 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
         super.onStart();
 
 
-        if(Variables.hayUnFormIncompleto){
+        if(Variables.esUnFormularioOfflienSharePref){
 
 
             AddDataFormOfSharePrefe() ;
 
             //
-            Variables.hayUnFormIncompleto=false;
+            Variables.esUnFormularioOfflienSharePref =false;
 
         }
 

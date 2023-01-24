@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.util.Util;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,8 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
     private View.OnClickListener listener;
 
     private static ClickListener clickListener;
+
+
 
 
     private ArrayList<InformRegister> listReports;
@@ -49,24 +53,39 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
         // Set the data to textview and imageview.
         InformRegister InformRegister = listReports.get(position);
 
-        holder.txtReportCode.setText(InformRegister.getInformUniqueIdPertenece());
+        if(!Utils.isOfflineReport){
+
+            holder.txtReportCode.setText(InformRegister.getInformUniqueIdPertenece());
+
+        }
+
 
         holder.txtDate.setText(InformRegister.getSimpleDateForm());
         holder.txtCategoria.setText(InformRegister.getTypeReportString());
         holder.cardview.setTag(InformRegister.getCodeInformtoVinculacion());
 
 
-        if(InformRegister.isSeRevisoForm()){  //si lo marco como revisado
+        if(! Utils.isOfflineReport){
 
-            holder.txtStateForm.setText("Revisado");
-            holder.txtStateForm.setTextColor(Color.parseColor("#338737"));
+            if(InformRegister.isSeRevisoForm()){  //si lo marco como revisado
+                holder.txtStateForm.setText("Revisado");
+                holder.txtStateForm.setTextColor(Color.parseColor("#338737"));
 
+
+            }
+            else
+            {
+                holder.txtStateForm.setText("Por revisar");
+
+            }
 
         }else{
-            holder.txtStateForm.setText("Por revisar");
 
+            holder.txtStateForm.setVisibility(View.GONE); //SI ES OFFLINE OCULTAMOS STATE VIEW
 
         }
+
+
 
 
 

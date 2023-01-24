@@ -2,7 +2,6 @@ package com.tiburela.qsercom.dialog_fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,7 +26,7 @@ public class DialogConfirmCreateNewForm {
 
             @Override
             public void onClick(View v) {
-                Variables.hayUnFormIncompleto =false;
+                Variables.esUnFormularioOfflienSharePref =false;
                 SharePref.deleteMap(context,keySHAREdelete);
 
                 goActivity(context, cls);
@@ -44,7 +43,7 @@ public class DialogConfirmCreateNewForm {
         btnNo.setOnClickListener(new View.OnClickListener() {  //activar switch
             @Override
             public void onClick(View v) {
-                Variables.hayUnFormIncompleto =true;
+                Variables.esUnFormularioOfflienSharePref =true;
 
                 goActivity(context, cls);
 

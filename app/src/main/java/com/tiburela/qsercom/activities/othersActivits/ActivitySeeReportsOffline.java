@@ -64,20 +64,13 @@ import java.util.Map;
 public class ActivitySeeReportsOffline extends AppCompatActivity  implements   View.OnTouchListener{
     RecyclerView recyclerVReports;
     Spinner  spinnerDatesSelector;
-    ArrayList<SetInformEmbarque1> reportsListPart1;
     ProgressDialog pd;
-    DatabaseReference rootDatabaseReference ; //anterior
     TextView txtConfirmExitenciaData ;
     ArrayList<InformRegister> listReportCurrents = new ArrayList<>();
     private ProgressDialog progress;
-
     public final int CONTENEDORES=1200;
-
     HashMap<String, ReportsAllModel> allReportFiltBMap=new HashMap<>();
-
     Map<String,  InformRegister> mapAllReportsRegister =new HashMap<>();
-
-
     public static Context context;
 
 
@@ -86,18 +79,14 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_reports);
 
-        //Auth.initAuth(this);
         context = getApplicationContext();
 
         findViewsIDs();
 
-
-
-
-
-
-
     }
+
+
+
 
     @Override
     protected void onStart() {

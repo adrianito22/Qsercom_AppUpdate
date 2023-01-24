@@ -474,7 +474,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        if(Variables.hayUnFormIncompleto){
+        if(Variables.esUnFormularioOfflienSharePref){
 
             EditextSupreme [] arrayEditexSupreme =creaArryOfEditextSupreme();
             TextInputEditText [] arrayEditex2 =creaArryOftEXTiMPUTeditext();
@@ -483,7 +483,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             Utils. addDataOfPrefrencesInView(arrayEditex2,Variables.currentMapPreferences);
 
 
-            Variables.hayUnFormIncompleto=false;
+            Variables.esUnFormularioOfflienSharePref =false;
 
 
         }

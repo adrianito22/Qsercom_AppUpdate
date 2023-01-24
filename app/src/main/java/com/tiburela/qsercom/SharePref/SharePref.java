@@ -76,7 +76,7 @@ public class SharePref {
 
 
 
-    public static Map<String, String> loadMap(Context context,String keyMap) {
+    public static Map<String, String> loadMap(String keyMap) {
         Map<String, String> outputMap = new HashMap<>();
         try {
             if (mSharedPrefUniqueObjc != null) {
@@ -94,6 +94,8 @@ public class SharePref {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
         return outputMap;
     }
 

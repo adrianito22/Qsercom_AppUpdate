@@ -98,7 +98,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -320,11 +319,6 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
 Log.i("hellosweer","se ehjecitp onstart");
 
-        if(Variables.hayUnFormIncompleto){
-            AddDataFormOfSharePrefe() ;
-            Variables.hayUnFormIncompleto=false;
-
-        }
 
 
 
@@ -339,13 +333,34 @@ Log.i("hellosweer","se ehjecitp onstart");
 
     }
 
-    private void AddDataFormOfSharePrefe() {
+    private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
+
 
         TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
-        Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
+
+        View [] arrrayAllViews=creaArryOfViewsAll();
 
 
+        /*
+        try {
+            HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
 
+            Log.i("sabeirr","el size de mapa es "+currentMapPreferences.size());
+
+            Utils.addDataOfPrefrencesInView(arrayEditex,currentMapPreferences);
+
+
+        } catch (Exception e) {
+
+            Log.i("sabeirr","la expecion es "+e.getMessage());
+            e.printStackTrace();
+
+        }
+
+*/
+
+
+        /**aqui las imagenes */
 /*
          //descrgamos info de imagenes //todavia no muy lista aun
         Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
@@ -386,18 +401,6 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-
-            hayUnformularioIcompleto = extras.getBoolean("ActivitymenuKey");
-
-            currentKeySharePrefrences=extras.getString(Variables.KEY_CONTENEDORES_EXTRA);
-
-
-            //The key argument here must match that used in the other activity
-        }
-
-
 
 
         UNIQUE_ID_iNFORME="";
@@ -422,6 +425,25 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         ediRacimosRecha.setEnabled(false);
         ediRacimosRecha.setText(null);
+
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+
+            /// hayUnformularioIcompleto = extras.getBoolean("ActivitymenuKey");
+
+            currentKeySharePrefrences=extras.getString(Variables.KEY_CONTENEDORES_EXTRA);
+
+            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
+
+
+
+
+            //The key argument here must match that used in the other activity
+        }
+
+
 
     }
 
@@ -4421,7 +4443,10 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 private TextInputEditText[] creaArryOfTextInputEditText() {
 
     TextInputEditText [] arrayEditex = {
-
+            ediExportadoraProcesada,
+            ediExportadoraSolicitante,
+            ediMarca,
+            ediClienteNombreReporte,
             ediSemana,
             ediFecha,
             ediProductor,
@@ -4538,7 +4563,10 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     private View[] creaArryOfViewsAll() {
         View [] arrayViews = {
-
+                ediExportadoraProcesada,
+                ediExportadoraSolicitante,
+                ediMarca,
+                ediClienteNombreReporte,
                 ediSemana,
                 ediFecha,
                 ediProductor,
@@ -5418,7 +5446,11 @@ private void callPrefrencesSave(){
 
      View [] mivIEWSAlls=creaArryOfViewsAll();
 
+    Log.i("saberrr","el current key es "+currentKeySharePrefrences);
+
+
     if(currentKeySharePrefrences.length()>1){  //si existe un key...y lo usamos...
+      Log.i("saberrr","se ejecuto el if ");
 
         SharePrefHelper.viewsSaveInfo(mivIEWSAlls,currentKeySharePrefrences,ActivityContenedores.this);
 
@@ -5428,6 +5460,7 @@ private void callPrefrencesSave(){
     }
 
     else{ //no existe creamos un nuevo register..
+        Log.i("saberrr","se ejecuto el else ");
 
 
         //OBTENMOS EL MAPAP CON OBJETOS INFORM REGISTER

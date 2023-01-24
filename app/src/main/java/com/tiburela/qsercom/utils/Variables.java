@@ -180,7 +180,7 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
 
     public static HashMap<String, String> currentMapPreferences=new HashMap<>();
 
-    public static boolean hayUnFormIncompleto =false;
+    public static boolean esUnFormularioOfflienSharePref =false;
     public static boolean hayUnFormIcompletoTOrEYCLER =false;
 
 

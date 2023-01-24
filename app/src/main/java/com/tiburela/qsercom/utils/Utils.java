@@ -10,6 +10,10 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 
@@ -42,6 +46,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
+ public static boolean isOfflineReport=false;
+
+
 public static int numReportsVinculadsAll =0;
 
   public static   HashMap<String , ArrayList<DefectsAndNumber>> HashMapOfListWhitStatesCHeckb = new HashMap<>(); //serian unas dies listas...
@@ -383,13 +390,18 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
 
             TextInputEditText currentTxImpEditext =arraytxtImpEditext[indice] ;
 
-            String key =String.valueOf(currentTxImpEditext.getId());
 
-            if(hashMaPDePrefer.get(key) != null)  {
+            if(currentTxImpEditext!=null){
+                String key =String.valueOf(currentTxImpEditext.getId());
 
-                currentTxImpEditext.setText(hashMaPDePrefer.get(key));
+                if(hashMaPDePrefer.get(key) != null)  {
 
+                    currentTxImpEditext.setText(hashMaPDePrefer.get(key));
+
+                }
             }
+
+
 
 
 
@@ -400,6 +412,69 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
 
 
     }
+
+
+    public static  void addDataOfPrefrencesInView(View[] arrayAllViews, @NonNull HashMap<String, String> hashMaPDePrefer) {
+
+        /***nos quedamos aqui ,mirar activity previews como set data*/
+
+
+        for (Map.Entry<String, String> entry : hashMaPDePrefer.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+
+          View vistax=  getViewById(key,arrayAllViews);
+
+          if(vistax!=null){
+
+              if(vistax instanceof EditText){ //si es un editext
+                  EditText editText = (TextInputEditText) vistax; //asi lo convertimos
+                  editText.setText(value);
+
+              }
+
+              else if(vistax instanceof Spinner){
+                  Spinner spn=(Spinner)vistax ;
+
+                  //aqui colamos el texto como en preview
+
+              }
+
+
+              else if(vistax instanceof Switch){
+                  Switch switchz=(Switch)vistax ;
+
+                  //aqui colamos el texto como en preview
+
+              }
+
+
+
+          }
+
+        }
+
+
+
+    }
+
+
+    private  static View getViewById(String idSearch,View[] arrayAllViews){
+        View vista=null;
+        for(View vistaCurrent: arrayAllViews){
+            if(String.valueOf(vistaCurrent.getId()).equals(idSearch)){
+                vista=vistaCurrent;
+                break;
+            }
+
+        }
+
+       return vista;
+    }
+
+
+
 
 
     public static  void addDataOfPrefrencesInViewX(EditextSupreme[] arraytxtImpEditext, HashMap<String, String> hashMaPDePrefer) {

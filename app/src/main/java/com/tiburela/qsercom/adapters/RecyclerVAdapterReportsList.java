@@ -16,9 +16,9 @@ import com.tiburela.qsercom.models.ReportsAllModel;
 
 import java.util.ArrayList;
 
-public class RecyclerVAdapterReportsList extends RecyclerView.Adapter<RecyclerVAdapterReportsList.RecyclerViewHolder>  implements   View.OnClickListener  {
+public class RecyclerVAdapterReportsList extends RecyclerView.Adapter<RecyclerVAdapterReportsList.RecyclerViewHolder>
+        implements   View.OnClickListener  {
 
-   // private static ClickListener clickListener;
 
     private View.OnClickListener listener;
 

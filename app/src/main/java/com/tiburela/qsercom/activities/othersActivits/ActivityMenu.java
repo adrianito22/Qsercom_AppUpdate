@@ -197,7 +197,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             public void onClick(View view) {
 
                 SharePref.init(ActivityMenu.this);
-
+                     Utils.isOfflineReport=true;
 
                 startActivity(new Intent(ActivityMenu.this,ActivitySeeReportsOffline.class));
 
@@ -381,6 +381,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                Utils.isOfflineReport=false;
 
 
                 if(Variables.tipoDeUser ==Variables.CALIFICADOR_OFICINA) {
@@ -693,7 +694,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     public void confirmNuevoFormulario(boolean selecionoCrearNuevoForm) {
 
         if(selecionoCrearNuevoForm){
-            Variables.hayUnFormIncompleto =false;
+            Variables.esUnFormularioOfflienSharePref =false;
 
          //   DialogConfirmCreateNewForm.bottomSheetDialog.dismiss();
 
@@ -770,24 +771,21 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         }
-
-
     }
-
 
 
 
     private boolean checkIfExisteFormIcompleto( String keyFormulario){
         SharePref.init(getApplicationContext());
 
-        Map<String,String>mimap= SharePref.loadMap(ActivityMenu.this,keyFormulario);
+        Map<String,String>mimap= SharePref.loadMap(keyFormulario);
 
         if(mimap!=null && mimap.size()>0){ //si no es nulo
             Log.i("chekenadoPREFE"," NO ES NULO y hay contenido  HURRA");
             Log.i("chekenadoPREFE"," EL SIZE ES "+mimap.size());
 
            Variables.currentMapPreferences= (HashMap<String, String>) mimap;
-            Variables.hayUnFormIncompleto =true;
+            Variables.esUnFormularioOfflienSharePref =true;
             return true;
         }
 
@@ -803,7 +801,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
     private boolean checkIfExisteMapTOrecycler( String keyFormulario){
 
-        Map<String,String>mimap= SharePref.loadMap(ActivityMenu.this,keyFormulario);
+        Map<String,String>mimap= SharePref.loadMap(keyFormulario);
 
         if(mimap!=null && mimap.size()>0){ //si no es nulo
 
