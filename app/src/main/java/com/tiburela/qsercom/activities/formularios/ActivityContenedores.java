@@ -1915,6 +1915,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                                 showImagesPicShotOrSelectUpdateView(false);
 
+
+
                             }
 
                          catch (FileNotFoundException e) {
