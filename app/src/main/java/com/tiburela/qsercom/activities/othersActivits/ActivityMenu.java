@@ -208,13 +208,15 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
 
-
-
-
         ly_controlCalidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                Intent intencion=new Intent(ActivityMenu.this,ActivityControlCalidad.class);
+                showPRogressAndStartActivity(intencion);
+
+
+                /*
                 if(checkIfExisteFormIcompleto(SharePref.KEY_CONTROL_CALIDAD)){
 
                    currentFormSelect=Variables.FormCantrolCalidad;
@@ -231,7 +233,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                 }
 
-
+*/
             }
         });
 
@@ -239,22 +241,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
-                if(checkIfExisteFormIcompleto(SharePref.KEY_CALIDAD_CAMIONESY_CARRETAS)){
-
-                    currentFormSelect=Variables.FormCamionesyCarretasActivity;
-
-                    muestraDialog2Opciones(SharePref.KEY_CALIDAD_CAMIONESY_CARRETAS);
-
-                }
-                else{
-
-                  //  startActivity(new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class));
-
-                    Intent intencion=new Intent(ActivityMenu.this,ActivityReporteCalidadCamionesyCarretas.class);
-                    showPRogressAndStartActivity(intencion);
-
-
-                }
+                Intent intencion=new Intent(ActivityMenu.this,ActivityReporteCalidadCamionesyCarretas.class);
+                showPRogressAndStartActivity(intencion);
 
 
             }
@@ -264,21 +252,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
-                if(checkIfExisteFormIcompleto(SharePref.KEY_PACKING_LIST)){
 
-                    currentFormSelect=Variables.FormPackingList;
-
-                    muestraDialog2Opciones(SharePref.KEY_PACKING_LIST);
-
-                }
-                else{
-
-                  //  startActivity(new Intent(ActivityMenu.this, ActivityPackingList.class));
-
-                    Intent intencion=new Intent(ActivityMenu.this,ActivityPackingList.class);
-                    showPRogressAndStartActivity(intencion);
-                }
-
+                Intent intencion=new Intent(ActivityMenu.this,ActivityPackingList.class);
+                showPRogressAndStartActivity(intencion);
 
 
             }
@@ -290,22 +266,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             public void onClick(View view) {
 
 
-                if(checkIfExisteFormIcompleto(SharePref.KEY_CONTENEDORES_EN_ACOPIO)){
-                    currentFormSelect=Variables.FormatDatsContAcopi;
-
-                    muestraDialog2Opciones(SharePref.KEY_CONTENEDORES_EN_ACOPIO);
-
-                }
-                else{
-                   // startActivity(new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class));
-
-
-
-
-                    Intent intencion=new Intent(ActivityMenu.this,ActivityDatosContersEnAcopio.class);
-                    showPRogressAndStartActivity(intencion);
-                }
-
+                Intent intencion=new Intent(ActivityMenu.this,ActivityDatosContersEnAcopio.class);
+                showPRogressAndStartActivity(intencion);
 
 
             }
@@ -316,21 +278,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
-
-                if(checkIfExisteFormIcompleto(SharePref.KEY_CONTENEDORES)){
-
-                    currentFormSelect=Variables.FormPreviewContenedores;
-
-                    muestraDialog2Opciones(SharePref.KEY_CONTENEDORES);
-
-                }
-                else{
-
-                   // startActivity(new Intent(ActivityMenu.this, ActivityContenedores.class));
-                    Intent intencion=new Intent(ActivityMenu.this,ActivityContenedores.class);
-                    showPRogressAndStartActivity(intencion);
-
-                }
+                Intent intencion=new Intent(ActivityMenu.this,ActivityContenedores.class);
+                showPRogressAndStartActivity(intencion);
 
 
             }
@@ -341,31 +290,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
-                if(checkIfExisteMapTOrecycler(SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS)){
-                    Log.i("midatashare","existe data hey");
 
-                }
-
-
-                if(checkIfExisteFormIcompleto(SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS) ){
-                    currentFormSelect=Variables.FormMuestreoRechaz;
-                    muestraDialog2Opciones(SharePref.KEY_CUADRO_MUESTRA_CALIB_RECHAZDS);
-
-
-                }
-
-
-
-
-
-                else{
-
-                 //   startActivity(new Intent(ActivityMenu.this, ActivityCuadMuestCalibAndRechaz.class ));
-
-                    Intent intencion=new Intent(ActivityMenu.this,ActivityCuadMuestCalibAndRechaz.class);
-                    showPRogressAndStartActivity(intencion);
-
-                }
+                Intent intencion=new Intent(ActivityMenu.this,ActivityCuadMuestCalibAndRechaz.class);
+                showPRogressAndStartActivity(intencion);
 
 
 

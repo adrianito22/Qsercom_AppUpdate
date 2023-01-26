@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 
 import org.json.JSONException;
@@ -142,5 +143,51 @@ public class SharePref {
                     .apply();
         }
     }
+
+
+
+
+    public static   HashMap<String, ImagenReport> getMapImagesData(String KeyOfItem) {
+
+        Gson gson = new Gson();
+        String response=mSharedPrefUniqueObjc.getString(KeyOfItem+"images" , "");
+
+        Type type = new TypeToken<HashMap<String,ImagenReport>>(){}.getType();
+
+        HashMap<String,ImagenReport> mapImagesReport;
+        mapImagesReport = gson.fromJson(response, type);
+
+        if(response.equals("")) {
+            Log.i("lashareperf","no hay data en share plant ");
+
+            mapImagesReport= new HashMap<>();
+            return mapImagesReport;
+
+        }else{
+
+            Log.i("lashareperf","Si hay data en share  plant y el length es "+mapImagesReport.size());
+
+            return mapImagesReport;
+        }
+    }
+
+
+
+    public static  void saveHashMapImagesData(  HashMap<String, ImagenReport> inputMap,String keySharePref) {
+
+        if (mSharedPrefUniqueObjc != null){
+            // JSONObject jsonObject = new JSONObject(inputMap);
+            //   String jsonString = jsonObject.toString();
+            mSharedPrefUniqueObjc.edit()
+                    //  .remove("My_map")
+                    .putString(keySharePref+"images", new Gson().toJson(inputMap))
+                    // .putString(keySharePref, jsonString)
+                    .apply();
+
+        }
+
+
+    }
+
 
 }

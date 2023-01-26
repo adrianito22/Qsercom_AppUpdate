@@ -18,6 +18,17 @@ public class ImagenReport {
     private String uriImageString;
     private int tipoImagenCategory;
     private String idReportePerteence;
+
+    public String getImagenPathNow() {
+        return imagenPathNow;
+    }
+
+    public void setImagenPathNow(String imagenPathNow) {
+        this.imagenPathNow = imagenPathNow;
+    }
+
+    private String imagenPathNow;
+
     private boolean estaENPdf;
 
     public String getUrlStoragePic() {
@@ -110,6 +121,7 @@ public class ImagenReport {
         this.horientacionImage=horientacionImage;
         estaENPdf=false;
         urlStoragePic="";
+        imagenPathNow="";
     }
 
 

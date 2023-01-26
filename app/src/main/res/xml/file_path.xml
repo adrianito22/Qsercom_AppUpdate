@@ -3,4 +3,14 @@
     <external-path
         name="external_files"
         path="."/>
+
+    <external-path
+        name="provider"
+        path="/"
+        />
+<files-path
+    name="files"
+    path="/">
+
+</files-path>
 </paths>

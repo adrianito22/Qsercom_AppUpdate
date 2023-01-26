@@ -26,7 +26,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -56,7 +55,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
@@ -72,10 +70,8 @@ import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
-import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
-import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -86,7 +82,6 @@ import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.ConnectionReceiver;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
-import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -104,13 +99,11 @@ import java.util.UUID;
 import com.tiburela.qsercom.R;
 
 
-public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener ,ConnectionReceiver.ReceiverListener {
+public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,ConnectionReceiver.ReceiverListener {
     private static final int PERMISSION_REQUEST_CODE = 100;
     private String UNIQUE_ID_iNFORME;
-    boolean hayUnformularioIcompleto;
     public static Context context;
     ArrayList<ControlCalidad> listFormsControlCalidad = new ArrayList<>();
-    ArrayList<CheckedAndAtatch> checkedListForms = new ArrayList<>();
     ProgressDialog progress;
     Button btnCheck;
     String currentKeySharePrefrences="";
@@ -126,16 +119,10 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     TextInputEditText ediClienteNombreReporte;
 
-    HashMap<String, CuadroMuestreo> mapCudroMuestreo =new HashMap<>();
-    HashMap<String,ControlCalidad> mapControlCalidad =new HashMap<>();
 
 
-    BottomSheetDialog bottomSheetDialog;
      ImageView imgAtachVinculacion;
-    RecyclerView reciclerViewBottomSheet;
     private int currentTypeImage=0;
-     TextView    txtAdviseer;
-     TextView txtAdviserDesvicunlar;
     ProgressBar progressBarFormulario;
     TextInputEditText ediExportadoraProcesada ;
     TextInputEditText ediExportadoraSolicitante;
@@ -335,47 +322,47 @@ Log.i("hellosweer","se ehjecitp onstart");
 
     private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
 
-
-        TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
-
         View [] arrrayAllViews=creaArryOfViewsAll();
 
-
-        /*
         try {
+
             HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
 
             Log.i("sabeirr","el size de mapa es "+currentMapPreferences.size());
 
-            Utils.addDataOfPrefrencesInView(arrayEditex,currentMapPreferences);
+            Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
 
 
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
 
             Log.i("sabeirr","la expecion es "+e.getMessage());
             e.printStackTrace();
 
         }
 
-*/
+
 
 
         /**aqui las imagenes */
-/*
+
          //descrgamos info de imagenes //todavia no muy lista aun
-        Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
-        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
+
+        ImagenReport.hashMapImagesData  =  SharePref.getMapImagesData(currentKeySharePrefrences);
+
+        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<>(ImagenReport.hashMapImagesData .values());
 
         //if el formulario no es nulo
 
-        if(listImagesToSaVE!=null ) {
+        if(listImagesToSaVE!=null && listImagesToSaVE.size()>0 ) {
 
-            addInfotomap(listImagesToSaVE);
-            createlistsForReciclerviewsImages(listImagesToSaVE);
+           createlistsForReciclerviewsImages(listImagesToSaVE);
+
 
         }
 
-*/
+
 
 
     }
@@ -399,7 +386,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
-
+          SharePref.init(ActivityContenedores.this);
 
 
 
@@ -419,7 +406,6 @@ Log.i("hellosweer","se ehjecitp onstart");
         resultatachImages();
         listennersSpinners();
 
-        addOnTouchaMayoriaDeViews();
         eventCheckdata();
         //creaFotos();
 
@@ -890,6 +876,8 @@ Log.i("hellosweer","se ehjecitp onstart");
     @Override
     public void onClick(View view) {
 
+        String data[]={"image/*"};
+
 
        switch (view.getId()) {
 
@@ -915,7 +903,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
            case R.id.btnSaveLocale:
 
-               callPrefrencesSave();
+               callPrefrencesSaveAndImagesData();
 
 
                break; //
@@ -1087,8 +1075,8 @@ Log.i("hellosweer","se ehjecitp onstart");
                currentTypeImage=Variables.FOTO_LLEGADA;
 
                Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
-
-               activityResultLauncher.launch("image/*");
+              // activityResultLauncher.launch("image/*");
+               activityResultLauncher.launch(data);
 
 
                break;
@@ -1108,7 +1096,9 @@ Log.i("hellosweer","se ehjecitp onstart");
                currentTypeImage=Variables.FOTO_TRANSPORTISTA;
                Log.i("miclickimg","es foto es type Variables.FOTO_TRANSPORTISTA");
 
-               activityResultLauncher.launch("image/*");
+
+               activityResultLauncher.launch(data);
+
                break;
 
 
@@ -1127,7 +1117,7 @@ Log.i("hellosweer","se ehjecitp onstart");
                currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
                Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
 
-               activityResultLauncher.launch("image/*");
+               activityResultLauncher.launch(data);
                break;
 
 
@@ -1145,7 +1135,21 @@ Log.i("hellosweer","se ehjecitp onstart");
            case R.id.imbAtachDatosContenedor:
                currentTypeImage=Variables.FOTO_CONTENEDOR;
                Log.i("miclickimg","es foto es type Variables.FOTO_CONTENEDOR");
-               activityResultLauncher.launch("image/*");
+
+
+              Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+               intent.addCategory(Intent.CATEGORY_OPENABLE);
+               intent.setType("image/*");
+               //startActivityForResult(intent, myClassConstant.SELECT_PICTURE);
+
+              // activityResultLauncher.launch("image/*");
+
+
+
+               activityResultLauncher.launch(data);
+
+
+
 
 
                break;
@@ -1165,7 +1169,9 @@ Log.i("hellosweer","se ehjecitp onstart");
                currentTypeImage=Variables.FOTO_PROD_POSTCOSECHA;
                Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
 
-               activityResultLauncher.launch("image/*");
+               activityResultLauncher.launch(data);
+
+
                break;
 
 
@@ -1891,7 +1897,17 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
-                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri)),horientacionImg);
+                              //  ActivityContenedores.this.getContentResolver().takePersistableUriPermission(cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                //        Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+
+
+                              //  ActivityContenedores.this.getContentResolver().takePersistableUriPermission(cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                //      Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,
+                                        UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri))
+                                        ,horientacionImg);
 
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
@@ -1916,27 +1932,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-        if(motionEvent.getAction()==MotionEvent.ACTION_DOWN ){
-
-
-            PerecentHelp.listViewsClickedUser.add(view);
-
-            Log.i("casnasd","el size de la lista es "+ PerecentHelp.listViewsClickedUser.size());
-
-            if( PerecentHelp.listViewsClickedUser.size()>1) {
-                //obtenemos la lista anterior y verficamos si esta completada;
-                View vistFieldAnterior = PerecentHelp.getVistaAnteriorClick();
-              //  checkeamosSiFieldViewIScompleted(vistFieldAnterior);
-                PerecentHelp.checkeamosSiFieldViewIScompletedAndSavePref(vistFieldAnterior,SharePref.KEY_CONTENEDORES);
-
-            }
-
-        }
-        return false;
-    }
 
 
 
@@ -1944,18 +1939,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
 
-        public void makePermissionRequescAMERA() {
 
-
-        ActivityCompat.requestPermissions(ActivityContenedores.this, new String[]{Manifest.permission.CAMERA},
-                CODE_TWO_PERMISIONS);
-
-
-
-
-    }
-
-
+/*
     @SuppressLint("ClickableViewAccessibility")
     private void addOnTouchaMayoriaDeViews(){
         ediObservacion.setOnTouchListener(this);
@@ -2086,6 +2071,9 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
     }
 
+*/
+
+
 
 
 /*
@@ -2201,92 +2189,13 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 */
 
-    private void actualizaListStateView(String idSearch,boolean isEstaLleno){
-///
 
-
-        final String  idview = idSearch.replace(Variables.paqueteName+":id/","");
-
-       //com.tiburela.qsercom:id/ediCodigo") ;
-
-        Log.i("camisila","el id to search es "+idview) ;
-
-        for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
-
-            if(EstateFieldView.listEstateViewField.get(i).getIdOfView().equals(idview)){
-
-                EstateFieldView.listEstateViewField.get(i).setEstaLleno(isEstaLleno);
-
-
-            }else  {
-
-
-
-            }
-
-        }
-
-
-
-
-
-
-
-    }
-
-
-    private void actualizaProgressBar(){
-
-             int numero_itemsCompletados=0;
-
-            final int NUMERO_FIELDS_TOTAL=EstateFieldView.listEstateViewField.size(); // 19  ahora items emn total de completar 19,, algunos son opcionales...pero siempre deben haber 19 para que todos esten llenos
-
-
-            for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
-
-                if(EstateFieldView.listEstateViewField.get(i).isEstaLleno()){
-
-                    numero_itemsCompletados =numero_itemsCompletados+1;
-
-
-                }
-
-            }
-
-        Log.i("idCheck","el NUMERO ITEMScOMPLETADOS ES "+numero_itemsCompletados);
-
-            //buscamos el porecntaje
-
-        //int porcentajeDeProgreso= numero_itemsCompletados*NUMERO_FIELDS_TOTAL/100;
-
-        int porcentajeDeProgreso= numero_itemsCompletados*100/NUMERO_FIELDS_TOTAL;
-
-        progressBarFormulario.setProgress(porcentajeDeProgreso);
-
-           Log.i("maswiso","el porciento es "+porcentajeDeProgreso);
-            //un item opcional vale
-
-
-        }
-
-
-    private void selecImages(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-
-        resultatachImages();
-
-
-
-    }
 
 
       private void resultatachImages() {
-
+         // activityResultLauncher.getContract().
         activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
+            new ActivityResultContracts.OpenMultipleDocuments(), new ActivityResultCallback<List<Uri>>() {
                 @Override
                 public void onActivityResult(List<Uri> result) {
                     if (result != null) {
@@ -2301,15 +2210,30 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                               //  Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
+                                Uri myUri = result.get(indice);
 
-                                ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
+
+                                ActivityContenedores.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+                                // ActivityContenedores.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                     //   Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+
+
+                                ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
+
+                                //obcjImagenReport.setImagenPathNow(Utils.getRealPathFromURI(myUri,ActivityContenedores.this));
+
+                              //   String pathFinal=  Utils.getPathFromUri(ActivityContenedores.this,myUri);
 
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
-
-                                //agregamos este objeto a la lista
-
                                 Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
+
+                              //  Log.i("sabumaa","el payh de esta iamgen es "+pathFinal);
+
+
 
 
                             } catch (FileNotFoundException e) {
@@ -2338,8 +2262,77 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
       }
 
 
+    private void resultatachImages2() {
+        // activityResultLauncher.getContract().
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.OpenMultipleDocuments(), new ActivityResultCallback<List<Uri>>() {
+                    @Override
+                    public void onActivityResult(List<Uri> result) {
+                        if (result != null) {
 
-private void listennersSpinners() {
+                            //creamos un objeto
+
+                            for(int indice=0; indice<result.size(); indice++){
+                                try {
+
+                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedores.this.getContentResolver(),result.get(indice));
+
+
+                                    //  Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                                    String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
+                                    Uri myUri = result.get(indice);
+
+
+                                    ActivityContenedores.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+                                    // ActivityContenedores.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                    //   Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+
+
+                                    ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
+
+                                    //obcjImagenReport.setImagenPathNow(Utils.getRealPathFromURI(myUri,ActivityContenedores.this));
+
+                                    //   String pathFinal=  Utils.getPathFromUri(ActivityContenedores.this,myUri);
+
+                                    ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+
+                                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
+
+                                    //  Log.i("sabumaa","el payh de esta iamgen es "+pathFinal);
+
+
+
+
+                                } catch (FileNotFoundException e) {
+                                    Log.i("imagheddd","lA EXCEPCION ES "+e.getMessage());
+
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+
+                                    Log.i("imagheddd","lA EXCEPCION ES "+e.getMessage());
+
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+
+
+
+                            showImagesPicShotOrSelectUpdateView(false);
+
+
+
+                        }
+                    }
+                });
+    }
+
+
+    private void listennersSpinners() {
 
 
     spTipoBoquilla .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -5292,8 +5285,21 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
         cam_uri = ActivityContenedores.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+
+
+
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+       // cameraIntent.addCategory(Intent.CATEGORY_OPENABLE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
+
+       /// cameraIntent.setData(cameraIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),cam_uri);
+
+
+        cameraIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+
+
 
         //startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE); // OLD WAY
         startCamera.launch(cameraIntent);                // VERY NEW WAY
@@ -5442,33 +5448,34 @@ public void decideaAtachReport(boolean userSelecion){
 }
 
 
-private void callPrefrencesSave(){
+private void callPrefrencesSaveAndImagesData(){
 
      View [] mivIEWSAlls=creaArryOfViewsAll();
 
     Log.i("saberrr","el current key es "+currentKeySharePrefrences);
 
 
-    if(currentKeySharePrefrences.length()>1){  //si existe un key...y lo usamos...
+    if(!currentKeySharePrefrences.equals("")){  //si no contiene
       Log.i("saberrr","se ejecuto el if ");
 
         SharePrefHelper.viewsSaveInfo(mivIEWSAlls,currentKeySharePrefrences,ActivityContenedores.this);
+        SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,currentKeySharePrefrences);
 
         //significa que tenemos un key de un objeto obtneido de prefrencias
 
-
     }
 
-    else{ //no existe creamos un nuevo register..
+    else
+    { //no existe creamos un nuevo register..
         Log.i("saberrr","se ejecuto el else ");
 
 
-        //OBTENMOS EL MAPAP CON OBJETOS INFORM REGISTER
         Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
 
-        //CREMos un nuevo objeto register
-        InformRegister inform= new InformRegister(UUID.randomUUID().toString(),Constants.CONTENEDORES,"Me", "","Contenedores"  );
+        String keyRandom=UUID.randomUUID().toString();
+
+        InformRegister inform= new InformRegister(keyRandom,Constants.CONTENEDORES,"Usuario", "","Contenedores"  );
 
 
         //gudramos oejto en el mapa
@@ -5480,10 +5487,14 @@ private void callPrefrencesSave(){
         SharePrefHelper.viewsSaveInfo(mivIEWSAlls,inform.getInformUniqueIdPertenece(),ActivityContenedores.this);
 
 
+        if(ImagenReport.hashMapImagesData.size()>0){ //
 
-
-
+          SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,keyRandom);
+        }
     }
+
+
+
 
 
 

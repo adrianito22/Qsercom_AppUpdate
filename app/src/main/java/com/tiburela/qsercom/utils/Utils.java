@@ -1,13 +1,18 @@
 package com.tiburela.qsercom.utils;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
@@ -350,6 +355,22 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
 
 
 
+    public static Map<String, ImagenReport> loadMapiMAGEData(Context context,String keySharePref) { //PARACE
+
+        SharedPreferences shared;
+        SharedPreferences.Editor editor;
+        Gson gson = new Gson();
+        shared = context.getSharedPreferences("MIPREFERT", Context.MODE_PRIVATE);
+        editor = shared.edit();
+        HashMap<String, ImagenReport> listDayItems = gson.fromJson(
+                shared.getString(KEY_IIMAGES_SHARE, ""),
+                new TypeToken<HashMap<String, ImagenReport>>() {
+                }.getType());
+
+        return listDayItems;
+
+
+    }
 
 
     public static Map<String, ImagenReport> loadMapiMAGEData(Context context) { //PARACE
@@ -381,6 +402,9 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
             editor.commit();
         }
     }
+
+
+
 
  public static  void addDataOfPrefrencesInView(TextInputEditText[] arraytxtImpEditext, HashMap<String, String> hashMaPDePrefer) {
 
@@ -437,18 +461,25 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
               else if(vistax instanceof Spinner){
                   Spinner spn=(Spinner)vistax ;
 
+                  selectValue(spn,value);
+
                   //aqui colamos el texto como en preview
 
               }
 
 
               else if(vistax instanceof Switch){
+
                   Switch switchz=(Switch)vistax ;
+
+                   if(value.equalsIgnoreCase("true")){
+                       switchz.setChecked(true);
+                   }
+
 
                   //aqui colamos el texto como en preview
 
               }
-
 
 
           }
@@ -456,6 +487,21 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
         }
 
 
+
+    }
+    private static void selectValue(Spinner spinner, String value) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(value)) {
+                spinner.setSelection(i);
+                Log.i("mizona", "existe hurra" + value);
+                break;
+
+            } else {
+
+                Log.i("mizona", "no exiwste " + value);
+
+            }
+        }
 
     }
 
@@ -977,6 +1023,173 @@ return true;
 
 
 
+    public static String getRealPathFromURI (Uri contentUri,Context context) {
+        String path = null;
+        String[] proj = { MediaStore.MediaColumns.DATA };
+        Cursor cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+        if (cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            path = cursor.getString(column_index);
+        }
+        cursor.close();
+        Log.i("mipathe","el path aqui es "+path);
+
+        return path;
+    }
+
+
+    public static  String getRealPathFromURIx(Uri uri,Context context) {
+       // Uri uri = contentURI.getData();
+        String yourRealPath="";
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, filePathColumn, null, null, null);
+        if(cursor.moveToFirst()){
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+             yourRealPath = cursor.getString(columnIndex);
+        }
+
+        else {
+
+
+            ///boooo, cursor doesn't have rows ...
+
+
+        }
+        cursor.close();
+        Log.i("mipathe","el path aqui 2 es "+yourRealPath);
+
+        return yourRealPath;
+
+
+    }
+
+
+
+    public static String getPathFromUri(final Context context, final Uri uri) {
+
+       final boolean isKitKat = true;
+
+        // DocumentProvider
+        if (DocumentsContract.isDocumentUri(context, uri)) {
+
+            Log.i("mipathe","es el if ");
+
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+
+                // TODO handle non-primary volumes
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                return getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[] {
+                        split[1]
+                };
+
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+            // Return the remote address
+            if (isGooglePhotosUri(uri))
+                return uri.getLastPathSegment();
+
+            return getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+
+        return null;
+    }
+
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    public static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
 
 }
 

@@ -2,7 +2,9 @@ package com.tiburela.qsercom.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +33,7 @@ import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEn
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.ImagenReport;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -104,37 +108,53 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 if(Variables.activityCurrent==Variables.FormatDatsContAcopi){
                     inputStream = ActivityDatosContersEnAcopio.context.getContentResolver().openInputStream(uri);
 
+                }
 
-                }else if(Variables.activityCurrent==Variables.FormContenedores) { //si es previews
+
+
+                else if(Variables.activityCurrent==Variables.FormContenedores) { //si es CONTENEDORES
+
+                    Log.i("sabumaa","el uri de contendores es  "+uri);
+
                     inputStream = ActivityContenedores.context.getContentResolver().openInputStream(uri);
 
 
+                    Log.i("sabumaa","nnnnmmm dkdkd");
+
+
                 }
-                else if(Variables.activityCurrent==Variables.FormPreviewContenedores){ //es preview
+
+
+                else if(Variables.activityCurrent==Variables.FormPreviewContenedores){
+
                     inputStream = ActivityContenedoresPrev.context.getContentResolver().openInputStream(uri);
 
                 }
 
-                else if(Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW){ //es preview
+                else if(Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW){
+
                     inputStream = PreviewsFormDatSContersEnAc.context.getContentResolver().openInputStream(uri);
 
                 }
 
 
 
-                else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivity){ //es preview
+                else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivity){
+
                     inputStream = ActivityReporteCalidadCamionesyCarretas.context.getContentResolver().openInputStream(uri);
 
                 }
 
 
 
-                else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview){ //es preview
+                else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview){
+
                     inputStream = PreviewCalidadCamionesyCarretas.context.getContentResolver().openInputStream(uri);
 
                 }
 
 
+                Log.i("sabumaa","por aqui lo ponemos en true");
 
 
                 inputStream.close();
@@ -152,9 +172,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
           if(existFileInPhone){
-//    private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
 
-            //  Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
+              //    private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
+
+              Log.i("sabumaa","existe file in the phone");
+
+
+              //  Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
               holder.imageview.setImageURI(uri);
 
             //  holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
@@ -162,29 +186,43 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
           }
 
-          else
+          else {
+
+              Log.i("imagfile","el file path es  "+imagenReport.getImagenPathNow());
+
+                   //File imgFile = new  File(imagenReport.getImagenPathNow());
+
+
+                  // Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+
+                   try{
+
+                       holder.imageview.setImageURI(uri);
+
+                   } catch (Exception e) {
+
+                       e.printStackTrace();
+                       if(ImagenReport.hashMapImagesData.containsKey(imagenReport.getUniqueIdNamePic())) {
+
+                           dowloadAndSetImg(imagenReport, holder.imageview,mcontext);
+
+                           //  holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
+
+                       }
+
+                   }
 
 
 
-          {
-              Log.i("ladtastor","lo descragamos  "+imagenReport.getUniqueIdNamePic());
 
-                  if(ImagenReport.hashMapImagesData.containsKey(imagenReport.getUniqueIdNamePic())) {
+            //  Uri urix = Uri.parse(imagenReport.geturiImage());
 
-                      dowloadAndSetImg(imagenReport, holder.imageview,mcontext);
 
-                    //  holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
-
-                  }
-
-            //dowloadImagesAndaddTag(imagenReport.getUniqueIdNamePic(), holder,imagenReport.getUniqueIdNamePic());
 
           }
 
-
-
-        //  holder.imageview.setImageResource(imagenReport.geturiImage());
-        holder.textImputEditext.addTextChangedListener(new TextWatcher() {
+          holder.textImputEditext.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
 

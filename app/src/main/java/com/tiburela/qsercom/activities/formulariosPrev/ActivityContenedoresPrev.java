@@ -4067,7 +4067,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         diseableViewsByTipe(switchBalanzaRep);
 
 
-//iMAGEVIEWS
+        //iMAGEVIEWS
         diseableViewsByTipe(imBtakePic);
         diseableViewsByTipe(imBatach);
         diseableViewsByTipe(imbAtach_transportista);
@@ -4672,6 +4672,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
         Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("idReportePerteence").equalTo(reportUNIQUEidtoSEARCH);
+
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

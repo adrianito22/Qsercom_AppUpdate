@@ -2511,8 +2511,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             }
             //aqui mostramos el resultado..
 
-
-
             String resultado=df.format(sumaFilasAbajo/sumaFilasArriba);
 
 
@@ -2523,13 +2521,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             edif2NdedoXclustPromedio.setText(resultado);
 
 
-
-
-
         }
 
 
     }
+
+
+
 
     private void getCalibraEntreBasalYapiclProduct() {
 
@@ -2976,12 +2974,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
         if(contadorMiumData ==0){
-            Toast.makeText(this, "algun cuadro esta incompleto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Cuadro 1 esta vacio", Toast.LENGTH_SHORT).show();
             return false;
         }
 
 
-
+/*
         contadorMiumData=0;
         for(EditextSupreme ediSupreme :arraCuadro2){
 
@@ -2998,7 +2996,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
 
-
+*/
 
         contadorMiumData=0;
 
@@ -3012,7 +3010,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
         if(contadorMiumData ==0){
-            Toast.makeText(this, "algun cuadro esta incompleto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "El cuadro 3 esta incompleto", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -3031,7 +3029,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
         if(contadorMiumData ==0){
-            Toast.makeText(this, "algun cuadro esta incompleto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "El cuadro 4 esta incompleto", Toast.LENGTH_SHORT).show();
             return false;
         }
 
