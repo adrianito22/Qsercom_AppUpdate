@@ -409,7 +409,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+
+            <include
+                layout="@layout/lay_imagenes_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
             <LinearLayout
+                android:id="@+id/layoututimo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">

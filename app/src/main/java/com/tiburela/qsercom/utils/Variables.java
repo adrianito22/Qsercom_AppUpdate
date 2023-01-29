@@ -95,6 +95,11 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
     public static final int       FOTO_DOCUMENTACION=205;
 
 
+
+
+
+
+
     public static final int   FOTO_LLEGADA=1;
     public static final int   FOTO_PROD_POSTCOSECHA=2;
     public static final int   FOTO_TRANSPORTISTA=3;

@@ -61,7 +61,7 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/btn4.xml" value="0.247" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/btn_preseed.xml" value="0.252" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/drawable/clicked_btn.xml" value="0.168" />
-        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_formulario.xml" value="0.25" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_formulario.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_menu.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_packing_list2.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/activity_packing_list3.xml" value="0.24635416666666668" />
@@ -96,6 +96,7 @@
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/item_control_cald_checkbx.xml" value="0.19923044035912782" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/item_of_recycler_report.xml" value="0.4" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/lay_cuadro_muestreo_recha.xml" value="0.176" />
+        <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/lay_imagenes_add.xml" value="0.25" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/layout_dats_header.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_contenedoresen_acopio.xml" value="0.264" />
         <entry key="..\:/Users/adrix/AndroidStudioProjects/Qsercom_AppV3/app/src/main/res/layout/ly_cuadro_muestreo_calib_racims.xml" value="0.24635416666666668" />

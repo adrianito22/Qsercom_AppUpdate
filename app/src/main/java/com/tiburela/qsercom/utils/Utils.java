@@ -1225,6 +1225,21 @@ return true;
 
 
 
+            case Variables.FOTO_PALLETS:
+                textoFalta="puerta abierta del contenedor";
+
+                break;
+
+
+
+
+            case Variables.FOTO_CIERRE_CONTENEDOR:
+                textoFalta="puerta abierta del contenedor";
+
+                break;
+
+
+
             case Variables.FOTO_DOCUMENTACION:
                 textoFalta="documentacion";
 
