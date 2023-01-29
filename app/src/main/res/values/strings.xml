@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Qsercom_App</string>
+    <string name="app_name">Qsercon App</string>
 
 
     <string-array name="zonaOpciones">
@@ -32,10 +32,9 @@
         <item>NINGUNA</item>
         <item>22XU</item>
         <item>DISPLAY</item>
-        <item>BANAVAC13KG</item>
-        <item>9.5KG</item>
-        <item>9.5KG</item>
-        <item>208.0</item>
+        <item>13KG</item>
+        <item>9,5KG</item>
+        <item>208</item>
     </string-array>
 
     <string-array name="tipodePlastico">

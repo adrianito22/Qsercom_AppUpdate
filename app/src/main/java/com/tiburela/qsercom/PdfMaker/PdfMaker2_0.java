@@ -1,15 +1,12 @@
 package com.tiburela.qsercom.PdfMaker;
 
 
-import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.RecyclerView;
-//import androidx.compose.ui.text.Paragraph;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
@@ -776,7 +773,7 @@ if(hayFILE){
 
         /**TEXTO SEGUNDA LINEA*/
         //table1=  HelperPdf.generateTexCertificationTable("MARCA AQUI");
-        title=HelperPdf.generateTexCertificoLaCALIDAD(Variables.listReprsVinculads.get(0).getMarcaCaja());
+        title=HelperPdf.generateTexCertificoLaCALIDAD(Variables.CurrenReportPart1.getMarrca());
         title.setMarginLeft(60f);
 
         midocumentotoAddData.add(title);
@@ -1065,6 +1062,9 @@ if(hayFILE){
         }
 
 
+        Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
+
+
         midocumentotoAddData.close();
        // UpdateProgressAndText("Terminado",100);
 
@@ -1265,7 +1265,6 @@ if(hayFILE){
                  //   checkIfFileisSaveINsRORAGE(uriThiSfile);
 
 
-                    Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
 
 
                     /*

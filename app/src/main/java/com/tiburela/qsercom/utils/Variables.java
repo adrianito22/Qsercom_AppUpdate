@@ -84,13 +84,24 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
 
     public static   ProductPostCosecha productsGlobal;
 
+    /**ASI EN ESTE ORDEN PARECE QUE VA ORDENADO LAS IMAGENES */
+
+    public static final int       FOTO_PROCESO_FRUTA_FINCA=199;
+    public static final int       FOTO_LLEGADA_CONTENEDOR=200;
+    public static final int       FOTO_SELLO_LLEGADA=201;
+    public static final int       FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR=202;
+    public static final int       FOTO_PALLETS=203;
+    public static final int       FOTO_CIERRE_CONTENEDOR=204;
+    public static final int       FOTO_DOCUMENTACION=205;
 
 
     public static final int   FOTO_LLEGADA=1;
     public static final int   FOTO_PROD_POSTCOSECHA=2;
     public static final int   FOTO_TRANSPORTISTA=3;
-    public static final int   FOTO_SELLO_LLEGADA=4;
     public static final int   FOTO_CONTENEDOR=58;
+    public static final int  FOTO_SELLO_INSTALADOS=48;
+
+
 
     public static int typeoFdeleteImg=0;
     public static final  int   MINIMO_FOTOS_ALL_CATEGORY=1;

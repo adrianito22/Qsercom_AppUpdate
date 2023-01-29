@@ -208,6 +208,7 @@ android:textAllCaps="true" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linecc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -266,6 +267,10 @@ android:textAllCaps="true" />
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+
+
+
 
     </LinearLayout>
 

@@ -651,19 +651,53 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("TARE",Object1.getTare()));
 
 
-
         }else if(tableInfo==5){ //SELLOS INSTALADOS
 
             if(!Object2.getTermografo1().trim().isEmpty()){
                 listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 1",Object2.getTermografo1()));
-                listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"UBICACIÓN PALLET "+Object2.getUbicacionPalletN1()));
+
+                //
+                if(!Object2.getUbicacionPalletN1().trim().isEmpty()){
+
+                    listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"UBICACIÓN PALLET: "+Object2.getUbicacionPalletN1()));
+                }
+
+                else if(!Object2.getRumaPalletN1().trim().isEmpty()){
+
+                    listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"RUMA/PALLET: "+Object2.getRumaPalletN1()));
+                }
+                else{
+
+                    listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo1HoraEncendido(),"UBICACIÓN PALLET: "+Object2.getUbicacionPalletN1()));
+
+
+                }
+
+
             }
 
 
 
             if(!Object2.getTermografo2().trim().isEmpty()){
                 listTOrETURN1.add(new NameAndValue("TERMÓGRAFO 2",Object2.getTermografo2()));
-                listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACIÓN PALLET "+Object2.getUbicacionPalletN2()));
+
+                if(!Object2.getUbicacionPalletN2().trim().isEmpty()){
+
+                    listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACIÓN PALLET: "+Object2.getUbicacionPalletN2()));
+                }
+
+                else if(!Object2.getRumaPalletN2().trim().isEmpty()){
+
+                    listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"RUMA/PALLET: "+Object2.getRumaPalletN2()));
+                }
+                else{
+
+                    listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACIÓN PALLET: "+Object2.getUbicacionPalletN2()));
+
+
+                }
+
+
             }
 
 
@@ -849,6 +883,8 @@ if(contadorProductsPostCosecha>10){
             cell22XuX.add(new Paragraph("  ").setWidth(10));
 
         }
+
+
         miTable.addCell(cell22XuX) ;
 
 
@@ -869,9 +905,9 @@ if(contadorProductsPostCosecha>10){
 
 
 
-        miTable.addCell(cell13kg.add(new Paragraph("13 KG").setFontSize(6.5f).setFont(font))) ;
+        miTable.addCell(cell13kg.add(new Paragraph("13KG").setFontSize(6.5f).setFont(font))) ;
 
-        if(object2.getTipoCaja().equalsIgnoreCase("13 KG")) {
+        if(object2.getTipoCaja().equalsIgnoreCase("13KG")) {
             cell13kgX.add(new Paragraph(" X ").setFontSize(6.5f));
 
         }else{
@@ -883,16 +919,31 @@ if(contadorProductsPostCosecha>10){
 
 
 
-        miTable.addCell(cell208.add(new Paragraph("208").setFontSize(6.5f).setFont(font))) ;
+        //aqui agregamos 3 opciones incluida la
 
-        if(object2.getTipoCaja().equalsIgnoreCase("208")) {
-            cell208X.add(new Paragraph(" X ").setFontSize(6.5f));
-
-        }else{
-            cell208X.add(new Paragraph("  ").setWidth(10));
+        if(object2.getTipoCaja().equalsIgnoreCase("9,5kg")){
+            miTable.addCell(cell13kg.add(new Paragraph("9,5KG").setFontSize(6.5f).setFont(font))) ;
+            cell13kgX.add(new Paragraph(" X ").setFontSize(6.5f));
 
 
         }
+
+        else{
+
+            miTable.addCell(cell208.add(new Paragraph("208").setFontSize(6.5f).setFont(font))) ;
+
+            if(object2.getTipoCaja().equalsIgnoreCase("208")) {
+                cell208X.add(new Paragraph(" X ").setFontSize(6.5f));
+
+            }else{
+                cell208X.add(new Paragraph("  ").setWidth(10));
+
+
+            }
+        }
+
+
+
         miTable.addCell(cell208X) ;
 
 
@@ -1662,7 +1713,7 @@ if(contadorProductsPostCosecha>10){
         String MAYOR_DEFECTO_SELECCION = "NO";
         String MAYOR_DEFECTO_EMPAQUE = "NO";
         int NUMERO_DE_CLUSTERS_iNSPECCIONADOS = 0;
-        int NUMERO_DE_CLUSTERS_POR_CAJA;
+        int NUMERO_DE_CLUSTERS_POR_CAJA=0;
 
         int NUMERO_DE_DEDOS;
         double GRADO_CALIBRE_PROMEDIO;
@@ -1838,6 +1889,8 @@ if(contadorProductsPostCosecha>10){
                 resultLine1 = resultLine1 + Integer.parseInt(hashMapControlCald.get(keyCurrent1));
             }
 
+
+
             String keyCurrent2 = String.valueOf(keyaRRAYnumClustXcajaLine2[i]);
             if (hashMapControlCald.containsKey(keyCurrent2)) {
                 resultLine2 = resultLine2 + Integer.parseInt(hashMapControlCald.get(keyCurrent2));
@@ -1848,7 +1901,12 @@ if(contadorProductsPostCosecha>10){
         }
 
         /**gheneramos numero de CLUSTERS*/
-        NUMERO_DE_CLUSTERS_POR_CAJA = resultLine2 / resultLine1;
+
+        if(resultLine1>0 || resultLine2>0){
+            NUMERO_DE_CLUSTERS_POR_CAJA = resultLine2 / resultLine1;
+
+        }
+
 
         Log.i("ELWEIGTH", "EN NUMERO_DE_CLUSTERS_POR_CAJA  PROMEDIO ES " + NUMERO_DE_CLUSTERS_POR_CAJA);
 
@@ -2409,15 +2467,27 @@ if(contadorProductsPostCosecha>10){
         table1X.addCell(cellGlobal);
 
 
-        rgbColor= new DeviceRgb(198, 224, 180); //color
-        cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
-        cellGlobal.add(new Paragraph("NUMERO DE CLUSTER").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
-        table1X.addCell(cellGlobal);
+
+        try{
+            if(Integer.parseInt(numClusters)>0){
+                rgbColor= new DeviceRgb(198, 224, 180); //color
+                cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
+                cellGlobal.add(new Paragraph("NÚMERO DE CLUSTER").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+                table1X.addCell(cellGlobal);
 
 
-        cellGlobal= new Cell();
-        cellGlobal.add(new Paragraph(numClusters).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
-        table1X.addCell(cellGlobal);
+                cellGlobal= new Cell();
+                cellGlobal.add(new Paragraph(numClusters).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+                table1X.addCell(cellGlobal);
+            }
+        }
+
+        catch (NumberFormatException e) {
+            e.printStackTrace();
+
+        }
+
+
 
 
         rgbColor= new DeviceRgb(255, 192, 0); //color

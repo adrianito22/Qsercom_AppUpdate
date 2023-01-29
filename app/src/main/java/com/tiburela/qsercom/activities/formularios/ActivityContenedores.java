@@ -130,6 +130,10 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     TextInputEditText ediSemana;
 
+    ImageView imbAtachSellosInstalados;
+    ImageView imbTakePicSellosInstalados;
+
+
     TextInputEditText ediFecha;
     TextInputEditText ediProductor;
     TextInputEditText ediHacienda;
@@ -597,11 +601,12 @@ Log.i("hellosweer","se ehjecitp onstart");
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
-         layoutContainerDatsProceso=findViewById(R.id.layoutContainerDatsProceso);
+         imbAtachSellosInstalados=findViewById(R.id.imbAtachSellosInstalados);
+         imbTakePicSellosInstalados=findViewById(R.id.imbTakePicSellosInstalados);
 
+
+        layoutContainerDatsProceso=findViewById(R.id.layoutContainerDatsProceso);
         layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
-
-
          layPesoBruto2=findViewById(R.id.layPesoBruto2);
          layPesoBruto1=findViewById(R.id.layPesoBruto1);
 
@@ -823,6 +828,12 @@ Log.i("hellosweer","se ehjecitp onstart");
          imbTakePicTransportista.setOnClickListener(this);
          imbAtachSellosLlegada.setOnClickListener(this);
          imbTakePicSellosLLegada.setOnClickListener(this);
+
+
+        imbAtachSellosInstalados.setOnClickListener(this);
+        imbTakePicSellosInstalados.setOnClickListener(this);
+
+
          imbAtachDatosContenedor.setOnClickListener(this);
          imbTakePicDatosContenedor.setOnClickListener(this);
          imbAtachPrPostcosecha.setOnClickListener(this);
@@ -1107,6 +1118,25 @@ Log.i("hellosweer","se ehjecitp onstart");
                currentTypeImage=Variables.FOTO_TRANSPORTISTA;
                Log.i("miclickimg","es foto es type Variables.FOTO_TRANSPORTISTA");
 
+               takepickNow();
+               break;
+
+
+
+               ///
+
+           case R.id.imbAtachSellosInstalados:
+               currentTypeImage=Variables.FOTO_SELLO_INSTALADOS;
+               Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_INSTALADOS");
+               activityResultLauncher.launch(data);
+
+               break;
+
+
+
+           case R.id.imbTakePicSellosInstalados:
+               currentTypeImage=Variables.FOTO_SELLO_INSTALADOS;
+               Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_INSTALADOS");
 
                takepickNow();
                break;
@@ -2687,6 +2717,13 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     }
 
 
+    else if (currentTypeImage==Variables.FOTO_SELLO_INSTALADOS){
+        recyclerView = findViewById(R.id.recyclerViewSellosInstalados);
+
+    }
+
+
+
 
 
 
@@ -3909,7 +3946,6 @@ return  true;
         if(ediSelloAdesivoexpor.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediSelloAdesivoexpor.requestFocus();
             ediSelloAdesivoexpor.setError("Este espacio es obligatorio");
-
             layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
             return false;
 
@@ -3925,11 +3961,30 @@ return  true;
         }
 
 
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_INSTALADOS)){
+           TextInputEditText ediFotosSellosInstalados=findViewById(R.id.ediFotosSellosInstalados);
+
+            ediFotosSellosInstalados.requestFocus();
+            scroollElementoFaltante(ediFotosSellosInstalados);
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            ediFotosSellosInstalados.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            return false;
+        }else{
+            TextInputEditText ediFotosSellosInstalados=findViewById(R.id.ediFotosSellosInstalados);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
         if(! ediOtherSellos.getText().toString().isEmpty()){ //si esta lleno
         FieldOpcional.otrosSellosInstalaEsp =ediOtherSellos.getText().toString();
 
 
         }
+
+
 
 
 
@@ -4708,8 +4763,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         if(currentTypeImage== Variables.FOTO_LLEGADA)  {
             recyclerView= findViewById(R.id.recyclerView);
 
-
         }
+
+
         else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
             recyclerView= findViewById(R.id.recyclerViewPostcosecha);
             // at last set adapter to recycler view.
@@ -4731,6 +4787,11 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         }
 
+
+        else if (currentTypeImage==Variables.FOTO_SELLO_INSTALADOS){
+            recyclerView = findViewById(R.id.recyclerViewSellosInstalados);
+
+        }
 
 
 
@@ -4754,7 +4815,10 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_PROD_POSTCOSECHA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
+        int [] arrayTiposImagenes = {Variables.FOTO_LLEGADA,Variables.FOTO_PROD_POSTCOSECHA,Variables.FOTO_TRANSPORTISTA,
+                                     Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR,Variables.FOTO_SELLO_INSTALADOS
+        };
+
 
         for(int indice=0; indice<arrayTiposImagenes.length; indice++){
 
@@ -4766,7 +4830,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                     lisFiltrada.add(listImagenReports.get(indice2));
 
-
                 }
 
             }
@@ -4775,13 +4838,10 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             //lalamos el recicler que
             addImagesInRecyclerviews(lisFiltrada);
 
-
         }
 
 
         Variables.modoRecicler=Variables.SELEC_AND_TAKE_iMAGES;
-
-        //  addInfotomap(listImagenReports);
 
 
     }

@@ -1191,5 +1191,50 @@ return true;
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
+
+
+
+
+    public static void showSheetBtFaltaImagen(int tipoImageFalta){
+
+        String textoFalta="";
+
+        switch(tipoImageFalta){
+
+            case Variables.FOTO_PROCESO_FRUTA_FINCA:
+                textoFalta="proceso de fruta en finca";
+                break;
+
+
+            case Variables.FOTO_LLEGADA_CONTENEDOR:
+                textoFalta="llegada contenedor";
+
+                break;
+
+
+            case Variables.FOTO_SELLO_LLEGADA:
+                textoFalta="sello llegada";
+
+                break;
+
+
+            case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
+                textoFalta="puerta abierta del contenedor";
+
+                break;
+
+
+
+            case Variables.FOTO_DOCUMENTACION:
+                textoFalta="documentacion";
+
+                break;
+
+        }
+
+         //aqui mostramos un sheet...
+
+    }
+
 }
 

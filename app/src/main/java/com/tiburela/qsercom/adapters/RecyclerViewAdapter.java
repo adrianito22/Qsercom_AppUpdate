@@ -175,7 +175,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
               //    private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
 
-              Log.i("sabumaa","existe file in the phone");
+              Log.i("cancionx","existe file in the phone");
 
 
               //  Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
@@ -188,39 +188,53 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
           else {
 
-              Log.i("imagfile","el file path es  "+imagenReport.getImagenPathNow());
+              Log.i("cancionx","se ejecto el else ");
 
                    //File imgFile = new  File(imagenReport.getImagenPathNow());
 
 
                   // Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
+              if(Variables.activityCurrent==Variables.FormPreviewContenedores ||  //es descrgada de de la base de datos...
+                      Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW||
+                      Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview){//
 
-                   try{
-
-                       holder.imageview.setImageURI(uri);
-
-                   } catch (Exception e) {
-
-                       e.printStackTrace();
-                       if(ImagenReport.hashMapImagesData.containsKey(imagenReport.getUniqueIdNamePic())) {
-
-                           dowloadAndSetImg(imagenReport, holder.imageview,mcontext);
-
-                           //  holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
-
-                       }
-
-                   }
+                  Log.i("cancionx","se ejecto este iff aqui ");
 
 
+                  if(ImagenReport.hashMapImagesData.containsKey(imagenReport.getUniqueIdNamePic())) {
+
+                      dowloadAndSetImg(imagenReport, holder.imageview,mcontext);
+
+                      //  holder.imageview.setImageBitmap(  HelperImage.generateBitmapTumbail(currentBitmP));
+
+                  }
+
+              }else{  //es gaurdada localemente
+
+                  Log.i("cancionx","se ejecto este else al final  ");
 
 
-            //  Uri urix = Uri.parse(imagenReport.geturiImage());
+                  try{
+
+                         holder.imageview.setImageURI(uri);
+
+                  } catch (Exception e) {
+
+                      e.printStackTrace();
+
+
+                  }
+              }
+
 
 
 
           }
+
+
+
+
 
           holder.textImputEditext.addTextChangedListener(new TextWatcher() {
 

@@ -116,6 +116,10 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     ProgressDialog progress;
 
      TextInputEditText ediClienteNombreReporte;
+
+     ImageView imbAtachSellosInstalados;
+    ImageView imbTakePicSellosInstalados;
+
     private ImageView imgUpdatecAlfrutaEnfunde;
 
 
@@ -552,6 +556,11 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
     private void findViewsIds() { //configuraremos algos views al iniciar
 
+
+         imbAtachSellosInstalados=findViewById(R.id.imbAtachSellosInstalados);
+         imbTakePicSellosInstalados=findViewById(R.id.imbTakePicSellosInstalados);
+
+
         ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
         imgUpdatecAlfrutaEnfunde=findViewById(R.id.imgUpdatecAlfrutaEnfunde);
         layPesoBruto2 = findViewById(R.id.layPesoBruto2);
@@ -770,6 +779,10 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         imBtakePic.setOnClickListener(this);
         imBatach.setOnClickListener(this);
+
+        imbAtachSellosInstalados.setOnClickListener(this);
+        imbTakePicSellosInstalados.setOnClickListener(this);
+
 
         imbAtach_transportista.setOnClickListener(this);
         imbTakePicTransportista.setOnClickListener(this);
@@ -1096,6 +1109,30 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
                 takepickNow();
                 break;
+            /////////////
+
+            case R.id.imbAtachSellosInstalados:
+                currentTypeImage = Variables.FOTO_SELLO_INSTALADOS;
+                Log.i("miclickimg", "es foto es type Variables.FOTO_SELLO_INSTALADOS");
+
+                activityResultLauncher.launch("image/*");
+                break;
+
+
+            case R.id.imbTakePicSellosInstalados:
+                currentTypeImage = Variables.FOTO_SELLO_INSTALADOS;
+                Log.i("miclickimg", "es foto es type Variables.FOTO_SELLO_INSTALADOS");
+
+
+                takepickNow();
+                break;
+
+
+
+
+
+
+            ///////////////
 
 
             case R.id.imbAtachSellosLlegada:
@@ -1136,7 +1173,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
             case R.id.imbAtachPrPostcosecha:
                 currentTypeImage = Variables.FOTO_PROD_POSTCOSECHA;
                 Log.i("miclickimg", "es foto es type Variables.FOTO_PROD_POSTCOSECHA");
-
                 activityResultLauncher.launch("image/*");
                 break;
 
@@ -1174,13 +1210,9 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
     private void showEditDialogAndSendData() {
 
-
         Bundle bundle = new Bundle();
         bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS, RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
         bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED, RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
-
-
-        //
 
 
         FragmentManager fm = getSupportFragmentManager();
@@ -1856,8 +1888,17 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         } else if (currentTypeImage == Variables.FOTO_CONTENEDOR) {
             recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
+
+
+
         } else if (currentTypeImage == Variables.FOTO_SELLO_LLEGADA) {
             recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+
+        }
+
+
+        else if (currentTypeImage == Variables.FOTO_SELLO_INSTALADOS) {
+            recyclerView = findViewById(R.id.recyclerViewSellosInstalados);
 
         }
 
@@ -3345,6 +3386,23 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         }
 
 
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_INSTALADOS)){
+            TextInputEditText ediFotosSellosInstalados=findViewById(R.id.ediFotosSellosInstalados);
+            ediFotosSellosInstalados.requestFocus();
+            //scroollElementoFaltante(ediFotosSellosInstalados);
+
+            layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+            ediFotosSellosInstalados.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
+            return false;
+        }else{
+            TextInputEditText ediFotosSellosInstalados=findViewById(R.id.ediFotosSellosInstalados);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
         if (!ediOtherSellos.getText().toString().isEmpty()) { //si esta lleno
             FieldOpcional.otrosSellosInstalaEsp = ediOtherSellos.getText().toString();
 
@@ -4479,7 +4537,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         ArrayList<ImagenReport> lisFiltrada;
 
-        int[] arrayTiposImagenes = {Variables.FOTO_LLEGADA, Variables.FOTO_PROD_POSTCOSECHA, Variables.FOTO_TRANSPORTISTA, Variables.FOTO_SELLO_LLEGADA, Variables.FOTO_CONTENEDOR};
+        int[] arrayTiposImagenes = {Variables.FOTO_LLEGADA, Variables.FOTO_PROD_POSTCOSECHA, Variables.FOTO_TRANSPORTISTA, Variables.FOTO_SELLO_LLEGADA, Variables.FOTO_CONTENEDOR, Variables.FOTO_SELLO_INSTALADOS};
+
 
         for (int indice = 0; indice < arrayTiposImagenes.length; indice++) {
 
@@ -4570,8 +4629,15 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         } else if (currentTypeImage == Variables.FOTO_CONTENEDOR) {
             recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
+
+
         } else if (currentTypeImage == Variables.FOTO_SELLO_LLEGADA) {
             recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
+
+        }
+
+        else if (currentTypeImage == Variables.FOTO_SELLO_INSTALADOS) {
+            recyclerView = findViewById(R.id.recyclerViewSellosInstalados);
 
         }
 
