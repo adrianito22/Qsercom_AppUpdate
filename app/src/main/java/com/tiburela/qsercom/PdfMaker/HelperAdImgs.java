@@ -80,20 +80,16 @@ public class HelperAdImgs implements LifecycleOwner {
 
         Log.i("xamil","la foto selecionada categoria es  "+setFotoCategory);
 
-
-     //   Log.i("contaburx","el size de inagesetglobal es "+HelperImage.imAGESpdfSetGlobal.size());
-
         currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORYz(ImagenReport.hashMapImagesData,setFotoCategory);///era Variables.FOTO_LLEGADA
 
-        Log.i("xamil","el SIZE DE  current list images seccion es "+currentListImagesSeccion.size());
-
+        Log.i("xamil","el SIZE DE  current list images seccion es "+currentListImagesSeccion.size()+" y la categoria es "+setFotoCategory);
 
         //nos asegurammos que ninguna este en el pdf aun ,LAS DESMARCAMOS
         currentListImagesSeccion= HelperImage.marcaQueNoEstaEnPDF(currentListImagesSeccion);
        // Log.i("contaburx","la IMAGEN DE LA 1  POSCION esta en el pdf? "+currentListImagesSeccion.get(0).estaENPdf);
        // Log.i("contaburx","la IMAGEN DE LA 2 POSCION esta en el pdf? "+currentListImagesSeccion.get(1).estaENPdf);
 
-        Log.i("PATRONX","el size de imagenes de estacategoria es  "+currentListImagesSeccion.size());
+        Log.i("xamil","el size de imagenes de estacategoria es  "+currentListImagesSeccion.size());
 
 
         while(!allImagesISUsed(currentListImagesSeccion)){ //mientras quedan imagenes si usar////
@@ -137,6 +133,9 @@ public class HelperAdImgs implements LifecycleOwner {
 
             contador++;
 
+
+
+           // buscar ek patron quiero uno de proceso de fruta en finca
 
             Log.i("contaburx","se ejecuto ESto "+contador+" veces");
             int patronEncontrado=HelperImage.buscaPosiblePatronParaOrdenar(currentListImagesSeccion);

@@ -67,6 +67,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -103,10 +104,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
-
-
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -863,7 +863,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         else if(idCurrent==R.id.imbTakePicProcesoFrutaFinca || idCurrent==R.id.imbTakePicLllegadaContenedor
                 || idCurrent==R.id.imbTakePicSellosLlegada ||
                 idCurrent==R.id.imbTakePicPuertaAbiertaContenedor || idCurrent==R.id.imbTakePicPallet
-                || idCurrent==R.id.imbTakePicCierreContenedor || idCurrent==R.id.imbTakePicDocuementacionxx ){ //si es tajke pic con camara
+                || idCurrent==R.id.imbTakePicCierreContenedor || idCurrent==R.id.imbTakePicDocuementacionxx){ //si es tajke pic con camara
 
             currentTypeImage=Integer.parseInt(view.getTag().toString());
 
@@ -1122,11 +1122,6 @@ else{
             }
 
         }
-
-
-
-
-
 
 
         //aqui o
@@ -1524,24 +1519,34 @@ else{
                                 String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
 
                                 //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport = new ImagenReport("", result.get(indice).toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, result.get(indice)), horientacionImg);
+                                ImagenReport obcjImagenReport = new ImagenReport("", result.get(indice).toString(),
+                                        currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice))), horientacionImg);
                                 obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
+                                Log.i("mispiggi", "el size mde map es "+ImagenReport.hashMapImagesData.size());
+
+                                Log.i("mispiggi", "la imagen categoria add  es  "+obcjImagenReport.getTipoImagenCategory());
+
+                                    probar aqui haber que pasa....
+                                // chekar como esta esta parte en la version pasada appv4
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
+                                Log.i("mispiggi", "despues agregar el size map es "+ImagenReport.hashMapImagesData.size());
 
-                                //  showImagesPicShotOrSelectUpdateView(false);
 
                             } catch (FileNotFoundException e) {
+                                Log.i("mispiggi", "la primera excepcion es  " +e.getMessage());
+
                                 e.printStackTrace();
                             } catch (IOException e) {
+                                Log.i("mispiggi", "la segunda expecion es  " + e.getMessage());
+
                                 e.printStackTrace();
                             }
 
 
-                            showImagesPicShotOrSelectUpdateView(false);
 
 
                             ///     ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)));
@@ -1552,6 +1557,16 @@ else{
 
                         }
 
+
+
+                        Log.i("mispiggi", "el map ahora size xx es "+ImagenReport.hashMapImagesData.size());
+
+                        Log.i("mispiggi", "el currentypeImagen es  " + currentTypeImage);
+
+
+                        showImagesPicShotOrSelectUpdateView(false);
+
+
                         Log.i("mispiggi", "el size de la  lists  hashMapImagesData ahora es  es " + ImagenReport.hashMapImagesData.size());
 
                         // showImagesPicShotOrSelectUpdateView(false);
@@ -1561,35 +1576,6 @@ else{
                 }
             });
 
-
-    void showImageByUri(Uri uri) {
-        try {
-
-            // Setting image on image view using Bitmap
-            Bitmap bitmap = MediaStore
-                    .Images
-                    .Media
-                    .getBitmap(
-                            getContentResolver(),
-                            uri);
-
-
-            //escalamos el bitmap
-            Bitmap bitmap2 = Bitmap.createScaledBitmap(bitmap, 420, 400, false);
-            Log.i("registrand", "los encontrado");
-
-
-            ImageView imageView = new ImageView(this);
-
-
-            imageView.setImageBitmap(bitmap2);
-
-
-        } catch (IOException e) {
-            // Log the exception
-            e.printStackTrace();
-        }
-    }
 
 
     private void listennersSpinners() {
@@ -1784,6 +1770,8 @@ else{
         }
 
 
+
+
         ArrayList<ImagenReport> filterListImagesData = new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
 
         RecyclerView recyclerView =null;
@@ -1792,25 +1780,23 @@ else{
         Log.i("mispiggi", "el size de la MAPA AHORAXXC ES  " + ImagenReport.hashMapImagesData.size());
 
 
-        for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
+        for(ImagenReport imagenObjec: ImagenReport.hashMapImagesData.values()){
 
-            String key = set.getKey();
+            Log.i("mispiggix", "el tipo es  " +imagenObjec.getTipoImagenCategory());
 
-            ImagenReport value = set.getValue();
 
-            if (value.getTipoImagenCategory() == currentTypeImage) {
+            if(imagenObjec.getTipoImagenCategory()==currentTypeImage){
+                filterListImagesData.add(imagenObjec);
 
-                filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
+                Log.i("mispiggi", "el size de filterListImagesData es " + filterListImagesData.size());
+
 
             }
-
 
         }
 
 
-        //buscamos este
-
-        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE  es  es " + ImagenReport.hashMapImagesData.size());
+        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE  es cc  es " + ImagenReport.hashMapImagesData.size());
 
 
         switch(currentTypeImage){
@@ -1853,6 +1839,7 @@ else{
 
 
         // at last set adapter to recycler view.
+        assert recyclerView != null;
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE EE  es  es " + ImagenReport.hashMapImagesData.size());

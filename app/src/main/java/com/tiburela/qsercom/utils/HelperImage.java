@@ -145,9 +145,8 @@ public class HelperImage {
 
 
     public static ArrayList<ImagenReport> getImagesWhitthisCATEGORYz( HashMap<String, ImagenReport >allImagesData, int categoriaBuscar) {
-        ArrayList<ImagenReport> ImagenReport = new ArrayList<>();
 
-
+        ArrayList<ImagenReport> listImagesReport = new ArrayList<>();
 
 
         for (ImagenReport imageObject: allImagesData.values()) {
@@ -160,7 +159,7 @@ public class HelperImage {
 
 
             if (categoryCurrentImg == categoriaBuscar) {
-                ImagenReport.add(imageObject);
+                listImagesReport.add(imageObject);
             }
 
         }
@@ -168,63 +167,12 @@ public class HelperImage {
 
 
 
-/*
-        for (ImagenReport imageObject: allImagesData) {
 
-            int  categoryCurrentImg=imageObject.getTipoImagenCategory();
-            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
-
-            if (categoryCurrentImg == categoriaBuscar) {
-                ImagenReport.add(imageObject);
-            }
-
-        }
-*/
-
-        return  ImagenReport;
+        return  listImagesReport;
 
 
     }
     
-
-    public static ArrayList<ImagenReport> getImagesWhitthisCATEGORY( HashMap<String, ImagenReport>allImagesData, int categoriaBuscar) {
-        ArrayList<ImagenReport> ImagenReport = new ArrayList<>();
-
-
-
-
-        for (ImagenReport imageObject: allImagesData.values()) {
-
-            int  categoryCurrentImg=imageObject.getTipoImagenCategory();
-            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
-
-            if (categoryCurrentImg == categoriaBuscar) {
-                ImagenReport.add(imageObject);
-            }
-
-        }
-
-        /*
-
-
-        for (int i = 0; i < allImagesData.size(); i++) {
-
-           int  categoryCurrentImg=allImagesData.get(i).tipoImagenCategory;
-            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
-
-            if (categoryCurrentImg == categoriaBuscar) {
-                imAGESpdfSet.add(allImagesData.get(i));
-            }
-
-        }
-
-        Log.i("xamil","el SIZE DE createImagesSet es "+imAGESpdfSet.size());
-*/
-
-        return  ImagenReport;
-
-
-    }
 
 
 
@@ -248,130 +196,6 @@ public class HelperImage {
 
 
 
-
-    public static  void dowloadAllImages(ArrayList<ImagenReport>miLisAllImages){
-        //lllamos a este metodo unicamente si la lista es 0....si no
-
-        for(int i = 0; i <miLisAllImages.size() ;i++ ){
-
-             String pathImage =miLisAllImages.get(i).getUniqueIdNamePic();
-             int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
-
-            StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
-
-            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    try {
-
-                        Bitmap  bitmap = Glide.with(ActivityContenedoresPrev.context).asBitmap().load(uri).submit().get();
-                        String horientacionImg=devuelveHorientacionImg(bitmap);
-
-
-                     //   imAGESpdfSetGlobal.add(new ImagenReport(horientacionImg,bitmap,categoYCurrentImg));
-
-                      // Log.i("hamiso","el size de esta lista es "+imAGESpdfSetGlobal.size());
-
-                          ///llamamos a este otro metodo .......
-
-
-
-                    } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Log.i("hamiso","es un fallo y es "+exception.getMessage());
-
-                }
-            });
-
-
-
-        }
-
-
-
-
-
-    }
-
-
-    public static  void dowloadAllImages2(ArrayList<ImagenReport>miLisAllImages){
-        //lllamos a este metodo unicamente si la lista es 0....si no
-        ImagenReportMap=new HashMap<>();
-
-        for(int i = 0; i <miLisAllImages.size() ;i++ ){
-
-            String pathImage =miLisAllImages.get(i).getUniqueIdNamePic();
-            int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
-             String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
-            String descripcionImage=miLisAllImages.get(i).getDescripcionImagen();
-
-            StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
-
-
-            try {
-                final File localFile = File.createTempFile("Images", "bmp");
-                storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener< FileDownloadTask.TaskSnapshot >() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                        Bitmap  bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                        String horientacionImg=devuelveHorientacionImg(bitmap);
-
-                       // ImagenReport imgsObect=new ImagenReport(horientacionImg,bitmap,categoYCurrentImg,uniqueId);
-                       // imAGESpdfSetGlobal.add(imgsObect);
-                      //  ImagenReportMap.put(uniqueId,imgsObect);
-
-
-
-                     //   Log.i("hamiso","el size de esta lista es "+imAGESpdfSetGlobal.size());
-
-                        ///llamamos a este otro metodo .......
-
-
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                       // Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-
-        }
-
-
-
-
-
-    }
-
-    }
-
-    public static  RectF creATErec(int left, int top, int right, int bottom,Paint paint) {
-        right = left + right; // width is the distance from left to right
-        bottom = top + bottom; // height is the distance from top to bottom
-       // canvas.drawRect(left, top, right, bottom, paint);
-
-
-        // canvas.drawBitmap(imagen, null, dst, null);
-        RectF dstx = new RectF(left, top, right , bottom);
-
-
-        return  dstx;
-        //  RectF dstx = new RectF(50, 450, 50 + 500, 50 + 600);
-      ///  canvas.drawBitmap(imagen2, null, dst, null);
-        // canvas.drawBitmap(imagen2, null, dstx, null);
-
-    }
 
 
 

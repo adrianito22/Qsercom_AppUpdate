@@ -1003,13 +1003,8 @@ if(hayFILE){
 
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
 
-        /**FOTOS LLEGADA */
 
 
-        /**NOTA POR AHORA NO CREaremos muchos titulos en los anerxos  los agregamos directamente porque algunas categorias de imagenes se relacionan */
-
-        /**FOTOS PRODUCST POSTCOSECHA*/
-      //  HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"PRODUCTOS POSCOSECHA",midocumentotoAddData,pageSize,contexto);
 
 
 

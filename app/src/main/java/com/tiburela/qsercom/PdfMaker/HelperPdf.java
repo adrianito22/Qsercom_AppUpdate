@@ -1893,9 +1893,10 @@ if(contadorProductsPostCosecha>10){
 
         /**gheneramos numero de NUMERO_DE_DEDOS*/
 
+
         if(!objecControlCald.getNumeroDedosXclusterOmano().equals("")){
 
-            NUMERO_DE_DEDOS=Integer.parseInt(objecControlCald.getNumeroDedosXclusterOmano());
+            NUMERO_DE_DEDOS=(int)(Float.parseFloat(objecControlCald.getNumeroDedosXclusterOmano()));
 
 
         }
@@ -1930,13 +1931,14 @@ if(contadorProductsPostCosecha>10){
 
         /**gheneramos numero de CLUSTERS*/
 
+
         if(resultLine1>0 || resultLine2>0){
             NUMERO_DE_CLUSTERS_POR_CAJA = resultLine2 / resultLine1;
 
         }
 
 
-        Log.i("ELWEIGTH", "EN NUMERO_DE_CLUSTERS_POR_CAJA  PROMEDIO ES " + NUMERO_DE_CLUSTERS_POR_CAJA);
+       //  Log.i("ELWEIGTH", "EN NUMERO_DE_CLUSTERS_POR_CAJA  PROMEDIO ES " + NUMERO_DE_CLUSTERS_POR_CAJA);
 
 
         ///            listTOrETURN1.add(new NameAndValue("DESTINO",Object1.getDestinoContenedor()));
@@ -1962,16 +1964,11 @@ if(contadorProductsPostCosecha>10){
 
         Log.i("ELWEIGTH", "EN PESO PROMEDIO ES " + PROMEDIO_PESO);
 
-
-
         /**DEFECTOS SELECION*/
         String[] arrayuDefectsSeleccNames = contexto.getResources().getStringArray(R.array.array_defectos_frutselecion); //estaba en ararydefectx
 
         ArrayList<String> defectosNamesSelecion = new ArrayList<>(); //contendra todos los nombres de defectos selecion
 
-
-
-        ///a esta le agregamos los defectos custom si existen...
 
         int contadorCustomDefects=0;
         for (String valuex : hashMapDefctChecked.values()) { //el custom defecto contiene hasta 3 length size..
@@ -1981,19 +1978,21 @@ if(contadorProductsPostCosecha>10){
             /**buscamos otros defcetos names y si hay los agregamos a la lista de names **/
 
 
+            String[] arrayDefectsAnCantidadx = valuex.split("-"); // puede contener esto  1-4, o esto  5-2, 5-8,9-9 , 5-6-adriano
+
             if (valuex.contains(",")) { //si contiene una comma
 
                 String[] arrayDefectsAnCantidad = valuex.split(","); // puede contener esto  1-4, o esto  5-2, 5-8,9-9 , 5-6-adriano
 
                 for(int indicec=0; indicec<arrayDefectsAnCantidad.length; indicec++){ //itreamos el array qu contiene  valores asi: 2-5 o 9-8 o 8,8,adriano
 
-                    Log.i("misdataxx", "el string es  "+ arrayDefectsAnCantidad[indicec]);
+                    Log.i("howartsxx", "el string es  "+ arrayDefectsAnCantidad[indicec]);
 
                     String[] arrayIndiceAndNum = arrayDefectsAnCantidad[indicec].split("-");
 
-                    if(arrayIndiceAndNum.length==3){ //si tiene 3 es custom name
 
-                        Log.i("howarts", "encontramos 1 aqui y es  "+arrayIndiceAndNum[2]);
+                    if(arrayIndiceAndNum.length==3){ //si tiene 3 es custom name
+                        Log.i("howartsxx", "encontramos 1 aqui y es  "+arrayIndiceAndNum[2]);
 
                         if(!defectosNamesSelecion.contains(arrayIndiceAndNum[2])){
 
@@ -2004,16 +2003,17 @@ if(contadorProductsPostCosecha>10){
                                 contadorCustomDefects++;
 
 
-                                Log.i("misdataxx", "agregamos y el size es  "+defectosNamesSelecion.size());
+                                Log.i("howartsxx", "agregamos y el size es  "+defectosNamesSelecion.size());
+                                Log.i("howartsxx", "EL SIZSE DE LA LISTA AQUI ES  "+defectosNamesSelecion.size());
+
                             }
 
 
-                            Log.i("howarts", "lo agregamos");
+                          //  Log.i("howartsxx", "lo agregamos");
                         }
 
-                        Log.i("misdataxx", "EL SIZSE DE LA LISTA AQUI ES  "+defectosNamesSelecion.size());
-
                     }
+
 
                 }
 
@@ -2021,8 +2021,43 @@ if(contadorProductsPostCosecha>10){
 
 
 
-        }
+            else if(arrayDefectsAnCantidadx.length==3){
 
+                for(int indicec=0; indicec<arrayDefectsAnCantidadx.length; indicec++){ //itreamos el array qu contiene  valores asi: 2-5 o 9-8 o 8,8,adriano
+
+                    Log.i("howartsxx", "el string es  "+ arrayDefectsAnCantidadx[indicec]);
+
+
+                        Log.i("howartsxx", "encontramos 1 aqui y es  "+arrayDefectsAnCantidadx[2]);
+
+                        if(!defectosNamesSelecion.contains(arrayDefectsAnCantidadx[2])){
+
+                            if(!defectosNamesSelecion.contains(arrayDefectsAnCantidadx[2])){
+
+                                defectosNamesSelecion.add(contadorCustomDefects,arrayDefectsAnCantidadx[2]);
+
+                                contadorCustomDefects++;
+
+                                Log.i("howartsxx", "agregamos y el size es  "+defectosNamesSelecion.size());
+                                Log.i("howartsxx", "EL SIZSE DE LA LISTA AQUI ES  "+defectosNamesSelecion.size());
+
+                            }
+
+
+                            //  Log.i("howartsxx", "lo agregamos");
+                        }
+
+
+
+
+                }
+
+
+            }
+
+
+
+        }
 
 
         listNumsCustomDefects.add(contadorCustomDefects);
