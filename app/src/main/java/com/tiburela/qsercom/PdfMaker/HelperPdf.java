@@ -1715,7 +1715,7 @@ if(contadorProductsPostCosecha>10){
         int NUMERO_DE_CLUSTERS_iNSPECCIONADOS = 0;
         int NUMERO_DE_CLUSTERS_POR_CAJA=0;
 
-        int NUMERO_DE_DEDOS;
+        int NUMERO_DE_DEDOS=0;
         double GRADO_CALIBRE_PROMEDIO;
         double LARGO_DEDOS_PROMEDIO;
         final double PH_PROMEDIO = 3;
@@ -1751,7 +1751,9 @@ if(contadorProductsPostCosecha>10){
                 , R.id.ediNdedoXclustXc17, R.id.ediNdedoXclustXc18};
 
 
-        int[] keyaRRAYnumnUMdedosFil1 = {R.id.ediNdedoXclust1, R.id.ediNdedoXclust2, R.id.ediNdedoXclust3, R.id.ediNdedoXclust4,
+        int[] keyaRRAYnumnUMdedosFil1 = {
+
+                R.id.ediNdedoXclust1, R.id.ediNdedoXclust2, R.id.ediNdedoXclust3, R.id.ediNdedoXclust4,
                 R.id.ediNdedoXclust5, R.id.ediNdedoXclust6, R.id.ediNdedoXclust7, R.id.ediNdedoXclust8, R.id.ediNdedoXclust9, R.id.ediNdedoXclust10
                 , R.id.ediNdedoXclust11, R.id.ediNdedoXclust12, R.id.ediNdedoXclust13, R.id.ediNdedoXclust14, R.id.ediNdedoXclust15, R.id.ediNdedoXclust16,
                 R.id.ediNdedoXclust17, R.id.ediNdedoXclust18
@@ -1761,28 +1763,38 @@ if(contadorProductsPostCosecha>10){
         };
 
 
-        int[] keyaRRAYnumnUMdedosFil2 = {R.id.edif2NdedoXclust1, R.id.edif2NdedoXclust2, R.id.edif2NdedoXclust3, R.id.edif2NdedoXclust4,
+        int[] keyaRRAYnumnUMdedosFil2 = {
+
+                R.id.edif2NdedoXclust1, R.id.edif2NdedoXclust2, R.id.edif2NdedoXclust3, R.id.edif2NdedoXclust4,
                 R.id.edif2NdedoXclust5, R.id.edif2NdedoXclust6, R.id.edif2NdedoXclust7, R.id.edif2NdedoXclust8, R.id.edif2NdedoXclust9, R.id.edif2NdedoXclust10
                 , R.id.edif2NdedoXclust11, R.id.edif2NdedoXclust12, R.id.edif2NdedoXclust13, R.id.edif2NdedoXclust14, R.id.edif2NdedoXclust15, R.id.edif2NdedoXclust16,
                 R.id.edif2NdedoXclust17, R.id.edif2NdedoXclust18
                 , R.id.edif2NdedoXclust19, R.id.edif2NdedoXclust20, R.id.edif2NdedoXclust21, R.id.edif2NdedoXclust22, R.id.edif2NdedoXclust23
                 , R.id.edif2NdedoXclust24, R.id.edif2NdedoXclust25, R.id.edif2NdedoXclust26, R.id.edif2NdedoXclust27, R.id.edif2NdedoXclust28
+
         };
 
 
-        int[] keyaRRAYcalibracionesFil1 = {R.id.ediCalByA1, R.id.ediCalByA2, R.id.ediCalByA3, R.id.ediCalByA4,
+        int[] keyaRRAYcalibracionesFil1 = {
+
+                R.id.ediCalByA1, R.id.ediCalByA2, R.id.ediCalByA3, R.id.ediCalByA4,
                 R.id.ediCalByA5, R.id.ediCalByA6, R.id.ediCalByA7, R.id.ediCalByA8, R.id.ediCalByA9, R.id.ediCalByA10
                 , R.id.ediCalByA11, R.id.ediCalByA12, R.id.ediCalByA13, R.id.ediCalByA14, R.id.ediCalByA15, R.id.ediCalByA16,
-                R.id.ediCalByA17, R.id.ediCalByA18};
+                R.id.ediCalByA17, R.id.ediCalByA18
+
+        };
 
 
-        int[] keyaRRAYcalibracionesFil2 = {R.id.edif2Calib1, R.id.edif2Calib2, R.id.edif2Calib3, R.id.edif2Calib4,
+        int[] keyaRRAYcalibracionesFil2 = {
+                R.id.edif2Calib1, R.id.edif2Calib2, R.id.edif2Calib3, R.id.edif2Calib4,
                 R.id.edif2Calib5, R.id.edif2Calib6, R.id.edif2Calib7, R.id.edif2Calib8, R.id.edif2Calib9, R.id.edif2Calib10
                 , R.id.edif2Calib11, R.id.edif2Calib12, R.id.edif2Calib13, R.id.edif2Calib14, R.id.edif2Calib15, R.id.edif2Calib16,
-                R.id.edif2Calib17, R.id.edif2Calib18};
+                R.id.edif2Calib17, R.id.edif2Calib18
+        };
 
 
-        int[] keyaRRAYlargoFil1 = {R.id.ediLargDeds1, R.id.ediLargDeds2, R.id.ediLargDeds3, R.id.ediLargDeds4,
+        int[] keyaRRAYlargoFil1 = {
+                R.id.ediLargDeds1, R.id.ediLargDeds2, R.id.ediLargDeds3, R.id.ediLargDeds4,
                 R.id.ediLargDeds5, R.id.ediLargDeds6, R.id.ediLargDeds7, R.id.ediLargDeds8, R.id.ediLargDeds9, R.id.ediLargDeds10
                 , R.id.ediLargDeds11, R.id.ediLargDeds12, R.id.ediLargDeds13, R.id.ediLargDeds14, R.id.ediLargDeds15, R.id.ediLargDeds16,
                 R.id.ediLargDeds17, R.id.ediLargDeds18, R.id.ediLargDeds19, R.id.ediLargDeds20, R.id.ediLargDeds21, R.id.ediLargDeds22
@@ -1855,25 +1867,41 @@ if(contadorProductsPostCosecha>10){
         resultLine1 = 0;
         resultLine2 = 0;
 
+
+        /*
         for (int i = 0; i < keyaRRAYnumnUMdedosFil1.length; i++) {
             //keyDatsPesoarray
             //itremoas
             String keyCurrent1 = String.valueOf(keyaRRAYnumnUMdedosFil1[i]);
             if (hashMapControlCald.containsKey(keyCurrent1)) {
+
+                Log.i("derddssd"," el value es "+hashMapControlCald.get(keyCurrent1));
+
                 resultLine1 = resultLine1 + Integer.parseInt(hashMapControlCald.get(keyCurrent1));
             }
 
             String keyCurrent2 = String.valueOf(keyaRRAYnumnUMdedosFil2[i]);
             if (hashMapControlCald.containsKey(keyCurrent2)) {
+
                 resultLine2 = resultLine2 + Integer.parseInt(hashMapControlCald.get(keyCurrent2));
 
             }
 
+        }
+        /*
+
+
+        /**gheneramos numero de NUMERO_DE_DEDOS*/
+
+        if(!objecControlCald.getNumeroDedosXclusterOmano().equals("")){
+
+            NUMERO_DE_DEDOS=Integer.parseInt(objecControlCald.getNumeroDedosXclusterOmano());
+
 
         }
 
-        /**gheneramos numero de NUMERO_DE_DEDOS*/
-        NUMERO_DE_DEDOS = resultLine2 / resultLine1;
+       // NUMERO_DE_DEDOS = resultLine2 / resultLine1; //ediNdedoXclustXc20 //here aqui....
+
 
         Log.i("ELWEIGTH", "EL NUMERO_DE_DEDOS  PROMEDIO ES " + NUMERO_DE_DEDOS);
 

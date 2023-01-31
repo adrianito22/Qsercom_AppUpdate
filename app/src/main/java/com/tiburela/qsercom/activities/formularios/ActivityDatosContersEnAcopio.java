@@ -74,12 +74,30 @@ import java.util.UUID;
 
 
 public class ActivityDatosContersEnAcopio extends AppCompatActivity implements View.OnClickListener  {
+
+    ImageView imgVAtachProcesoFrutaFinca;
+    ImageView imbTakePicProcesoFrutaFinca;
+    ImageView imgVAtachLlegadaContenedor;
+    ImageView imbTakePicLllegadaContenedor;
+    ImageView imgVAtachSellosLlegada;
+    ImageView imbTakePicSellosLlegada;
+    ImageView imgVAtachPuertaAbiertaContenedor;
+    ImageView imbTakePicPuertaAbiertaContenedor;
+    ImageView imgVAtachFotosPallet;
+    ImageView imbTakePicPallet;
+    ImageView imgVAtachCierreContenedor;
+    ImageView imbTakePicCierreContenedor;
+    ImageView imgVAtachDocumentacionss;
+    ImageView imbTakePicDocuementacionxx;
+
+
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
     private final int CODE_TWO_PERMISIONS = 12;
     TextInputEditText ediClienteNombreReporte;
     HashMap<String, DatosDeProceso> mimapaDatosProcesMap=new HashMap<>();
+
 
 
     private int currentTypeImage=0;
@@ -104,11 +122,8 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     TextInputEditText ediHoraSalidaContenedor;
     TextInputEditText ediNguiaRemision;
     TextInputEditText ediNtargetaEmbarque;
-    TextInputEditText ediFotosLlegada;
     TextInputEditText ediDestino;
     TextInputEditText ediVapor;
-    TextInputEditText ediFotoContenedor;
-    TextInputEditText ediFotosPposcosecha;
     TextInputEditText ediNumContenedor;
 
     TextInputEditText ediCompaniaTransporte;
@@ -118,7 +133,6 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     TextInputEditText ediPLaca;
     TextInputEditText ediMarcaCabezal;
     TextInputEditText ediColorCabezal;
-    TextInputEditText ediFotosLlegadaTransport;
 
     TextInputEditText ediTare;
     TextInputEditText ediBooking;
@@ -128,7 +142,6 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     TextInputEditText ediCableRastreoLlegada;
     TextInputEditText ediSelloPlasticoNaviera;
     TextInputEditText ediOtroSellosLlegada;
-    TextInputEditText ediFotosSellosLLegada;
 
 
 
@@ -164,22 +177,10 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     Spinner spTipoBoquilla ;
     ArrayList<View> listViewsClickedUser;
 
-    ImageView imBatach;
     ActivityResultLauncher activityResultLauncher;
     Uri cam_uri;
 
-    ImageView imBtakePic;
 
-    ////////
-    ImageView imbAtach_transportista;
-    ImageView imbTakePicTransportista;
-    ImageView imbAtachSellosLlegada;
-    ImageView imbTakePicSellosLLegada;
-    ImageView imbAtachDatosContenedor;
-    ImageView imbTakePicDatosContenedor;
-    ImageView imbAtachPrPostcosecha;
-    ImageView imbTakePicPrPostcosecha;
-     ImageView imbTakePic;
     public static Context context;
 
 
@@ -472,6 +473,25 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
+        imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
+        imgVAtachLlegadaContenedor = findViewById(R.id.imgVAtachLlegadaContenedor);
+        imbTakePicLllegadaContenedor= findViewById(R.id.imbTakePicLllegadaContenedor);
+        imgVAtachSellosLlegada= findViewById(R.id.imgVAtachSellosLlegada);
+        imbTakePicSellosLlegada= findViewById(R.id.imbTakePicSellosLlegada);
+        imgVAtachPuertaAbiertaContenedor= findViewById(R.id.imgVAtachPuertaAbiertaContenedor);
+        imbTakePicPuertaAbiertaContenedor= findViewById(R.id.imbTakePicPuertaAbiertaContenedor);
+        imgVAtachFotosPallet= findViewById(R.id.imgVAtachFotosPallet);
+        imbTakePicPallet= findViewById(R.id.imbTakePicPallet);
+        imgVAtachCierreContenedor= findViewById(R.id.imgVAtachCierreContenedor);
+        imgVAtachDocumentacionss = findViewById(R.id.imgVAtachDocumentacionss);
+
+        imbTakePicCierreContenedor= findViewById(R.id.imbTakePicCierreContenedor);
+        imbTakePicDocuementacionxx = findViewById(R.id.imbTakePicDocuementacionxx);
+
+
+
         ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
 
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
@@ -480,7 +500,6 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
          ediHoraTermino=findViewById(R.id.ediHoraTermino);
          ediNguiaRemision=findViewById(R.id.ediNguiaRemision);
         spinnerSelectZona = findViewById(R.id.spinnerZona);
-        ediFotosLlegada=findViewById(R.id.ediFotosLlegada);
 
 
 
@@ -506,7 +525,6 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
         ediCableRastreoLlegada=findViewById(R.id.ediCableRastreoLlegada);
         ediSelloPlasticoNaviera=findViewById(R.id.ediSelloPlasticoNaviera);
         ediOtroSellosLlegada=findViewById(R.id.ediOtroSellosLlegada);
-        ediFotosSellosLLegada=findViewById(R.id.ediFotosSellosLLegada);
 
 
 
@@ -526,8 +544,6 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
          spTipoBoquilla=findViewById(R.id.spTipoBoquilla) ;
 
 
-         imBatach=findViewById(R.id.imbAtach);
-         imBtakePic=findViewById(R.id.imbTakePic);
 
 
 
@@ -542,11 +558,9 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
 
 
-        ediFotoContenedor=findViewById(R.id.ediFotoContenedor);
 
         progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
-        ediFotosPposcosecha=findViewById(R.id.ediFotosPposcosecha);
 
 
 
@@ -577,21 +591,6 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
         ediPLaca=findViewById(R.id.ediPLaca);
         ediMarcaCabezal=findViewById(R.id.ediMarcaCabezal);
         ediColorCabezal=findViewById(R.id.ediColorCabezal);
-        ediFotosLlegadaTransport=findViewById(R.id.ediFotosLlegadaTransport);
-
-
-
-
-        //las pics
-         imbAtach_transportista=findViewById(R.id.imbAtach_transportista);
-         imbTakePicTransportista=findViewById(R.id.imbTakePicTransportista);
-         imbAtachSellosLlegada=findViewById(R.id.imbAtachSellosLlegada);
-         imbTakePicSellosLLegada=findViewById(R.id.imbTakePicSellosLLegada);
-         imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
-         imbAtachPrPostcosecha=findViewById(R.id.imbAtachPrPostcosecha);
-         imbTakePicPrPostcosecha=findViewById(R.id.imbTakePicPrPostcosecha);
-        imbTakePicDatosContenedor=findViewById(R.id.imbTakePicDatosContenedor);
-        imbTakePic=findViewById(R.id.imbTakePic);
 
 
 
@@ -605,19 +604,20 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
         /**todos add a todos clicklistener de la implemntacion*/
 
 
-      ///  imBtakePic.setOnClickListener(this);
-       // imBatach.setOnClickListener(this);
-
-         imbAtach_transportista.setOnClickListener(this);
-         imbTakePicTransportista.setOnClickListener(this);
-         imbAtachSellosLlegada.setOnClickListener(this);
-         imbTakePicSellosLLegada.setOnClickListener(this);
-         imbAtachDatosContenedor.setOnClickListener(this);
-         imbTakePicDatosContenedor.setOnClickListener(this);
-
-
-        imBatach.setOnClickListener(this);
-        imbTakePic.setOnClickListener(this);
+        imgVAtachDocumentacionss.setOnClickListener(this);//ultimo
+        imgVAtachProcesoFrutaFinca.setOnClickListener(this);
+        imbTakePicProcesoFrutaFinca.setOnClickListener(this);
+        imgVAtachLlegadaContenedor.setOnClickListener(this);
+        imbTakePicLllegadaContenedor.setOnClickListener(this);
+        imgVAtachSellosLlegada.setOnClickListener(this);
+        imbTakePicSellosLlegada.setOnClickListener(this);
+        imgVAtachPuertaAbiertaContenedor.setOnClickListener(this);
+        imbTakePicPuertaAbiertaContenedor.setOnClickListener(this);
+        imgVAtachFotosPallet.setOnClickListener(this);
+        imbTakePicPallet.setOnClickListener(this);
+        imgVAtachCierreContenedor.setOnClickListener(this);
+        imbTakePicCierreContenedor.setOnClickListener(this);
+        imbTakePicDocuementacionxx.setOnClickListener(this);
 
         ediHoraEncendido1.setOnClickListener(this);
         ediHoraEncendido2.setOnClickListener(this);
@@ -662,257 +662,194 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     @Override
     public void onClick(View view) {
 
+        String data[]={"image/*"};
 
 
+        int idCurrent= view.getId();
 
-       switch (view.getId()) {
 
-           case R.id.linLayoutHeader1:
-               LinearLayout layoutContainerSeccion=findViewById(R.id.layoutContainerSeccion7);
 
-               if(layoutContainerSeccion.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion);
-               }
-               else{
 
-                   oucultaLinearLayout(layoutContainerSeccion);
-               }
-               break; //
+        if(idCurrent==R.id.imgVAtachProcesoFrutaFinca || idCurrent==R.id.imgVAtachLlegadaContenedor || idCurrent==R.id.imgVAtachSellosLlegada ||
+                idCurrent==R.id.imgVAtachPuertaAbiertaContenedor
+                || idCurrent==R.id.imgVAtachFotosPallet || idCurrent==R.id.imgVAtachCierreContenedor ||
+                idCurrent == R.id.imgVAtachDocumentacionss){  ///si es atach
 
+            currentTypeImage=Integer.parseInt(view.getTag().toString());
 
 
-           case R.id.linLayoutHeader2:
-               LinearLayout layoutContainerSeccion3=findViewById(R.id.layoutContainerSeccion3);
+            activityResultLauncher.launch(data);
 
-               if(layoutContainerSeccion3.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion3);
-               }
-               else{
 
-                   oucultaLinearLayout(layoutContainerSeccion3);
-               }
-               break; //
+            Log.i("miclickimg","es foto es type selected es "+currentTypeImage);
 
+        }
 
-           case R.id.linLayoutHeader3:
-               LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
+        else if(idCurrent==R.id.imbTakePicProcesoFrutaFinca || idCurrent==R.id.imbTakePicLllegadaContenedor
+                || idCurrent==R.id.imbTakePicSellosLlegada ||
+                idCurrent==R.id.imbTakePicPuertaAbiertaContenedor || idCurrent==R.id.imbTakePicPallet
+                || idCurrent==R.id.imbTakePicCierreContenedor || idCurrent==R.id.imbTakePicDocuementacionxx ){ //si es tajke pic con camara
 
-               if(layoutContainerSeccion4.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion4);
-               }
-               else{
+            currentTypeImage=Integer.parseInt(view.getTag().toString());
 
-                   oucultaLinearLayout(layoutContainerSeccion4);
-               }
-               break; //
 
-           case R.id.linLayoutHeader7:
-               LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
+            takepickNow();
 
-               if(layoutContainerSeccion5.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion5);
-               }
-               else{
+            Log.i("miclickimg","es foto es type selected es "+currentTypeImage);
 
-                   oucultaLinearLayout(layoutContainerSeccion5);
-               }
-               break; //
-           //linLayoutHeader7
 
-           case R.id.linLayoutHeader4:
-               LinearLayout layoutContainerSeccion3a=findViewById(R.id.layoutContainerSeccion3);
+        }
 
-               if(layoutContainerSeccion3a.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion3a);
-               }
-               else{
+else{
+            switch (view.getId()) {
 
-                   oucultaLinearLayout(layoutContainerSeccion3a);
-               }
-               break; //
+                case R.id.linLayoutHeader1:
+                    LinearLayout layoutContainerSeccion=findViewById(R.id.layoutContainerSeccion7);
 
+                    if(layoutContainerSeccion.getVisibility() == View.GONE) {
+                        muestraLinearLayout(layoutContainerSeccion);
+                    }
+                    else{
 
-           case R.id.linLayoutHeader5:
-               LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
+                        oucultaLinearLayout(layoutContainerSeccion);
+                    }
+                    break; //
 
-               if(layoutContainerSeccion6.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion6);
-               }
-               else{
 
-                   oucultaLinearLayout(layoutContainerSeccion6);
-               }
-               break; //
 
+                case R.id.linLayoutHeader2:
+                    LinearLayout layoutContainerSeccion3=findViewById(R.id.layoutContainerSeccion3);
 
-           case R.id.linLayoutHeader6:
-               LinearLayout layoutContainerSeccion9=findViewById(R.id.layoutContainerSeccion9);
+                    if(layoutContainerSeccion3.getVisibility() == View.GONE) {
+                        muestraLinearLayout(layoutContainerSeccion3);
+                    }
+                    else{
 
-               if(layoutContainerSeccion9.getVisibility() == View.GONE) {
-                   muestraLinearLayout(layoutContainerSeccion9);
-               }
-               else{
+                        oucultaLinearLayout(layoutContainerSeccion3);
+                    }
+                    break; //
 
-                   oucultaLinearLayout(layoutContainerSeccion9);
-               }
-               break; //
 
+                case R.id.linLayoutHeader3:
+                    LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
 
-           case R.id.ediFechaInicio:
-              // Utils.closeKeyboard(FormularioActivity.this);
-               selecionaFecha(R.id.ediFechaInicio);
+                    if(layoutContainerSeccion4.getVisibility() == View.GONE) {
+                        muestraLinearLayout(layoutContainerSeccion4);
+                    }
+                    else{
 
-               break; //
+                        oucultaLinearLayout(layoutContainerSeccion4);
+                    }
+                    break; //
 
+                case R.id.linLayoutHeader7:
+                    LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
 
-           case R.id.fechDetermino:
-               // Utils.closeKeyboard(FormularioActivity.this);
+                    if(layoutContainerSeccion5.getVisibility() == View.GONE) {
+                        muestraLinearLayout(layoutContainerSeccion5);
+                    }
+                    else{
 
-               selecionaFecha(R.id.fechDetermino);
+                        oucultaLinearLayout(layoutContainerSeccion5);
+                    }
+                    break; //
+                //linLayoutHeader7
 
-               break; //
+                case R.id.linLayoutHeader4:
+                    LinearLayout layoutContainerSeccion3a=findViewById(R.id.layoutContainerSeccion3);
 
-           case R.id.ediHoraInicio:
-              // Utils.closeKeyboard(FormularioActivity.this);
+                    if(layoutContainerSeccion3a.getVisibility() == View.GONE) {
+                        muestraLinearLayout(layoutContainerSeccion3a);
+                    }
+                    else{
 
-               showingTimePicker(view);
+                        oucultaLinearLayout(layoutContainerSeccion3a);
+                    }
+                    break; //
 
-               break; //
 
-           case R.id.ediHoraTermino:
-             // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                case R.id.linLayoutHeader5:
+                    LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
 
-               break; //
-           case R.id.ediHoraSalidaContenedor:
-               // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                    if(layoutContainerSeccion6.getVisibility() == View.GONE) {
+                        muestraLinearLayout(layoutContainerSeccion6);
+                    }
+                    else{
 
-               break; //
+                        oucultaLinearLayout(layoutContainerSeccion6);
+                    }
+                    break; //
 
 
-           case R.id.ediHoraLLegadaContenedor:
-               // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                case R.id.linLayoutHeader6:
+                    LinearLayout layoutContainerSeccion9=findViewById(R.id.layoutContainerSeccion9);
 
-               break; //
+                    if(layoutContainerSeccion9.getVisibility() == View.GONE) {
+                        muestraLinearLayout(layoutContainerSeccion9);
+                    }
+                    else{
 
-           case R.id.ediHoraEncendido1:
-               // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                        oucultaLinearLayout(layoutContainerSeccion9);
+                    }
+                    break; //
 
-               break; //
 
+                case R.id.ediFechaInicio:
+                    // Utils.closeKeyboard(FormularioActivity.this);
+                    selecionaFecha(R.id.ediFechaInicio);
 
-           case R.id.ediHoraEncendido2:
-               // Utils.closeKeyboard(FormularioActivity.this);
-               showingTimePicker(view);
+                    break; //
 
-               break; //
 
-           case R.id.imbAtach:
+                case R.id.fechDetermino:
+                    // Utils.closeKeyboard(FormularioActivity.this);
 
-               currentTypeImage=Variables.FOTO_LLEGADA;
+                    selecionaFecha(R.id.fechDetermino);
 
-               Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
+                    break; //
 
-               activityResultLauncher.launch("image/*");
-               break;
+                case R.id.ediHoraInicio:
+                    // Utils.closeKeyboard(FormularioActivity.this);
 
+                    showingTimePicker(view);
 
-           case R.id.imbTakePic:
-               Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
+                    break; //
 
-               currentTypeImage=Variables.FOTO_LLEGADA;
+                case R.id.ediHoraTermino:
+                    // Utils.closeKeyboard(FormularioActivity.this);
+                    showingTimePicker(view);
 
-               takepickNow();
-               break;
+                    break; //
+                case R.id.ediHoraSalidaContenedor:
+                    // Utils.closeKeyboard(FormularioActivity.this);
+                    showingTimePicker(view);
 
+                    break; //
 
 
-           case R.id.imbAtach_transportista:
-               currentTypeImage=Variables.FOTO_TRANSPORTISTA;
-               Log.i("miclickimg","es foto es type Variables.FOTO_TRANSPORTISTA");
+                case R.id.ediHoraLLegadaContenedor:
+                    // Utils.closeKeyboard(FormularioActivity.this);
+                    showingTimePicker(view);
 
-               activityResultLauncher.launch("image/*");
-               break;
+                    break; //
 
+                case R.id.ediHoraEncendido1:
+                    // Utils.closeKeyboard(FormularioActivity.this);
+                    showingTimePicker(view);
 
+                    break; //
 
-           case R.id.imbTakePicTransportista:
-               currentTypeImage=Variables.FOTO_TRANSPORTISTA;
-               Log.i("miclickimg","es foto es type Variables.FOTO_TRANSPORTISTA");
 
+                case R.id.ediHoraEncendido2:
+                    // Utils.closeKeyboard(FormularioActivity.this);
+                    showingTimePicker(view);
 
-               takepickNow();
-               break;
+                    break; //
 
+            }
 
+        }
 
-           case R.id.imbAtachSellosLlegada:
-               currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
-               Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
-
-               activityResultLauncher.launch("image/*");
-               break;
-
-
-
-           case R.id.imbTakePicSellosLLegada:
-               Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
-
-               currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
-
-               takepickNow();
-
-
-               break;
-
-
-
-           case R.id.imbAtachDatosContenedor:
-               currentTypeImage=Variables.FOTO_CONTENEDOR;
-               Log.i("miclickimg","es foto es type Variables.FOTO_CONTENEDOR");
-               activityResultLauncher.launch("image/*");
-
-
-               break;
-
-
-           case R.id.imbTakePicDatosContenedor:
-               Log.i("miclickimg","es foto es type Variables.FOTO_CONTENEDOR");
-
-               currentTypeImage=Variables.FOTO_CONTENEDOR;
-
-               takepickNow();
-               break;
-
-
-
-           case R.id.imbAtachPrPostcosecha:
-               currentTypeImage=Variables.FOTO_PROD_POSTCOSECHA;
-               Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
-
-               activityResultLauncher.launch("image/*");
-               break;
-
-
-           case R.id.imbTakePicPrPostcosecha:
-               Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
-
-               currentTypeImage=Variables.FOTO_PROD_POSTCOSECHA;
-
-               takepickNow();
-               break;
-
-
-
-
-
-
-       }
-
-        //aqui o
 
 
     }
@@ -1158,7 +1095,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
      ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
 
-    RecyclerView recyclerView= findViewById(R.id.recyclerView);
+    RecyclerView recyclerView=null;
 
 
     for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
@@ -1180,36 +1117,41 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     //buscamos este
 
 
+    switch(currentTypeImage){
+        case Variables.FOTO_PROCESO_FRUTA_FINCA:
+            recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+            break;
 
-    //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
-    if(currentTypeImage== Variables.FOTO_LLEGADA)  {
-         recyclerView= findViewById(R.id.recyclerView);
+        case Variables.FOTO_LLEGADA_CONTENEDOR:
+            recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+            break;
 
+        case Variables.FOTO_SELLO_LLEGADA:
+            recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+            break;
 
+        case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
+            recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+            break;
+
+        case Variables.FOTO_PALLETS:
+            recyclerView= findViewById(R.id.recyclerFotoPallets);
+            break;
+
+        case Variables.FOTO_CIERRE_CONTENEDOR:
+            recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+            break;
+
+        case Variables.FOTO_DOCUMENTACION:
+            recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+            break;
     }
-
-    else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
-        recyclerView = findViewById(R.id.recyclerVieDatsTransport);
-
-    }
-
-    else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
-        recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
-    }
-
-
-    else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
-        recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
-
-    }
-
-
 
     RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
     GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
-
     // at last set adapter to recycler view.
+    assert recyclerView != null;
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(adapter);
     eventoBtnclicklistenerDelete(adapter);
@@ -2046,23 +1988,6 @@ private void createObjcInformeAndUpload(){
 
 
 
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
-            ediFotosLlegada.requestFocus();
-
-            Log.i("test001","falta here photos");
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-            ediFotosLlegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-        }else{
-            Log.i("test001","todo bien  here photos");
-
-            ediFotosLlegada.clearFocus();
-            ediFotosLlegada.setError(null);
-
-        }
-
-
-
 
         return true;
     }
@@ -2145,18 +2070,6 @@ private void createObjcInformeAndUpload(){
         //chekamos que al menos exista una imagen...
 
 
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CONTENEDOR)){
-            ediFotoContenedor.requestFocus();
-
-            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-            ediFotoContenedor.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-        }else{
-
-            ediFotoContenedor.clearFocus();
-            ediFotoContenedor.setError(null);
-
-        }
 
 
 
@@ -2243,30 +2156,6 @@ return  true;
         if(!ediOtroSellosLlegada.getText().toString().isEmpty()){ //este es opcional... si esta vacio
 
             FieldOpcional.otrosSellosLLegaEspecif =ediOtroSellosLlegada.getText().toString();
-        }
-
-
-
-
-
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
-            ediFotosSellosLLegada.requestFocus();
-
-            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
-            ediFotosSellosLLegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-
-            Log.i("test001","se jecuto este if no hay minimo 1 foto");
-
-            return false;
-
-        }
-        else{
-
-            ediFotosSellosLLegada.clearFocus();
-            ediFotosSellosLLegada.setError(null);
-            Log.i("test001","se jecuto este else hay minimo 1 foto");
-
-
         }
 
 
@@ -2525,22 +2414,6 @@ return true;
 
 
 
-
-        else if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_TRANSPORTISTA)){
-            ediFotosLlegadaTransport.requestFocus();
-
-            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
-            ediFotosLlegadaTransport.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-        }else{
-
-            ediFotosLlegadaTransport.clearFocus();
-            ediFotosLlegadaTransport.setError(null);
-
-        }
-
-
-
       return true;
 
     }
@@ -2576,11 +2449,8 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ediHoraSalidaContenedor,
             ediNguiaRemision,
             ediNtargetaEmbarque,
-            ediFotosLlegada,
             ediDestino,
             ediVapor,
-            ediFotoContenedor,
-            ediFotosPposcosecha,
             ediCompaniaTransporte,
             ediNombreChofer,
             ediCedula,
@@ -2588,8 +2458,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ediPLaca,
             ediMarcaCabezal,
             ediColorCabezal,
-            ediFotosLlegadaTransport,
-
             ediTare,
             ediBooking,
             ediMaxGross,
@@ -2598,8 +2466,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             ediCableRastreoLlegada,
             ediSelloPlasticoNaviera,
             ediOtroSellosLlegada,
-            ediFotosSellosLLegada,
-
             ediTermofrafo1,
             ediHoraEncendido1,
             ediUbicacion1,
@@ -2647,35 +2513,37 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         //agregamos data al map
 
 
-        RecyclerView recyclerView= findViewById(R.id.recyclerView);
+        RecyclerView recyclerView= null;
 
-        //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
-        if(currentTypeImage== Variables.FOTO_LLEGADA)  {
-            recyclerView= findViewById(R.id.recyclerView);
+        switch(currentTypeImage){
+            case Variables.FOTO_PROCESO_FRUTA_FINCA:
+                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                break;
 
+            case Variables.FOTO_LLEGADA_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+                break;
 
+            case Variables.FOTO_SELLO_LLEGADA:
+                recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+                break;
+
+            case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+                break;
+
+            case Variables.FOTO_PALLETS:
+                recyclerView= findViewById(R.id.recyclerFotoPallets);
+                break;
+
+            case Variables.FOTO_CIERRE_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                break;
+
+            case Variables.FOTO_DOCUMENTACION:
+                recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                break;
         }
-        else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
-            recyclerView= findViewById(R.id.recyclerViewPostcosecha);
-            // at last set adapter to recycler view.
-
-        }
-
-        else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
-            recyclerView = findViewById(R.id.recyclerVieDatsTransport);
-
-        }
-
-        else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
-            recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
-        }
-
-
-        else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
-            recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
-
-        }
-
 
 
 
@@ -2685,6 +2553,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
         // at last set adapter to recycler view.
+        assert recyclerView != null;
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         eventoBtnclicklistenerDelete(adapter);

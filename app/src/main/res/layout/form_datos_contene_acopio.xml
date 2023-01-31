@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="right"
     android:background="#E6E6E6"
-    tools:context=".activities.FormularioActivity">
+    tools:context=".activities.formularios.ActivityDatosContersEnAcopio">
 
     <TextView
         android:id="@+id/textView64"
@@ -269,6 +269,14 @@
                 layout="@layout/datos_proceso2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+
+            <include
+                layout="@layout/lay_imagenes_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

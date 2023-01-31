@@ -310,59 +310,7 @@ android:textAllCaps="true" />
         </androidx.gridlayout.widget.GridLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="12">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="8"
-                android:hint="FOTOS PRODUCTOS"
-                >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ediFotosPposcosecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="textCapCharacters"
-android:textAllCaps="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/imbAtachPrPostcosecha"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_attach_file_24" />
-
-            <ImageView
-                android:id="@+id/imbTakePicPrPostcosecha"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewPostcosecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Space
+    <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 

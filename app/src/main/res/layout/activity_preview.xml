@@ -422,6 +422,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+
+            <include
+                layout="@layout/ly_peso_bruto_por_clust_solo_para2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <include
+                layout="@layout/lay_imagenes_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+
+
             <TextView
                 android:id="@+id/textView68"
                 android:layout_width="match_parent"

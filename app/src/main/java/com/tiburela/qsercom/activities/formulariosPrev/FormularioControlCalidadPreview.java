@@ -50,8 +50,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     // initialize variables
     HashMap <String, String> hasmapMapControlCalid;
 
-    int contadorDefectosMap1=0;
+    String numeroDeClusterOmanos ="";
 
+     String numClusterPorCaja="";
+
+     String numCalibracionEntreApical=""; //falta this
+     String numGradoCalibrePromedio=""; //falta this tambien;
 
     Button btnSaveControlC;
     TextView textView48;
@@ -1990,9 +1994,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
             edif2NdedoXclustTotalArriba.setText(String.valueOf((int)sumaFilasArriba));
             ediNdedoXclustXcTotalAbajo.setText(String.valueOf((int)sumaFilasAbajo));
-
             edif2NdedoXclustPromedio.setText(resultado);
 
+
+            if(sumaFilasAbajo/sumaFilasArriba>0){ //si el resultado es mayor a cero
+
+                numClusterPorCaja= resultado;
+            }
 
 
 
@@ -2108,6 +2116,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                     double promedio=resultFila2/resultFila1;
 
                     ediPromedioPulpP.setText( df.format(promedio));
+                    numGradoCalibrePromedio=df.format(promedio);
 
                     // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
                     //colcamos este texto en el editext
@@ -2459,7 +2468,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 ,	ediNdedoXclust16,	ediNdedoXclust17,ediNdedoXclust18,	ediNdedoXclust19
                 ,	ediNdedoXclust20,	ediNdedoXclust21,ediNdedoXclust22,	ediNdedoXclust23,
                 ediNdedoXclust24,	ediNdedoXclust25,	ediNdedoXclust26,	ediNdedoXclust27,
-                ediNdedoXclust28,ediNdedoXclust29, ediNumPromedioDedsXcaja};
+                ediNdedoXclust28,ediNdedoXclust29};
 
 
         EditextSupreme [] arrayEditsFilaAbajo = {
@@ -2511,6 +2520,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         String resul= df.format(result)+" %";
 
         ediNumPromedioDedsXcaja.setText(resul);
+        numeroDeClusterOmanos=df.format(result);
+
+
         //por aqwuinmostyramos s
 
 
@@ -2661,6 +2673,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             ediTotalFila2z.setText(String.valueOf((int)totalFial2));
             String promedio=df.format(totalFial2/totalFila1);
             ediPromediozx.setText(promedio);
+
+            numCalibracionEntreApical=promedio;
 
 
 
@@ -3345,7 +3359,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         setResultNumClusteroManoProduct();
         getlargoDedosPulgaPulpaApulpa();
-        showResultNumeroClusterxCajaProduct();
+
+
+        getNumeroClusterxCajaProduct();
+
+       // showResultNumeroClusterxCajaProduct();
+
+
         getCalibraEntreBasalYapiclProduct();
 
 
@@ -3356,6 +3376,15 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         createInfoToHashmapRechazaSelecToUpload();
         createItemsSelectDefectsEmpqTOuPLOAD();
         ControlCalidad obecjControlCalidad = udpadteFormulario(Variables.currenControlCalReport);
+
+
+
+        obecjControlCalidad.setNumeroDedosXclusterOmano(numeroDeClusterOmanos);
+        obecjControlCalidad.setNumClusterPorCaja(numClusterPorCaja);
+        obecjControlCalidad.setNumCalibracionEntreApical(numCalibracionEntreApical);
+        obecjControlCalidad.setNumGradoCalibrePromedio(numGradoCalibrePromedio);
+
+
 
         RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
         RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());

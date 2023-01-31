@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/layoutContainerSeccion6"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:orientation="vertical"
         android:visibility="visible">
@@ -24,8 +24,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:hint="COMPAÑIA TRANSPORTISTA"
-                android:visibility="visible"
-                >
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediCompaniaTransporte"
@@ -33,7 +32,7 @@
                     android:layout_height="wrap_content"
 
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -42,15 +41,14 @@ android:textAllCaps="true" />
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="NOMBRE DEL CHOFER"
-                >
+                android:hint="NOMBRE DEL CHOFER">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediNombreChofer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapCharacters"
-android:textAllCaps="true"
+                    android:textAllCaps="true"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -67,8 +65,7 @@ android:textAllCaps="true"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="CEDULA"
-                >
+                android:hint="CEDULA">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediCedula"
@@ -85,8 +82,7 @@ android:textAllCaps="true"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="CELULAR"
-                >
+                android:hint="CELULAR">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediCelular"
@@ -109,8 +105,7 @@ android:textAllCaps="true"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="PLACA"
-                >
+                android:hint="PLACA">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediPLaca"
@@ -118,7 +113,7 @@ android:textAllCaps="true"
                     android:layout_height="wrap_content"
 
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -127,8 +122,7 @@ android:textAllCaps="true" />
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="MARCA DE CABEZAL"
-                >
+                android:hint="MARCA DE CABEZAL">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediMarcaCabezal"
@@ -136,7 +130,7 @@ android:textAllCaps="true" />
                     android:layout_height="wrap_content"
 
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -152,76 +146,15 @@ android:textAllCaps="true" />
                 android:layout_margin="5dp"
                 android:layout_weight="1"
 
-                android:hint="COLOR DE CABEZAL"
-                >
+                android:hint="COLOR DE CABEZAL">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ediColorCabezal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="12">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="8"
-                android:hint="FOTOS "
-                >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ediFotosLlegadaTransport"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/imbAtach_transportista"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_attach_file_24" />
-
-            <ImageView
-                android:id="@+id/imbTakePicTransportista"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutContainerPics"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerVieDatsTransport"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

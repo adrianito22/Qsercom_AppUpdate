@@ -98,19 +98,17 @@ public class HelperAdImgs implements LifecycleOwner {
 
         while(!allImagesISUsed(currentListImagesSeccion)){ //mientras quedan imagenes si usar////
 
-            if(contador==0  && setFotoCategory==Variables.FOTO_LLEGADA ) { ///significa que es la primera pagina
+            if(contador==0  && setFotoCategory==Variables.FOTO_PROCESO_FRUTA_FINCA ) { ///significa que es la primera pagina
               ///AGREGMAOS TEXTO
                 midocumentotoAddData.add(new Paragraph("ANEXOS").setFontSize(10f).setPaddingLeft(50f).setBold().setMarginTop(2f));
                 midocumentotoAddData.add(new Paragraph("*  "+anexoNombre).setFontSize(10f).
                         setPaddingLeft(60f).setMarginTop(1f).setBold());
                 isPosicion0AndNewAnexo=true;
 
-
-
             }
 
 
-            else if (contador==0  && setFotoCategory==Variables.FOTO_CONTENEDOR ) { ///significa que es la primera pagina
+            else if (contador==0  && setFotoCategory==Variables.FOTO_LLEGADA_CONTENEDOR ) {
                 ///AGREGMAOS TEXTO
                 midocumentotoAddData.add(new Paragraph(anexoNombre).setFontSize(10f).setBold().setMarginTop(2f).setTextAlignment(TextAlignment.CENTER));
 
@@ -121,7 +119,9 @@ public class HelperAdImgs implements LifecycleOwner {
             }
 
 
-            else if (contador==0  && setFotoCategory==Variables.FOTO_SELLO_LLEGADA ) { ///significa que es la primera pagina
+
+
+            else if (contador==0  && setFotoCategory==Variables.FOTO_DOCUMENTACION ) { ///significa que es la primera pagina
                 ///AGREGMAOS TEXTO
                 midocumentotoAddData.add(new Paragraph(anexoNombre).setFontSize(10f).setBold().setMarginTop(2f).setTextAlignment(TextAlignment.CENTER));
                 Log.i("sajsdfgfsd","es foto contenedor ");

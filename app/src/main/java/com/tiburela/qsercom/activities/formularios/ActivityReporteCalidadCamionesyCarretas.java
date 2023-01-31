@@ -80,6 +80,26 @@ import com.tiburela.qsercom.R;
 
 
 public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener {
+
+    ImageView imgVAtachProcesoFrutaFinca;
+    ImageView imbTakePicProcesoFrutaFinca;
+    ImageView imgVAtachLlegadaContenedor;
+    ImageView imbTakePicLllegadaContenedor;
+    ImageView imgVAtachSellosLlegada;
+    ImageView imbTakePicSellosLlegada;
+    ImageView imgVAtachPuertaAbiertaContenedor;
+    ImageView imbTakePicPuertaAbiertaContenedor;
+    ImageView imgVAtachFotosPallet;
+    ImageView imbTakePicPallet;
+    ImageView imgVAtachCierreContenedor;
+    ImageView imbTakePicCierreContenedor;
+    ImageView imgVAtachDocumentacionss;
+    ImageView imbTakePicDocuementacionxx;
+
+
+
+
+
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -112,7 +132,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     TextInputEditText ediNhojaEvaluacion;
     TextInputEditText ediObservacion;
     TextInputEditText ediEmpacadora;
-    TextInputEditText ediFotosLlegada;
     TextInputEditText ediContenedor;
     TextInputEditText ediPPC01;
     TextInputEditText ediPPC02;
@@ -134,8 +153,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     TextInputEditText ediNViaje;
     TextInputEditText ediTipoContenedor;
     TextInputEditText ediVapor;
-    TextInputEditText ediFotoContenedor;
-    TextInputEditText ediFotosPposcosecha;
     TextInputEditText ediEnsunchado;
     TextInputEditText ediBalanzaRepeso;
     TextInputEditText ediNumContenedor;
@@ -161,7 +178,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     TextInputEditText ediPLaca;
     TextInputEditText ediMarcaCabezal;
     TextInputEditText ediColorCabezal;
-    TextInputEditText ediFotosLlegadaTransport;
 
     TextInputEditText ediTare;
     TextInputEditText ediBooking;
@@ -171,7 +187,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     TextInputEditText ediCableRastreoLlegada;
     TextInputEditText ediSelloPlasticoNaviera;
     TextInputEditText ediOtroSellosLlegada;
-    TextInputEditText ediFotosSellosLLegada;
 
     TextInputEditText ediCondicionBalanza;
     TextInputEditText ediTipodeCaja;
@@ -241,21 +256,11 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     ArrayList<View> listViewsClickedUser;
 
-    ImageView imBatach;
     ActivityResultLauncher activityResultLauncher;
     Uri cam_uri;
 
-    ImageView imBtakePic;
 
     ////////
-    ImageView imbAtach_transportista;
-    ImageView imbTakePicTransportista;
-    ImageView imbAtachSellosLlegada;
-    ImageView imbTakePicSellosLLegada;
-    ImageView imbAtachDatosContenedor;
-    ImageView imbTakePicDatosContenedor;
-    ImageView imbAtachPrPostcosecha;
-    ImageView imbTakePicPrPostcosecha;
 
 
 
@@ -510,7 +515,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         disableEditText(ediContenedor);
-        disableEditText(ediFotosLlegada);
+
 
         disableEditText(ediZona);
         disableEditText(ediEnsunchado);
@@ -523,6 +528,27 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
+        imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
+        imgVAtachLlegadaContenedor = findViewById(R.id.imgVAtachLlegadaContenedor);
+        imbTakePicLllegadaContenedor= findViewById(R.id.imbTakePicLllegadaContenedor);
+        imgVAtachSellosLlegada= findViewById(R.id.imgVAtachSellosLlegada);
+        imbTakePicSellosLlegada= findViewById(R.id.imbTakePicSellosLlegada);
+        imgVAtachPuertaAbiertaContenedor= findViewById(R.id.imgVAtachPuertaAbiertaContenedor);
+        imbTakePicPuertaAbiertaContenedor= findViewById(R.id.imbTakePicPuertaAbiertaContenedor);
+        imgVAtachFotosPallet= findViewById(R.id.imgVAtachFotosPallet);
+        imbTakePicPallet= findViewById(R.id.imbTakePicPallet);
+        imgVAtachCierreContenedor= findViewById(R.id.imgVAtachCierreContenedor);
+        imgVAtachDocumentacionss = findViewById(R.id.imgVAtachDocumentacionss);
+        imbTakePicCierreContenedor= findViewById(R.id.imbTakePicCierreContenedor);
+        imbTakePicDocuementacionxx = findViewById(R.id.imbTakePicDocuementacionxx);
+
+
+
+
+
+
 
         imgUpdatecAlfrutaEnfunde=findViewById(R.id.imgUpdatecAlfrutaEnfunde);
 
@@ -548,7 +574,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         ediNhojaEvaluacion=findViewById(R.id.ediNhojaEvaluacion);
         spinnerSelectZona = findViewById(R.id.spinnerZona);
         ediObservacion = findViewById(R.id.ediObservacion);
-        ediFotosLlegada=findViewById(R.id.ediFotosLlegada);
 
 
 
@@ -561,7 +586,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         ediCableRastreoLlegada=findViewById(R.id.ediCableRastreoLlegada);
         ediSelloPlasticoNaviera=findViewById(R.id.ediSelloPlasticoNaviera);
         ediOtroSellosLlegada=findViewById(R.id.ediOtroSellosLlegada);
-        ediFotosSellosLLegada=findViewById(R.id.ediFotosSellosLLegada);
 
         ediEnsunchado=findViewById(R.id.ediEnsunchado);
         ediBalanzaRepeso=findViewById(R.id.ediBalanzaRepeso);
@@ -613,8 +637,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
       //  switchContenedor=findViewById(R.id.switchContenedor);
         ediContenedor=findViewById(R.id.ediContenedor);
 
-        imBatach=findViewById(R.id.imbAtach);
-        imBtakePic=findViewById(R.id.imbTakePic);
 
         ediPPC01=findViewById(R.id.ediPPC01);
         ediPPC02=findViewById(R.id.ediPPC02);
@@ -650,7 +672,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
        // ediFotoContenedor=findViewById(R.id.ediFotoContenedor);
 
 
-        ediFotosPposcosecha=findViewById(R.id.ediFotosPposcosecha);
 
         ediCondicionBalanza=findViewById(R.id.ediCondicionBalanza);
         ediTipodeCaja=findViewById(R.id.ediTipodeCaja);
@@ -688,21 +709,10 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         ediPLaca=findViewById(R.id.ediPLaca);
         ediMarcaCabezal=findViewById(R.id.ediMarcaCabezal);
         ediColorCabezal=findViewById(R.id.ediColorCabezal);
-        ediFotosLlegadaTransport=findViewById(R.id.ediFotosLlegadaTransport);
 
 
 
 
-        //las pics
-        imbAtach_transportista=findViewById(R.id.imbAtach_transportista);
-        imbTakePicTransportista=findViewById(R.id.imbTakePicTransportista);
-        imbAtachSellosLlegada=findViewById(R.id.imbAtachSellosLlegada);
-        imbTakePicSellosLLegada=findViewById(R.id.imbTakePicSellosLLegada);
-        imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
-        imbAtachDatosContenedor=findViewById(R.id.imbAtachDatosContenedor);
-        imbAtachPrPostcosecha=findViewById(R.id.imbAtachPrPostcosecha);
-        imbTakePicPrPostcosecha=findViewById(R.id.imbTakePicPrPostcosecha);
-        imbTakePicDatosContenedor=findViewById(R.id.imbTakePicDatosContenedor);
 
 
         spinnerCondicionBalanza=  findViewById(R.id.spinnerCondicionBalanza);
@@ -725,19 +735,32 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         /**todos add a todos clicklistener de la implemntacion*/
 
+
+        imgVAtachDocumentacionss.setOnClickListener(this);//ultimo
+        imgVAtachProcesoFrutaFinca.setOnClickListener(this);
+        imbTakePicProcesoFrutaFinca.setOnClickListener(this);
+        imgVAtachLlegadaContenedor.setOnClickListener(this);
+        imbTakePicLllegadaContenedor.setOnClickListener(this);
+        imgVAtachSellosLlegada.setOnClickListener(this);
+        imbTakePicSellosLlegada.setOnClickListener(this);
+        imgVAtachPuertaAbiertaContenedor.setOnClickListener(this);
+        imbTakePicPuertaAbiertaContenedor.setOnClickListener(this);
+        imgVAtachFotosPallet.setOnClickListener(this);
+        imbTakePicPallet.setOnClickListener(this);
+        imgVAtachCierreContenedor.setOnClickListener(this);
+        imbTakePicCierreContenedor.setOnClickListener(this);
+        imbTakePicDocuementacionxx.setOnClickListener(this);
+
+
         imgUpdatecAlfrutaEnfunde.setOnClickListener(this);
 
-        imBtakePic.setOnClickListener(this);
-        imBatach.setOnClickListener(this);
         layoutPesobrutoPorClusterSolo.setOnClickListener(this);
-        imbAtach_transportista.setOnClickListener(this);
-        imbTakePicTransportista.setOnClickListener(this);
+
+
       //  imbAtachSellosLlegada.setOnClickListener(this);
       //  imbTakePicSellosLLegada.setOnClickListener(this);
        // imbAtachDatosContenedor.setOnClickListener(this);
       //  imbTakePicDatosContenedor.setOnClickListener(this);
-        imbAtachPrPostcosecha.setOnClickListener(this);
-        imbTakePicPrPostcosecha.setOnClickListener(this);
 
       //  ediHoraEncendido1.setOnClickListener(this);
       //  ediHoraEncendido2.setOnClickListener(this);
@@ -786,293 +809,230 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         if(!checkPermission()){
 
             requestPermission();
-            //   Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-            // checkPermission2();
-
             /****por aqui pedir permisos antes **/
 
         }
 
 
+        Log.i("darterlo", "is selñecieo,ages");
 
-        switch (view.getId()) {
+        String data[]={"image/*"};
+        Log.i("miclickimg","hemos hecho click");
 
+        int idCurrent= view.getId();
 
-            case R.id.imgUpdatecAlfrutaEnfunde:
-                Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
-                getResultDatCalibCalEnfundes();
-                break;
+        if(idCurrent==R.id.imgVAtachProcesoFrutaFinca || idCurrent==R.id.imgVAtachLlegadaContenedor || idCurrent==R.id.imgVAtachSellosLlegada ||
+                idCurrent==R.id.imgVAtachPuertaAbiertaContenedor
+                || idCurrent==R.id.imgVAtachFotosPallet || idCurrent==R.id.imgVAtachCierreContenedor ||
+                idCurrent == R.id.imgVAtachDocumentacionss){ //si es atach
 
 
+            currentTypeImage=Integer.parseInt(view.getTag().toString());
 
-            case R.id.ediFecha:
-                selecionaFecha();
-                break;
+            activityResultLauncher.launch(data);
 
 
-            case R.id.layoutPesobrutoPorClusterSolo:
-
-                  LinearLayout layPesoBruto1=findViewById(R.id.layPesoBruto1);
-
-                if(layPesoBruto1.getVisibility() == GONE) {
-                    muestraLinearLayout(layPesoBruto1);
-                }
-                else{
-
-                    oucultaLinearLayout(layPesoBruto1);
-                }
-                break; //
-
-
-            case R.id.linLayoutHeader1:
-                LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
-
-                if(layoutContainerSeccion1.getVisibility() == GONE) {
-                    muestraLinearLayout(layoutContainerSeccion1);
-                }
-                else{
-
-                    oucultaLinearLayout(layoutContainerSeccion1);
-                }
-                break; //
-
-
-
-            case R.id.linLayoutHeader2:
-                LinearLayout layoutContainerSeccion2=findViewById(R.id.layoutContainerSeccion2);
-
-                if(layoutContainerSeccion2.getVisibility() == GONE) {
-                    muestraLinearLayout(layoutContainerSeccion2);
-                }
-                else{
-
-                    oucultaLinearLayout(layoutContainerSeccion2);
-                }
-                break; //
-
-            case R.id.linLayoutHeader3:
-                LinearLayout layoutContainerSeccion3=findViewById(R.id.layoutContainerSeccion3);
-
-                if(layoutContainerSeccion3.getVisibility() == GONE) {
-                    muestraLinearLayout(layoutContainerSeccion3);
-                }
-                else{
-
-                    oucultaLinearLayout(layoutContainerSeccion3);
-                }
-                break; //
-
-
-            case R.id.linLayoutHeader4:
-                LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
-
-                if(layoutContainerSeccion4.getVisibility() == GONE) {
-                    muestraLinearLayout(layoutContainerSeccion4);
-                }
-                else{
-
-                    oucultaLinearLayout(layoutContainerSeccion4);
-                }
-                break; //
-
-
-
-            case R.id.layoutContainerSeccion5:
-                LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
-
-                if(layoutContainerSeccion5.getVisibility() == GONE) {
-                    muestraLinearLayout(layoutContainerSeccion5);
-                }
-                else{
-
-                    oucultaLinearLayout(layoutContainerSeccion5);
-                }
-                break; //
-
-            case R.id.linLayoutHeader6:
-                LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
-
-                if(layoutContainerSeccion6.getVisibility() == GONE) {
-                    muestraLinearLayout(layoutContainerSeccion6);
-                }
-                else{
-
-                    oucultaLinearLayout(layoutContainerSeccion6);
-                }
-                break; //
-
-
-            case R.id.linLayoutHeader7:
-                LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerDatsProceso);
-
-                if(layoutContainerSeccion7.getVisibility() == GONE) {
-                    muestraLinearLayout(layoutContainerSeccion7);
-                }
-                else{
-
-                    oucultaLinearLayout(layoutContainerSeccion7);
-                }
-                break; //
-            case R.id.linLayoutHeader8:
-                LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
-
-                if(layoutContainerSeccion8.getVisibility() == GONE) {
-                    muestraLinearLayout(layoutContainerSeccion8);
-                }
-                else{
-
-                    oucultaLinearLayout(layoutContainerSeccion8);
-                }
-                break; //
-
-            case R.id.ediCajas7:
-                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
-
-                selecionaFecha();
-
-                break; //
-
-
-
-            case R.id.ediHoraInicio:
-                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
-
-                showingTimePicker(view);
-
-                break; //
-
-            case R.id.ediHoraTermino:
-                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
-                showingTimePicker(view);
-
-                break; //
-            case R.id.ediHoraSalidaContenedor:
-                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
-                showingTimePicker(view);
-
-                break; //
-
-
-            case R.id.ediHoraLLegadaContenedor:
-                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
-                showingTimePicker(view);
-
-                break; //
-
-            case R.id.ediTipoEmp2:
-                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
-                showingTimePicker(view);
-
-                break; //
-
-            case R.id.ediHoraEncendido2:
-                // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
-                showingTimePicker(view);
-
-                break; //
-
-            case R.id.imbAtach:
-
-                currentTypeImage=Variables.FOTO_LLEGADA;
-
-                Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
-
-                activityResultLauncher.launch("image/*");
-                break;
-
-
-            case R.id.imbTakePic:
-                Log.i("miclickimg","es foto es type Variables.FOTO_LLEGADA");
-
-                currentTypeImage=Variables.FOTO_LLEGADA;
-
-                takepickNow();
-                break;
-
-
-
-            case R.id.imbAtach_transportista:
-                currentTypeImage=Variables.FOTO_TRANSPORTISTA;
-                Log.i("miclickimg","es foto es type Variables.FOTO_TRANSPORTISTA");
-
-                activityResultLauncher.launch("image/*");
-                break;
-
-
-
-            case R.id.imbTakePicTransportista:
-                currentTypeImage=Variables.FOTO_TRANSPORTISTA;
-                Log.i("miclickimg","es foto es type Variables.FOTO_TRANSPORTISTA");
-
-
-                takepickNow();
-                break;
-
-
-
-            case R.id.imbAtachSellosLlegada:
-                currentTypeImage=Variables.FOTO_SELLO_LLEGADA;
-                Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
-
-                activityResultLauncher.launch("image/*");
-                break;
-
-
-
-            case R.id.imbTakePicSellosLLegada:
-                Log.i("miclickimg","es foto es type Variables.FOTO_SELLO_LLEGADA");
-
-                currentTypeImage=Variables.FOTO_TRANSPORTISTA;
-
-                takepickNow();
-                break;
-
-
-
-            case R.id.imbAtachDatosContenedor:
-                currentTypeImage=Variables.FOTO_CONTENEDOR;
-                Log.i("miclickimg","es foto es type Variables.FOTO_CONTENEDOR");
-                activityResultLauncher.launch("image/*");
-
-
-                break;
-
-
-            case R.id.imbTakePicDatosContenedor:
-                Log.i("miclickimg","es foto es type Variables.FOTO_CONTENEDOR");
-
-                currentTypeImage=Variables.FOTO_CONTENEDOR;
-
-                takepickNow();
-                break;
-
-
-
-            case R.id.imbAtachPrPostcosecha:
-                currentTypeImage=Variables.FOTO_PROD_POSTCOSECHA;
-                Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
-
-                activityResultLauncher.launch("image/*");
-                break;
-
-
-            case R.id.imbTakePicPrPostcosecha:
-                Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
-
-                currentTypeImage=Variables.FOTO_PROD_POSTCOSECHA;
-
-                takepickNow();
-                break;
-
-
-
-
-
+            Log.i("miclickimg","es foto es type selected es "+currentTypeImage);
 
         }
 
-        //aqui o
+        else if(idCurrent==R.id.imbTakePicProcesoFrutaFinca || idCurrent==R.id.imbTakePicLllegadaContenedor
+                || idCurrent==R.id.imbTakePicSellosLlegada ||
+                idCurrent==R.id.imbTakePicPuertaAbiertaContenedor || idCurrent==R.id.imbTakePicPallet
+                || idCurrent==R.id.imbTakePicCierreContenedor || idCurrent==R.id.imbTakePicDocuementacionxx ){ //si es tajke pic con camara
 
+            currentTypeImage=Integer.parseInt(view.getTag().toString());
+
+
+            takepickNow();
+
+            Log.i("miclickimg","es foto es type selected es "+currentTypeImage);
+        }
+
+
+        else
+
+        {
+
+            switch (view.getId()) {
+
+
+                case R.id.imgUpdatecAlfrutaEnfunde:
+                    Log.i("miclickimg","es foto es type Variables.FOTO_PROD_POSTCOSECHA");
+                    getResultDatCalibCalEnfundes();
+                    break;
+
+
+
+                case R.id.ediFecha:
+                    selecionaFecha();
+                    break;
+
+
+                case R.id.layoutPesobrutoPorClusterSolo:
+
+                    LinearLayout layPesoBruto1=findViewById(R.id.layPesoBruto1);
+
+                    if(layPesoBruto1.getVisibility() == GONE) {
+                        muestraLinearLayout(layPesoBruto1);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layPesoBruto1);
+                    }
+                    break; //
+
+
+                case R.id.linLayoutHeader1:
+                    LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
+
+                    if(layoutContainerSeccion1.getVisibility() == GONE) {
+                        muestraLinearLayout(layoutContainerSeccion1);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layoutContainerSeccion1);
+                    }
+                    break; //
+
+
+
+                case R.id.linLayoutHeader2:
+                    LinearLayout layoutContainerSeccion2=findViewById(R.id.layoutContainerSeccion2);
+
+                    if(layoutContainerSeccion2.getVisibility() == GONE) {
+                        muestraLinearLayout(layoutContainerSeccion2);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layoutContainerSeccion2);
+                    }
+                    break; //
+
+                case R.id.linLayoutHeader3:
+                    LinearLayout layoutContainerSeccion3=findViewById(R.id.layoutContainerSeccion3);
+
+                    if(layoutContainerSeccion3.getVisibility() == GONE) {
+                        muestraLinearLayout(layoutContainerSeccion3);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layoutContainerSeccion3);
+                    }
+                    break; //
+
+
+                case R.id.linLayoutHeader4:
+                    LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
+
+                    if(layoutContainerSeccion4.getVisibility() == GONE) {
+                        muestraLinearLayout(layoutContainerSeccion4);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layoutContainerSeccion4);
+                    }
+                    break; //
+
+
+
+                case R.id.layoutContainerSeccion5:
+                    LinearLayout layoutContainerSeccion5=findViewById(R.id.layoutContainerSeccion5);
+
+                    if(layoutContainerSeccion5.getVisibility() == GONE) {
+                        muestraLinearLayout(layoutContainerSeccion5);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layoutContainerSeccion5);
+                    }
+                    break; //
+
+                case R.id.linLayoutHeader6:
+                    LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
+
+                    if(layoutContainerSeccion6.getVisibility() == GONE) {
+                        muestraLinearLayout(layoutContainerSeccion6);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layoutContainerSeccion6);
+                    }
+                    break; //
+
+
+                case R.id.linLayoutHeader7:
+                    LinearLayout layoutContainerSeccion7=findViewById(R.id.layoutContainerDatsProceso);
+
+                    if(layoutContainerSeccion7.getVisibility() == GONE) {
+                        muestraLinearLayout(layoutContainerSeccion7);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layoutContainerSeccion7);
+                    }
+                    break; //
+                case R.id.linLayoutHeader8:
+                    LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
+
+                    if(layoutContainerSeccion8.getVisibility() == GONE) {
+                        muestraLinearLayout(layoutContainerSeccion8);
+                    }
+                    else{
+
+                        oucultaLinearLayout(layoutContainerSeccion8);
+                    }
+                    break; //
+
+                case R.id.ediCajas7:
+                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+
+                    selecionaFecha();
+
+                    break; //
+
+
+
+                case R.id.ediHoraInicio:
+                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+
+                    showingTimePicker(view);
+
+                    break; //
+
+                case R.id.ediHoraTermino:
+                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    showingTimePicker(view);
+
+                    break; //
+                case R.id.ediHoraSalidaContenedor:
+                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    showingTimePicker(view);
+
+                    break; //
+
+
+                case R.id.ediHoraLLegadaContenedor:
+                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    showingTimePicker(view);
+
+                    break; //
+
+                case R.id.ediTipoEmp2:
+                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    showingTimePicker(view);
+
+                    break; //
+
+                case R.id.ediHoraEncendido2:
+                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    showingTimePicker(view);
+
+                    break; //
+
+            }
+
+        }
 
     }
 
@@ -1582,7 +1542,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
 
-        RecyclerView recyclerView= findViewById(R.id.recyclerView);
+        RecyclerView recyclerView=null;
 
 
         for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
@@ -1604,36 +1564,35 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         //buscamos este
 
 
+        switch(currentTypeImage){
+            case Variables.FOTO_PROCESO_FRUTA_FINCA:
+                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                break;
 
-        //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
-        if(currentTypeImage== Variables.FOTO_LLEGADA)  {
-            recyclerView= findViewById(R.id.recyclerView);
+            case Variables.FOTO_LLEGADA_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+                break;
 
+            case Variables.FOTO_SELLO_LLEGADA:
+                recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+                break;
 
+            case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+                break;
+
+            case Variables.FOTO_PALLETS:
+                recyclerView= findViewById(R.id.recyclerFotoPallets);
+                break;
+
+            case Variables.FOTO_CIERRE_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                break;
+
+            case Variables.FOTO_DOCUMENTACION:
+                recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                break;
         }
-        else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
-            recyclerView= findViewById(R.id.recyclerViewPostcosecha);
-            // at last set adapter to recycler view.
-
-        }
-
-        else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
-            recyclerView = findViewById(R.id.recyclerVieDatsTransport);
-
-        }
-
-        else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
-            recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
-        }
-
-
-        else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
-            recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
-
-        }
-
-
-
 
 
         RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
@@ -1641,6 +1600,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         // at last set adapter to recycler view.
+        assert recyclerView != null;
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         eventoBtnclicklistenerDelete(adapter);
@@ -2466,18 +2426,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         }
 
 
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA)){
-            ediFotosLlegada.requestFocus();
-
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-            ediFotosLlegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-        }else{
-
-            ediFotosLlegada.clearFocus();
-            ediFotosLlegada.setError(null);
-
-        }
 
         //
 
@@ -2530,20 +2478,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         }
 
 
-        ///y chekeamos al menos una imagen del pridcutp
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PROD_POSTCOSECHA)){
-            ediFotosPposcosecha.requestFocus();
-
-            layoutContainerSeccion2.setVisibility(LinearLayout.VISIBLE);
-            ediFotosPposcosecha.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-
-        }else{
-
-            ediFotosPposcosecha.clearFocus();
-            ediFotosPposcosecha.setError(null);
-
-        }
 
 
         return  true;
@@ -2621,21 +2555,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         //chekamos que al menos exista una imagen...
-
-
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CONTENEDOR)){
-            ediFotoContenedor.requestFocus();
-
-            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-            ediFotoContenedor.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-        }else{
-
-            ediFotoContenedor.clearFocus();
-            ediFotoContenedor.setError(null);
-
-        }
-
 
 
 
@@ -2727,18 +2646,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
 
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
-            ediFotosSellosLLegada.requestFocus();
 
-            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
-            ediFotosSellosLLegada.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-        }else{
-
-            ediFotosSellosLLegada.clearFocus();
-            ediFotosSellosLLegada.setError(null);
-
-        }
 
 
 
@@ -2817,19 +2725,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 */
 
 
-
-        else if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_TRANSPORTISTA)){
-            ediFotosLlegadaTransport.requestFocus();
-
-            layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
-            ediFotosLlegadaTransport.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-        }else{
-
-            ediFotosLlegadaTransport.clearFocus();
-            ediFotosLlegadaTransport.setError(null);
-
-        }
 
 
 
@@ -3314,7 +3209,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 ediNhojaEvaluacion,
                 ediObservacion,
                 ediEmpacadora,
-                ediFotosLlegada,
                 ediContenedor,
                 ediPPC01,
                 ediPPC02,
@@ -3336,8 +3230,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 ediNViaje,
                 ediTipoContenedor,
                 ediVapor,
-                ediFotoContenedor,
-                ediFotosPposcosecha,
                 ediEnsunchado,
                 ediBalanzaRepeso,
 
@@ -3361,7 +3253,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 ediPLaca,
                // ediMarcaCabezal,
               //  ediColorCabezal,
-                ediFotosLlegadaTransport,
 
                 ediTare,
                 ediBooking,
@@ -3371,7 +3262,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 ediCableRastreoLlegada,
                 ediSelloPlasticoNaviera,
                 ediOtroSellosLlegada,
-                ediFotosSellosLLegada,
 
                 ediCondicionBalanza,
                 ediTipodeCaja,
@@ -3430,37 +3320,38 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         //agregamos data al map
 
 
-        RecyclerView recyclerView= findViewById(R.id.recyclerView);
-
-        //si la imagen es la imagen de fotos llegada INICLIZAMOS ASI
-        if(currentTypeImage== Variables.FOTO_LLEGADA)  {
-            recyclerView= findViewById(R.id.recyclerView);
+        RecyclerView recyclerView=null;
 
 
+        switch(currentTypeImage){
+            case Variables.FOTO_PROCESO_FRUTA_FINCA:
+                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                break;
+
+            case Variables.FOTO_LLEGADA_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+                break;
+
+            case Variables.FOTO_SELLO_LLEGADA:
+                recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+                break;
+
+            case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+                break;
+
+            case Variables.FOTO_PALLETS:
+                recyclerView= findViewById(R.id.recyclerFotoPallets);
+                break;
+
+            case Variables.FOTO_CIERRE_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                break;
+
+            case Variables.FOTO_DOCUMENTACION:
+                recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                break;
         }
-        else if (currentTypeImage==Variables.FOTO_PROD_POSTCOSECHA){
-            recyclerView= findViewById(R.id.recyclerViewPostcosecha);
-            // at last set adapter to recycler view.
-
-        }
-
-        else if (currentTypeImage==Variables.FOTO_TRANSPORTISTA){
-            recyclerView = findViewById(R.id.recyclerVieDatsTransport);
-
-        }
-
-        else if (currentTypeImage==Variables.FOTO_CONTENEDOR){
-            recyclerView = findViewById(R.id.recyclerViewDatosContenedor);
-        }
-
-
-        else if (currentTypeImage==Variables.FOTO_SELLO_LLEGADA){
-            recyclerView = findViewById(R.id.recyclerViewSellosLlegada);
-
-        }
-
-
-
 
 
         RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
@@ -3468,6 +3359,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         // at last set adapter to recycler view.
+        assert recyclerView != null;
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         eventoBtnclicklistenerDelete(adapter);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="right"
     android:background="#E6E6E6"
-    tools:context=".activities.FormularioActivity">
+    tools:context=".activities.formulariosPrev.PreviewsFormDatSContersEnAc">
 
     <TextView
         android:id="@+id/textView63"
@@ -291,6 +291,11 @@
 
             <include
                 layout="@layout/datos_proceso2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/lay_imagenes_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

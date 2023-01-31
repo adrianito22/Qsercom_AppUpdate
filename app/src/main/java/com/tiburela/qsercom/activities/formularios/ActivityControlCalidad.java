@@ -52,6 +52,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     float calidadTotal=0;
    private float calidadFinally;
 
+   String numeroDeClusterOmanos ="";
+
     private TextInputEditText mEdiVaporzz;
     private TextInputEditText mEdiProductorzz;
     private TextInputEditText mEdiCodigozz;
@@ -2131,9 +2133,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ControlCalidad obecjControlCalidad=creaNuevoFormularioByTxtImputEditext();
 
 
+
                 //aqctualizamos la ubicacion de los hashmaps en el objeto control calidad
                 obecjControlCalidad.setKeyWhereLocateasHmapFieldsRecha(keyDondeEstaraHasmap);
                 obecjControlCalidad.setKeyDondeEstaraHasmapDefecSelec(keyDondeEstaraHasmapDefecSelec);
+                obecjControlCalidad.setNumeroDedosXclusterOmano(numeroDeClusterOmanos);
 
 
                 generateUniqueIdInformeAndContinuesIfIdIsUnique(obecjControlCalidad);
@@ -2519,6 +2523,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             ediNdedoXclustXcTotalAbajo.setText(String.valueOf((int)sumaFilasAbajo));
 
             edif2NdedoXclustPromedio.setText(resultado);
+
+
+            numeroDeClusterOmanos =resultado;
+
 
 
         }

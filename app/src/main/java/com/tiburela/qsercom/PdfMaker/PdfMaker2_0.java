@@ -1001,7 +1001,7 @@ if(hayFILE){
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
 
         /**FOTOS LLEGADA */
 
@@ -1009,36 +1009,55 @@ if(hayFILE){
         /**NOTA POR AHORA NO CREaremos muchos titulos en los anerxos  los agregamos directamente porque algunas categorias de imagenes se relacionan */
 
         /**FOTOS PRODUCST POSTCOSECHA*/
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PROD_POSTCOSECHA,"PRODUCTOS POSCOSECHA",midocumentotoAddData,pageSize,contexto);
+      //  HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"PRODUCTOS POSCOSECHA",midocumentotoAddData,pageSize,contexto);
 
 
 
-        /**FOTOS contenedor...*/
+        /**FOTO_LLEGADA_CONTENEDOR...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
 
 
-        /**FOTOS datos trasnportista...*/
+
+
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
+
+
+
+        /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_TRANSPORTISTA," ",midocumentotoAddData,pageSize,contexto);
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
 
 
 
-        /**DOCUMENTACION ...*/
+
+
+
+        /**FOTO_PALLETS ...*/
+       // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
+
+
+
+     //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
+
+
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
 
 
-        //agregamaos el header
-
-        //dowloaDinformControlCalidAndGeneratePICsATATICITIS(Variables.CurrenReportPart1.getUniqueIDinforme());
 
 
-        /**DEBUG*/
 
 
-        int aray[]= {Variables.FOTO_CONTENEDOR,Variables.FOTO_LLEGADA,
-                Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_PROD_POSTCOSECHA} ;
+        /**DEBUG borrar*/
+
+        int aray[]= {
+                Variables.FOTO_PROCESO_FRUTA_FINCA,Variables.FOTO_LLEGADA_CONTENEDOR,
+                Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS,
+        Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION}
+                ;
 
 
         for(int indice=0; indice<aray.length; indice++){

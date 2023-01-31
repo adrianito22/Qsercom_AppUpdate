@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/layoutContainerSeccion3"
@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
 
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -120,7 +120,7 @@ android:textAllCaps="true" />
                     android:layout_height="wrap_content"
 
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -137,68 +137,8 @@ android:textAllCaps="true" />
                     android:layout_height="wrap_content"
 
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="12">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="8"
-                android:hint="FOTOS"
-                app:endIconMode="clear_text">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ediFotoContenedor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/imbAtachDatosContenedor"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_attach_file_24" />
-
-            <ImageView
-                android:id="@+id/imbTakePicDatosContenedor"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutContainerPics"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewDatosContenedor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
         </LinearLayout>
 
 

@@ -7,7 +7,42 @@ import java.util.UUID;
 
 public class ControlCalidad {
 
+
+
     private String uniqueId;
+
+    private String numeroDedosXclusterOmano;
+    private String numClusterPorCaja;
+
+    public String getNumClusterPorCaja() {
+        return numClusterPorCaja;
+    }
+
+    public void setNumClusterPorCaja(String numClusterPorCaja) {
+        this.numClusterPorCaja = numClusterPorCaja;
+    }
+
+    public String getNumCalibracionEntreApical() {
+        return numCalibracionEntreApical;
+    }
+
+    public void setNumCalibracionEntreApical(String numCalibracionEntreApical) {
+        this.numCalibracionEntreApical = numCalibracionEntreApical;
+    }
+
+    public String getNumGradoCalibrePromedio() {
+        return numGradoCalibrePromedio;
+    }
+
+    public void setNumGradoCalibrePromedio(String numGradoCalibrePromedio) {
+        this.numGradoCalibrePromedio = numGradoCalibrePromedio;
+    }
+
+    private String numCalibracionEntreApical;
+    private String numGradoCalibrePromedio;
+
+
+
 
     public String getCustomDefectosNodeAtach() {
         return customDefectosNodeAtach;
@@ -362,6 +397,18 @@ public class ControlCalidad {
         this.keyDondeEstaraHasmapDefecSelec = keyDondeEstaraHasmapDefecSelec;
     }
 
+    public String getNumeroDedosXclusterOmano() {
+        return numeroDedosXclusterOmano;
+    }
+
+    public void setNumeroDedosXclusterOmano(String numeroDedosXclusterOmano) {
+        this.numeroDedosXclusterOmano = numeroDedosXclusterOmano;
+    }
+
+    public void setCustomDefectosNodeAtach(String customDefectosNodeAtach) {
+        this.customDefectosNodeAtach = customDefectosNodeAtach;
+    }
+
     public ControlCalidad(String observaciones, String nodekeyLocation, String keyWhereLocateasHmapFieldsRecha, String vapor,
                           String productor, String codigo, String zona, String hacienda, String exportadora, String compania,
                           String cliente, int semana, String fecha, String magap, String marcaCaja, String tipoEmpaque,
@@ -408,6 +455,12 @@ public class ControlCalidad {
         estaCheckeed =false;
 
         customDefectosNodeAtach="";
+
+        numeroDedosXclusterOmano =""; //creo eu ya esta
+         numClusterPorCaja=""; //EN PREVIEW YA ESTA, FALTA EN ACTIVITY
+
+         numCalibracionEntreApical="";
+         numGradoCalibrePromedio="";
 
     }
 

@@ -383,31 +383,10 @@ public class HelperImage {
         int contadorImgVertical= 0;
         int contadorImgHorizontal= 0;
         int valorDevolver=0;
-          boolean encontramos=false;
-
-           int debugFOTOScONTENEDOR =0;
+        boolean encontramos=false;
 
 
-
-        for(int i=0; i<list.size(); i++){ //primero buscamos tres imagenes  verticales....
-
-            if(list.get(i).getTipoImagenCategory()==  Variables.FOTO_CONTENEDOR){
-                debugFOTOScONTENEDOR++;
-
-            }
-
-        }
-
-        Log.i("debugfotos","FOTOS CONTEENEDOR HAY "+debugFOTOScONTENEDOR);
-
-
-
-      //  Log.i("PATRONX","este set contiene este numero de imagenes horizontal es : "+contadorImgVertical);
-
-
-
-
-
+       /// int debugFOTOScONTENEDOR =0;
 
         for(int i=0; i<list.size(); i++){ //primero buscamos tres imagenes  verticales....
 
@@ -423,7 +402,6 @@ public class HelperImage {
                   }
 
               }
-
 
 
         if(!encontramos) {
@@ -517,7 +495,6 @@ public class HelperImage {
         }
 
 
-
         if(!encontramos) {
             imagesSetToCurrentFila=new ArrayList<ImagenReport>();
 
@@ -547,9 +524,6 @@ public class HelperImage {
         }
 
 
-
-
-
         if(!encontramos) {
             imagesSetToCurrentFila= new ArrayList<>();
 
@@ -571,9 +545,6 @@ public class HelperImage {
 
 
         }
-
-
-
 
 
         if(!encontramos) {
@@ -599,8 +570,6 @@ public class HelperImage {
         }
 
 
-
-
         if(!encontramos) {
             //SI NO ENCONTRA,MOPS NADA LE DAMOS ESTE..
             imagesSetToCurrentFila=new ArrayList<ImagenReport>();
@@ -614,10 +583,6 @@ public class HelperImage {
 
         return  valorDevolver;
     }
-
-
-
-
 
 
     public static int calculateInSampleSize(

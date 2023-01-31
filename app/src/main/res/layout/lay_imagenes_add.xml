@@ -12,6 +12,7 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/ediFotoProcesoEnFruta"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,18 +26,21 @@
         </TextView>
 
         <ImageView
-            android:id="@+id/imgV"
+            android:id="@+id/imgVAtachProcesoFrutaFinca"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="199"
             app:srcCompat="@drawable/ic_baseline_attach_file_24" />
 
         <ImageView
+            android:id="@+id/imbTakePicProcesoFrutaFinca"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="199"
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
         <Space
@@ -58,6 +62,7 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/ediFotoLLegadaContenedor"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -71,17 +76,21 @@
         </TextView>
 
         <ImageView
+            android:id="@+id/imgVAtachLlegadaContenedor"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="200"
             app:srcCompat="@drawable/ic_baseline_attach_file_24" />
 
         <ImageView
+            android:id="@+id/imbTakePicLllegadaContenedor"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="200"
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
         <Space
@@ -104,6 +113,7 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/ediFotoSellosLLegada"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -117,17 +127,21 @@
         </TextView>
 
         <ImageView
+            android:id="@+id/imgVAtachSellosLlegada"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="201"
             app:srcCompat="@drawable/ic_baseline_attach_file_24" />
 
         <ImageView
+            android:id="@+id/imbTakePicSellosLlegada"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="201"
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
         <Space
@@ -151,6 +165,7 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/txtFotoPuertacontenedor"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -164,17 +179,21 @@
         </TextView>
 
         <ImageView
+            android:id="@+id/imgVAtachPuertaAbiertaContenedor"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="202"
             app:srcCompat="@drawable/ic_baseline_attach_file_24" />
 
         <ImageView
+            android:id="@+id/imbTakePicPuertaAbiertaContenedor"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="202"
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
         <Space
@@ -197,6 +216,7 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/txtFotosPallets"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -210,17 +230,21 @@
         </TextView>
 
         <ImageView
+            android:id="@+id/imgVAtachFotosPallet"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="203"
             app:srcCompat="@drawable/ic_baseline_attach_file_24" />
 
         <ImageView
+            android:id="@+id/imbTakePicPallet"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="203"
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
         <Space
@@ -243,6 +267,7 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/txtCierreContenedor"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -256,17 +281,21 @@
         </TextView>
 
         <ImageView
+            android:id="@+id/imgVAtachCierreContenedor"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="204"
             app:srcCompat="@drawable/ic_baseline_attach_file_24" />
 
         <ImageView
+            android:id="@+id/imbTakePicCierreContenedor"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="204"
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
         <Space
@@ -288,6 +317,7 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/txtFotosDocumentacion"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -301,20 +331,25 @@
         </TextView>
 
         <ImageView
-            android:id="@+id/imbAtach"
+            android:id="@+id/imgVAtachDocumentacionss"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="205"
             app:srcCompat="@drawable/ic_baseline_attach_file_24" />
 
+
         <ImageView
-            android:id="@+id/imbTakePic"
+            android:id="@+id/imbTakePicDocuementacionxx"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:tag="205"
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
+
+
 
         <Space
             android:layout_width="wrap_content"

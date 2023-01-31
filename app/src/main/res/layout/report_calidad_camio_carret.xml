@@ -289,6 +289,12 @@
                 android:layout_weight="1" />
 
             <include
+                layout="@layout/lay_imagenes_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <include
                 layout="@layout/ly_datos_evaluadores"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
