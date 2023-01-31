@@ -965,7 +965,7 @@ else{
 
       private void resultatachImages() {
         activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
+            new ActivityResultContracts.OpenMultipleDocuments(), new ActivityResultCallback<List<Uri>>() {
                 @Override
                 public void onActivityResult(List<Uri> result) {
                     if (result != null) {
@@ -978,13 +978,13 @@ else{
 
                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityDatosContersEnAcopio.this.getContentResolver(),result.get(indice));
 
-                               // Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
-                                //creamos un nuevo objet de tipo ImagenReport
-                               // ImagenReport obcjImagenReport = new ImagenReport("",result.get(indice).toString(),currentTypeImage, Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice)), horientacionImg);
+                                Uri myUri = result.get(indice);
+                                ActivityDatosContersEnAcopio.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-                                ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice))),horientacionImg);
+
+                                ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice))),horientacionImg);
 
 
                                 //agregamos este objeto a la lista

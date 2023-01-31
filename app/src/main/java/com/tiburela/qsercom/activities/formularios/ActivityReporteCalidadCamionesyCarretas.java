@@ -1147,7 +1147,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     private void resultatachImages() {
         activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
+                new ActivityResultContracts.OpenMultipleDocuments(), new ActivityResultCallback<List<Uri>>() {
                     @Override
                     public void onActivityResult(List<Uri> result) {
                         if (result != null) {
@@ -1164,10 +1164,10 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
                                     String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
-                                    //creamos un nuevo objet de tipo ImagenReport
-                                    ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityReporteCalidadCamionesyCarretas.this,result.get(indice))),horientacionImg);
+                                    Uri myUri = result.get(indice);
 
-                                    //agregamos este objeto a la lista
+                                    ActivityReporteCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityReporteCalidadCamionesyCarretas.this,result.get(indice))),horientacionImg);
                                     ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 

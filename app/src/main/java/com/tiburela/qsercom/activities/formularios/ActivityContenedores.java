@@ -2121,8 +2121,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedores.this.getContentResolver(),result.get(indice));
 
-
-                              //  Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
                                 Uri myUri = result.get(indice);
 
@@ -2130,23 +2128,10 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                                 ActivityContenedores.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
 
-                                // ActivityContenedores.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                                     //   Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-
-
-
                                 ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
-
-                                //obcjImagenReport.setImagenPathNow(Utils.getRealPathFromURI(myUri,ActivityContenedores.this));
-
-                              //   String pathFinal=  Utils.getPathFromUri(ActivityContenedores.this,myUri);
-
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
                                 Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
-
-                              //  Log.i("sabumaa","el payh de esta iamgen es "+pathFinal);
-
 
 
 
@@ -2175,7 +2160,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                   });
       }
 
-
+/*
     private void resultatachImages2() {
         // activityResultLauncher.getContract().
         activityResultLauncher = registerForActivityResult(
@@ -2244,7 +2229,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     }
                 });
     }
-
+*/
 
     private void listennersSpinners() {
 
