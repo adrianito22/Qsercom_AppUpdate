@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/lay1x"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -56,6 +57,7 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
+        android:id="@+id/lay2x"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -107,6 +109,7 @@
 
 
     <LinearLayout
+        android:id="@+id/lay3x"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -157,8 +160,8 @@
         android:layout_height="match_parent" />
 
 
-
     <LinearLayout
+        android:id="@+id/lay4x"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -210,6 +213,7 @@
 
 
     <LinearLayout
+        android:id="@+id/lay5x"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -261,6 +265,7 @@
 
 
     <LinearLayout
+        android:id="@+id/lay6x"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -311,6 +316,7 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
+        android:id="@+id/lay7x"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -348,7 +354,6 @@
             android:layout_weight="1"
             android:tag="205"
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
-
 
 
         <Space

@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -98,6 +99,12 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
 
+    private TextInputEditText ediExportadoraProcesada;
+    private TextInputEditText ediExportadoraSolicitante;
+    private TextInputEditText ediMarca;
+    private TextInputEditText ediClienteNombreReporte;
+
+
 
 
     private static final int PERMISSION_REQUEST_CODE=100;
@@ -111,7 +118,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     private int currentTypeImage=0;
 
     TextInputEditText ediSemana;
-    TextInputEditText ediClienteNombreReporte;
 
     ImageView imgUpdatecAlfrutaEnfunde;
 
@@ -332,7 +338,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
-
+        hideSomeElemtosAnexosAndChangeValues();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
@@ -529,6 +535,14 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+
+          ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
+          ediExportadoraSolicitante=findViewById(R.id.ediExportadoraSolicitante);
+          ediMarca=findViewById(R.id.ediMarca);
+          ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
+
+
+
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
         imgVAtachLlegadaContenedor = findViewById(R.id.imgVAtachLlegadaContenedor);
@@ -552,7 +566,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         imgUpdatecAlfrutaEnfunde=findViewById(R.id.imgUpdatecAlfrutaEnfunde);
 
-        ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
         layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
         ediCandadoQsercom=findViewById(R.id.ediCandadoQsercom);
@@ -1705,6 +1718,12 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         }
 
+        if(cehckFaltanImagenes()){
+            return;
+
+        }
+
+
         if(! chekDaTaEvaluador()){
             Log.i("test001","no esta lleno  chekDaTaEvaluador");
 
@@ -1715,6 +1734,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         }
+
+
 
 
 
@@ -1746,7 +1767,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 Integer.parseInt(ediRacimosCosech.getText().toString()) ,Integer.parseInt(ediRacimosRecha.getText().toString()),Integer.parseInt(ediRacimProces.getText().toString()),Integer .parseInt(ediCajasProcDesp.getText().toString()),
                 ediExtCalid.getText().toString(),ediExtRodillo.getText().toString(), ediExtGancho.getText().toString(),
                 ediExtCalidCi.getText().toString(),ediExtRodilloCi.getText().toString(),ediExtGanchoCi.getText().toString(),FieldOpcional.observacionOpcional,""
-                ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString()
+                ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString(),
+                ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString()
 
         ) ;
 
@@ -2262,10 +2284,34 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         LinearLayout layoutContainerSeccion1=findViewById(R.id.layoutContainerSeccion1);
 
-
         if(layoutContainerSeccion1.getVisibility()== GONE){
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
         }
+
+
+
+        if(ediExportadoraProcesada.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExportadoraProcesada.requestFocus();
+            ediExportadoraProcesada.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+        if(ediExportadoraSolicitante.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExportadoraProcesada.requestFocus();
+            ediExportadoraProcesada.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediClienteNombreReporte.requestFocus();
+            ediClienteNombreReporte.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+
 
         if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediSemana.requestFocus();
@@ -2303,15 +2349,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         if(ediHacienda.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediHacienda.requestFocus();
             ediHacienda.setError("Este espacio es obligatorio");
-
-            return false;
-
-        }
-
-
-        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediClienteNombreReporte.requestFocus();
-            ediClienteNombreReporte.setError("Este espacio es obligatorio");
 
             return false;
 
@@ -3571,6 +3608,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
     void ocultaoTherVIEWs(){
+        ediMarca.setVisibility(View.GONE);
         ediUbicacionBalanza.setVisibility(View.GONE);
         spinnerubicacionBalanza.setVisibility(View.GONE);
     }
@@ -3672,6 +3710,159 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
     }
+
+    public void scroollElementoFaltante(View vistFocus){
+
+        // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
+        vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+
+
+
+    }
+    private void  showToast(){
+
+        Toast.makeText(ActivityReporteCalidadCamionesyCarretas.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
+
+    }
+
+    boolean cehckFaltanImagenes() {
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+        }
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PALLETS)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosPallets);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosPallets);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CIERRE_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtCierreContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtCierreContenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_DOCUMENTACION)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosDocumentacion);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosDocumentacion);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+
+        return true;
+    }
+
+
+
+    void hideSomeElemtosAnexosAndChangeValues(){
+
+        LinearLayout  lay1x=findViewById(R.id.lay1x);
+        RecyclerView recyclerFotoProcesoFrEnFinca=findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+
+        TextView ediFotoLLegadaContenedor=findViewById(R.id.ediFotoLLegadaContenedor);
+        TextView txtFotoPuertacontenedor=findViewById(R.id.txtFotoPuertacontenedor);
+        TextView txtCierreContenedor=findViewById(R.id.txtCierreContenedor);
+
+
+
+        lay1x.setVisibility(View.GONE);
+        recyclerFotoProcesoFrEnFinca.setVisibility(View.GONE);
+
+        ediFotoLLegadaContenedor.setText("FOTOS LLEGADA CAMION");
+        txtFotoPuertacontenedor.setText("FOTOS PUERTA CAMION");
+        txtCierreContenedor.setText("FOTOS CIERRE CAMION");
+
+
+    }
+
 
 
 }

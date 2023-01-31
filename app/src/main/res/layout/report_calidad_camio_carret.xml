@@ -74,6 +74,7 @@
                     android:textColor="#FFFFFF" />
 
                 <ImageView
+                    android:id="@+id/nnnnnnnnn"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="right|center_vertical"
@@ -81,6 +82,11 @@
                     android:layout_weight="1"
                     android:src="@android:drawable/arrow_down_float" />
             </LinearLayout>
+
+            <include
+                layout="@layout/layout_dats_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
             <include

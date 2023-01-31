@@ -219,6 +219,8 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_datos_contene_acopio_prev);
 
+        hideSomeElemtosAnexos();
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
@@ -3620,5 +3622,16 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     }
+
+    void hideSomeElemtosAnexos(){
+
+        LinearLayout  lay1x=findViewById(R.id.lay1x);
+        RecyclerView recyclerFotoProcesoFrEnFinca=findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+
+        lay1x.setVisibility(View.GONE);
+        recyclerFotoProcesoFrEnFinca.setVisibility(View.GONE);
+
+    }
+
 
 }

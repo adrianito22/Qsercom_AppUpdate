@@ -101,6 +101,12 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     ImageView imgVAtachDocumentacionss;
     ImageView imbTakePicDocuementacionxx;
 
+    private TextInputEditText ediExportadoraProcesada;
+    private TextInputEditText ediExportadoraSolicitante;
+    private TextInputEditText ediMarca;
+    private TextInputEditText ediClienteNombreReporte;
+
+
 
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
@@ -114,7 +120,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     FloatingActionButton fab2;
     private final int CODE_TWO_PERMISIONS = 12;
-    TextInputEditText ediClienteNombreReporte;
     LinearLayout layoutPesobrutoPorClusterSolo;
 
     boolean isModEdicionFields;
@@ -299,6 +304,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
+        hideSomeElemtosAnexosAndChangeValues();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -466,6 +472,12 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+        ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
+        ediExportadoraSolicitante=findViewById(R.id.ediExportadoraSolicitante);
+        ediMarca=findViewById(R.id.ediMarca);
+        ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
+
+
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
         imgVAtachLlegadaContenedor = findViewById(R.id.imgVAtachLlegadaContenedor);
@@ -483,7 +495,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         fab2=findViewById(R.id.fab2);
-        ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
 
         imgUpdatecAlfrutaEnfunde=findViewById(R.id.imgUpdatecAlfrutaEnfunde);
         layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
@@ -1704,7 +1715,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 ediExtGancho.getText().toString(), ediExtCalidCi.getText().toString(),ediExtRodilloCi.getText().toString(),ediExtGanchoCi.getText().toString()
                 ,FieldOpcional.observacionOpcional,Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l()
 
-                ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString()
+                ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString(),  ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString()
+
         ) ;
 
 
@@ -2232,6 +2244,32 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         }
 
 
+
+        if(ediExportadoraProcesada.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExportadoraProcesada.requestFocus();
+            ediExportadoraProcesada.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+        if(ediExportadoraSolicitante.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediExportadoraProcesada.requestFocus();
+            ediExportadoraProcesada.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediClienteNombreReporte.requestFocus();
+            ediClienteNombreReporte.setError("Este espacio es obligatorio");
+            return false;
+            //obtiene el padre del padre
+
+        }
+
+
+
+
         if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediSemana.requestFocus();
             ediSemana.setError("Este espacio es obligatorio");
@@ -2368,13 +2406,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         }
 
 
-        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediClienteNombreReporte.requestFocus();
-            ediClienteNombreReporte.setError("Este espacio es obligatorio");
-
-            return false;
-
-        }
 
 
 
@@ -4246,6 +4277,8 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
     void ocultaoTherVIEWs(){
+
+        ediMarca.setVisibility(View.GONE);
         ediUbicacionBalanza.setVisibility(View.GONE);
         spinnerubicacionBalanza.setVisibility(View.GONE);
 
@@ -4346,6 +4379,28 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
     }
+
+    void hideSomeElemtosAnexosAndChangeValues(){
+
+        LinearLayout  lay1x=findViewById(R.id.lay1x);
+        RecyclerView recyclerFotoProcesoFrEnFinca=findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+
+        TextView ediFotoLLegadaContenedor=findViewById(R.id.ediFotoLLegadaContenedor);
+        TextView txtFotoPuertacontenedor=findViewById(R.id.txtFotoPuertacontenedor);
+        TextView txtCierreContenedor=findViewById(R.id.txtCierreContenedor);
+
+
+
+        lay1x.setVisibility(View.GONE);
+        recyclerFotoProcesoFrEnFinca.setVisibility(View.GONE);
+
+        ediFotoLLegadaContenedor.setText("FOTOS LLEGADA CAMION");
+        txtFotoPuertacontenedor.setText("FOTOS PUERTA CAMION");
+        txtCierreContenedor.setText("FOTOS CIERRE CAMION");
+
+
+    }
+
 
 
 }

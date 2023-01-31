@@ -2751,6 +2751,22 @@ void checkDataFields(){ //
     }
 
 
+    if(! cehckFaltanImagenes()){
+        Log.i("test001","no esta lleno  cehckFaltanImagenes");
+
+        return;
+    }else
+
+    {
+
+        Log.i("test001","si  esta lleno  cehckFaltanImagenes");
+
+
+    }
+
+
+
+
     if(!Utils.checkifAtach()){
 
         Log.i("test001","no esta lleno  checkifAtach");

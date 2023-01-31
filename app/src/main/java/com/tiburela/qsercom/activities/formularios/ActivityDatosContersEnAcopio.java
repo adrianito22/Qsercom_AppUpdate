@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -274,6 +275,9 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_datos_contene_acopio);
+
+
+        hideSomeElemtosAnexos();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -1266,6 +1270,12 @@ void checkDataFields(){ //
         return;
     }
 
+    if(cehckFaltanImagenes()){
+        return;
+
+    }
+
+
     Log.i("test001","toda la data esta completa HUrra ");
 
 
@@ -1806,6 +1816,136 @@ private void createObjcInformeAndUpload(){
     //comprbar que exista un objeto imagen.....
 
     //primero chekeamos el el uri exista...
+
+    public void scroollElementoFaltante(View vistFocus){
+
+        // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
+        vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+
+
+
+    }
+    private void  showToast(){
+
+        Toast.makeText(ActivityDatosContersEnAcopio.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
+
+    }
+
+    boolean cehckFaltanImagenes() {
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+        }
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PALLETS)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosPallets);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosPallets);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CIERRE_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtCierreContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtCierreContenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_DOCUMENTACION)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosDocumentacion);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosDocumentacion);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+
+        return true;
+    }
+
 
 
     private boolean existminiumImage(int numImagenNMinimo, int categoriaImagenToSearch){
@@ -2510,8 +2650,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
 
-        //agregamos data al map
-
 
         RecyclerView recyclerView= null;
 
@@ -2561,6 +2699,17 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
+
+
+    void hideSomeElemtosAnexos(){
+
+        LinearLayout  lay1x=findViewById(R.id.lay1x);
+        RecyclerView recyclerFotoProcesoFrEnFinca=findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+
+        lay1x.setVisibility(View.GONE);
+        recyclerFotoProcesoFrEnFinca.setVisibility(View.GONE);
+
+    }
 
 
 

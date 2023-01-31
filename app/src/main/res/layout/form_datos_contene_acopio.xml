@@ -290,7 +290,8 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="25dp"
                     android:background="@drawable/btn"
-                    android:text="Guardar Formulario" />
+                    android:text="Subir Formulario"
+                    android:textAlignment="textEnd" />
 
                 <Space
                     android:layout_width="match_parent"

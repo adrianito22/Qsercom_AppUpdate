@@ -7,6 +7,27 @@ import java.util.HashMap;
 
 public class ReportCamionesyCarretas {
 
+    private String exportadoraProcesada;
+
+    public String getExportadoraProcesada() {
+        return exportadoraProcesada;
+    }
+
+    public void setExportadoraProcesada(String exportadoraProcesada) {
+        this.exportadoraProcesada = exportadoraProcesada;
+    }
+
+    public String getExportadoraSolicitante() {
+        return exportadoraSolicitante;
+    }
+
+    public void setExportadoraSolicitante(String exportadoraSolicitante) {
+        this.exportadoraSolicitante = exportadoraSolicitante;
+    }
+
+    private String exportadoraSolicitante;
+
+
     public static HashMap<String, String> prodcutsPostCosecha;
 
     /***Propiedades del informe*/
@@ -20,6 +41,8 @@ public class ReportCamionesyCarretas {
     private String  numcionContenedor;
 
     private String  tipoBoquilla;
+
+
 
 
     public String getKeyOrNodeLibriadoSiEs() {
@@ -487,7 +510,11 @@ public class ReportCamionesyCarretas {
                                    int racimosCosechados, int racimosRechazados, int racimosProcesados, int cajasProcesadasDespachadas,
                                    String extensionistaEnCalidad, String extensionistaEnRodillo, String extensionistaEnGancho
                                    , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc,String nodoQueContieneMapPesoBrutoCloster2y3l
-                                   ,String clienteReporte,String tipoBoquilla) {
+                                   ,String clienteReporte,String tipoBoquilla, String exportadoraProcesada,String exportadoraSolicitante
+
+
+
+    ) {
 
         keyFirebase="";
         this.uniqueIDinforme=uniqueIDinforme;
@@ -546,6 +573,9 @@ public class ReportCamionesyCarretas {
 
         keyOrNodeLibriadoSiEs="";
         this.tipoBoquilla=tipoBoquilla;
+
+        this. exportadoraProcesada=exportadoraProcesada;
+        this. exportadoraSolicitante=exportadoraSolicitante;
 
 
     }
