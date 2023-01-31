@@ -231,10 +231,68 @@ public class HelperImage {
         if(!encontramos) {
             imagesSetToCurrentFila=new ArrayList<ImagenReport>();
 
+            for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
+                if(list.get(i).getHorientacionImage().equals("horizontal") && ! list.get(i).isEstaENPdf() ){
+                    imagesSetToCurrentFila.add(list.get(i));
+
+                    contadorImgHorizontal++;
+
+                    if(contadorImgHorizontal==2 ){
+
+                        encontramos=true;
+
+                        valorDevolver= Variables.DOS_HORIZONTALES ;
+
+                        break;
+                    }
+
+
+                }
+
+            }
+
+
+        }
+
+
+
+        if(!encontramos) {
+            imagesSetToCurrentFila=new ArrayList<ImagenReport>();
+
+            contadorImgVertical= 0;
+
+            for(int i=0; i<list.size(); i++){  ////si no vemos que halla solo dos imagenes verticales  PARA PÓNERFLAS  en el centro
+
+                if(list.get(i).getHorientacionImage().equals("vertical") && ! list.get(i).isEstaENPdf() ){
+                    imagesSetToCurrentFila.add(list.get(i));
+
+                    contadorImgVertical++;
+
+                    if(contadorImgVertical==2 ){
+                        valorDevolver=Variables.DOS_IMGS_VERTICALES ;
+                        encontramos=true;
+
+                        break;
+
+                    }
+                }
+
+
+            }
+
+
+        }
+
+
+
+        if(!encontramos) {
+            imagesSetToCurrentFila=new ArrayList<ImagenReport>();
+
             contadorImgVertical= 0;
             for(int i=0; i<list.size(); i++){ ///si no comprobamos que exista una imagen vertical y otra horizontal ...
 
                 if(list.get(i).getHorientacionImage().equals("vertical") && ! list.get(i).isEstaENPdf() ){
+
                     imagesSetToCurrentFila.add(list.get(i));
 
                     contadorImgVertical++;
@@ -291,61 +349,8 @@ public class HelperImage {
         }
 
 
-        if(!encontramos) {
-            imagesSetToCurrentFila=new ArrayList<ImagenReport>();
-
-            contadorImgVertical= 0;
-
-            for(int i=0; i<list.size(); i++){  ////si no vemos que halla solo dos imagenes verticales  PARA PÓNERFLAS  en el centro
-
-                if(list.get(i).getHorientacionImage().equals("vertical") && ! list.get(i).isEstaENPdf() ){
-                    imagesSetToCurrentFila.add(list.get(i));
-
-                    contadorImgVertical++;
-
-                    if(contadorImgVertical==2 ){
-                        valorDevolver=Variables.DOS_IMGS_VERTICALES ;
-                        encontramos=true;
-
-                        break;
-
-                    }
-                }
 
 
-            }
-
-
-        }
-
-
-        if(!encontramos) {
-            imagesSetToCurrentFila=new ArrayList<ImagenReport>();
-
-            contadorImgHorizontal= 0;
-
-            for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
-                if(list.get(i).getHorientacionImage().equals("horizontal") && ! list.get(i).isEstaENPdf() ){
-                    imagesSetToCurrentFila.add(list.get(i));
-
-                    contadorImgHorizontal++;
-
-                    if(contadorImgHorizontal==2 ){
-
-                        encontramos=true;
-
-                        valorDevolver= Variables.DOS_HORIZONTALES ;
-
-                        break;
-                    }
-
-
-                }
-
-            }
-
-
-        }
 
 
         if(!encontramos) {

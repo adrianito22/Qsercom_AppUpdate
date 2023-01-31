@@ -58,6 +58,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 
 public class HelperPdf {
 
@@ -1980,6 +1981,7 @@ if(contadorProductsPostCosecha>10){
 
             String[] arrayDefectsAnCantidadx = valuex.split("-"); // puede contener esto  1-4, o esto  5-2, 5-8,9-9 , 5-6-adriano
 
+
             if (valuex.contains(",")) { //si contiene una comma
 
                 String[] arrayDefectsAnCantidad = valuex.split(","); // puede contener esto  1-4, o esto  5-2, 5-8,9-9 , 5-6-adriano
@@ -2019,15 +2021,11 @@ if(contadorProductsPostCosecha>10){
 
             }
 
-
-
             else if(arrayDefectsAnCantidadx.length==3){
 
                 for(int indicec=0; indicec<arrayDefectsAnCantidadx.length; indicec++){ //itreamos el array qu contiene  valores asi: 2-5 o 9-8 o 8,8,adriano
 
                     Log.i("howartsxx", "el string es  "+ arrayDefectsAnCantidadx[indicec]);
-
-
                         Log.i("howartsxx", "encontramos 1 aqui y es  "+arrayDefectsAnCantidadx[2]);
 
                         if(!defectosNamesSelecion.contains(arrayDefectsAnCantidadx[2])){
@@ -2109,12 +2107,27 @@ if(contadorProductsPostCosecha>10){
             Log.i("eomcnezamos ", "EL value es  "+value);
         }
 
-        Log.i("eomcnezamos ", "finish contadl");
+        Log.i("suertexxx ", "el defect hasmpa size es  "+hashMapDefctChecked.size());
 
 
         /**cremoas los objetos defectcantidad y los agregamos a la lista**/
 
+        //ITERAMOS EL HASMPA E IMPRIMOS KEYS AND VALUES..
+        for (HashMap.Entry<String, String> entry : hashMapDefctChecked.entrySet()) {
+
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            Log.i("simpson", "el key es  "+key);
+
+            Log.i("simpson", "el value es  "+value);
+
+        }
+
+
+
         for(int i=0; i<keyDatsNumDefectSelecion.length ;i++) {
+
             //iteramos arry con las keys
             String keyCurrent= String.valueOf(keyDatsNumDefectSelecion[i])  ;
 
@@ -2129,19 +2142,13 @@ if(contadorProductsPostCosecha>10){
                     String [] posicionDefectoEncontrados=value.split(",");
 
                     for(int indice2=0; indice2<posicionDefectoEncontrados.length ;indice2++){
-
                         String   [] arrayIndiceAndNum =posicionDefectoEncontrados[indice2].split("-");
-
-
                         int posicionDefecto=Integer.parseInt(arrayIndiceAndNum[0]);//
-
-
 
                          if(arrayIndiceAndNum.length==3){
 
                              defectsSeleccionList.add(new DefectsCantdad(Integer.parseInt(arrayIndiceAndNum[1]),arrayIndiceAndNum[2]));
                              Log.i("suoerdefect", "se contro : "+arrayIndiceAndNum[1]+" y e; edfecto es "+arrayIndiceAndNum[2]);
-
 
                          }
 
@@ -2162,7 +2169,7 @@ if(contadorProductsPostCosecha>10){
 
                     }
 
-                }else{
+                }else {
                     String   [] arrayIndiceAndNum =value.split("-");
 
                     int posicionDefecto=Integer.parseInt(arrayIndiceAndNum[0]);
@@ -2193,6 +2200,9 @@ if(contadorProductsPostCosecha>10){
 
         }
 
+
+       /*** el erro esta aqui pilaxxx*/
+        Log.i("suertexxx ", "el lista con defectos es   "+defectsSeleccionList.size());
 
 
         defectsSelecionHahashMaps.put(String.valueOf(contador-1),defectsSeleccionList);
@@ -2864,8 +2874,10 @@ if(contadorProductsPostCosecha>10){
 
         ArrayList<DefectsCantdad>currentArraylistx=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
 
-        //el mismo orden deberia estar..
-      ///  verificar el size y ver si la data es correcta
+        Log.i("sonammmer","el hasmpa size es  "+defectsSelecionHahashMaps.size());
+
+
+
 
         Log.i("sonammmer","el size de curren array list es "+currentArraylistx.size());
 
@@ -2879,14 +2891,14 @@ if(contadorProductsPostCosecha>10){
         /**si tiene empty le agragamos pensar si podemos agregarle commas mejor es mas rapido*/
         for(int indice=0; indice<allDefectsNames.size(); indice++){
 
-
            if(allDefectsNames.get(indice).equalsIgnoreCase("empty")){
                allDefectsNames.set(indice,"");
 
            }
 
-
         }
+
+
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
@@ -2928,7 +2940,7 @@ if(contadorProductsPostCosecha>10){
 
         int contadorCurrrentDefect=0;
 
-        String defectOfItemHasmap="";
+        String defectNamen="";
 
 int contadorAlldefectos=0;
 
@@ -2951,49 +2963,49 @@ int contadorAlldefectos=0;
             Log.i("HOMERSIMPAS","el defecto actual XXXC "+defectoActualToSearch);
 
 
-            ArrayList<DefectsCantdad>currentArraylist=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
+            ArrayList<DefectsCantdad>arrayListItemDefectAndCantidad=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
 
-             contadorAlldefectos=cuentaDeFECTOS(currentArraylist,defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador)));
-
-
+            Log.i("howasr","El size de array list defect an cantidad es  "+arrayListItemDefectAndCantidad.size()); //no usamos value first pero si no podemos usarlo despues
 
 
-                 for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){ //buscamos este defecto
-                     defectOfItemHasmap=currentArraylist.get(indice2).getNombreDefect();
+            assert arrayListItemDefectAndCantidad != null;
+            contadorAlldefectos=cuentaDeFECTOS(arrayListItemDefectAndCantidad,defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador)));
+
+
+                 for(int indice2 = 0; indice2< arrayListItemDefectAndCantidad.size(); indice2++){ //buscamos este defecto
+
+                     defectNamen=arrayListItemDefectAndCantidad.get(indice2).getNombreDefect();
 
                   //   Log.i("misdafafafa","el defecto defectOfItemHasmap es "+defectOfItemHasmap);
 
-                     if(defectOfItemHasmap.contains(":")){
-                      String defect[]=defectOfItemHasmap.split(":");
-                         defectOfItemHasmap=defect[0];
+                     if(defectNamen.contains(":")){
+                      String defect[]=defectNamen.split(":");
+                         defectNamen=defect[0];
 
                      }
 
-                     if(defectOfItemHasmap.equals(defectoActualToSearch)){
-                         contadorCurrrentDefect=contadorCurrrentDefect+currentArraylist.get(indice2).getNumeroDefectos();
+                     if(defectNamen.equals(defectoActualToSearch)){
+                         contadorCurrrentDefect=contadorCurrrentDefect+arrayListItemDefectAndCantidad.get(indice2).getNumeroDefectos();
                       }
 
                  }
 
 
-            Log.i("sukerber","buscamos el defecto de"+defectOfItemHasmap+"y hay "+ contadorCurrrentDefect);
+            Log.i("sukerber","buscamos el defecto de"+defectNamen+"y hay "+ contadorCurrrentDefect);
 
 
                  if(contadorCurrrentDefect==0){
+                     Log.i("howasr","El defect es cero "); //no usamos value first pero si no podemos usarlo despues
+
                      barEntries.add(new BarEntry((float)indice ,roundTwoDecimals((float)0)));
                  }
 
                  else {
 
-                  //   float porcentaje= contadorCurrrentDefect * ((float)listNumClustersInspec.get(contadorIterador)/100);
-
-
-
+                     Log.i("howasr","El defect "+defectNamen+" tiene "+contadorCurrrentDefect+" defectos"); //no usamos value first pero si no podemos usarlo despues
+                     //   float porcentaje= contadorCurrrentDefect * ((float)listNumClustersInspec.get(contadorIterador)/100);
                      float valuefist= ((float)contadorCurrrentDefect/listNumClustersInspec.get(contadorIterador));
                      Log.i("howasr","El value es first  "+valuefist); //no usamos value first pero si no podemos usarlo despues
-
-
-
 
                      Log.i("howasr","El numero de cluster inspecionados es  "+listNumClustersInspec.get(contadorIterador));
 
@@ -3044,18 +3056,18 @@ int contadorAlldefectos=0;
 
             for(int indice2 = 0; indice2< currentArraylist.size(); indice2++){
 
-                  defectOfItemHasmap=currentArraylist.get(indice2).getNombreDefect();
+                  defectNamen=currentArraylist.get(indice2).getNombreDefect();
 
 
-                if(defectOfItemHasmap.contains(":")){
-                    String[] defect =defectOfItemHasmap.split(":");
-                    defectOfItemHasmap=defect[0];
+                if(defectNamen.contains(":")){
+                    String[] defect =defectNamen.split(":");
+                    defectNamen=defect[0];
                 }
 
                // Log.i("entriesd","comparamos defectOfItemHasmap "+defectOfItemHasmap+" con  defectoActualToSearch:q es  "+ defectoActualToSearch);
 
 
-                if(defectOfItemHasmap.equals(defectoActualToSearch)){
+                if(defectNamen.equals(defectoActualToSearch)){
                     //contadorDefectoEnonctrado++;
                     contadorCurrrentDefect=contadorCurrrentDefect+currentArraylist.get(indice2).getNumeroDefectos();
 

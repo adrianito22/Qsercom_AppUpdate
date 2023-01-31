@@ -141,6 +141,7 @@ public class HelperAdImgs implements LifecycleOwner {
             int patronEncontrado=HelperImage.buscaPosiblePatronParaOrdenar(currentListImagesSeccion);
 
 
+
             if(patronEncontrado== Variables.TRES_IMGS_VERTCLES){
                 wehaveAddSpaceyIndescrip =false;
                 Log.i("PATRONX","es Variables.TRES_IMGS_VERTCLES");
@@ -156,6 +157,14 @@ public class HelperAdImgs implements LifecycleOwner {
                 addImagenSetAndCreateNewPage(Variables.DOS_IMGS_VERTICALES,midocumentotoAddData,pageSize,contexto);
             }
 
+            else if(patronEncontrado == Variables.DOS_HORIZONTALES) {
+                Log.i("PATRONX","es el DOS_HORIZONTALES ");
+                wehaveAddSpaceyIndescrip =false;
+
+                addImagenSetAndCreateNewPage(Variables.DOS_HORIZONTALES,midocumentotoAddData,pageSize,contexto);
+            }
+
+
             else if(patronEncontrado == Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL) {
                 Log.i("PATRONX","es  UNAVERTICAL_Y_OTRA_HORIZONTAL");
                 wehaveAddSpaceyIndescrip =false;
@@ -163,12 +172,6 @@ public class HelperAdImgs implements LifecycleOwner {
                 addImagenSetAndCreateNewPage(Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL,midocumentotoAddData,pageSize,contexto);
             }
 
-            else if(patronEncontrado == Variables.DOS_HORIZONTALES) {
-                Log.i("PATRONX","es el DOS_HORIZONTALES ");
-                wehaveAddSpaceyIndescrip =false;
-
-                addImagenSetAndCreateNewPage(Variables.DOS_HORIZONTALES,midocumentotoAddData,pageSize,contexto);
-            }
 
             else if(patronEncontrado == Variables.UNA_HORIZONTAL) {
                 Log.i("PATRONX","es el UNA_HORIZONTAL ");
@@ -192,6 +195,8 @@ public class HelperAdImgs implements LifecycleOwner {
 
                 addImagenSetAndCreateNewPage(Variables.DEFAULNO_ENCONTRO_NADA,midocumentotoAddData,pageSize,contexto);
             }
+
+
 
         }
 
@@ -355,7 +360,7 @@ public class HelperAdImgs implements LifecycleOwner {
             table.addCell(cell);
 
 
-             imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
+             imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(2).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(2)));
             imagVertical1.setAutoScale(true);
             imagVertical1.scaleAbsolute(widthImg,heigthImg);
 

@@ -383,7 +383,6 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
         }
 
 
-
         if(ediEspecifiName2.getText().toString().trim().isEmpty() &&  !ediEspecificNum2.getText().toString().trim().isEmpty()){
             //el primero esta lleno
             ediEspecifiName2.requestFocus();
@@ -391,11 +390,6 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
             return false;
 
         }
-
-
-
-
-
 
 
         if(!ediEspecifiName3.getText().toString().trim().isEmpty() &&  ediEspecificNum3.getText().toString().trim().isEmpty()){
@@ -449,15 +443,15 @@ public class BottonSheetSelecDanos extends BottomSheetDialogFragment {
 
         Log.i("somerlier","el ukey es "+curreyKeyIdView);
 
-        ArrayList<DefectsAndNumber>lis=Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView);
+        ArrayList<DefectsAndNumber>listSuperf=Utils.HashMapOfListWhitStatesCHeckb.get(curreyKeyIdView);
 
-        Log.i("somerlier","el size es  "+lis.size());
+        Log.i("somerlier","el size es  "+listSuperf.size());
 
-        DefectsAndNumber [] statesArray =listToAarray(lis);
+        DefectsAndNumber [] statesArray =listToAarray(listSuperf);
 
         Log.i("elsizelist","el size de arry generado  es   "+statesArray.length);
 
-        Log.i("elsizelist","el size de list es  es   "+lis.size());
+        Log.i("elsizelist","el size de list es  es   "+listSuperf.size());
 
 
         for(int indice=0; indice<statesArray.length; indice++) {

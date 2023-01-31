@@ -349,6 +349,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
             StorageData.uniqueIDImagesSetAndUInforme = Variables.CurrenReportPart1.getUniqueIDinforme();
 
+            esFirstCharge = false;
+
 
             // FirebaseApp.initializeApp(this);
             //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
@@ -377,7 +379,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
             configCertainSomeViewsAliniciar();
 
 
-            esFirstCharge = false;
         }
 
 
@@ -1518,6 +1519,9 @@ else{
                                 // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
                                 String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
 
+                                Log.i("mispiggi", "la horitacion de esta imagen es  "+horientacionImg);
+
+
                                 //creamos un nuevo objet de tipo ImagenReport
                                 ImagenReport obcjImagenReport = new ImagenReport("", result.get(indice).toString(),
                                         currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice))), horientacionImg);
@@ -1525,9 +1529,9 @@ else{
 
                                 Log.i("mispiggi", "el size mde map es "+ImagenReport.hashMapImagesData.size());
 
-                                Log.i("mispiggi", "la imagen categoria add  es  "+obcjImagenReport.getTipoImagenCategory());
+                                Log.i("mispiggi", "la imagen categoria add  es "+obcjImagenReport.getTipoImagenCategory());
 
-                                    probar aqui haber que pasa....
+                                   // probar aqui haber que pasa....
                                 // chekar como esta esta parte en la version pasada appv4
 
                                 //agregamos este objeto a la lista
@@ -1772,7 +1776,7 @@ else{
 
 
 
-        ArrayList<ImagenReport> filterListImagesData = new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
+        ArrayList<ImagenReport> filterListImagesData = new ArrayList<>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
 
         RecyclerView recyclerView =null;
 
@@ -2474,24 +2478,30 @@ else{
 
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
-                Variables.typeoFdeleteImg = ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
-                Log.i("mispiggi", "el size antes de eliminar es " + ImagenReport.hashMapImagesData.size());
 
-                listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
 
                 try {
+                    Variables.typeoFdeleteImg = Objects.requireNonNull(ImagenReport.hashMapImagesData.get(v.getTag().toString())).getTipoImagenCategory();
+                    Log.i("mispiggi", "el size antes de eliminar es " + ImagenReport.hashMapImagesData.size());
+                    Log.i("mispiggi", "OK HAY UN CLICK EN LA CATEGORIA  "+Variables.typeoFdeleteImg);
+
+                    listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
                     ImagenReport.hashMapImagesData.remove(v.getTag().toString());
 
+                    showImagesPicShotOrSelectUpdateView(true);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
-                Log.i("mispiggi", "el size despues de eliminar es " + ImagenReport.hashMapImagesData.size());
+                catch (Exception e) {
+                    e.printStackTrace();
 
-                showImagesPicShotOrSelectUpdateView(true);
+                    Log.i("mispiggi", "error al eliminar" + e.getMessage());
+
+                }
+
+
 
 
             }
@@ -5537,7 +5547,7 @@ else{
 
 
 
-
+/*
     @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -5585,7 +5595,7 @@ else{
         }
 
     }
-
+*/
 
     private int cuentaProdcutosposTcosechaAndUpdateGlobaProducPost() {
         EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
