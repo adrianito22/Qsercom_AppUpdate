@@ -704,7 +704,7 @@ Log.i("hellosweer","se ehjecitp onstart");
          spFumigaCorL1=findViewById(R.id.spFumigaCorL1) ;
          spTipoBoquilla=findViewById(R.id.spTipoBoquilla) ;
          switchLavdoRacimos =findViewById(R.id.switchLavdoRacimos);
-        swAguaCorrida=findViewById(R.id.swAguaCorrida);
+         swAguaCorrida=findViewById(R.id.swAguaCorrida);
 
         switchContenedor=findViewById(R.id.switchContenedor);
         ediContenedor=findViewById(R.id.ediContenedor);
@@ -3879,13 +3879,13 @@ return true;
 
         }else{
 
-            ediFuenteAgua.clearFocus();
+            ediFuenteAgua.setError(null);
 
 
         }
 
 
-
+/*
         if(ediAguaCorrida.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediAguaCorrida.requestFocus();
             ediAguaCorrida.setError("Este espacio es obligatorio");
@@ -3894,11 +3894,11 @@ return true;
 
         }else{
 
-            ediAguaCorrida.clearFocus();
+            ediAguaCorrida.setError(null);
 
         }
 
-
+*/
 
         if(ediLavadoRacimos.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediLavadoRacimos.requestFocus();
@@ -3909,7 +3909,7 @@ return true;
 
         }else{
 
-            ediLavadoRacimos.clearFocus();
+            ediLavadoRacimos.setError(null);
 
         }
 
@@ -3924,7 +3924,7 @@ return true;
 
         else{
 
-            ediFumigacionClin1.clearFocus();
+            ediFumigacionClin1.setError(null);
 
         }
 
@@ -3941,7 +3941,7 @@ return true;
 
         else{
 
-            ediTipoBoquilla.clearFocus();
+            ediTipoBoquilla.setError(null);
 
         }
 
@@ -3955,7 +3955,7 @@ return true;
         }
         else{
 
-            ediCajasProcDesp.clearFocus();
+            ediCajasProcDesp.setError(null);
 
         }
 
@@ -3973,7 +3973,7 @@ return true;
         }
         else{
 
-            ediRacimosCosech.clearFocus();
+            ediRacimosCosech.setError(null);
 
         }
 
@@ -4107,7 +4107,9 @@ return true;
 
         }else{
 
-            ediCondicionBalanza.clearFocus();
+           // ediCondicionBalanza.setError(null);
+            ediCondicionBalanza.setError(null);
+
 
         }
 
@@ -4122,7 +4124,9 @@ return true;
         }
         else{
 
-            ediTipodeCaja.clearFocus();
+           // ediTipodeCaja.setError(null);
+            ediTipodeCaja.setError(null);
+
 
         }
 
@@ -4140,7 +4144,7 @@ return true;
         }
         else{
 
-            ediTipoPlastico.clearFocus();
+            ediTipoPlastico.setError(null);
 
         }
 
@@ -4157,7 +4161,7 @@ return true;
         }
         else{
 
-            ediTipoBalanza.clearFocus();
+            ediTipoBalanza.setError(null);
 
         }
 
@@ -4199,7 +4203,7 @@ return true;
         }
         else{
 
-            ediUbicacionBalanza.clearFocus();
+            ediUbicacionBalanza.setError(null);
 
         }
 
@@ -5549,9 +5553,8 @@ private void callPrefrencesSaveAndImagesData(){
         else
         {
 
-            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoLLegadaContenedor);
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoProcesoEnFruta);
             ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
 
         }
 
@@ -5568,7 +5571,6 @@ private void callPrefrencesSaveAndImagesData(){
         }else{
             TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoLLegadaContenedor);
             ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
         }
 
 
@@ -5585,7 +5587,6 @@ private void callPrefrencesSaveAndImagesData(){
 
             TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoSellosLLegada);
             ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
 
         }
 
@@ -5601,7 +5602,6 @@ private void callPrefrencesSaveAndImagesData(){
         }else{
             TextView ediFotosSellosInstalados=findViewById(R.id.txtFotoPuertacontenedor);
             ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
         }
 
 
@@ -5620,7 +5620,6 @@ private void callPrefrencesSaveAndImagesData(){
 
             TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosPallets);
             ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
 
         }
 
@@ -5642,7 +5641,6 @@ private void callPrefrencesSaveAndImagesData(){
 
             TextView ediFotosSellosInstalados=findViewById(R.id.txtCierreContenedor);
             ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
 
         }
 
@@ -5659,11 +5657,8 @@ private void callPrefrencesSaveAndImagesData(){
 
             TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosDocumentacion);
             ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
 
         }
-
-
 
 
         return true;
