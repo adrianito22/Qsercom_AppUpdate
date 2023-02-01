@@ -4428,6 +4428,7 @@ else{
 
 
     void addInfotomap(ArrayList<ImagenReport> listImagenReports) {
+
         ImagenReport.hashMapImagesData = new HashMap<>();
 
         //agregamos adata al mapusnado un bucle

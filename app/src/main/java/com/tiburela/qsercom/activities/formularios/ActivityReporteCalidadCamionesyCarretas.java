@@ -1718,7 +1718,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         }
 
-        if(cehckFaltanImagenes()){
+        if(! cehckFaltanImagenes()){
             return;
 
         }

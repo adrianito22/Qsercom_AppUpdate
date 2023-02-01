@@ -57,6 +57,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -103,7 +104,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     private TextInputEditText ediExportadoraProcesada;
     private TextInputEditText ediExportadoraSolicitante;
-    private TextInputEditText ediMarca;
+   private TextInputEditText ediMarca;
     private TextInputEditText ediClienteNombreReporte;
 
 
@@ -300,6 +301,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_calidad_camio_carret_pewv);
         context=getApplicationContext();
+
+        Variables.copiamosData=false;
+
         Variables.activityCurrent=Variables.FormCamionesyCarretasActivityPreview;
 
         ImagenReport.hashMapImagesData=new HashMap<>();
@@ -316,6 +320,11 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         UNIQUE_ID_iNFORME=Variables.currenReportCamionesyCarretas.getUniqueIDinforme(); /// AQUI OBTENEMOS EL ID
+
+
+
+        Log.i("latypeimage","es succces bien "+UNIQUE_ID_iNFORME);
+
 
         Auth.initAuth(this);
 
@@ -470,13 +479,140 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     }
 
+    public void scroollElementoFaltante(View vistFocus){
+
+        // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
+        vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+
+
+
+    }
+    private void  showToast(){
+
+
+        Toast.makeText(PreviewCalidadCamionesyCarretas.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
+
+    }
+
+    boolean cehckFaltanImagenes() {
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+        }
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PALLETS)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosPallets);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosPallets);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CIERRE_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtCierreContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtCierreContenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_DOCUMENTACION)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosDocumentacion);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosDocumentacion);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+        return true;
+
+
+    }
+
+
+
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
         ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
         ediExportadoraSolicitante=findViewById(R.id.ediExportadoraSolicitante);
         ediMarca=findViewById(R.id.ediMarca);
         ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
-
 
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
@@ -587,11 +723,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
        // p2pbCluster01=findViewById(R.id.p2pbCluster01);
 
-
         ediNViaje=findViewById(R.id.ediNViaje);
 
         progressBarFormulario=findViewById(R.id.progressBarFormulario);
-
 
         ediCondicionBalanza=findViewById(R.id.ediCondicionBalanza);
         ediTipodeCaja=findViewById(R.id.ediTipodeCaja);
@@ -732,7 +866,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         int idCurrent= view.getId();
 
-        if(idCurrent==R.id.imgVAtachProcesoFrutaFinca || idCurrent==R.id.imgVAtachLlegadaContenedor || idCurrent==R.id.imgVAtachSellosLlegada ||
+        if( idCurrent==R.id.imgVAtachLlegadaContenedor || idCurrent==R.id.imgVAtachSellosLlegada ||
                 idCurrent==R.id.imgVAtachPuertaAbiertaContenedor
                 || idCurrent==R.id.imgVAtachFotosPallet || idCurrent==R.id.imgVAtachCierreContenedor ||
                 idCurrent == R.id.imgVAtachDocumentacionss){ //si es atach
@@ -747,7 +881,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         }
 
-        else if(idCurrent==R.id.imbTakePicProcesoFrutaFinca || idCurrent==R.id.imbTakePicLllegadaContenedor
+        else if( idCurrent==R.id.imbTakePicLllegadaContenedor
                 || idCurrent==R.id.imbTakePicSellosLlegada ||
                 idCurrent==R.id.imbTakePicPuertaAbiertaContenedor || idCurrent==R.id.imbTakePicPallet
                 || idCurrent==R.id.imbTakePicCierreContenedor || idCurrent==R.id.imbTakePicDocuementacionxx ){ //si es tajke pic con camara
@@ -1107,14 +1241,18 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
                                     String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
+                                    Log.i("latypeimage","la imagen tipo es "+currentTypeImage);
+
                                     //creamos un nuevo objet de tipo ImagenReport
                                     ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,result.get(indice))),horientacionImg);
+                                    obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
                                     //agregamos este objeto a la lista
                                     ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
-                                    showImagesPicShotOrSelectUpdateView(false);
+                                    Log.i("latypeimage","el size de map es  "+ImagenReport.hashMapImagesData.size());
+
 
                                 } catch (FileNotFoundException e) {
                                     e.printStackTrace();
@@ -1126,6 +1264,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                             }
 
 
+                            Log.i("latypeimage","el size de map cc es  "+ImagenReport.hashMapImagesData.size());
 
                             showImagesPicShotOrSelectUpdateView(false);
 
@@ -1484,10 +1623,14 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
         //si es eliminar comprobar aqui
+
         if(isDeleteImg){
 
             currentTypeImage=Variables.typeoFdeleteImg;
         }
+
+
+        Log.i("latypeimage","el currenttupe imagen es xxc "+currentTypeImage);
 
 
         ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
@@ -1498,15 +1641,15 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
 
             String key = set.getKey();
-
             ImagenReport value = set.getValue();
 
             if(value.getTipoImagenCategory()==currentTypeImage){
 
+                Log.i("latypeimage","encontramos una imagen con este tipo");
+
+
                 filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
-
             }
-
 
         }
 
@@ -1515,9 +1658,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         switch(currentTypeImage){
-            case Variables.FOTO_PROCESO_FRUTA_FINCA:
-                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
-                break;
 
             case Variables.FOTO_LLEGADA_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
@@ -1667,6 +1807,14 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         }
+
+
+
+        if(! cehckFaltanImagenes()){
+            return;
+
+        }
+
 
         if(! chekDaTaEvaluador()){
             Log.i("test001","no esta lleno  chekDaTaEvaluador");
@@ -2027,7 +2175,23 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
             Log.i("elfile","alguno o toos son diferentes images llamaos metodo filtra");
 
-            StorageData.uploadImage(PreviewCalidadCamionesyCarretas.this, Utils.creaHahmapNoDuplicado());
+            StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
+
+            ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
+
+
+            /**debugborrar*/
+            for(ImagenReport imagenReport: list2){
+
+                Log.i("latypeimage","el value es "+imagenReport.getTipoImagenCategory());
+            }
+
+            /**debugborrar*/
+
+
+            StorageData.uploaddata(list2);
+
+           // StorageData.uploadImage(PreviewCalidadCamionesyCarretas.this, Utils.creaHahmapNoDuplicado());
 
 
 
@@ -3110,12 +3274,26 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         Variables.hashMapImagesStart=new HashMap<String, ImagenReport>();
 
 
-        for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) {
-            String key = entry.getKey();
-            ImagenReport value = entry.getValue();
 
-            Variables.hashMapImagesStart.put(key,value);
-            // ...
+        if (!Variables.copiamosData) {
+            // Variables.hashMapImagesStart =ImagenReport.hashMapImagesData;
+
+            //CREAMOS UNA COPIA USANDO UN BUCLE
+
+            Variables.hashMapImagesStart = new HashMap<>();
+
+
+            for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) {
+                String key = entry.getKey();
+                ImagenReport value = entry.getValue();
+
+                Variables.hashMapImagesStart.put(key, value);
+                // ...
+            }
+
+            Variables.copiamosData = true;
+
+
         }
 
 
@@ -3131,9 +3309,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         switch(currentTypeImage){
-            case Variables.FOTO_PROCESO_FRUTA_FINCA:
-                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
-                break;
 
             case Variables.FOTO_LLEGADA_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
@@ -3196,7 +3371,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int [] arrayTiposImagenes = {Variables.FOTO_PROCESO_FRUTA_FINCA,Variables.FOTO_LLEGADA_CONTENEDOR,Variables.FOTO_SELLO_LLEGADA,
+        int [] arrayTiposImagenes = {Variables.FOTO_LLEGADA_CONTENEDOR,Variables.FOTO_SELLO_LLEGADA,
                 Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS,Variables.FOTO_CIERRE_CONTENEDOR,
                 Variables.FOTO_DOCUMENTACION};
 
@@ -3924,6 +4099,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
     private void addDataEnFields(ReportCamionesyCarretas currenReport) {
+
+        ediExportadoraProcesada.setText(currenReport.getExportadoraProcesada());
+        ediExportadoraSolicitante.setText(currenReport.getExportadoraSolicitante());
+
         Log.i("jamisama","la semana es "+currenReport.getSemana());
         ediClienteNombreReporte.setText(currenReport.getClienteReporte());
         ediSemana.setText(currenReport.getSemana());
@@ -4056,7 +4235,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         //cremoas un super array...de todo tipos de Views
 
-        View [] arrayAllFields={
+        View [] arrayAllFields={ediExportadoraSolicitante,ediExportadoraProcesada,ediClienteNombreReporte,
                 ediSemana, ediFecha, ediProductor, ediHacienda, ediCodigo, ediInscirpMagap, ediPemarque, ediZona, ediHoraInicio, ediHoraTermino,
                 ediNguiaRemision, edi_nguia_transporte, ediNtargetaEmbarque, ediNhojaEvaluacion, ediObservacion, ediEmpacadora,
                 ediContenedor, ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07, ediPPC08, ediPPC09, ediPPC010, ediPPC011,
@@ -4081,6 +4260,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     private void activateModeEdit() {
 
         View [] arrayAllFields={
+
+                ediExportadoraSolicitante,ediExportadoraProcesada,ediClienteNombreReporte,
+
                 ediSemana, ediFecha, ediProductor, ediHacienda, ediCodigo, ediInscirpMagap, ediPemarque, ediZona, ediHoraInicio, ediHoraTermino,
                 ediNguiaRemision, edi_nguia_transporte, ediNtargetaEmbarque, ediNhojaEvaluacion, ediObservacion, ediEmpacadora,
                 ediContenedor, ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07, ediPPC08, ediPPC09, ediPPC010, ediPPC011,
@@ -4135,9 +4317,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         bottomSheetDialog.show();
     }
-
-
-
 
     ///peso bruto por clsters
 private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){

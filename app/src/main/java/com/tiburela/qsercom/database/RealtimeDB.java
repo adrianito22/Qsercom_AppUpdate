@@ -696,7 +696,7 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Log.i("imagheddd","se subio set data y el id pertence es "+objecImageReport.getIdReportePerteence());
+                    Log.i("latypeimage","se subio set data y el id pertence es "+objecImageReport.getIdReportePerteence());
 
 
                   //  Toast.makeText(context, "HECHO", Toast.LENGTH_SHORT).show();

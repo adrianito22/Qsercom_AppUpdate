@@ -52,7 +52,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
     long millisDateSelect;
     TextView hindeviewTxt;
 
-
     TextInputEditText ediSemanaxc;
     TextInputEditText ediExportadora;
     TextInputEditText ediVaporx;

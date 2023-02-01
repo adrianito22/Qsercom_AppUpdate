@@ -53,6 +53,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
@@ -547,6 +548,134 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
     }
 
+    public void scroollElementoFaltante(View vistFocus){
+
+        // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
+        vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+
+
+
+    }
+    private void  showToast(){
+
+        Toast.makeText(PreviewsFormDatSContersEnAc.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
+
+    }
+
+    boolean cehckFaltanImagenes() {
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+        }
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PALLETS)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosPallets);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosPallets);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CIERRE_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtCierreContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtCierreContenedor);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_DOCUMENTACION)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosDocumentacion);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosDocumentacion);
+            ediFotosSellosInstalados.clearFocus();
+            ediFotosSellosInstalados.setError(null);
+
+        }
+
+
+
+
+        return true;
+    }
 
     private void addClickListeners( ) {
 
@@ -900,6 +1029,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
                                // Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+
 
                                 //creamos un nuevo objet de tipo ImagenReport
                                 ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,cam_uri),horientacionImg);
@@ -1492,6 +1622,14 @@ void checkDataFields(){ //
 
 //ediCedulaI
     }
+
+
+    if(!cehckFaltanImagenes()){
+        return;
+
+    }
+
+
 
 
     if(! creaAcMapDatosProcesoAndCheck(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(),keyNodeActualizar)){
@@ -2356,23 +2494,7 @@ private void createObjcInformeAndUpload(){
 
         }
 
-
         //chekamos que al menos exista una imagen...
-
-
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CONTENEDOR)){
-            ediFotoContenedor.requestFocus();
-
-            layoutContainerSeccion3.setVisibility(LinearLayout.VISIBLE);
-            ediFotoContenedor.setError("Agregue al menos "+Variables.MINIMO_FOTOS_ALL_CATEGORY+" foto");
-            return false;
-        }else{
-
-            ediFotoContenedor.clearFocus();
-            ediFotoContenedor.setError(null);
-
-        }
-
 
 
 

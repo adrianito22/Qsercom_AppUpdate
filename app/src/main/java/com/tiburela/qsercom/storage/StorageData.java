@@ -541,7 +541,7 @@ public static int counTbucle=0;
                         public void onSuccess(Uri uri) {
 
 
-                            Log.i("imagheddd","es succces bien");
+                            Log.i("latypeimage","es succces bien");
 
                           //  String url = String.valueOf(uri);
 
@@ -554,7 +554,7 @@ public static int counTbucle=0;
                             currenImageReport.setUrlStoragePic(iconPathFirebase);
                             // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
 
-                            Log.i("imagheddd","info es on success  y path es  "+iconPathFirebase);
+                            Log.i("latypeimage","info es on success  y path es  "+iconPathFirebase);
 
 
 

@@ -2758,9 +2758,7 @@ void checkDataFields(){ //
     }else
 
     {
-
         Log.i("test001","si  esta lleno  cehckFaltanImagenes");
-
 
     }
 

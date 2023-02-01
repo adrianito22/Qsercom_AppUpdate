@@ -291,6 +291,8 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
+
+
         UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
 
       // FirebaseApp.initializeApp(this);
@@ -1201,6 +1203,18 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 void checkDataFields(){ //
 
+        /**debug borrar*/
+
+        /*
+        if(!cehckFaltanImagenes()){
+        return;
+
+    }
+    */
+
+    /**debug borrar*/
+
+
     if(! checkDatosGeneralesIsLleno()){
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
@@ -1270,7 +1284,7 @@ void checkDataFields(){ //
         return;
     }
 
-    if(cehckFaltanImagenes()){
+    if(!cehckFaltanImagenes()){
         return;
 
     }
@@ -1951,6 +1965,16 @@ private void createObjcInformeAndUpload(){
     private boolean existminiumImage(int numImagenNMinimo, int categoriaImagenToSearch){
 
         int numImagesEcontradas=0;
+
+
+        if(ImagenReport.hashMapImagesData==null){
+
+            Log.i("senrmrm","es nulo");
+        }else{
+
+            Log.i("senrmrm","no es nulo");
+
+        }
 
 
         for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) { //revismao en todo el map
