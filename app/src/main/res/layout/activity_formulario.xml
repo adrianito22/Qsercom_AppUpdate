@@ -440,7 +440,7 @@
                     android:layout_marginTop="1dp"
                     android:layout_marginBottom="25dp"
                     android:background="@drawable/btn"
-                    android:text="Guardar Localemente"
+                    android:text="Guardar Localmente"
                     android:textAllCaps="true"
                     android:visibility="visible" />
 

@@ -3868,14 +3868,19 @@ return true;
         LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
 
 
-
-
         if(ediFuenteAgua.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediFuenteAgua.requestFocus();
             ediFuenteAgua.setError("Este espacio es obligatorio");
 
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+
+
             return false;
+
+        }else{
+
+            ediFuenteAgua.clearFocus();
+
 
         }
 
@@ -3886,6 +3891,10 @@ return true;
             ediAguaCorrida.setError("Este espacio es obligatorio");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
+
+        }else{
+
+            ediAguaCorrida.clearFocus();
 
         }
 
@@ -3898,6 +3907,10 @@ return true;
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
+        }else{
+
+            ediLavadoRacimos.clearFocus();
+
         }
 
         if(ediFumigacionClin1.getText().toString().isEmpty()){ //chekamos que no este vacia
@@ -3906,6 +3919,12 @@ return true;
 
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
+
+        }
+
+        else{
+
+            ediFumigacionClin1.clearFocus();
 
         }
 
@@ -3920,12 +3939,23 @@ return true;
 
         }
 
+        else{
+
+            ediTipoBoquilla.clearFocus();
+
+        }
+
 
         if(ediCajasProcDesp.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCajasProcDesp.requestFocus();
             ediCajasProcDesp.setError("Este espacio es obligatorio");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
+
+        }
+        else{
+
+            ediCajasProcDesp.clearFocus();
 
         }
 
@@ -3939,6 +3969,11 @@ return true;
 
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
+
+        }
+        else{
+
+            ediRacimosCosech.clearFocus();
 
         }
 
@@ -4070,6 +4105,10 @@ return true;
             layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
 
+        }else{
+
+            ediCondicionBalanza.clearFocus();
+
         }
 
         if(ediTipodeCaja.getText().toString().isEmpty()){ //chekamos que no este vacia
@@ -4079,6 +4118,11 @@ return true;
 
             layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
+
+        }
+        else{
+
+            ediTipodeCaja.clearFocus();
 
         }
 
@@ -4094,6 +4138,11 @@ return true;
             return false;
 
         }
+        else{
+
+            ediTipoPlastico.clearFocus();
+
+        }
 
 
 
@@ -4104,6 +4153,11 @@ return true;
 
             layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
+
+        }
+        else{
+
+            ediTipoBalanza.clearFocus();
 
         }
 
@@ -4141,6 +4195,11 @@ return true;
 
             layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
+
+        }
+        else{
+
+            ediUbicacionBalanza.clearFocus();
 
         }
 
