@@ -6,7 +6,6 @@ public class FieldOpcional {
     public static String observacionOpcional="";
     public static String otrosSellosInstalaEsp ="";
 
-    public static String tipoDeBalanzaRepesoOpcnal ="";
 
 }
 

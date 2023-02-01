@@ -55,6 +55,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
+import com.tiburela.qsercom.callbacks.MyReceiverUpdateForm;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -78,9 +79,8 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener {
-
-
+public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener
+{
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -3754,6 +3754,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         recyclerFotoProcesoFrEnFinca.setVisibility(View.GONE);
 
     }
+
 
 
 }

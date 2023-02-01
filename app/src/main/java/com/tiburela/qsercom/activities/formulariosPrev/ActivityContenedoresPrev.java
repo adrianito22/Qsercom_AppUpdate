@@ -106,7 +106,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener , View.OnTouchListener {
+public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener ,
+        View.OnTouchListener {
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -122,7 +123,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     ImageView imbTakePicCierreContenedor;
     ImageView imgVAtachDocumentacionss;
     ImageView imbTakePicDocuementacionxx;
-
 
 
 
@@ -2297,7 +2297,7 @@ else{
                 ediCedula.getText().toString(), ediPLaca.getText().toString(), ediMarcaCabezal.getText().toString(),
                 ediColorCabezal.getText().toString(), ediCondicionBalanza.getText().toString(), ediTipodeCaja.getText().toString()
                 , switchHaybalanza.isChecked(), switchHayEnsunchado.isChecked(), spinnertipodePlastico.getSelectedItem().toString(),
-                switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), FieldOpcional.tipoDeBalanzaRepesoOpcnal);
+                switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), ediBalanzaRepeso.getText().toString());
 
         Variables.CurrenReportPart2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
@@ -2406,7 +2406,7 @@ else{
                 ediCedula.getText().toString(), ediPLaca.getText().toString(), ediMarcaCabezal.getText().toString(),
                 ediColorCabezal.getText().toString(), ediCondicionBalanza.getText().toString(), ediTipodeCaja.getText().toString()
                 , switchHaybalanza.isChecked(), switchHayEnsunchado.isChecked(), spinnertipodePlastico.getSelectedItem().toString(),
-                switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), FieldOpcional.tipoDeBalanzaRepesoOpcnal);
+                switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), ediBalanzaRepeso.getText().toString());
 
         informe2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
@@ -3420,10 +3420,7 @@ else{
         }
 
 
-        if (editipbalanzaRepeso.getText().toString().isEmpty()) { //si no esta vacia
 
-            // FieldOpcional.tipoDeBalanzaRepesoOpcnal AQUI GAURDAMOS EL VALOR DEL EDITEXT
-            FieldOpcional.tipoDeBalanzaRepesoOpcnal = "";
 
             //editipbalanzaRepeso.requestFocus();
             //editipbalanzaRepeso.setError("Este espacio es obligatorio");
@@ -3431,11 +3428,9 @@ else{
             //layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
             //  return false;
 
-        } else {
-            FieldOpcional.tipoDeBalanzaRepesoOpcnal = editipbalanzaRepeso.getText().toString();
 
 
-        }
+
 
 
         if (ediUbicacionBalanza.getText().toString().isEmpty()) { //chekamos que no este vacia

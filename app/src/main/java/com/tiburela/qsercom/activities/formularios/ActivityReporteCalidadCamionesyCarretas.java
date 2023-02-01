@@ -56,6 +56,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
+import com.tiburela.qsercom.callbacks.MyReceiver;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -80,7 +81,8 @@ import java.util.UUID;
 import com.tiburela.qsercom.R;
 
 
-public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener {
+public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener, MyReceiver {
+    public static MyReceiver myReceiver;
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -98,6 +100,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     ImageView imbTakePicDocuementacionxx;
 
 
+    Button btnCheck;
 
     private TextInputEditText ediExportadoraProcesada;
     private TextInputEditText ediExportadoraSolicitante;
@@ -333,6 +336,11 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_calidad_camio_carret);
+
+
+        myReceiver = this;
+
+
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormCamionesyCarretasActivity;
 
@@ -376,7 +384,12 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myReceiver = null;
 
+    }
 
 
     void showingTimePicker( View vista){
@@ -1625,7 +1638,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
 
-        Button btnCheck;
         btnCheck=findViewById(R.id.btnCheck);
 
 
@@ -3863,6 +3875,13 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     }
 
+
+    @Override
+    public void uploadNewForm() {
+
+        btnCheck.setEnabled(false);
+
+    }
 
 
 }

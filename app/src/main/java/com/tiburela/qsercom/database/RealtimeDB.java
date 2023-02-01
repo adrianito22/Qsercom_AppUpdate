@@ -15,6 +15,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
+import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
+import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -23,7 +27,6 @@ import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.models.InformsRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
@@ -1122,6 +1125,11 @@ public static  Context myContext;
                Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_LONG).show();
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
+                    //callback aqui...
+
+                    decideCallbackHere();
+
+
                 }else  {
 
                Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
@@ -1135,6 +1143,51 @@ public static  Context myContext;
 
     }
 
+
+    public static void decideCallbackHere(){
+
+        if(Variables.activityCurrent==Variables.FormContenedores){
+
+            if(ActivityContenedores.myReceiver!=null){
+                ActivityContenedores.myReceiver.uploadNewForm();
+            }
+
+        }
+
+
+        else if (Variables.activityCurrent==Variables.FormatDatsContAcopi ){
+            if(ActivityDatosContersEnAcopio.myReceiver!=null){
+                ActivityDatosContersEnAcopio.myReceiver.uploadNewForm();
+            }
+
+        }
+
+
+
+        else if (Variables.activityCurrent==Variables.FormCamionesyCarretasActivity ){
+
+            if(ActivityReporteCalidadCamionesyCarretas.myReceiver!=null){
+                ActivityReporteCalidadCamionesyCarretas.myReceiver.uploadNewForm();
+            }
+
+        }
+
+
+        else if (Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW ){
+
+/*
+            if(PreviewsFormDatSContersEnAc.myReceiver!=null){
+                PreviewsFormDatSContersEnAc.myReceiver.uploadNewForm();
+            }
+        */
+
+        }
+
+
+
+
+
+    }
 
 
     public static void marckComoRevisadoInformRegister( Context context ,String keyLOactionThisObject) {

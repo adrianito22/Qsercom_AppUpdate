@@ -125,8 +125,33 @@ public class SharePrefHelper {
     }
 
 
+    public static void viewsSaveInfoEditText(EditText[] misViews, String keyToSaveMap ){
+        HashMap<String ,String> miMapToSave= new HashMap<>() ;
 
-        ///aqui guardamos este....
+        String keyViewID;
+
+        for(View vistCurrent: misViews){
+
+                EditText editText = (EditText) vistCurrent;
+                if(!editText.getText().toString().trim().isEmpty()){ //si contiene texto
+                    keyViewID=String.valueOf(vistCurrent.getId());
+                    miMapToSave.put(keyViewID,editText.getText().toString() );
+
+                }
+
+
+
+
+        }
+
+
+        SharePref.saveMapPreferFields(miMapToSave,keyToSaveMap+"Calendario");
+
+    }
+
+
+
+    ///aqui guardamos este....
         //creamos un objeto set informe y otro para gaurdar....
         //gaurdamos 2 en share prefrencias...
 

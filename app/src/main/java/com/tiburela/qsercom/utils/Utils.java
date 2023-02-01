@@ -447,8 +447,16 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
             String key = entry.getKey();
             String value = entry.getValue();
 
+            Log.i("misdader","se ejextuo esto");
 
           View vistax=  getViewById(key,arrayAllViews);
+
+
+          if(vistax==null){
+
+              Log.i("misdader","es nulo por aqui vergax");
+
+          }
 
           if(vistax!=null){
 
@@ -489,6 +497,36 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
 
 
     }
+
+
+    public static  void addDataOfPrefrencesInEditText(EditText[] arrayEditText, @NonNull HashMap<String, String> hashMaPDePrefer) {
+
+        /***nos quedamos aqui ,mirar activity previews como set data*/
+
+        for (Map.Entry<String, String> entry : hashMaPDePrefer.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            Log.i("misdader","se ejextuo esto");
+
+            EditText vistax=  getEditextById(key,arrayEditText);
+
+
+            if(vistax==null){
+                vistax.setText(value);
+
+                Log.i("misdader","es nulo por aqui vergax");
+
+            }
+
+
+        }
+
+
+    }
+
+
+
     private static void selectValue(Spinner spinner, String value) {
         for (int i = 0; i < spinner.getCount(); i++) {
             if (spinner.getItemAtPosition(i).equals(value)) {
@@ -509,6 +547,7 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
     private  static View getViewById(String idSearch,View[] arrayAllViews){
         View vista=null;
         for(View vistaCurrent: arrayAllViews){
+
             if(String.valueOf(vistaCurrent.getId()).equals(idSearch)){
                 vista=vistaCurrent;
                 break;
@@ -520,6 +559,19 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
     }
 
 
+    private  static EditText getEditextById(String idSearch,EditText[] arrayAllViews){
+        EditText vista=null;
+        for(EditText vistaCurrent: arrayAllViews){
+
+            if(String.valueOf(vistaCurrent.getId()).equals(idSearch)){
+                vista=vistaCurrent;
+                break;
+            }
+
+        }
+
+        return vista;
+    }
 
 
 

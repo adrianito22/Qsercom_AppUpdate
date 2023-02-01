@@ -23,6 +23,7 @@ public class InformRegister {
    private String idQuienSUbioForm; //el inspector de campo
    private String nombreQUienRevisoForm;
    private String idQUienRevisoForm;
+   private boolean seSubioFormAlinea;
 
 
    private String keyLoactionThisForm;
@@ -148,6 +149,14 @@ public class InformRegister {
       this.keyLoactionThisForm = keyLoactionThisForm;
    }
 
+   public boolean isSeSubioFormAlinea() {
+      return seSubioFormAlinea;
+   }
+
+   public void setSeSubioFormAlinea(boolean seSubioFormAlinea) {
+      this.seSubioFormAlinea = seSubioFormAlinea;
+   }
+
    public InformRegister(String informUniqueIdPertenece, int typeInform,
                          String nombreQUienSubio, String idQuienSUbioForm,
                          String typeReportString)
@@ -175,6 +184,8 @@ public class InformRegister {
       this.typeReportString=typeReportString;
 
      keyLoactionThisForm="";
+
+      seSubioFormAlinea=false;
    }
 
 

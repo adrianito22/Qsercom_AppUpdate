@@ -79,9 +79,25 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
 
             }
 
-        }else{
+        }else{ //si es offline
 
-            holder.txtStateForm.setVisibility(View.GONE); //SI ES OFFLINE OCULTAMOS STATE VIEW
+try {
+    if(InformRegister.isSeSubioFormAlinea()){
+        holder.txtStateForm.setText("Subido"); //SI ES OFFLINE OCULTAMOS STATE VIEW
+
+    }
+    else{
+
+        holder.txtStateForm.setText("NO SUBIDO"); //SI ES OFFLINE OCULTAMOS STATE VIEW
+
+
+    }
+
+
+} catch (Exception e) {
+    e.printStackTrace();
+}
+
 
         }
 

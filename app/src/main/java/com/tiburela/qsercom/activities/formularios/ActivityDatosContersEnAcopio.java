@@ -53,6 +53,7 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
+import com.tiburela.qsercom.callbacks.MyReceiver;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
@@ -74,7 +75,11 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class ActivityDatosContersEnAcopio extends AppCompatActivity implements View.OnClickListener  {
+public class ActivityDatosContersEnAcopio extends AppCompatActivity implements View.OnClickListener,
+        MyReceiver {
+
+    public static MyReceiver myReceiver;
+
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -171,6 +176,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     LinearLayout linLayoutHeader6;
     LinearLayout linLayoutHeader7;
 
+    Button btnCheck;
 
 
     Spinner spinnerSelectZona;
@@ -276,6 +282,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_datos_contene_acopio);
 
+        myReceiver = this;
 
         hideSomeElemtosAnexos();
 
@@ -325,6 +332,12 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myReceiver = null;
+
+    }
 
     void showingTimePicker( View vista){
 
@@ -1169,7 +1182,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
 
-    Button btnCheck;
     btnCheck=findViewById(R.id.btnCheck);
 
 
@@ -2816,4 +2828,10 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
+    @Override
+    public void uploadNewForm() {
+
+        btnCheck.setEnabled(false);
+
+    }
 }

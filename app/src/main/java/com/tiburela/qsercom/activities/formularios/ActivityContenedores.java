@@ -67,6 +67,7 @@ import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
+import com.tiburela.qsercom.callbacks.MyReceiver;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
@@ -99,7 +100,12 @@ import java.util.UUID;
 import com.tiburela.qsercom.R;
 
 
-public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,ConnectionReceiver.ReceiverListener {
+public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,
+        ConnectionReceiver.ReceiverListener , MyReceiver {
+
+    public static MyReceiver myReceiver;
+    boolean isUnFormPreferencesData=false;
+
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -327,23 +333,35 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         View [] arrrayAllViews=creaArryOfViewsAll();
 
+        EditText [] arrayEdiText=creaArrayOfEditextCalendario();
+
+
         try {
 
             HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
-
             Log.i("sabeirr","el size de mapa es "+currentMapPreferences.size());
-
             Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
 
 
+
+
         }
+
 
         catch (Exception e) {
 
             Log.i("sabeirr","la expecion es "+e.getMessage());
             e.printStackTrace();
 
+
         }
+
+
+
+        HashMap<String, String> currentMapPreferencesCalendario= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences+"Calendario");
+        Log.i("sabeirr","el size de mapa 2 es "+currentMapPreferencesCalendario.size());
+        Utils.addDataOfPrefrencesInEditText(arrayEdiText,currentMapPreferencesCalendario);
+
 
 
 
@@ -353,6 +371,9 @@ Log.i("hellosweer","se ehjecitp onstart");
          //descrgamos info de imagenes //todavia no muy lista aun
 
         ImagenReport.hashMapImagesData  =  SharePref.getMapImagesData(currentKeySharePrefrences);
+
+        Log.i("dineroa","se eejcto este value   ");
+
 
         ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<>(ImagenReport.hashMapImagesData .values());
 
@@ -376,6 +397,9 @@ Log.i("hellosweer","se ehjecitp onstart");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
+        myReceiver = this;
+
+
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
         RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString ="";//reseteamos
@@ -389,7 +413,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         ImagenReport.hashMapImagesData=new HashMap<>();
 
-          SharePref.init(ActivityContenedores.this);
+        SharePref.init(ActivityContenedores.this);
 
 
 
@@ -437,8 +461,12 @@ Log.i("hellosweer","se ehjecitp onstart");
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myReceiver = null;
 
-
+    }
 
     void showingTimePicker( View vista){
 
@@ -2433,9 +2461,13 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 editipbalanzaRepeso.setText("");
                // actualizaListStateView("addetiquetaaqui",false) ;
-            }else {
-              //  actualizaListStateView("addetiquetaaqui",true) ;
             }
+
+
+
+
+              //  actualizaListStateView("addetiquetaaqui",true) ;
+
 
         }
         @Override
@@ -2857,7 +2889,7 @@ private void createObjcInformeAndUpload(){
             ediCedula.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),
             ediColorCabezal.getText().toString(),ediCondicionBalanza.getText().toString(),ediTipodeCaja.getText().toString()
             ,switchHaybalanza.isChecked(),switchHayEnsunchado.isChecked(),spinnertipodePlastico.getSelectedItem().toString(),
-            switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),FieldOpcional.tipoDeBalanzaRepesoOpcnal);
+            switchBalanzaRep.isChecked(),spinnerubicacionBalanza.getSelectedItem().toString(),ediTipoBalanza.getText().toString(),ediBalanzaRepeso.getText().toString());
 
 
     SetInformDatsHacienda informe3= new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(),swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
@@ -2892,11 +2924,6 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     RealtimeDB.addNewInforme(ActivityContenedores.this,informe2);
     updateCaledarioEnfunde(informe3);
     RealtimeDB.addNewInforme(informe3);
-
-
- //   RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,new InformRegister(informe.getUniqueIDinforme(), Constants.CONTENEDORES,Variables.usuarioQsercomGlobal.getNombreUsuario(),Variables.usuarioQsercomGlobal.getUniqueIDuser(),"Contenedores"));
-
-
     addProdcutsPostCosechaAndUpload(informe.getUniqueIDinforme()); //agregamos y subimos los productos postcosecha..
 
 
@@ -3138,7 +3165,18 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
         int numImagesEcontradas=0;
 
 
-        for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) { //revismao en todo el map
+        if(ImagenReport.hashMapImagesData==null){
+
+            ImagenReport.hashMapImagesData=new HashMap<>();
+
+            Log.i("dineroa","es nulo .hashMapImagesData");
+
+
+        }
+
+
+
+    for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) { //revismao en todo el map
 
          //   String key = set.getKey();
 
@@ -4174,10 +4212,9 @@ return true;
 
             layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
              return false;
-        }else{
-            editipbalanzaRepeso.setText("");
-
         }
+
+
 
 
 /*
@@ -4322,129 +4359,14 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 //Si hay un formulario ... que no se envio aun.....estado subido..
 //si hay un formulario obtenerlo..
     //una propiedad que diga si ya lo subio...
-    ///el primer valor del map conttendra esa propiedad...
-private TextInputEditText[] creaArryOfTextInputEditText() {
-
-    TextInputEditText [] arrayEditex = {
-            ediExportadoraProcesada,
-            ediExportadoraSolicitante,
-            ediMarca,
-            ediClienteNombreReporte,
-            ediSemana,
-            ediFecha,
-            ediProductor,
-            ediHacienda,
-            ediCodigo,
-            ediInscirpMagap,
-            ediPemarque,
-            ediZona,
-            ediHoraInicio,
-            ediHoraTermino,
-            ediHoraLLegadaContenedor,
-            ediHoraSalidaContenedor,
-            ediNguiaRemision,
-            edi_nguia_transporte,
-            ediNtargetaEmbarque,
-            ediNhojaEvaluacion,
-            ediObservacion,
-            ediEmpacadora,
-           // ediFotosLlegada,
-            ediContenedor,
-            ediPPC01,
-            ediPPC02,
-            ediPPC03,
-            ediPPC04,
-            ediPPC05,
-            ediPPC06,
-            ediPPC07,
-            ediPPC08,
-            ediPPC09,
-            ediPPC010,
-            ediPPC011,
-            ediPPC012,
-            ediPPC013,
-            ediPPC014,
-            ediPPC015,
-            ediPPC016,
-            ediDestino,
-            ediNViaje,
-            ediTipoContenedor,
-            ediVapor,
-            //ediFotoContenedor,
-           // ediFotosPposcosecha,
-            ediEnsunchado,
-            ediBalanzaRepeso,
-
-
-            ediBalanza,
-            ediFuenteAgua,
-            ediAguaCorrida,
-            ediLavadoRacimos,
-            ediFumigacionClin1,
-            ediTipoBoquilla,
-            ediCajasProcDesp,
-            ediRacimosCosech,
-            ediRacimosRecha,
-            ediRacimProces,
-
-
-            ediCompaniaTransporte,
-            ediNombreChofer,
-            ediCedula,
-            ediCelular,
-            ediPLaca,
-            ediMarcaCabezal,
-            ediColorCabezal,
-           // ediFotosLlegadaTransport,
-
-            ediTare,
-            ediBooking,
-            ediMaxGross,
-            ediNumSerieFunda,
-            stikVentolerExterna,
-            ediCableRastreoLlegada,
-            ediSelloPlasticoNaviera,
-            ediOtroSellosLlegada,
-            //ediFotosSellosLLegada,
-
-            ediCondicionBalanza,
-            ediTipodeCaja,
-            ediTipoPlastico,
-            ediTipoBalanza,
-            editipbalanzaRepeso,
-            ediUbicacionBalanza,
-
-            ediTermofrafo1,
-            ediHoraEncendido1,
-            ediUbicacion1,
-            ediRuma1,
-            ediTermofrafo2,
-            ediHoraEncendido2,
-            ediUbicacion2,
-            ediRuma2,
-            ediCandadoqsercon,
-            ediSelloNaviera,
-            ediCableNaviera,
-            ediSelloPlastico,
-            ediCandadoBotella,
-            ediCableExportadora,
-            ediSelloAdesivoexpor,
-            esiSelloAdhNaviera,
-            ediOtherSellos,
-
-
-
-
-    } ;
-
-
-    return arrayEditex;
-}
-
+    ///el primer valor del map conttendra esa propiedad..
 
 
 
     private View[] creaArryOfViewsAll() {
+
+
+
         View [] arrayViews = {
                 ediExportadoraProcesada,
                 ediExportadoraSolicitante,
@@ -4574,7 +4496,12 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 switchLavdoRacimos,
                 swAguaCorrida,
 
-
+                ediExtCalid,
+                ediExtCalidCi,
+                ediExtGancho,
+                ediExtGanchoCi,
+                ediExtRodillo,
+                ediExtRodilloCi
 
         } ;
 
@@ -4582,6 +4509,48 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         return arrayViews;
     }
 
+
+
+    private EditText[] creaArrayOfEditextCalendario () {
+
+        //  EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+        EditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+        EditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+        EditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+        EditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+        EditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+
+        EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+        EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+        EditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+        EditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+        EditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+        EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+        EditText ediPorc14=findViewById(R.id.ediPorc14);
+        EditText ediPorc13=findViewById(R.id.ediPorc13);
+        EditText ediPorc12=findViewById(R.id.ediPorc12);
+        EditText ediPorc11=findViewById(R.id.ediPorc11);
+        EditText ediPorc10=findViewById(R.id.ediPorc10);
+        EditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
+
+
+         EditText [] arrayEditText= {
+
+                 ediColortSem13, ediColortSem12,
+                 ediColortSem11, ediColortSem10, ediColortSem9,
+
+
+                 ediNumRcim14, ediNumRcim13, ediNumRcim12,
+                 ediNumRcim11, ediNumRcim10, ediNumRac9, ediPorc14,
+                 ediPorc13, ediPorc12, ediPorc11, ediPorc10, ediPsgddsorc9
+
+         };
+
+
+         return arrayEditText;
+
+    }
 
 
 
@@ -5092,14 +5061,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                     Log.i("imagebrr","elunique id informe es "+currenTidGenrate);
 
 
-                    user= new InformRegister(currenTidGenrate,Constants.CONTENEDORES,
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
-                            , "CONTENEDORES ");
-
-
-                    //informe register
-                    RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,user);
 
                     StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
@@ -5123,15 +5084,22 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
                     uploadInformeToDatabase(informe,informe2,informe3);
 
+                    user= new InformRegister(currenTidGenrate,Constants.CONTENEDORES,
+                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
+                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            , "CONTENEDORES ");
 
 
-                      Log.i("imagebrr","elsize es "+ImagenReport.hashMapImagesData.size());
+                    //informe register
+                    RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,user);
+
+
+
+                    Log.i("imagebrr","elsize es "+ImagenReport.hashMapImagesData.size());
 
 
                     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
-                    btnCheck.setEnabled(false);
 
-                    seSubioform=true;
 
                     //aqui subimos..
 
@@ -5330,7 +5298,8 @@ public void decideaAtachReport(boolean userSelecion){
 
 private void callPrefrencesSaveAndImagesData(){
 
-     View [] mivIEWSAlls=creaArryOfViewsAll();
+       View [] mivIEWSAlls=creaArryOfViewsAll();
+      EditText [] arrayEdiText=creaArrayOfEditextCalendario();
 
     Log.i("saberrr","el current key es "+currentKeySharePrefrences);
 
@@ -5339,7 +5308,14 @@ private void callPrefrencesSaveAndImagesData(){
       Log.i("saberrr","se ejecuto el if ");
 
         SharePrefHelper.viewsSaveInfo(mivIEWSAlls,currentKeySharePrefrences,ActivityContenedores.this);
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiText,currentKeySharePrefrences);
+
         SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,currentKeySharePrefrences);
+
+
+        Toast.makeText(ActivityContenedores.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+        btnSaveLocale.setEnabled(false);
 
         //significa que tenemos un key de un objeto obtneido de prefrencias
 
@@ -5365,12 +5341,21 @@ private void callPrefrencesSaveAndImagesData(){
 
         //guardamos info de  views en un mapa usnado el nismo id delobejto creado
         SharePrefHelper.viewsSaveInfo(mivIEWSAlls,inform.getInformUniqueIdPertenece(),ActivityContenedores.this);
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiText,inform.getInformUniqueIdPertenece());
+
+
+        Toast.makeText(ActivityContenedores.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+        btnSaveLocale.setEnabled(false);
 
 
         if(ImagenReport.hashMapImagesData.size()>0){ //
 
           SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,keyRandom);
+
+
         }
+
+
     }
 
 
@@ -5674,5 +5659,37 @@ private void callPrefrencesSaveAndImagesData(){
     }
 
 
+    @Override
+    public void uploadNewForm() {
 
+        btnCheck.setEnabled(false);
+
+        seSubioform=true;
+
+
+        if(!currentKeySharePrefrences.equals("")){
+
+            try {
+                Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+                InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
+                assert objec != null;
+                objec.setSeSubioFormAlinea(true);
+                mapAllReportsRegister.put(currentKeySharePrefrences,objec);
+
+                SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,currentKeySharePrefrences);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+
+        Log.i("dineroa","hello haaxxx");
+
+
+    }
 }
