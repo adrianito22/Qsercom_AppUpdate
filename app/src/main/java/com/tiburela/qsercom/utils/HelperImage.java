@@ -287,7 +287,7 @@ public class HelperImage {
 
         if(!encontramos) {
             imagesSetToCurrentFila=new ArrayList<ImagenReport>();
-
+            contadorImgHorizontal=0;
             contadorImgVertical= 0;
             for(int i=0; i<list.size(); i++){ ///si no comprobamos que exista una imagen vertical y otra horizontal ...
 
@@ -354,6 +354,7 @@ public class HelperImage {
 
 
         if(!encontramos) {
+
             imagesSetToCurrentFila= new ArrayList<>();
 
             for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
@@ -379,7 +380,7 @@ public class HelperImage {
         if(!encontramos) {
             imagesSetToCurrentFila= new ArrayList<>();
 
-            for(int i=0; i<list.size(); i++){  ////si no vemos que halla dos horizontales
+            for(int i=0; i<list.size(); i++){  ////una vertical
                 if(list.get(i).getHorientacionImage().equals("vertical") && ! list.get(i).isEstaENPdf() ){
                     imagesSetToCurrentFila.add(list.get(i));
 

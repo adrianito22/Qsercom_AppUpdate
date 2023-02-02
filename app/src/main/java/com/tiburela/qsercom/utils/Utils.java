@@ -499,20 +499,22 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
     }
 
 
-    public static  void addDataOfPrefrencesInEditText(EditText[] arrayEditText, @NonNull HashMap<String, String> hashMaPDePrefer) {
+    public static  void addDataOfPrefrencesInEditText(EditText[] arrayEditText, @NonNull Map<String, String> hashMaPDePrefer) {
 
         /***nos quedamos aqui ,mirar activity previews como set data*/
+
+
+        Log.i("sabeirr","se ejextuo esto "+hashMaPDePrefer.size());
 
         for (Map.Entry<String, String> entry : hashMaPDePrefer.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
 
-            Log.i("misdader","se ejextuo esto");
 
             EditText vistax=  getEditextById(key,arrayEditText);
 
 
-            if(vistax==null){
+            if(vistax!=null){
                 vistax.setText(value);
 
                 Log.i("misdader","es nulo por aqui vergax");

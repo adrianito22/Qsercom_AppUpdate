@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -126,6 +127,9 @@ public class SharePrefHelper {
 
 
     public static void viewsSaveInfoEditText(EditText[] misViews, String keyToSaveMap ){
+
+       //chekear haber que pasa si se guarda la data... y si el key existe
+
         HashMap<String ,String> miMapToSave= new HashMap<>() ;
 
         String keyViewID;
@@ -138,14 +142,12 @@ public class SharePrefHelper {
                     miMapToSave.put(keyViewID,editText.getText().toString() );
 
                 }
-
-
-
-
         }
 
 
-        SharePref.saveMapPreferFields(miMapToSave,keyToSaveMap+"Calendario");
+        Log.i("preferido","el key save map es "+keyToSaveMap);
+
+        SharePref.saveMapPreferFields(miMapToSave,keyToSaveMap);
 
     }
 

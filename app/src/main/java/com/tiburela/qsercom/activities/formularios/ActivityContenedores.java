@@ -334,15 +334,25 @@ Log.i("hellosweer","se ehjecitp onstart");
         View [] arrrayAllViews=creaArryOfViewsAll();
 
         EditText [] arrayEdiText=creaArrayOfEditextCalendario();
+        EditText [] arrayEdiTextLirbiado=generateArrayOfEditTextLibriado();
 
 
         try {
+            Log.i("preferido","el currentKeySharePrefrences es  "+currentKeySharePrefrences);
 
             HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
-            Log.i("sabeirr","el size de mapa es "+currentMapPreferences.size());
+            Log.i("preferido","el size de mapa es "+currentMapPreferences.size());
             Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
 
 
+            Map<String, String> currentMapPreferencesCalendario= SharePref.loadMap(currentKeySharePrefrences+"Calendario");
+            Log.i("preferido","el size de mapa 2 es "+currentMapPreferencesCalendario.size());
+            Utils.addDataOfPrefrencesInEditText(arrayEdiText,currentMapPreferencesCalendario);
+
+
+            Map<String, String> currentMapPreferencesLibriado= SharePref.loadMap(currentKeySharePrefrences+"Libriado");
+            Log.i("preferido","el size de mapa 3 es "+currentMapPreferencesLibriado.size());
+            Utils.addDataOfPrefrencesInEditText(arrayEdiTextLirbiado,currentMapPreferencesLibriado);
 
 
         }
@@ -350,7 +360,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
         catch (Exception e) {
 
-            Log.i("sabeirr","la expecion es "+e.getMessage());
+            Log.i("preferido","la expecion es "+e.getMessage());
             e.printStackTrace();
 
 
@@ -358,9 +368,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
 
-        HashMap<String, String> currentMapPreferencesCalendario= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences+"Calendario");
-        Log.i("sabeirr","el size de mapa 2 es "+currentMapPreferencesCalendario.size());
-        Utils.addDataOfPrefrencesInEditText(arrayEdiText,currentMapPreferencesCalendario);
+
 
 
 
@@ -2638,6 +2646,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         public void onClick(View view) {
 
 
+
             checkDataFields();
 
 
@@ -4412,6 +4421,7 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                 ediNViaje,
                 ediTipoContenedor,
                 ediVapor,
+                ediNumContenedor,
                 //ediFotoContenedor,
                 // ediFotosPposcosecha,
                 ediEnsunchado,
@@ -4513,7 +4523,7 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
     private EditText[] creaArrayOfEditextCalendario () {
 
-        //  EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+          EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
         EditText ediColortSem13 = findViewById(R.id.ediColortSem13);
         EditText ediColortSem12 = findViewById(R.id.ediColortSem12);
         EditText ediColortSem11 = findViewById(R.id.ediColortSem11);
@@ -4535,9 +4545,10 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
         EditText ediPsgddsorc9 =findViewById(R.id.ediPorc9);
 
 
+
          EditText [] arrayEditText= {
 
-                 ediColortSem13, ediColortSem12,
+                 ediColortSem14, ediColortSem13, ediColortSem12,
                  ediColortSem11, ediColortSem10, ediColortSem9,
 
 
@@ -5300,15 +5311,22 @@ private void callPrefrencesSaveAndImagesData(){
 
        View [] mivIEWSAlls=creaArryOfViewsAll();
       EditText [] arrayEdiText=creaArrayOfEditextCalendario();
+    EditText [] arrayEdiTextLibriado=generateArrayOfEditTextLibriado();
 
-    Log.i("saberrr","el current key es "+currentKeySharePrefrences);
+
+
+    Log.i("preferido","el current key es "+currentKeySharePrefrences);
 
 
     if(!currentKeySharePrefrences.equals("")){  //si no contiene
       Log.i("saberrr","se ejecuto el if ");
 
         SharePrefHelper.viewsSaveInfo(mivIEWSAlls,currentKeySharePrefrences,ActivityContenedores.this);
-        SharePrefHelper.viewsSaveInfoEditText(arrayEdiText,currentKeySharePrefrences);
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiText,currentKeySharePrefrences+"Calendario");
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
+
+
+
 
         SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,currentKeySharePrefrences);
 
@@ -5673,23 +5691,158 @@ private void callPrefrencesSaveAndImagesData(){
                 Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
                 InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
-                assert objec != null;
+
+
+
+                Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);
+
+                Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
+
                 objec.setSeSubioFormAlinea(true);
                 mapAllReportsRegister.put(currentKeySharePrefrences,objec);
 
-                SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,currentKeySharePrefrences);
+                SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                Log.i("dineroa","hello haaxxx");
+
             }
 
         }
 
 
 
-        Log.i("dineroa","hello haaxxx");
+    }
 
+
+
+
+
+
+
+
+    EditText [] generateArrayOfEditTextLibriado(){
+
+        EditText        pbCluster01 = findViewById(R.id.pbCluster01);
+        EditText        pbCluster05 = findViewById(R.id.pbCluster05);
+        EditText        pbCluster03 = findViewById(R.id.pbCluster03);
+        EditText        pbCluster02 = findViewById(R.id.pbCluster02);
+        EditText        pbCluster04 = findViewById(R.id.pbCluster04);
+        EditText        pbCluster010 = findViewById(R.id.pbCluster010);
+        EditText        pbCluster09 = findViewById(R.id.pbCluster09);
+        EditText        pbCluster07 = findViewById(R.id.pbCluster07);
+        EditText        pbCluster08 = findViewById(R.id.pbCluster08);
+        EditText        pbCluster06 = findViewById(R.id.pbCluster06);
+        EditText        pbCluster011 = findViewById(R.id.pbCluster011);
+        EditText        pbCluster015 = findViewById(R.id.pbCluster015);
+        EditText        pbCluster012 = findViewById(R.id.pbCluster012);
+        EditText        pbCluster013 = findViewById(R.id.pbCluster013);
+        EditText        pbCluster014 = findViewById(R.id.pbCluster014);
+        EditText        pbCluster016 = findViewById(R.id.pbCluster016);
+        EditText        pbCluster019 = findViewById(R.id.pbCluster019);
+        EditText        pbCluster018 = findViewById(R.id.pbCluster018);
+        EditText        pbCluster020 = findViewById(R.id.pbCluster020);
+        EditText        pbCluster017 = findViewById(R.id.pbCluster017);
+        EditText        pbCluster025 = findViewById(R.id.pbCluster025);
+        EditText        pbCluster024 = findViewById(R.id.pbCluster024);
+        EditText        pbCluster023 = findViewById(R.id.pbCluster023);
+        EditText        pbCluster022 = findViewById(R.id.pbCluster022);
+        EditText        pbCluster021 = findViewById(R.id.pbCluster021);
+        EditText        pbCluster028 = findViewById(R.id.pbCluster028);
+        EditText        pbCluster027 = findViewById(R.id.pbCluster027);
+        EditText        pbCluster029 = findViewById(R.id.pbCluster029);
+        EditText        pbCluster026 = findViewById(R.id.pbCluster026);
+        EditText        pbCluster030 = findViewById(R.id.pbCluster030);
+        EditText        pbCluster034 = findViewById(R.id.pbCluster034);
+        EditText        pbCluster031 = findViewById(R.id.pbCluster031);
+        EditText        pbCluster035 = findViewById(R.id.pbCluster035);
+        EditText        pbCluster033 = findViewById(R.id.pbCluster033);
+        EditText        pbCluster032 = findViewById(R.id.pbCluster032);
+        EditText        pbCluster039 = findViewById(R.id.pbCluster039);
+        EditText        pbCluster040 = findViewById(R.id.pbCluster040);
+        EditText        pbCluster037 = findViewById(R.id.pbCluster037);
+        EditText        pbCluster038 = findViewById(R.id.pbCluster038);
+        EditText        pbCluster036 = findViewById(R.id.pbCluster036);
+        EditText        pbCluster043 = findViewById(R.id.pbCluster043);
+        EditText        pbCluster045 = findViewById(R.id.pbCluster045);
+        EditText        pbCluster042 = findViewById(R.id.pbCluster042);
+        EditText        pbCluster041 = findViewById(R.id.pbCluster041);
+        EditText        pbCluster044 = findViewById(R.id.pbCluster044);
+        EditText        pbCluster048 = findViewById(R.id.pbCluster048);
+        EditText        pbCluster046 = findViewById(R.id.pbCluster046);
+        EditText        pbCluster050 = findViewById(R.id.pbCluster050);
+        EditText        pbCluster047 = findViewById(R.id.pbCluster047);
+        EditText        pbCluster049 = findViewById(R.id.pbCluster049);
+        EditText        p2pbCluster01 = findViewById(R.id.p2pbCluster01);
+        EditText        p2pbCluster05 = findViewById(R.id.p2pbCluster05);
+        EditText        p2pbCluster03 = findViewById(R.id.p2pbCluster03);
+        EditText        p2pbCluster02 = findViewById(R.id.p2pbCluster02);
+        EditText        p2pbCluster04 = findViewById(R.id.p2pbCluster04);
+        EditText        p2pbCluster010 = findViewById(R.id.p2pbCluster010);
+        EditText        p2pbCluster09 = findViewById(R.id.p2pbCluster09);
+        EditText        p2pbCluster07 = findViewById(R.id.p2pbCluster07);
+        EditText        p2pbCluster08 = findViewById(R.id.p2pbCluster08);
+        EditText        p2pbCluster06 = findViewById(R.id.p2pbCluster06);
+        EditText        p2pbCluster011 = findViewById(R.id.p2pbCluster011);
+        EditText        p2pbCluster015 = findViewById(R.id.p2pbCluster015);
+        EditText        p2pbCluster012 = findViewById(R.id.p2pbCluster012);
+        EditText        p2pbCluster013 = findViewById(R.id.p2pbCluster013);
+        EditText        p2pbCluster014 = findViewById(R.id.p2pbCluster014);
+        EditText        p2pbCluster016 = findViewById(R.id.p2pbCluster016);
+        EditText        p2pbCluster019 = findViewById(R.id.p2pbCluster019);
+        EditText        p2pbCluster018 = findViewById(R.id.p2pbCluster018);
+        EditText        p2pbCluster020 = findViewById(R.id.p2pbCluster020);
+        EditText        p2pbCluster017 = findViewById(R.id.p2pbCluster017);
+        EditText        p2pbCluster025 = findViewById(R.id.p2pbCluster025);
+        EditText        p2pbCluster024 = findViewById(R.id.p2pbCluster024);
+        EditText        p2pbCluster023 = findViewById(R.id.p2pbCluster023);
+        EditText        p2pbCluster022 = findViewById(R.id.p2pbCluster022);
+        EditText        p2pbCluster021 = findViewById(R.id.p2pbCluster021);
+        EditText        p2pbCluster028 = findViewById(R.id.p2pbCluster028);
+        EditText        p2pbCluster027 = findViewById(R.id.p2pbCluster027);
+        EditText        p2pbCluster029 = findViewById(R.id.p2pbCluster029);
+        EditText        p2pbCluster026 = findViewById(R.id.p2pbCluster026);
+        EditText        p2pbCluster030 = findViewById(R.id.p2pbCluster030);
+        EditText        p2pbCluster034 = findViewById(R.id.p2pbCluster034);
+        EditText        p2pbCluster031 = findViewById(R.id.p2pbCluster031);
+        EditText        p2pbCluster035 = findViewById(R.id.p2pbCluster035);
+        EditText        p2pbCluster033 = findViewById(R.id.p2pbCluster033);
+        EditText        p2pbCluster032 = findViewById(R.id.p2pbCluster032);
+        EditText        p2pbCluster039 = findViewById(R.id.p2pbCluster039);
+        EditText        p2pbCluster040 = findViewById(R.id.p2pbCluster040);
+        EditText        p2pbCluster037 = findViewById(R.id.p2pbCluster037);
+        EditText        p2pbCluster038 = findViewById(R.id.p2pbCluster038);
+        EditText        p2pbCluster036 = findViewById(R.id.p2pbCluster036);
+
+
+        EditText [] miArray= {
+                pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
+                pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
+                pbCluster024 ,pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
+                pbCluster031, pbCluster035, pbCluster033, pbCluster032, pbCluster039, pbCluster040, pbCluster037, pbCluster038, pbCluster036, pbCluster043,
+                pbCluster045, pbCluster042, pbCluster041, pbCluster044, pbCluster048, pbCluster046, pbCluster050, pbCluster047, pbCluster049, p2pbCluster01,
+                p2pbCluster05, p2pbCluster03, p2pbCluster02, p2pbCluster04, p2pbCluster010, p2pbCluster09, p2pbCluster07, p2pbCluster08, p2pbCluster06,
+                p2pbCluster011, p2pbCluster015, p2pbCluster012, p2pbCluster013, p2pbCluster014, p2pbCluster016, p2pbCluster019, p2pbCluster018,
+                p2pbCluster020, p2pbCluster017, p2pbCluster025, p2pbCluster024, p2pbCluster023, p2pbCluster022, p2pbCluster021, p2pbCluster028,
+                p2pbCluster027, p2pbCluster029, p2pbCluster026, p2pbCluster030, p2pbCluster034, p2pbCluster031, p2pbCluster035, p2pbCluster033,
+                p2pbCluster032, p2pbCluster039, p2pbCluster040, p2pbCluster037, p2pbCluster038, p2pbCluster036
+
+        };
+
+
+
+
+
+
+
+
+
+        return  miArray;
 
     }
+
+
 }
