@@ -22,11 +22,23 @@ public class SharePrefHelper {
 
 
     public static void viewsSaveInfo(View[] misViews, String keyToSaveMap , Context context){
+
         HashMap<String ,String> miMapToSave= new HashMap<>() ;
 
         String keyViewID;
 
+        int contador=0;
         for(View vistCurrent: misViews){
+
+            if(vistCurrent==null){
+
+                Log.i("solerma","es nulo contador es  "+contador);
+
+
+            }
+
+            contador++;
+
 
             if (vistCurrent instanceof EditText) { //asi es un editex compobamos si esta lleno
                 EditText editText = (EditText) vistCurrent;
@@ -42,8 +54,23 @@ public class SharePrefHelper {
             }
 
 
+            if (vistCurrent instanceof TextInputEditText) { //asi es un editex compobamos si esta lleno
+                TextInputEditText editText = (TextInputEditText) vistCurrent;
 
-           else  if (vistCurrent instanceof Spinner) { //asi es un editex compobamos si esta lleno
+                if(!editText.getText().toString().trim().isEmpty()){ //si contiene texto
+                    keyViewID=String.valueOf(vistCurrent.getId());
+                    miMapToSave.put(keyViewID,editText.getText().toString() );
+
+
+                }
+
+
+            }
+
+
+
+
+            else  if (vistCurrent instanceof Spinner) { //asi es un editex compobamos si esta lleno
                 Spinner spinner = (Spinner) vistCurrent;
 
                 if(!spinner.getSelectedItem().toString().trim().isEmpty()){ //si contiene texto
@@ -115,11 +142,14 @@ public class SharePrefHelper {
         }
 
         else{
+            miMapToSave.put("Adrianito","");
             Toast.makeText(context, "No existe Data para Guardar", Toast.LENGTH_SHORT).show();
 
 
         }
 
+
+        Log.i("solerma","el sise de map es "+miMapToSave.size()+" y el key es "+keyToSaveMap);
 
         SharePref.saveMapPreferFields(miMapToSave,keyToSaveMap);
 

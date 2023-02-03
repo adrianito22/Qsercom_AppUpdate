@@ -54,8 +54,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
+import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
-import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
@@ -143,6 +143,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        SharePref.init(ActivityMenu.this);
+
 
       //  Variables.actividad =ActivityMenu;
         Variables.activity=this;
@@ -266,7 +269,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             public void onClick(View view) {
 
 
-                Intent intencion=new Intent(ActivityMenu.this,ActivityDatosContersEnAcopio.class);
+                Intent intencion=new Intent(ActivityMenu.this, ActivityContersEnAcopio.class);
                 showPRogressAndStartActivity(intencion);
 
 
@@ -578,7 +581,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                 if(currentFormSelect ==Variables.FormatDatsContAcopi) {
 
-                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityDatosContersEnAcopio.class,keyShareDelete);
+                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this, ActivityContersEnAcopio.class,keyShareDelete);
 
 
                 }
@@ -661,9 +664,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         else  if(tipoFormulario==Variables.FormatDatsContAcopi){
-          //  startActivity(new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class)) ;
+          //  startActivity(new Intent(ActivityMenu.this, ActivityContersEnAcopio.class)) ;
 
-            Intent intencion=new Intent(ActivityMenu.this, ActivityDatosContersEnAcopio.class);
+            Intent intencion=new Intent(ActivityMenu.this, ActivityContersEnAcopio.class);
 
             showPRogressAndStartActivity(intencion);
 

@@ -77,8 +77,22 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="GUARDAR FORMULARIO"
+                android:background="@drawable/btn"
+                android:text="SUBIR FORMULARIO"
                 android:textAllCaps="true" />
+
+            <Button
+                android:id="@+id/btnSaveLocale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/btn"
+                android:text="Guardar Localmente"
+                android:textAllCaps="true"
+                android:visibility="visible" />
 
         </LinearLayout>
     </ScrollView>

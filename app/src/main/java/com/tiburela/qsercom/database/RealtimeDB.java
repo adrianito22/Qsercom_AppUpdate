@@ -16,9 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
-import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
+import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
-import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -1156,8 +1155,8 @@ public static  Context myContext;
 
 
         else if (Variables.activityCurrent==Variables.FormatDatsContAcopi ){
-            if(ActivityDatosContersEnAcopio.myReceiver!=null){
-                ActivityDatosContersEnAcopio.myReceiver.uploadNewForm();
+            if(ActivityContersEnAcopio.myReceiver!=null){
+                ActivityContersEnAcopio.myReceiver.uploadNewForm();
             }
 
         }

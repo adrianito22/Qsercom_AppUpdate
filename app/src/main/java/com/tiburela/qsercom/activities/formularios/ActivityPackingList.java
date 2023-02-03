@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,19 +20,30 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
 import com.tiburela.qsercom.utils.PerecentHelp;
+import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class ActivityPackingList extends AppCompatActivity implements View.OnTouchListener {
+    String currentKeySharePrefrences="";
 
     HashMap<String, String> packingListMap;
     Button btnSavePacking;
+    Button btnSaveLocale;
+
+    boolean userCreoRegisterForm=false;
+
+
 
     private TextInputEditText mEdinumbox1;
     private TextInputEditText mEdiDescripcion1;
@@ -122,7 +134,13 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
      findviewsIDS();
      RealtimeDB.initDatabasesRootOnly();
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
 
+            currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
+
+            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
+        }
         btnSavePacking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,6 +191,126 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
             }
         });
+
+        btnSaveLocale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                callPrefrencesSaveAndImagesData();
+
+            }
+        });
+
+
+    }
+
+    private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
+
+        View [] arrrayAllViews=creaArryOfViewsAll();
+
+
+        try {
+            Log.i("preferido","el currentKeySharePrefrences es  "+currentKeySharePrefrences);
+
+            HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
+            Log.i("preferido","el size de mapa es "+currentMapPreferences.size());
+            Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
+
+
+        }
+
+
+        catch (Exception e) {
+
+            Log.i("preferido","la expecion es "+e.getMessage());
+            e.printStackTrace();
+
+
+        }
+
+
+
+    }
+
+
+    private void callPrefrencesSaveAndImagesData(){
+
+        View [] arrayAllViewsData=creaArryOfViewsAll();
+
+        Log.i("preferido","el current key es "+currentKeySharePrefrences);
+
+        if(!currentKeySharePrefrences.equals("") || userCreoRegisterForm){  //si no contiene
+            Log.i("saberrr","se ejecuto el if ");
+
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityPackingList.this);
+
+
+            Toast.makeText(ActivityPackingList.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+            btnSaveLocale.setEnabled(false);
+
+            //significa que tenemos un key de un objeto obtneido de prefrencias
+
+        }
+
+        else
+        { //no existe creamos un nuevo register..
+            Log.i("saberrr","se ejecuto el else ");
+
+
+            Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+             currentKeySharePrefrences= UUID.randomUUID().toString();
+
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES,"Usuario", "","Packing List"  );
+
+
+            //gudramos oejto en el mapa
+            miMpaAllrRegisters.put(inform.getInformUniqueIdPertenece(),inform);
+
+            SharePref.saveHashMapOfHashmapInformRegister(miMpaAllrRegisters,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+            //guardamos info de  views en un mapa usnado el nismo id delobejto creado
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityPackingList.this);
+            Toast.makeText(ActivityPackingList.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+
+
+            userCreoRegisterForm=true;
+        }
+
+
+
+
+
+
+    }
+
+
+    private View[] creaArryOfViewsAll() {
+
+            View [] arraViews = {
+                    mEdiTotalCajas, mEdiContenedorxzz, mEdiFechaHere,
+
+                    mEdinumbox1,  mEdinumbox2, mEdinumbox3, mEdinumbox4, mEdinumbox5, mEdinumbox6, mEdinumbox7, mEdinumbox8, mEdinumbox9, mEdinumbox10, mEdinumbox11,
+                    mEdinumbox12, mEdinumbox13, mEdinumbox14, mEdinumbox15, mEdinumbox16, mEdinumbox17, mEdinumbox18, mEdinumbox19, mEdinumbox20,
+
+                    mEdiDescripcion1, mEdiDescripcion2, mEdiDescripcion3, mEdiDescripcion4, mEdiDescripcion5, mEdiDescripcion6, mEdiDescripcion7, mEdiDescripcion8,
+                    mEdiDescripcion9, mEdiDescripcion10, mEdiDescripcion11, mEdiDescripcion12, mEdiDescripcion13, mEdiDescripcion14,
+                    mEdiDescripcion15, mEdiDescripcion16,
+                    mEdiDescripcion17, mEdiDescripcion18, mEdiDescripcion19, mEdiDescripcion20,
+
+                    mEdiProductor1, mEdiProductor2, mEdiProductor3, mEdiProductor4, mEdiProductor5, mEdiProductor6, mEdiProductor7, mEdiProductor8, mEdiProductor9, mEdiProductor10,
+
+                    mEdiCajas1, mEdiCajas2, mEdiCajas3, mEdiCajas4, mEdiCajas5, mEdiCajas6, mEdiCajas7, mEdiCajas8, mEdiCajas9, mEdiCajas10,
+
+                    mEdiCodigoN1, mEdiCodigoN2, mEdiCodigoN3, mEdiCodigoN4, mEdiCodigoN5, mEdiCodigoN6, mEdiCodigoN7, mEdiCodigoN8,
+                    mEdiCodigoN9, mEdiCodigoN10
+
+            };
+
+            return arraViews;
 
 
     }
@@ -355,6 +493,8 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
 
    private void findviewsIDS(){
+       btnSaveLocale=findViewById(R.id.btnSaveLocale);
+
         btnSavePacking=findViewById(R.id.btnSavePacking);
          mEdiTotalCajas=findViewById(R.id.ediTotalCajas);
          mEdiContenedorxzz=findViewById(R.id.ediContenedorxzz);

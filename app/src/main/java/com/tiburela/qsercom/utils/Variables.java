@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 public class Variables {
 
- public static String  KEY_CONTENEDORES_EXTRA="MIKEYXTR";
+ public static String KEY_FORM_EXTRA ="MIKEYXTR";
 
 public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>();
 

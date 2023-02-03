@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.PerecentHelp;
+import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -42,8 +44,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implements View.OnTouchListener {
+    String currentKeySharePrefrences="";
+
+    Button btnSaveLocale;
+
+    boolean userCreoRegisterForm=false;
 
     RecyclerView mireciclerv;
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
@@ -104,6 +112,8 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lay_cuadro_muestreo_recha);
 
+        btnSaveLocale=findViewById(R.id.btnSaveLocale);
+
         ediMutante=findViewById(R.id.ediMutante);
         ediSPEKLING=findViewById(R.id.ediSPEKLING);
         ediPuntaamarillayB=findViewById(R.id.ediPuntaamarillayB);
@@ -150,7 +160,13 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         ediColor14=findViewById(R.id.ediColor14);
 
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
 
+            currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
+
+            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
+        }
 
 
 
@@ -267,6 +283,14 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         });
 
 
+        btnSaveLocale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callPrefrencesSaveData();
+            }
+        });
+
+
 
         mireciclerv=findViewById(R.id.mireciclerv);
 
@@ -300,6 +324,111 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
 
     }
+
+    private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
+
+        View [] arrrayAllViews=creaArryOfViewsAll();
+
+        try {
+            Log.i("preferido","el currentKeySharePrefrences es  "+currentKeySharePrefrences);
+
+            HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
+            Log.i("preferido","el size de mapa es "+currentMapPreferences.size());
+            Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
+
+        }
+
+
+        catch (Exception e) {
+
+            Log.i("preferido","la expecion es "+e.getMessage());
+            e.printStackTrace();
+
+
+        }
+
+
+
+    }
+
+
+
+    private View[] creaArryOfViewsAll() {
+
+
+        View[] arraViews={
+                ediSemanaxc, ediExportadora, ediVaporx, ediFechax, ediProductoras, ediCodigoxs, ediEnfundex,
+                ediExtCalidad, ediExteRodillo, ediExtGancho, ediMutante, ediSPEKLING, ediPuntaamarillayB,
+                ediCremaAlmendraFloja, ediManchaRoja, ediAlterados, ediPobres, ediCaidos, ediSobreGrado,
+                ediBajoGrado, edimosaico, ediDanoDeAnimal, ediExplosivo, ediErwinea, ediDedoCorto,
+                ediRacimosPesadosDeEdad, ediCochinillaEscamaFumagina, ediRacimosSinEdintificacion, ediColor14,
+                ediColor13,  ediColor12,  ediColor11,  ediColor10,  ediColor9,
+                txtTotalRechazados
+        };
+
+        return  arraViews;
+
+
+    }
+
+
+    private void callPrefrencesSaveData(){
+
+        View [] arrayAllViewsData=creaArryOfViewsAll();
+
+
+
+        Log.i("preferido","el current key es "+currentKeySharePrefrences);
+
+
+        if(!currentKeySharePrefrences.equals("") || userCreoRegisterForm){  //si no contiene
+            Log.i("saberrr","se ejecuto el if ");
+
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityCuadMuestCalibAndRechaz.this);
+
+            Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+            btnSaveLocale.setEnabled(false);
+
+            //significa que tenemos un key de un objeto obtneido de prefrencias
+
+        }
+
+        else
+        { //no existe creamos un nuevo register..
+            Log.i("saberrr","se ejecuto el else ");
+
+
+            Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+             currentKeySharePrefrences= UUID.randomUUID().toString();
+
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CUADRO_MUESTRO_CAL_RECHZDS,"Usuario", "","Cuadro Muestreo"  );
+
+
+            //gudramos oejto en el mapa
+            miMpaAllrRegisters.put(inform.getInformUniqueIdPertenece(),inform);
+
+            SharePref.saveHashMapOfHashmapInformRegister(miMpaAllrRegisters,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+            //guardamos info de  views en un mapa usnado el nismo id delobejto creado
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityCuadMuestCalibAndRechaz.this);
+            Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+
+            userCreoRegisterForm=true;
+
+
+        }
+
+
+
+
+
+
+    }
+
 
     private void generateUniqueIdInformeAndContinuesIfIdIsUnique( CuadroMuestreo cuadorMuestreo){
 
@@ -713,6 +842,9 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
         return  arrayDevolver;
 }
+
+
+
 
     @Override
     protected void onStart() {

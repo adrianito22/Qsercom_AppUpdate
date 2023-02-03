@@ -37,6 +37,7 @@ import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.PerecentHelp;
+import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -44,8 +45,15 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
-public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
+public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener {
+    String currentKeyAndSharePrefrences ="";
+
+    boolean userCreoRegisterForm=false;
+
+     Button btnSaveLocale;
 
     private boolean sellamoFindViewIds=false;
     DecimalFormat df = new DecimalFormat("#.#");
@@ -450,6 +458,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         setContentView(R.layout.control_calid_activity);
         // assign variable
         // textView = findViewById(R.id.textView);
+
+
+
         initSomeViewsINcreateAndCLICKlISTENNER();
         addListnners();
         configCertainSomeViewsAliniciar();
@@ -464,13 +475,181 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         inicialiceListOfListChekedItems();
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+
+            currentKeyAndSharePrefrences =extras.getString(Variables.KEY_FORM_EXTRA);
+
+         if(!sellamoFindViewIds){
+
+          findviewsIdsMayoriaViews();
+
+         }
+            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
+        }
+
+    }
+
+    private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
+
+        View [] arrrayAllViews=creaArryOfViewsAll();
+
+
+            Log.i("solerma","el currentKeySharePrefrences es  "+ currentKeyAndSharePrefrences);
+
+            HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeyAndSharePrefrences);
+            Log.i("solerma","el size de mapa es "+currentMapPreferences.size());
+            Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
+
+
+          //  Map<String, String> currentMapPreferencesCalendario= SharePref.loadMap(currentKeySharePrefrences+"Calendario");
+           // Log.i("preferido","el size de mapa 2 es "+currentMapPreferencesCalendario.size());
+          //  Utils.addDataOfPrefrencesInEditText(arrayEdiText,currentMapPreferencesCalendario);
+
+
+           // Map<String, String> currentMapPreferencesLibriado= SharePref.loadMap(currentKeySharePrefrences+"Libriado");
+          //  Log.i("preferido","el size de mapa 3 es "+currentMapPreferencesLibriado.size());
+           // Utils.addDataOfPrefrencesInEditText(arrayEdiTextLirbiado,currentMapPreferencesLibriado);
+
+
+
+    }
+
+    private View[] creaArryOfViewsAll() {
+
+
+
+
+     EditextSupreme ediPromediozx=findViewById(R.id.ediPromediozx);
+     EditextSupreme ediLargDedPulpTotalFila1=findViewById(R.id.ediLargDedPulpTotalFila1);
+     EditextSupreme ediLargDedPulpTotalFila2=findViewById(R.id.ediLargDedPulpTotalFila2);
+     EditextSupreme ediPromedioPulpP=findViewById(R.id.ediPromedioPulpP);
+
+
+            View [] arrayViewsAll = {
+                  //  ediPromediozx,ediLargDedPulpTotalFila1,ediLargDedPulpTotalFila2,ediPromedioPulpP,
+
+                    mEdiVaporzz, mEdiProductorzz, mEdiCodigozz, mEdiZonazz, mEdiHaciendazz, mEdiExportadorazz, mEdiCompaniazz, mEdiClientezz,
+                    mEdisemanazz, mEdiFechazz, mEdiMagapzz, mEdiMarcaCajazz, mEdiTipoEmpazz, mEdiDestinzz, mEdiTotalCajaszz,
+                    mEdioCalidaCampzz, mEdiHoraInizz, mEdiHoraTermizz, mEdiContenedorzz, mEdiSellosnavzz, mEdiSelloVerzz,
+                    mEdiTermografozz, mEdiPlacaCarrzz, mEdiPuertEmbzz,  ediObservacioneszszz,
+
+                    ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
+                    ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
+                    ediPesoL9, ediPesoL10, ediPH1, ediPH2, ediPH3, ediPH4, ediPH5, ediPH6, ediPH7, ediPH8, ediPH9, ediPH10, ediNumClusInsp1,
+                    ediNumClusInsp2, ediNumClusInsp3, ediNumClusInsp4, ediNumClusInsp5, ediNumClusInsp6, ediNumClusInsp7, ediNumClusInsp8,
+                    ediNumClusInsp9, ediNumClusInsp10, ediNdedoXclust1, ediNdedoXclust2 , ediNdedoXclust3 , ediNdedoXclust4 , ediNdedoXclust5 ,
+                    ediNdedoXclust6 , ediNdedoXclust7 , ediNdedoXclust8 , ediNdedoXclust9 , ediNdedoXclust10 , ediNdedoXclust11 , ediNdedoXclust12 ,
+                    ediNdedoXclust13 , ediNdedoXclust14 , ediNdedoXclust15 , ediNdedoXclust16 , ediNdedoXclust17 , ediNdedoXclust18 ,
+                    ediNdedoXclust19 , ediNdedoXclust20 , ediNdedoXclust21 , ediNdedoXclust22 , ediNdedoXclust23 , ediNdedoXclust24 ,
+                    ediNdedoXclust25 , ediNdedoXclust26 , ediNdedoXclust27, ediNdedoXclust28 , ediNdedoXclust29 , ediNumPromedioDedsXcaja,
+                    edif2NdedoXclust1, edif2NdedoXclust2 , edif2NdedoXclust3 , edif2NdedoXclust4 , edif2NdedoXclust5 , edif2NdedoXclust6 ,
+                    edif2NdedoXclust7 , edif2NdedoXclust8 , edif2NdedoXclust9 , edif2NdedoXclust10 , edif2NdedoXclust11 , edif2NdedoXclust12 ,
+                    edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
+                    edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
+                    edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
+                    edif2NdedoXclust28 , //edif2NdedoXclust29 ,// edif2NdedoXclust30
+                    edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
+                    edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
+                    edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
+                    edif2NdedoXclustxC13 , edif2NdedoXclustxC14 , edif2NdedoXclustxC15 , edif2NdedoXclustxC16 , edif2NdedoXclustxC17 ,
+                    edif2NdedoXclustxC18 , edif2NdedoXclustTotalArriba, edif2NdedoXclustPromedio, ediNdedoXclustXc1, ediNdedoXclustXc2 ,
+                    ediNdedoXclustXc3 , ediNdedoXclustXc4 , ediNdedoXclustXc5 , ediNdedoXclustXc6 , ediNdedoXclustXc7 , ediNdedoXclustXc8
+                    , ediNdedoXclustXc9 , ediNdedoXclustXc10 , ediNdedoXclustXc11 , ediNdedoXclustXc12 , ediNdedoXclustXc13 ,
+                    ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
+                    ediNdedoXclustXcTotalAbajo, ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
+                    ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
+                    ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediTotalFila1z,
+                    edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
+                    edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
+                    edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , ediTotalFila2z, edif2Calib22 ,
+
+
+                    mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
+                    mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
+                    mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
+                    mEdiLargDeds16,mEdiLargDeds17,mEdiLargDeds18,mEdiLargDeds19,mEdiLargDeds20,
+                    mEdiLargDeds21,mEdiLargDeds22,mEdiLargDeds23,mEdiLargDeds24,mEdiLargDeds25,
+                    mEdiLargDeds26,mEdiLargDeds27,mEdiLargDeds28,mEdiLargDeds29,mEdiLargDeds30,
+
+
+            } ;
+
+
+            for(int indice=0; indice<arrayViewsAll.length; indice++){
+
+             if(arrayViewsAll[indice]==null){
+              Log.i("solerma"," es nulo aqui y la posicion es "+indice);
+
+             }
+
+
+            }
+
+
+            return arrayViewsAll;
+
+
+    }
+
+
+
+    private void callPrefrencesSaveData(){
+
+        View [] arrayAllViewsData=creaArryOfViewsAll();
+
+        if(!currentKeyAndSharePrefrences.equals("") || userCreoRegisterForm){  //si no contiene
+            Log.i("saberrr","se ejecuto el if ");
+
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData, currentKeyAndSharePrefrences,ActivityControlCalidad.this);
+           // SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,currentKeySharePrefrences+"Calendario");
+           // SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
+
+
+            //significa que tenemos un key de un objeto obtneido de prefrencias
+
+        }
+
+        else
+        { //no existe creamos un nuevo register..
+            Log.i("saberrr","se ejecuto el else ");
+
+
+            Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+         currentKeyAndSharePrefrences= UUID.randomUUID().toString();
+
+            InformRegister inform= new InformRegister(currentKeyAndSharePrefrences,Constants.CONTROL_CALIDAD,"Usuario", "","Ctrl Calidad"  );
+
+
+            //gudramos oejto en el mapa
+            miMpaAllrRegisters.put(inform.getInformUniqueIdPertenece(),inform);
+
+            SharePref.saveHashMapOfHashmapInformRegister(miMpaAllrRegisters,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+            //guardamos info de  views en un mapa usnado el nismo id delobejto creado
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeyAndSharePrefrences,ActivityControlCalidad.this);
+          //  SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,keyRandom+"Calendario");
+          //  SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,keyRandom+"Libriado");
+
+
+
+            userCreoRegisterForm=true;
+        }
+
+
+
+
+
+
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        eventoUploadFormulario();
+        eventBotones();
         //   addTOUCH();
 
 
@@ -1224,9 +1403,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         DatePickerDialog picker = new DatePickerDialog(ActivityControlCalidad.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int mes, int daySemana) {
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                         String dateSelec=i2+"/"+(i1+1)+"/"+i;
 
-                        mEdiFechazz.setText(daySemana+"/"+mes+"/"+year);
+
+                        mEdiFechazz.setText(dateSelec);
+
 
                     }
                 }, year,  mes, daySemana);
@@ -2056,7 +2238,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-    private void eventoUploadFormulario () {
+    private void eventBotones() {
 
         btnSaveControlC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2152,6 +2334,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 Log.i("saasberr","bien llegamos a save y depsues finish activity");
 
                 finish();
+
+            }
+        });
+
+        btnSaveLocale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                callPrefrencesSaveData();
 
             }
         });
@@ -2814,67 +3005,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-    private void actualizaStatesCEHECKEDofListOfLIST(){
-
-        ///ahora que descragamos el hasmap
-
-        //ietramos el hasmap i usamos el id de las imagenes...
-
-        ///asi que dame la info del hasmap (key de view la primera imagen)
-
-        //String hasmao del primero...
-        //convertimos esto en un  array by (,)
-        //el leng del for sera el lengt del array creado...
-        //entoces iteramos en en for...  dame la posicion[i].set
-
-    }
-
-
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        if(motionEvent.getAction()==MotionEvent.ACTION_DOWN ){
-
-            PerecentHelp.listViewsClickedUser.add(view);
-
-            Log.i("casnasd","el size de la lista es "+ PerecentHelp.listViewsClickedUser.size());
-
-
-            if( PerecentHelp.listViewsClickedUser.size()>1) {
-                //obtenemos la lista anterior y verficamos si esta completada;
-                View vistFieldAnterior = PerecentHelp.getVistaAnteriorClick();
-                //  checkeamosSiFieldViewIScompleted(vistFieldAnterior);
-                PerecentHelp.checkeamosSiFieldViewIScompletedAndSavePref(vistFieldAnterior, SharePref.KEY_CONTROL_CALIDAD);
-
-            }
-
-
-        }
-        return false;
-    }
-
-
-    private void addPreferencesHashMap(){
-
-        if(!sellamoFindViewIds){
-            findviewsIdsMayoriaViews();
-
-        }
-
-
-
-        HashMap<String, String> currentMapPreferences=new HashMap<>();
-
-        EditextSupreme [] arrayTexImputEdit= creaArryOfEditextSupreme();
-
-        for(EditextSupreme editextCurrent: arrayTexImputEdit){
-            if(!editextCurrent.getText().toString().trim().isEmpty()){
-
-                currentMapPreferences.put(String.valueOf(editextCurrent.getId()),editextCurrent.getText().toString());
-            }
-
-        }
-    }
-
 
     private void initSomeViewsINcreateAndCLICKlISTENNER(){
         imgupdateInfo= findViewById(R.id.imgupdateInfo);
@@ -2925,6 +3055,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdiHoraTermizz = findViewById(R.id.ediHoraTermizz);
 
         btnSaveControlC=findViewById(R.id.btnSaveControlC);
+        btnSaveLocale=findViewById(R.id.btnSaveLocale);
 
 
     }

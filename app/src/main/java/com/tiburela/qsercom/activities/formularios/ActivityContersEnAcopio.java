@@ -51,6 +51,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.callbacks.MyReceiver;
@@ -62,6 +63,7 @@ import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
+import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -75,12 +77,14 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class ActivityDatosContersEnAcopio extends AppCompatActivity implements View.OnClickListener,
+public class ActivityContersEnAcopio extends AppCompatActivity implements View.OnClickListener,
         MyReceiver {
+    boolean seSubioform=false;
 
     public static MyReceiver myReceiver;
+    String currentKeySharePrefrences="";
 
-
+     Button btnSaveLocale;
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
     ImageView imgVAtachLlegadaContenedor;
@@ -95,7 +99,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     ImageView imbTakePicCierreContenedor;
     ImageView imgVAtachDocumentacionss;
     ImageView imbTakePicDocuementacionxx;
-
+   boolean userCreoRegisterForm=false;
 
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
@@ -108,6 +112,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
     private int currentTypeImage=0;
     ProgressBar progressBarFormulario;
+
     TextInputEditText ediFechaInicio;
     TextInputEditText fechDetermino;
     TextInputEditText ediExpSolicitante;
@@ -195,8 +200,8 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
     protected void onStart() {
         super.onStart();
 
-      //  Auth.initAuth(ActivityDatosContersEnAcopio.this);
-       // Auth.signInAnonymously(ActivityDatosContersEnAcopio.this);
+      //  Auth.initAuth(ActivityContersEnAcopio.this);
+       // Auth.signInAnonymously(ActivityContersEnAcopio.this);
 
 
 
@@ -218,7 +223,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
             Utils.addDataOfPrefrencesInView(arrayEditex);
 
-            Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityDatosContersEnAcopio.this);
+            Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContersEnAcopio.this);
 
 
             ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
@@ -286,13 +291,8 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
         hideSomeElemtosAnexos();
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
 
-            hayUnformularioIcompleto = extras.getBoolean("ActivitymenuKey");
 
-            //The key argument here must match that used in the other activity
-        }
 
         context = getApplicationContext();
 
@@ -324,6 +324,19 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
         listennersSpinners();
 
         eventCheckdata();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+
+            currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
+
+            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
+
+        }
+
+
+
+
         //creaFotos();
 
 
@@ -346,7 +359,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
         // time picker dialog
-        TimePickerDialog  picker = new TimePickerDialog(ActivityDatosContersEnAcopio.this,
+        TimePickerDialog  picker = new TimePickerDialog(ActivityContersEnAcopio.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
@@ -432,7 +445,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
         int mes = cldr.get(Calendar.MONTH);
 
         // time picker dialog
-        DatePickerDialog  picker = new DatePickerDialog(ActivityDatosContersEnAcopio.this,
+        DatePickerDialog  picker = new DatePickerDialog(ActivityContersEnAcopio.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -493,6 +506,8 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+
+        btnSaveLocale=findViewById(R.id.btnSaveLocale);
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
         imgVAtachLlegadaContenedor = findViewById(R.id.imgVAtachLlegadaContenedor);
@@ -622,6 +637,7 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
         /**todos add a todos clicklistener de la implemntacion*/
 
+        btnSaveLocale.setOnClickListener(this);
 
         imgVAtachDocumentacionss.setOnClickListener(this);//ultimo
         imgVAtachProcesoFrutaFinca.setOnClickListener(this);
@@ -721,6 +737,14 @@ public class ActivityDatosContersEnAcopio extends AppCompatActivity implements V
 
 else{
             switch (view.getId()) {
+
+
+                case R.id.btnSaveLocale:
+                    callPrefrencesSaveAndImagesData();
+
+                    break;
+
+
 
                 case R.id.linLayoutHeader1:
                     LinearLayout layoutContainerSeccion=findViewById(R.id.layoutContainerSeccion7);
@@ -924,7 +948,7 @@ else{
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
                                 //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,cam_uri),horientacionImg);
+                                ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContersEnAcopio.this,cam_uri),horientacionImg);
 
                                 //agregamos este objeto a la lista
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
@@ -995,15 +1019,15 @@ else{
 
                             try {
 
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityDatosContersEnAcopio.this.getContentResolver(),result.get(indice));
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContersEnAcopio.this.getContentResolver(),result.get(indice));
 
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
                                 Uri myUri = result.get(indice);
-                                ActivityDatosContersEnAcopio.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                ActivityContersEnAcopio.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
 
-                                ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityDatosContersEnAcopio.this,result.get(indice))),horientacionImg);
+                                ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContersEnAcopio.this,result.get(indice))),horientacionImg);
 
 
                                 //agregamos este objeto a la lista
@@ -1133,13 +1157,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     }
 
 
-    //buscamos este
-
-
     switch(currentTypeImage){
-        case Variables.FOTO_PROCESO_FRUTA_FINCA:
-            recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
-            break;
 
         case Variables.FOTO_LLEGADA_CONTENEDOR:
             recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
@@ -1164,6 +1182,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
         case Variables.FOTO_DOCUMENTACION:
             recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
             break;
+
     }
 
     RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
@@ -1190,18 +1209,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         @Override
         public void onClick(View view) {
 
-
-         //   Log.i("misdtaxxss","el value es "+ediCjasProcesDespacha.getText().toString());
-
-           // generatePDFandImport();
-
-           // RealtimeDB realtime= new RealtimeDB(ActivityDatosContersEnAcopio.this);
-            //  realtime.closeActivity();
-
-
             checkDataFields();
-
-
 
 
         }
@@ -1214,17 +1222,6 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 }
 
 void checkDataFields(){ //
-
-        /**debug borrar*/
-
-        /*
-        if(!cehckFaltanImagenes()){
-        return;
-
-    }
-    */
-
-    /**debug borrar*/
 
 
     if(! checkDatosGeneralesIsLleno()){
@@ -1302,6 +1299,11 @@ void checkDataFields(){ //
     }
 
 
+    if(creaAcMapDatosProcesoAndCheck("","")){
+        return;
+    }
+
+
     Log.i("test001","toda la data esta completa HUrra ");
 
 
@@ -1322,7 +1324,7 @@ private boolean checkaDatosProcesoISllENO(){
 
 
 
-private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String PuskEY, DatabaseReference mibasedata){
+private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String PuskEY){
 
     Log.i("samamf","se llamo creaDatosProcesoMapAndUpload");
     boolean isReady=true;
@@ -1485,7 +1487,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String Pu
 
     }
 
-   // RealtimeDB.initContext(ActivityDatosContersEnAcopio.this); //inicilizamos el contexto actual en la clase realtimeDB
+   // RealtimeDB.initContext(ActivityContersEnAcopio.this); //inicilizamos el contexto actual en la clase realtimeDB
 
     Log.i("samamf","subimos en este nodo "+PuskEY);
     Log.i("samamf","el size de map now ahora es "+mimapaDatosProcesMap.size());
@@ -1537,8 +1539,10 @@ private void createObjcInformeAndUpload(){
 
 
 
+    if(!seSubioform){
+        generateUniqueIdInformeAndContinuesIfIdIsUnique(informe);
 
-    generateUniqueIdInformeAndContinuesIfIdIsUnique(informe);
+    }
 
 
 
@@ -1588,7 +1592,7 @@ private void createObjcInformeAndUpload(){
 
 
                     //informe register
-                    RealtimeDB.addNewRegistroInforme(ActivityDatosContersEnAcopio.this,informRegister);
+                    RealtimeDB.addNewRegistroInforme(ActivityContersEnAcopio.this,informRegister);
                     StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
                     conetnedoresEnAcopioForm.setUniqueIDinforme(currenTidGenrate);
@@ -1601,12 +1605,12 @@ private void createObjcInformeAndUpload(){
                     Log.i("samamf","el objec conetnedoresEnAcopioForm getDatosProcesoContenAcopio es  "+conetnedoresEnAcopioForm.getDatosProcesoContenAcopioKEYFather());
 
 
-                     RealtimeDB.initContext(ActivityDatosContersEnAcopio.this);
+                     RealtimeDB.initContext(ActivityContersEnAcopio.this);
 
                     Log.i("samamf","vamos a crea datos proceso");
 
 
-                    if(creaAcMapDatosProcesoAndCheck(currenTidGenrate,PuskEY,mibasedata)){
+                    if(creaAcMapDatosProcesoAndCheck(currenTidGenrate,PuskEY)){
 
                         RealtimeDB.addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);  //subimos
 
@@ -1625,7 +1629,7 @@ private void createObjcInformeAndUpload(){
 
                         Log.i("samamf","HAY UN DATO INCOMPLETO HEN DATOS PROCESO");
 
-                        Toast.makeText(ActivityDatosContersEnAcopio.this, "Hay un dato incompleto en datos de Proceso", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActivityContersEnAcopio.this, "Hay un dato incompleto en datos de Proceso", Toast.LENGTH_LONG).show();
 
                     }
 
@@ -1676,7 +1680,7 @@ private void createObjcInformeAndUpload(){
 
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityDatosContersEnAcopio.this);
+                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityContersEnAcopio.this);
 
 
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
@@ -1853,7 +1857,7 @@ private void createObjcInformeAndUpload(){
     }
     private void  showToast(){
 
-        Toast.makeText(ActivityDatosContersEnAcopio.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ActivityContersEnAcopio.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -2690,9 +2694,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         RecyclerView recyclerView= null;
 
         switch(currentTypeImage){
-            case Variables.FOTO_PROCESO_FRUTA_FINCA:
-                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
-                break;
 
             case Variables.FOTO_LLEGADA_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
@@ -2756,7 +2757,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
+
+        int []arrayTiposImagenes={Variables.FOTO_LLEGADA_CONTENEDOR,Variables.FOTO_SELLO_LLEGADA,
+                Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS, Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION};
 
         for(int indice=0; indice<arrayTiposImagenes.length; indice++){
 
@@ -2790,14 +2793,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
 
-
-    private void calibracionFutaCalendarioEnfunde(){
-
-        TextInputEditText ediCandadoqsercon;
-
-
-    }
-
     void takePickCamera() {
 
 
@@ -2805,7 +2800,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         values.put(MediaStore.Images.Media.TITLE, "AppQsercom");
         values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
-        cam_uri = ActivityDatosContersEnAcopio.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+        cam_uri = ActivityContersEnAcopio.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cam_uri);
 
@@ -2830,8 +2825,289 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     @Override
     public void uploadNewForm() {
-
         btnCheck.setEnabled(false);
+        seSubioform=true;
+
+        if(!currentKeySharePrefrences.equals("")){
+
+            try {
+                Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+                InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
+
+
+                Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);
+
+                Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
+
+                objec.setSeSubioFormAlinea(true);
+                mapAllReportsRegister.put(currentKeySharePrefrences,objec);
+
+                SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+            }
+
+            catch (Exception e) {
+                e.printStackTrace();
+
+                Log.i("dineroa","hello haaxxx");
+
+            }
+
+        }
 
     }
+
+
+
+    private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
+
+        /**addprefrences*/
+
+        View [] arrrayAllViews=creaArryOfViewsAll();
+        TextInputEditText [] arrayEdiTextLirbiado= generateArrayOfTextInputEditTextLibriado();
+
+
+        try {
+            Log.i("preferido","el currentKeySharePrefrences es  "+currentKeySharePrefrences);
+
+            HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
+            Log.i("preferido","el size de mapa es "+currentMapPreferences.size());
+            Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
+
+
+            Map<String, String> currentMapPreferencesLibriado= SharePref.loadMap(currentKeySharePrefrences+"Libriado");
+            Log.i("preferido","el size de mapa 3 es "+currentMapPreferencesLibriado.size());
+            Utils.addDataOfPrefrencesInEditText(arrayEdiTextLirbiado,currentMapPreferencesLibriado);
+
+
+        }
+
+
+        catch (Exception e) {
+
+            Log.i("preferido","la expecion es "+e.getMessage());
+            e.printStackTrace();
+
+
+        }
+
+
+
+        /**aqui las imagenes */
+
+        //descrgamos info de imagenes //todavia no muy lista aun
+
+        ImagenReport.hashMapImagesData  =  SharePref.getMapImagesData(currentKeySharePrefrences);
+
+        Log.i("dineroa","se eejcto este value   ");
+
+
+        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<>(ImagenReport.hashMapImagesData .values());
+
+        //if el formulario no es nulo
+
+        if(listImagesToSaVE!=null && listImagesToSaVE.size()>0 ) {
+
+            createlistsForReciclerviewsImages(listImagesToSaVE);
+
+
+        }
+
+
+
+
+    }
+
+    private View[] creaArryOfViewsAll() {
+
+
+
+        View [] arrayViews = {
+                ediFechaInicio,
+                fechDetermino,
+                ediExpSolicitante,
+                ediExpProcesada,
+                ediMarca,
+                ediPuerto,
+                ediAgenciaNav,
+                ediCedulaI,
+                ediCjasProcesDespacha,
+                ediInspectorAcopio,
+
+
+                ediZona,
+                ediHoraInicio,
+                ediHoraTermino,
+                ediHoraLLegadaContenedor,
+                ediHoraSalidaContenedor,
+                ediNguiaRemision,
+                ediNtargetaEmbarque,
+                ediDestino,
+                ediVapor,
+                ediNumContenedor,
+
+                ediCompaniaTransporte,
+                ediNombreChofer,
+                ediCedula,
+                ediCelular,
+                ediPLaca,
+                ediMarcaCabezal,
+                ediColorCabezal,
+
+                ediTare,
+                ediBooking,
+                ediMaxGross,
+                ediNumSerieFunda,
+                stikVentolerExterna,
+                ediCableRastreoLlegada,
+                ediSelloPlasticoNaviera,
+                ediOtroSellosLlegada,
+
+                ediTermofrafo1,
+                ediHoraEncendido1,
+                ediUbicacion1,
+                ediRuma1,
+                ediTermofrafo2,
+                ediHoraEncendido2,
+                ediUbicacion2,
+                ediRuma2,
+                ediCandadoqsercon,
+                ediSelloNaviera,
+                ediCableNaviera,
+                ediSelloPlastico,
+                ediCandadoBotella,
+                ediCableExportadora,
+                ediSelloAdesivoexpor,
+                esiSelloAdhNaviera,
+                ediOtherSellos,
+                spinnerSelectZona,
+                spFumigaCorL1 ,
+                spTipoBoquilla
+
+                ///
+
+        } ;
+
+
+        return arrayViews;
+    }
+
+    TextInputEditText [] generateArrayOfTextInputEditTextLibriado(){
+
+        TextInputEditText        ediNombProd1=findViewById(R.id.ediNombProd1);
+        TextInputEditText        ediNombProd2=findViewById(R.id.ediNombProd2);
+        TextInputEditText        ediNombProd3=findViewById(R.id.ediNombProd3);
+        TextInputEditText        ediNombProd4=findViewById(R.id.ediNombProd4);
+        TextInputEditText        ediNombProd5=findViewById(R.id.ediNombProd5);
+        TextInputEditText        ediNombProd6=findViewById(R.id.ediNombProd6);
+        TextInputEditText        ediNombProd7=findViewById(R.id.ediNombProd7);
+        TextInputEditText        ediNombProd8=findViewById(R.id.ediNombProd8);
+        TextInputEditText        ediTipoEmp1=findViewById(R.id.ediTipoEmp1);
+        TextInputEditText        ediTipoEmp2=findViewById(R.id.ediTipoEmp2);
+        TextInputEditText        ediTipoEmp3=findViewById(R.id.ediTipoEmp3);
+        TextInputEditText        ediTipoEmp4=findViewById(R.id.ediTipoEmp4);
+        TextInputEditText        ediTipoEmp5=findViewById(R.id.ediTipoEmp5);
+        TextInputEditText        ediTipoEmp6=findViewById(R.id.ediTipoEmp6);
+        TextInputEditText        ediTipoEmp7=findViewById(R.id.ediTipoEmp7);
+        TextInputEditText        ediTipoEmp8=findViewById(R.id.ediTipoEmp8);
+        TextInputEditText        ediCod1=findViewById(R.id.ediCod1);
+        TextInputEditText        ediCod2=findViewById(R.id.ediCod2);
+        TextInputEditText        ediCod3=findViewById(R.id.ediCod3);
+        TextInputEditText        ediCod4=findViewById(R.id.ediCod4);
+        TextInputEditText        ediCod5=findViewById(R.id.ediCod5);
+        TextInputEditText        ediCod6=findViewById(R.id.ediCod6);
+        TextInputEditText        ediCod7=findViewById(R.id.ediCod7);
+        TextInputEditText        ediCod8=findViewById(R.id.ediCod8);
+        TextInputEditText        edinCajas1=findViewById(R.id.edinCajas1);
+        TextInputEditText        edinCajas2=findViewById(R.id.edinCajas2);
+        TextInputEditText        edinCajas3=findViewById(R.id.edinCajas3);
+        TextInputEditText        edinCajas4=findViewById(R.id.edinCajas4);
+        TextInputEditText        edinCajas5=findViewById(R.id.edinCajas5);
+        TextInputEditText        edinCajas6=findViewById(R.id.edinCajas6);
+        TextInputEditText        edinCajas7=findViewById(R.id.edinCajas7);
+        TextInputEditText        edinCajas8=findViewById(R.id.edinCajas8);
+
+
+        TextInputEditText[] miArrayTextImput= {ediNombProd1, ediNombProd2, ediNombProd3, ediNombProd4, ediNombProd5, ediNombProd6, ediNombProd7, ediNombProd8,
+                ediTipoEmp1, ediTipoEmp2, ediTipoEmp3, ediTipoEmp4, ediTipoEmp5, ediTipoEmp6, ediTipoEmp7, ediTipoEmp8, ediCod1, ediCod2, ediCod3, ediCod4,
+                ediCod5, ediCod6, ediCod7, ediCod8, edinCajas1, edinCajas2, edinCajas3, edinCajas4, edinCajas5, edinCajas6, edinCajas7, edinCajas8,
+
+        };
+
+        return  miArrayTextImput;
+
+    }
+
+
+    private void callPrefrencesSaveAndImagesData(){
+
+        View [] arrayAllViewsData=creaArryOfViewsAll();
+        EditText [] arrayEdiTextLibriado=generateArrayOfTextInputEditTextLibriado();
+
+
+        Log.i("preferido","el current key es "+currentKeySharePrefrences);
+
+
+        if(!currentKeySharePrefrences.equals("") ||  userCreoRegisterForm){  //si no contiene
+            Log.i("saberrr","se ejecuto el if ");
+
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences, ActivityContersEnAcopio.this);
+            SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
+
+
+
+            SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,currentKeySharePrefrences);
+
+
+            Toast.makeText(ActivityContersEnAcopio.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+
+            //significa que tenemos un key de un objeto obtneido de prefrencias
+
+        }
+
+        else
+        { //no existe creamos un nuevo register..
+            Log.i("saberrr","se ejecuto el else ");
+
+
+            Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+            currentKeySharePrefrences=UUID.randomUUID().toString();
+
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES_EN_ACOPIO,"Usuario", "","Conte en Ac.");
+
+
+            //gudramos oejto en el mapa
+            miMpaAllrRegisters.put(inform.getInformUniqueIdPertenece(),inform);
+
+            SharePref.saveHashMapOfHashmapInformRegister(miMpaAllrRegisters,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+            //guardamos info de  views en un mapa usnado el nismo id delobejto creado
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences, ActivityContersEnAcopio.this);
+            SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
+
+            Toast.makeText(ActivityContersEnAcopio.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+
+            if(ImagenReport.hashMapImagesData.size()>0){ //
+
+                SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,currentKeySharePrefrences);
+
+
+            }
+
+            userCreoRegisterForm=true;
+        }
+
+
+
+
+
+
+    }
+
+
 }

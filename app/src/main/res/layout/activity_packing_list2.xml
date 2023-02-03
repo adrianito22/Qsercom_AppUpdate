@@ -862,11 +862,26 @@
                     android:id="@+id/btnSavePacking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn"
                     android:padding="8dp"
                     android:text="Guardar Packing List"
                     android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnSaveLocale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/btn"
+                    android:text="Guardar Localmente"
+                    android:textAllCaps="true"
+                    android:visibility="visible" />
 
                 <Space
                     android:layout_width="match_parent"

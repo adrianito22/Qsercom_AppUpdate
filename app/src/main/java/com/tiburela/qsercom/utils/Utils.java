@@ -458,20 +458,41 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
 
           }
 
+
+
+
           if(vistax!=null){
 
-              if(vistax instanceof EditText){ //si es un editext
-                  EditText editText = (TextInputEditText) vistax; //asi lo convertimos
+                 if(vistax instanceof EditextSupreme){
+                  EditextSupreme spn=(EditextSupreme)vistax ;
+
+                  spn.setText(value);
+
+                  //aqui colamos el texto como en preview
+              }
+
+              else if(vistax instanceof TextInputEditText){
+                  TextInputEditText spn=(TextInputEditText)vistax ;
+
+                  spn.setText(value);
+
+                  //aqui colamos el texto como en preview
+
+              }
+
+              if(vistax instanceof EditText ){ //si es un editext
+                  EditText editText = (EditText) vistax; //asi lo convertimos
                   editText.setText(value);
 
               }
+
+
 
               else if(vistax instanceof Spinner){
                   Spinner spn=(Spinner)vistax ;
 
                   selectValue(spn,value);
 
-                  //aqui colamos el texto como en preview
 
               }
 

@@ -53,9 +53,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
-import com.tiburela.qsercom.callbacks.MyReceiverUpdateForm;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -1053,7 +1051,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
                             ///  ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
-                            //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityDatosContersEnAcopio.this);
+                            //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityContersEnAcopio.this);
 
 
                             showImagesPicShotOrSelectUpdateView(false);
@@ -1110,7 +1108,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
                           //  actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-                           //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", ActivityDatosContersEnAcopio.this);
+                           //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", ActivityContersEnAcopio.this);
 
 
                         }
@@ -1141,7 +1139,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
                  //   actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
 
-                  //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", ActivityDatosContersEnAcopio.this);
+                  //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", ActivityContersEnAcopio.this);
 
 
 
@@ -1447,9 +1445,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 
     switch(currentTypeImage){
-        case Variables.FOTO_PROCESO_FRUTA_FINCA:
-            recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
-            break;
 
         case Variables.FOTO_LLEGADA_CONTENEDOR:
             recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
@@ -2895,9 +2890,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
         switch(currentTypeImage){
-            case Variables.FOTO_PROCESO_FRUTA_FINCA:
-                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
-                break;
 
             case Variables.FOTO_LLEGADA_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
@@ -2945,7 +2937,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int [] arrayTiposImagenes = {Variables.FOTO_PROCESO_FRUTA_FINCA,Variables.FOTO_LLEGADA_CONTENEDOR,Variables.FOTO_SELLO_LLEGADA,
+        int [] arrayTiposImagenes = {Variables.FOTO_LLEGADA_CONTENEDOR,Variables.FOTO_SELLO_LLEGADA,
                 Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS,Variables.FOTO_CIERRE_CONTENEDOR,
                 Variables.FOTO_DOCUMENTACION};
 

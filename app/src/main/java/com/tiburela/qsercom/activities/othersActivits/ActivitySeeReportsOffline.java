@@ -34,6 +34,11 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
+import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
+import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
+import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
+import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
+import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
@@ -91,6 +96,7 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
     @Override
     protected void onStart() {
         super.onStart();
+
         listenenrSpinner();
 
 
@@ -893,61 +899,57 @@ Log.i("puslado","el value es "+idReport);
                 if(reportTipo== Constants.CONTENEDORES){
 
                     Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityContenedores.class);
-                    intencion.putExtra(Variables.KEY_CONTENEDORES_EXTRA,idReport);
+                    intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
 
                     startActivity(intencion);
 
-
-
-                    ///descragamos la parte uno del reporte
-                   // DowloadReportPart1(idReport,Variables.MODO_VISUALIZACION);
 
                 }
 
                 else if(reportTipo==Constants.CONTENEDORES_EN_ACOPIO){
 
+                    Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityContersEnAcopio.class);
+                    intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
 
-                  //  DowloadReportContersAcopio(idReport,Variables.MODO_VISUALIZACION);
-                    //Descargamos un objeto contenedores object...
-
-                }
-
-                else if(reportTipo==Constants.PACKING_lIST){
-
-
-                   // DowloadPackingList(idReport,Variables.MODO_VISUALIZACION);
-                    //Descargamos un objeto contenedores object...
+                    startActivity(intencion);
 
                 }
-
 
                 else if(reportTipo==Constants.CAMIONES_Y_CARRETAS){
 
+                    Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityReporteCalidadCamionesyCarretas.class);
+                    intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
 
-                   // DowloadReportCamionesYcarretas(idReport,Variables.MODO_VISUALIZACION);
-                    //Descargamos un objeto contenedores object...
+                    startActivity(intencion);
+
+                }
+
+
+                else if(reportTipo==Constants.PACKING_lIST){
+
+                    Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityPackingList.class);
+                    intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
+
+                    startActivity(intencion);
 
                 }
 
                 else if(reportTipo==Constants.CONTROL_CALIDAD){
 
-                   // DowloadControlCalidad(idReport,Variables.MODO_VISUALIZACION);
-                    //Descargamos un objeto contenedores object...
+                    Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityControlCalidad.class);
+                    intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
 
+                    startActivity(intencion);
                 }
 
                 else if(reportTipo==Constants.CUADRO_MUESTRO_CAL_RECHZDS){
 
+                    Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityCuadMuestCalibAndRechaz.class);
+                    intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
 
-                    Log.i("hsmpadat","es un cuadro de muestreo ");
-
-                    Log.i("hsmpadat","el id report es  "+idReport);
+                    startActivity(intencion);
 
 
-
-                   // DowloadEspecificReportCalbAndRechazados (idReport,Variables.MODO_VISUALIZACION);
-                    // DowloadControlCalidad(idReport,Variables.MODO_EDICION);
-                    //Descargamos un objeto contenedores object...
                 }
 
 

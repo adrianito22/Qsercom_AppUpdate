@@ -104,7 +104,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         ConnectionReceiver.ReceiverListener , MyReceiver {
 
     public static MyReceiver myReceiver;
-    boolean isUnFormPreferencesData=false;
+    boolean userCreoRegisterForm=false;
 
 
     ImageView imgVAtachProcesoFrutaFinca;
@@ -448,19 +448,11 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
         Bundle extras = getIntent().getExtras();
-
         if (extras != null) {
 
-            /// hayUnformularioIcompleto = extras.getBoolean("ActivitymenuKey");
-
-            currentKeySharePrefrences=extras.getString(Variables.KEY_CONTENEDORES_EXTRA);
+            currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
 
             AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
-
-
-
-
-            //The key argument here must match that used in the other activity
         }
 
 
@@ -5048,7 +5040,6 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
 
 
-
     private void checkIfExistIdAndUpload (String currenTidGenrate, SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
 
       //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
@@ -5317,7 +5308,7 @@ private void callPrefrencesSaveAndImagesData(){
     Log.i("preferido","el current key es "+currentKeySharePrefrences);
 
 
-    if(!currentKeySharePrefrences.equals("")){  //si no contiene
+    if(!currentKeySharePrefrences.equals("") || userCreoRegisterForm){  //si no contiene
       Log.i("saberrr","se ejecuto el if ");
 
         SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityContenedores.this);
@@ -5331,7 +5322,6 @@ private void callPrefrencesSaveAndImagesData(){
 
         Toast.makeText(ActivityContenedores.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
 
-        btnSaveLocale.setEnabled(false);
 
         //significa que tenemos un key de un objeto obtneido de prefrencias
 
@@ -5345,9 +5335,9 @@ private void callPrefrencesSaveAndImagesData(){
         Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
 
-        String keyRandom=UUID.randomUUID().toString();
+        currentKeySharePrefrences=UUID.randomUUID().toString();
 
-        InformRegister inform= new InformRegister(keyRandom,Constants.CONTENEDORES,"Usuario", "","Contenedores"  );
+        InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES,"Usuario", "","Contenedores"  );
 
 
         //gudramos oejto en el mapa
@@ -5356,22 +5346,21 @@ private void callPrefrencesSaveAndImagesData(){
         SharePref.saveHashMapOfHashmapInformRegister(miMpaAllrRegisters,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
         //guardamos info de  views en un mapa usnado el nismo id delobejto creado
-        SharePrefHelper.viewsSaveInfo(arrayAllViewsData,keyRandom,ActivityContenedores.this);
-        SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,keyRandom+"Calendario");
-        SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,keyRandom+"Libriado");
+        SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityContenedores.this);
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,currentKeySharePrefrences+"Calendario");
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
 
         Toast.makeText(ActivityContenedores.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
-        btnSaveLocale.setEnabled(false);
 
 
         if(ImagenReport.hashMapImagesData.size()>0){ //
 
-          SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,keyRandom);
+          SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,currentKeySharePrefrences);
 
 
         }
 
-
+        userCreoRegisterForm=true;
     }
 
 

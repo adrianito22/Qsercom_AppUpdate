@@ -2,9 +2,7 @@ package com.tiburela.qsercom.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,18 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.StorageReference;
-import com.tiburela.qsercom.activities.formularios.ActivityDatosContersEnAcopio;
-import com.tiburela.qsercom.activities.othersActivits.ActivitySeeReports;
+import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
@@ -33,14 +28,11 @@ import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEn
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.ImagenReport;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.storage.StorageData;
-import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -106,7 +98,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 if(Variables.activityCurrent==Variables.FormatDatsContAcopi){
-                    inputStream = ActivityDatosContersEnAcopio.context.getContentResolver().openInputStream(uri);
+                    inputStream = ActivityContersEnAcopio.context.getContentResolver().openInputStream(uri);
 
                 }
 

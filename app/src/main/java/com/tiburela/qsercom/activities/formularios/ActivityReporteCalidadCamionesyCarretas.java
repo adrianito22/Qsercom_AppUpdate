@@ -54,6 +54,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.callbacks.MyReceiver;
@@ -66,6 +67,7 @@ import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
+import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -83,6 +85,10 @@ import com.tiburela.qsercom.R;
 
 public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener, MyReceiver {
     public static MyReceiver myReceiver;
+    String currentKeySharePrefrences="";
+    boolean userCreoRegisterForm=false;
+
+    boolean seSubioform=false;
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -99,7 +105,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     ImageView imgVAtachDocumentacionss;
     ImageView imbTakePicDocuementacionxx;
 
-
+    Button btnSaveLocale;
     Button btnCheck;
 
     private TextInputEditText ediExportadoraProcesada;
@@ -248,15 +254,12 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     Spinner spinnertipodePlastico;
     Spinner spinnertipodeBlanza ;
     Spinner spinnertipodeBlanzaRepeso ;
-   Spinner spinnerubicacionBalanza ;
+    Spinner spinnerubicacionBalanza ;
 
     Spinner spFuenteAgua ;
     Spinner spFumigaCorL1 ;
     Spinner spTipoBoquilla ;
     Spinner spinnerCandadoQsercon;
-
-
-    Switch switchContenedor;
     Switch switchHaybalanza;
     Switch switchHayEnsunchado;
     Switch switchBalanzaRep;
@@ -282,7 +285,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         if(Variables.esUnFormularioOfflienSharePref){
-            AddDataFormOfSharePrefe() ;
+            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
 
             //
             Variables.esUnFormularioOfflienSharePref =false;
@@ -296,38 +299,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         // Check if user is signed in (non-null) and update UI accordingly.
         // FirebaseUser currentUser = Auth.mAuth.getCurrentUser();
         //  updateUI(currentUs bver)
-
-    }
-    private void AddDataFormOfSharePrefe() {
-
-        TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
-        Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
-
-      //  TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
-
-       // Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityReporteCalidadCamionesyCarretas.this);
-
-
-     //   ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
-
-
-
-
-/*
-         //descrgamos info de imagenes //todavia no muy lista aun
-        Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
-        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
-
-        //if el formulario no es nulo
-
-        if(listImagesToSaVE!=null ) {
-
-            addInfotomap(listImagesToSaVE);
-            createlistsForReciclerviewsImages(listImagesToSaVE);
-
-        }
-
-*/
 
     }
 
@@ -347,11 +318,13 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         ImagenReport.hashMapImagesData=new HashMap<>();
 
         hideSomeElemtosAnexosAndChangeValues();
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
-            hayUnformularioIcompleto = extras.getBoolean("ActivitymenuKey");
+            currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
 
+            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
             //The key argument here must match that used in the other activity
         }
 
@@ -377,8 +350,274 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         resultatachImages();
         listennersSpinners();
 
-        eventCheckdata();
+        eventButtons();
         //creaFotos();
+
+
+    }
+
+
+
+    private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
+
+        View [] arrrayAllViews=creaArryOfViewsAll();
+      //  EditText [] arrayEdiText=creaArrayOfEditextCalendario();
+        EditText [] arrayEdiTextLirbiado=generateArrayOfEditTextLibriado();
+
+
+        try {
+            Log.i("preferido","el currentKeySharePrefrences es  "+currentKeySharePrefrences);
+
+            HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
+            Log.i("preferido","el size de mapa es "+currentMapPreferences.size());
+            Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
+
+
+          //  Map<String, String> currentMapPreferencesCalendario= SharePref.loadMap(currentKeySharePrefrences+"Calendario");
+          //  Log.i("preferido","el size de mapa 2 es "+currentMapPreferencesCalendario.size());
+         //   Utils.addDataOfPrefrencesInEditText(arrayEdiText,currentMapPreferencesCalendario);
+
+
+            Map<String, String> currentMapPreferencesLibriado= SharePref.loadMap(currentKeySharePrefrences+"Libriado");
+            Log.i("preferido","el size de mapa 3 es "+currentMapPreferencesLibriado.size());
+            Utils.addDataOfPrefrencesInEditText(arrayEdiTextLirbiado,currentMapPreferencesLibriado);
+
+
+        }
+
+
+        catch (Exception e) {
+
+            Log.i("preferido","la expecion es "+e.getMessage());
+            e.printStackTrace();
+
+
+        }
+
+
+
+
+
+
+
+
+
+        /**aqui las imagenes */
+
+        //descrgamos info de imagenes //todavia no muy lista aun
+
+        ImagenReport.hashMapImagesData  =  SharePref.getMapImagesData(currentKeySharePrefrences);
+
+        Log.i("dineroa","se eejcto este value   ");
+
+
+        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<>(ImagenReport.hashMapImagesData .values());
+
+        //if el formulario no es nulo
+
+        if(listImagesToSaVE!=null && listImagesToSaVE.size()>0 ) {
+
+            createlistsForReciclerviewsImages(listImagesToSaVE);
+
+
+        }
+
+
+
+
+    }
+
+    EditText [] generateArrayOfEditTextLibriado(){
+
+        EditText        pbCluster01 = findViewById(R.id.pbCluster01);
+        EditText        pbCluster05 = findViewById(R.id.pbCluster05);
+        EditText        pbCluster03 = findViewById(R.id.pbCluster03);
+        EditText        pbCluster02 = findViewById(R.id.pbCluster02);
+        EditText        pbCluster04 = findViewById(R.id.pbCluster04);
+        EditText        pbCluster010 = findViewById(R.id.pbCluster010);
+        EditText        pbCluster09 = findViewById(R.id.pbCluster09);
+        EditText        pbCluster07 = findViewById(R.id.pbCluster07);
+        EditText        pbCluster08 = findViewById(R.id.pbCluster08);
+        EditText        pbCluster06 = findViewById(R.id.pbCluster06);
+        EditText        pbCluster011 = findViewById(R.id.pbCluster011);
+        EditText        pbCluster015 = findViewById(R.id.pbCluster015);
+        EditText        pbCluster012 = findViewById(R.id.pbCluster012);
+        EditText        pbCluster013 = findViewById(R.id.pbCluster013);
+        EditText        pbCluster014 = findViewById(R.id.pbCluster014);
+        EditText        pbCluster016 = findViewById(R.id.pbCluster016);
+        EditText        pbCluster019 = findViewById(R.id.pbCluster019);
+        EditText        pbCluster018 = findViewById(R.id.pbCluster018);
+        EditText        pbCluster020 = findViewById(R.id.pbCluster020);
+        EditText        pbCluster017 = findViewById(R.id.pbCluster017);
+        EditText        pbCluster025 = findViewById(R.id.pbCluster025);
+        EditText        pbCluster024 = findViewById(R.id.pbCluster024);
+        EditText        pbCluster023 = findViewById(R.id.pbCluster023);
+        EditText        pbCluster022 = findViewById(R.id.pbCluster022);
+        EditText        pbCluster021 = findViewById(R.id.pbCluster021);
+        EditText        pbCluster028 = findViewById(R.id.pbCluster028);
+        EditText        pbCluster027 = findViewById(R.id.pbCluster027);
+        EditText        pbCluster029 = findViewById(R.id.pbCluster029);
+        EditText        pbCluster026 = findViewById(R.id.pbCluster026);
+        EditText        pbCluster030 = findViewById(R.id.pbCluster030);
+        EditText        pbCluster034 = findViewById(R.id.pbCluster034);
+        EditText        pbCluster031 = findViewById(R.id.pbCluster031);
+        EditText        pbCluster035 = findViewById(R.id.pbCluster035);
+        EditText        pbCluster033 = findViewById(R.id.pbCluster033);
+        EditText        pbCluster032 = findViewById(R.id.pbCluster032);
+        EditText        pbCluster039 = findViewById(R.id.pbCluster039);
+        EditText        pbCluster040 = findViewById(R.id.pbCluster040);
+        EditText        pbCluster037 = findViewById(R.id.pbCluster037);
+        EditText        pbCluster038 = findViewById(R.id.pbCluster038);
+        EditText        pbCluster036 = findViewById(R.id.pbCluster036);
+        EditText        pbCluster043 = findViewById(R.id.pbCluster043);
+        EditText        pbCluster045 = findViewById(R.id.pbCluster045);
+        EditText        pbCluster042 = findViewById(R.id.pbCluster042);
+        EditText        pbCluster041 = findViewById(R.id.pbCluster041);
+        EditText        pbCluster044 = findViewById(R.id.pbCluster044);
+        EditText        pbCluster048 = findViewById(R.id.pbCluster048);
+        EditText        pbCluster046 = findViewById(R.id.pbCluster046);
+        EditText        pbCluster050 = findViewById(R.id.pbCluster050);
+        EditText        pbCluster047 = findViewById(R.id.pbCluster047);
+        EditText        pbCluster049 = findViewById(R.id.pbCluster049);
+        EditText        p2pbCluster01 = findViewById(R.id.p2pbCluster01);
+        EditText        p2pbCluster05 = findViewById(R.id.p2pbCluster05);
+        EditText        p2pbCluster03 = findViewById(R.id.p2pbCluster03);
+        EditText        p2pbCluster02 = findViewById(R.id.p2pbCluster02);
+        EditText        p2pbCluster04 = findViewById(R.id.p2pbCluster04);
+        EditText        p2pbCluster010 = findViewById(R.id.p2pbCluster010);
+        EditText        p2pbCluster09 = findViewById(R.id.p2pbCluster09);
+        EditText        p2pbCluster07 = findViewById(R.id.p2pbCluster07);
+        EditText        p2pbCluster08 = findViewById(R.id.p2pbCluster08);
+        EditText        p2pbCluster06 = findViewById(R.id.p2pbCluster06);
+        EditText        p2pbCluster011 = findViewById(R.id.p2pbCluster011);
+        EditText        p2pbCluster015 = findViewById(R.id.p2pbCluster015);
+        EditText        p2pbCluster012 = findViewById(R.id.p2pbCluster012);
+        EditText        p2pbCluster013 = findViewById(R.id.p2pbCluster013);
+        EditText        p2pbCluster014 = findViewById(R.id.p2pbCluster014);
+        EditText        p2pbCluster016 = findViewById(R.id.p2pbCluster016);
+        EditText        p2pbCluster019 = findViewById(R.id.p2pbCluster019);
+        EditText        p2pbCluster018 = findViewById(R.id.p2pbCluster018);
+        EditText        p2pbCluster020 = findViewById(R.id.p2pbCluster020);
+        EditText        p2pbCluster017 = findViewById(R.id.p2pbCluster017);
+        EditText        p2pbCluster025 = findViewById(R.id.p2pbCluster025);
+        EditText        p2pbCluster024 = findViewById(R.id.p2pbCluster024);
+        EditText        p2pbCluster023 = findViewById(R.id.p2pbCluster023);
+        EditText        p2pbCluster022 = findViewById(R.id.p2pbCluster022);
+        EditText        p2pbCluster021 = findViewById(R.id.p2pbCluster021);
+        EditText        p2pbCluster028 = findViewById(R.id.p2pbCluster028);
+        EditText        p2pbCluster027 = findViewById(R.id.p2pbCluster027);
+        EditText        p2pbCluster029 = findViewById(R.id.p2pbCluster029);
+        EditText        p2pbCluster026 = findViewById(R.id.p2pbCluster026);
+        EditText        p2pbCluster030 = findViewById(R.id.p2pbCluster030);
+        EditText        p2pbCluster034 = findViewById(R.id.p2pbCluster034);
+        EditText        p2pbCluster031 = findViewById(R.id.p2pbCluster031);
+        EditText        p2pbCluster035 = findViewById(R.id.p2pbCluster035);
+        EditText        p2pbCluster033 = findViewById(R.id.p2pbCluster033);
+        EditText        p2pbCluster032 = findViewById(R.id.p2pbCluster032);
+        EditText        p2pbCluster039 = findViewById(R.id.p2pbCluster039);
+        EditText        p2pbCluster040 = findViewById(R.id.p2pbCluster040);
+        EditText        p2pbCluster037 = findViewById(R.id.p2pbCluster037);
+        EditText        p2pbCluster038 = findViewById(R.id.p2pbCluster038);
+        EditText        p2pbCluster036 = findViewById(R.id.p2pbCluster036);
+
+
+        EditText [] miArray= {
+                pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
+                pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
+                pbCluster024 ,pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
+                pbCluster031, pbCluster035, pbCluster033, pbCluster032, pbCluster039, pbCluster040, pbCluster037, pbCluster038, pbCluster036, pbCluster043,
+                pbCluster045, pbCluster042, pbCluster041, pbCluster044, pbCluster048, pbCluster046, pbCluster050, pbCluster047, pbCluster049, p2pbCluster01,
+                p2pbCluster05, p2pbCluster03, p2pbCluster02, p2pbCluster04, p2pbCluster010, p2pbCluster09, p2pbCluster07, p2pbCluster08, p2pbCluster06,
+                p2pbCluster011, p2pbCluster015, p2pbCluster012, p2pbCluster013, p2pbCluster014, p2pbCluster016, p2pbCluster019, p2pbCluster018,
+                p2pbCluster020, p2pbCluster017, p2pbCluster025, p2pbCluster024, p2pbCluster023, p2pbCluster022, p2pbCluster021, p2pbCluster028,
+                p2pbCluster027, p2pbCluster029, p2pbCluster026, p2pbCluster030, p2pbCluster034, p2pbCluster031, p2pbCluster035, p2pbCluster033,
+                p2pbCluster032, p2pbCluster039, p2pbCluster040, p2pbCluster037, p2pbCluster038, p2pbCluster036
+
+        };
+
+
+
+
+
+
+
+
+
+        return  miArray;
+
+    }
+
+
+    private void callPrefrencesSaveAndImagesData(){
+
+        View [] arrayAllViewsData=creaArryOfViewsAll();
+     //   EditText [] arrayEdiTextCalendario =creaArrayOfEditextCalendario();
+        EditText [] arrayEdiTextLibriado=generateArrayOfEditTextLibriado();
+
+
+
+        Log.i("preferido","el current key es "+currentKeySharePrefrences);
+
+
+        if(!currentKeySharePrefrences.equals("") || userCreoRegisterForm){  //si no contiene
+            Log.i("saberrr","se ejecuto el if ");
+
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityReporteCalidadCamionesyCarretas.this);
+         //   SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,currentKeySharePrefrences+"Calendario");
+            SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
+
+
+
+            SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,currentKeySharePrefrences);
+
+
+            Toast.makeText(ActivityReporteCalidadCamionesyCarretas.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+            btnSaveLocale.setEnabled(false);
+
+            //significa que tenemos un key de un objeto obtneido de prefrencias
+
+        }
+
+        else
+        { //no existe creamos un nuevo register..
+            Log.i("saberrr","se ejecuto el else ");
+
+
+            Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+             currentKeySharePrefrences=UUID.randomUUID().toString();
+
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CAMIONES_Y_CARRETAS,"Usuario", "","Camiones y carretas"  );
+
+
+            //gudramos oejto en el mapa
+            miMpaAllrRegisters.put(inform.getInformUniqueIdPertenece(),inform);
+
+            SharePref.saveHashMapOfHashmapInformRegister(miMpaAllrRegisters,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+            //guardamos info de  views en un mapa usnado el nismo id delobejto creado
+            SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityReporteCalidadCamionesyCarretas.this);
+          //  SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,keyRandom+"Calendario");
+            SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
+
+            Toast.makeText(ActivityReporteCalidadCamionesyCarretas.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
+
+
+            if(ImagenReport.hashMapImagesData.size()>0){ //
+
+                SharePref.saveHashMapImagesData(ImagenReport.hashMapImagesData,currentKeySharePrefrences);
+
+
+            }
+
+            userCreoRegisterForm=true;
+        }
+
+
+
+
 
 
     }
@@ -547,7 +786,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
-
+          btnSaveLocale=findViewById(R.id.btnSaveLocale);
 
           ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
           ediExportadoraSolicitante=findViewById(R.id.ediExportadoraSolicitante);
@@ -1636,7 +1875,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     }
 
 
-    private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
+    private void eventButtons(){// verificamos que halla llenado toda la info necesaria..
 
         btnCheck=findViewById(R.id.btnCheck);
 
@@ -1656,7 +1895,14 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             }
         });
 
+        btnSaveLocale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                callPrefrencesSaveAndImagesData();
+
+            }
+        });
 
 
 
@@ -1955,7 +2201,12 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
         Log.i("elnumber","el numero generado es ss"+uniqueId);
 
-        checkIfExistIdAndUpload(uniqueId,cmaionesyCarretasObjc);
+        if(!seSubioform){
+
+            checkIfExistIdAndUpload(uniqueId,cmaionesyCarretasObjc);
+
+        }
+
 
 
     }
@@ -3236,9 +3487,9 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 //si hay un formulario obtenerlo..
     //una propiedad que diga si ya lo subio...
     ///el primer valor del map conttendra esa propiedad...
-    private TextInputEditText[] creaArryOfTextInputEditText() {
+    private View[] creaArryOfViewsAll() {
 
-        TextInputEditText [] arrayEditex = {
+        View [] arrayViewsAll = {
 
                 ediSemana,
                 ediFecha,
@@ -3337,13 +3588,28 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 esiSelloAdhNaviera,
                 ediOtherSellos,
 
+                spinnerSelectZona,
+         spinnerCondicionBalanza,
+         spinnertipoCaja,
+         spinnertipodePlastico,
+         spinnertipodeBlanza ,
+         spinnertipodeBlanzaRepeso,
+         spinnerubicacionBalanza,
+         spFuenteAgua ,
+         spFumigaCorL1 ,
+         spTipoBoquilla ,
+         spinnerCandadoQsercon,
 
-
+         switchHaybalanza,
+         switchHayEnsunchado,
+         switchBalanzaRep,
+         switchLavdoRacimos,
+         swAguaCorrida
 
         } ;
 
 
-        return arrayEditex;
+        return arrayViewsAll;
     }
 
 
@@ -3863,8 +4129,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         TextView txtFotoPuertacontenedor=findViewById(R.id.txtFotoPuertacontenedor);
         TextView txtCierreContenedor=findViewById(R.id.txtCierreContenedor);
 
-
-
         lay1x.setVisibility(View.GONE);
         recyclerFotoProcesoFrEnFinca.setVisibility(View.GONE);
 
@@ -3880,6 +4144,39 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     public void uploadNewForm() {
 
         btnCheck.setEnabled(false);
+        seSubioform=true;
+
+
+        if(!currentKeySharePrefrences.equals("")){
+
+            try {
+                Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+                InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
+
+
+
+                Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);
+
+                Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
+
+                objec.setSeSubioFormAlinea(true);
+                mapAllReportsRegister.put(currentKeySharePrefrences,objec);
+
+                SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+            }
+
+            catch (Exception e) {
+                e.printStackTrace();
+
+                Log.i("dineroa","hello haaxxx");
+
+            }
+
+        }
+
 
     }
 
