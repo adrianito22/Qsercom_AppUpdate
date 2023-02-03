@@ -81,7 +81,12 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
 
         }else{ //si es offline
 
-try {
+            holder.txtReportCode.setText("Reporte "+(position+1)); //SI ES OFFLINE OCULTAMOS STATE VIEW
+
+
+
+
+            try {
     if(InformRegister.isSeSubioFormAlinea()){
         holder.txtStateForm.setText("Subido"); //SI ES OFFLINE OCULTAMOS STATE VIEW
 

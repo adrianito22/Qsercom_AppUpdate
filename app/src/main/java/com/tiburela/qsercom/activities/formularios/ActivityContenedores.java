@@ -332,7 +332,6 @@ Log.i("hellosweer","se ehjecitp onstart");
     private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
 
         View [] arrrayAllViews=creaArryOfViewsAll();
-
         EditText [] arrayEdiText=creaArrayOfEditextCalendario();
         EditText [] arrayEdiTextLirbiado=generateArrayOfEditTextLibriado();
 
@@ -5309,8 +5308,8 @@ public void decideaAtachReport(boolean userSelecion){
 
 private void callPrefrencesSaveAndImagesData(){
 
-       View [] mivIEWSAlls=creaArryOfViewsAll();
-      EditText [] arrayEdiText=creaArrayOfEditextCalendario();
+       View [] arrayAllViewsData=creaArryOfViewsAll();
+      EditText [] arrayEdiTextCalendario =creaArrayOfEditextCalendario();
     EditText [] arrayEdiTextLibriado=generateArrayOfEditTextLibriado();
 
 
@@ -5321,10 +5320,9 @@ private void callPrefrencesSaveAndImagesData(){
     if(!currentKeySharePrefrences.equals("")){  //si no contiene
       Log.i("saberrr","se ejecuto el if ");
 
-        SharePrefHelper.viewsSaveInfo(mivIEWSAlls,currentKeySharePrefrences,ActivityContenedores.this);
-        SharePrefHelper.viewsSaveInfoEditText(arrayEdiText,currentKeySharePrefrences+"Calendario");
+        SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityContenedores.this);
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,currentKeySharePrefrences+"Calendario");
         SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
-
 
 
 
@@ -5358,9 +5356,9 @@ private void callPrefrencesSaveAndImagesData(){
         SharePref.saveHashMapOfHashmapInformRegister(miMpaAllrRegisters,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
         //guardamos info de  views en un mapa usnado el nismo id delobejto creado
-        SharePrefHelper.viewsSaveInfo(mivIEWSAlls,inform.getInformUniqueIdPertenece(),ActivityContenedores.this);
-        SharePrefHelper.viewsSaveInfoEditText(arrayEdiText,inform.getInformUniqueIdPertenece());
-
+        SharePrefHelper.viewsSaveInfo(arrayAllViewsData,keyRandom,ActivityContenedores.this);
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,keyRandom+"Calendario");
+        SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,keyRandom+"Libriado");
 
         Toast.makeText(ActivityContenedores.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
         btnSaveLocale.setEnabled(false);
@@ -5704,7 +5702,9 @@ private void callPrefrencesSaveAndImagesData(){
                 SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
 
-            } catch (Exception e) {
+            }
+
+            catch (Exception e) {
                 e.printStackTrace();
 
                 Log.i("dineroa","hello haaxxx");
