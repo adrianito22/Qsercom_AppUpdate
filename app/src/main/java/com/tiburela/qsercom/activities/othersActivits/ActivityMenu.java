@@ -736,7 +736,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         if(mimap!=null && mimap.size()>0){ //si no es nulo
 
             SharePref.mihashMapFieldsToRecycler= mimap;
-            Variables.hayUnFormIcompletoTOrEYCLER =true;
+            Variables.hayDataPreferences =true;
             return true;
         }
 

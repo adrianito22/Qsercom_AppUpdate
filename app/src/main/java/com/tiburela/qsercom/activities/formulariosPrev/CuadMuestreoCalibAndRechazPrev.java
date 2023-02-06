@@ -41,7 +41,6 @@ public class CuadMuestreoCalibAndRechazPrev extends AppCompatActivity  {
     RecyclerView mireciclerv;
     ArrayList<ColorCintasSemns> ColorCintasSemnsArrayList;
     Button btnSaveCambios;
-
     TextView txtTotalRechazados;
     ImageView imgVupdate;
 
@@ -538,8 +537,6 @@ return object;
             //Agregamos este valor en este edi text
         }
 
-
-        //antes d ellamar la lista no olvidar de  ordenarlo de menor a mayor...
 
         setRECICLERdata(milista);
 

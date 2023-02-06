@@ -1,9 +1,7 @@
 package com.tiburela.qsercom.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,7 +17,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.models.ColorCintasSemns;
-import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -87,7 +84,7 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
         String keyCurrent="";
 
 
-        if(Variables.hayUnFormIcompletoTOrEYCLER){
+        if(Variables.hayDataPreferences){
             if(SharePref.mihashMapFieldsToRecycler.containsKey(position+","+holder.ediColum9.getId())){
                 keyCurrent=position+","+holder.ediColum9.getId();
 
@@ -145,73 +142,43 @@ public class RecyclerVAdapterColorCintSem extends RecyclerView.Adapter<RecyclerV
              }
 
 
+        Log.i("hunejo","el value de column14 es "+objectCurrent.getColumFieldNUm14());
+
 
         if(objectCurrent.getColumFieldNUm9()!=0){
-
             holder.ediColum9.setText(String.valueOf(objectCurrent.getColumFieldNUm9()));
-
         }
 
 
         if(objectCurrent.getColumFieldNUm10()!=0){
-
             holder.ediColum10.setText(String.valueOf(objectCurrent.getColumFieldNUm10()));
-
         }
 
 
         if(objectCurrent.getColumFieldNUm11()!=0){
-
             holder.ediColum11.setText(String.valueOf(objectCurrent.getColumFieldNUm11()));
-
-
         }
 
 
         if(objectCurrent.getColumFieldNUm12()!=0){
-
             holder.ediColum12.setText(String.valueOf(objectCurrent.getColumFieldNUm12()));
-
-
         }
 
 
         if(objectCurrent.getColumFieldNUm13()!=0){
-
             holder.ediColum13.setText(String.valueOf(objectCurrent.getColumFieldNUm13()));
         }
 
 
+
+
         if(objectCurrent.getColumFieldNUm14()!=0){
-
             holder.ediColum14.setText(String.valueOf(objectCurrent.getColumFieldNUm14()));
-
         }
 
 
         holder.semnNum.setText(String.valueOf(objectCurrent.getSemanNum()) );
         holder.semnNum.setTag(objectCurrent.getUniqueId());
-
-
-        //ad atags
-       // holder.semnNum.setTag("semnNum");
-     //   holder.ediColum9.setTag("ediColum9");
-    //    holder.ediColum10.setTag("ediColum10");
-    //    holder.ediColum11.setTag("ediColum11");
-     //   holder.ediColum12.setTag("ediColum12");
-     //   holder.ediColum13.setTag("ediColum13");
-      //  holder.ediColum14.setTag("ediColum14");
-
-
-       // holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
-
-
-       /// holder.myCustomEditTextListener.getClass()
-      //  holder.ediColum9.upDa
-
-     //  holder.ediColum14.setText(StringlistSemns.get(holder.getAdapterPosition()));
-
-
 
 
     }

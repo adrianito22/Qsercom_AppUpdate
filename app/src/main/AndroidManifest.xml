@@ -36,14 +36,6 @@
         tools:targetApi="s">
 
 
-
-
-
-
-
-        <activity
-            android:name=".activities.TestFindViewsId"
-            android:exported="false" />
         <activity
             android:name=".PdfMaker.PdfMaker2_0"
             android:configChanges="orientation"

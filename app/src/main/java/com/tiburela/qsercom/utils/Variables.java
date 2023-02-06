@@ -2,7 +2,6 @@ package com.tiburela.qsercom.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.tiburela.qsercom.models.ColorCintasSemns;
@@ -197,7 +196,7 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
     public static HashMap<String, String> currentMapPreferences=new HashMap<>();
 
     public static boolean esUnFormularioOfflienSharePref =false;
-    public static boolean hayUnFormIcompletoTOrEYCLER =false;
+    public static boolean hayDataPreferences =false;
 
 
     public static int currentFormSelect=0;

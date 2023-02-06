@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 
@@ -143,6 +144,67 @@ public class SharePref {
                     .apply();
         }
     }
+
+
+
+    ////sdd
+    public static   Map<String, ColorCintasSemns> getMapColorCintsSemns(String KeyOfItem) {
+
+        Gson gson = new Gson();
+        String response=mSharedPrefUniqueObjc.getString(KeyOfItem , "");
+
+        Type type = new TypeToken<Map<String,ColorCintasSemns>>(){}.getType();
+
+        Map<String,ColorCintasSemns> mapPlants;
+        mapPlants = gson.fromJson(response, type);
+
+
+        if(response.equals("")) {
+            Log.i("lashareperf","no hay data en share plant ");
+
+            mapPlants= new HashMap<>();
+            return mapPlants;
+
+        }else{
+
+            Log.i("lashareperf","Si hay data en share  plant y el length es "+mapPlants.size());
+
+            return mapPlants;
+
+
+        }
+
+
+    }
+
+    public static  void saveHashMapColorCintsSemanas(  Map<String, ColorCintasSemns> inputMap,String keySharePref) {
+
+        Log.i("hunejo","el size de map es  "+inputMap.size());
+
+        for(ColorCintasSemns objec: inputMap.values()){
+
+            Log.i("hunejo","el valu item es "+objec.getSemanNum());
+            Log.i("hunejo","el valu item es "+objec.getColumFieldNUm9());
+
+
+        }
+
+
+        if (mSharedPrefUniqueObjc != null){
+            // JSONObject jsonObject = new JSONObject(inputMap);
+            //   String jsonString = jsonObject.toString();
+            mSharedPrefUniqueObjc.edit()
+                    //  .remove("My_map")
+                    .putString(keySharePref, new Gson().toJson(inputMap))
+                    // .putString(keySharePref, jsonString)
+
+                    .apply();
+
+            Log.i("hunejo","le hemos dado en apply el key es "+keySharePref);
+
+        }
+    }
+
 
 
 

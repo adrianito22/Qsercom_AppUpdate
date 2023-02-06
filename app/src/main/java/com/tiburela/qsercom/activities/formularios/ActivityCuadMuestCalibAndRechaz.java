@@ -31,6 +31,7 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
@@ -41,12 +42,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implements View.OnTouchListener {
+public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity  {
     String currentKeySharePrefrences="";
 
     Button btnSaveLocale;
@@ -161,12 +164,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
 
-            currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
-
-            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
-        }
 
 
 
@@ -251,7 +249,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
 
                     ///editamos los otros datos de la cantidad de rechzados..
-                    CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
+                    //CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
 
 
                     int totalRechazados=obtenTotaLrechazados(objec);
@@ -262,9 +260,9 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(objec);
 
 
-                    iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
+                  HashMap<String,ColorCintasSemns>mapita= iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
 
-                    RealtimeDB.addNewCuadroMuestreoHasMap(Variables.mapColorCintasSemanas,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
+                    RealtimeDB.addNewCuadroMuestreoHasMap(mapita,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 
 
 
@@ -304,7 +302,8 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         }
 
         setRECICLERdata(ColorCintasSemnsArrayList);
-        createMapInitial();
+
+       // createMapInitial();
 
 
         ediFechax.setOnClickListener(new View.OnClickListener() {
@@ -323,11 +322,20 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         ediFechax.setCursorVisible(false);
 
 
+        if (extras != null) {
+
+            currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
+
+            AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
+        }
+
     }
 
     private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
 
         View [] arrrayAllViews=creaArryOfViewsAll();
+
+
 
         try {
             Log.i("preferido","el currentKeySharePrefrences es  "+currentKeySharePrefrences);
@@ -335,6 +343,28 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
             HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
             Log.i("preferido","el size de mapa es "+currentMapPreferences.size());
             Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
+
+
+            Map<String, ColorCintasSemns> map=SharePref.getMapColorCintsSemns(currentKeySharePrefrences+"ColorCintasSemns");
+
+            Log.i("hunejo","el map de preferencias es  "+map.size());
+
+            Variables.esUnFormularioOfflienSharePref =true;
+
+
+            for(ColorCintasSemns object:map.values()){
+                Log.i("hunejoxx","el fiel num 14 es  "+object.getColumFieldNUm14());
+
+
+            }
+
+            setDataInViewMapData(map);
+
+
+
+            Variables.esUnFormularioOfflienSharePref =false;
+
+
 
         }
 
@@ -351,6 +381,40 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
     }
 
+    private void setDataInViewMapData(Map<String, ColorCintasSemns> mapColorCintasSemanas ){
+
+
+        //AHORA EL MAPA//ITERAMOS EL MAPA
+        ArrayList<ColorCintasSemns>milista=new ArrayList<>();
+
+        for (Map.Entry<String, ColorCintasSemns > entry : mapColorCintasSemanas.entrySet()) {
+            // String keyAndIdOfView = entry.getKey();
+            ColorCintasSemns valueOfItem = entry.getValue();
+            ///podemos crear un arra list y organizarlo de mayor menor a mayor,pero por ahora
+            milista.add(valueOfItem);
+
+
+            Log.i("hunejo","el semana 14 de mapa es "+valueOfItem.getColumFieldNUm14());
+
+            //Agregamos este valor en este edi text
+        }
+
+
+        Collections.sort(milista, new Comparator<ColorCintasSemns>()
+        {
+            @Override
+            public int compare(ColorCintasSemns lhs, ColorCintasSemns rhs) {
+
+                return Integer.valueOf(lhs.getSemanNum()).compareTo(rhs.getSemanNum());
+            }
+        });
+
+
+
+        setRECICLERdata(milista);
+
+
+    }
 
 
     private View[] creaArryOfViewsAll() {
@@ -376,6 +440,10 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
         View [] arrayAllViewsData=creaArryOfViewsAll();
 
+        /**agregamos data al hasmpa de */
+
+
+        HashMap<String,ColorCintasSemns> miMap=iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);//asi agregamos objetos al mapque depsues gaurdamos
 
 
         Log.i("preferido","el current key es "+currentKeySharePrefrences);
@@ -386,9 +454,11 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
             SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityCuadMuestCalibAndRechaz.this);
 
+            SharePref.saveHashMapColorCintsSemanas(miMap,currentKeySharePrefrences+"ColorCintasSemns");
+
+
             Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
 
-            btnSaveLocale.setEnabled(false);
 
             //significa que tenemos un key de un objeto obtneido de prefrencias
 
@@ -414,6 +484,8 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
             //guardamos info de  views en un mapa usnado el nismo id delobejto creado
             SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityCuadMuestCalibAndRechaz.this);
+            SharePref.saveHashMapColorCintsSemanas(miMap,currentKeySharePrefrences+"ColorCintasSemns");
+
             Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
 
 
@@ -631,6 +703,7 @@ return object;
 
 
     private void createMapInitial(){
+
         Variables.mapColorCintasSemanas=new HashMap<>();
 
         for(int indice=0; indice<ColorCintasSemnsArrayList.size(); indice++){
@@ -793,37 +866,6 @@ return  sum_of_values;
     }
 
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-        if(motionEvent.getAction()==MotionEvent.ACTION_DOWN ){
-
-
-            try {
-                PerecentHelp.listViewsClickedUser.add(view);
-
-                Log.i("casnasd","el size de la lista es "+ PerecentHelp.listViewsClickedUser.size());
-
-                if( PerecentHelp.listViewsClickedUser.size()>1) {
-                    //obtenemos la lista anterior y verficamos si esta completada;
-                    View vistFieldAnterior = PerecentHelp.getVistaAnteriorClick();
-                    //  checkeamosSiFieldViewIScompleted(vistFieldAnterior);
-                    PerecentHelp.checkeamosSiFieldViewIScompletedAndSavePref(vistFieldAnterior, SharePref.KEY_MUESTRO_RECHAZDOS);
-
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-
-
-        }
-
-
-        return false;
-    }
 
 
 private TextInputEditText[] devuleArrayTiEditext(){
@@ -850,61 +892,18 @@ private TextInputEditText[] devuleArrayTiEditext(){
     protected void onStart() {
         super.onStart();
 
-        if(Variables.esUnFormularioOfflienSharePref){
-
-            AddDataFormOfSharePrefe() ;
-
-            //
-            Variables.esUnFormularioOfflienSharePref =false;
-
-        }
-
-        addtouclister();
-    }
 
 
 
-
-    private void AddDataFormOfSharePrefe() {
-
-        TextInputEditText [] arrayEditex =devuleArrayTiEditext();
-        Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
-
-
-
-/*
-         //descrgamos info de imagenes //todavia no muy lista aun
-        Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
-        ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<ImagenReport>(mapImagesReport.values());
-
-        //if el formulario no es nulo
-
-        if(listImagesToSaVE!=null ) {
-
-            addInfotomap(listImagesToSaVE);
-            createlistsForReciclerviewsImages(listImagesToSaVE);
-
-        }
-
-*/
 
 
     }
 
 
 
-    private void addtouclister(){
 
 
 
-
-        TextInputEditText [] miArrayTXtimpEdit=devuleArrayTiEditext();
-
-        for (int indice=0; indice<miArrayTXtimpEdit.length; indice++){
-                miArrayTXtimpEdit[indice].setOnTouchListener(this);
-
-    }
-    }
 
     void selecionaFecha(){
 
@@ -948,7 +947,7 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
 
 
-    public  void iterateItemsOfReciclerViewAndAddDataToMap(RecyclerView mirecicler){
+    public   HashMap<String, ColorCintasSemns> iterateItemsOfReciclerViewAndAddDataToMap(RecyclerView mirecicler){
 
         int valueNUM14;
         int valueNUM13;
@@ -958,6 +957,7 @@ private TextInputEditText[] devuleArrayTiEditext(){
         int valueNUM9;
 
 
+        HashMap<String, ColorCintasSemns>mapa= new HashMap<>();
 
 
         for (int i = 0; i < mirecicler.getChildCount(); i++) {
@@ -980,6 +980,7 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
             if(! holder.ediColum14.getText().toString().trim().isEmpty()){
                 valueNUM14=Integer.parseInt(holder.ediColum14.getText().toString());
+                Log.i("hunejo","el valu num 14 es ... "+valueNUM14);
 
             }
 
@@ -1014,19 +1015,17 @@ private TextInputEditText[] devuleArrayTiEditext(){
                     valueNUM14,valueNUM13,valueNUM12,valueNUM11,valueNUM10,valueNUM9);
             objec.setUniqueId(uniqueIdObjec);
 
-
-            Variables. mapColorCintasSemanas.put(uniqueIdObjec,objec);
-
+            mapa.put(uniqueIdObjec,objec );
 
 
-            //aqui agudamos..... hasmap
+
+            //aqui agudamos..... 2
 
             //GAURDA,PS
 
         }
 
-
-
+         return  mapa;
 
     }
 
