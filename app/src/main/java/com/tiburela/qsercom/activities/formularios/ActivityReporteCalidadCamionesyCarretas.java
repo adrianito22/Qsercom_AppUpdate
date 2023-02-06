@@ -2249,7 +2249,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                     addCalibracionFutaC_enfAndUpload(currenTidGenrate);
                     addProdcutsPostCosechaAndUpload(currenTidGenrate); //agregamos y subimos los productos postcosecha..
 
-                    finish();
 
 
                 }

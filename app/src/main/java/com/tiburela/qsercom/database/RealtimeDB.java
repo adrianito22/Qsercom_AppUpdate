@@ -17,6 +17,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
+import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
@@ -1145,6 +1146,10 @@ public static  Context myContext;
 
     public static void decideCallbackHere(){
 
+
+        Log.i("dineroa","hel activityCurrent  es "+Variables.activityCurrent);
+        Log.i("dineroa","hel FormContenedores es "+Variables.FormContenedores);
+
         if(Variables.activityCurrent==Variables.FormContenedores){
 
             if(ActivityContenedores.myReceiver!=null){
@@ -1172,13 +1177,18 @@ public static  Context myContext;
         }
 
 
-        else if (Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW ){
+        else if (Variables.activityCurrent==Variables.FormMuestreoRechaz ){
 
-/*
-            if(PreviewsFormDatSContersEnAc.myReceiver!=null){
-                PreviewsFormDatSContersEnAc.myReceiver.uploadNewForm();
+
+            if(ActivityCuadMuestCalibAndRechaz.myReceiver!=null){
+                ActivityCuadMuestCalibAndRechaz.myReceiver.uploadNewForm();
             }
-        */
+            else{
+
+                Log.i("dineroa","es nulo now ");
+
+            }
+
 
         }
 

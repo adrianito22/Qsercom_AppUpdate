@@ -27,12 +27,11 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
+import com.tiburela.qsercom.callbacks.MyReceiver;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.models.PromedioLibriado;
-import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -49,8 +48,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity  {
+public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implements MyReceiver {
     String currentKeySharePrefrences="";
+
+    public static MyReceiver myReceiver;
+
 
     Button btnSaveLocale;
 
@@ -114,6 +116,8 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lay_cuadro_muestreo_recha);
+        myReceiver = this;
+
 
         btnSaveLocale=findViewById(R.id.btnSaveLocale);
 
@@ -161,6 +165,10 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity  {
         ediColor12=findViewById(R.id.ediColor12);
         ediColor13=findViewById(R.id.ediColor13);
         ediColor14=findViewById(R.id.ediColor14);
+
+
+        Variables.activityCurrent=Variables.FormMuestreoRechaz;
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -265,12 +273,8 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity  {
                     RealtimeDB.addNewCuadroMuestreoHasMap(mapita,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
 
 
-
                     //   Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Se Guardo Informe", Toast.LENGTH_SHORT).show();
                      Log.i("saber"," se subio la data ");
-
-
-                     finish();
 
 
 
@@ -328,6 +332,13 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity  {
 
             AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myReceiver = null;
 
     }
 
@@ -542,7 +553,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity  {
 
                     cuadroMuetreo.setUniqueIdObject(currenTidGenrate);
                     //informe actual
-
 
 
                     RealtimeDB.addNewCuadroMuestreoObject(cuadroMuetreo); //subimos un cuadro de muestreo object
@@ -888,17 +898,6 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-
-
-
-
-    }
-
 
 
 
@@ -1192,7 +1191,44 @@ private TextInputEditText[] devuleArrayTiEditext(){
     }
 
 
+    @Override
+    public void uploadNewForm() {
 
+        btnSaveCambios.setEnabled(false);
+
+
+        if(!currentKeySharePrefrences.equals("")){
+
+            try {
+                Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+                InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
+
+
+
+                Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);
+
+                assert objec != null;
+                Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
+
+                objec.setSeSubioFormAlinea(true);
+                mapAllReportsRegister.put(currentKeySharePrefrences,objec);
+
+                SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+            }
+
+            catch (Exception e) {
+                e.printStackTrace();
+
+                Log.i("dineroa","hello haaxxx");
+
+            }
+
+        }
+
+    }
 }
 
 

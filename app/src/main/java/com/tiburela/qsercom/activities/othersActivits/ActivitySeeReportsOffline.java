@@ -97,10 +97,9 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
     protected void onStart() {
         super.onStart();
 
-        listenenrSpinner();
-
-
         mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+        listenenrSpinner();
 
 
         try {
@@ -1109,9 +1108,6 @@ Log.i("puslado","el value es "+idReport);
 
 
            //en caso que no halla nada en este periodo..
-
-
-
 
 
 
