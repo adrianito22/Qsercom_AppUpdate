@@ -54,7 +54,7 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.callbacks.MyReceiver;
+import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
@@ -78,10 +78,10 @@ import java.util.UUID;
 
 
 public class ActivityContersEnAcopio extends AppCompatActivity implements View.OnClickListener,
-        MyReceiver {
+        CallbackUploadNewReport {
     boolean seSubioform=false;
 
-    public static MyReceiver myReceiver;
+    public static CallbackUploadNewReport callbackUploadNewReport;
     String currentKeySharePrefrences="";
 
      Button btnSaveLocale;
@@ -287,7 +287,7 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_datos_contene_acopio);
 
-        myReceiver = this;
+        callbackUploadNewReport = this;
 
         hideSomeElemtosAnexos();
 
@@ -348,7 +348,7 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        myReceiver = null;
+        callbackUploadNewReport = null;
 
     }
 

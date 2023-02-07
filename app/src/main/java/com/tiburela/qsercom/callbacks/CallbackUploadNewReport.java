@@ -1,6 +1,6 @@
 package com.tiburela.qsercom.callbacks;
 
-public interface MyReceiver {
+public interface CallbackUploadNewReport {
 
     public void uploadNewForm();
 

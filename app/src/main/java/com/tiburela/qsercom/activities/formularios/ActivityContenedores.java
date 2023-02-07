@@ -67,7 +67,7 @@ import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.callbacks.MyReceiver;
+import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
@@ -101,9 +101,9 @@ import com.tiburela.qsercom.R;
 
 
 public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,
-        ConnectionReceiver.ReceiverListener , MyReceiver {
+        ConnectionReceiver.ReceiverListener , CallbackUploadNewReport {
 
-    public static MyReceiver myReceiver;
+    public static CallbackUploadNewReport callbackUploadNewReport;
     boolean userCreoRegisterForm=false;
 
 
@@ -404,7 +404,7 @@ Log.i("hellosweer","se ehjecitp onstart");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
-        myReceiver = this;
+        callbackUploadNewReport = this;
 
 
         context=getApplicationContext();
@@ -463,7 +463,7 @@ Log.i("hellosweer","se ehjecitp onstart");
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        myReceiver = null;
+        callbackUploadNewReport = null;
 
     }
 

@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
@@ -34,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ActivityPackingList extends AppCompatActivity implements View.OnTouchListener {
+public class ActivityPackingList extends AppCompatActivity implements View.OnTouchListener, CallbackUploadNewReport {
     String currentKeySharePrefrences="";
 
     HashMap<String, String> packingListMap;
@@ -125,14 +126,21 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
     private TextInputEditText mEdiContenedorxzz;
     private TextInputEditText mEdiFechaHere;
 
+    public static CallbackUploadNewReport callbackUploadNewReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_packing_list2);
 
-     findviewsIDS();
+        callbackUploadNewReport = this;
+
+
+        findviewsIDS();
      RealtimeDB.initDatabasesRootOnly();
+
+        Variables.activityCurrent=Variables.FormPackingList;
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -203,6 +211,14 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        callbackUploadNewReport = null;
+
+    }
+
 
     private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
 
@@ -836,6 +852,47 @@ private boolean checkAndCreateAllPackinListMap() {
 
 
         return false;
+    }
+
+    @Override
+    public void uploadNewForm() {
+
+
+        btnSavePacking.setEnabled(false);
+
+
+        if(!currentKeySharePrefrences.equals("")){
+
+            try {
+                Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+                InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
+
+
+
+                Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);
+
+                assert objec != null;
+                Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
+
+                objec.setSeSubioFormAlinea(true);
+                mapAllReportsRegister.put(currentKeySharePrefrences,objec);
+
+                SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+            }
+
+            catch (Exception e) {
+                e.printStackTrace();
+
+                Log.i("dineroa","hello haaxxx");
+
+            }
+
+        }
+
+
     }
 }
 

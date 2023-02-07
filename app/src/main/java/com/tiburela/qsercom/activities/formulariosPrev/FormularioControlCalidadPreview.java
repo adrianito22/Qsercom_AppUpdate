@@ -532,27 +532,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
-        /*
-
-        for (int i = 0; i <10; i++) { //iniclizamos lista custom defectos
-
-            ArrayList<DefectsAndNumber> listItem = new ArrayList<>(); //serian unas dies listas...
-
-
-            for (int j = 0; j <3; j++) {
-
-                listItem.add(new DefectsAndNumber(false,0));
-                //agregamos valors a esta lista
-            }
-
-
-            Utils.hasmpaCustomDefectos.put(String.valueOf(miArrayImgSelecs[i].getId()),listItem);
-
-
-
-        }
-*/
-
 
     }
 
@@ -650,50 +629,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     }
 
 
-/*
-
-    void  configInitialHashasmapCustomDefectsWhitDowload(HashMap<String , String>  HashMapDowload) {
-
-        int numsValuesSelec= 0;
-
-        for (Map.Entry<String, String> entry : HashMapDowload.entrySet()) {
-            String key = entry.getKey();
-            String  value = entry.getValue();
-
-            String   [] posicionesEditarArray = value.split(",") ; //  1-4-nombre    //posicion nombre defecto....
-
-            if(Utils.hasmpaCustomDefectos.containsKey(key)){
-
-                for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
-
-                    String   [] arrayIndiceAndNum =posicionesEditarArray[indice2].split("-");
-
-                    int currrentPoscionParaCambiar=Integer.parseInt(arrayIndiceAndNum[0]);
-
-                    numsValuesSelec++;
-
-                    Log.i("smakader","el texta es"+posicionesEditarArray[indice2]);
-
-                    int sizeArrayList= Utils.hasmpaCustomDefectos.get(key).size();
-
-                    Log.i("smakader","el size de la lista es "+sizeArrayList);
-
-
-                          DefectsAndNumber defectObjec= new DefectsAndNumber(true,Integer.parseInt(arrayIndiceAndNum[1]));
-                          defectObjec.setDefectName(arrayIndiceAndNum[2]);
-                    Utils.hasmpaCustomDefectos.get(key).set(currrentPoscionParaCambiar, defectObjec);
-
-                }
-
-                //editamos este valor
-            }
-
-        }
-      //  txtTotalDefectSelect.setText(String.valueOf(numsValuesSelec));
-
-    }
-
-*/
 
     //determinar que posicion pulso o si pusla este hacer esto
 

@@ -9,7 +9,6 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -30,13 +29,13 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanos;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanosEmpaque;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -48,7 +47,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener {
+public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener, CallbackUploadNewReport {
     String currentKeyAndSharePrefrences ="";
 
     boolean userCreoRegisterForm=false;
@@ -498,9 +497,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             Log.i("solerma","el currentKeySharePrefrences es  "+ currentKeyAndSharePrefrences);
 
             HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeyAndSharePrefrences);
+
+            hasMapitemsSelecPosicRechazToUpload=SharePref.getMapDefects(currentKeyAndSharePrefrences+"defectos");
+
+            Log.i("solerma","el size de hasMapitemsSelecPosicRechazToUpload es "+hasMapitemsSelecPosicRechazToUpload.size());
+
+
             Log.i("solerma","el size de mapa es "+currentMapPreferences.size());
             Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
 
+               configInitialHashasmapsChekedItemsWhidDataPreferences(hasMapitemsSelecPosicRechazToUpload);
 
           //  Map<String, String> currentMapPreferencesCalendario= SharePref.loadMap(currentKeySharePrefrences+"Calendario");
            // Log.i("preferido","el size de mapa 2 es "+currentMapPreferencesCalendario.size());
@@ -602,13 +608,17 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             Log.i("saberrr","se ejecuto el if ");
 
             SharePrefHelper.viewsSaveInfo(arrayAllViewsData, currentKeyAndSharePrefrences,ActivityControlCalidad.this);
-           // SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,currentKeySharePrefrences+"Calendario");
-           // SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,currentKeySharePrefrences+"Libriado");
 
 
-            //significa que tenemos un key de un objeto obtneido de prefrencias
+        //significa que tenemos un key de un objeto obtneido de prefrencias
+        createInfoToHashmapRechazaSelecToUpload();
+        createItemsSelectDefectsEmpqTOuPLOAD();
+
+         SharePref.saveHashMapDefects(hasMapitemsSelecPosicRechazToUpload,currentKeyAndSharePrefrences+"defectos");
+
 
         }
+
 
         else
         { //no existe creamos un nuevo register..
@@ -632,10 +642,14 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeyAndSharePrefrences,ActivityControlCalidad.this);
           //  SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextCalendario,keyRandom+"Calendario");
           //  SharePrefHelper.viewsSaveInfoEditText(arrayEdiTextLibriado,keyRandom+"Libriado");
+         createInfoToHashmapRechazaSelecToUpload();
+         createItemsSelectDefectsEmpqTOuPLOAD();
+
+         SharePref.saveHashMapDefects(hasMapitemsSelecPosicRechazToUpload,currentKeyAndSharePrefrences+"defectos");
 
 
 
-            userCreoRegisterForm=true;
+         userCreoRegisterForm=true;
         }
 
 
@@ -1986,13 +2000,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-
-
-
-
-
-
-
     private boolean cheakIfInGeneralIsComplete() {
 
 
@@ -2333,7 +2340,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 Log.i("saasberr","bien llegamos a save y depsues finish activity");
 
-                finish();
 
             }
         });
@@ -2439,13 +2445,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         return true;
     }
-
-
-
-
-
-
-
 
 
     private boolean chekIfDefectosThisLineUserMarcoDefecto(String key){
@@ -3004,9 +3003,99 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     }
 
 
+ void configInitialHashasmapsChekedItemsWhidDataPreferences(HashMap<String , String>  HashMapPrefrences) {
+  int numsValuesSelec= 0;
 
 
-    private void initSomeViewsINcreateAndCLICKlISTENNER(){
+  for (Map.Entry<String, String> entry : HashMapPrefrences.entrySet()) {
+   String key = entry.getKey();
+   String  value = entry.getValue();
+
+   Log.i("misda","el value es "+value);
+
+   String [] posicionesEditarArray = value.split(",") ; //  1-4 //puede haber uno asi
+
+
+   if(Utils.HashMapOfListWhitStatesCHeckb.containsKey(key)){
+
+
+    for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
+
+     String   [] arrayIndiceAndNum =posicionesEditarArray[indice2].split("-");
+
+     int currrentPoscionParaCambiar=Integer.parseInt(arrayIndiceAndNum[0]);
+     numsValuesSelec++;
+
+
+     Log.i("smakader","el texta es"+posicionesEditarArray[indice2]);
+
+
+     int sizeArrayList= Utils.HashMapOfListWhitStatesCHeckb.get(key).size();
+
+     //1-4-nombre
+     ///////////////////////////////////
+
+     if(arrayIndiceAndNum.length==3){  //es un defecto custom
+      DefectsAndNumber defectObjec= new DefectsAndNumber(true,Integer.parseInt(arrayIndiceAndNum[1]));
+      defectObjec.setDefectName(arrayIndiceAndNum[2]);
+      Utils.HashMapOfListWhitStatesCHeckb.get(key).set(currrentPoscionParaCambiar, defectObjec);
+     }
+
+     else {
+      Utils.HashMapOfListWhitStatesCHeckb.get(key).set(currrentPoscionParaCambiar,
+              new DefectsAndNumber(true,Integer.parseInt(arrayIndiceAndNum[1])));
+     }
+
+
+
+    }
+
+    //editamos este valor
+   }
+
+
+   else if(Utils.HashMapOfListWhitStatesCHeckb2.containsKey(key)) {
+
+
+    for(int indice2=0; indice2<posicionesEditarArray.length; indice2++) {
+     String   [] arrayIndiceAndNum =posicionesEditarArray[indice2].split("-");
+
+     numsValuesSelec++;
+     int currrentPoscionParaCambiar=Integer.parseInt(arrayIndiceAndNum[0]);
+
+     Utils.HashMapOfListWhitStatesCHeckb2.get(key).set(currrentPoscionParaCambiar,
+             new DefectsAndNumber(true,Integer.parseInt(arrayIndiceAndNum[1])));
+    }
+
+
+   }
+
+
+  }
+
+
+/*
+  txtTotalDefectSelect.setText(String.valueOf(numsValuesSelec));
+
+
+
+
+  muestraaLLResults();
+  showsumDfectsSelected();
+
+
+  getlargoDedosPulgaPulpaApulpa();
+  setResultNumClusteroManoProduct();
+  getCalibraEntreBasalYapiclProduct();
+
+*/
+
+ }
+
+
+
+
+ private void initSomeViewsINcreateAndCLICKlISTENNER(){
         imgupdateInfo= findViewById(R.id.imgupdateInfo);
 
         imgUpdateNumPulpaApulpa =findViewById(R.id.imgUpdateNumPulpaApulpa);
@@ -3338,5 +3427,41 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     }
 
 
+ @Override
+ public void uploadNewForm() {
 
+  btnSaveControlC.setEnabled(false);
+
+
+  if(!currentKeyAndSharePrefrences.equals("")){
+
+   try {
+    Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+    InformRegister objec= mapAllReportsRegister.get(currentKeyAndSharePrefrences);
+
+    Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeyAndSharePrefrences);
+
+    Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
+
+    objec.setSeSubioFormAlinea(true);
+    mapAllReportsRegister.put(currentKeyAndSharePrefrences,objec);
+
+    SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+   }
+
+
+   catch (Exception e) {
+    e.printStackTrace();
+
+    Log.i("dineroa","hello haaxxx");
+
+   }
+
+  }
+
+
+
+ }
 }

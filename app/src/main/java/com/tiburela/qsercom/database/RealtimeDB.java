@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
+import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
@@ -1152,16 +1153,16 @@ public static  Context myContext;
 
         if(Variables.activityCurrent==Variables.FormContenedores){
 
-            if(ActivityContenedores.myReceiver!=null){
-                ActivityContenedores.myReceiver.uploadNewForm();
+            if(ActivityContenedores.callbackUploadNewReport !=null){
+                ActivityContenedores.callbackUploadNewReport.uploadNewForm();
             }
 
         }
 
 
         else if (Variables.activityCurrent==Variables.FormatDatsContAcopi ){
-            if(ActivityContersEnAcopio.myReceiver!=null){
-                ActivityContersEnAcopio.myReceiver.uploadNewForm();
+            if(ActivityContersEnAcopio.callbackUploadNewReport !=null){
+                ActivityContersEnAcopio.callbackUploadNewReport.uploadNewForm();
             }
 
         }
@@ -1170,8 +1171,8 @@ public static  Context myContext;
 
         else if (Variables.activityCurrent==Variables.FormCamionesyCarretasActivity ){
 
-            if(ActivityReporteCalidadCamionesyCarretas.myReceiver!=null){
-                ActivityReporteCalidadCamionesyCarretas.myReceiver.uploadNewForm();
+            if(ActivityReporteCalidadCamionesyCarretas.callbackUploadNewReport !=null){
+                ActivityReporteCalidadCamionesyCarretas.callbackUploadNewReport.uploadNewForm();
             }
 
         }
@@ -1180,8 +1181,23 @@ public static  Context myContext;
         else if (Variables.activityCurrent==Variables.FormMuestreoRechaz ){
 
 
-            if(ActivityCuadMuestCalibAndRechaz.myReceiver!=null){
-                ActivityCuadMuestCalibAndRechaz.myReceiver.uploadNewForm();
+            if(ActivityCuadMuestCalibAndRechaz.callbackUploadNewReport !=null){
+                ActivityCuadMuestCalibAndRechaz.callbackUploadNewReport.uploadNewForm();
+            }
+            else{
+
+                Log.i("dineroa","es nulo now ");
+
+            }
+
+
+        }
+
+
+        else if (Variables.activityCurrent==Variables.FormPackingList ){
+
+            if(ActivityPackingList.callbackUploadNewReport !=null){
+                ActivityPackingList.callbackUploadNewReport.uploadNewForm();
             }
             else{
 

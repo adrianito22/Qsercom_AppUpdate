@@ -57,7 +57,7 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.callbacks.MyReceiver;
+import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -83,8 +83,8 @@ import java.util.UUID;
 import com.tiburela.qsercom.R;
 
 
-public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener, MyReceiver {
-    public static MyReceiver myReceiver;
+public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener, CallbackUploadNewReport {
+    public static CallbackUploadNewReport callbackUploadNewReport;
     String currentKeySharePrefrences="";
     boolean userCreoRegisterForm=false;
 
@@ -309,7 +309,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         setContentView(R.layout.report_calidad_camio_carret);
 
 
-        myReceiver = this;
+        callbackUploadNewReport = this;
 
 
         context=getApplicationContext();
@@ -626,7 +626,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        myReceiver = null;
+        callbackUploadNewReport = null;
 
     }
 

@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,7 +26,7 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterColorCintSem;
-import com.tiburela.qsercom.callbacks.MyReceiver;
+import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -48,10 +47,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implements MyReceiver {
+public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implements CallbackUploadNewReport {
     String currentKeySharePrefrences="";
 
-    public static MyReceiver myReceiver;
+    public static CallbackUploadNewReport callbackUploadNewReport;
 
 
     Button btnSaveLocale;
@@ -116,7 +115,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lay_cuadro_muestreo_recha);
-        myReceiver = this;
+        callbackUploadNewReport = this;
 
 
         btnSaveLocale=findViewById(R.id.btnSaveLocale);
@@ -338,7 +337,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        myReceiver = null;
+        callbackUploadNewReport = null;
 
     }
 

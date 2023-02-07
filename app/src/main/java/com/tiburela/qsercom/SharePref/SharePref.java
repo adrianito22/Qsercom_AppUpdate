@@ -206,6 +206,62 @@ public class SharePref {
     }
 
 
+    public static   HashMap<String, String> getMapDefects(String KeyOfItem) {
+
+        Gson gson = new Gson();
+        String response=mSharedPrefUniqueObjc.getString(KeyOfItem , "");
+
+        Type type = new TypeToken<HashMap<String,String>>(){}.getType();
+
+        HashMap<String , String> mapPlants;
+        mapPlants = gson.fromJson(response, type);
+
+
+        if(response.equals("")) {
+            Log.i("lashareperf","no hay data en share plant ");
+
+            mapPlants= new HashMap<>();
+            return mapPlants;
+
+        }else{
+
+            Log.i("lashareperf","Si hay data en share  plant y el length es "+mapPlants.size());
+
+            return mapPlants;
+
+
+        }
+
+
+    }
+
+    public static  void saveHashMapDefects(  Map<String, String> inputMap,String keySharePref) {
+
+        Log.i("defectoss","el size de map  es  "+inputMap.size());
+
+        for(String objec: inputMap.values()){
+
+            Log.i("defectoss","el valu item es "+objec);
+
+
+        }
+
+
+        if (mSharedPrefUniqueObjc != null){
+            // JSONObject jsonObject = new JSONObject(inputMap);
+            //   String jsonString = jsonObject.toString();
+            mSharedPrefUniqueObjc.edit()
+                    //  .remove("My_map")
+                    .putString(keySharePref, new Gson().toJson(inputMap))
+                    // .putString(keySharePref, jsonString)
+
+                    .apply();
+
+            Log.i("defectoss","le hemos dado en apply el key es "+keySharePref);
+
+        }
+    }
+
 
 
 
