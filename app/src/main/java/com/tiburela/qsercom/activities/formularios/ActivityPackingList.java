@@ -212,6 +212,8 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
