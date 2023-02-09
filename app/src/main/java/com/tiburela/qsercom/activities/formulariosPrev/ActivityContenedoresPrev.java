@@ -5398,7 +5398,7 @@ else{
                 if (sizeListIterate == contador) {
 
 
-                    String nameFilePdf = "TTNU-" + Variables.CurrenReportPart1.getNumcionContenedor()+" "+Variables.CurrenReportPart1.getProductor();
+                    String nameFilePdf = Variables.CurrenReportPart1.getNumcionContenedor()+" "+Variables.CurrenReportPart1.getProductor();
 
                     Log.i("comnadaer", "bien vamos a activity pdf maker");
 
