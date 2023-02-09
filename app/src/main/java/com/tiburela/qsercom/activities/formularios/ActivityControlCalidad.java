@@ -457,9 +457,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.control_calid_activity);
-        // assign variable
-        // textView = findViewById(R.id.textView);
-
 
 
         initSomeViewsINcreateAndCLICKlISTENNER();
