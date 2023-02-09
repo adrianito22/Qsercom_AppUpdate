@@ -758,6 +758,7 @@ android:gravity="center"
                     android:layout_width="62dp"
                     android:layout_height="wrap_content"
                     android:digits="0123456789"
+                    android:enabled="false"
                     android:gravity="center"
                     android:inputType="number"
                     android:textSize="14sp" />
@@ -770,6 +771,7 @@ android:gravity="center"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:digits="0123456789"
+                    android:enabled="false"
                     android:gravity="center"
                     android:inputType="number"
                     android:textSize="14sp" />
@@ -1728,6 +1730,7 @@ android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:digits="0123456789"
+                    android:enabled="false"
                     android:gravity="center"
                     android:inputType="number"
                     android:textSize="14sp" />
@@ -1740,6 +1743,7 @@ android:gravity="center"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:digits="0123456789"
+                    android:enabled="false"
                     android:gravity="center"
                     android:inputType="number"
                     android:textSize="14sp" />
@@ -2618,6 +2622,7 @@ android:gravity="center"
 
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:gravity="center"
                     android:textSize="14sp" />
 
@@ -2629,6 +2634,7 @@ android:gravity="center"
 
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:gravity="center"
                     android:textSize="14sp" />
 

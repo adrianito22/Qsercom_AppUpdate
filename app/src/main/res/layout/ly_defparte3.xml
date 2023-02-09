@@ -965,6 +965,7 @@
 
                                     android:layout_width="65dp"
                                     android:layout_height="wrap_content"
+                                    android:enabled="false"
                                     android:gravity="center"
                                     android:textSize="14sp" />
 
@@ -975,6 +976,7 @@
                                     android:id="@+id/ediPromedioPulpP"
                                     android:layout_width="120dp"
                                     android:layout_height="wrap_content"
+                                    android:enabled="false"
                                     android:gravity="center"
                                     android:textSize="14sp" />
 
@@ -1396,6 +1398,7 @@
 
                                     android:layout_width="65dp"
                                     android:layout_height="wrap_content"
+                                    android:enabled="false"
                                     android:gravity="center"
                                     android:textSize="14sp" />
 
@@ -1405,6 +1408,7 @@
 
                                     android:layout_width="120dp"
                                     android:layout_height="wrap_content"
+                                    android:enabled="false"
                                     android:gravity="center"
                                     android:textSize="14sp" />
 

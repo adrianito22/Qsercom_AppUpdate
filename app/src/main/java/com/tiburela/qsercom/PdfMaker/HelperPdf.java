@@ -1897,7 +1897,16 @@ if(contadorProductsPostCosecha>10){
 
         if(!objecControlCald.getNumeroDedosXclusterOmano().equals("")){
 
+
+            //10:03:22.277  W  java.lang.NumberFormatException: For input string: "10,1"
+
+
+            String flotanteX=objecControlCald.getNumeroDedosXclusterOmano();
+            Log.i("flotantedd", "EL flotante String es " + flotanteX);
+
+
             NUMERO_DE_DEDOS=(int)(Float.parseFloat(objecControlCald.getNumeroDedosXclusterOmano()));
+
 
 
         }

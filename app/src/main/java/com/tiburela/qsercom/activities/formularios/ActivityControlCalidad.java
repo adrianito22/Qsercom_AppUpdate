@@ -51,7 +51,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     String currentKeyAndSharePrefrences ="";
 
     boolean userCreoRegisterForm=false;
-
+    String numCalibracionEntreApical="";
      Button btnSaveLocale;
 
     private boolean sellamoFindViewIds=false;
@@ -59,7 +59,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     float calidadTotal=0;
    private float calidadFinally;
 
-   String numeroDeClusterOmanos ="";
+   String numeroDeClusterPorCaja ="";
+ String numeroDeDedosXclusterOmano ="";
+ String numGradoCalibrePromedio="";
 
     private TextInputEditText mEdiVaporzz;
     private TextInputEditText mEdiProductorzz;
@@ -1323,7 +1325,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
             case R.id.imgUpdateNumDedxClust:
-                setResultNumClusteroManoProduct();
+                setResultNumDedosManoProduct();
 
                 break;
 
@@ -2306,7 +2308,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-                setResultNumClusteroManoProduct();
+                setResultNumDedosManoProduct();
                 getlargoDedosPulgaPulpaApulpa();
                 getNumeroClusterxCajaProduct();
                 getCalibraEntreBasalYapiclProduct();
@@ -2327,7 +2329,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 //aqctualizamos la ubicacion de los hashmaps en el objeto control calidad
                 obecjControlCalidad.setKeyWhereLocateasHmapFieldsRecha(keyDondeEstaraHasmap);
                 obecjControlCalidad.setKeyDondeEstaraHasmapDefecSelec(keyDondeEstaraHasmapDefecSelec);
-                obecjControlCalidad.setNumeroDedosXclusterOmano(numeroDeClusterOmanos);
+
+                obecjControlCalidad.setNumeroDedosXclusterOmano(numeroDeDedosXclusterOmano);
+                obecjControlCalidad.setNumClusterPorCaja(numeroDeClusterPorCaja); //delte
+               obecjControlCalidad.setNumCalibracionEntreApical(numCalibracionEntreApical);
+               obecjControlCalidad.setNumGradoCalibrePromedio(numGradoCalibrePromedio);
 
 
                 generateUniqueIdInformeAndContinuesIfIdIsUnique(obecjControlCalidad);
@@ -2568,7 +2574,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-    private void setResultNumClusteroManoProduct() {
+    private void setResultNumDedosManoProduct() {
 
 
 
@@ -2647,7 +2653,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         //mostramos estos totales tambien
         ediTOTlafila1zx.setText(String.valueOf(sumaItemsFilaArriba));
         ediTotalFila2zxc.setText(String.valueOf(sumaItemsFilaAbajo));
-
+        numeroDeDedosXclusterOmano=String.valueOf((int)result);
 
     }
 
@@ -2716,7 +2722,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             edif2NdedoXclustPromedio.setText(resultado);
 
 
-            numeroDeClusterOmanos =resultado;
+            numeroDeClusterPorCaja =resultado;
 
 
 
@@ -2807,6 +2813,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             String promedio=df.format(totalFial2/totalFila1);
             ediPromediozx.setText(promedio);
 
+           numCalibracionEntreApical=promedio;
 
 
         }
@@ -2922,6 +2929,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     double promedio=resultFila2/resultFila1;
 
                     ediPromedioPulpP.setText( df.format(promedio));
+                   numGradoCalibrePromedio=df.format(promedio);
+
 
                     // currentArrayofContainsDataNums[indice].setText(String.valueOf(result));
                     //colcamos este texto en el editext

@@ -44,7 +44,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -67,7 +66,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -2156,10 +2154,30 @@ else{
         }
 
 
-        if (!cehckExisteMiumReportsVINCULADOS()) {
-            Log.i("test001", "no esta lleno  cehckExisteMiumReportsVINCULADOS");
+        if (!checkExisteMiumReportsVINCULADOS()) {
+            Log.i("test001", "no esta lleno  cehckExisteMiumReportsVINCULADOSx");
             return;
         }
+
+
+        Log.i("test001", "se eejcuto esto tambienx");
+
+
+
+/*
+        if (!Utils.checkifAtach()) {
+            ediRacimosRecha.requestFocus();
+            ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
+
+            Log.i("test001", "no esta lleno  checkifAtach");
+            FragmentManager fm = getSupportFragmentManager();
+            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
+            // alertDialog.setCancelable(false);
+            alertDialog.show(fm, "duialoffragment_alertZ");
+            return;
+        }
+
+*/
 
 
 //all reportsdfgdf
@@ -2178,7 +2196,7 @@ else{
     }
 
 
-    private boolean cehckExisteMiumReportsVINCULADOS() {
+    private boolean checkExisteMiumReportsVINCULADOS() {
         //   int contadroInformsControCalidad=0;
         //  int contadroInformsCuadroMuetreo=0;
 
@@ -2195,7 +2213,7 @@ else{
 
 
         if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.trim().isEmpty()) {
-            Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Control calia", Toast.LENGTH_LONG).show();
+            Toast.makeText(ActivityContenedoresPrev.this, "Agrega al menos un reporte Control calidad", Toast.LENGTH_LONG).show();
 
             return false;
 
@@ -4804,18 +4822,6 @@ else{
 
         }
 
-        if (!Utils.checkifAtach()) {
-            ediRacimosRecha.requestFocus();
-            ediRacimosRecha.setError("Vincula Un Reporte C.muestro Rechazados");
-
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
-            Log.i("test001", "no esta lleno  checkifAtach");
-            FragmentManager fm = getSupportFragmentManager();
-            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
-            // alertDialog.setCancelable(false);
-            alertDialog.show(fm, "duialoffragment_alertZ");
-            return false;
-        }
 
 
 

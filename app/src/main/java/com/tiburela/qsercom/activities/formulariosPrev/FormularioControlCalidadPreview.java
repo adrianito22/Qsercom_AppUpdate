@@ -1921,8 +1921,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             }
             //aqui mostramos el resultado..
 
-
-
             String resultado=df.format(sumaFilasAbajo/sumaFilasArriba);
 
 
@@ -1936,9 +1934,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                 numClusterPorCaja= resultado;
             }
-
-
-
 
         }
 
