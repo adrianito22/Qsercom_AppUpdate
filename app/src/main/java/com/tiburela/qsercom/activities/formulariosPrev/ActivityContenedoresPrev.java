@@ -5398,13 +5398,11 @@ else{
                 if (sizeListIterate == contador) {
 
 
-                    String nameFilePdf = "TTNU-" + Variables.CurrenReportPart1.getUniqueIDinforme() + " " + Variables.CurrenReportPart1.getProductor();
-
+                    String nameFilePdf = "TTNU-" + Variables.CurrenReportPart1.getNumcionContenedor()+" "+Variables.CurrenReportPart1.getProductor();
 
                     Log.i("comnadaer", "bien vamos a activity pdf maker");
 
-                    //vamos a  activity
-// createObjWhitCurrentDataFieldsAndCALLdOWLOAD();
+
                     int numsPriodcutsPost = cuentaProdcutosposTcosechaAndUpdateGlobaProducPost();
 
                     Intent intent = new Intent(ActivityContenedoresPrev.this, PdfMaker2_0.class);
