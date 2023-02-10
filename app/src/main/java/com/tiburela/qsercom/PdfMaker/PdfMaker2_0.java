@@ -359,7 +359,7 @@ if(hayFILE){
 
        HelperPdf. hasmapOfListwhitNamesFefectsCurrentControlCalidadFOmr= new HashMap<>();//reseteamos este
        HelperPdf.listNumsCustomDefects= new ArrayList<>();
-
+        HelperPdf.TableCalidProdc=new ArrayList<>();
 
 
         String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
@@ -434,9 +434,12 @@ if(hayFILE){
         Table tableTitle=  new Table(1);
 
         /**TABLE TITULO EXPORTADORA SOLICTADA yPosicion procesada*/
-        Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
-        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITANTE "+Variables.CurrenReportPart1.getExportadoraSolicitante().toUpperCase()+" MARCA "+" "+Variables.CurrenReportPart1.getMarrca().toUpperCase()).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
-        Cell cell3= new Cell().setBorder(Border.NO_BORDER)  .add(new Paragraph("EXPORTADORA PROCESADA "+Variables.CurrenReportPart1.getExportadoraProcesada()+" "+Variables.CurrenReportPart1.getUniqueIDinforme().toUpperCase()).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f));
+        Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITANTE "+Variables.CurrenReportPart1.getExportadoraSolicitante().toUpperCase()+" MARCA "+" "+Variables.CurrenReportPart1.getMarrca().toUpperCase())
+                .setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        Cell cell3= new Cell().setBorder(Border.NO_BORDER)
+                .add(new Paragraph("EXPORTADORA PROCESADA "+Variables.CurrenReportPart1.getExportadoraProcesada()+" "+Variables.CurrenReportPart1.getUniqueIDinforme().toUpperCase()).
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
 
         tableTitle.addCell(cell1);
         tableTitle.addCell(cell2);
@@ -469,6 +472,11 @@ if(hayFILE){
         //editamos la tabla 1
         listCellsToTabCurrentTab.get("0name").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
         listCellsToTabCurrentTab.get("0value").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
+
+        listCellsToTabCurrentTab.get("0name").setBold();
+        listCellsToTabCurrentTab.get("0value").setBold();
+
+
 
         ///productos postcosecha
 
@@ -545,7 +553,7 @@ if(hayFILE){
 
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("SELLLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,2).add(new Paragraph("SELLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -568,7 +576,7 @@ if(hayFILE){
         float sizeColumns5[]= {190,2,1,1};
         table1=  new Table(sizeColumns5);
 
-        cell0= new Cell(1,4).add(new Paragraph("SELLLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,4).add(new Paragraph("SELLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -608,7 +616,9 @@ if(hayFILE){
         float sizeColumns6[]= {190,5};
         table1=  new Table(sizeColumns6);
 
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8f).
+                setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -714,7 +724,7 @@ if(hayFILE){
           /**agregamos tables de control calidad*/
 
             midocumentotoAddData.add(new Paragraph("1.- EVALUACIÓN Y CONDICIÓN DE FRUTA.").
-                    setFontSize(7f).
+                    setFontSize(7.3f).
                     setMarginTop(1f).
                     setBold().
                     setPaddingBottom(1f).setMarginLeft(60f));
@@ -760,8 +770,6 @@ if(hayFILE){
 
 
 
-
-
         /**Agregamos Certificacion texto yPosicion tabla*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
@@ -780,7 +788,7 @@ if(hayFILE){
 
 
         midocumentotoAddData.add(new Paragraph("A continuación describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
-        midocumentotoAddData.add(new Paragraph("Tabla1.- Descripción de porcentaje de calidadad e productores").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
+        midocumentotoAddData.add(new Paragraph("Tabla1.-  Descripción de porcentaje de calidad de productores y tipos de empaque").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
 
 
            /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
@@ -797,7 +805,7 @@ if(hayFILE){
 
 
 
-        midocumentotoAddData.add(new Paragraph("Gráfico 1.- Demostración calidad total y Posición daños - estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+        midocumentotoAddData.add(new Paragraph("Gráfico 1.- Demostración de calidad total y daños- estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
          /**Agregamos pie  Grafico*/
          PieChart pieChart;
@@ -835,12 +843,12 @@ if(hayFILE){
 
         /**Texto como verfiicadora tenemos...*/
 
-        midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente").
+        midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente.").
                 setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
-
+/*
         midocumentotoAddData.add(new Paragraph(Variables.CurrenReportPart1.getClienteReporte()).
                 setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
-
+*/
 
         midocumentotoAddData.add(new Paragraph("Atentamente,").
                 setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));

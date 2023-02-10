@@ -1215,12 +1215,14 @@ public static  Context myContext;
     }
 
 
-    public static void marckComoRevisadoInformRegister( Context context ,String keyLOactionThisObject) {
+    public static void marckComoRevisadoInformRegister( Context context ,String keyLOactionThisObject,String nombreQuienReviso) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Registros").child("InformesRegistros").child(keyLOactionThisObject);
 
         Map<String, Object> values = new HashMap<>();
         values.put("seRevisoForm", true);
+        values.put("nombreQUienRevisoForm", nombreQuienReviso);
+
 
 
         mibasedata.updateChildren(values).addOnCompleteListener(new OnCompleteListener<Void>() {

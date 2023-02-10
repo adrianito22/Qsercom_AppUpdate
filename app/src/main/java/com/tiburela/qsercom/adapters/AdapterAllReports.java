@@ -68,7 +68,7 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
         if(! Utils.isOfflineReport){
 
             if(InformRegister.isSeRevisoForm()){  //si lo marco como revisado
-                holder.txtStateForm.setText("Revisado");
+                holder.txtStateForm.setText("Revisado"+" por "+InformRegister.getNombreQUienRevisoForm());
                 holder.txtStateForm.setTextColor(Color.parseColor("#338737"));
             }
 

@@ -1176,7 +1176,7 @@ Log.i("hellosweer","se ehjecitp onstart");
 
 
         int numRacimosCosechados=Integer.parseInt(ediRacimosCosech.getText().toString());
-        float resultpercente;
+        double resultpercente;
         DecimalFormat format = new DecimalFormat("#.##");
 
         int numeroRacimosContador=0;
@@ -1192,11 +1192,18 @@ Log.i("hellosweer","se ehjecitp onstart");
                     {        ///tiene que ser mayor a cero
                         if(Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString())>0)
                         {  //operamoss
-                            resultpercente= (Float.parseFloat(miArrayNUmrACIMOS[i].getText().toString())/numRacimosCosechados)*100;
+                            resultpercente= (Double.parseDouble(miArrayNUmrACIMOS[i].getText().toString())/numRacimosCosechados)*100;
 
                             String promDecim=format.format(resultpercente)   ;
-                            miArraypORCENTAHJES[i].setText(promDecim);
 
+
+                            String [] array=promDecim.split("\\."); //tendremos un valor asi 58.50 normal
+                            if(array[1].length()==1){ //tiene solo un valor.
+                                promDecim=promDecim+"0";
+                            }
+
+
+                            miArraypORCENTAHJES[i].setText(promDecim);
                             //sumaoslos racimos totale
                             numeroRacimosContador=numeroRacimosContador+Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString());
 
@@ -4877,6 +4884,9 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
                     ////ediPorc14
                     case R.id.ediPorc14:
+
+
+
                         informe.setPorc14(value);
                         break;
 

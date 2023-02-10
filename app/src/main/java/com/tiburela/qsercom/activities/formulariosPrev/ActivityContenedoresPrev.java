@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.icu.text.DecimalFormat;
+import android.icu.text.DecimalFormatSymbols;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -100,6 +101,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -903,7 +905,8 @@ else{
 
                     ///cuandole da en genear obtenmos nuevamente la data
 
-                    RealtimeDB.marckComoRevisadoInformRegister(ActivityContenedoresPrev.this, Variables.currentInformRegisterSelected.getKeyLoactionThisForm());
+
+                    RealtimeDB.marckComoRevisadoInformRegister(ActivityContenedoresPrev.this, Variables.currentInformRegisterSelected.getKeyLoactionThisForm(),Variables.userGoogle.getDisplayName());
 
                     finish();
 
@@ -2039,8 +2042,9 @@ else{
 
 
         int numRacimosCosechados = Integer.parseInt(ediRacimosCosech.getText().toString());
-        float resultpercente;
-        DecimalFormat format = new DecimalFormat("#.##");
+        double resultpercente;
+
+        DecimalFormat formato = new DecimalFormat("#.##");
 
         int numeroRacimosContador = 0;
 
@@ -2053,11 +2057,21 @@ else{
 
             if (!miArrayNUmrACIMOS[i].getText().toString().trim().isEmpty()) {        ///tiene que ser mayor a cero
                 if (Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString()) > 0) {  //operamoss
-                    resultpercente = (Float.parseFloat(miArrayNUmrACIMOS[i].getText().toString()) / numRacimosCosechados) * 100;
 
-                    String promDecim = format.format(resultpercente);
+                    resultpercente = (Double.parseDouble(miArrayNUmrACIMOS[i].getText().toString()) / numRacimosCosechados) * 100;
+
+                    Log.i("habimosssd","el result percent es "+resultpercente);
+
+                    String promDecim = formato.format(resultpercente);
+                    String [] array=promDecim.split("\\."); //tendremos un valor asi 58.50 normal
+
+                    if(array[1].length()==1){ //tiene solo un valor.
+                        promDecim=promDecim+"0";
+
+                    }
+
+
                     miArraypORCENTAHJES[i].setText(promDecim);
-
                     //sumaoslos racimos totale
                     numeroRacimosContador = numeroRacimosContador + Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString());
 
