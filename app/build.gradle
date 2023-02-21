@@ -13,6 +13,7 @@ android {
             storePassword 'holamundo22'
             keyPassword 'holamundo22'
             keyAlias 'key0'
+
         }
     }
     compileSdk 33
