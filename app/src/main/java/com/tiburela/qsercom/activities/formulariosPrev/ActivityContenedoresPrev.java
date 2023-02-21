@@ -53,6 +53,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.util.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -5758,6 +5759,13 @@ else{
 
     void setDataLibriado(HashMap<String, Float> miMap) {
 
+        EditText        ediMarcaCol1 = findViewById(R.id.ediMarcaCol1);
+        EditText        ediMarcaCol2 = findViewById(R.id.ediMarcaCol2);
+        EditText        ediMarcaCol3 = findViewById(R.id.ediMarcaCol3);
+        EditText        ediMarcaCol4 = findViewById(R.id.ediMarcaCol4);
+        EditText        ediMarcaCol5 = findViewById(R.id.ediMarcaCol5);
+
+
         EditText pbCluster01 = findViewById(R.id.pbCluster01);
         EditText pbCluster05 = findViewById(R.id.pbCluster05);
         EditText pbCluster03 = findViewById(R.id.pbCluster03);
@@ -5851,6 +5859,8 @@ else{
 
 
         EditText[] miArray = {
+                ediMarcaCol1,ediMarcaCol2,ediMarcaCol3,ediMarcaCol4,ediMarcaCol5,
+
                 pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
                 pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
                 pbCluster024, pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
@@ -5874,13 +5884,23 @@ else{
 
                 String keyOFeditextCurrent = edi.getId() + "-" + edi.getTag();
 
+                 Log.i("value","el value es "+keyHashMap);
+
+                  String [] key2Guion=keyHashMap.split("-");
+
+                if(value==9.999f && edi.getTag().equals(key2Guion[1])){
+                    edi.setText(key2Guion[0]);
+                    break;}
+
+
+
                 if (keyHashMap.equals(keyOFeditextCurrent)) {
-                    edi.setText(String.valueOf(value));
-                    break;
-                }
+                     edi.setText(String.valueOf(value));
+                    break;}
+
+
 
             }
-
             ///entonces buscamos el que contenga este
 
 
@@ -5891,6 +5911,14 @@ else{
 
 
     HashMap<String, Float> generateMapLibriadoIfExistAndUpload(boolean isGeneratePdf) {
+
+        Log.i("hdooerr","se llamo  generateMapLibriadoIfExistAndUpload ");
+
+        EditText        ediMarcaCol1 = findViewById(R.id.ediMarcaCol1);
+        EditText        ediMarcaCol2 = findViewById(R.id.ediMarcaCol2);
+        EditText        ediMarcaCol3 = findViewById(R.id.ediMarcaCol3);
+        EditText        ediMarcaCol4 = findViewById(R.id.ediMarcaCol4);
+        EditText        ediMarcaCol5 = findViewById(R.id.ediMarcaCol5);
 
 
         EditText pbCluster01 = findViewById(R.id.pbCluster01);
@@ -5986,6 +6014,8 @@ else{
 
 
         EditText[] miArray = {
+                ediMarcaCol1,ediMarcaCol2,ediMarcaCol3,ediMarcaCol4,ediMarcaCol5,
+
                 pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
                 pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
                 pbCluster024, pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
@@ -6006,14 +6036,37 @@ else{
 
             if (!currentEdit.getText().toString().trim().isEmpty()) {
 
-                //le agregamos un slash al id key mas o menos este fomrato idddd/fil1
 
-                miMapData.put(currentEdit.getId() + "-" + currentEdit.getTag(), Float.parseFloat(currentEdit.getText().toString()));
+                 try {
+
+                     //                       String keyCompletaObentidaBySubstring=generateKeybyString("col"+(indice+1)+"-"+"fil"+indicex,miMapData);
+                     //                       String keyCompletaObentidaBySubstring=generateKeybyString("col"+(indice+1)+"-"+"fil"+indicex,miMapData);
+                     //col3-fil1
+
+                     miMapData.put(currentEdit.getId() + "-" + currentEdit.getTag() , Float.parseFloat(currentEdit.getText().toString()));
+
+
+                     Log.i("hdooerr","put el key es "+currentEdit+"-"+currentEdit.getTag());
+
+
+
+                 }
+
+                 catch (NumberFormatException e) {
+
+                     //                String keyOFeditextCurrent = edi.getId() + "-" + edi.getTag();
+
+                     miMapData.put(currentEdit.getText().toString() + "-" +currentEdit.getTag() , 9.999f);
+
+                     Log.i("hdooerr","put el key de name name es "+currentEdit.getText().toString()+"-"+currentEdit.getTag());
+
+                 }
+
 
                 Log.i("miodataxx","hay texto aqui");
 
-            }
 
+            }
 
         }
 
@@ -6021,68 +6074,68 @@ else{
         if (isGeneratePdf) {
             //obtenemos el p
 
-            //fil1
-
-            Variables.listPromedioLibriado= new ArrayList<>();
-
-            float sumFilas;
-            int contadorItemsConTag;
+           Utils.hashMappromedioLibriado=new HashMap<>();
 
 
-            for (int indice = 0; indice < 18; indice++) {
-                //                String keyOFeditextCurrent = edi.getId() + "-" + edi.getTag();
+               EditText [] idsKeysAndNames={ ediMarcaCol1,ediMarcaCol2,ediMarcaCol3, ediMarcaCol4, ediMarcaCol5};
 
-                sumFilas=0;
-                contadorItemsConTag=0;
+               String currentKeyofMap="";
 
-               // String keyActualToSearch=
+            for (int indice = 0; indice <5; indice++) { //5 columnas
 
+                currentKeyofMap=idsKeysAndNames[indice].getText().toString()+"-"+idsKeysAndNames[indice].getId();
 
-                //buscamos solo los que contengan esta key
+                /***preguntar si este nombre siempre sera unico y no cambiara..*/
 
+                ArrayList <PromedioLibriado> listPromedioLibriado= new ArrayList<>();
 
-                for (HashMap.Entry<String, Float> entry : miMapData.entrySet()) {
+                   for(int indicex=1; indicex<18; indicex++){ //iteramos las 18 filas en la columna cprrepsondiente
 
-                    String keyHashMap = entry.getKey();
-                    Float value = entry.getValue();
+                       String keyCompletaObentidaBySubstring=generateKeybyString("col"+(indice+1)+"-"+"fil"+indicex,miMapData);
 
+                       if(miMapData.containsKey(keyCompletaObentidaBySubstring)){
 
-                    Log.i("miodataxx","hay texto aqui"+keyHashMap+" el value es "+"fil"+(indice+1));
+                           float value =miMapData.get(keyCompletaObentidaBySubstring);
 
+                           Log.i("hdooerr","hay una valor en la columna: "+(indice+1)+" y fila"+indicex);
 
-                    if(keyHashMap.contains("fil"+(indice+1)) ){
-                        contadorItemsConTag++;
+                           listPromedioLibriado.add(new PromedioLibriado(indicex,value));
 
-                        sumFilas=sumFilas+value;
-
+                       }
 
                     }
 
 
-                }
+                 if(listPromedioLibriado.size()>0){
+                   Log.i("hdooerr","hay una lista aqui");
 
+                     Utils.hashMappromedioLibriado.put(currentKeyofMap,listPromedioLibriado);
 
-
-
-                //ahora creamos un nuevo objet[
-
-                if(sumFilas>0){
-
-                    Variables.listPromedioLibriado.add(new PromedioLibriado(indice+1,sumFilas/contadorItemsConTag));
-
-                }
-
-
-
+                 }
 
             }
-
-            Log.i("miodataxx","el size es: "+Variables.listPromedioLibriado.size());
 
 
         }
 
         return miMapData;
+
+    }
+
+
+
+    private String generateKeybyString(String keySearch,HashMap<String,Float > miMapData){
+        String key="";
+
+          for (HashMap.Entry<String, Float> entry : miMapData.entrySet()) {  //iteramos el mapa
+              String keyHashMap = entry.getKey();
+              if(keyHashMap.contains(keySearch)){
+                  key=keyHashMap;
+                  break;
+              }
+          }
+
+          return key;
 
     }
 

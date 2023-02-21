@@ -2,13 +2,13 @@ package com.tiburela.qsercom.models;
 
 public class PromedioLibriado {
 
-    public PromedioLibriado(int clusterNum, float numPromedio) {
+    public PromedioLibriado(int clusterNum, float numPesoClusters) {
         this.clusterNum = clusterNum;
-        this.numPromedio = numPromedio;
+        this.numPesoCluster = numPesoClusters;
     }
 
     public int clusterNum;
-    public float numPromedio;
+    public float numPesoCluster;
 
 
 

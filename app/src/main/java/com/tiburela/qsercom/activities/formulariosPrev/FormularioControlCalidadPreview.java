@@ -3504,7 +3504,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
 
 
-
         for(int i=0;i<arrayPesoS.length;i++) {
 
             if(! arrayPesoS [i].getText().toString().trim().isEmpty() ){
@@ -3520,7 +3519,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             if(!arrayNumeroCLUSTERinspec [i].getText().toString().trim().isEmpty() ){  //si esta vacio
 
                 contadorValrsCloseterIns++;
-                numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayNumeroCLUSTERinspec [i].getText().toString());
+
+                if(!arrayNumeroCLUSTERinspec[i].getText().toString().contains("%")){
+
+                    numeroClustersInspecc =numeroClustersInspecc+ Integer.parseInt(arrayNumeroCLUSTERinspec [i].getText().toString());
+
+                }
+
 
             }
 

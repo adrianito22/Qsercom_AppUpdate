@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.PdfMaker;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,10 +11,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -22,7 +21,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageData;
@@ -58,7 +56,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
 
 public class HelperPdf {
 
@@ -290,13 +287,13 @@ public class HelperPdf {
 
         if(!product.bromorux.trim().isEmpty()){
 
-            paragraph1 = new Paragraph("BROMORUX").setFontSize(6.8f).setFont(font) //producto
+            paragraph1 = new Paragraph("BROMORUX").setFontSize(6.8f).setFont(font).setBold() //producto
                     .setPaddingTop(0f).setPaddingBottom(0f);
             cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
             table.addCell(cell);
 
 
-            paragraph1 = new Paragraph(product.bromorux).setFontSize(6.8f).setFont(font) //cantidad
+            paragraph1 = new Paragraph(product.bromorux).setFontSize(6.8f).setFont(font).setBold() //cantidad
                     .setPaddingTop(0f).setPaddingBottom(0f);
             cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
             table.addCell(cell);
@@ -308,13 +305,13 @@ public class HelperPdf {
         ///si contienen data
             if(!product.acido_citrico.trim().isEmpty()){
 
-                 paragraph1 = new Paragraph("ACIDO CITRICO").setFontSize(6.8f).setFont(font) //producto
+                 paragraph1 = new Paragraph("ACIDO CITRICO").setFontSize(6.8f).setFont(font).setBold() //producto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                   cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                   table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.acido_citrico).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.acido_citrico).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -323,13 +320,13 @@ public class HelperPdf {
             }
 
             if(!product.alumbre.trim().isEmpty()){
-                paragraph1 = new Paragraph("ALUMBRE").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("ALUMBRE").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.alumbre).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.alumbre).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -341,13 +338,13 @@ public class HelperPdf {
             if(!product.bc100.trim().isEmpty())
             {
 
-                paragraph1 = new Paragraph("BC100").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("BC100").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.bc100).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.bc100).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -359,13 +356,13 @@ public class HelperPdf {
 
 
             if(!product.biottol.trim().isEmpty()){
-                paragraph1 = new Paragraph("BIOTTOL").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("BIOTTOL").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.biottol).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.biottol).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -377,13 +374,13 @@ public class HelperPdf {
 
 
             if(!product.eclipse.trim().isEmpty()){
-                paragraph1 = new Paragraph("ECLIPSE").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("ECLIPSE").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.eclipse).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.eclipse).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -394,13 +391,13 @@ public class HelperPdf {
             }
 
             if(!product.gib_bex.trim().isEmpty()){
-                paragraph1 = new Paragraph("GIB_BEX").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("GIB_BEX").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.gib_bex).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.gib_bex).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -409,13 +406,13 @@ public class HelperPdf {
             }
 
             if(!product.mertec.trim().isEmpty()){
-                paragraph1 = new Paragraph("MERTEC").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("MERTEC").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.mertec).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.mertec).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -424,13 +421,13 @@ public class HelperPdf {
             }
 
             if(!product.nlarge.trim().isEmpty()){
-                paragraph1 = new Paragraph("NLARGE").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("NLARGE").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.nlarge).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.nlarge).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -439,13 +436,13 @@ public class HelperPdf {
             }
 
             if(!product.otro_especifique.trim().isEmpty()){
-                paragraph1 = new Paragraph(product.otro_especifique).setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph(product.otro_especifique).setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.otroCantidad).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.otroCantidad).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -455,13 +452,13 @@ public class HelperPdf {
             }
 
             if(!product.ryzuc.trim().isEmpty()){
-                paragraph1 = new Paragraph("RYZUX").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("RYZUX").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.ryzuc).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.ryzuc).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -471,13 +468,13 @@ public class HelperPdf {
             }
 
             if(!product.sastifar.trim().isEmpty()){
-                paragraph1 = new Paragraph("SASTISFARR").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("SASTISFARR").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.sastifar).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.sastifar).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -487,13 +484,13 @@ public class HelperPdf {
             }
 
             if(!product.xtrata.trim().isEmpty()){
-                paragraph1 = new Paragraph("XTRATA").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("XTRATA").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.xtrata).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.xtrata).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -503,13 +500,13 @@ public class HelperPdf {
             }
 
             if(!product.sb100.trim().isEmpty()){
-                paragraph1 = new Paragraph("SB100").setFontSize(6.8f).setFont(font) //prodcuto
+                paragraph1 = new Paragraph("SB100").setFontSize(6.8f).setFont(font).setBold()  //prodcuto
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
 
-                paragraph1 = new Paragraph(product.sb100).setFontSize(6.8f).setFont(font) //cantidad
+                paragraph1 = new Paragraph(product.sb100).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
@@ -795,7 +792,7 @@ if(contadorProductsPostCosecha>10){
 
 
         //FALTA AGREGAR A LAS TABLAS
-        miTable.addCell(cellTipPlastic.add(new Paragraph("TIPO DE PLÁSTICO").setFontSize(7.3f).setFont(font))) ;
+        miTable.addCell(cellTipPlastic.add(new Paragraph("TIPO DE PLÁSTICO").setFontSize(7.3f).setFont(font)).setBold()) ;
         miTable.addCell(cellPolitubo.add(new Paragraph("POLITUBO").setFontSize(7.3f).setFont(font))) ;
         //tipo de caja
 
@@ -861,7 +858,7 @@ if(contadorProductsPostCosecha>10){
 
         /**tipo de cja */
 
-        miTable.addCell(celltipodEcAJA.add(new Paragraph("TIPO DE CAJA").setFontSize(7.3f).setFont(font))) ;
+        miTable.addCell(celltipodEcAJA.add(new Paragraph("TIPO DE CAJA").setFontSize(7.3f).setFont(font).setBold())) ;
         miTable.addCell(cell22Xu.add(new Paragraph("22xU").setFontSize(6.5f).setFont(font))) ;
 
 
@@ -960,7 +957,7 @@ if(contadorProductsPostCosecha>10){
 
         table1.addCell(cellDatosHaciend);
 
-        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(7.3f).setFont(font).setPaddingLeft(10f));
+        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(7.3f).setFont(font).setPaddingLeft(10f).setBold());
         Cell cellx2 = new Cell().add(new Paragraph("AGUA POTABLE").setFontSize(7.3f).setFont(font).setPaddingLeft(10f));
         table1.addCell(cellx1);
         table1.addCell(cellx2);
@@ -1024,7 +1021,7 @@ if(contadorProductsPostCosecha>10){
 
         //2DA FILA DE DATOS DE HACIENDA...
 
-        table1.addCell(new Paragraph("AGUA CORRIDA").setFontSize(7.3f).setFont(font).setPaddingLeft(10f));
+        table1.addCell(new Paragraph("AGUA CORRIDA").setFontSize(7.3f).setFont(font).setPaddingLeft(10f).setBold());
 
         table1.addCell(new Paragraph("SI").setFontSize(7f).setFont(font).setPaddingLeft(10f));
 
@@ -1069,7 +1066,7 @@ if(contadorProductsPostCosecha>10){
 
 //
 
-        table1.addCell(new Paragraph("LAVADO DE RACIMOS").setFontSize(7.5f).setFont(font).setPaddingLeft(10f));
+        table1.addCell(new Paragraph("LAVADO DE RACIMOS").setFontSize(7.5f).setFont(font).setPaddingLeft(10f).setBold());
 
 
         table1.addCell(new Paragraph("SI").setFontSize(7.5f).setFont(font).setPaddingLeft(10f));
@@ -1109,7 +1106,7 @@ if(contadorProductsPostCosecha>10){
 
 
         /**fumigacion corona linea `1*/
-        table1.addCell(new Paragraph("FUMIGACIÓN CORONA LINEA 1").setFontSize(7.5f).setFont(font).setPaddingLeft(10f));
+        table1.addCell(new Paragraph("FUMIGACIÓN CORONA LINEA 1").setFontSize(7.5f).setFont(font).setPaddingLeft(10f).setBold());
 
         table1.addCell(new Paragraph("FOGGING").setFontSize(7.5f).setFont(font).setPaddingLeft(10f));
 
@@ -1198,7 +1195,7 @@ if(contadorProductsPostCosecha>10){
         //  miTable.addCell(new Cell().add(new Paragraph("TIPO DE PLASTICO").setFontSize(7.5f))) ;
 
 
-        miTable.addCell(new Cell().add(new Paragraph("ENZUCHADO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        miTable.addCell(new Cell().add(new Paragraph("ENZUCHADO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font)).setBold()) ;
         miTable.addCell(new Cell().add(new Paragraph("SI").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
 
         if(object2.isHayExcelnsuchado()) {
@@ -1223,7 +1220,7 @@ if(contadorProductsPostCosecha>10){
 
         /**BALANZA*///*/
 
-        miTable.addCell(new Cell().add(new Paragraph("BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        miTable.addCell(new Cell().add(new Paragraph("BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold()) ;
         miTable.addCell(new Cell().add(new Paragraph("SI").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(object2.isHayBalanza()) {
@@ -1253,7 +1250,7 @@ if(contadorProductsPostCosecha>10){
 
         /**condicion de  BALANZA*///*/
 
-        miTable.addCell(new Cell().add(new Paragraph("CONDICIÓN DE BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        miTable.addCell(new Cell().add(new Paragraph("CONDICIÓN DE BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold()) ;
 
         //BUENO ,ALO Y REGUKLAR
 
@@ -1315,7 +1312,7 @@ if(contadorProductsPostCosecha>10){
  */
 
 
-        miTable.addCell(new Cell().add(new Paragraph("TIPO BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        miTable.addCell(new Cell().add(new Paragraph("TIPO BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold()) ;
         miTable.addCell(new Cell().add(new Paragraph("BASCULA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(object2.getTipoDeBalanza().equalsIgnoreCase("BASCULA")) {
@@ -1346,7 +1343,7 @@ if(contadorProductsPostCosecha>10){
  */
 
 
-        miTable.addCell(new Cell().add(new Paragraph("BALANZA DE REPESA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        miTable.addCell(new Cell().add(new Paragraph("BALANZA DE REPESA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold()) ;
         miTable.addCell(new Cell().add(new Paragraph("SI").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
         if(object2.getHayBalanzaRepeso()) {
@@ -1373,7 +1370,7 @@ if(contadorProductsPostCosecha>10){
 
         //////// //si hay balanza de repeso
         if(object2.getHayBalanzaRepeso()){
-            miTable.addCell(new Cell().add(new Paragraph("TIPO DE BALANZA DE REPESA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+            miTable.addCell(new Cell().add(new Paragraph("TIPO DE BALANZA DE REPESA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold()) ;
 
             miTable.addCell(new Cell().add(new Paragraph("BASCULA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
 
@@ -2341,7 +2338,12 @@ if(contadorProductsPostCosecha>10){
             String keyValue = String.valueOf(keyDatsNumClusters[indicex]);
 
             if(hashMapControlCald.containsKey(keyValue)) {
-                NUMERO_DE_CLUSTERS_iNSPECCIONADOS=NUMERO_DE_CLUSTERS_iNSPECCIONADOS+Integer.parseInt(hashMapControlCald.get(keyValue));
+
+                   if(!hashMapControlCald.get(keyValue).contains("%")){
+                       NUMERO_DE_CLUSTERS_iNSPECCIONADOS=NUMERO_DE_CLUSTERS_iNSPECCIONADOS+Integer.parseInt(hashMapControlCald.get(keyValue));
+
+                   }
+
             }
 
 
@@ -3177,6 +3179,10 @@ int contadorAlldefectos=0;
         barDataSet.setFormSize(4f);
         barDataSet.setValueTextSize(10f);
 
+        /**aqui le pasamos este color*/
+        barDataSet.setColor(context.getResources().getColor(R.color.durazon, context.getTheme())); //resolved color
+
+
         barDataSet.setValueFormatter(new MyValueFormatter());
 
 
@@ -3332,7 +3338,7 @@ int contadorAlldefectos=0;
         Collections.sort(listLibriado, new Comparator<PromedioLibriado>()
         {
             @Override
-            public int compare(PromedioLibriado lhs, PromedioLibriado rhs) {
+            public int compare(PromedioLibriado lhs, PromedioLibriado rhs) {//reordenamos
 
                 return Integer.valueOf(lhs.clusterNum).compareTo(rhs.clusterNum);
             }
@@ -3347,13 +3353,13 @@ int contadorAlldefectos=0;
 
       //cremaos la celda del titulo
 
-        miParagraph= new Paragraph("2.- PESO PROMEDIO CLÚSTER").setTextAlignment(TextAlignment.LEFT);
-        miCelda= new Cell(1,2).setBorder(Border.NO_BORDER);
-        miCelda.add(miParagraph);
-        mitab.addCell(miCelda);
+       // miParagraph= new Paragraph("2.- PESO PROMEDIO CLÚSTER").setTextAlignment(TextAlignment.LEFT);
+      //  miCelda= new Cell(1,2).setBorder(Border.NO_BORDER);
+      //  miCelda.add(miParagraph);
+      //  mitab.addCell(miCelda);
 
 
-        miParagraph= new Paragraph(nameMarcaOtherHere).setTextAlignment(TextAlignment.CENTER).setBold();
+        miParagraph= new Paragraph(nameMarcaOtherHere.toUpperCase()).setTextAlignment(TextAlignment.CENTER).setBold();
         miCelda= new Cell(1,2);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
@@ -3382,16 +3388,16 @@ int contadorAlldefectos=0;
 
 
           miCelda= new Cell(1,1);
-          miParagraph= new Paragraph(String.valueOf(dcx.format(num.numPromedio))).setTextAlignment(TextAlignment.CENTER);
+          miParagraph= new Paragraph(String.valueOf(dcx.format(num.numPesoCluster))).setTextAlignment(TextAlignment.CENTER);
           miCelda.add(miParagraph);
           mitab.addCell(miCelda);
 
-          totalPeso=totalPeso+num.numPromedio;
+          totalPeso=totalPeso+num.numPesoCluster;
 
       }
 
 
-        miParagraph= new Paragraph("Total").setTextAlignment(TextAlignment.CENTER).setBold();
+        miParagraph= new Paragraph("TOTAL").setTextAlignment(TextAlignment.CENTER).setBold();
         miCelda= new Cell(1,1);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
@@ -3405,7 +3411,7 @@ int contadorAlldefectos=0;
         mitab.addCell(miCelda);
 
 
-        miParagraph= new Paragraph("Prom. Peso(Libras)").setTextAlignment(TextAlignment.CENTER).setBold();
+        miParagraph= new Paragraph("PROM. PESO (LIBRAS)").setTextAlignment(TextAlignment.CENTER).setBold();
         miCelda= new Cell(1,1);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);

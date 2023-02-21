@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.util.Util;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -68,6 +69,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -75,7 +77,9 @@ import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.NameAndValue;
+import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.utils.HelperImage;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import org.apache.commons.codec.binary.Base64;
@@ -88,13 +92,14 @@ import java.io.OutputStream;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class PdfMaker2_0 extends AppCompatActivity {
     int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
 
-
+    static  float posicionyTablasLibriado=0;
 
     ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
     HashMap <String, String> hasmapMapControlCalid;
@@ -465,22 +470,37 @@ if(hayFILE){
         /**add primer cuadro..*/
         //crea list de celds...yPosicion add values...
         ArrayList<NameAndValue>dataTOtable1=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,1,Variables.currenProductPostCosecha);
-        HashMap<String,Cell> listCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable1,50,0);
+        HashMap<String,Cell> mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable1,50,0);
 
 
 
         //editamos la tabla 1
-        listCellsToTabCurrentTab.get("0name").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
-        listCellsToTabCurrentTab.get("0value").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
+        mapCellsToTabCurrentTab.get("0name").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
+        mapCellsToTabCurrentTab.get("0value").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
 
-        listCellsToTabCurrentTab.get("0name").setBold();
-        listCellsToTabCurrentTab.get("0value").setBold();
+        mapCellsToTabCurrentTab.get("0name").setBold();
+        mapCellsToTabCurrentTab.get("0value").setBold();
+
+        //
+        mapCellsToTabCurrentTab.get("1name").setBold();
+        mapCellsToTabCurrentTab.get("2name").setBold();
+        mapCellsToTabCurrentTab.get("3name").setBold();
+        mapCellsToTabCurrentTab.get("4name").setBold();
+        mapCellsToTabCurrentTab.get("5name").setBold();
+        mapCellsToTabCurrentTab.get("6name").setBold();
+        mapCellsToTabCurrentTab.get("7name").setBold();
+        mapCellsToTabCurrentTab.get("8name").setBold();
+        mapCellsToTabCurrentTab.get("9name").setBold();
+        mapCellsToTabCurrentTab.get("10name").setBold();
+        mapCellsToTabCurrentTab.get("11name").setBold();
+        mapCellsToTabCurrentTab.get("12name").setBold();
+
 
 
 
         ///productos postcosecha
 
-        addCellsInTable(listCellsToTabCurrentTab,table1);
+        addCellsInTable(mapCellsToTabCurrentTab,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
@@ -502,13 +522,26 @@ if(hayFILE){
         /**devulve productos postcosecha table inf0 = 2 */
 
 
-        HashMap<String, Cell> listCellsToTabCurrentTab2= new HashMap<>();
-
         if(numProductsPostcosecha<=4){
             ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
-             listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
+            mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
             ///productos postcosecha
-            addCellsInTable(listCellsToTabCurrentTab2,table1);
+            ///
+
+            for(int indice=0; indice<mapCellsToTabCurrentTab.size()/2; indice++){
+              try {
+
+                  mapCellsToTabCurrentTab.get(indice+"name").setBold();
+                  mapCellsToTabCurrentTab.get(indice+"value").setBold();
+              } catch (Exception e) {
+                  throw new RuntimeException(e);
+              }
+
+
+            }
+
+
+            addCellsInTable(mapCellsToTabCurrentTab,table1);
 
         }else{
 
@@ -539,12 +572,19 @@ if(hayFILE){
         ArrayList<NameAndValue>dataTOtable2;
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,3,Variables.currenProductPostCosecha);
-        listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
+        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
         ///LA POSICION 5 LA EDITAMOS
-        listCellsToTabCurrentTab2.get("2value").setBackgroundColor(HelperPdf.rgbColorNaranja); //editamos el color
+
+        mapCellsToTabCurrentTab.get("0name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("1name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("2name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("3name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("4name").setBold(); //editamos el color
+
+        mapCellsToTabCurrentTab.get("2value").setBackgroundColor(HelperPdf.rgbColorNaranja); //editamos el color
 
 
-        addCellsInTable(listCellsToTabCurrentTab2,table1);
+        addCellsInTable(mapCellsToTabCurrentTab,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
 
         midocumentotoAddData.add(table1);
@@ -561,12 +601,19 @@ if(hayFILE){
 
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,4,Variables.currenProductPostCosecha);
-        listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
+        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
         ///LA POSICION 5 LA EDITAMOS
-       // listCellsToTabCurrentTab2.get("2value").setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
+        mapCellsToTabCurrentTab.get("0name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("1name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("2name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("3name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("4name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("5name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("6name").setBold(); //editamos el color
 
 
-        addCellsInTable(listCellsToTabCurrentTab2,table1);
+
+        addCellsInTable(mapCellsToTabCurrentTab,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
@@ -583,14 +630,32 @@ if(hayFILE){
 
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,5,Variables.currenProductPostCosecha);
-        listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,600);
+        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,600);
 
         //editamos otras columnas 10
-        listCellsToTabCurrentTab2.get("10value"); //editamos el color
+
+        for(int indice=0; indice<mapCellsToTabCurrentTab.size()/2; indice++){
+
+
+            try {
+                mapCellsToTabCurrentTab.get(indice+"name").setBold(); //editamos el color
+
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+        }
 
 
 
-        addCellsInTable(listCellsToTabCurrentTab2,table1);
+
+
+
+
+
+        addCellsInTable(mapCellsToTabCurrentTab,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
@@ -625,13 +690,18 @@ if(hayFILE){
 
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,6,Variables.currenProductPostCosecha);
-        listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
+        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
 
         //editamos otras columnas 10
-        // listCellsToTabCurrentTab2.get("10value"); //editamos el color
+        mapCellsToTabCurrentTab.get("0name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("1name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("2name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("3name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("4name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("5name").setBold(); //editamos el color
 
 
-        addCellsInTable(listCellsToTabCurrentTab2,table1);
+        addCellsInTable(mapCellsToTabCurrentTab,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         table1.setMarginTop(5f);
         midocumentotoAddData.add(table1);
@@ -700,12 +770,18 @@ if(hayFILE){
 
         Log.i("debugtablesss","el size de dataTOtable2 es "+dataTOtable2.size());
 
-        listCellsToTabCurrentTab2= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
+        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
+        mapCellsToTabCurrentTab.get("0name").setBold();
+        mapCellsToTabCurrentTab.get("1name").setBold();
+        mapCellsToTabCurrentTab.get("2name").setBold();
+        mapCellsToTabCurrentTab.get("3name").setBold();
 
-        Log.i("debugtablesss","el size de listCellsToTabCurrentTab2 es "+listCellsToTabCurrentTab2.size());
 
 
-        addCellsInTable(listCellsToTabCurrentTab2,table1);
+        Log.i("debugtablesss","el size de listCellsToTabCurrentTab2 es "+mapCellsToTabCurrentTab.size());
+
+
+        addCellsInTable(mapCellsToTabCurrentTab,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
@@ -980,18 +1056,76 @@ if(hayFILE){
         /**libriado**/
 
 
-        if(Variables.listPromedioLibriado.size()>0){ //si hay libriado
-
+        if(Utils.hashMappromedioLibriado.size()>0){ //si hay libriado
+             boolean isPrimeraTablaLibriado=true;
             midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
             midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
                     setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
-            table1=HelperPdf.devulveTablaToLibriado(Variables.listPromedioLibriado,"Marca aqui y name");
-            HelperPdf.configTableMaringAndWidth(table1,sizeTable-200);
+            Log.i("miodatr","se eejcuto el pdd");
 
-            midocumentotoAddData.add(table1);
 
+            Rectangle remainingZZ ;
+
+            String [] keyandanme;
+
+
+            for (Map.Entry<String,ArrayList<PromedioLibriado>> entry : Utils.hashMappromedioLibriado.entrySet()) {
+                String key = entry.getKey();
+                ArrayList<PromedioLibriado> arrayList = entry.getValue();
+
+                keyandanme = key.split("-");
+
+
+                /**obtenemos tabla by array list item*/
+                table1 = HelperPdf.devulveTablaToLibriado(arrayList, keyandanme[0]);
+                HelperPdf.configTableMaringAndWidth(table1, sizeTable - 200);
+
+
+                if (isPrimeraTablaLibriado) {
+
+                    table1.setMarginTop(10f);
+                    table1.setMarginBottom(10f);
+                    midocumentotoAddData.add(table1);
+                    isPrimeraTablaLibriado = false;
+
+                } else { /**aqui havemos el calculo...*/
+
+                    Log.i("simpredert", "esta table tiene de size" +arrayList.size());
+
+
+                    /***tenemos un valor contsante que es el heihgt del title y el promedio abajo serian unos 70*/
+                    float estimacionPosicionOcuparaTable=posicionyTablasLibriado-(arrayList.size()*22)-90;
+
+                    Log.i("simpredert", "la posicion estmada seria " + estimacionPosicionOcuparaTable);
+
+
+
+                    if(estimacionPosicionOcuparaTable<210){
+                        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                    }
+
+
+
+                     table1.setMarginTop(10f);
+                    table1.setMarginBottom(10f);
+
+                    midocumentotoAddData.add(table1);
+
+
+                }
+
+                remainingZZ = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+                posicionyTablasLibriado = remainingZZ.getTop();
+
+
+
+                Log.i("simpredert", "la posicionyTablasLibriado table real DESPUES DE ADD es  " + posicionyTablasLibriado);
+
+
+            }
             Log.i("miodataxx","es mayor a cero");
 
 

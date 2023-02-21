@@ -36,6 +36,7 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.models.UsuarioQsercom;
 
 import org.json.JSONException;
@@ -53,6 +54,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Utils {
  public static boolean isOfflineReport=false;
 
+
+ ///cada item usaremos esa data para crear un cuadro...
+public static HashMap<String,ArrayList<PromedioLibriado>>hashMappromedioLibriado= new HashMap<>();
 
 public static int numReportsVinculadsAll =0;
 

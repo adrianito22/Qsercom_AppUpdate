@@ -819,7 +819,6 @@
 
                     <com.tiburela.qsercom.Customviews.EditextSupreme
                         android:id="@+id/ediNumClusInsp8"
-
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"

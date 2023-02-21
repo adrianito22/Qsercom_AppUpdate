@@ -4,11 +4,10 @@
     android:id="@+id/layPesoBruto2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:visibility="gone">
+    android:visibility="visible">
 
 
     <LinearLayout
-
         android:id="@+id/layoutContainerSeccion5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,16 +41,15 @@
 
                     <EditText
                         android:id="@+id/p2pbCluster01"
-
-
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil11" />
+                        android:tag="col1-fil11" />
 
                     <EditText
 
@@ -60,55 +59,60 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
                         android:gravity="center_horizontal"
                         android:inputType="number"
+
                         android:padding="7dp"
-                        android:tag="fil11" />
+                        android:tag="col2-fil11" />
 
                     <EditText
                         android:id="@+id/p2pbCluster03"
 
-
-                        android:layout_width="100dp"
+                        android:layout_width="95dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil11" />
+                        android:tag="col3-fil11" />
 
                     <EditText
                         android:id="@+id/p2pbCluster02"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil11" />
+                        android:tag="col4-fil11" />
 
                     <EditText
                         android:id="@+id/p2pbCluster04"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil11" />
+                        android:tag="col5-fil11" />
 
                 </LinearLayout>
 
@@ -136,71 +140,76 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
-                        android:gravity="center_horizontal"
+                        android:digits="0123456789."
 
+                        android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil12" />
+                        android:tag="col1-fil12" />
 
                     <EditText
                         android:id="@+id/p2pbCluster09"
-
-
                         android:layout_width="100dp"
 
+
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil12" />
+                        android:tag="col2-fil12" />
 
                     <EditText
                         android:id="@+id/p2pbCluster07"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil12" />
+                        android:tag="col3-fil12" />
 
                     <EditText
                         android:id="@+id/p2pbCluster08"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil12" />
+                        android:tag="col4-fil12" />
 
                     <EditText
                         android:id="@+id/p2pbCluster06"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil12" />
+                        android:tag="col5-fil12" />
 
                 </LinearLayout>
 
@@ -230,72 +239,77 @@
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
 
+                        android:digits="0123456789."
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil13" />
+                        android:tag="col1-fil13" />
 
                     <EditText
                         android:id="@+id/p2pbCluster015"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
 
 
                         android:padding="7dp"
-                        android:tag="fil13" />
+                        android:tag="col2-fil13" />
 
                     <EditText
                         android:id="@+id/p2pbCluster012"
-
-
                         android:layout_width="100dp"
 
+
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil13" />
+                        android:tag="col3-fil13" />
 
                     <EditText
                         android:id="@+id/p2pbCluster013"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil13" />
+                        android:tag="col4-fil13" />
 
                     <EditText
                         android:id="@+id/p2pbCluster014"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil13" />
+                        android:tag="col5-fil13" />
 
                 </LinearLayout>
 
@@ -319,79 +333,75 @@
                     <EditText
                         android:id="@+id/p2pbCluster016"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
-
+                        android:digits="0123456789."
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil14" />
+                        android:tag="col1-fil14" />
 
                     <EditText
                         android:id="@+id/p2pbCluster019"
-
-
                         android:layout_width="100dp"
-
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
-
+                        android:digits="0123456789."
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil14" />
+                        android:tag="col2-fil14" />
 
                     <EditText
                         android:id="@+id/p2pbCluster018"
-
-
                         android:layout_width="100dp"
-
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
-
+                        android:digits="0123456789."
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil14" />
+                        android:tag="col3-fil14" />
+
 
                     <EditText
                         android:id="@+id/p2pbCluster020"
-
-
                         android:layout_width="100dp"
 
+
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
 
 
                         android:padding="7dp"
-                        android:tag="fil14" />
+                        android:tag="col4-fil14" />
 
                     <EditText
                         android:id="@+id/p2pbCluster017"
-
-
                         android:layout_width="100dp"
 
+
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil14" />
+                        android:tag="col5-fil14" />
 
                 </LinearLayout>
 
@@ -413,78 +423,83 @@
 
                     <EditText
                         android:id="@+id/p2pbCluster025"
-
-
                         android:layout_width="100dp"
+
+
                         android:layout_height="wrap_content"
-
                         android:layout_margin="5dp"
-                        android:background="@drawable/back_edit"
-                        android:gravity="center_horizontal"
 
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil15" />
+                        android:tag="col1-fil15" />
 
                     <EditText
                         android:id="@+id/p2pbCluster024"
 
 
                         android:layout_width="100dp"
-
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil15" />
+                        android:tag="col2-fil15" />
 
                     <EditText
                         android:id="@+id/p2pbCluster023"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil15" />
+                        android:tag="col3-fil15" />
 
                     <EditText
                         android:id="@+id/p2pbCluster022"
-
-
                         android:layout_width="100dp"
 
+
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil15" />
+                        android:tag="col4-fil15" />
 
                     <EditText
                         android:id="@+id/p2pbCluster021"
 
 
                         android:layout_width="100dp"
-
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil15" />
+                        android:tag="col5-fil15" />
 
                 </LinearLayout>
 
@@ -507,79 +522,84 @@
                     <EditText
                         android:id="@+id/p2pbCluster028"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil16" />
+                        android:tag="col1-fil16" />
 
                     <EditText
                         android:id="@+id/p2pbCluster027"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil16" />
+                        android:tag="col2-fil16" />
 
                     <EditText
                         android:id="@+id/p2pbCluster029"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil16" />
+                        android:tag="col3-fil16" />
 
                     <EditText
                         android:id="@+id/p2pbCluster026"
-
-
                         android:layout_width="100dp"
 
+
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil16" />
+                        android:tag="col4-fil16" />
 
                     <EditText
                         android:id="@+id/p2pbCluster030"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
 
 
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil16" />
+                        android:tag="col5-fil16" />
 
                 </LinearLayout>
 
@@ -597,84 +617,90 @@
                         android:background="@drawable/back_edit"
                         android:inputType="number"
                         android:padding="10dp"
+                        android:tag="col1"
                         android:text="PESO BRUTO POR CLUSTER Nº17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster034"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil17" />
+                        android:tag="col1-fil17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster031"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil17" />
+                        android:tag="col2-fil17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster035"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
 
 
                         android:padding="7dp"
-                        android:tag="fil17" />
+                        android:tag="col3-fil17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster033"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil17" />
+                        android:tag="col4-fil17" />
 
                     <EditText
                         android:id="@+id/p2pbCluster032"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil17" />
+                        android:tag="col5-fil17" />
 
                 </LinearLayout>
 
@@ -697,83 +723,289 @@
                     <EditText
                         android:id="@+id/p2pbCluster039"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil18" />
+                        android:tag="col1-fil18" />
 
                     <EditText
                         android:id="@+id/p2pbCluster040"
-
-
                         android:layout_width="100dp"
 
+
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
 
 
                         android:padding="7dp"
-                        android:tag="fil18" />
+                        android:tag="col2-fil18" />
 
                     <EditText
                         android:id="@+id/p2pbCluster037"
 
-
                         android:layout_width="100dp"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil18" />
+                        android:tag="col3-fil18" />
 
                     <EditText
                         android:id="@+id/p2pbCluster038"
-
-
                         android:layout_width="100dp"
 
+
                         android:layout_height="wrap_content"
+
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil18" />
+                        android:tag="col4-fil18" />
 
                     <EditText
                         android:id="@+id/p2pbCluster036"
-
-
                         android:layout_width="100dp"
-
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col5-fil18" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº9" />
+
+                    <EditText
+                        android:id="@+id/pbCluster043"
+                        android:layout_width="100dp"
+
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
 
                         android:gravity="center_horizontal"
                         android:inputType="number"
                         android:padding="7dp"
-                        android:tag="fil18" />
+                        android:tag="col1" />
+
+                    <EditText
+                        android:id="@+id/pbCluster045"
+                        android:layout_width="100dp"
+
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col2"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/pbCluster042"
+                        android:layout_width="100dp"
+
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col3" />
+
+                    <EditText
+                        android:id="@+id/pbCluster041"
+
+                        android:layout_width="100dp"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col4" />
+
+                    <EditText
+                        android:id="@+id/pbCluster044"
+                        android:layout_width="100dp"
+
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col5" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="PESO BRUTO POR CLUSTER Nº10" />
+
+                    <EditText
+                        android:id="@+id/pbCluster048"
+                        android:layout_width="100dp"
+
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col1" />
+
+                    <EditText
+                        android:id="@+id/pbCluster046"
+
+                        android:layout_width="100dp"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col2" />
+
+                    <EditText
+                        android:id="@+id/pbCluster050"
+
+                        android:layout_width="100dp"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+
+                        android:tag="col3" />
+
+                    <EditText
+                        android:id="@+id/pbCluster047"
+                        android:layout_width="100dp"
+
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col4" />
+
+                    <EditText
+                        android:id="@+id/pbCluster049"
+
+                        android:layout_width="100dp"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                        android:background="@drawable/back_edit"
+                        android:digits="0123456789."
+
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:tag="col5" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
+
+
+
         </HorizontalScrollView>
 
 

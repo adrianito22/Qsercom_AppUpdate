@@ -5310,8 +5310,8 @@ public void decideaAtachReport(boolean userSelecion){
 private void callPrefrencesSaveAndImagesData(){
 
        View [] arrayAllViewsData=creaArryOfViewsAll();
-      EditText [] arrayEdiTextCalendario =creaArrayOfEditextCalendario();
-    EditText [] arrayEdiTextLibriado=generateArrayOfEditTextLibriado();
+       EditText [] arrayEdiTextCalendario =creaArrayOfEditextCalendario();
+       EditText [] arrayEdiTextLibriado=generateArrayOfEditTextLibriado();
 
 
 
@@ -5401,6 +5401,14 @@ private void callPrefrencesSaveAndImagesData(){
     /***iniciamos find view id en peso burto por clusters... **/
 
     HashMap<String, Float> generateMapLibriadoIfExistAndUpload(){
+
+        EditText        ediMarcaCol1 = findViewById(R.id.ediMarcaCol1);
+        EditText        ediMarcaCol2 = findViewById(R.id.ediMarcaCol2);
+        EditText        ediMarcaCol3 = findViewById(R.id.ediMarcaCol3);
+        EditText        ediMarcaCol4 = findViewById(R.id.ediMarcaCol4);
+        EditText        ediMarcaCol5 = findViewById(R.id.ediMarcaCol5);
+
+
 
 
         EditText        pbCluster01 = findViewById(R.id.pbCluster01);
@@ -5496,6 +5504,9 @@ private void callPrefrencesSaveAndImagesData(){
 
 
         EditText [] miArray= {
+
+                ediMarcaCol1,ediMarcaCol2,ediMarcaCol3,ediMarcaCol4,ediMarcaCol5,
+
                 pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
                 pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
                 pbCluster024 ,pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
@@ -5725,6 +5736,14 @@ private void callPrefrencesSaveAndImagesData(){
 
     EditText [] generateArrayOfEditTextLibriado(){
 
+        EditText        ediMarcaCol1 = findViewById(R.id.ediMarcaCol1);
+        EditText        ediMarcaCol2 = findViewById(R.id.ediMarcaCol2);
+        EditText        ediMarcaCol3 = findViewById(R.id.ediMarcaCol3);
+        EditText        ediMarcaCol4 = findViewById(R.id.ediMarcaCol4);
+        EditText        ediMarcaCol5 = findViewById(R.id.ediMarcaCol5);
+
+
+
         EditText        pbCluster01 = findViewById(R.id.pbCluster01);
         EditText        pbCluster05 = findViewById(R.id.pbCluster05);
         EditText        pbCluster03 = findViewById(R.id.pbCluster03);
@@ -5818,7 +5837,9 @@ private void callPrefrencesSaveAndImagesData(){
 
 
         EditText [] miArray= {
-                pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
+                ediMarcaCol1,ediMarcaCol2,ediMarcaCol3,ediMarcaCol4,ediMarcaCol5,
+
+        pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
                 pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
                 pbCluster024 ,pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
                 pbCluster031, pbCluster035, pbCluster033, pbCluster032, pbCluster039, pbCluster040, pbCluster037, pbCluster038, pbCluster036, pbCluster043,
