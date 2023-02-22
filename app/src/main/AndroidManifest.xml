@@ -35,6 +35,12 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="s">
 
+        <activity
+            android:name=".PdfMaker.PdfMakerContenresAcopio"
+            android:configChanges="orientation"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
 
         <activity
             android:name=".PdfMaker.PdfMaker2_0"

@@ -51,6 +51,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.PdfMaker.PdfMakerContenresAcopio;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
@@ -72,6 +73,7 @@ import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -147,7 +149,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         SharePref.init(ActivityMenu.this);
 
 
-      //  Variables.actividad =ActivityMenu;
+
+        //  Variables.actividad =ActivityMenu;
         Variables.activity=this;
 
         imGProfile=findViewById(R.id.imageView2);

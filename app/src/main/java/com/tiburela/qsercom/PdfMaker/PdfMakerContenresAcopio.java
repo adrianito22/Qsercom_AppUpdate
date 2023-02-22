@@ -4,10 +4,6 @@ package com.tiburela.qsercom.PdfMaker;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -28,6 +24,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -44,9 +43,6 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
-//import com.itextpdf.kernel.layout.element.Table; //???? der any probllem?
-
-//write here which class not found and wirte whee you want to use i timport com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
@@ -54,11 +50,8 @@ import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
-
-//issue resolved edear
-
-
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
@@ -66,6 +59,8 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.DatosDeProceso;
+import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.NameAndValue;
 import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -84,7 +79,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PdfMaker2_0 extends AppCompatActivity {
+public class PdfMakerContenresAcopio extends AppCompatActivity {
     int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
 
@@ -144,6 +139,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
          btnDescargar=findViewById(R.id.btnDescargar) ;
         layoutGraficos=findViewById(R.id.layoutGraficos) ;
         btnIrAARCHIVOpdf=findViewById(R.id.btnIrAARCHIVOpdf);
+        layoutDown.setVisibility(View.VISIBLE);
+
         btnIrAARCHIVOpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,7 +151,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
                 try {
-                    InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriThiSfile);
+                    InputStream inputStream = PdfMakerContenresAcopio.this.getContentResolver().openInputStream(uriThiSfile);
                     inputStream.close();
                     hayFILE=true;
                     ///ecnontroFiLE[0] = true;
@@ -174,7 +171,7 @@ if(hayFILE){
 
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     try {/*from   ww w  .  java  2s . c  om*/
-        PdfMaker2_0.this.startActivity(intent);
+        PdfMakerContenresAcopio.this.startActivity(intent);
 
         Log.i("searchFilex","vaomos activity");
 
@@ -201,7 +198,7 @@ if(hayFILE){
 
 }else {
 
-    Toast.makeText(PdfMaker2_0.this, "No existe el archivo", Toast.LENGTH_SHORT).show();
+    Toast.makeText(PdfMakerContenresAcopio.this, "No existe el archivo", Toast.LENGTH_SHORT).show();
     Log.i("searchFilex","NO se encontro file");
 
 
@@ -221,15 +218,11 @@ if(hayFILE){
             @Override
             public void onClick(View view) {
 
-               /// Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
 
-                //
 
 
 
                 try {
-                    HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
-
 
 
                     if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -241,7 +234,7 @@ if(hayFILE){
                         Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
 
-                        createPDFContenedores() ;
+                        createPdfContenrAcopio2("exampledockk"); ;
 
 
                     }else{
@@ -249,7 +242,7 @@ if(hayFILE){
 
 
 
-                        requestPermision(PdfMaker2_0.this);
+                        requestPermision(PdfMakerContenresAcopio.this);
 
 
                        /*
@@ -317,11 +310,16 @@ if(hayFILE){
 
         else if(ActivityFormularioDondeVino  == Variables.FormatDatsContAcopiPREVIEW){  //completar estos
 
+
+            try {
+                createPDFContenedoresAcopio();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
             Log.i("debbdf","es el segundo if");
 
-           // h
-
-        }else if (ActivityFormularioDondeVino  == Variables.FormCamionesyCarretasActivityPreview){
+        }else if (ActivityFormularioDondeVino  == Variables.FormPreviewContenedores){
             Log.i("debbdf","es el tercer if");
 
 
@@ -345,865 +343,7 @@ if(hayFILE){
 
   }
 
-
     public void createPDFContenedoresAcopio() throws Exception {
-
-
-        String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
-        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File file = new File(directory, nameOFPDFrEPORTfile+".pdf");
-
-        uriThiSfile=Uri.fromFile(file);
-
-        //chekear si existe si es asi sobrescribirlo
-
-        HelperPdf.initFontx();
-
-        OutputStream estrema =new FileOutputStream(file);
-        PdfWriter writer = new PdfWriter(file); //le pasmaos el file
-
-        PdfDocument miPFDocumentkernel= new PdfDocument(writer);
-        PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
-        PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
-
-
-        HelperPdf pdfHelper= new HelperPdf();
-
-        Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
-        midocumentotoAddData.setMargins(0, 0, 0, 0);
-
-        Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        imglogqSercom.scaleToFit(595f, 200f); //ESTA EN 400 DESPUES 3300
-        imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
-
-
-        /**CONFIGURAMOS OTRA VEZ EL MARGEN*/
-        midocumentotoAddData.setMargins(190, 0, 105, 0);
-
-
-        Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        imageHeader.setFixedPosition(0, 650); // si no usamos este
-        imageHeader.setMarginTop(0f); // de prueba
-        ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData);
-
-        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
-
-
-
-        Rectangle remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
-
-        float y = remaining.getTop();
-        float sizeTable= pageSize.getWidth()-120f;
-
-        Log.i("miodatr","el size de table es"+sizeTable);
-
-        Log.i("debian","sellamoaqui tambien ");
-
-        Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() en logo es ES "+y);
-
-
-        float position = midocumentotoAddData.getRenderer().getCurrentArea().getBBox().getTop();
-        Log.i("miodatr","el mi logoqsercom "+position);
-
-
-        Image imglogqSercomfooterBacground=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.footer_pdf),1);
-        imglogqSercomfooterBacground.setFixedPosition(0, 0); // si no usamos este
-        BackgroundEventHandler handler2 = new BackgroundEventHandler(imglogqSercomfooterBacground);
-        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler2);
-
-        Table tableTitle=  new Table(1);
-
-        /**TABLE TITULO EXPORTADORA SOLICTADA yPosicion procesada*/
-        Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
-        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITANTE "+Variables.CurrenReportPart1.getExportadoraSolicitante().toUpperCase()+" MARCA "+" "+Variables.CurrenReportPart1.getMarrca().toUpperCase())
-                .setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
-        Cell cell3= new Cell().setBorder(Border.NO_BORDER)
-                .add(new Paragraph("EXPORTADORA PROCESADA "+Variables.CurrenReportPart1.getExportadoraProcesada()+" "+Variables.CurrenReportPart1.getUniqueIDinforme().toUpperCase()).
-                        setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
-
-        tableTitle.addCell(cell1);
-        tableTitle.addCell(cell2);
-        tableTitle.addCell(cell3);
-
-        HelperPdf.configTableMaringAndWidth(tableTitle,sizeTable);
-        midocumentotoAddData.add(tableTitle);
-
-
-        Log.i("mitables","el size de colum 1  es "+sizeTable/2);
-        Log.i("mitables","el size de colum 2  es "+sizeTable/1.5f);
-
-        /**EMPEZAMOS CON LAS TABLAS*/
-        //  float sizeColumns[]= {sizeTable/2,sizeTable/1.5f};
-        float sizeColumns[]= {190,285};
-
-        Table table1=  new Table(sizeColumns);
-        // table1.
-
-        //DeviceRgb rgbColor= new DeviceRgb(153, 255, 229); //color verde claro
-
-
-        /**add primer cuadro..*/
-        //crea list de celds...yPosicion add values...
-        ArrayList<NameAndValue>dataTOtable1=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,1,Variables.currenProductPostCosecha);
-        HashMap<String,Cell> mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable1,50,0);
-
-
-
-        //editamos la tabla 1
-        mapCellsToTabCurrentTab.get("0name").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
-        mapCellsToTabCurrentTab.get("0value").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
-
-        mapCellsToTabCurrentTab.get("0name").setBold();
-        mapCellsToTabCurrentTab.get("0value").setBold();
-
-        //
-        mapCellsToTabCurrentTab.get("1name").setBold();
-        mapCellsToTabCurrentTab.get("2name").setBold();
-        mapCellsToTabCurrentTab.get("3name").setBold();
-        mapCellsToTabCurrentTab.get("4name").setBold();
-        mapCellsToTabCurrentTab.get("5name").setBold();
-        mapCellsToTabCurrentTab.get("6name").setBold();
-        mapCellsToTabCurrentTab.get("7name").setBold();
-        mapCellsToTabCurrentTab.get("8name").setBold();
-        mapCellsToTabCurrentTab.get("9name").setBold();
-        mapCellsToTabCurrentTab.get("10name").setBold();
-        mapCellsToTabCurrentTab.get("11name").setBold();
-        mapCellsToTabCurrentTab.get("12name").setBold();
-
-
-
-
-        ///productos postcosecha
-
-        addCellsInTable(mapCellsToTabCurrentTab,table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        midocumentotoAddData.add(table1);
-
-
-
-
-        /**productos postosecha*/
-
-        float sizeColumns2[]= {190,1};
-        table1=  new Table(sizeColumns2);
-
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f).setBold()
-                .setTextAlignment(TextAlignment.CENTER)) ;
-
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
-        table1.addCell(cell0);
-
-
-        /**devulve productos postcosecha table inf0 = 2 */
-
-
-        if(numProductsPostcosecha<=4){
-            ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
-            mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
-            ///productos postcosecha
-            ///
-
-            for(int indice=0; indice<mapCellsToTabCurrentTab.size()/2; indice++){
-                try {
-
-                    mapCellsToTabCurrentTab.get(indice+"name").setBold();
-                    mapCellsToTabCurrentTab.get(indice+"value").setBold();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-
-            }
-
-
-            addCellsInTable(mapCellsToTabCurrentTab,table1);
-
-        }else{
-
-            HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-            midocumentotoAddData.add(table1);
-
-            table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha,contexto);
-
-        }
-
-
-
-
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        midocumentotoAddData.add(table1);
-
-        // table1.setMarginTop(10f);
-
-        /**DATOS  DE CONTENEDOR***/
-
-        table1=  new Table(sizeColumns2);
-
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8f).setBold()) ;
-
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
-        table1.addCell(cell0);
-
-        ArrayList<NameAndValue>dataTOtable2;
-
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,3,Variables.currenProductPostCosecha);
-        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
-        ///LA POSICION 5 LA EDITAMOS
-
-        mapCellsToTabCurrentTab.get("0name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("1name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("2name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("3name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("4name").setBold(); //editamos el color
-
-        mapCellsToTabCurrentTab.get("2value").setBackgroundColor(HelperPdf.rgbColorNaranja); //editamos el color
-
-
-        addCellsInTable(mapCellsToTabCurrentTab,table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-
-        midocumentotoAddData.add(table1);
-
-        /**SELLOS DE LLEGADA*/
-
-        table1=  new Table(sizeColumns2);
-
-        cell0= new Cell(1,2).add(new Paragraph("SELLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
-
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
-        table1.addCell(cell0);
-
-
-
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,4,Variables.currenProductPostCosecha);
-        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
-        ///LA POSICION 5 LA EDITAMOS
-        mapCellsToTabCurrentTab.get("0name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("1name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("2name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("3name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("4name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("5name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("6name").setBold(); //editamos el color
-
-
-
-        addCellsInTable(mapCellsToTabCurrentTab,table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        midocumentotoAddData.add(table1);
-
-        /**SELLOS INSTALADOS*/
-
-
-        float sizeColumns5[]= {190,2,1,1};
-        table1=  new Table(sizeColumns5);
-
-        cell0= new Cell(1,4).add(new Paragraph("SELLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
-
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
-        table1.addCell(cell0);
-
-
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,5,Variables.currenProductPostCosecha);
-        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,600);
-
-        //editamos otras columnas 10
-
-        for(int indice=0; indice<mapCellsToTabCurrentTab.size()/2; indice++){
-
-
-            try {
-                mapCellsToTabCurrentTab.get(indice+"name").setBold(); //editamos el color
-
-
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-
-        }
-
-
-
-
-
-
-
-
-        addCellsInTable(mapCellsToTabCurrentTab,table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        midocumentotoAddData.add(table1);
-
-        /**TERMINA PRIMERA HOJA DEBERIA CREAR OTROA HOJA*/
-
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-        //agregamos el header
-
-
-        Log.i("debian","sellamoaqui tambien xxx ");
-
-
-
-        /**DATOS DE TRANSPORTISTA */
-
-        /**add header imagen*/
-
-
-        ///AGREGAMOS LA IMAGEN HEADER AQUI
-
-
-        float sizeColumns6[]= {190,5};
-        table1=  new Table(sizeColumns6);
-
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8f).
-                setFont(HelperPdf.font).setBold()) ;
-
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
-        table1.addCell(cell0);
-
-
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,6,Variables.currenProductPostCosecha);
-        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
-
-        //editamos otras columnas 10
-        mapCellsToTabCurrentTab.get("0name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("1name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("2name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("3name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("4name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("5name").setBold(); //editamos el color
-
-
-        addCellsInTable(mapCellsToTabCurrentTab,table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        table1.setMarginTop(5f);
-        midocumentotoAddData.add(table1);
-
-
-
-        /**DATOS DE PROCESO parte 1 */
-
-        float sizeColumns7[]= {190,2,2,2,2,2,2,2,2};
-        table1=  new Table(sizeColumns7);
-
-
-
-        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
-
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
-        table1.addCell(cell0);
-
-
-        table1 =    HelperPdf.createTable2(table1,HelperPdf.rgbColorAzulClaro,Variables.CurrenReportPart2) ;
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        //table1.setMarginTop(5f);
-        midocumentotoAddData.add(table1);
-
-
-
-        /**DATOS DE PROCESO parte 2 */
-
-        float sizeColumns8[]= {190,2,2,2,2};
-        table1=  new Table(sizeColumns8);
-
-
-        table1 =    HelperPdf.createTable3(table1,Variables.CurrenReportPart2) ;
-
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        midocumentotoAddData.add(table1);
-
-
-
-        /**DATOS DE PROCESO parte 3 */
-
-        float sizeColumns10[]= {190,1,1,1,1,1,1};
-        table1=  new Table(sizeColumns10);
-
-
-        table1 =HelperPdf.createTbale6(table1,Variables.CurrenReportPart3) ;
-
-
-
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        midocumentotoAddData.add(table1);
-
-        /**CONTROL DE GANCHOI**/
-
-
-
-        float araycolum[]= {190,2};
-        table1=  new Table(araycolum);
-
-        Cell cellHeader2= new Cell(1,2).setBackgroundColor(HelperPdf.rgbColorAzulClaro);
-        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold());
-        table1.addCell(cellHeader2);
-
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,8,Variables.currenProductPostCosecha);
-
-
-        Log.i("debugtablesss","el size de dataTOtable2 es "+dataTOtable2.size());
-
-        mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
-        mapCellsToTabCurrentTab.get("0name").setBold();
-        mapCellsToTabCurrentTab.get("1name").setBold();
-        mapCellsToTabCurrentTab.get("2name").setBold();
-        mapCellsToTabCurrentTab.get("3name").setBold();
-
-
-
-        Log.i("debugtablesss","el size de listCellsToTabCurrentTab2 es "+mapCellsToTabCurrentTab.size());
-
-
-        addCellsInTable(mapCellsToTabCurrentTab,table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        midocumentotoAddData.add(table1);
-
-
-
-        /**Calibracion de fruta calnedario de enfunde*/
-
-        table1= HelperPdf.createTABLEcalendarioEnfude(table1,Variables.CurrenReportPart3);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        midocumentotoAddData.add(table1);
-
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-
-
-        /**agregamos tables de control calidad*/
-
-        midocumentotoAddData.add(new Paragraph("1.- EVALUACIÓN Y CONDICIÓN DE FRUTA.").
-                setFontSize(7.3f).
-                setMarginTop(1f).
-                setBold().
-                setPaddingBottom(1f).setMarginLeft(60f));
-
-        int contadorTablas=1;
-
-        for(int i=0; i<ListWhitHashMapsControlCalidad.size(); i++ ){
-
-            HashMap<String,String>currentMap=ListWhitHashMapsControlCalidad.get(i);
-            HashMap<String,String>currentMapDefectsCheked=ListWhitHashMapsRechzadosChekeed.get(i);
-            ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(i);
-
-            table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this,contadorTablas);
-
-
-            if( contadorTablas % 2==0){  //yPosicion si existen mas tablas yPosicion es un numero
-                table1.setMarginTop(40f);
-
-                if(contadorTablas<ListWhitHashMapsControlCalidad.size()){ //signifca que quedan mas tablas
-
-                    midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-                }
-            }
-
-            else{ //si es la primera tabla de la pagina
-
-                table1.setMarginTop(10f);
-
-
-            }
-
-
-            table1.setWidth(pageSize.getWidth()/2);
-            table1.setMarginLeft(60f);
-            midocumentotoAddData.add(table1);
-
-            contadorTablas++;
-
-
-        }
-
-
-
-
-        /**Agregamos Certificacion texto yPosicion tabla*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-        Paragraph title= new Paragraph("CERTIFICACIÓN").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
-
-        midocumentotoAddData.add(title);
-        midocumentotoAddData.add(new Paragraph("Estimados.").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
-
-
-        /**TEXTO SEGUNDA LINEA*/
-        //table1=  HelperPdf.generateTexCertificationTable("MARCA AQUI");
-        title=HelperPdf.generateTexCertificoLaCALIDAD(Variables.CurrenReportPart1.getMarrca());
-        title.setMarginLeft(60f);
-
-        midocumentotoAddData.add(title);
-
-
-        midocumentotoAddData.add(new Paragraph("A continuación describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
-        midocumentotoAddData.add(new Paragraph("Tabla1.-  Descripción de porcentaje de calidad de productores y tipos de empaque").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
-
-
-        /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
-        table1 =HelperPdf. createTablePorceCalidProductres();
-
-
-        /**confi especial*/
-        table1.setWidth(sizeTable-50);
-        table1.setHorizontalAlignment(HorizontalAlignment.LEFT);
-        table1.setMarginLeft(60f);
-
-        table1.setMarginTop(1f);
-        midocumentotoAddData.add(table1);
-
-
-
-        midocumentotoAddData.add(new Paragraph("Gráfico 1.- Demostración de calidad total y daños- estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
-
-        /**Agregamos pie  Grafico*/
-        PieChart pieChart;
-        pieChart=findViewById(R.id.pieChart_view);
-
-        DeviceRgb rgbColor= new DeviceRgb(220,220,220);
-
-        table1=new Table(1);
-        cell1= new Cell().setBackgroundColor(rgbColor).setBorder(Border.NO_BORDER);
-        cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(16f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
-        table1.addCell(cell1);
-
-        Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
-        Image imagen= HelperPdf.createImagebYbitmap(bitmap);
-
-
-        imagen.setWidth(120);
-        imagen.setHeight(120);
-        imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        //imagen.scaleToFit(1000,100); //estaba en 100
-
-
-        cell1= new Cell().setBorder(Border.NO_BORDER).setBackgroundColor(rgbColor).setHorizontalAlignment(HorizontalAlignment.CENTER);
-        cell1.add(imagen);
-        table1.addCell(cell1);
-
-
-        table1.setWidth(pageSize.getWidth()-200f);
-        // table1.setMarginLeft(70f);
-        table1.setMarginTop(1f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
-        midocumentotoAddData.add(table1);
-
-
-        /**Texto como verfiicadora tenemos...*/
-
-        midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente.").
-                setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
-/*
-        midocumentotoAddData.add(new Paragraph(Variables.CurrenReportPart1.getClienteReporte()).
-                setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
-*/
-
-        midocumentotoAddData.add(new Paragraph("Atentamente,").
-                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
-
-        /**NOMBRE DE LOS INSPECTORES*/
-        table1=  HelperPdf.generaTableInspectores(Variables.CurrenReportPart3,pageSize.getWidth());
-        midocumentotoAddData.add(table1);
-
-
-        /**BAR CHART Sporcentaje de frutas*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-
-
-
-        BarChart barChartView;
-        barChartView=findViewById(R.id.barChartView);
-
-
-        int contadorAllGraficos=2;
-
-        int contadorImageChar=1;
-
-        for(int indice=0; indice<ListWhitHashMapsControlCalidad.size(); indice++){  //2 tablas...  4 en total
-            ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
-
-            //agregamos el texto en cel centro
-            Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getMarcaCaja())
-                    .setPaddingLeft(60f).setBold();
-            mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
-
-            //  midocumentotoAddData.add(new Paragraph("textaqui").setFontSize(5f));
-
-
-            remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
-            float y2 = remaining.getTop();
-
-
-            ///este codigo marcael area restante despues de agregar un elemento al pdf
-            //PdfCanvas canvas = new PdfCanvas(miPFDocumentkernel.getPage(5));
-            //canvas.setStrokeColor(ColorConstants.RED).rectangle(remaining).stroke();
-
-
-            Log.i("posicuon","el posicon  es "+y2);
-
-
-
-            if(contadorImageChar%2==0){  //es multiplo de 2
-                mipara.setMarginTop(25f);
-
-                if(contadorImageChar<ListWhitHashMapsControlCalidad.size()){
-                    //cremoas nueva pagina siempre yPosicion cuando existan mas valores
-                    midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                }
-
-
-            }
-            else{
-
-                mipara.setMarginTop(2f);
-
-            }
-
-
-            midocumentotoAddData.add(mipara);
-
-            bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
-
-
-
-            imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
-            imagen.setHeight(185f); //SI NO QUITAMOS 5
-
-            //////////////////
-
-            imagen.setWidth(pageSize.getWidth()-145);
-            //imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
-            table1= new Table(1);
-
-            cell1 = new Cell().setBorder(new SolidBorder(rgbColor, 1)).setBorderBottom(Border.NO_BORDER).add(new Paragraph("PORCENTAJE POR DEFECTO EN SELECCIÓN Y EMPAQUE").setMarginTop(10f).setTextAlignment(TextAlignment.CENTER));;
-            table1.addCell(cell1);
-
-
-            cell1 = new Cell().setBorderTop(Border.NO_BORDER);
-            cell1.setBorder(new SolidBorder(rgbColor, 1));
-
-
-
-            cell1.add(imagen);
-            table1.addCell(cell1);
-            HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-
-            midocumentotoAddData.add(table1);
-            //setPaddingLeft(70f)
-            contadorAllGraficos++;
-            contadorImageChar++;
-        }
-
-
-
-
-        /**descripcion de defectos de fruta*/
-
-        //agregamos el hedaer
-        /**add header imagen*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-        float araycolumzz[]= {1,1,1,1,1,1};
-        table1=  new Table(araycolumzz);
-
-        table1=HelperPdf.descripciondEFECXTOSFRUTA(table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        table1.setMarginTop(8f);
-        midocumentotoAddData.add(table1);
-
-        float ancho=pageSize.getWidth();   //MAS O MENOS EL DE LA ULTIMA TABLA
-        float alto=pageSize.getHeight();
-
-
-        Log.i("miodatr","el ancho del doc es "+ancho);
-        Log.i("miodatr","el alto  del doc es "+alto);
-
-        //   miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
-
-
-
-        /**libriado**/
-
-
-        if(Utils.hashMappromedioLibriado.size()>0){ //si hay libriado
-            boolean isPrimeraTablaLibriado=true;
-            midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-            midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
-                    setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
-
-            Log.i("miodatr","se eejcuto el pdd");
-
-
-            Rectangle remainingZZ ;
-
-            String [] keyandanme;
-
-
-            for (Map.Entry<String,ArrayList<PromedioLibriado>> entry : Utils.hashMappromedioLibriado.entrySet()) {
-                String key = entry.getKey();
-                ArrayList<PromedioLibriado> arrayList = entry.getValue();
-
-                keyandanme = key.split("-");
-
-
-                /**obtenemos tabla by array list item*/
-                table1 = HelperPdf.devulveTablaToLibriado(arrayList, keyandanme[0]);
-                HelperPdf.configTableMaringAndWidth(table1, sizeTable - 200);
-
-
-                if (isPrimeraTablaLibriado) {
-
-                    table1.setMarginTop(10f);
-                    table1.setMarginBottom(10f);
-                    midocumentotoAddData.add(table1);
-                    isPrimeraTablaLibriado = false;
-
-                } else { /**aqui havemos el calculo...*/
-
-                    Log.i("simpredert", "esta table tiene de size" +arrayList.size());
-
-
-                    /***tenemos un valor contsante que es el heihgt del title y el promedio abajo serian unos 70*/
-                    float estimacionPosicionOcuparaTable=posicionyTablasLibriado-(arrayList.size()*22)-90;
-
-                    Log.i("simpredert", "la posicion estmada seria " + estimacionPosicionOcuparaTable);
-
-
-
-                    if(estimacionPosicionOcuparaTable<210){
-                        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-                    }
-
-
-
-                    table1.setMarginTop(10f);
-                    table1.setMarginBottom(10f);
-
-                    midocumentotoAddData.add(table1);
-
-
-                }
-
-                remainingZZ = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
-                posicionyTablasLibriado = remainingZZ.getTop();
-
-
-
-                Log.i("simpredert", "la posicionyTablasLibriado table real DESPUES DE ADD es  " + posicionyTablasLibriado);
-
-
-            }
-            Log.i("miodataxx","es mayor a cero");
-
-
-        }
-
-
-
-        /**Agregamos anexos*/
-
-        // UpdateProgressAndText("Agregando Fotos al Reporte",90);
-
-        HelperAdImgs.initpdfDocument(miPFDocumentkernel);
-
-
-
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
-
-
-
-
-
-
-        /**FOTO_LLEGADA_CONTENEDOR...*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
-
-
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
-
-
-
-        /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
-
-
-
-
-
-
-        /**FOTO_PALLETS ...*/
-        // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
-
-
-
-        //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
-
-
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
-
-
-
-
-
-
-        /**DEBUG borrar*/
-
-        int aray[]= {
-                Variables.FOTO_PROCESO_FRUTA_FINCA,Variables.FOTO_LLEGADA_CONTENEDOR,
-                Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS,
-                Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION}
-                ;
-
-
-        for(int indice=0; indice<aray.length; indice++){
-            int categoiria=aray [indice];
-
-            Log.i("categoriasxx","estos son los ids de la categoria : "+categoiria);
-
-            for(int indice2 = 0; indice2<HelperImage.imAGESpdfSetGlobal.size(); indice2++){
-
-                if(HelperImage.imAGESpdfSetGlobal.get(indice2).getTipoImagenCategory()==categoiria){
-
-                    //  Log.i("categoriasxx","el id  de esta imagen es : "+HelperImage.imAGESpdfSetGlobal.get(indice2).uniQueIdimgPertenece);
-
-
-                }
-
-
-            }
-
-
-        }
-
-
-        Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
-
-
-        midocumentotoAddData.close();
-        // UpdateProgressAndText("Terminado",100);
-
-
-    }
-
-
-
-    public void createPDFContenedores() throws Exception {
 
 
         //prueba now
@@ -1289,6 +429,8 @@ if(hayFILE){
 
         Table tableTitle=  new Table(1);
 
+
+
         /**TABLE TITULO EXPORTADORA SOLICTADA yPosicion procesada*/
         Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
         Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITANTE "+Variables.CurrenReportPart1.getExportadoraSolicitante().toUpperCase()+" MARCA "+" "+Variables.CurrenReportPart1.getMarrca().toUpperCase())
@@ -1363,7 +505,7 @@ if(hayFILE){
         float sizeColumns2[]= {190,1};
         table1=  new Table(sizeColumns2);
 
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f).setBold()
+        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8.6f).setBold()
                 .setTextAlignment(TextAlignment.CENTER)) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
@@ -1415,7 +557,7 @@ if(hayFILE){
 
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8f).setBold()) ;
+        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8.6f).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -1444,7 +586,7 @@ if(hayFILE){
 
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("SELLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,2).add(new Paragraph("SELLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -1474,7 +616,7 @@ if(hayFILE){
         float sizeColumns5[]= {190,2,1,1};
         table1=  new Table(sizeColumns5);
 
-        cell0= new Cell(1,4).add(new Paragraph("SELLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,4).add(new Paragraph("SELLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -1533,7 +675,7 @@ if(hayFILE){
         table1=  new Table(sizeColumns6);
 
         cell0= new Cell(1,2).add(new Paragraph("DATOS DE TRANSPORTISTA").
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8f).
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).
                 setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
@@ -1566,7 +708,7 @@ if(hayFILE){
 
 
 
-        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setFont(HelperPdf.font).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
@@ -1613,7 +755,7 @@ if(hayFILE){
         table1=  new Table(araycolum);
 
         Cell cellHeader2= new Cell(1,2).setBackgroundColor(HelperPdf.rgbColorAzulClaro);
-        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold());
+        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setFont(HelperPdf.font).setBold());
         table1.addCell(cellHeader2);
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,8,Variables.currenProductPostCosecha);
@@ -1664,7 +806,7 @@ if(hayFILE){
              HashMap<String,String>currentMapDefectsCheked=ListWhitHashMapsRechzadosChekeed.get(i);
              ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(i);
 
-             table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this,contadorTablas);
+             table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked, PdfMakerContenresAcopio.this,contadorTablas);
 
 
               if( contadorTablas % 2==0){  //yPosicion si existen mas tablas yPosicion es un numero
@@ -1745,7 +887,7 @@ if(hayFILE){
          cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(16f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
         table1.addCell(cell1);
 
-        Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
+        Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart, PdfMakerContenresAcopio.this);
         Image imagen= HelperPdf.createImagebYbitmap(bitmap);
 
 
@@ -1843,7 +985,7 @@ if(hayFILE){
 
             midocumentotoAddData.add(mipara);
 
-            bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
+            bitmap=  HelperPdf.createBarChart(barChartView, PdfMakerContenresAcopio.this,indice);
 
 
 
@@ -2067,11 +1209,290 @@ if(hayFILE){
         }
 
 
-        Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PdfMakerContenresAcopio.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
 
 
         midocumentotoAddData.close();
        // UpdateProgressAndText("Terminado",100);
+
+
+    }
+
+    public void createPdfContenrAcopio2(String nameDoc) throws Exception {
+        resetListGlobales();
+
+        layoutDown.setVisibility(View.VISIBLE);
+         btnDescargar.setEnabled(true);
+         btnDescargar.setVisibility(View.VISIBLE);
+
+
+        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(directory, nameDoc+".pdf");
+        uriThiSfile=Uri.fromFile(file);
+        HelperContenedoresAcopio.initFontx();
+
+
+        PdfWriter writer = new PdfWriter(file); //le pasmaos el file
+
+
+
+        PdfDocument miPFDocumentkernel= new PdfDocument(writer);
+        PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
+        PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
+
+     //   miPFDocumentkernel.addNewPage(pageSize);///
+
+
+        HelperPdf pdfHelper= new HelperPdf();
+
+        Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
+        midocumentotoAddData.setMargins(0, 0, 0, 0);
+
+        Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+        imglogqSercom.scaleToFit(595f, 200f); //ESTA EN 400 DESPUES 3300
+        imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+
+
+        /**CONFIGURAMOS OTRA VEZ EL MARGEN*/
+        midocumentotoAddData.setMargins(190, 0, 105, 0);//MIRAR MRAGENES ESTAB EN 105
+
+
+        Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+        imageHeader.setFixedPosition(0, 650); // si no usamos este
+        imageHeader.setMarginTop(0f); // de prueba
+        ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData);
+
+        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
+
+        Rectangle remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+
+        float y = remaining.getTop();
+        float sizeTableANCHO= pageSize.getWidth()-60f;
+
+
+
+
+        float position = midocumentotoAddData.getRenderer().getCurrentArea().getBBox().getTop();
+
+
+        Image imglogqSercomfooterBacground=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.footer_pdf),1);
+        imglogqSercomfooterBacground.setFixedPosition(0, 0); // si no usamos este
+        BackgroundEventHandler handler2 = new BackgroundEventHandler(imglogqSercomfooterBacground);
+        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler2);
+
+
+
+
+        /**TABLE 1 */
+
+        Cell cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS CONTENEDORES DE ACOPIO SEMANA n aqui").setPadding(0.2f).
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
+
+        cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingLeft(30f); //estaba en 20
+        cellGlobal.setPaddingRight(30f);
+        midocumentotoAddData.add(cellGlobal);
+
+
+      /**creamos la primera tabla*/
+        ArrayList<NameAndValue>listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_CONTENEDORES_DE_ACOPIO);
+        Table tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_CONTENEDORES_DE_ACOPIO);
+        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+       // tableGlobal.setMarginTop(0f);
+       // tableGlobal.setPaddingTop(0f);
+        midocumentotoAddData.add(tableGlobal);
+
+
+
+        //
+        /**TABLE 2 */
+
+         cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS DE CONTENEDOR").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+
+        cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingLeft(30f); //estaba en 20
+        cellGlobal.setPaddingRight(30f);
+        midocumentotoAddData.add(cellGlobal);
+
+
+        /**creamos la 2 tabla*/
+        listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_DEL_CONTENEDOR);
+         tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_DEL_CONTENEDOR);
+        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+        midocumentotoAddData.add(tableGlobal);
+
+
+
+        /**TABLE 3 */
+
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("SELLOS LLEGADA").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+
+        cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingLeft(30f); //estaba en 20
+        cellGlobal.setPaddingRight(30f);
+        midocumentotoAddData.add(cellGlobal);
+
+
+        /**creamos la 3 tabla*/
+        listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_SELLOS_LLEGADA);
+        tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_SELLOS_LLEGADA);
+        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+        midocumentotoAddData.add(tableGlobal);
+
+
+
+
+        /**TABLE 4 */
+
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("SELLOS INSTALADOS").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+
+        cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingLeft(30f); //estaba en 20
+        cellGlobal.setPaddingRight(30f);
+        midocumentotoAddData.add(cellGlobal);
+
+
+        /**creamos la 4 tabla*/
+        listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_SELLOS_INSTALADOS);
+        tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_SELLOS_INSTALADOS);
+        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+        midocumentotoAddData.add(tableGlobal);
+
+
+
+        /**TABLE 5 */
+
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS TRANSPORTISTA").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+
+       // cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingLeft(30f); //estaba en 20
+        cellGlobal.setPaddingRight(30f);
+        midocumentotoAddData.add(cellGlobal);
+
+
+        /**creamos la 5 tabla*/
+        listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_TRANSPORTISTA);
+        tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_TRANSPORTISTA);
+        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+        midocumentotoAddData.add(tableGlobal);
+
+
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE)); //nuvea pagina
+
+
+
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS DE PROCESO").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+
+        // cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+        cellGlobal.setPaddingTop(15f); //para no dejar margen abajo
+        cellGlobal.setPaddingLeft(30f); //estaba en 20
+        cellGlobal.setPaddingRight(30f);
+        midocumentotoAddData.add(cellGlobal);
+
+
+        /**creamos la 6 tabla*/
+        tableGlobal=HelperContenedoresAcopio.generaTableDatosProceso(generaExampleDatosProces());
+        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+        midocumentotoAddData.add(tableGlobal);
+
+
+
+
+        tableGlobal= new Table(2);
+
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO:"+" Adrianito").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
+        tableGlobal.addCell(cellGlobal);
+
+
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO:"+" Adrianito").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
+
+
+        tableGlobal.setBackgroundColor(new DeviceRgb(255, 242, 204));
+        tableGlobal.addCell(cellGlobal);
+
+        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+       // cellGlobal.setPaddingLeft(30f); //estaba en 20
+       // cellGlobal.setPaddingRight(30f);
+        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+
+        midocumentotoAddData.add(tableGlobal);
+
+
+
+
+        /***ANEXOS TOCA POR AQUI.. VAMOS HABER...**/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE)); //nuvea pagina
+
+        Paragraph mipargrap =  new Paragraph("ANEXO FOTOS DE APERTURA, INSPECCIÓN Y CONSOLIDACIÓN DE CONTENEDOR.").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setPaddingTop(15f);
+
+        midocumentotoAddData.add(mipargrap);
+
+
+        //aqui aregmaos
+
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR," ",midocumentotoAddData,pageSize,contexto);
+
+        /**FOTO_SELLOS LLEGADA...*/
+       // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
+
+
+
+        /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
+       // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
+
+
+        /**FOTO_PALLETS ...*/
+        // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
+
+
+
+        //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
+
+
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"* DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
+
+
+
+        /**PRXIMOS PASOS AVERGIAR COMO SE COMPORRTA ESTE CODIGO IMAGENES
+         * PASARLE EL TIPO DE OBJETO AL QUE CREA PARA VALOR Y LA DEMAS DATA...
+         * BTN PARA GENERAR PDF EN ESE REPORTE PREVIEW....
+         * BTN GUARDAR LOCALE Y GENERAR PDF ,INTENTAR GENMERAR EL PDF Y VER QUE PASA.....
+         * //
+         *
+         *
+         *
+         * */
+
+        midocumentotoAddData.close();
+
+
+    }
+
+
+    private void resetListGlobales(){
+
+        HelperAdImgs.currentListImagesSeccion= new ArrayList<>();
+        HelperImage.imagesSetToCurrentFila= new ArrayList<>();
+
 
 
     }
@@ -2108,6 +1529,21 @@ if(hayFILE){
 
     }
 
+
+    private HashMap<String,DatosDeProceso>generaExampleDatosProces(){
+     HashMap<String, DatosDeProceso>miMap= new HashMap<>();
+
+
+        for(int indice=0; indice<10; indice++){
+
+            miMap.put(""+indice, new DatosDeProceso("Adrian ","EMPAQ","000"+indice,indice*3,"jjj","jkj"));
+
+        }
+
+
+        return miMap;
+
+    }
 
 
     ///tratando de dibujar en can vas
@@ -2363,7 +1799,7 @@ if(hayFILE){
                       ///aqui descargamos el pdf.....y lo screamos
 
                     try {
-                        createPDFContenedores() ;
+                        createPDFContenedoresAcopio() ;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -2398,7 +1834,7 @@ if(hayFILE){
 
 
                         try {
-                            createPDFContenedores() ;
+                            createPDFContenedoresAcopio() ;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -2436,7 +1872,7 @@ if(hayFILE){
 
 
                         try {
-                            createPDFContenedores() ;
+                            createPDFContenedoresAcopio() ;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -2485,7 +1921,7 @@ if(hayFILE){
 
 
 
-                    ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    ActivityCompat.requestPermissions(PdfMakerContenresAcopio.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         TWO_PERMISION_REQUEST);
 
 
@@ -2495,7 +1931,7 @@ if(hayFILE){
                         == PackageManager.PERMISSION_DENIED){
                     Log.i("permisodd","SE EJECUTO ES TEELSE  IF 1 ");
 
-                    ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    ActivityCompat.requestPermissions(PdfMakerContenresAcopio.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             CODE_READ_EXTERNAL_STORAGE);
 
 
@@ -2507,7 +1943,7 @@ if(hayFILE){
                         == PackageManager.PERMISSION_DENIED ){
                     Log.i("permisodd","SE EJECUTO ES TEELSE  IF 2 ");
 
-                    ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{WRITE_EXTERNAL_STORAGE},
+                    ActivityCompat.requestPermissions(PdfMakerContenresAcopio.this, new String[]{WRITE_EXTERNAL_STORAGE},
                             CODE_WRITE_EXTERNAL_STORAGE);
 
 
@@ -2620,7 +2056,7 @@ if(hayFILE){
 
                 if(null != uriSearchFile) {
                     try {
-                        InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriSearchFile);
+                        InputStream inputStream = PdfMakerContenresAcopio.this.getContentResolver().openInputStream(uriSearchFile);
                         inputStream.close();
                         ecnontroFiLE[0] = true;
                     } catch (Exception e) {
@@ -2651,7 +2087,7 @@ if(hayFILE){
             public void onFinish() {
 
                 try {
-                    InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriSearchFile);
+                    InputStream inputStream = PdfMakerContenresAcopio.this.getContentResolver().openInputStream(uriSearchFile);
                     inputStream.close();
                     ecnontroFiLE[0] = true;
                 } catch (Exception e) {
@@ -2725,7 +2161,7 @@ if(hayFILE){
 
 
     public void verifyStoragePermission() {
-        int permission = ActivityCompat.checkSelfPermission(PdfMaker2_0.this, WRITE_EXTERNAL_STORAGE);
+        int permission = ActivityCompat.checkSelfPermission(PdfMakerContenresAcopio.this, WRITE_EXTERNAL_STORAGE);
 
         // Surrounded with if statement for Android R to get access of complete file.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -2733,7 +2169,7 @@ if(hayFILE){
 
                 Log.i("permosod","tiene el permiso concedido");
 
-                ActivityCompat.requestPermissions(PdfMaker2_0 .this, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE},7);
+                ActivityCompat.requestPermissions(PdfMakerContenresAcopio.this, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE},7);
 
                 // Abruptly we will ask for permission once the application is launched for sake demo.
                 Intent intent = new Intent();
