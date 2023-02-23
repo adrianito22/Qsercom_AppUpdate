@@ -791,7 +791,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         btnGENERARpdf.setOnClickListener(this);
 
-
         btnGuardarCambiosmARKrREVISADO.setOnClickListener(this);
 
 
