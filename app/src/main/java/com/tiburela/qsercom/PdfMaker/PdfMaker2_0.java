@@ -7,6 +7,7 @@ import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMI
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +64,9 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import com.tiburela.qsercom.BuildConfig;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.othersActivits.PdfActivity;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -88,6 +92,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
     int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
 
+
     static  float posicionyTablasLibriado=0;
 
     ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed=new ArrayList<>();
@@ -105,7 +110,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
      ProgressBar progressBar2;
     TextView txtTareaAqui;
-
+    File file;
     Context contexto;
 
     int numRacimosRechzados = 0;
@@ -129,6 +134,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_maker20);
 
+
+
         ActivityFormularioDondeVino = getIntent().getIntExtra(Variables.KEY_PDF_MAKER,0);
 
         nameOFPDFrEPORTfile=getIntent().getStringExtra(Variables.KEY_PDF_MAKER_PDF_NAME);
@@ -147,74 +154,41 @@ public class PdfMaker2_0 extends AppCompatActivity {
         btnIrAARCHIVOpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uriFile=uriThiSfile.toString();
 
 
-                Log.i("searchFilex","el uri es : "+uriFile);
+
+                if(file!=null){
 
 
-                try {
-                    InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriThiSfile);
-                    inputStream.close();
-                    hayFILE=true;
-                    ///ecnontroFiLE[0] = true;
-                } catch (Exception e) {
-                    hayFILE=false;
+                    try{
 
-                    // Log.w(MY_TAG, "File corresponding to the uri does not exist " + uri.toString());
+                        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                        StrictMode.setVmPolicy(builder.build());
+
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+                       // intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        Intent intent1 = Intent.createChooser(intent, "Open With");
+
+                        startActivity(intent1);
+
+
+
+                    } catch (Exception e) {
+                        Log.i("searchFilex","la expecion es "+e.getMessage());
+
+                        throw new RuntimeException(e);
+                    }
+
+
                 }
-
-
-if(hayFILE){
-
-
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setDataAndType(uriThiSfile, "application/pdf");
-    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    try {/*from   ww w  .  java  2s . c  om*/
-        PdfMaker2_0.this.startActivity(intent);
-
-        Log.i("searchFilex","vaomos activity");
-
-        //  return true;
-    } catch (ActivityNotFoundException e) {
-
-
-        Log.i("searchFilex","error ehjejhr");
-
-    }
-
-  //  viewpdf(uriThiSfile);
-
-
-  //  verifyStoragePermission();
-
-
-   // openPdf(uriThiSfile);
-
-
-
-
-    Log.i("searchFilex","se se encontro file");
-
-}else {
-
-    Toast.makeText(PdfMaker2_0.this, "No existe el archivo", Toast.LENGTH_SHORT).show();
-    Log.i("searchFilex","NO se encontro file");
-
-
-
-}
-
 
 
 
             }
         });
 
-      //  btnDescargar.setEnabled(false);
 
 
         btnDescargar.setOnClickListener(new View.OnClickListener() {
@@ -1222,7 +1196,7 @@ if(hayFILE){
         //doble chekeo si la current canvas object no fue terminada la finalizamos
         // pdfDocument.finishPage(currentPagePdfObjec) ;
         File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File file = new File(directory, nameOFPDFrEPORTfile+".pdf");
+         file = new File(directory, nameOFPDFrEPORTfile+".pdf");
 
         uriThiSfile=Uri.fromFile(file);
 
@@ -1235,8 +1209,11 @@ if(hayFILE){
         OutputStream estrema =new FileOutputStream(file);
         PdfWriter writer = new PdfWriter(file); //le pasmaos el file
 
+
         PdfDocument miPFDocumentkernel= new PdfDocument(writer);
+
         PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
+
         PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
 
 
@@ -2255,6 +2232,7 @@ if(hayFILE){
 
 
                     layoutDown.setVisibility(LinearLayout.VISIBLE);
+                    btnIrAARCHIVOpdf.setVisibility(View.VISIBLE);
                     layoutGraficos.setVisibility(LinearLayout.GONE);
 
                     Log.i("enablebtn","hemos llmado enable ");
@@ -2556,54 +2534,6 @@ if(hayFILE){
      ****/
 
 
-
-    private void DowloadUniqeuRechazadosoObject (String currentIDoBJECTvinuc ){
-///PODEMOS OBTER
-
-        //to fetch all the users of firebase Auth app
-        //  DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
-
-        Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(currentIDoBJECTvinuc);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot ds : snapshot.getChildren()) {
-
-                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
-                    Log.i("holerd","aqui se encontro un cuadro muestreo......");
-
-                    if(informe!=null){
-                        numRacimosRechzados=informe.getTotalRechazadosAll();
-                          //activamos btn generar
-
-                        btnDescargar.setEnabled(true);
-
-                    break;
-                    }
-
-
-                }
-
-
-             //aqui podemos revisar
-             //   checkIfFileisSaveINsRORAGE(uriThiSfile);
-
-
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("misdata","el error es  "+ error.getMessage());
-
-            }
-        } );
-
-    }
 
 
 

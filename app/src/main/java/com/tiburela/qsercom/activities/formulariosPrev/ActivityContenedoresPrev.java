@@ -68,6 +68,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.othersActivits.PdfActivity;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -109,6 +110,7 @@ import java.util.UUID;
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener ,
         View.OnTouchListener {
+
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -559,6 +561,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     private void findViewsIds() { //configuraremos algos views al iniciar
 
 
+
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
         imgVAtachLlegadaContenedor = findViewById(R.id.imgVAtachLlegadaContenedor);
@@ -787,6 +790,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         imgUpdatecAlfrutaEnfunde.setOnClickListener(this);
 
         btnGENERARpdf.setOnClickListener(this);
+
 
         btnGuardarCambiosmARKrREVISADO.setOnClickListener(this);
 

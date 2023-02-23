@@ -260,7 +260,6 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
         Utils.addDataOfPrefrencesInView(arrayEditex,Variables.currentMapPreferences);
 
 
-
 /*
          //descrgamos info de imagenes //todavia no muy lista aun
         Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(ActivityContenedores.this);
@@ -279,8 +278,6 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
 
 
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

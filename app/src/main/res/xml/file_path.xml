@@ -8,9 +8,20 @@
         name="provider"
         path="/"
         />
-<files-path
+
+
+    <external-path
+        name="Download"
+        path="Download/"/>
+
+
+
+    <files-path
     name="files"
     path="/">
 
 </files-path>
+
+
+
 </paths>
