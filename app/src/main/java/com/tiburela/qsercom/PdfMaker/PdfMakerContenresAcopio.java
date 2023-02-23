@@ -211,9 +211,6 @@ if(hayFILE){
             }
         });
 
-      //  btnDescargar.setEnabled(false);
-
-
         btnDescargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,43 +269,7 @@ if(hayFILE){
         });
 
 
-        Log.i("debbdf","activity donde vino es "+ActivityFormularioDondeVino);
-
-        if(ActivityFormularioDondeVino== Variables.FormPreviewContenedores){
-            Log.i("debbdf","es el primer if");
-
-            Log.i("debbdf","el size de listReprsVinculads es: "+Variables.listReprsVinculads.size());
-
-            //obtenemos los hasmaps
-
-                 //TENEMOS UNA LISTA CON LSO REPORTES
-
-
-            UpdateProgressAndText("Descargando Data",10);
-
-
-            Log.i("hameha","empezamos a crear data" );
-
-
-                for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
-                  //decsrgamos hasmap control calidad
-
-                        String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyWhereLocateasHmapFieldsRecha();
-                    dowloadRecszCcalidadMapAndCallDowloadRechdz(currentlOCATIONwHEREisHAMAP, indice+1);
-
-
-                }
-
-
-
-
-
-                Log.i("debbdf","excelente create");
-        }
-
-
-
-        else if(ActivityFormularioDondeVino  == Variables.FormatDatsContAcopiPREVIEW){  //completar estos
+         if(ActivityFormularioDondeVino  == Variables.FormatDatsContAcopiPREVIEW){  //completar estos
 
 
             try {
@@ -318,10 +279,6 @@ if(hayFILE){
             }
 
             Log.i("debbdf","es el segundo if");
-
-        }else if (ActivityFormularioDondeVino  == Variables.FormPreviewContenedores){
-            Log.i("debbdf","es el tercer if");
-
 
         }
 
@@ -1410,12 +1367,12 @@ if(hayFILE){
 
         tableGlobal= new Table(2);
 
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO:"+" Adrianito").
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO:"+Variables.CurrenReportContensEnACp.getInspectorAcopio()).
                 setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
         tableGlobal.addCell(cellGlobal);
 
 
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO:"+" Adrianito").
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("CEDULA:"+Variables.CurrenReportContensEnACp.getCedulaIdenti()).
                 setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
 
 

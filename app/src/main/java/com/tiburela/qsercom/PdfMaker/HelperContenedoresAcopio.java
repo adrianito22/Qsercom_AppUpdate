@@ -14,6 +14,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.NameAndValue;
+import com.tiburela.qsercom.utils.Variables;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -167,71 +168,72 @@ public class HelperContenedoresAcopio {
         ArrayList<NameAndValue>list=new ArrayList<>();
 
 
+        //        addDataEnFields(Variables.CurrenReportContensEnACp);
         if(idTableGenerate==TABLE_DATOS_CONTENEDORES_DE_ACOPIO){
-            list.add(new NameAndValue("FECHA INICIO "+"82/520/22","FECHA DE TÉRMINO: 13-10-2022 ")); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("FECHA INICIO "+ Variables.CurrenReportContensEnACp.getFechaInicio(),
+                    "FECHA DE TÉRMINO:"+Variables.CurrenReportContensEnACp.getFechadeTermino())); //AQUI ACTUALIZAR NAMES
 
-            list.add(new NameAndValue("EXPORTADORA SOLICITANTE","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("EXPORTADORA PROCESADA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("PUERTO","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("ZONA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("MARCA","DATAHERE")); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("EXPORTADORA SOLICITANTE",Variables.CurrenReportContensEnACp.getExportSolicitante())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("EXPORTADORA PROCESADA",Variables.CurrenReportContensEnACp.getExportProcesada())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("PUERTO",Variables.CurrenReportContensEnACp.getPuerto())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("ZONA",Variables.CurrenReportContensEnACp.getZona())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("MARCA",Variables.CurrenReportContensEnACp.getMarca())); //AQUI ACTUALIZAR NAMES
 
-            list.add(new NameAndValue("HORA INICIO","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("HORA TERMINO","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("GUIA REMISION","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("TARJEA DE EMBARQUE","DATAHERE")); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("HORA INICIO",Variables.CurrenReportContensEnACp.getHoraInicio())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("HORA TERMINO",Variables.CurrenReportContensEnACp.getHoraDetermino())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("GUIA REMISION",Variables.CurrenReportContensEnACp.getGuiaDeRemision())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("TARJEA DE EMBARQUE",Variables.CurrenReportContensEnACp.getTarjaDeEmbarque())); //AQUI ACTUALIZAR NAMES
 
 
 
         }else if(idTableGenerate==TABLE_DATOS_DEL_CONTENEDOR){
 
 
-            list.add(new NameAndValue("DESTINO","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("VAPOR","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("NUMERACIÓN","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("HORA LLEGADA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("HORA SALIDA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("AGENCIA NAVIERA","DATAHERE")); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("DESTINO",Variables.CurrenReportContensEnACp.getDestino())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("VAPOR",Variables.CurrenReportContensEnACp.getVapor())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("NUMERACIÓN",Variables.CurrenReportContensEnACp.getNumContenedor())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("HORA LLEGADA",Variables.CurrenReportContensEnACp.getHoraDeLlegada())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("HORA SALIDA",Variables.CurrenReportContensEnACp.getHoraInicio())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("AGENCIA NAVIERA",Variables.CurrenReportContensEnACp.getAgenciaNaviera())); //AQUI ACTUALIZAR NAMES
 
 
         }
 
         else if(idTableGenerate==TABLE_SELLOS_LLEGADA){
 
-            list.add(new NameAndValue("PLÁSTICO PATIO NAVIERA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue(" STICKER DE PATIO EN VENTOLERA EXTERNA 1","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("  NÚMERO DE SERIE DE FUNDA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("CABLE DE RASTREO LLEGADA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("BOOKING","DATAHERE")); //AQUI ACTUALIZAR
-            list.add(new NameAndValue("MAX GROSS","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("TARE","DATAHERE")); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("PLÁSTICO PATIO NAVIERA",Variables.CurrenReportContensEnACp.getSellosPlasticoNaviera())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue(" STICKER DE PATIO EN VENTOLERA EXTERNA 1",Variables.CurrenReportContensEnACp.getStickerDeVentolExternn1())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("  NÚMERO DE SERIE DE FUNDA",Variables.CurrenReportContensEnACp.getNumSerieFunda())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("CABLE DE RASTREO LLEGADA",Variables.CurrenReportContensEnACp.getCableRastreoLlegada())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("BOOKING",Variables.CurrenReportContensEnACp.getBooking())); //AQUI ACTUALIZAR
+            list.add(new NameAndValue("MAX GROSS",Variables.CurrenReportContensEnACp.getMaxGross())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("TARE",Variables.CurrenReportContensEnACp.getTare())); //AQUI ACTUALIZAR NAMES
 
 
         }
 
         else if(idTableGenerate==TABLE_SELLOS_INSTALADOS){
-            list.add(new NameAndValue("TERMÓGRAFO","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("SELLO NAVIERA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("STICKER","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("OTROS CANDADOS 1","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("OTROS CANDADOS 2","DATAHERE")); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("TERMÓGRAFO",Variables.CurrenReportContensEnACp.getTermografoN1())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("SELLO NAVIERA",Variables.CurrenReportContensEnACp.getSelloDeNaviera())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("STICKER",Variables.CurrenReportContensEnACp.getStickerDeVentolExternn1())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("OTROS CANDADOS 1",Variables.CurrenReportContensEnACp.getOtrosCandados())); //AQUI ACTUALIZAR NAMES
+         //   list.add(new NameAndValue("OTROS CANDADOS 2",Variables.CurrenReportContensEnACp.setOtrosCandados())); //AQUI ACTUALIZAR NAMES
         }
 
 
 
         else if(idTableGenerate==TABLE_DATOS_TRANSPORTISTA){
-            list.add(new NameAndValue(" COMPAÑÍA TRANSPORTISTA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("NOMBRE CHOFER","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("CEDULA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("PLACA","DATAHERE")); //AQUI ACTUALIZAR NAMES
-           list.add(new NameAndValue("COLOR DE CABEZAL","DATAHERE")); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue(" COMPAÑÍA TRANSPORTISTA",Variables.CurrenReportContensEnACp.getCompaniaTranportista())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("NOMBRE CHOFER",Variables.CurrenReportContensEnACp.getNombredeChofer())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("CEDULA",Variables.CurrenReportContensEnACp.getCedula())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("PLACA",Variables.CurrenReportContensEnACp.getPlaca())); //AQUI ACTUALIZAR NAMES
+           list.add(new NameAndValue("COLOR DE CABEZAL",Variables.CurrenReportContensEnACp.getColorCabezal())); //AQUI ACTUALIZAR NAMES
 
         }
 
-        else if(idTableGenerate==TABLE_DATOS_DE_PROCESO){
 
 
-        }
+
 
 return  list;
 

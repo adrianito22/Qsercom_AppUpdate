@@ -1294,12 +1294,17 @@ void checkDataFields(){ //
     }
 
     if(!cehckFaltanImagenes()){
+        Log.i("test001","se ejecuto  cehckFaltanImagenes");
+
         return;
 
     }
 
 
-    if(creaAcMapDatosProcesoAndCheck("","")){
+    if(!creaAcMapDatosProcesoAndCheck("","")){
+        Toast.makeText(ActivityContersEnAcopio.this, "Falta cuadro Proceso ", Toast.LENGTH_LONG).show();
+        Log.i("test001","se eejcuto  creaAcMapDatosProcesoAndCheck");
+
         return;
     }
 
@@ -1329,6 +1334,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String Pu
     Log.i("samamf","se llamo creaDatosProcesoMapAndUpload");
     boolean isReady=true;
 
+    mimapaDatosProcesMap= new HashMap<>();
 
     TextInputEditText ediNombProd1;
     TextInputEditText ediNombProd2;
@@ -1452,6 +1458,8 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String Pu
             return false;
          }
 
+        /*
+        ///este ta vacio ,pero lo subimos de igual
              if(indice==0 & tipoEmpaque.trim().isEmpty()  & cod.trim().isEmpty()  & nombreProd.trim().isEmpty()
                      & arraynCajas[indice].getText().toString().trim().isEmpty()){
 
@@ -1466,10 +1474,9 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String Pu
                  mimapaDatosProcesMap.put(KeyDataIdOfView,midatosProceso);
 
              }
+*/
 
-
-
-          else if(!tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
+             if(!tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
                    & ! arraynCajas[indice].getText().toString().trim().isEmpty()  ) {  //si es diferente de 0
 
                //entonces subimos la data.....
@@ -1493,7 +1500,13 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String Pu
     Log.i("samamf","el size de map now ahora es "+mimapaDatosProcesMap.size());
     Log.i("samamf","vamos a subir datos procesoen este nodo  "+PuskEY);
 
+    Log.i("samamf","el size de map es "+mimapaDatosProcesMap.size());
 
+    if(mimapaDatosProcesMap.size()==0){
+
+        return false;
+
+    }
 
 
     return isReady;
@@ -2924,6 +2937,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
         View [] arrayViews = {
+                ediClienteNombreReporte,
                 ediFechaInicio,
                 fechDetermino,
                 ediExpSolicitante,

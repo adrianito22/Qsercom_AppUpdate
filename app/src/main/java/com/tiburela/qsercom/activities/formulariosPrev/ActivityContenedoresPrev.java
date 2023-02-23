@@ -2572,8 +2572,6 @@ else{
 
             ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
-
-
             StorageData.uploaddata(list2);
 
 

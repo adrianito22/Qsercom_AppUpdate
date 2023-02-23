@@ -52,6 +52,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -94,13 +95,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     ImageView imbTakePicCierreContenedor;
     ImageView imgVAtachDocumentacionss;
     ImageView imbTakePicDocuementacionxx;
-
-
-
-
-
-
-
+    Button btnGenerarPdf;
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -428,7 +423,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
-
+        btnGenerarPdf=findViewById(R.id.btnGenerarPdf);
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
         imgVAtachLlegadaContenedor = findViewById(R.id.imgVAtachLlegadaContenedor);
@@ -1501,9 +1496,33 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
            // generatePDFandImport();
 
-            checkDataFields();
+            if( checkDataFieldsToUploadAndGeneratePdf(false)){ //ACTUALIZAMOS FORMULARIO
+                //ACTUALIZAMOS DATA
+                    openBottomSheetConfirmCreateNew(Variables.FormatDatsContAcopi); //esti podemos hacerlo en caso que de true
+
+            }else{
+
+                Log.i("misgfa","falta data aqui");
+
+            }
 
 
+
+           /***vamos hacer el chekeo **********/
+
+
+        }
+    });
+
+    btnGenerarPdf.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            Intent intent = new Intent(PreviewsFormDatSContersEnAc.this, PdfMaker2_0.class);
+            intent.putExtra(Variables.KEY_PDF_MAKER, Variables.FormatDatsContAcopiPREVIEW);
+
+
+            startActivity(intent);
 
 
         }
@@ -1511,16 +1530,16 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 
 
-
-
 }
 
-void checkDataFields(){ //
+boolean checkDataFieldsToUploadAndGeneratePdf(boolean isGeneratePdf){ //
+
+
 
     if(! checkDatosGeneralesIsLleno()){
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
-        return;
+        return false;
     }
 
 
@@ -1534,7 +1553,7 @@ void checkDataFields(){ //
     if(! checkDatosContenedorIsLleno()){
         Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
 
-        return;
+        return false;
     }else{
 
         Log.i("test001","si  esta lleno  checkDatosContenedorIsLleno");
@@ -1544,7 +1563,7 @@ void checkDataFields(){ //
     if(! checkDataSellosLlegadaIsLleno()){
         Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
 
-        return;
+        return false;
     }else{
 
         Log.i("test001","si  esta lleno  checkDataSellosLlegadaIsLleno");
@@ -1558,7 +1577,8 @@ void checkDataFields(){ //
     if(! checkSellosInstaladosIsLleno()){
         Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
 
-        return;
+        return false;
+
     }else{
 
         Log.i("test001","si  esta lleno  checkSellosInstaladosIsLleno");
@@ -1570,7 +1590,8 @@ void checkDataFields(){ //
     if(! checkDatosTransportistaIsLleno()){
         Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
 
-        return;
+        return false;
+
     }else{
 
         Log.i("test001","si  esta lleno  checkDatosTransportistaIsLleno");
@@ -1585,7 +1606,8 @@ void checkDataFields(){ //
         ediCjasProcesDespacha.requestFocus();
         ediCjasProcesDespacha.setError("Este espacio es obligatorio");
 
-        return;
+        return false;
+
     }else{
 
         Log.i("caramba","si  esta lleno  todo en orden");
@@ -1598,7 +1620,8 @@ void checkDataFields(){ //
         ediInspectorAcopio.requestFocus();
         ediInspectorAcopio.setError("Este espacio es obligatorio");
 
-        return;
+        return false;
+
     }else{
 
         Log.i("caramba","si  esta lleno  todo en orden");
@@ -1610,7 +1633,8 @@ void checkDataFields(){ //
         ediCedulaI.requestFocus();
         ediCedulaI.setError("Este espacio es obligatorio");
 
-        return;
+        return false;
+
     }else{
 
         Log.i("caramba","si  esta lleno  todo en orden");
@@ -1620,7 +1644,7 @@ void checkDataFields(){ //
 
 
     if(!cehckFaltanImagenes()){
-        return;
+        return false;
 
     }
 
@@ -1630,7 +1654,8 @@ void checkDataFields(){ //
     if(! creaAcMapDatosProcesoAndCheck(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(),keyNodeActualizar)){
         Log.i("caramba","no esta en orden ");
 
-        return;
+        return false;
+
     }else{
 
         Log.i("caramba","si  esta lleno  todo en orden");
@@ -1642,11 +1667,10 @@ void checkDataFields(){ //
 
 
 
-    openBottomSheetConfirmCreateNew(Variables.FormatDatsContAcopi);
    // DialogConfirmCreateNewForm.showBottomSheetDialogConfirmAndCallUpdate(PreviewsFormDatSContersEnAc.this,Variables.FormatDatsContAcopi);
 
 
-
+return true;
 }
 
 
@@ -3746,6 +3770,8 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         recyclerFotoProcesoFrEnFinca.setVisibility(View.GONE);
 
     }
+
+
 
 
 
