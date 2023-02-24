@@ -334,7 +334,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
         /**TABLE 1 */
 
-        Cell cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS CONTENEDORES DE ACOPIO SEMANA n aqui").setPadding(0.2f).
+        Cell cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS CONTENEDORES DE ACOPIO SEMANA "+Variables.CurrenReportContensEnACp.getSemanaNum()).setPadding(0.2f).
                 setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
 
         cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo

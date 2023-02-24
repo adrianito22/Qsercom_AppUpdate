@@ -82,6 +82,8 @@ import java.util.UUID;
 public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener
 {
 
+
+     TextInputEditText ediSemana;
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
     ImageView imgVAtachLlegadaContenedor;
@@ -424,6 +426,8 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+
+
         btnGenerarPdf=findViewById(R.id.btnGenerarPdf);
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
@@ -451,6 +455,8 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
+
+        ediSemana=findViewById(R.id.ediSemana);
          ediHoraInicio=findViewById(R.id.ediHoraInicio);
          ediHoraTermino=findViewById(R.id.ediHoraTermino);
          ediNguiaRemision=findViewById(R.id.ediNguiaRemision);
@@ -2028,7 +2034,7 @@ private void createObjcInformeAndUpload(){
             ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
             ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
             Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString()),
-            ediClienteNombreReporte.getText().toString());
+            ediClienteNombreReporte.getText().toString(),Integer.parseInt(ediSemana.getText().toString()));
 
 
 
@@ -2528,6 +2534,16 @@ return  true;
     private boolean checkDataSellosLlegadaIsLleno(){
         LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
 
+
+
+        if(ediSemana.getText().toString().isEmpty()){ //chekamos que no este vacia
+            ediSemana.requestFocus();
+            ediSemana.setError("Este espacio es obligatorio");
+
+            layoutContainerSeccion4.setVisibility(LinearLayout.VISIBLE);
+            return false;
+
+        }
 
         if(ediTare.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediTare.requestFocus();
@@ -3272,7 +3288,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 ediHoraEncendido2,    ediUbicacion2,    ediRuma2,    ediCandadoqsercon,    ediSelloNaviera,    ediCableNaviera,    ediSelloPlastico,
                 ediCandadoBotella,    ediCableExportadora,    ediSelloAdesivoexpor,    esiSelloAdhNaviera,    ediOtherSellos,
                 spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla
-                ,ediClienteNombreReporte
+                ,ediClienteNombreReporte,ediSemana
 
     };
 
@@ -3465,7 +3481,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                         ediTermofrafo1,    ediHoraEncendido1,    ediUbicacion1,    ediRuma1,    ediTermofrafo2,
                 ediHoraEncendido2,    ediUbicacion2,    ediRuma2,    ediCandadoqsercon,    ediSelloNaviera,    ediCableNaviera,    ediSelloPlastico,
                 ediCandadoBotella,    ediCableExportadora,    ediSelloAdesivoexpor,    esiSelloAdhNaviera,    ediOtherSellos,
-                spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla ,ediClienteNombreReporte};
+                spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla ,ediClienteNombreReporte,ediSemana};
 
 
         HelperEditAndPreviewmode.diseableViewsByTipe(misViewsArray);
@@ -3534,6 +3550,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         ediMarcaCabezal.setText(currentInform.getMarcaCabezal());
         ediColorCabezal.setText(currentInform.getColorCabezal());
         ediTare.setText(currentInform.getTare());
+        ediSemana.setText(String.valueOf(currentInform.getSemanaNum()));
         ediBooking.setText(currentInform.getBooking());
         ediMaxGross.setText(currentInform.getMaxGross());
         ediNumSerieFunda.setText(currentInform.getNumSerieFunda());

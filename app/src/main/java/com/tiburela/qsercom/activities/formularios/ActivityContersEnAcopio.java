@@ -81,6 +81,9 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
         CallbackUploadNewReport {
     boolean seSubioform=false;
 
+     TextInputEditText ediSemana;
+
+
     public static CallbackUploadNewReport callbackUploadNewReport;
     String currentKeySharePrefrences="";
 
@@ -503,6 +506,8 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+
+        ediSemana=findViewById(R.id.ediSemana);
 
         btnSaveLocale=findViewById(R.id.btnSaveLocale);
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
@@ -1099,6 +1104,7 @@ private void listennersSpinners() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String zonaEelejida= spinnerSelectZona.getSelectedItem().toString();
                 ediZona.setText(zonaEelejida);
+
                 if(zonaEelejida.equals("Ninguna")){
                     //actualizamos
                     Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
@@ -1535,7 +1541,7 @@ private void createObjcInformeAndUpload(){
             ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
             ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
             Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString() ),
-            ediClienteNombreReporte.getText().toString()
+            ediClienteNombreReporte.getText().toString(),Integer.parseInt(ediSemana.getText().toString())
     );
 
 
@@ -2275,7 +2281,14 @@ return  true;
         LinearLayout layoutContainerSeccion4=findViewById(R.id.layoutContainerSeccion4);
 
 
-        if(ediTare.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediSemana.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
+            ediSemana.requestFocus();
+            ediSemana.setError("Este espacio es obligatorio");
+            return false;
+
+        }
+
+        if(ediTare.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediTare.requestFocus();
             ediTare.setError("Este espacio es obligatorio");
 
@@ -2286,7 +2299,7 @@ return  true;
 
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
-        if(ediBooking.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediBooking.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediBooking.requestFocus();
             ediBooking.setError("Este espacio es obligatorio");
 
@@ -2297,7 +2310,7 @@ return  true;
 
 
 
-        if(ediMaxGross.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediMaxGross.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediMaxGross.requestFocus();
             ediMaxGross.setError("Este espacio es obligatorio");
 
@@ -2306,7 +2319,7 @@ return  true;
 
         }
 
-        if(ediNumSerieFunda.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediNumSerieFunda.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediNumSerieFunda.requestFocus();
             ediNumSerieFunda.setError("Este espacio es obligatorio");
 
@@ -2315,7 +2328,7 @@ return  true;
 
         }
 
-        if(stikVentolerExterna.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(stikVentolerExterna.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             stikVentolerExterna.requestFocus();
             stikVentolerExterna.setError("Este espacio es obligatorio");
 
@@ -2324,7 +2337,7 @@ return  true;
 
         }
 
-        if(ediCableRastreoLlegada.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCableRastreoLlegada.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCableRastreoLlegada.requestFocus();
             ediCableRastreoLlegada.setError("Este espacio es obligatorio");
 
@@ -2333,7 +2346,7 @@ return  true;
 
         }
 
-        if(ediSelloPlasticoNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediSelloPlasticoNaviera.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediSelloPlasticoNaviera.requestFocus();
             ediSelloPlasticoNaviera.setError("Este espacio es obligatorio");
 
@@ -2343,7 +2356,7 @@ return  true;
         }
 
 
-        if(!ediOtroSellosLlegada.getText().toString().isEmpty()){ //este es opcional... si esta vacio
+        if(!ediOtroSellosLlegada.getText().toString().trim().isEmpty()){ //este es opcional... si esta vacio
 
             FieldOpcional.otrosSellosLLegaEspecif =ediOtroSellosLlegada.getText().toString();
         }
@@ -2440,7 +2453,7 @@ return  true;
 
 
  */
-        if(ediCandadoqsercon.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCandadoqsercon.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCandadoqsercon.requestFocus();
             ediCandadoqsercon.setError("Este espacio es obligatorio");
 
@@ -2463,7 +2476,7 @@ return  true;
          */
 
 
-        if(ediCableNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCableNaviera.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCableNaviera.requestFocus();
             ediCableNaviera.setError("Este espacio es obligatorio");
 
@@ -2472,7 +2485,7 @@ return  true;
 
         }
 
-        if(ediSelloPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediSelloPlastico.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediSelloPlastico.requestFocus();
             ediSelloPlastico.setError("Este espacio es obligatorio");
 
@@ -2481,7 +2494,7 @@ return  true;
 
         }
 
-        if(ediCandadoBotella.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCandadoBotella.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCandadoBotella.requestFocus();
             ediCandadoBotella.setError("Este espacio es obligatorio");
 
@@ -2489,7 +2502,7 @@ return  true;
             return false;
 
         }
-        if(ediCableExportadora.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCableExportadora.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCableExportadora.requestFocus();
             ediCableExportadora.setError("Este espacio es obligatorio");
 
@@ -2497,7 +2510,7 @@ return  true;
             return false;
 
         }
-        if(ediSelloAdesivoexpor.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediSelloAdesivoexpor.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediSelloAdesivoexpor.requestFocus();
             ediSelloAdesivoexpor.setError("Este espacio es obligatorio");
 
@@ -2506,7 +2519,7 @@ return  true;
 
         }
 
-        if(esiSelloAdhNaviera.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(esiSelloAdhNaviera.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             esiSelloAdhNaviera.requestFocus();
             esiSelloAdhNaviera.setError("Este espacio es obligatorio");
 
@@ -2516,7 +2529,7 @@ return  true;
         }
 
 
-        if(! ediOtherSellos.getText().toString().isEmpty()){ //si esta lleno
+        if(! ediOtherSellos.getText().toString().trim().isEmpty()){ //si esta lleno
         FieldOpcional.otrosSellosInstalaEsp =ediOtherSellos.getText().toString();
 
 
@@ -2535,7 +2548,7 @@ return true;
         LinearLayout layoutContainerSeccion6=findViewById(R.id.layoutContainerSeccion6);
         ///CHEKEAMOS DATA seccion CONTENEDOR
 
-        if(ediCompaniaTransporte.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCompaniaTransporte.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCompaniaTransporte.requestFocus();
             ediCompaniaTransporte.setError("Este espacio es obligatorio");
 
@@ -2545,7 +2558,7 @@ return true;
         }
 
 
-        if(ediNombreChofer.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediNombreChofer.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediNombreChofer.requestFocus();
             ediNombreChofer.setError("Este espacio es obligatorio");
 
@@ -2556,7 +2569,7 @@ return true;
 
 
 
-        if(ediCedula.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCedula.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCedula.requestFocus();
             ediCedula.setError("Este espacio es obligatorio");
 
@@ -2565,7 +2578,7 @@ return true;
 
         }
 
-        if(ediCelular.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCelular.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCelular.requestFocus();
             ediCelular.setError("Este espacio es obligatorio");
 
@@ -2574,7 +2587,7 @@ return true;
 
         }
 
-        if(ediPLaca.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediPLaca.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediPLaca.requestFocus();
             ediPLaca.setError("Este espacio es obligatorio");
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
@@ -2584,7 +2597,7 @@ return true;
 
 
 
-        if(ediMarcaCabezal.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediMarcaCabezal.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediMarcaCabezal.requestFocus();
             ediMarcaCabezal.setError("Este espacio es obligatorio");
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
@@ -2593,7 +2606,7 @@ return true;
         }
 
 
-        if(ediColorCabezal.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediColorCabezal.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediColorCabezal.requestFocus();
             ediColorCabezal.setError("Este espacio es obligatorio");
 
@@ -2632,6 +2645,7 @@ return true;
 private TextInputEditText[] creaArryOfTextInputEditText() {
 
     TextInputEditText [] arrayEditex = {
+            ediSemana,
             ediZona,
             ediHoraInicio,
             ediHoraTermino,
@@ -2934,6 +2948,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
         View [] arrayViews = {
+                ediSemana,
                 ediClienteNombreReporte,
                 ediFechaInicio,
                 fechDetermino,
@@ -2945,7 +2960,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 ediCedulaI,
                 ediCjasProcesDespacha,
                 ediInspectorAcopio,
-
 
                 ediZona,
                 ediHoraInicio,

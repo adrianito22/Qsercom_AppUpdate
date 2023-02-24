@@ -12,6 +12,16 @@ public class ContenedoresEnAcopio {
 
     private String clienteReporte;
 
+    public int getSemanaNum() {
+        return semanaNum;
+    }
+
+    public void setSemanaNum(int semanaNum) {
+        this.semanaNum = semanaNum;
+    }
+
+    private int semanaNum;
+
 
     public ContenedoresEnAcopio(){
 
@@ -47,7 +57,7 @@ public class ContenedoresEnAcopio {
                                 String otrosSellos, String companiaTranportista, String nombredeChofer, String cedula,
                                 String celular, String placa, String marcaCabezal, String colorCabezal,
                                 int cajasProcesadasDespachadas, String inspectorAcopio, int cedulaIdenti
-                                ,String clienteReporte) {
+                                ,String clienteReporte,int semanaNum) {
 
 
         this.uniqueIDinforme = uniqueIDinforme;
@@ -104,7 +114,7 @@ public class ContenedoresEnAcopio {
         this. inspectorAcopio=inspectorAcopio;
         this. cedulaIdenti=cedulaIdenti;
         this.clienteReporte=clienteReporte;
-
+       this.semanaNum =semanaNum;
 
         }
 

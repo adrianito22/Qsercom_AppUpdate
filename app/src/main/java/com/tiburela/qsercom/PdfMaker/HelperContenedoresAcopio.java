@@ -181,8 +181,8 @@ public class HelperContenedoresAcopio {
 
             list.add(new NameAndValue("HORA INICIO",Variables.CurrenReportContensEnACp.getHoraInicio())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("HORA TERMINO",Variables.CurrenReportContensEnACp.getHoraDetermino())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("GUIA REMISION",Variables.CurrenReportContensEnACp.getGuiaDeRemision())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("TARJEA DE EMBARQUE",Variables.CurrenReportContensEnACp.getTarjaDeEmbarque())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("GUÍA REMISIÓN",Variables.CurrenReportContensEnACp.getGuiaDeRemision())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("TARJETA DE EMBARQUE",Variables.CurrenReportContensEnACp.getTarjaDeEmbarque())); //AQUI ACTUALIZAR NAMES
 
 
 
@@ -202,8 +202,8 @@ public class HelperContenedoresAcopio {
         else if(idTableGenerate==TABLE_SELLOS_LLEGADA){
 
             list.add(new NameAndValue("PLÁSTICO PATIO NAVIERA",Variables.CurrenReportContensEnACp.getSellosPlasticoNaviera())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue(" STICKER DE PATIO EN VENTOLERA EXTERNA 1",Variables.CurrenReportContensEnACp.getStickerDeVentolExternn1())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("  NÚMERO DE SERIE DE FUNDA",Variables.CurrenReportContensEnACp.getNumSerieFunda())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("STICKER DE PATIO EN VENTOLERA EXTERNA 1",Variables.CurrenReportContensEnACp.getStickerDeVentolExternn1())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("NÚMERO DE SERIE DE FUNDA",Variables.CurrenReportContensEnACp.getNumSerieFunda())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("CABLE DE RASTREO LLEGADA",Variables.CurrenReportContensEnACp.getCableRastreoLlegada())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("BOOKING",Variables.CurrenReportContensEnACp.getBooking())); //AQUI ACTUALIZAR
             list.add(new NameAndValue("MAX GROSS",Variables.CurrenReportContensEnACp.getMaxGross())); //AQUI ACTUALIZAR NAMES
@@ -223,9 +223,10 @@ public class HelperContenedoresAcopio {
 
 
         else if(idTableGenerate==TABLE_DATOS_TRANSPORTISTA){
-            list.add(new NameAndValue(" COMPAÑÍA TRANSPORTISTA",Variables.CurrenReportContensEnACp.getCompaniaTranportista())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("COMPAÑÍA TRANSPORTISTA",Variables.CurrenReportContensEnACp.getCompaniaTranportista())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("NOMBRE CHOFER",Variables.CurrenReportContensEnACp.getNombredeChofer())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("CEDULA",Variables.CurrenReportContensEnACp.getCedula())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("CÉLULAR",Variables.CurrenReportContensEnACp.getCelular())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("PLACA",Variables.CurrenReportContensEnACp.getPlaca())); //AQUI ACTUALIZAR NAMES
            list.add(new NameAndValue("COLOR DE CABEZAL",Variables.CurrenReportContensEnACp.getColorCabezal())); //AQUI ACTUALIZAR NAMES
 
