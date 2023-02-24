@@ -1449,13 +1449,27 @@ if(contadorProductsPostCosecha>10){
 
         ArrayList<String> values= new ArrayList<>();
 
+         String [] arrayporcentaje;
+
         values.add(" 14 ");
         values.add(inform.getColortSem14());
         values.add(inform.getNumRcim14());
        // values.add(inform.getPorc14());
 
         if(!inform.getPorc14().trim().isEmpty()){
-            values.add(inform.getPorc14()+"%");
+
+            arrayporcentaje=inform.getPorc14().split(".");
+
+            if(inform.getPorc14().contains(".")) {
+
+                if (arrayporcentaje[0].length() == 1) { //SI TIene
+                    inform.setPorc14("0" + inform.getPorc14());
+                }
+               }
+
+                values.add(inform.getPorc14()+"%");
+
+
 
         }else{
             values.add(inform.getPorc14());
@@ -1471,10 +1485,14 @@ if(contadorProductsPostCosecha>10){
 
         if(!inform.getPorc13().trim().isEmpty()){
 
-           // double valueX=Double.valueOf(inform.getPorc13());
+            arrayporcentaje=inform.getPorc13().split("\\.");
 
-          //  Log.i("hawai","el VALUE DOUBLE ES  "+valueX);
+            if(inform.getPorc13().contains(".")) {
 
+                if (arrayporcentaje[0].length() == 1) { //SI TIene
+                    inform.setPorc13("0" + inform.getPorc13());
+                }
+            }
             values.add(inform.getPorc13()+"%");
 
 
@@ -1492,6 +1510,15 @@ if(contadorProductsPostCosecha>10){
 
         if(!inform.getPorc12().trim().isEmpty()){
             Log.i("samerr","el informe es "+inform.getPorc12());
+
+            arrayporcentaje=inform.getPorc12().split("\\.");
+
+            if(inform.getPorc12().contains(".")) {
+
+                if (arrayporcentaje[0].length() == 1) { //SI TIene
+                    inform.setPorc12("0" + inform.getPorc12());
+                }
+            }
             values.add(inform.getPorc12()+"%");
 
         }else
@@ -1506,6 +1533,19 @@ if(contadorProductsPostCosecha>10){
 
 
         if(!inform.getPorc11().trim().isEmpty()){
+
+
+            arrayporcentaje=inform.getPorc11().split("\\.");
+
+
+            if(inform.getPorc11().contains(".")) {
+
+
+                if (arrayporcentaje[0].length() == 1) { //SI TIene
+                    inform.setPorc11("0" + inform.getPorc11());
+                }
+
+            }
             values.add(inform.getPorc11()+"%");
 
 
@@ -1520,6 +1560,16 @@ if(contadorProductsPostCosecha>10){
         values.add(inform.getNumRcim10());
 
         if(!inform.getPorc10().trim().isEmpty()){
+            arrayporcentaje=inform.getPorc10().split("\\.");
+
+            if(inform.getPorc10().contains(".")) {
+                if(arrayporcentaje[0].length()==1) { //SI TIene
+                    inform.setPorc10("0"+inform.getPorc10());
+                }
+            }
+
+
+
             values.add(inform.getPorc10()+"%");
 
         }else
@@ -1536,6 +1586,17 @@ if(contadorProductsPostCosecha>10){
 
 
         if(!inform.getPorc9().trim().isEmpty()){
+            arrayporcentaje=inform.getPorc9().split("\\.");
+
+            if(inform.getPorc9().contains(".")){
+                if(arrayporcentaje[0].length()==1) { //SI TIene
+                    inform.setPorc9("0"+inform.getPorc9());
+                }
+
+            }
+
+
+
             values.add(inform.getPorc9()+"%");
 
         }
@@ -1645,8 +1706,8 @@ if(contadorProductsPostCosecha>10){
             if(i ==34){
                 String [] array =list.get(i).split(",");
 
-                Cell cellbold = new Cell().setBorder(Border.NO_BORDER).add(new Paragraph(array[0].toUpperCase()).setFontSize(12f).setBold().setPaddingLeft(5f));
-                Cell cellSign = new Cell(1,3).setBorder(Border.NO_BORDER).add(new Paragraph(array[1].toUpperCase()).setFontSize(12f).setPaddingLeft(5f));
+                Cell cellbold = new Cell().setBorder(Border.NO_BORDER).add(new Paragraph(array[0].toUpperCase()).setFontSize(9f).setBold().setPaddingLeft(5f));
+                Cell cellSign = new Cell(1,3).setBorder(Border.NO_BORDER).add(new Paragraph(array[1].toUpperCase()).setFontSize(9f).setPaddingLeft(5f));
 
                 table.addCell(cellbold);
                 table.addCell(cellSign);
@@ -1656,7 +1717,7 @@ if(contadorProductsPostCosecha>10){
 
             if(i ==35){
                 Cell cellbold = new Cell(1,6).setBorder(Border.NO_BORDER).setPaddingTop(7f).setPaddingBottom(7f).setBorder(Border.NO_BORDER).add(new Paragraph( "DEFECTOS EN EMPAQUE").
-                        setTextAlignment(TextAlignment.LEFT).setFontSize(13f).setBold().setPaddingLeft(5f));
+                        setTextAlignment(TextAlignment.LEFT).setFontSize(10f).setBold().setPaddingLeft(5f));
                 table.addCell(cellbold);
 
 
@@ -1664,8 +1725,8 @@ if(contadorProductsPostCosecha>10){
                 if(i !=34) {
                     String [] array =list.get(i).split(",");
 
-                    Cell cellbold = new Cell().setBorder(Border.NO_BORDER).add(new Paragraph(array[0].toUpperCase()).setFontSize(12f).setBold().setPaddingLeft(5f));
-                    Cell cellSign = new Cell().setBorder(Border.NO_BORDER).add(new Paragraph(array[1].toUpperCase()).setFontSize(12f).setPaddingLeft(5f));
+                    Cell cellbold = new Cell().setBorder(Border.NO_BORDER).add(new Paragraph(array[0].toUpperCase()).setFontSize(9f).setBold().setPaddingLeft(5f));
+                    Cell cellSign = new Cell().setBorder(Border.NO_BORDER).add(new Paragraph(array[1].toUpperCase()).setFontSize(9f).setPaddingLeft(5f));
 
                     table.addCell(cellbold);
                     table.addCell(cellSign);
@@ -2448,8 +2509,8 @@ if(contadorProductsPostCosecha>10){
 
        Table table1 =  createTableWhitDateEvaluacionFrura(objecControlCald.getMarcaCaja(),df.format(PROMEDIO_PESO),
                df.format(CALIDAD_TOTAL)+"%",df.format(PORCENTAJE_DE_DEFECTOS)+"%",String.valueOf(NUMERO_DEFECTS),String.valueOf(MAYOR_DEFECTO_SELECCION),
-               String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+"%",
-               df.format(LARGO_DEDOS_PROMEDIO)+"%","3.0" //estaba en PH_PROMEDIO
+               String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+" G",
+               df.format(LARGO_DEDOS_PROMEDIO)+" P","3.0" //estaba en PH_PROMEDIO
                );
 
         return table1;

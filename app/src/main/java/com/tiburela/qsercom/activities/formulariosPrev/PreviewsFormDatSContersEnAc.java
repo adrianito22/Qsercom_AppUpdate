@@ -53,6 +53,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
+import com.tiburela.qsercom.PdfMaker.PdfMakerContenresAcopio;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -1518,7 +1519,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         @Override
         public void onClick(View view) {
 
-            Intent intent = new Intent(PreviewsFormDatSContersEnAc.this, PdfMaker2_0.class);
+            Intent intent = new Intent(PreviewsFormDatSContersEnAc.this,    PdfMakerContenresAcopio.class);
             intent.putExtra(Variables.KEY_PDF_MAKER, Variables.FormatDatsContAcopiPREVIEW);
 
 

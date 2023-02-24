@@ -149,7 +149,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
          txtTareaAqui=findViewById(R.id.txtTareaAqui);
          layoutDown=findViewById(R.id.layoutDown);
          btnDescargar=findViewById(R.id.btnDescargar) ;
-        layoutGraficos=findViewById(R.id.layoutGraficos) ;
         btnIrAARCHIVOpdf=findViewById(R.id.btnIrAARCHIVOpdf);
         btnIrAARCHIVOpdf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1167,7 +1166,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
-
+       //  btnIrAARCHIVOpdf.setVisibility(View.VISIBLE);
 
         midocumentotoAddData.close();
         // UpdateProgressAndText("Terminado",100);
@@ -2043,9 +2042,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         }
 
-
+        btnIrAARCHIVOpdf.setVisibility(View.VISIBLE);
         Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
 
+        Log.i("himanan","aqui ya es visible vamooos");
 
         midocumentotoAddData.close();
        // UpdateProgressAndText("Terminado",100);
@@ -2232,17 +2232,11 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
                     layoutDown.setVisibility(LinearLayout.VISIBLE);
-                    btnIrAARCHIVOpdf.setVisibility(View.VISIBLE);
                     layoutGraficos.setVisibility(LinearLayout.GONE);
 
                     Log.i("enablebtn","hemos llmado enable ");
 
-
-                    //
-
-
                     Log.i("searchFile","se llamomethod");
-
 
 
                  //   checkIfFileisSaveINsRORAGE(uriThiSfile);
