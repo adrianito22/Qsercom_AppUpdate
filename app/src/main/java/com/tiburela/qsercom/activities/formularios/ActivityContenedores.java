@@ -1195,13 +1195,15 @@ Log.i("hellosweer","se ehjecitp onstart");
                             resultpercente= (Double.parseDouble(miArrayNUmrACIMOS[i].getText().toString())/numRacimosCosechados)*100;
 
                             String promDecim=format.format(resultpercente)   ;
+                            Log.i("elvalues","el value es "+promDecim);
 
+                            if(promDecim.contains(".")){
+                                String [] array=promDecim.split("\\."); //tendremos un valor asi 58.50 normal
 
-                            String [] array=promDecim.split("\\."); //tendremos un valor asi 58.50 normal
-                            if(array[1].length()==1){ //tiene solo un valor.
-                                promDecim=promDecim+"0";
+                                if(array[1].length()==1){ //tiene solo un valor.
+                                    promDecim=promDecim+"0";
+                                }
                             }
-
 
                             miArraypORCENTAHJES[i].setText(promDecim);
                             //sumaoslos racimos totale

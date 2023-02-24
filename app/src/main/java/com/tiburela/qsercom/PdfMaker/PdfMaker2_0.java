@@ -1,17 +1,15 @@
 package com.tiburela.qsercom.PdfMaker;
 
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
 
 import android.Manifest;
-import android.content.ActivityNotFoundException;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,8 +34,6 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
@@ -46,9 +42,7 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
-//import com.itextpdf.kernel.layout.element.Table; //???? der any probllem?
 
-//write here which class not found and wirte whee you want to use i timport com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
@@ -57,33 +51,24 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 
-//issue resolved edear
-
 
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
-import com.tiburela.qsercom.BuildConfig;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.othersActivits.PdfActivity;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
-import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.NameAndValue;
 import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import org.apache.commons.codec.binary.Base64;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,6 +77,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
     int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
 
+    LinearLayout layoutGraficos;
 
     static  float posicionyTablasLibriado=0;
 
@@ -120,13 +106,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
     LinearLayout layoutDown;
-    LinearLayout layoutGraficos;
     Button btnDescargar ;
 
-    ArrayList<String>listtoTableDescripcion=new ArrayList<>();
 
-
-     boolean hayFILE = false;
 
 
     @Override
@@ -150,6 +132,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
          layoutDown=findViewById(R.id.layoutDown);
          btnDescargar=findViewById(R.id.btnDescargar) ;
         btnIrAARCHIVOpdf=findViewById(R.id.btnIrAARCHIVOpdf);
+        layoutGraficos=findViewById(R.id.layoutGraficos) ;
+
         btnIrAARCHIVOpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,33 +175,46 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         btnDescargar.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.R)
             @Override
             public void onClick(View view) {
 
-               /// Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
 
-                //
+                 //DESCTIVAMSO EL BOTON SOLO SI TENEMOS LOS 2  PERMISOS CONCEDIDOS
+                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED &&
+
+                        ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+                    btnDescargar.setEnabled(false);
+                }
+
+
 
 
 
                 try {
-                    HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
 
 
-
-                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED &&
-                            ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                                    == PackageManager.PERMISSION_GRANTED
 
-                    ){ //si tiene permisos
+                            ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                    == PackageManager.PERMISSION_GRANTED)
+
+
+                        { //si tiene permisos
                         Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
+                        HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
 
                         createPDFContenedores() ;
 
+                            Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
 
-                    }else{
+
+
+                        }else{
                         Log.i("permisodd","no tiene ambos permisos ");
 
 
@@ -2042,7 +2039,11 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         }
 
-        btnIrAARCHIVOpdf.setVisibility(View.VISIBLE);
+
+
+
+
+        btnIrAARCHIVOpdf.setEnabled(true);
         Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
 
         Log.i("himanan","aqui ya es visible vamooos");
@@ -2085,30 +2086,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
     }
 
-
-
-    ///tratando de dibujar en can vas
-
-
-    /*
-    private void addmarkAgua(  ImageData image) {
-
-        PdfCanvas canvas = new PdfCanvas(pdfDoc.addNewPage());
-        canvas.saveState();
-        PdfExtGState state = new PdfExtGState();
-        state.setFillOpacity(0.6f);
-        canvas.setExtGState(state);
-        canvas.addImage(image, 0, 0, pageSize.getWidth(), false);
-        canvas.restoreState();
-
-    }
-*/
-
-
-
-
-
-
+    ///tratando de dibujar en can va
 
     ////aqui recibimos un intent con el id int del tipo de formulario a crear....
     //una array list con los items contor calidad..
@@ -2183,8 +2161,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
     }
 
 
-
-
     //despues decrgamos los defectos...
     private void dowloadAllSelectDefectosPosiciones(String nodeLocateHasmapDefectSelecc, int contador){
 
@@ -2234,6 +2210,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
                     layoutDown.setVisibility(LinearLayout.VISIBLE);
                     layoutGraficos.setVisibility(LinearLayout.GONE);
 
+
                     Log.i("enablebtn","hemos llmado enable ");
 
                     Log.i("searchFile","se llamomethod");
@@ -2275,6 +2252,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
     }
 
+
     private void iterateCallDowldRechzadosDefects() {
 
         for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
@@ -2289,30 +2267,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-    private void generateUniqueIDtOForm(){
-
-        SecureRandom random = new SecureRandom();
-        byte bytes[] = new byte[6];
-        random.nextBytes(bytes);
-
-       // String key = DatatypeConverter.printBase64Binary(random);
-
-        String key = new String(Base64.encodeBase64(bytes));
-
-        Log.i("misuperid","el id es "+key);
-
-    }
 
 
 
-    private void checkIFeXISTfILE(){
-        //PODEMOS USAR UN BUCLE POR 3 SEGUNDOS...
-
-        //Y USAR UN WHILE.... Y SI DENTRO DE ESTE TIMPO NO ENCONTRO FILE,,,
-        //SIGNIFCA QUE NO EXISTE EL FILE...
-
-
-    }
 
 
     @Override
@@ -2320,7 +2277,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
                                            String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case TWO_PERMISION_REQUEST: {
+            case TWO_PERMISION_REQUEST: {  ///dos permisos a la ves
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
@@ -2328,23 +2285,23 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
 
-                    Log.i("permisodd","es permiso concedido READ_EXTERNAL_STORAGE ");
+                    Log.i("permisodd","2 PERMISOS CONCEDIDOS  ");
 
-                    //descragamos el file..
 
-                      ///aqui descargamos el pdf.....y lo screamos
+                    Toast.makeText(PdfMaker2_0.this, "Permiso concedido, puedes descargar", Toast.LENGTH_SHORT).show();
 
+/*
                     try {
                         createPDFContenedores() ;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
+*/
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {
 
-                    Log.i("permisodd","es permiso denegado READ_EXTERNAL_STORAGE ");
+                    Log.i("permisodd","es permiso denegado 2 permisos  ");
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
@@ -2363,11 +2320,22 @@ public class PdfMaker2_0 extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        Log.i("permisodd"," PERMISO WRITE_EXTERNAL_STORAGE  ");
 
-                    ){
 
+                             //si tambien tenemos el otro permiso
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED){
+                            Toast.makeText(PdfMaker2_0.this, "Permiso concedido, puedes descargar", Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    }
+
+
+                        /*
 
                         try {
                             createPDFContenedores() ;
@@ -2377,7 +2345,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                     }
 
-
+*/
 
 
                     // permission was granted, yay! Do the
@@ -2400,18 +2368,27 @@ public class PdfMaker2_0 extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Log.i("permisodd","es permiso concedido READ_EXTERNAL_STORAGE ");
-
-
-                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED){
 
 
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED){
+                            Toast.makeText(PdfMaker2_0.this, "Permiso concedido, puedes descargar", Toast.LENGTH_SHORT).show();
+
+
+                        }
+
+
+                        Log.i("permisodd"," PERMISO RAD_EXTERNAL_STORAGE  ");
+
+/*
                         try {
                             createPDFContenedores() ;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+*/
 
                     }
 
@@ -2454,6 +2431,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
                                 == PackageManager.PERMISSION_DENIED){
 
                     Log.i("permisodd","SE EJECUTO ESTE IF ");
+
+
 
 
 
@@ -2531,89 +2510,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-    private void checkIfFileisSaveINsRORAGE (Uri uriSearchFile){
-
-        final boolean[] ecnontroFiLE = {false};
-        final boolean[] pasaron3Seconds = {false};
-
-
-        cTimer =new CountDownTimer(3000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-
-                if(null != uriSearchFile) {
-                    try {
-                        InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriSearchFile);
-                        inputStream.close();
-                        ecnontroFiLE[0] = true;
-                    } catch (Exception e) {
-                        // Log.w(MY_TAG, "File corresponding to the uri does not exist " + uri.toString());
-                    }
-                }
-
-                /*
-                while(!pasaron3Seconds[0]){
-
-
-
-                }
-
-*/
-
-
-
-                Log.i("searchFile","se llama ontcikc");
-
-                //aqui chekeamo habver si encontro
-
-
-               // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-                // logic to set the EditText could go here
-            }
-
-            public void onFinish() {
-
-                try {
-                    InputStream inputStream = PdfMaker2_0.this.getContentResolver().openInputStream(uriSearchFile);
-                    inputStream.close();
-                    ecnontroFiLE[0] = true;
-                } catch (Exception e) {
-                    // Log.w(MY_TAG, "File corresponding to the uri does not exist " + uri.toString());
-                }
-
-
-
-
-                pasaron3Seconds[0]=false;
-
-
-                if(ecnontroFiLE[0]){ ///si existe activamos btn intent open pdf
-                    Log.i("searchFile","si se encontro file");
-
-                }else {
-
-                    Log.i("searchFile","NO se encontro file");
-
-
-                    //le decimos que no se descargo
-
-                }
-
-              //  mTextField.setText("done!");
-            }
-
-        }.start();
-
-
-        //CERREMOAS UN BUCLE I CHEKEAMO SI YA FUE DESCARGADIO
-
-
-
-    }
-
-
-
     void cancelTimer() {
         //si se destruye la actividad ...lo cancelamos....
 
@@ -2631,66 +2527,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         cancelTimer();
 
-    }
-//onDestroy()/onDestroyView()
-
-
-
-    private void viewpdf(Uri uriPdf) {
-        // add the link of pdf
-        //String value="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
-        Intent intent=new Intent(Intent.ACTION_VIEW, uriPdf);
-
-        // start activity
-        startActivity(intent);
-
-    }
-
-
-
-    public void verifyStoragePermission() {
-        int permission = ActivityCompat.checkSelfPermission(PdfMaker2_0.this, WRITE_EXTERNAL_STORAGE);
-
-        // Surrounded with if statement for Android R to get access of complete file.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager() && permission != PackageManager.PERMISSION_GRANTED) {
-
-                Log.i("permosod","tiene el permiso concedido");
-
-                ActivityCompat.requestPermissions(PdfMaker2_0 .this, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE},7);
-
-                // Abruptly we will ask for permission once the application is launched for sake demo.
-                Intent intent = new Intent();
-                intent.setAction(ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                Uri uri = Uri.fromParts("package", this.getPackageName(), null);
-                intent.setData(uri);
-                startActivity(intent);
-
-            }else{
-
-                Log.i("permosod","el permiso esta   denegado");
-
-
-            }
-        }
-    }
-
-
-    void openPdf(Uri uriPdfPath){
-
-         // Start Intent to View PDF from the Installed Applications.
-        Intent pdfOpenIntent = new Intent(Intent.ACTION_VIEW);
-        pdfOpenIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        pdfOpenIntent.setClipData(ClipData.newRawUri("", uriPdfPath));
-        pdfOpenIntent.setDataAndType(uriPdfPath, "application/pdf");
-        pdfOpenIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |  Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-
-        try {
-            startActivity(pdfOpenIntent);
-        } catch (ActivityNotFoundException activityNotFoundException) {
-            Toast.makeText(this,"No existe ninguna app para ver pdf",Toast.LENGTH_LONG).show();
-
-        }
     }
 
 }

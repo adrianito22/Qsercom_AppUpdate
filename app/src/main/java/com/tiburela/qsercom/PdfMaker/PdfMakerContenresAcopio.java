@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.PdfMaker;
 
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION;
 
@@ -117,7 +118,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pdf_maker20);
+        setContentView(R.layout.activity_pdf_makert_con_acop);
 
         ActivityFormularioDondeVino = getIntent().getIntExtra(Variables.KEY_PDF_MAKER,0);
 
@@ -174,7 +175,21 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(PdfMakerContenresAcopio.this, "Descargando Pdf", Toast.LENGTH_SHORT).show();
+
+                //DESCTIVAMSO EL BOTON SOLO SI TENEMOS LOS 2  PERMISOS CONCEDIDOS
+                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED &&
+
+                        ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+
+                    btnDescargar.setEnabled(false);
+
+
+                }
+
+
+
 
 
                 try {
@@ -186,6 +201,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
                     ){ //si tiene permisos
                         Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
+                        Toast.makeText(PdfMakerContenresAcopio.this, "Descargando Pdf", Toast.LENGTH_SHORT).show();
 
                         createPdfContenrAcopio2("exampledockk"); ;
 
@@ -578,17 +594,10 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
 
-                    Log.i("permisodd","es permiso concedido READ_EXTERNAL_STORAGE ");
+                    Toast.makeText(PdfMakerContenresAcopio.this, "Permiso concedido, puedes descargar", Toast.LENGTH_SHORT).show();
 
-                    //descragamos el file..
 
-                      ///aqui descargamos el pdf.....y lo screamos
 
-                    try {
-                        createPdfContenrAcopio2("name here"); ;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
@@ -613,17 +622,17 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED
 
                     ){
 
 
-                        try {
-                            createPdfContenrAcopio2("namefil") ;
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED){
+                            Toast.makeText(PdfMakerContenresAcopio.this, "Permiso concedido, puedes descargar", Toast.LENGTH_SHORT).show();
                         }
+
 
                     }
 
@@ -651,15 +660,15 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
                     Log.i("permisodd","es permiso concedido READ_EXTERNAL_STORAGE ");
 
 
-                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED){
 
 
-                        try {
-                            createPdfContenrAcopio2("namef") ;
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED){
+                            Toast.makeText(PdfMakerContenresAcopio.this, "Permiso concedido, puedes descargar", Toast.LENGTH_SHORT).show();
                         }
+
 
                     }
 
