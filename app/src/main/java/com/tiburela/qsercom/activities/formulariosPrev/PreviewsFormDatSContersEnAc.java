@@ -55,6 +55,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.PdfMaker.PdfMakerContenresAcopio;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
@@ -1504,7 +1505,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
            // generatePDFandImport();
 
             if( checkDataFieldsToUploadAndGeneratePdf(false)){ //ACTUALIZAMOS FORMULARIO
-                //ACTUALIZAMOS DATA
+
                     openBottomSheetConfirmCreateNew(Variables.FormatDatsContAcopi); //esti podemos hacerlo en caso que de true
 
             }else{
@@ -1525,11 +1526,21 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         @Override
         public void onClick(View view) {
 
-            Intent intent = new Intent(PreviewsFormDatSContersEnAc.this,    PdfMakerContenresAcopio.class);
-            intent.putExtra(Variables.KEY_PDF_MAKER, Variables.FormatDatsContAcopiPREVIEW);
+            if(  checkDataFieldsToUploadAndGeneratePdf(true)){
+                Intent intent = new Intent(PreviewsFormDatSContersEnAc.this,    PdfMakerContenresAcopio.class);
+                intent.putExtra(Variables.KEY_PDF_MAKER, Variables.FormatDatsContAcopiPREVIEW);
 
 
-            startActivity(intent);
+                startActivity(intent);
+            }else{
+
+                Toast.makeText(PreviewsFormDatSContersEnAc.this, "Falta data", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+
+
 
 
         }
@@ -1659,15 +1670,16 @@ boolean checkDataFieldsToUploadAndGeneratePdf(boolean isGeneratePdf){ //
 
 
     if(! creaAcMapDatosProcesoAndCheck(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(),keyNodeActualizar)){
-        Log.i("caramba","no esta en orden ");
+        Log.i("caramba","no esta en orden cc ");
+        Toast.makeText(PreviewsFormDatSContersEnAc.this, "Falta cuadro Proceso ", Toast.LENGTH_LONG).show();
 
         return false;
 
     }else{
 
-        Log.i("caramba","si  esta lleno  todo en orden");
+        Log.i("caramba","si  esta lleno  todo en orden ccc");
 
-        Toast.makeText(PreviewsFormDatSContersEnAc.this, "Hay un dato incompleto en datos de Proceso", Toast.LENGTH_LONG).show();
+        Toast.makeText(PreviewsFormDatSContersEnAc.this, "Hay un dato imcompleto en datos de Proceso", Toast.LENGTH_LONG).show();
 
     }
 
@@ -1936,6 +1948,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
     };
 
 
+    Variables.mimapaDatosProcesMapCurrent= new HashMap<>();
 
 
     if(! Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
@@ -1960,7 +1973,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
         }
 
-
+/*
         if(indice==0 && tipoEmpaque.trim().isEmpty()  && cod.trim().isEmpty()  && nombreProd.trim().isEmpty()
                 && arraynCajas[indice].getText().toString().trim().isEmpty()){
 
@@ -1976,9 +1989,9 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
         }
 
+*/
 
-
-        else if(! tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
+         if(! tipoEmpaque.trim().isEmpty()  & !  cod.trim().isEmpty()  &  ! nombreProd.trim().isEmpty()
                 & ! arraynCajas[indice].getText().toString().trim().isEmpty()  ) {  //si es diferente de 0
 
             //entonces subimos la data.....
@@ -1993,14 +2006,14 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
         }
 
+        if( Variables.mimapaDatosProcesMapCurrent.size()==0){
 
+            return false;
+
+        }
 
 
     }
-
-
-
-
 
 
 

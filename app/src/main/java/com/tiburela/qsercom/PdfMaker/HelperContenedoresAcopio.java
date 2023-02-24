@@ -170,8 +170,8 @@ public class HelperContenedoresAcopio {
 
         //        addDataEnFields(Variables.CurrenReportContensEnACp);
         if(idTableGenerate==TABLE_DATOS_CONTENEDORES_DE_ACOPIO){
-            list.add(new NameAndValue("FECHA INICIO "+ Variables.CurrenReportContensEnACp.getFechaInicio(),
-                    "FECHA DE TÉRMINO:"+Variables.CurrenReportContensEnACp.getFechadeTermino())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("FECHA DE INICIO: "+ Variables.CurrenReportContensEnACp.getFechaInicio(),
+                    "FECHA DE TÉRMINO: "+Variables.CurrenReportContensEnACp.getFechadeTermino())); //AQUI ACTUALIZAR NAMES
 
             list.add(new NameAndValue("EXPORTADORA SOLICITANTE",Variables.CurrenReportContensEnACp.getExportSolicitante())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("EXPORTADORA PROCESADA",Variables.CurrenReportContensEnACp.getExportProcesada())); //AQUI ACTUALIZAR NAMES
@@ -254,10 +254,33 @@ return  list;
 
     public   static Table generaTableDatosProceso(HashMap<String,DatosDeProceso> map){
 
+        Log.i("mispaps","el size de map es "+map.size());
+
+
+
         float sizeColumns[]= {1,1,1,1};  //establecemos el ewigth de cada columna de la tabla usando un array
         table=  new Table(sizeColumns); //le aplciamos este ewigth a cada columna
 
         //AQUI CREMOAS UNO MAS
+        paragraph = new Paragraph("CAJAS PROCESADAS DESPACHADAS: ").setFontSize(9.6f).setPaddingLeft(10f).setFont(font)//estsba 8
+                .setPaddingTop(0f).setPaddingBottom(0f).setBold();
+        cell= new Cell().add(paragraph).setPadding(0.1f);
+        cell.setBorder(new SolidBorder(Color.convertRgbToCmyk(rgbColorStrocke), 0.7f));
+        table.addCell(cell);
+
+
+
+        paragraph = new Paragraph(String.valueOf(Variables.CurrenReportContensEnACp.getCajasProcesadasDespachadas())).setFontSize(10.6f).setPaddingLeft(10f).setFont(font)
+                .setPaddingTop(0f).setPaddingBottom(0f);
+        //cell= new Cell().setHeight(11.7f).setPadding(0).add(paragraph);
+
+        cell= new Cell(1,3).add(paragraph).setPadding(0.1f);
+
+        cell.setBorder(new SolidBorder(Color.convertRgbToCmyk(rgbColorStrocke), 0.7f));
+
+        table.addCell(cell);
+
+
 
 
         int contador=1;

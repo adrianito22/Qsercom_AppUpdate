@@ -45,6 +45,7 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
@@ -309,7 +310,18 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
         Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
         imageHeader.setFixedPosition(0, 650); // si no usamos este
         imageHeader.setMarginTop(0f); // de prueba
-        ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData);
+
+
+        /**el background y logo
+         */
+
+
+        Image imagBack=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.logo_qsercon_baclgg),1);
+        imagBack.setFixedPosition(100, 200); //probando posotion //estabe en 250
+        imagBack.setMarginTop(0f); // de prueba
+
+
+        ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData,imagBack);
 
         miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
 
@@ -438,6 +450,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
 
+
         cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS DE PROCESO").
                 setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
 
@@ -445,11 +458,12 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
         cellGlobal.setPaddingTop(15f); //para no dejar margen abajo
         cellGlobal.setPaddingLeft(30f); //estaba en 20
         cellGlobal.setPaddingRight(30f);
+        cellGlobal.setPaddingBottom(0f);
         midocumentotoAddData.add(cellGlobal);
 
-
+        Log.i("mispaps","el size de map xxc es "+Variables.mimapaDatosProcesMapCurrent.size());
         /**creamos la 6 tabla*/
-        tableGlobal=HelperContenedoresAcopio.generaTableDatosProceso(generaExampleDatosProces());
+        tableGlobal=HelperContenedoresAcopio.generaTableDatosProceso(Variables.mimapaDatosProcesMapCurrent);
         HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
         midocumentotoAddData.add(tableGlobal);
 
@@ -457,14 +471,13 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         tableGlobal= new Table(2);
-
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO:"+Variables.CurrenReportContensEnACp.getInspectorAcopio()).
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
+        cellGlobal= new Cell().setPaddingLeft(10f).setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO: "+Variables.CurrenReportContensEnACp.getInspectorAcopio()).
+                setTextAlignment(TextAlignment.LEFT).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
         tableGlobal.addCell(cellGlobal);
 
 
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("CEDULA:"+Variables.CurrenReportContensEnACp.getCedulaIdenti()).
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
+        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("CEDULA: "+Variables.CurrenReportContensEnACp.getCedulaIdenti()).
+                setTextAlignment(TextAlignment.LEFT).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
 
 
         tableGlobal.setBackgroundColor(new DeviceRgb(255, 242, 204));
@@ -499,7 +512,6 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         /**FOTO_SELLOS LLEGADA...*/
-       // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
         HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
 
@@ -507,7 +519,6 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
-       // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
         Log.i("foticoss","terminamos puerta bauiertya contenedor");
 
@@ -529,6 +540,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"* DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
 
+
         Log.i("foticoss","terminamos documentacion");
 
 
@@ -541,8 +553,6 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
          *
          *
          * */
-
-
 
 
 
