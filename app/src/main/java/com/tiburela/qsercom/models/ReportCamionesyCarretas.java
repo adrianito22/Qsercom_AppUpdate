@@ -8,7 +8,8 @@ import java.util.HashMap;
 public class ReportCamionesyCarretas {
 
     private String exportadoraProcesada;
-
+    private String  nombreRevisa;
+    private String  codigonRevisa;
     public String getExportadoraProcesada() {
         return exportadoraProcesada;
     }
@@ -578,6 +579,19 @@ public class ReportCamionesyCarretas {
         this. exportadoraSolicitante=exportadoraSolicitante;
 
 
+        nombreRevisa="";
+        codigonRevisa="";
+
+
+    }
+
+
+    public String getNombreRevisa() {
+        return nombreRevisa;
+    }
+
+    public String getCodigonRevisa() {
+        return codigonRevisa;
     }
 
     /***Datos formulario */

@@ -2509,8 +2509,8 @@ if(contadorProductsPostCosecha>10){
 
        Table table1 =  createTableWhitDateEvaluacionFrura(objecControlCald.getMarcaCaja(),df.format(PROMEDIO_PESO),
                df.format(CALIDAD_TOTAL)+"%",df.format(PORCENTAJE_DE_DEFECTOS)+"%",String.valueOf(NUMERO_DEFECTS),String.valueOf(MAYOR_DEFECTO_SELECCION),
-               String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+" G",
-               df.format(LARGO_DEDOS_PROMEDIO)+" P","3.0" //estaba en PH_PROMEDIO
+               String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+" grados",
+               df.format(LARGO_DEDOS_PROMEDIO)+" pulgadas","3.0" //estaba en PH_PROMEDIO
                );
 
         return table1;

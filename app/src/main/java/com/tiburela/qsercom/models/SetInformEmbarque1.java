@@ -1,5 +1,6 @@
 package com.tiburela.qsercom.models;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.Exclude;
 
 import java.text.Format;
@@ -16,6 +17,19 @@ public class SetInformEmbarque1 {
     /***Propiedades del informe*/
 
     private String codeInforme;
+
+    public String getNombreRevisa() {
+        return nombreRevisa;
+    }
+
+    public String getCodigonRevisa() {
+        return codigonRevisa;
+    }
+
+     private String  nombreRevisa;
+     private String  codigonRevisa;
+
+
 
     public String getKeyOrNodeLibriadoSiEs() {
         return keyOrNodeLibriadoSiEs;
@@ -208,6 +222,9 @@ public class SetInformEmbarque1 {
 
 
         this.clienteReporte=clienteReporte;
+
+         nombreRevisa="";
+         codigonRevisa="";
     }
 
     /***Datos formulario */
@@ -619,6 +636,9 @@ public class SetInformEmbarque1 {
 
         result.put("keyOrNodeLibriadoSiEs",keyOrNodeLibriadoSiEs);
         result.put("clienteReporte",clienteReporte);
+
+        result.put("nombreRevisa",nombreRevisa);
+        result.put("codigonRevisa",codigonRevisa);
 
 
 
