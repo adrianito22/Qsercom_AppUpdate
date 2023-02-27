@@ -268,13 +268,11 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                     InformRegister informRegister=ds.getValue(InformRegister.class);
 
-
                     //agregamos solo los que no esten en esta lista..
                     if(informRegister!=null){  //creamos un objet
 
                         /**si el id report QUE SEA DEL MISMO USER QUE SUBIO **/
                         Log.i("userre","el user id de adrian es "+Variables.usuarioQsercomGlobal.getUniqueIDuser());
-
 
                         if(informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQsercomGlobal.getUniqueIDuser()) ||
                             informRegister.getIdQuienSUbioForm().equals(Variables.userAdriniatoToDeveloper)){
@@ -282,15 +280,14 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                             listReport.add(informRegister);
                         }
 
-
                     }
 
 
                 }
 
+
                 setAdapaterDataAndShow(listReport);
 
-              //  setDataInRecyclerOfBottomSheet(mapCheckedListForms);
 
 
             }
@@ -352,7 +349,6 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
     }
 
-
     void dowloadinformesby_CONTENEDORES_EN_ACOPIO(String dateSelecionado){
         Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
 
@@ -398,7 +394,6 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
     }
-
 
     void dowloadinformesby_PACKE_lIST(String dateSelecionado){
         Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
@@ -449,7 +444,6 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
     }
 
-
     void dowloadinformesby_CAMIONES_Y_CARRETAS(String dateSelecionado){
         Log.i("sliexsa","el date selecionado es l es  "+dateSelecionado);
 
@@ -499,7 +493,6 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
     }
 
 
-
     void dowloadinformesby_ControlCalidad(String dateSelecionado){
         /*   DatabaseReference usersdRef = rootRef.child("Informes").child("listControCalidad");
         Query query = usersdRef.orderByChild("uniqueId").equalTo(uniqueId);*/
@@ -542,7 +535,6 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
     }
-
 
 
     void dowloadinformesby_CuadroMuestreoCalib(String dateSelecionado){
@@ -619,7 +611,6 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
 
     }
-
 
 
     void setAdapaterDataAndShow(  HashMap<String, ReportsAllModel> reports ) {
