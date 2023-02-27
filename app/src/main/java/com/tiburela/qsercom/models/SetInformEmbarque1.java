@@ -26,7 +26,15 @@ public class SetInformEmbarque1 {
         return codigonRevisa;
     }
 
-     private String  nombreRevisa;
+    public void setNombreRevisa(String nombreRevisa) {
+        this.nombreRevisa = nombreRevisa;
+    }
+
+    public void setCodigonRevisa(String codigonRevisa) {
+        this.codigonRevisa = codigonRevisa;
+    }
+
+    private String  nombreRevisa;
      private String  codigonRevisa;
 
 

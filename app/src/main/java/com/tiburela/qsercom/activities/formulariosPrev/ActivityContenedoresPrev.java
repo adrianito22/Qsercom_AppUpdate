@@ -2123,6 +2123,21 @@ else{
         //  checkDatosGeneralesIsLleno();
 
 
+        if(ediNombreRevisa.getText().toString().equals("")){
+            ediNombreRevisa.requestFocus();
+            ediNombreRevisa.setError("Agrega un nombre del que reviso");
+            return;
+        }
+
+
+
+        if(ediCodigoRevisa.getText().toString().equals("")){
+            ediCodigoRevisa.requestFocus();
+            ediCodigoRevisa.setError("Agrega un codigo del que reviso");
+            return;
+        }
+
+
         if (!checkDatosGeneralesIsLleno()) {
 
             Log.i("test001", "no esta lleno  checkDatosGeneralesIsLleno");
@@ -2302,6 +2317,12 @@ else{
 
         Variables.CurrenReportPart1.setAtachControCalidadInfrms(atachViucladoControlCalidad);
         Variables.CurrenReportPart1.setAtachControCuadroMuestreo(atachViucladoCuadroX);
+
+        Variables.CurrenReportPart1.setNombreRevisa(ediNombreRevisa.getText().toString());
+        Variables.CurrenReportPart1.setCodigonRevisa(ediCodigoRevisa.getText().toString());
+
+
+
 
         if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.length() > 1) {
             Variables.CurrenReportPart1.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
@@ -4262,6 +4283,9 @@ else{
 
         Log.i("SOMERG", "el  CLIENTE RREPORTE ES " + info1Object.getClienteReporte());
 
+
+        ediNombreRevisa.setText(info1Object.getNombreRevisa());
+        ediCodigoRevisa.setText(info1Object.getCodigonRevisa());
 
         ediExportadoraProcesada.setText(info1Object.getExportadoraProcesada());
         ediClienteNombreReporte.setText(info1Object.getClienteReporte());

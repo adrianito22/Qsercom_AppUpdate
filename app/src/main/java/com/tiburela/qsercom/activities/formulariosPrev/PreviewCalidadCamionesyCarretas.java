@@ -87,6 +87,11 @@ import java.util.UUID;
 
 
 public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener  {
+
+    TextInputEditText ediNombreRevisa;
+    TextInputEditText ediCodigoRevisa;
+
+
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
     ImageView imgVAtachLlegadaContenedor;
@@ -608,6 +613,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        ediNombreRevisa=findViewById(R.id.ediNombreRevisa);
+        ediCodigoRevisa=findViewById(R.id.ediCodigoRevisa);
+
 
         ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
         ediExportadoraSolicitante=findViewById(R.id.ediExportadoraSolicitante);

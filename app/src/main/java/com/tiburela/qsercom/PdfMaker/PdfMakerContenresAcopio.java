@@ -543,6 +543,9 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
         Log.i("foticoss","terminamos documentacion");
 
+        Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.CurrenReportContensEnACp.getNombreRevisa(),Variables.CurrenReportContensEnACp.getCodigonRevisa());
+        midocumentotoAddData.add(paragraph);
+
 
         /**PRXIMOS PASOS AVERGIAR COMO SE COMPORRTA ESTE CODIGO IMAGENES
          * PASARLE EL TIPO DE OBJETO AL QUE CREA PARA VALOR Y LA DEMAS DATA...

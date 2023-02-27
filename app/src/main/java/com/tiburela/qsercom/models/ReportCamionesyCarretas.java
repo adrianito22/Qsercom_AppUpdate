@@ -9,6 +9,15 @@ public class ReportCamionesyCarretas {
 
     private String exportadoraProcesada;
     private String  nombreRevisa;
+
+    public void setNombreRevisa(String nombreRevisa) {
+        this.nombreRevisa = nombreRevisa;
+    }
+
+    public void setCodigonRevisa(String codigonRevisa) {
+        this.codigonRevisa = codigonRevisa;
+    }
+
     private String  codigonRevisa;
     public String getExportadoraProcesada() {
         return exportadoraProcesada;

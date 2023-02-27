@@ -56,6 +56,7 @@ import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.PdfMaker.PdfMakerContenresAcopio;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
@@ -63,6 +64,9 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
@@ -72,6 +76,8 @@ import com.tiburela.qsercom.utils.Variables;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -83,8 +89,13 @@ import java.util.UUID;
 public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener
 {
 
+    TextInputEditText ediNombreRevisa;
+    TextInputEditText ediCodigoRevisa;
 
-     TextInputEditText ediSemana;
+
+
+
+    TextInputEditText ediSemana;
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
     ImageView imgVAtachLlegadaContenedor;
@@ -427,6 +438,9 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+
+        ediNombreRevisa=findViewById(R.id.ediNombreRevisa);
+        ediCodigoRevisa=findViewById(R.id.ediCodigoRevisa);
 
 
         btnGenerarPdf=findViewById(R.id.btnGenerarPdf);
@@ -1527,6 +1541,10 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         public void onClick(View view) {
 
             if(  checkDataFieldsToUploadAndGeneratePdf(true)){
+
+
+                updateInformeWhitCurrentDataOfViews(); //actualizamos el reporte actual
+
                 Intent intent = new Intent(PreviewsFormDatSContersEnAc.this,    PdfMakerContenresAcopio.class);
                 intent.putExtra(Variables.KEY_PDF_MAKER, Variables.FormatDatsContAcopiPREVIEW);
 
@@ -1551,6 +1569,24 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 }
 
 boolean checkDataFieldsToUploadAndGeneratePdf(boolean isGeneratePdf){ //
+
+
+        if(isGeneratePdf){
+            if(ediNombreRevisa.getText().toString().equals("")){
+                ediNombreRevisa.requestFocus();
+                ediNombreRevisa.setError("Agrega un nombre del que reviso");
+                return false;
+            }
+
+
+
+            if(ediCodigoRevisa.getText().toString().equals("")){
+                ediCodigoRevisa.requestFocus();
+                ediCodigoRevisa.setError("Agrega un codigo del que reviso");
+                return false;
+            }
+        }
+
 
 
 
@@ -1691,6 +1727,47 @@ boolean checkDataFieldsToUploadAndGeneratePdf(boolean isGeneratePdf){ //
 
 return true;
 }
+
+    private void updateInformeWhitCurrentDataOfViews() {
+
+        Variables.CurrenReportContensEnACp = new ContenedoresEnAcopio(UNIQUE_ID_iNFORME,ediFechaInicio.getText().toString(),fechDetermino.getText().toString()
+                ,ediExpSolicitante.getText().toString(),
+                ediExpProcesada.getText().toString(),ediPuerto.getText().toString(),ediZona.getText().toString(),ediMarca.getText().toString(),
+                ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString(),ediNguiaRemision.getText().toString(),ediNtargetaEmbarque.getText().toString()
+                ,ediDestino.getText().toString(),ediVapor.getText().toString(),ediNumContenedor.getText().toString(),ediHoraLLegadaContenedor.getText().toString()
+                ,ediHoraSalidaContenedor.getText().toString(),ediAgenciaNav.getText().toString(),ediSelloPlasticoNaviera.getText().toString()
+                ,stikVentolerExterna.getText().toString(),ediNumSerieFunda.getText().toString(),ediCableRastreoLlegada.getText().toString(),ediBooking.getText().toString(),
+                ediMaxGross.getText().toString(),ediTare.getText().toString(),ediOtherSellos.getText().toString(),ediTermofrafo1.getText().toString()
+                ,ediTermofrafo2.getText().toString(),
+                ediCandadoqsercon.getText().toString(),ediSelloNaviera.getText().toString(),ediCableNaviera.getText().toString(),ediSelloPlastico.getText().toString()
+                ,ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString()
+                ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
+                ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
+                Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString()),
+                ediClienteNombreReporte.getText().toString(),Integer.parseInt(ediSemana.getText().toString()));
+
+
+
+        //agr5egamos la data finalemente
+
+        Variables.CurrenReportContensEnACp.setDatosProcesoContenAcopioKEYFather(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather());
+        Variables.CurrenReportContensEnACp.setKeyFirebase(Variables.CurrenReportContensEnACp.getKeyFirebase());
+        Variables.CurrenReportContensEnACp.setSimpleDataFormat(Variables.CurrenReportContensEnACp.getSimpleDataFormat());
+        Variables.CurrenReportContensEnACp.setFechaUploadMilliseconds(Variables.CurrenReportContensEnACp.getFechaUploadMilliseconds());
+
+
+
+        Variables.CurrenReportContensEnACp.setNombreRevisa(ediNombreRevisa.getText().toString());
+        Variables.CurrenReportContensEnACp.setCodigonRevisa(ediCodigoRevisa.getText().toString());
+
+
+
+
+
+    }
+
+
+
 
 
     private void openBottomSheetConfirmCreateNew(int tipoFormulario){
@@ -2060,6 +2137,14 @@ private void createObjcInformeAndUpload(){
     informe.setKeyFirebase(Variables.CurrenReportContensEnACp.getKeyFirebase());
     informe.setSimpleDataFormat(Variables.CurrenReportContensEnACp.getSimpleDataFormat());
     informe.setFechaUploadMilliseconds(Variables.CurrenReportContensEnACp.getFechaUploadMilliseconds());
+
+
+    informe.setNombreRevisa(ediNombreRevisa.getText().toString());
+    informe.setCodigonRevisa(ediCodigoRevisa.getText().toString());
+
+
+
+
 
     RealtimeDB.updateInformContenresAcopio(informe);
 
@@ -3525,6 +3610,11 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
     private  void addDataEnFields(ContenedoresEnAcopio currentInform)  {
+
+
+        ediNombreRevisa.setText(currentInform.getNombreRevisa());
+        ediCodigoRevisa.setText(currentInform.getCodigonRevisa());
+
         //usamos los 2 objetos para establecer esta data..
 
      //   Log.i("jamisama","la semana es "+currentInform.getSemana());

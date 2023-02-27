@@ -1,7 +1,6 @@
 package com.tiburela.qsercom.PdfMaker;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -544,8 +543,37 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("CÓDIGO MAGAP ",Object1.getInscirpMagap()));
             listTOrETURN1.add(new NameAndValue("PUERTO EMBARQUE ",Object1.getPemarque()));
             listTOrETURN1.add(new NameAndValue("ZONA",Object1.getZona()));
-            listTOrETURN1.add(new NameAndValue("HORA INICIO",Object1.getHoraInicio()));
-            listTOrETURN1.add(new NameAndValue("HORA TERMINO",Object1.getHoraTermino()));
+
+
+
+            String [] arrayTime=Object1.getHoraInicio().split(":");
+
+            if(arrayTime[0].length()==1){
+                listTOrETURN1.add(new NameAndValue("HORA INICIO","0"+Object1.getHoraInicio()));
+            }
+
+            else{
+                listTOrETURN1.add(new NameAndValue("HORA INICIO",Object1.getHoraInicio()));
+            }
+
+
+
+
+             arrayTime=Object1.getHoraTermino().split(":");
+
+            if(arrayTime[0].length()==1){
+                listTOrETURN1.add(new NameAndValue("HORA TERMINO","0"+Object1.getHoraTermino()));
+            }
+
+            else{
+                listTOrETURN1.add(new NameAndValue("HORA TERMINO",Object1.getHoraTermino()));
+            }
+
+
+
+
+
+
 
             listTOrETURN1.add(new NameAndValue("GUÍA REMISIÓN",Object1.getNguiaRemision()));
             listTOrETURN1.add(new NameAndValue("GUÍA DE TRANSPORTE",Object1.get_nguia_transporte()));
@@ -624,8 +652,32 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("VAPOR",Object1.getVapor()));
             listTOrETURN1.add(new NameAndValue("NUMERACIÓN DE CONTENEDOR",Object1.getNumcionContenedor()));
 
-            listTOrETURN1.add(new NameAndValue("HORA DE LLEGADA",Object1.getHoraLlegadaContenedor()));
+
+
+            String [] arrayTime=Object1.getHoraLlegadaContenedor().split(":");
+
+            if(arrayTime[0].length()==1){
+                listTOrETURN1.add(new NameAndValue("HORA DE LLEGADA",Object1.getHoraLlegadaContenedor()));
+            }
+
+            else{
+                listTOrETURN1.add(new NameAndValue("HORA DE LLEGADA",Object1.getHoraLlegadaContenedor()));
+            }
+
+
+
+             arrayTime=Object1.getHoraSalidadContenedor().split(":");
+
+            if(arrayTime[0].length()==1){
+                listTOrETURN1.add(new NameAndValue("HORA SALIDA","0"+Object1.getHoraSalidadContenedor()));
+            }
+
+            else{
             listTOrETURN1.add(new NameAndValue("HORA SALIDA",Object1.getHoraSalidadContenedor()));
+            }
+
+
+
 
 
 
@@ -2832,6 +2884,28 @@ if(contadorProductsPostCosecha>10){
 
 
 
+    public static Paragraph generateTexRevisadoPorFormatAndPosition(String revisadoPorName, String codigoRevisado){
+
+        Text  revisadopor = new Text("  Revisado por : ").setFontSize(9).setBold();
+
+        Text  nameRevisado = new Text(revisadoPorName).setFontSize(9);
+
+        Text codigo = new Text(", codigo "+Variables.CurrenReportPart1.getSemana()).setBold().setFontSize(8);
+        Text codigoAqui = new Text(codigoRevisado+"  ").setFontSize(9);
+
+
+        Paragraph p = new Paragraph().setFontSize(9)
+                .add(revisadopor).add(nameRevisado).add(codigo).add(codigoAqui);
+
+
+        p.setBackgroundColor(com.itextpdf.kernel.colors.Color.convertRgbToCmyk(new DeviceRgb(56,56,56)));
+        p.setFontColor(new DeviceRgb(255,255,255));
+       // p.setFixedPosition(78, 107,200); //ESTABA EN 108
+        p.setFixedPosition(78, 107,200); //ESTABA EN 108
+
+
+        return p;
+    }
 
 
 
