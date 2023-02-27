@@ -112,6 +112,10 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         View.OnTouchListener {
 
 
+     TextInputEditText ediNombreRevisa;
+    TextInputEditText ediCodigoRevisa;
+
+
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
     ImageView imgVAtachLlegadaContenedor;
@@ -560,7 +564,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
     private void findViewsIds() { //configuraremos algos views al iniciar
 
-
+         ediNombreRevisa=findViewById(R.id.ediNombreRevisa);
+         ediCodigoRevisa=findViewById(R.id.ediCodigoRevisa);
 
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
