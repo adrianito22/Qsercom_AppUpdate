@@ -179,8 +179,35 @@ public class HelperContenedoresAcopio {
             list.add(new NameAndValue("ZONA",Variables.CurrenReportContensEnACp.getZona())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("MARCA",Variables.CurrenReportContensEnACp.getMarca())); //AQUI ACTUALIZAR NAMES
 
-            list.add(new NameAndValue("HORA INICIO",Variables.CurrenReportContensEnACp.getHoraInicio())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("HORA TERMINO",Variables.CurrenReportContensEnACp.getHoraDetermino())); //AQUI ACTUALIZAR NAMES
+
+
+            String [] arrayTime=Variables.CurrenReportContensEnACp.getHoraInicio().split(":");
+
+            if(arrayTime[0].length()==1){
+                list.add(new NameAndValue("HORA INICIO","0"+Variables.CurrenReportContensEnACp.getHoraInicio())); //AQUI ACTUALIZAR NAMES
+            }
+
+            else{
+                list.add(new NameAndValue("HORA INICIO",Variables.CurrenReportContensEnACp.getHoraInicio())); //AQUI ACTUALIZAR NAMES
+            }
+
+
+
+
+            arrayTime=Variables.CurrenReportContensEnACp.getHoraDetermino().split(":");
+
+            if(arrayTime[0].length()==1){
+                list.add(new NameAndValue("HORA TERMINO","0"+Variables.CurrenReportContensEnACp.getHoraDetermino())); //AQUI ACTUALIZAR NAMES
+            }
+
+            else{
+                list.add(new NameAndValue("HORA TERMINO",Variables.CurrenReportContensEnACp.getHoraDetermino())); //AQUI ACTUALIZAR NAMES
+            }
+
+
+
+
+
             list.add(new NameAndValue("GUÍA REMISIÓN",Variables.CurrenReportContensEnACp.getGuiaDeRemision())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("TARJETA DE EMBARQUE",Variables.CurrenReportContensEnACp.getTarjaDeEmbarque())); //AQUI ACTUALIZAR NAMES
 
@@ -192,8 +219,34 @@ public class HelperContenedoresAcopio {
             list.add(new NameAndValue("DESTINO",Variables.CurrenReportContensEnACp.getDestino())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("VAPOR",Variables.CurrenReportContensEnACp.getVapor())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("NUMERACIÓN",Variables.CurrenReportContensEnACp.getNumContenedor())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("HORA LLEGADA",Variables.CurrenReportContensEnACp.getHoraDeLlegada())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("HORA SALIDA",Variables.CurrenReportContensEnACp.getHoraInicio())); //AQUI ACTUALIZAR NAMES
+
+
+
+            String [] arrayTime=Variables.CurrenReportContensEnACp.getHoraDeLlegada().split(":");
+            if(arrayTime[0].length()==1){
+                list.add(new NameAndValue("HORA LLEGADA","0"+Variables.CurrenReportContensEnACp.getHoraDeLlegada())); //AQUI ACTUALIZAR NAMES
+            }
+
+            else{
+                list.add(new NameAndValue("HORA LLEGADA",Variables.CurrenReportContensEnACp.getHoraDeLlegada())); //AQUI ACTUALIZAR NAMES
+            }
+
+
+
+
+             arrayTime=Variables.CurrenReportContensEnACp.getHoraDeSalida().split(":");
+            if(arrayTime[0].length()==1){
+                list.add(new NameAndValue("HORA SALIDA","0"+Variables.CurrenReportContensEnACp.getHoraDeSalida())); //AQUI ACTUALIZAR NAMES
+            }
+
+            else{
+                list.add(new NameAndValue("HORA SALIDA",Variables.CurrenReportContensEnACp.getHoraDeSalida())); //AQUI ACTUALIZAR NAMES
+            }
+
+
+
+
+
             list.add(new NameAndValue("AGENCIA NAVIERA",Variables.CurrenReportContensEnACp.getAgenciaNaviera())); //AQUI ACTUALIZAR NAMES
 
 

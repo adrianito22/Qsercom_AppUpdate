@@ -657,7 +657,7 @@ if(contadorProductsPostCosecha>10){
             String [] arrayTime=Object1.getHoraLlegadaContenedor().split(":");
 
             if(arrayTime[0].length()==1){
-                listTOrETURN1.add(new NameAndValue("HORA DE LLEGADA",Object1.getHoraLlegadaContenedor()));
+                listTOrETURN1.add(new NameAndValue("HORA DE LLEGADA","0"+Object1.getHoraLlegadaContenedor()));
             }
 
             else{
@@ -2779,13 +2779,37 @@ if(contadorProductsPostCosecha>10){
                 celdaGlobal.add(new Paragraph(String.valueOf(itemCurrent.getTotalEmbacado()+" cajas")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER));
                 table.addCell(celdaGlobal);
 
-
                 celdaGlobal= new Cell().setBackgroundColor(rgbColor);
                 Log.i("debugderor","el  "+itemCurrent.getPorcentajeQS());
 
                 //String caliddTotal=df.format(itemCurrent.getPorcentajeQS());
 
-                celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+
+                if(df.format(itemCurrent.getPorcentajeQS()).contains(".")){
+
+                    String [] arrayxc=df.format(itemCurrent.getPorcentajeQS()).split("\\.");
+
+                    if(arrayxc[1].length()==1){
+                        celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"0%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+
+
+                    }else{
+                        celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+
+                    }
+
+                }
+                else
+
+                {
+
+                    celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+
+                }
+
+
+                ///   celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+
                 table.addCell(celdaGlobal);
 
 
@@ -3441,7 +3465,7 @@ int contadorAlldefectos=0;
         Table table1= new Table(numClumnas);
 
         for(String value:listDatsEvaluadores){
-             Paragraph paragraph= new Paragraph(value).setTextAlignment(TextAlignment.CENTER);
+             Paragraph paragraph= new Paragraph(value).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f);
              Cell cell1 = new Cell().setBorder(Border.NO_BORDER);
               cell1.add(paragraph);
               table1.addCell(cell1);
@@ -3470,6 +3494,10 @@ int contadorAlldefectos=0;
 
 */
 
+
+
+
+
         Collections.sort(listLibriado, new Comparator<PromedioLibriado>()
         {
             @Override
@@ -3485,13 +3513,6 @@ int contadorAlldefectos=0;
       Cell miCelda;
       Paragraph miParagraph;
 
-
-      //cremaos la celda del titulo
-
-       // miParagraph= new Paragraph("2.- PESO PROMEDIO CLÚSTER").setTextAlignment(TextAlignment.LEFT);
-      //  miCelda= new Cell(1,2).setBorder(Border.NO_BORDER);
-      //  miCelda.add(miParagraph);
-      //  mitab.addCell(miCelda);
 
 
         miParagraph= new Paragraph(nameMarcaOtherHere.toUpperCase()).setTextAlignment(TextAlignment.CENTER).setBold();
@@ -3514,8 +3535,15 @@ int contadorAlldefectos=0;
 
 
           float totalPeso=0;
+          String [] arrayValue;
+
+        Log.i("pesoclci","for start here");
 
         for(PromedioLibriado num: listLibriado){
+
+            Log.i("pesoclci","el value peso es "+num.numPesoCluster);
+
+
           miParagraph= new Paragraph(String.valueOf(num.clusterNum)).setTextAlignment(TextAlignment.CENTER);
           miCelda= new Cell(1,1);
           miCelda.add(miParagraph);
@@ -3523,7 +3551,32 @@ int contadorAlldefectos=0;
 
 
           miCelda= new Cell(1,1);
-          miParagraph= new Paragraph(String.valueOf(dcx.format(num.numPesoCluster))).setTextAlignment(TextAlignment.CENTER);
+
+          arrayValue= dcx.format(num.numPesoCluster).split("\\.");
+
+          if(arrayValue.length==2){
+
+              if(arrayValue[1].length()==1){
+
+                  miParagraph= new Paragraph(dcx.format(num.numPesoCluster)+"0").setTextAlignment(TextAlignment.CENTER);
+
+              }else{
+                  miParagraph= new Paragraph(dcx.format(num.numPesoCluster)).setTextAlignment(TextAlignment.CENTER);
+
+
+                  Log.i("pesoclci","se eejcuto el else ");
+
+              }
+
+          }
+
+          else{
+
+              miParagraph= new Paragraph(dcx.format(num.numPesoCluster)).setTextAlignment(TextAlignment.CENTER);
+
+          }
+
+
           miCelda.add(miParagraph);
           mitab.addCell(miCelda);
 

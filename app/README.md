@@ -25,6 +25,11 @@ preguntar eso y otrapregunta que tenia en notas en el cell
 
 ***en contenedores en copio tener en cuenta que aun no se guarda datos del proceso...
 
+
+
+## 2 decimales en el otro reporte generado cehekar
+## tambien checkear otro datos..
+
 ## cambios pendientes,, chekear si inicio sesion cuando sube o cuando revisa los formularios...
 ## en defecto mayor ,obtener los primeros 3 defectos  o 2 si son iiguales. si no solo el mayor..
 ## revisar si e prview lo mismo que arriba
