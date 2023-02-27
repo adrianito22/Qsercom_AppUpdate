@@ -271,7 +271,16 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                     //agregamos solo los que no esten en esta lista..
                     if(informRegister!=null){  //creamos un objet
-                        listReport.add(informRegister);
+
+                        /**si el id report QUE SEA DEL MISMO USER QUE SUBIO **/
+                        Log.i("userre","el user id de adrian es "+Variables.usuarioQsercomGlobal.getUniqueIDuser());
+
+
+                        if(informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQsercomGlobal.getUniqueIDuser()) ||
+                            informRegister.getIdQuienSUbioForm().equals(Variables.userAdriniatoToDeveloper)){
+
+                            listReport.add(informRegister);
+                        }
 
 
                     }

@@ -2914,7 +2914,7 @@ if(contadorProductsPostCosecha>10){
 
         Text  nameRevisado = new Text(revisadoPorName).setFontSize(9);
 
-        Text codigo = new Text(", codigo "+Variables.CurrenReportPart1.getSemana()).setBold().setFontSize(8);
+        Text codigo = new Text(", codigo ").setBold().setFontSize(8);
         Text codigoAqui = new Text(codigoRevisado+"  ").setFontSize(9);
 
 
@@ -2925,7 +2925,7 @@ if(contadorProductsPostCosecha>10){
         p.setBackgroundColor(com.itextpdf.kernel.colors.Color.convertRgbToCmyk(new DeviceRgb(56,56,56)));
         p.setFontColor(new DeviceRgb(255,255,255));
        // p.setFixedPosition(78, 107,200); //ESTABA EN 108
-        p.setFixedPosition(78, 107,200); //ESTABA EN 108
+        p.setFixedPosition(78, 107,p.getWidth()); //ESTABA EN 108
 
 
         return p;

@@ -255,7 +255,7 @@ public class HelperContenedoresAcopio {
         else if(idTableGenerate==TABLE_SELLOS_LLEGADA){
 
             list.add(new NameAndValue("PLÁSTICO PATIO NAVIERA",Variables.CurrenReportContensEnACp.getSellosPlasticoNaviera())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("STICKER DE PATIO EN VENTOLERA EXTERNA 1",Variables.CurrenReportContensEnACp.getStickerDeVentolExternn1())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("STICKER DE PATIO VENTOLERA EXTERNA 1",Variables.CurrenReportContensEnACp.getStickerDeVentolExternn1())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("NÚMERO DE SERIE DE FUNDA",Variables.CurrenReportContensEnACp.getNumSerieFunda())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("CABLE DE RASTREO LLEGADA",Variables.CurrenReportContensEnACp.getCableRastreoLlegada())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("BOOKING",Variables.CurrenReportContensEnACp.getBooking())); //AQUI ACTUALIZAR
@@ -346,38 +346,24 @@ return  list;
             // cell= new Cell().setHeight(11.7f).setPadding(0).add(paragraph);//etsab en 11.7
 
             cell= new Cell().add(paragraph).setPadding(0.1f);
-
             cell.setBorder(new SolidBorder(Color.convertRgbToCmyk(rgbColorStrocke), 0.7f));
-
             table.addCell(cell);
-
 
 
             /***tipo de empaque*/
             paragraph = new Paragraph("TIPO DE EMPAQUE: "+objecNameValue.getTipoEmpaque()).setFontSize(8.6f).setPaddingLeft(10f).setFont(font)
                     .setPaddingTop(0f).setPaddingBottom(0f);
-            //cell= new Cell().setHeight(11.7f).setPadding(0).add(paragraph);
-
             cell= new Cell().add(paragraph).setPadding(0.1f);
-
             cell.setBorder(new SolidBorder(Color.convertRgbToCmyk(rgbColorStrocke), 0.7f));
-
             table.addCell(cell);
-
 
 
             /***codigo*/
             paragraph = new Paragraph("COD."+contador+": "+objecNameValue.getCod()).setFontSize(8.6f).setPaddingLeft(10f).setFont(font)
                     .setPaddingTop(0f).setPaddingBottom(0f);
-            //cell= new Cell().setHeight(11.7f).setPadding(0).add(paragraph);
-
             cell= new Cell().add(paragraph).setPadding(0.1f);
-
             cell.setBorder(new SolidBorder(Color.convertRgbToCmyk(rgbColorStrocke), 0.7f));
-
             table.addCell(cell);
-
-
 
 
             /***# cajas*/
@@ -386,9 +372,7 @@ return  list;
             //cell= new Cell().setHeight(11.7f).setPadding(0).add(paragraph);
 
             cell= new Cell().add(paragraph).setPadding(0.1f);
-
             cell.setBorder(new SolidBorder(Color.convertRgbToCmyk(rgbColorStrocke), 0.7f));
-
             table.addCell(cell);
 
             contador++;

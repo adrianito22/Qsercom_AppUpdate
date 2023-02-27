@@ -24,7 +24,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:text="TextView"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="invisible" />
 
         <ProgressBar
             android:id="@+id/progressBar2"
@@ -34,7 +35,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+            android:paddingRight="20dp"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:id="@+id/layoutDown"

@@ -26,6 +26,8 @@ import java.util.HashMap;
 
 public class Variables {
 
+ public static String userAdriniatoToDeveloper="821524be-f5a0-450a-b5e3-f6ba7bf6b5db";
+
  public static String KEY_FORM_EXTRA ="MIKEYXTR";
 
 public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>();

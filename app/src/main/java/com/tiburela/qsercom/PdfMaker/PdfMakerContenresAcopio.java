@@ -551,12 +551,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
          * PASARLE EL TIPO DE OBJETO AL QUE CREA PARA VALOR Y LA DEMAS DATA...
          * BTN PARA GENERAR PDF EN ESE REPORTE PREVIEW....
          * BTN GUARDAR LOCALE Y GENERAR PDF ,INTENTAR GENMERAR EL PDF Y VER QUE PASA.....
-         * //
-         *
-         *
-         *
          * */
-
 
 
         midocumentotoAddData.close();

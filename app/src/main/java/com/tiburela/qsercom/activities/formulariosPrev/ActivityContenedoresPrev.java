@@ -1900,7 +1900,11 @@ else{
 
             Log.i("test001", "no esta lleno  checkDatosGeneralesIsLleno");
             return;
-        } else {
+        }
+
+
+        else {
+
             Log.i("test001", "si esta lleno checkDatosGeneralesIsLleno ");
 
         }
@@ -2413,6 +2417,13 @@ else{
         informe.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
         informe.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado); //LE BORRAMOS MASS
+
+
+        informe.setNombreRevisa(ediNombreRevisa.getText().toString());
+        informe.setCodigonRevisa(ediCodigoRevisa.getText().toString());
+
+
+
 
         Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
@@ -3288,6 +3299,7 @@ else{
             ediCableNaviera.setError("Este espacio es obligatorio");
 
             layoutContainerSeccion5.setVisibility(LinearLayout.VISIBLE);
+
             return false;
 
         }
