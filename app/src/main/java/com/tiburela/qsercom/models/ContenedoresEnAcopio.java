@@ -21,6 +21,16 @@ public class ContenedoresEnAcopio {
     }
 
     private int semanaNum;
+    public String getNombreRevisa() {
+        return nombreRevisa;
+    }
+
+    public String getCodigonRevisa() {
+        return codigonRevisa;
+    }
+
+    private String  nombreRevisa;
+    private String  codigonRevisa;
 
 
     public ContenedoresEnAcopio(){
@@ -115,6 +125,9 @@ public class ContenedoresEnAcopio {
         this. cedulaIdenti=cedulaIdenti;
         this.clienteReporte=clienteReporte;
        this.semanaNum =semanaNum;
+
+          nombreRevisa="";
+          codigonRevisa="";
 
         }
 
