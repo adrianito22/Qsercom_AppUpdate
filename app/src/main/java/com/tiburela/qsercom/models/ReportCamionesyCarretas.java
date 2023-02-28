@@ -430,7 +430,7 @@ public class ReportCamionesyCarretas {
     private String extensionistaEnCalidad;
     private String extensionistaEnRodillo;
     private String extensionistaEnGancho;
-    private int ediNhojaEvaluacion;
+    private String ediNhojaEvaluacion;
     private String zona;
     private String productor;
     private String codigo;
@@ -504,7 +504,7 @@ public class ReportCamionesyCarretas {
 
 
 
-    public ReportCamionesyCarretas(String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
+    public ReportCamionesyCarretas(String  uniqueIDinforme , String codeInforme, String ediNhojaEvaluacion, String zona, String productor,
                                    String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
                                    String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
                                    String empacadora,
@@ -519,8 +519,8 @@ public class ReportCamionesyCarretas {
 
                                    int racimosCosechados, int racimosRechazados, int racimosProcesados, int cajasProcesadasDespachadas,
                                    String extensionistaEnCalidad, String extensionistaEnRodillo, String extensionistaEnGancho
-                                   , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc,String nodoQueContieneMapPesoBrutoCloster2y3l
-                                   ,String clienteReporte,String tipoBoquilla, String exportadoraProcesada,String exportadoraSolicitante
+                                   , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc, String nodoQueContieneMapPesoBrutoCloster2y3l
+                                   , String clienteReporte, String tipoBoquilla, String exportadoraProcesada, String exportadoraSolicitante
 
 
 
@@ -671,11 +671,11 @@ public class ReportCamionesyCarretas {
         this.fechaCreacionInf = fechaCreacionInf;
     }
 
-    public int getEdiNhojaEvaluacion() {
+    public String getEdiNhojaEvaluacion() {
         return ediNhojaEvaluacion;
     }
 
-    public void setEdiNhojaEvaluacion(int ediNhojaEvaluacion) {
+    public void setEdiNhojaEvaluacion(String ediNhojaEvaluacion) {
         this.ediNhojaEvaluacion = ediNhojaEvaluacion;
     }
 

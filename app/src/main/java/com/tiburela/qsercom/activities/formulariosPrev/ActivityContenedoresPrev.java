@@ -1142,6 +1142,9 @@ else{
 
     private void showEditDialogAndSendData() {
 
+
+        Log.i("cinuoados","el id vinuclados es "+RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+
         Bundle bundle = new Bundle();
         bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS, RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
         bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED, RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
@@ -2304,7 +2307,7 @@ else{
 
 
                 UNIQUE_ID_iNFORME, ediCodigo.getText().toString(),
-                Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
+                ediNhojaEvaluacion.getText().toString(), ediZona.getText().toString()
                 , ediProductor.getText().toString(), ediCodigo.getText().toString()
                 , ediPemarque.getText().toString(), ediNguiaRemision.getText().toString(), ediHacienda.getText().toString()
                 , edi_nguia_transporte.getText().toString(), ediNtargetaEmbarque.getText().toString(),
@@ -2400,7 +2403,7 @@ else{
                 ediMarca.getText().toString(),
 
                 UNIQUE_ID_iNFORME, ediCodigo.getText().toString(),
-                Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
+                ediNhojaEvaluacion.getText().toString(), ediZona.getText().toString()
                 , ediProductor.getText().toString(), ediCodigo.getText().toString()
                 , ediPemarque.getText().toString(), ediNguiaRemision.getText().toString(), ediHacienda.getText().toString()
                 , edi_nguia_transporte.getText().toString(), ediNtargetaEmbarque.getText().toString(),
@@ -4323,7 +4326,7 @@ else{
         ediNguiaRemision.setText(info1Object.getNguiaRemision());
         edi_nguia_transporte.setText(info1Object.get_nguia_transporte());
         ediNtargetaEmbarque.setText(info1Object.getNtargetaEmbarque());
-        ediNhojaEvaluacion.setText(String.valueOf(info1Object.getEdiNhojaEvaluacion()));
+        ediNhojaEvaluacion.setText(info1Object.getEdiNhojaEvaluacion());
         ediObservacion.setText(info1Object.getObservacion());
         ediEmpacadora.setText(info1Object.getEmpacadora());
         ediContenedor.setText(info1Object.getContenedor());

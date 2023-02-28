@@ -91,7 +91,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     TextInputEditText ediNombreRevisa;
     TextInputEditText ediCodigoRevisa;
 
-
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
     ImageView imgVAtachLlegadaContenedor;
@@ -112,8 +111,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
    private TextInputEditText ediMarca;
     private TextInputEditText ediClienteNombreReporte;
 
-
-
     private static final int PERMISSION_REQUEST_CODE=100;
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
@@ -121,7 +118,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     int contadorIterador=0;
     ProductPostCosecha productxGlobal;
     CalibrFrutCalEnf calEnfundeGLOB;
-
     ImageView imgUpdatecAlfrutaEnfunde;
 
     FloatingActionButton fab2;
@@ -1859,7 +1855,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     private void createObjcInformeAndUpdate(){
 
         ReportCamionesyCarretas informe = new ReportCamionesyCarretas(UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
-                Integer.parseInt(ediNhojaEvaluacion.getText().toString()),ediZona.getText().toString(),ediProductor.getText().toString(),
+                ediNhojaEvaluacion.getText().toString(),ediZona.getText().toString(),ediProductor.getText().toString(),
                 ediCodigo.getText().toString(), ediPemarque.getText().toString(),
                  ediNguiaRemision.getText().toString(),ediHacienda.getText().toString(),edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
                 ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString(),ediSemana.getText().toString(),ediEmpacadora.getText().toString(),
@@ -4135,7 +4131,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         ediNguiaRemision.setText(currenReport.getNguiaRemision());
         edi_nguia_transporte.setText(currenReport.get_nguia_transporte());
         ediNtargetaEmbarque.setText(currenReport.getNtargetaEmbarque());
-        ediNhojaEvaluacion.setText(String.valueOf(currenReport.getEdiNhojaEvaluacion()));
+        ediNhojaEvaluacion.setText(currenReport.getEdiNhojaEvaluacion());
         ediObservacion.setText(currenReport.getObservacionOpc());
         ediEmpacadora.setText(currenReport.getEmpacadora());
         ediContenedor.setText(currenReport.getContenedor());

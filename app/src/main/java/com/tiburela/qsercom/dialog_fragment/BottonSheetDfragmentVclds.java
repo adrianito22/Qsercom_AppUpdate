@@ -560,8 +560,16 @@ private void listternSpinner(){
 
                     Variables.idControCalidadToDowload=v.getTag(R.id.tagImgUniqueIdItem).toString();
 
-               // showPRogressAndStartActivity(new Intent(ActivityContenedoresPrev.this, FormularioControlCalidadPreview.class));
-               showPRogressAndStartActivity(new Intent(getActivity(), FormularioControlCalidadPreview.class));
+                    Log.i("cinuoados","el id preess es  "+ Variables.idControCalidadToDowload);
+
+
+
+                    // showPRogressAndStartActivity(new Intent(ActivityContenedoresPrev.this, FormularioControlCalidadPreview.class));
+
+                    Intent intencion= new Intent(getActivity(),FormularioControlCalidadPreview.class);
+                    intencion.putExtra("ShowAtach",true);
+
+               showPRogressAndStartActivity(intencion);
 
 
                 }

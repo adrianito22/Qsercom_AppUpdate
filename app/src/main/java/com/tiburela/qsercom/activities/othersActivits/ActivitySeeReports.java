@@ -275,7 +275,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                         Log.i("userre","el user id de adrian es "+Variables.usuarioQsercomGlobal.getUniqueIDuser());
 
                         if(informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQsercomGlobal.getUniqueIDuser()) ||
-                            informRegister.getIdQuienSUbioForm().equals(Variables.userAdriniatoToDeveloper)){
+                                Variables.usuarioQsercomGlobal.getUniqueIDuser().equals(Variables.userAdriniatoToDeveloper)){
 
                             listReport.add(informRegister);
                         }

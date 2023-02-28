@@ -2862,15 +2862,13 @@ private void createObjcInformeAndUpload(){
     }
 
 
-
-
 //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
 
     SetInformEmbarque1 informe = new SetInformEmbarque1(ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString(),
             ediMarca.getText().toString(), UNIQUE_ID_iNFORME,ediCodigo.getText().toString(),
 
-            Integer.parseInt(ediNhojaEvaluacion.getText().toString()), ediZona.getText().toString()
+            ediNhojaEvaluacion.getText().toString(), ediZona.getText().toString()
             ,ediProductor.getText().toString(),ediCodigo.getText().toString()
             ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
             ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),

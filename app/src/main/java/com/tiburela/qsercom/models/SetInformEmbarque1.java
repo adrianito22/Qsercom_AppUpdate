@@ -155,25 +155,25 @@ public class SetInformEmbarque1 {
     }
 
     public SetInformEmbarque1(
-            String  exportadoraProcesada,String  exportadoraSolicitante,String  marrca,
-            String  uniqueIDinforme , String codeInforme, int ediNhojaEvaluacion, String zona, String productor,
-                              String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
-                              String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
-                              String empacadora, String contenedor, String observacion, String horaLlegadaContenedor,
-                              String horaSalidadContenedor,
-                              String destinoContenedor,
-                              String numeroViajeContenedor,
-                              String numcionContenedor,
-                              String vapor,
-                              String tipoContenedor,
-                              String tare,
-                              String booking,
-                              String maxGross,
-                              String nSerieFunda,
-                              String stickerVentoExtern,
-                              String cableRastreoLlegada,
-                              String selloPlasticoNaviera,
-                              String otroSelloLlegadaEspec,String clienteReporte) {
+            String  exportadoraProcesada, String  exportadoraSolicitante, String  marrca,
+            String  uniqueIDinforme , String codeInforme, String ediNhojaEvaluacion, String zona, String productor,
+            String codigo, String pemarque, String nguiaRemision, String hacienda, String _nguia_transporte,
+            String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
+            String empacadora, String contenedor, String observacion, String horaLlegadaContenedor,
+            String horaSalidadContenedor,
+            String destinoContenedor,
+            String numeroViajeContenedor,
+            String numcionContenedor,
+            String vapor,
+            String tipoContenedor,
+            String tare,
+            String booking,
+            String maxGross,
+            String nSerieFunda,
+            String stickerVentoExtern,
+            String cableRastreoLlegada,
+            String selloPlasticoNaviera,
+            String otroSelloLlegadaEspec, String clienteReporte) {
 
         this.exportadoraProcesada =exportadoraProcesada;
         this.exportadoraSolicitante =exportadoraSolicitante;
@@ -237,7 +237,7 @@ public class SetInformEmbarque1 {
 
     /***Datos formulario */
 
-    private int ediNhojaEvaluacion;
+    private String ediNhojaEvaluacion;
     private String zona;
     private String productor;
     private String codigo;
@@ -450,11 +450,11 @@ public class SetInformEmbarque1 {
         this.fechaCreacionInf = fechaCreacionInf;
     }
 
-    public int getEdiNhojaEvaluacion() {
+    public String getEdiNhojaEvaluacion() {
         return ediNhojaEvaluacion;
     }
 
-    public void setEdiNhojaEvaluacion(int ediNhojaEvaluacion) {
+    public void setEdiNhojaEvaluacion(String ediNhojaEvaluacion) {
         this.ediNhojaEvaluacion = ediNhojaEvaluacion;
     }
 

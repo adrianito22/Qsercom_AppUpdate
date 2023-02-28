@@ -439,13 +439,25 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
     String[] arrayDefect2;
 
-
+  boolean isAtach=false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ly_defectos_preview);
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            isAtach = extras.getBoolean("ShowAtach");
+
+            if(isAtach){
+                Variables.currenControlCalReport=null;
+            }
+        }
+
+
 
         findviewsIds();
         addListnners();
@@ -3649,6 +3661,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
     private void DowloadControlCalidad(String uniqueId){
+
+        Log.i("cinuoados","descragndo el id   "+ uniqueId);
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
