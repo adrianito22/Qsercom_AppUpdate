@@ -140,7 +140,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     private ImageView imgUpdatecAlfrutaEnfunde;
 
-
+//o
     TextInputEditText ediClienteNombreReporte;
 
 
