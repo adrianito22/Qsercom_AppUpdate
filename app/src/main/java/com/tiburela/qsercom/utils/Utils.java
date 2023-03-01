@@ -33,6 +33,7 @@ import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -74,6 +75,62 @@ public static boolean userDecidioNoVincularCuadroMuestreo  =false;
 public static String textoShow="";
 public static HashMap<String, Uri>mapUris= new HashMap<>();
 
+
+
+
+public static ControlCalidad devulveControlCalidadByKey( ArrayList<ControlCalidad> listReprsVinculads,String keyUNIQUEID){
+    for(ControlCalidad controlCalidad: listReprsVinculads){
+        if(controlCalidad.getUniqueId().equals(keyUNIQUEID)){
+
+             return  controlCalidad;
+        }
+
+    }
+    return  new ControlCalidad();
+
+}
+    public static HashMap<String,String>devulveHasmapRechzadoscheckdByKey( ArrayList< HashMap <String, String>> ListWhitHashMapsRechzadosChekeed,String keyUNIQUEID){
+
+        for(HashMap<String,String>map: ListWhitHashMapsRechzadosChekeed){
+
+            for(String valueID: map.values()){
+
+                if(valueID.equals(keyUNIQUEID)){
+                    return  map;
+
+                }
+
+            }
+
+
+
+
+        }
+        return  new HashMap<String,String >();
+
+    }
+
+
+    public static HashMap<String,String>devulveHasmapControClidadData( ArrayList<HashMap<String, String>>ListWhitHashMapsControlCalidad,String keyUNIQUEID){
+
+        for(HashMap<String,String>map: ListWhitHashMapsControlCalidad){
+
+            for(String valueID: map.values()){
+
+                if(valueID.equals(keyUNIQUEID)){
+                    return  map;
+
+                }
+
+            }
+
+
+
+
+        }
+        return  new HashMap<String,String >();
+
+    }
 
 
 public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila){

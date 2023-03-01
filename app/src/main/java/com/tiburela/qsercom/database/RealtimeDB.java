@@ -336,17 +336,20 @@ public static  Context myContext;
 
     public static void actualizaInformePart1( SetInformEmbarque1 informeObjct) {
 
-        ///"-NCHQnVUUyMat8l_SSwh"
+
+        Log.i("somerliker", "llamamos actualiza informe parte 1 bb ");
+
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child(informeObjct.getKeyFirebase());
-
         Map<String, Object> mapValues = informeObjct.toMap(); //lo convertimos en maP
+
 
         mibasedata.updateChildren(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
 
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Log.i("somerliker", "task es succes");
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();

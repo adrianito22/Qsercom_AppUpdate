@@ -1874,7 +1874,6 @@ else{
         Button btnCheck;
         btnCheck = findViewById(R.id.btnCheck);
 
-
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -1893,10 +1892,6 @@ else{
 
     void checkDataFields() {
 
-        //  checkDatosGeneralesIsLleno();
-
-
-        //ES ETEST
 
 
         if (!checkDatosGeneralesIsLleno()) {
@@ -2483,7 +2478,9 @@ else{
                 ediCedula.getText().toString(), ediPLaca.getText().toString(), ediMarcaCabezal.getText().toString(),
                 ediColorCabezal.getText().toString(), ediCondicionBalanza.getText().toString(), ediTipodeCaja.getText().toString()
                 , switchHaybalanza.isChecked(), switchHayEnsunchado.isChecked(), spinnertipodePlastico.getSelectedItem().toString(),
-                switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), ediBalanzaRepeso.getText().toString());
+                switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(),
+                ediBalanzaRepeso.getText().toString());
+
 
         informe2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
@@ -2514,6 +2511,9 @@ else{
         updateCaledarioEnfunde(informe3);
 
         //checkQueexistminim();
+
+        Log.i("somerliker", "llamamos actualiza informe parte 1 ");
+
 
         RealtimeDB.actualizaInformePart1(informe);
         RealtimeDB.actualizaInformePart2(informe2);
@@ -3730,113 +3730,12 @@ else{
         }
 
 
-        Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
-        finish();
         //  startActivity(new Intent(ActivityContenedoresPrev.this, ActivitySeeReports.class));
 
     }
 
-    private ProductPostCosecha onlYCreatrePrudcPostCosecha() {
-        ProductPostCosecha producto = new ProductPostCosecha(UNIQUE_ID_iNFORME);
-        //creamos un array de editext
-        producto.keyFirebase = productxGlobal.keyFirebase;
 
-        EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
-                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
-
-
-        for (int indice = 0; indice < editextArray.length; indice++) {
-            EditText currentEditext = editextArray[indice];
-            if (!currentEditext.getText().toString().isEmpty()) { //si no esta vacioo
-                if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
-                {
-
-                    switch (currentEditext.getId()) {
-
-                        case R.id.ediPPC01:
-                            producto.alumbre = currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC02:
-                            producto.bc100 = currentEditext.getText().toString();
-                            break;
-
-                        case R.id.ediPPC03:
-                            producto.sb100 = currentEditext.getText().toString();
-                            break;
-
-                        case R.id.ediPPC04:
-                            producto.eclipse = currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC05:
-                            producto.acido_citrico = currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC06:
-                            producto.biottol = currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC07:
-                            producto.bromorux = currentEditext.getText().toString();
-                            break;
-                        case R.id.ediPPC08:
-                            producto.ryzuc = currentEditext.getText().toString();
-                            break;
-
-                        case R.id.ediPPC09:
-                            producto.mertec = currentEditext.getText().toString();
-                            break;
-
-                        case R.id.ediPPC010:
-                            producto.sastifar = currentEditext.getText().toString();
-                            break;
-
-                        case R.id.ediPPC011:
-                            producto.xtrata = currentEditext.getText().toString();
-                            break;
-
-
-                        case R.id.ediPPC012:
-                            producto.nlarge = currentEditext.getText().toString();
-                            break;
-
-
-                        case R.id.ediPPC013:
-                            producto.gib_bex = currentEditext.getText().toString();
-                            break;
-
-
-                        case R.id.ediPPC014:
-                            producto.cloro = currentEditext.getText().toString();
-                            break;
-
-
-                        case R.id.ediPPC015:
-                            producto.otro_especifique = currentEditext.getText().toString();
-                            break;
-
-
-                        case R.id.ediPPC016:
-                            producto.cantidadOtro = currentEditext.getText().toString();
-                            break;
-
-
-                    }
-
-                }
-
-
-            }
-
-            //si el editext tiene data lo corregimos usando la propiedad hint
-
-
-        }
-
-
-        return producto;
-
-    }
-
-//upload data...
 
     private void diseableViewsByTipe(View view) {
 
@@ -4978,16 +4877,12 @@ else{
 
     public void saveInfo() {
 
-        Log.i("test001", "toda la data esta completa HUrra ");
+        Log.i("somerliker", "llamamos save info ");
 
         pdialogff = new ProgressDialog(ActivityContenedoresPrev.this);
         pdialogff.setMessage("Actualizando data ");
         pdialogff.show();
 
-
-        Log.i("imagheddd", "hemos pulsado save info ");
-
-        Log.i("imagheddd", "el size de la list imagees es " + ImagenReport.hashMapImagesData.size());
 
 
         uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
@@ -5004,6 +4899,11 @@ else{
         //aliminamos cambios
 
         createObjcInformeAndUpload();
+
+
+        Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+
+        finish();
 
     }
 

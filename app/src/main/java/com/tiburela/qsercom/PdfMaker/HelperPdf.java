@@ -82,7 +82,6 @@ public class HelperPdf {
     public static float CALIDAD_TOTAL;
     public static  double PORCENTAJE_DE_DEFECTOS;
     public static  ArrayList<TableCalidProdc> TableCalidProdc;
-    public static ArrayList<Integer>listNumClustersInspec= new ArrayList<>();
 
 
     public static HashMap<String,  ArrayList<DefectsCantdad>> defectsSelecionHahashMaps = new HashMap<>();
@@ -1819,11 +1818,8 @@ if(contadorProductsPostCosecha>10){
         int NUMERO_DE_DEDOS=0;
         double GRADO_CALIBRE_PROMEDIO;
         double LARGO_DEDOS_PROMEDIO;
-        final double PH_PROMEDIO = 3;
 
 
-        int[] keyDatPh = {R.id.ediPH1, R.id.ediPH2, R.id.ediPH3, R.id.ediPH4, R.id.ediPH5, R.id.ediPH6, R.id.ediPH7,
-                R.id.ediPH8, R.id.ediPH9, R.id.ediPH10};
 
         int[] keyDatsPeso = {R.id.ediPesoL1, R.id.ediPesoL2, R.id.ediPesoL3, R.id.ediPesoL4, R.id.ediPesoL5, R.id.ediPesoL6, R.id.ediPesoL7,
                 R.id.ediPesoL8, R.id.ediPesoL9, R.id.ediPesoL10};
@@ -1852,28 +1848,6 @@ if(contadorProductsPostCosecha>10){
                 , R.id.ediNdedoXclustXc17, R.id.ediNdedoXclustXc18};
 
 
-        int[] keyaRRAYnumnUMdedosFil1 = {
-
-                R.id.ediNdedoXclust1, R.id.ediNdedoXclust2, R.id.ediNdedoXclust3, R.id.ediNdedoXclust4,
-                R.id.ediNdedoXclust5, R.id.ediNdedoXclust6, R.id.ediNdedoXclust7, R.id.ediNdedoXclust8, R.id.ediNdedoXclust9, R.id.ediNdedoXclust10
-                , R.id.ediNdedoXclust11, R.id.ediNdedoXclust12, R.id.ediNdedoXclust13, R.id.ediNdedoXclust14, R.id.ediNdedoXclust15, R.id.ediNdedoXclust16,
-                R.id.ediNdedoXclust17, R.id.ediNdedoXclust18
-                , R.id.ediNdedoXclust19, R.id.ediNdedoXclust20, R.id.ediNdedoXclust21, R.id.ediNdedoXclust22, R.id.ediNdedoXclust23, R.id.ediNdedoXclust24
-                , R.id.ediNdedoXclust25, R.id.ediNdedoXclust26, R.id.ediNdedoXclust27, R.id.ediNdedoXclust28
-
-        };
-
-
-        int[] keyaRRAYnumnUMdedosFil2 = {
-
-                R.id.edif2NdedoXclust1, R.id.edif2NdedoXclust2, R.id.edif2NdedoXclust3, R.id.edif2NdedoXclust4,
-                R.id.edif2NdedoXclust5, R.id.edif2NdedoXclust6, R.id.edif2NdedoXclust7, R.id.edif2NdedoXclust8, R.id.edif2NdedoXclust9, R.id.edif2NdedoXclust10
-                , R.id.edif2NdedoXclust11, R.id.edif2NdedoXclust12, R.id.edif2NdedoXclust13, R.id.edif2NdedoXclust14, R.id.edif2NdedoXclust15, R.id.edif2NdedoXclust16,
-                R.id.edif2NdedoXclust17, R.id.edif2NdedoXclust18
-                , R.id.edif2NdedoXclust19, R.id.edif2NdedoXclust20, R.id.edif2NdedoXclust21, R.id.edif2NdedoXclust22, R.id.edif2NdedoXclust23
-                , R.id.edif2NdedoXclust24, R.id.edif2NdedoXclust25, R.id.edif2NdedoXclust26, R.id.edif2NdedoXclust27, R.id.edif2NdedoXclust28
-
-        };
 
 
         int[] keyaRRAYcalibracionesFil1 = {
@@ -2446,21 +2420,8 @@ if(contadorProductsPostCosecha>10){
 
 
         /**numero de CLUSTERS INSPECCIONADOS */
-        for(int indicex =0; indicex <keyDatsNumClusters.length; indicex++){
 
-            String keyValue = String.valueOf(keyDatsNumClusters[indicex]);
-
-            if(hashMapControlCald.containsKey(keyValue)) {
-
-                   if(!hashMapControlCald.get(keyValue).contains("%")){
-                       NUMERO_DE_CLUSTERS_iNSPECCIONADOS=NUMERO_DE_CLUSTERS_iNSPECCIONADOS+Integer.parseInt(hashMapControlCald.get(keyValue));
-
-                   }
-
-            }
-
-
-        }
+        NUMERO_DE_CLUSTERS_iNSPECCIONADOS= objecControlCald.getNumeroClustersInspeccioandos();
 
         Log.i("ELWEIGTH","EN TOTAL DE numClustersInspeccinads  ES "+NUMERO_DE_CLUSTERS_iNSPECCIONADOS);
 
@@ -2468,7 +2429,6 @@ if(contadorProductsPostCosecha>10){
         Log.i("ELWEIGTH","A TEXT1 ES "+NUMERO_DEFECTS);
         Log.i("ELWEIGTH","A TEXT2 ES "+NUMERO_DE_CLUSTERS_iNSPECCIONADOS);
 
-        listNumClustersInspec.add(NUMERO_DE_CLUSTERS_iNSPECCIONADOS);
 
 
 
@@ -2792,23 +2752,22 @@ if(contadorProductsPostCosecha>10){
                     if(arrayxc[1].length()==1){
                         celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"0%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
 
-
                     }else{
                         celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
 
                     }
 
                 }
+
+
                 else
 
                 {
 
-                    celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+                    celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+".00%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
 
                 }
 
-
-                ///   celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
 
                 table.addCell(celdaGlobal);
 
@@ -2999,7 +2958,7 @@ if(contadorProductsPostCosecha>10){
 
 
 
-    public static  Bitmap createBarChart(BarChart barChart , Context context, int contadorIterador){
+    public static  Bitmap createBarChart(BarChart barChart , Context context, int contadorIterador,int numerCLUSTERSiNSPECCIONAD){
 
         barChart.getXAxis().setDrawGridLines(false);
 
@@ -3106,52 +3065,40 @@ int contadorAlldefectos=0;
 
 /**el probelma creo que esta en los entries */
 
-           /**defectos seleccion*/  //y tambien los espacios
+
+        ArrayList<DefectsCantdad>arrayListItemDefectAndCantidad;
+
+        arrayListItemDefectAndCantidad =defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
+        Log.i("butters","el szie de este array list es "+arrayListItemDefectAndCantidad.size());
+        contadorAlldefectos=cuentaDeFECTOS(arrayListItemDefectAndCantidad,defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador)));
+        Log.i("butters","esta lista contiene en total "+contadorAlldefectos+" defectos ");
+
+        Log.i("butters","indice item  lista current "+contadorIterador);
+
+
+
+
+        /**defectos seleccion*/  //y tambien los espacios
         for(int indice=0; indice<allDefectsNames.size()-4; indice++){ //buscamos cada unos de los defectos
                  contadorCurrrentDefect=0;
 
                  String defectoActualToSearch=allDefectsNames.get(indice);
 
 
-            if(defectoActualToSearch.contains(":")){
-                String defect[]=defectoActualToSearch.split(":");
-                defectoActualToSearch=defect[0];
-
-            }
-
-
-            Log.i("HOMERSIMPAS","el defecto actual XXXC "+defectoActualToSearch);
-
-
-            ArrayList<DefectsCantdad>arrayListItemDefectAndCantidad=defectsSelecionHahashMaps.get(String.valueOf(contadorIterador));
-
-            Log.i("howasr","El size de array list defect an cantidad es  "+arrayListItemDefectAndCantidad.size()); //no usamos value first pero si no podemos usarlo despues
-
-
-            assert arrayListItemDefectAndCantidad != null;
-            contadorAlldefectos=cuentaDeFECTOS(arrayListItemDefectAndCantidad,defectsEmpaqueHashMapOfLists.get(String.valueOf(contadorIterador)));
-
-
-                 for(int indice2 = 0; indice2< arrayListItemDefectAndCantidad.size(); indice2++){ //buscamos este defecto
+            //recorremos esta lista y buscamos el defecto actual...
+            for(int indice2 = 0; indice2< arrayListItemDefectAndCantidad.size(); indice2++){ //buscamos este defecto
 
                      defectNamen=arrayListItemDefectAndCantidad.get(indice2).getNombreDefect();
 
-                  //   Log.i("misdafafafa","el defecto defectOfItemHasmap es "+defectOfItemHasmap);
+                     if(defectNamen.equalsIgnoreCase(defectoActualToSearch)){
+                         contadorCurrrentDefect=contadorCurrrentDefect+arrayListItemDefectAndCantidad.get(indice2).getNumeroDefectos();
 
-                     if(defectNamen.contains(":")){
-                      String defect[]=defectNamen.split(":");
-                         defectNamen=defect[0];
 
                      }
-
-                     if(defectNamen.equals(defectoActualToSearch)){
-                         contadorCurrrentDefect=contadorCurrrentDefect+arrayListItemDefectAndCantidad.get(indice2).getNumeroDefectos();
-                      }
 
                  }
 
 
-            Log.i("sukerber","buscamos el defecto de"+defectNamen+"y hay "+ contadorCurrrentDefect);
 
 
                  if(contadorCurrrentDefect==0){
@@ -3162,44 +3109,34 @@ int contadorAlldefectos=0;
 
                  else {
 
-                     Log.i("howasr","El defect "+defectNamen+" tiene "+contadorCurrrentDefect+" defectos"); //no usamos value first pero si no podemos usarlo despues
-                     //   float porcentaje= contadorCurrrentDefect * ((float)listNumClustersInspec.get(contadorIterador)/100);
-                     float valuefist= ((float)contadorCurrrentDefect/listNumClustersInspec.get(contadorIterador));
-                     Log.i("howasr","El value es first  "+valuefist); //no usamos value first pero si no podemos usarlo despues
-
-                     Log.i("howasr","El numero de cluster inspecionados es  "+listNumClustersInspec.get(contadorIterador));
-
-                     float porcentajex= ((float) contadorCurrrentDefect /listNumClustersInspec.get(contadorIterador))*100;
+                   /**aqui tenemos un numero de defectos de un especifico defecto que buscamos , y ahora
+                    * queremos saber cuanto representa este defecto en porcentaje del total de clusters inspeccionados**/
 
 
-                     Log.i("howasr","El numero de cluster inspecionados es  "+listNumClustersInspec.get(contadorIterador));
-
-                     Log.i("howasr","El pocerntaje here es   "+porcentajex);
+                     Log.i("butters","El defect "+defectoActualToSearch+" tiene "+contadorCurrrentDefect+" defectos"); //no usamos value first pero si no podemos usarlo despues
 
 
+                    // float valuefist= ((float)contadorCurrrentDefect/numClustersInspeccionados);
 
-                     float roundedY = (float) ((float) Math.round(porcentajex * 100.0) / 100.0);
-
-                      //calculamos el porcentaje que respresenta esto sobre el total de
-
-                     Log.i("howasr","El numero de defecto de "+contadorCurrrentDefect+" es "+defectoActualToSearch);
-
-                     Log.i("howasr","El porcentaje es new ws bb "+porcentajex);
+                     Log.i("butters","el NUM CLUSTERS INSPECIONADOS ES "+numerCLUSTERSiNSPECCIONAD);
 
 
-                     barEntries.add(new BarEntry((float)indice, roundedY));
+                     float porcentatajeYsinreddondear= ((float) contadorCurrrentDefect /numerCLUSTERSiNSPECCIONAD)*100;
 
-                       /**probar bar entries */
+                     Log.i("butters","el porcentajex es  "+porcentatajeYsinreddondear);
+
+                     float porcentajeYredondeado = (float) ((float) Math.round(porcentatajeYsinreddondear * 100.0) / 100.0);
+
+                     Log.i("butters","el roundedY es  "+porcentajeYredondeado);
+
+                     barEntries.add(new BarEntry((float)indice, porcentajeYredondeado));
 
 
                  }
 
-            Log.i("HOMERSIMPAS","aqui finalizamos  ");
-
         }
 
         Log.i("sabumafu","el numero de entries aqui es  "+barEntries.size());
-
 
 
         /**si no funciona vamos cone indice -2 ,eso deberia crear un espacio defectos empaque */
@@ -3224,17 +3161,14 @@ int contadorAlldefectos=0;
                     defectNamen=defect[0];
                 }
 
-               // Log.i("entriesd","comparamos defectOfItemHasmap "+defectOfItemHasmap+" con  defectoActualToSearch:q es  "+ defectoActualToSearch);
-
 
                 if(defectNamen.equals(defectoActualToSearch)){
                     //contadorDefectoEnonctrado++;
                     contadorCurrrentDefect=contadorCurrrentDefect+currentArraylist.get(indice2).getNumeroDefectos();
 
                 }
-
-
             }
+
 
 
             if(contadorCurrrentDefect==0){
@@ -3246,21 +3180,21 @@ int contadorAlldefectos=0;
 
              //   float porcentaje= contadorCurrrentDefect * ((float)listNumClustersInspec.get(contadorIterador)/100);
 
-                float porcentajex= ((float) contadorCurrrentDefect /listNumClustersInspec.get(contadorIterador))*100;
+                float porcentajeSinRedondeaer= ((float) contadorCurrrentDefect /numerCLUSTERSiNSPECCIONAD)*100;
 
 
-                float porcentajeNewRepresenta= contadorCurrrentDefect*contadorAlldefectos /100;
-                Log.i("howasr","El porcentaje es new ws  "+porcentajeNewRepresenta);
+                //float porcentajeNewRepresenta= contadorCurrrentDefect*contadorAlldefectos /100;
+               // Log.i("howasr","El porcentaje es new ws  "+porcentajeNewRepresenta);
 
 
                 Log.i("howasr","El numero de defecto empaque : "+contadorCurrrentDefect+" es "+defectoActualToSearch);
-                Log.i("sumaerr","en psquqete defect es "+porcentajex);
-                Log.i("salerod","el porcentaje 2  es  "+ porcentajex);
+                Log.i("sumaerr","en psquqete defect es "+porcentajeSinRedondeaer);
+                Log.i("salerod","el porcentaje 2  es  "+ porcentajeSinRedondeaer);
 
 
-                float roundedX = (float) ((float) Math.round(porcentajex * 100.0) / 100.0);
+                float porcentajeRedondeado = (float) ((float) Math.round(porcentajeSinRedondeaer * 100.0) / 100.0);
 
-                barEntries.add(new BarEntry((float)indice,roundedX));
+                barEntries.add(new BarEntry((float)indice,porcentajeRedondeado));
 
                 Log.i("salerod","con contador defecto encontrado es "+ contadorCurrrentDefect);
 
@@ -3549,35 +3483,35 @@ int contadorAlldefectos=0;
           miCelda.add(miParagraph);
           mitab.addCell(miCelda);
 
-
           miCelda= new Cell(1,1);
 
-          arrayValue= dcx.format(num.numPesoCluster).split("\\.");
+          if(dcx.format(num.numPesoCluster).contains(".")){
+              arrayValue= dcx.format(num.numPesoCluster).split("\\.");
 
-          if(arrayValue.length==2){
+                  if(arrayValue[1].length()==1){ ///3.5
 
-              if(arrayValue[1].length()==1){
+                      miParagraph= new Paragraph(dcx.format(num.numPesoCluster)+"0").setTextAlignment(TextAlignment.CENTER);
 
-                  miParagraph= new Paragraph(dcx.format(num.numPesoCluster)+"0").setTextAlignment(TextAlignment.CENTER);
+                  }else{
 
-              }else{
-                  miParagraph= new Paragraph(dcx.format(num.numPesoCluster)).setTextAlignment(TextAlignment.CENTER);
+                      miParagraph= new Paragraph(dcx.format(num.numPesoCluster)).setTextAlignment(TextAlignment.CENTER);
 
+                      Log.i("pesoclci","se eejcuto el else ");
 
-                  Log.i("pesoclci","se eejcuto el else ");
+                  }
+                 }
 
-              }
+               else{
 
-          }
+                   miParagraph= new Paragraph(dcx.format(num.numPesoCluster)+".00").setTextAlignment(TextAlignment.CENTER);
 
-          else{
-
-              miParagraph= new Paragraph(dcx.format(num.numPesoCluster)).setTextAlignment(TextAlignment.CENTER);
-
-          }
+               }
 
 
-          miCelda.add(miParagraph);
+
+
+
+            miCelda.add(miParagraph);
           mitab.addCell(miCelda);
 
           totalPeso=totalPeso+num.numPesoCluster;
@@ -3590,10 +3524,37 @@ int contadorAlldefectos=0;
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
 
+     //   miParagraph= new Paragraph(dc.format(totalPeso)).setTextAlignment(TextAlignment.CENTER).setBold();
 
 
-        DecimalFormat dc= new DecimalFormat("#.##");
-        miParagraph= new Paragraph(dc.format(totalPeso)).setTextAlignment(TextAlignment.CENTER).setBold();
+
+        if(dcx.format(totalPeso).contains(".")){
+
+            arrayValue= dcx.format(totalPeso).split("\\.");
+
+            if(arrayValue[1].length()==1){ ///3.5
+
+                miParagraph= new Paragraph(dcx.format(totalPeso)+"0").setTextAlignment(TextAlignment.CENTER);
+
+            }else{
+
+                miParagraph= new Paragraph(dcx.format(totalPeso)).setTextAlignment(TextAlignment.CENTER);
+
+                Log.i("pesoclci","se eejcuto el else ");
+
+            }
+        }
+
+        else{
+
+            miParagraph= new Paragraph(dcx.format(totalPeso)+".00").setTextAlignment(TextAlignment.CENTER);
+
+        }
+
+
+
+
+
         miCelda= new Cell(1,1);
         miCelda.add(miParagraph);
         mitab.addCell(miCelda);
@@ -3607,7 +3568,27 @@ int contadorAlldefectos=0;
 
          ///Y AQUI SACAMOS EL PROMEDIO
         float promedio=totalPeso/listLibriado.size();
-        miParagraph= new Paragraph(dc.format(promedio)).setTextAlignment(TextAlignment.CENTER).setBold();
+
+
+
+
+        if(dcx.format(promedio).contains(".")){
+            arrayValue= dcx.format(promedio).split("\\.");
+
+            if(arrayValue[1].length()==1){ ///3.5
+                miParagraph= new Paragraph(dcx.format(promedio)+"0").setTextAlignment(TextAlignment.CENTER).setBold();
+
+            }else{
+                miParagraph= new Paragraph(dcx.format(promedio)).setTextAlignment(TextAlignment.CENTER);
+                Log.i("pesoclci","se eejcuto el else ");
+            }
+        }
+        else{
+            miParagraph= new Paragraph(dcx.format(promedio)+".00").setTextAlignment(TextAlignment.CENTER);
+        }
+
+
+
         DeviceRgb  rgbColor= new DeviceRgb(239, 252, 30); //color
         miCelda= new Cell(1,1).setBackgroundColor(rgbColor);
         miCelda.add(miParagraph);

@@ -35,6 +35,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.internal.Util;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
@@ -781,39 +782,43 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
            int contadorTablas=1;
 
-         for(int i=0; i<ListWhitHashMapsControlCalidad.size(); i++ ){
-             
-             HashMap<String,String>currentMap=ListWhitHashMapsControlCalidad.get(i);
-             HashMap<String,String>currentMapDefectsCheked=ListWhitHashMapsRechzadosChekeed.get(i);
+         for(int i=0; i<Variables.listReprsVinculads.size(); i++ ){
+
              ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(i);
+
+             HashMap<String,String>currentMap=Utils.devulveHasmapControClidadData(ListWhitHashMapsControlCalidad,
+                     currenControCaldRep.getUniqueId());
+
+             HashMap<String,String>currentMapDefectsCheked= Utils.devulveHasmapRechzadoscheckdByKey(ListWhitHashMapsRechzadosChekeed,
+                     currenControCaldRep.getUniqueId());
+
+
 
              table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this,contadorTablas);
 
 
-              if( contadorTablas % 2==0){  //yPosicion si existen mas tablas yPosicion es un numero
-                  table1.setMarginTop(40f);
+                 if( contadorTablas % 2==0){  //yPosicion si existen mas tablas yPosicion es un numero
+                     table1.setMarginTop(40f);
 
-                  if(contadorTablas<ListWhitHashMapsControlCalidad.size()){ //signifca que quedan mas tablas
+                     if(contadorTablas<ListWhitHashMapsControlCalidad.size()){ //signifca que quedan mas tablas
 
-                      midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                         Log.i("comprobacionx","el contadorTablas  es "+contadorTablas);
 
-                  }
-              }
+                         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-              else{ //si es la primera tabla de la pagina
+                     }
+                 }
 
-                  table1.setMarginTop(10f);
+                 else{ //si es la primera tabla de la pagina
 
+                     table1.setMarginTop(10f);
+                 }
 
-              }
+                 table1.setWidth(pageSize.getWidth()/2);
+                 table1.setMarginLeft(60f);
+                 midocumentotoAddData.add(table1);
 
-
-             table1.setWidth(pageSize.getWidth()/2);
-             table1.setMarginLeft(60f);
-             midocumentotoAddData.add(table1);
-
-              contadorTablas++;
-
+                 contadorTablas++;
 
          }
 
@@ -907,11 +912,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
          table1=  HelperPdf.generaTableInspectores(Variables.CurrenReportPart3,pageSize.getWidth());
          midocumentotoAddData.add(table1);
 
-
          /**BAR CHART Sporcentaje de frutas*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-
 
 
         BarChart barChartView;
@@ -922,7 +924,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                 int contadorImageChar=1;
 
-        for(int indice=0; indice<ListWhitHashMapsControlCalidad.size(); indice++){  //2 tablas...  4 en total
+        for(int indice=0; indice<Variables.listReprsVinculads.size(); indice++){  //2 tablas...  4 en total
+
             ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
 
               //agregamos el texto en cel centro
@@ -937,20 +940,13 @@ public class PdfMaker2_0 extends AppCompatActivity {
             remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
             float y2 = remaining.getTop();
 
-
-             ///este codigo marcael area restante despues de agregar un elemento al pdf
-            //PdfCanvas canvas = new PdfCanvas(miPFDocumentkernel.getPage(5));
-            //canvas.setStrokeColor(ColorConstants.RED).rectangle(remaining).stroke();
-
-
             Log.i("posicuon","el posicon  es "+y2);
-
 
 
             if(contadorImageChar%2==0){  //es multiplo de 2
                  mipara.setMarginTop(25f);
 
-                 if(contadorImageChar<ListWhitHashMapsControlCalidad.size()){
+                 if(contadorImageChar<Variables.listReprsVinculads.size()){
                      //cremoas nueva pagina siempre yPosicion cuando existan mas valores
                      midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                  }
@@ -966,8 +962,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
             midocumentotoAddData.add(mipara);
 
-            bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice);
-
+             Log.i("currenControCaldsRep","el nun clsuters inspeccionados es "+currenControCaldRep.getNumeroClustersInspeccioandos());
+            bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice,currenControCaldRep.getNumeroClustersInspeccioandos());
 
 
             imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
@@ -1035,7 +1031,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
             midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
             midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
-                    setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+                    setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f).setBold());
 
             Log.i("miodatr","se eejcuto el pdd");
 

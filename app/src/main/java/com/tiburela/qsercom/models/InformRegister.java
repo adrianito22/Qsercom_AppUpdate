@@ -204,7 +204,6 @@ public InformRegister(){
       result.put("informUniqueIdPertenece", informUniqueIdPertenece);
       result.put("dateUploadByinspCampoIformeMillisecond", dateUploadByinspCampoIformeMillisecond);
 
-
       result.put("simpleDateForm", simpleDateForm);
       result.put("TypeInform", TypeInform);
       result.put("seRevisoForm", seRevisoForm);

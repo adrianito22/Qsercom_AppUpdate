@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.api.client.util.StringUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -750,7 +751,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             String valueOfItem = entry.getValue();
 
             EditextSupreme currenTextImput ;
-            if(! keyAndIdOfView.equals("0")){
+            if(! keyAndIdOfView.equals("0") && ! keyAndIdOfView.equals("idDeControlCalidad")
+                    && ! keyAndIdOfView.equals("keyDondeEstaraHasmap") ){
+
                 currenTextImput= Utils.getEditextSupreme(arrayAllFields,Integer.parseInt(keyAndIdOfView));
 
                 if(currenTextImput!=null){ //si es nulo
@@ -3276,7 +3279,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
                 calidadFinally,mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
-                mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
+                mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString(),cuentaClustersInspeccionados());
 
 
 
@@ -3329,7 +3332,13 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
         RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+
+        hasHmapFieldsOtherViews.put("idDeControlCalidad", Variables.currenControlCalReport.getUniqueId());
+        Log.i("keydjd","idDeControlCalidad es "  +Variables.currenControlCalReport.getUniqueId());
+
         RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+
+        hasMapitemsSelecPosicRechazToUpload.put("idDeControlCalidad", Variables.currenControlCalReport.getUniqueId());
         RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload, Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
 
 
@@ -3729,5 +3738,30 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     }
 
 
+
+    private int cuentaClustersInspeccionados(){
+             int numClustersInspeccionados=0;;
+
+        EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+                ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+
+
+        for(EditextSupreme editext: arrayNumeroCLUSTERinspec){
+
+            if(!editext.getText().toString().trim().isEmpty()){ //si no esta vacio
+
+                if(android.text.TextUtils.isDigitsOnly(editext.getText().toString())){
+                    numClustersInspeccionados=numClustersInspeccionados+Integer.parseInt(editext.getText().toString());
+
+                }
+
+
+            }
+
+        }
+
+
+        return  numClustersInspeccionados;
+    }
 
 }

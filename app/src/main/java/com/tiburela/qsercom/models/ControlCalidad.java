@@ -11,6 +11,17 @@ public class ControlCalidad {
 
     private String uniqueId;
 
+    public int getNumeroClustersInspeccioandos() {
+        return numeroClustersInspeccioandos;
+    }
+
+    public void setNumeroClustersInspeccioandos(int numeroClustersInspeccioandos) {
+        this.numeroClustersInspeccioandos = numeroClustersInspeccioandos;
+    }
+
+    private int numeroClustersInspeccioandos;
+
+
     private String numeroDedosXclusterOmano;
     private String numClusterPorCaja;
 
@@ -413,7 +424,7 @@ public class ControlCalidad {
                           String productor, String codigo, String zona, String hacienda, String exportadora, String compania,
                           String cliente, int semana, String fecha, String magap, String marcaCaja, String tipoEmpaque,
                           String destino, int totalCajas, float calidaCamp, String horaIni, String horaTermi, String contenedor,
-                          String sellosnav, String selloVerificadora, String termografo, String placaCarro, String puertEmbarq) {
+                          String sellosnav, String selloVerificadora, String termografo, String placaCarro, String puertEmbarq,int numeroClustersInspeccioandos) {
 
         uniqueId = UUID.randomUUID().toString();
         timeDateMillis = new Date().getTime();
@@ -462,6 +473,7 @@ public class ControlCalidad {
          numCalibracionEntreApical="";
          numGradoCalibrePromedio="";
 
+        this.numeroClustersInspeccioandos=numeroClustersInspeccioandos;
     }
 
 

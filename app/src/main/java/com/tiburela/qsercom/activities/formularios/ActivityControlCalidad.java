@@ -49,7 +49,8 @@ import java.util.UUID;
 
 public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener, CallbackUploadNewReport {
     String currentKeyAndSharePrefrences ="";
-
+   String keyDondeEstaraHasmap;
+   String keyDondeEstaraHasmapDefecSelec;
     boolean userCreoRegisterForm=false;
     String numCalibracionEntreApical="";
      Button btnSaveLocale;
@@ -2316,11 +2317,12 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 createItemsSelectDefectsEmpqTOuPLOAD();   //rechzados empque
 
                 RealtimeDB.initDatabasesRootOnly();
-                String keyDondeEstaraHasmap=RealtimeDB.rootDatabaseReference.push().getKey();
-                String keyDondeEstaraHasmapDefecSelec=RealtimeDB.rootDatabaseReference.push().getKey();
+
+
+                 keyDondeEstaraHasmap=RealtimeDB.rootDatabaseReference.push().getKey();
+                 keyDondeEstaraHasmapDefecSelec=RealtimeDB.rootDatabaseReference.push().getKey();
 
                 ControlCalidad obecjControlCalidad=creaNuevoFormularioByTxtImputEditext();
-
 
 
                 //aqctualizamos la ubicacion de los hashmaps en el objeto control calidad
@@ -2335,13 +2337,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                 generateUniqueIdInformeAndContinuesIfIdIsUnique(obecjControlCalidad);
 
-                RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxs,keyDondeEstaraHasmap);
-                RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
 
 
-                Toast.makeText(ActivityControlCalidad.this, "Guardado", Toast.LENGTH_SHORT).show();
-
-                Log.i("saasberr","bien llegamos a save y depsues finish activity");
 
 
             }
@@ -2526,6 +2523,21 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     RealtimeDB.UploadControlcalidadInform(controlCalidad);
                     RealtimeDB.addNewRegistroInforme(ActivityControlCalidad.this,informRegister);
 
+
+
+                    /**asi vinculamos este con el reporte control calidad */
+                    hasHmapOtherFieldsEditxs.put("idDeControlCalidad",controlCalidad.getUniqueId());
+                   RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxs,keyDondeEstaraHasmap);
+
+
+                   hasMapitemsSelecPosicRechazToUpload.put("idDeControlCalidad",controlCalidad.getUniqueId());
+                   RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
+
+
+
+                   Toast.makeText(ActivityControlCalidad.this, "Guardado", Toast.LENGTH_SHORT).show();
+
+
                 }
 
                 else {
@@ -2562,16 +2574,42 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 mEdiTipoEmpazz.getText().toString(),mEdiDestinzz.getText().toString(),Integer.parseInt(mEdiTotalCajaszz.getText().toString()),
                 calidadFinally,mEdiHoraInizz.getText().toString(),mEdiHoraTermizz.getText().toString(),
                 mEdiContenedorzz.getText().toString(),mEdiSellosnavzz.getText().toString(),mEdiSelloVerzz.getText().toString(),
-                mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString());
+                mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString(),cuentaClustersInspeccionados());
 
         return controlCaL;
 
     }
 
+   private int cuentaClustersInspeccionados(){
+      int numClustersInspeccionados=0;;
+
+      EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+              ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+
+
+      for(EditextSupreme editext: arrayNumeroCLUSTERinspec){
+
+         if(!editext.getText().toString().trim().isEmpty()){ //si no esta vacio
+
+            if(android.text.TextUtils.isDigitsOnly(editext.getText().toString())){
+               numClustersInspeccionados=numClustersInspeccionados+Integer.parseInt(editext.getText().toString());
+
+            }
+
+
+         }
+
+      }
+
+
+      return  numClustersInspeccionados;
+   }
 
 
 
-    private void setResultNumDedosManoProduct() {
+
+
+   private void setResultNumDedosManoProduct() {
 
 
 
