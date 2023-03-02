@@ -35,3 +35,7 @@ preguntar eso y otrapregunta que tenia en notas en el cell
 ## revisar si e prview lo mismo que arriba
 
 
+//en control de hancho algo asi donde salen rechazados y eso,, agregar 2 decimales 
+//forma de subir los reportes,,, despues de que se suba toda la data ... subir la demas data.... si no ... marca un error..
+
+
