@@ -48,6 +48,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ActivityControlCalidad extends AppCompatActivity implements View.OnClickListener, CallbackUploadNewReport {
+
+     String keyUploadInforme="";
+   public static CallbackUploadNewReport callbackUploadNewReport;
+
+   boolean seSubioInforme=false;
     String currentKeyAndSharePrefrences ="";
    String keyDondeEstaraHasmap;
    String keyDondeEstaraHasmapDefecSelec;
@@ -458,18 +463,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.control_calid_activity);
+       callbackUploadNewReport = this;
 
+       Variables.activityCurrent=Variables.FormCantrolCalidad;
 
-        initSomeViewsINcreateAndCLICKlISTENNER();
+       initSomeViewsINcreateAndCLICKlISTENNER();
         addListnners();
         configCertainSomeViewsAliniciar();
-
-        // addListnners();
-
-
-        //   String[] albums = getResources().getStringArray(R.array.array_defectos_fruta);
-        //INICLIAMOS POSICIONES SON 10 LISTAS
-        //  List<String> listDefectos = Arrays.asList();
 
 
         inicialiceListOfListChekedItems();
@@ -521,7 +521,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     }
 
-    private View[] creaArryOfViewsAll() {
+   @Override
+   protected void onDestroy() {
+      super.onDestroy();
+      callbackUploadNewReport = null;
+
+   }
+
+
+   private View[] creaArryOfViewsAll() {
 
 
 
@@ -2334,10 +2342,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                obecjControlCalidad.setNumCalibracionEntreApical(numCalibracionEntreApical);
                obecjControlCalidad.setNumGradoCalibrePromedio(numGradoCalibrePromedio);
 
+               Toast.makeText(ActivityControlCalidad.this, "Subiendo informe", Toast.LENGTH_SHORT).show();
 
                 generateUniqueIdInformeAndContinuesIfIdIsUnique(obecjControlCalidad);
-
-
 
 
 
@@ -3475,6 +3482,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
  public void uploadNewForm() {
 
   btnSaveControlC.setEnabled(false);
+  //seSubioInforme=true;
+ // btnSaveControlC.setText("Actualizar Informe");
+
 
 
   if(!currentKeyAndSharePrefrences.equals("")){

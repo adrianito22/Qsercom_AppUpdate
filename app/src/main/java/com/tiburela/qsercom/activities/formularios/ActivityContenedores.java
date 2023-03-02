@@ -5529,7 +5529,21 @@ private void callPrefrencesSaveAndImagesData(){
 
                 //le agregamos un slash al id key mas o menos este fomrato idddd/fil1
 
-                miMapData.put(String.valueOf(currentEdit.getId())+"-"+currentEdit.getTag(),Float.parseFloat(currentEdit.getText().toString()));
+                if(currentEdit.getId()==R.id.ediMarcaCol1 || currentEdit.getId()==R.id.ediMarcaCol2 || currentEdit.getId()==R.id.ediMarcaCol3
+                ||currentEdit.getId()==R.id.ediMarcaCol4||currentEdit.getId()==R.id.ediMarcaCol5){
+
+                    miMapData.put(currentEdit.getText().toString() + "-" +currentEdit.getTag() , 9.999f);
+
+
+                }else{
+
+                    miMapData.put(currentEdit.getId()+"-"+currentEdit.getTag(),Float.parseFloat(currentEdit.getText().toString()));
+
+                }
+
+
+
+
             }
 
 

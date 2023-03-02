@@ -336,17 +336,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
-private void checkExistFile(){
-
-     /*
-        if(Activi){
-
-
-        }
-*/
-
-
-}
 
     private void dowloadAndSetImg(ImagenReport imagenReport, ImageView holder,Context context){
 

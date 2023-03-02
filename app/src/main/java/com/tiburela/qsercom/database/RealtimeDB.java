@@ -17,6 +17,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
+import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
 import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
@@ -1210,6 +1211,22 @@ public static  Context myContext;
 
 
         }
+
+
+        else if (Variables.activityCurrent==Variables.FormCantrolCalidad ){
+
+            if(ActivityControlCalidad.callbackUploadNewReport !=null){
+                ActivityControlCalidad.callbackUploadNewReport.uploadNewForm();
+            }
+            else{
+
+                Log.i("dineroa","es nulo now ");
+
+            }
+
+
+        }
+
 
 
 
