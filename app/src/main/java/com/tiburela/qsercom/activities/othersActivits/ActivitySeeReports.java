@@ -22,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
@@ -973,14 +974,14 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                ContenedoresEnAcopio informe=null;
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
-                    ContenedoresEnAcopio informe=ds.getValue(ContenedoresEnAcopio.class);
+                    informe =ds.getValue(ContenedoresEnAcopio.class);
 
                     if(informe!=null){
                         Variables.CurrenReportContensEnACp=informe;
-                        Log.i("verdura","el value es "+ Variables.CurrenReportContensEnACp.getAgenciaNaviera());
+                        Log.i("verididjf","el value es "+ Variables.CurrenReportContensEnACp.getAgenciaNaviera());
 
                         break;
 
@@ -991,31 +992,49 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 Intent intencion= new Intent(ActivitySeeReports.this, PreviewsFormDatSContersEnAc.class);
 
-
                 if(modoReporte==Variables.MODO_EDICION ){
 
-                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
-                    //si queremos deciion le ponemos true;
-                    Log.i("verdura","ahora se llamo intent");
 
-                   // startActivity(intencion);
-                    showPRogress(intencion);
+                         if( informe !=null){
+                             intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,true);
+                             //si queremos deciion le ponemos true;
+                             Log.i("verididjf","ahora se llamo intent");
 
+                             // startActivity(intencion);
+                             showPRogress(intencion);  //activar
+
+                         }
+
+
+
+                    else{
+
+                        Toast.makeText(ActivitySeeReports.this, "Lo siento hay un problema con el informe", Toast.LENGTH_SHORT).show();
+
+
+                    }
                     //pdialogff.dismiss();
 
                     //finish();
                 }else{
+                    if(informe!=null){
+
+                        intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,false);
+                        //si queremos deciion le ponemos true;
+                        Log.i("verididjf","ahora se llamo intent");
+
+                        //  startActivity(intencion);
+                        // pdialogff.dismiss();
+                        // finish();
+
+                        showPRogress(intencion);  //activar
+                    }else{
+
+                        Toast.makeText(ActivitySeeReports.this, "Lo siento hay un problema con el informe", Toast.LENGTH_SHORT).show();
+
+                    }
 
 
-                    intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,false);
-                    //si queremos deciion le ponemos true;
-                    Log.i("verdura","ahora se llamo intent");
-
-                  //  startActivity(intencion);
-                    // pdialogff.dismiss();
-                    // finish();
-
-                    showPRogress(intencion);
 
 
                 }
@@ -1409,6 +1428,8 @@ Log.i("puslado","el value es "+idReport);
 
                 else if(reportTipo==Constants.CONTENEDORES_EN_ACOPIO){
 
+                    Log.i("verididjf","es conteendores en acopio por aqui");
+                    Log.i("verididjf","el id reporte es "+idReport);
 
                     DowloadReportContersAcopio(idReport,Variables.MODO_VISUALIZACION);
                     //Descargamos un objeto contenedores object...
