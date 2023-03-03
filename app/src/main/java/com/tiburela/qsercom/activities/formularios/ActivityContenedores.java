@@ -5102,7 +5102,6 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
 
                     //informe register
-                    RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,user);
 
 
 
@@ -5111,6 +5110,7 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
                     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
+                    RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,user);
 
                     //aqui subimos..
 

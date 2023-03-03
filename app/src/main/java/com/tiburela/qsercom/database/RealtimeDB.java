@@ -103,7 +103,6 @@ public static  Context myContext;
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    Toast.makeText(myContext, "Se subio", Toast.LENGTH_SHORT).show();
 
                     Log.i("COMENMZAR","es succes");
 

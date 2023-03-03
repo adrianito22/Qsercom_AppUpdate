@@ -2220,6 +2220,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 InformRegister informRegister=null;
+
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     informRegister=ds.getValue(InformRegister.class);
                 }
@@ -2235,7 +2236,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
                     //informe register
-                    RealtimeDB.addNewRegistroInforme(ActivityReporteCalidadCamionesyCarretas.this,informRegister);
                     StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
                     objecCamionesyCarretas.setUniqueIDinforme(currenTidGenrate);
@@ -2249,6 +2249,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                     addCalibracionFutaC_enfAndUpload(currenTidGenrate);
                     addProdcutsPostCosechaAndUpload(currenTidGenrate); //agregamos y subimos los productos postcosecha..
 
+                    RealtimeDB.addNewRegistroInforme(ActivityReporteCalidadCamionesyCarretas.this,informRegister);
 
 
                 }

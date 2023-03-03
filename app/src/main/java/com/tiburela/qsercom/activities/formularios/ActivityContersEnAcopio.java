@@ -1608,7 +1608,6 @@ private void createObjcInformeAndUpload(){
 
 
                     //informe register
-                    RealtimeDB.addNewRegistroInforme(ActivityContersEnAcopio.this,informRegister);
                     StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
                     conetnedoresEnAcopioForm.setUniqueIDinforme(currenTidGenrate);
@@ -1636,7 +1635,7 @@ private void createObjcInformeAndUpload(){
 
                         Log.i("samamf","hemos pasado add new inform");
 
-                        finish();
+                       /// finish();
 
                     }
 
@@ -1650,7 +1649,7 @@ private void createObjcInformeAndUpload(){
                     }
 
 
-                    //aqui subimos..
+                    RealtimeDB.addNewRegistroInforme(ActivityContersEnAcopio.this,informRegister);
 
                 }else {  //si exite creamos otro value...
 
