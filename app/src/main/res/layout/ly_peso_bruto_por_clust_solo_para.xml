@@ -72,11 +72,8 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textAllCaps="true"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 "
                         android:gravity="center_horizontal"
-                        android:inputType="text"
-                        android:padding="7dp"
                         android:tag="marca1" />
 
                     <EditText
@@ -84,7 +81,6 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textAllCaps="true"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 "
                         android:gravity="center_horizontal"
                         android:inputType="text"
@@ -96,7 +92,6 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textAllCaps="true"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 "
                         android:gravity="center_horizontal"
                         android:inputType="text"
@@ -108,7 +103,6 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textAllCaps="true"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 "
                         android:gravity="center_horizontal"
                         android:inputType="text"
@@ -121,7 +115,6 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textAllCaps="true"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 "
                         android:gravity="center_horizontal"
                         android:inputType="text"

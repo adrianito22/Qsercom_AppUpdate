@@ -92,14 +92,14 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
-    ImageView imgVAtachLlegadaContenedor;
-    ImageView imbTakePicLllegadaContenedor;
-    ImageView imgVAtachSellosLlegada;
-    ImageView imbTakePicSellosLlegada;
-    ImageView imgVAtachPuertaAbiertaContenedor;
-    ImageView imbTakePicPuertaAbiertaContenedor;
-    ImageView imgVAtachFotosPallet;
-    ImageView imbTakePicPallet;
+   // ImageView imgVAtachLlegadaContenedor;
+   // ImageView imbTakePicLllegadaContenedor;
+  //  ImageView imgVAtachSellosLlegada;
+   // ImageView imbTakePicSellosLlegada;
+  //  ImageView imgVAtachPuertaAbiertaContenedor;
+  // ImageView imbTakePicPuertaAbiertaContenedor;
+   // ImageView imgVAtachFotosPallet;
+ //   ImageView imbTakePicPallet;
     ImageView imgVAtachCierreContenedor;
     ImageView imbTakePicCierreContenedor;
     ImageView imgVAtachDocumentacionss;
@@ -797,6 +797,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
+
+      /*
         imgVAtachLlegadaContenedor = findViewById(R.id.imgVAtachLlegadaContenedor);
         imbTakePicLllegadaContenedor= findViewById(R.id.imbTakePicLllegadaContenedor);
         imgVAtachSellosLlegada= findViewById(R.id.imgVAtachSellosLlegada);
@@ -805,6 +807,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         imbTakePicPuertaAbiertaContenedor= findViewById(R.id.imbTakePicPuertaAbiertaContenedor);
         imgVAtachFotosPallet= findViewById(R.id.imgVAtachFotosPallet);
         imbTakePicPallet= findViewById(R.id.imbTakePicPallet);
+        */
+
         imgVAtachCierreContenedor= findViewById(R.id.imgVAtachCierreContenedor);
         imgVAtachDocumentacionss = findViewById(R.id.imgVAtachDocumentacionss);
         imbTakePicCierreContenedor= findViewById(R.id.imbTakePicCierreContenedor);
@@ -1000,22 +1004,13 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         /**todos add a todos clicklistener de la implemntacion*/
 
-
         imgVAtachDocumentacionss.setOnClickListener(this);//ultimo
         imgVAtachProcesoFrutaFinca.setOnClickListener(this);
         imbTakePicProcesoFrutaFinca.setOnClickListener(this);
-        imgVAtachLlegadaContenedor.setOnClickListener(this);
-        imbTakePicLllegadaContenedor.setOnClickListener(this);
-        imgVAtachSellosLlegada.setOnClickListener(this);
-        imbTakePicSellosLlegada.setOnClickListener(this);
-        imgVAtachPuertaAbiertaContenedor.setOnClickListener(this);
-        imbTakePicPuertaAbiertaContenedor.setOnClickListener(this);
-        imgVAtachFotosPallet.setOnClickListener(this);
-        imbTakePicPallet.setOnClickListener(this);
+
         imgVAtachCierreContenedor.setOnClickListener(this);
         imbTakePicCierreContenedor.setOnClickListener(this);
         imbTakePicDocuementacionxx.setOnClickListener(this);
-
 
         imgUpdatecAlfrutaEnfunde.setOnClickListener(this);
 
@@ -1086,9 +1081,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         int idCurrent= view.getId();
 
-        if(idCurrent==R.id.imgVAtachProcesoFrutaFinca || idCurrent==R.id.imgVAtachLlegadaContenedor || idCurrent==R.id.imgVAtachSellosLlegada ||
-                idCurrent==R.id.imgVAtachPuertaAbiertaContenedor
-                || idCurrent==R.id.imgVAtachFotosPallet || idCurrent==R.id.imgVAtachCierreContenedor ||
+        if(idCurrent==R.id.imgVAtachProcesoFrutaFinca || idCurrent==R.id.imgVAtachCierreContenedor ||
                 idCurrent == R.id.imgVAtachDocumentacionss){ //si es atach
 
 
@@ -1101,9 +1094,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         }
 
-        else if(idCurrent==R.id.imbTakePicProcesoFrutaFinca || idCurrent==R.id.imbTakePicLllegadaContenedor
-                || idCurrent==R.id.imbTakePicSellosLlegada ||
-                idCurrent==R.id.imbTakePicPuertaAbiertaContenedor || idCurrent==R.id.imbTakePicPallet
+        else if(idCurrent==R.id.imbTakePicProcesoFrutaFinca
                 || idCurrent==R.id.imbTakePicCierreContenedor || idCurrent==R.id.imbTakePicDocuementacionxx ){ //si es tajke pic con camara
 
             currentTypeImage=Integer.parseInt(view.getTag().toString());
