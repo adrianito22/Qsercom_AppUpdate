@@ -50,14 +50,14 @@ public class TableCalidProdc {
         this.totalEmbacado = totalEmbacado;
     }
 
-    public float getPorcentajeQS() {
+    public double getPorcentajeQS() {
         return porcentajeQS;
     }
 
-    public void setPorcentajeQS(float porcentajeQS) {
+    public void setPorcentajeQS(double porcentajeQS) {
         this.porcentajeQS = porcentajeQS;
     }
 
-    private float porcentajeQS;
+    private double porcentajeQS;
 
 }

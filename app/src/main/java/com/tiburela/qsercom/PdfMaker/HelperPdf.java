@@ -676,12 +676,6 @@ if(contadorProductsPostCosecha>10){
             }
 
 
-
-
-
-
-
-
         }else if(tableInfo==4){/**sellos llegada*/
 
             listTOrETURN1.add(new NameAndValue("SELLO PLÁSTICO NAVIERA",Object1.getSelloPlasticoNaviera()));
@@ -689,7 +683,7 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("NÚMERO DE SERIE DE FUNDA",Object1.getnSerieFunda()));
             listTOrETURN1.add(new NameAndValue("CABLE DE RASTREO LLEGADA",Object1.getCableRastreoLlegada()));
             listTOrETURN1.add(new NameAndValue("BOOKING",Object1.getBooking()));
-            listTOrETURN1.add(new NameAndValue("MAX GROSS",Object1.getMaxGross()));
+            listTOrETURN1.add(new NameAndValue("MAX GROSS",Object1.getMaxGross()+"KG"));
             listTOrETURN1.add(new NameAndValue("TARE",Object1.getTare()));
 
 
@@ -1502,21 +1496,28 @@ if(contadorProductsPostCosecha>10){
 
          String [] arrayporcentaje;
 
+         String remplace;
+
         values.add(" 14 ");
         values.add(inform.getColortSem14());
         values.add(inform.getNumRcim14());
        // values.add(inform.getPorc14());
 
         if(!inform.getPorc14().trim().isEmpty()){
+            remplace=inform.getPorc14().replace(",", ".");
+            inform.setPorc14(remplace);
 
-            arrayporcentaje=inform.getPorc14().split(".");
+            if(inform.getPorc14().contains(".")) { ///40
+                arrayporcentaje=inform.getPorc14().split("\\.");
 
-            if(inform.getPorc14().contains(".")) {
-
-                if (arrayporcentaje[0].length() == 1) { //SI TIene
-                    inform.setPorc14("0" + inform.getPorc14());
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc14(inform.getPorc14()+"0");
                 }
-               }
+               }else{
+                inform.setPorc14(inform.getPorc14()+".00");
+
+
+            }
 
                 values.add(inform.getPorc14()+"%");
 
@@ -1535,15 +1536,25 @@ if(contadorProductsPostCosecha>10){
         //values.add(inform.getPorc13());
 
         if(!inform.getPorc13().trim().isEmpty()){
+            remplace=inform.getPorc13().replace(",", ".");
+            inform.setPorc13(remplace);
 
             arrayporcentaje=inform.getPorc13().split("\\.");
 
             if(inform.getPorc13().contains(".")) {
 
-                if (arrayporcentaje[0].length() == 1) { //SI TIene
-                    inform.setPorc13("0" + inform.getPorc13());
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc13(inform.getPorc13()+"0");
                 }
             }
+
+            else{
+                inform.setPorc13(inform.getPorc13()+".00");
+
+
+
+            }
+
             values.add(inform.getPorc13()+"%");
 
 
@@ -1560,16 +1571,26 @@ if(contadorProductsPostCosecha>10){
 
 
         if(!inform.getPorc12().trim().isEmpty()){
+
+            remplace=inform.getPorc12().replace(",", ".");
+            inform.setPorc12(remplace);
             Log.i("samerr","el informe es "+inform.getPorc12());
 
             arrayporcentaje=inform.getPorc12().split("\\.");
 
             if(inform.getPorc12().contains(".")) {
 
-                if (arrayporcentaje[0].length() == 1) { //SI TIene
-                    inform.setPorc12("0" + inform.getPorc12());
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc12(inform.getPorc12()+"0");
                 }
             }
+
+            else{
+
+                inform.setPorc12(inform.getPorc12()+".00");
+
+            }
+
             values.add(inform.getPorc12()+"%");
 
         }else
@@ -1584,6 +1605,8 @@ if(contadorProductsPostCosecha>10){
 
 
         if(!inform.getPorc11().trim().isEmpty()){
+            remplace=inform.getPorc11().replace(",", ".");
+            inform.setPorc11(remplace);
 
 
             arrayporcentaje=inform.getPorc11().split("\\.");
@@ -1592,11 +1615,16 @@ if(contadorProductsPostCosecha>10){
             if(inform.getPorc11().contains(".")) {
 
 
-                if (arrayporcentaje[0].length() == 1) { //SI TIene
-                    inform.setPorc11("0" + inform.getPorc11());
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc11(inform.getPorc11()+"0");
                 }
 
+            }else{
+                inform.setPorc11(inform.getPorc11()+".00");
+
+
             }
+
             values.add(inform.getPorc11()+"%");
 
 
@@ -1611,13 +1639,23 @@ if(contadorProductsPostCosecha>10){
         values.add(inform.getNumRcim10());
 
         if(!inform.getPorc10().trim().isEmpty()){
+            remplace=inform.getPorc10().replace(",", ".");
+            inform.setPorc10(remplace);
+
             arrayporcentaje=inform.getPorc10().split("\\.");
 
             if(inform.getPorc10().contains(".")) {
-                if(arrayporcentaje[0].length()==1) { //SI TIene
+                if(arrayporcentaje[1].length()==1) { //SI TIene
                     inform.setPorc10("0"+inform.getPorc10());
                 }
             }
+            else{
+                inform.setPorc10(inform.getPorc10()+".00");
+
+
+
+            }
+
 
 
 
@@ -1637,14 +1675,25 @@ if(contadorProductsPostCosecha>10){
 
 
         if(!inform.getPorc9().trim().isEmpty()){
+            remplace=inform.getPorc9().replace(",", ".");
+            inform.setPorc9(remplace);
+
             arrayporcentaje=inform.getPorc9().split("\\.");
 
             if(inform.getPorc9().contains(".")){
-                if(arrayporcentaje[0].length()==1) { //SI TIene
+                if(arrayporcentaje[1].length()==1) { //SI TIene
                     inform.setPorc9("0"+inform.getPorc9());
                 }
 
             }
+            else{
+                inform.setPorc9(inform.getPorc9()+".00");
+
+
+
+            }
+
+
 
 
 
@@ -2746,21 +2795,28 @@ if(contadorProductsPostCosecha>10){
 
 
                 if(df.format(itemCurrent.getPorcentajeQS()).contains(".")){
-
                     String [] arrayxc=df.format(itemCurrent.getPorcentajeQS()).split("\\.");
-
                     if(arrayxc[1].length()==1){
                         celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"0%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
-
                     }else{
                         celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
-
                     }
-
                 }
 
 
-                else
+
+                else if(df.format(itemCurrent.getPorcentajeQS()).contains(",")){
+                String [] arrayxc=df.format(itemCurrent.getPorcentajeQS()).split(",");
+                if(arrayxc[1].length()==1){
+                    celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"0%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+                }else{
+                    celdaGlobal.add(new Paragraph(df.format(itemCurrent.getPorcentajeQS())+"%")).setFontSize(7.5f).setTextAlignment(TextAlignment.CENTER);
+
+                }
+
+            }
+
+                else  //si es entero
 
                 {
 
@@ -3485,16 +3541,20 @@ int contadorAlldefectos=0;
 
           miCelda= new Cell(1,1);
 
-          if(dcx.format(num.numPesoCluster).contains(".")){
-              arrayValue= dcx.format(num.numPesoCluster).split("\\.");
+          String valueFormart=dcx.format(num.numPesoCluster);
+            valueFormart=valueFormart.replace(",", ".");
+           // inform.setPorc14(remplace);
+
+          if(valueFormart.contains(".")){
+              arrayValue= valueFormart.split("\\.");
 
                   if(arrayValue[1].length()==1){ ///3.5
 
-                      miParagraph= new Paragraph(dcx.format(num.numPesoCluster)+"0").setTextAlignment(TextAlignment.CENTER);
+                      miParagraph= new Paragraph(valueFormart+"0").setTextAlignment(TextAlignment.CENTER);
 
                   }else{
 
-                      miParagraph= new Paragraph(dcx.format(num.numPesoCluster)).setTextAlignment(TextAlignment.CENTER);
+                      miParagraph= new Paragraph(valueFormart).setTextAlignment(TextAlignment.CENTER);
 
                       Log.i("pesoclci","se eejcuto el else ");
 
@@ -3503,7 +3563,7 @@ int contadorAlldefectos=0;
 
                else{
 
-                   miParagraph= new Paragraph(dcx.format(num.numPesoCluster)+".00").setTextAlignment(TextAlignment.CENTER);
+                   miParagraph= new Paragraph(valueFormart+".00").setTextAlignment(TextAlignment.CENTER);
 
                }
 
@@ -3526,19 +3586,21 @@ int contadorAlldefectos=0;
 
      //   miParagraph= new Paragraph(dc.format(totalPeso)).setTextAlignment(TextAlignment.CENTER).setBold();
 
+        String totalPesoString=dcx.format(totalPeso);
+        totalPesoString=totalPesoString.replace(",", ".");
 
 
-        if(dcx.format(totalPeso).contains(".")){
+        if(totalPesoString.contains(".")){
 
-            arrayValue= dcx.format(totalPeso).split("\\.");
+            arrayValue= totalPesoString.split("\\.");
 
             if(arrayValue[1].length()==1){ ///3.5
 
-                miParagraph= new Paragraph(dcx.format(totalPeso)+"0").setTextAlignment(TextAlignment.CENTER);
+                miParagraph= new Paragraph(totalPesoString+"0").setTextAlignment(TextAlignment.CENTER);
 
             }else{
 
-                miParagraph= new Paragraph(dcx.format(totalPeso)).setTextAlignment(TextAlignment.CENTER);
+                miParagraph= new Paragraph(totalPesoString).setTextAlignment(TextAlignment.CENTER);
 
                 Log.i("pesoclci","se eejcuto el else ");
 
@@ -3547,7 +3609,7 @@ int contadorAlldefectos=0;
 
         else{
 
-            miParagraph= new Paragraph(dcx.format(totalPeso)+".00").setTextAlignment(TextAlignment.CENTER);
+            miParagraph= new Paragraph(totalPesoString+".00").setTextAlignment(TextAlignment.CENTER);
 
         }
 
@@ -3569,22 +3631,23 @@ int contadorAlldefectos=0;
          ///Y AQUI SACAMOS EL PROMEDIO
         float promedio=totalPeso/listLibriado.size();
 
+        String promedioString=dcx.format(promedio);
+        promedioString=promedioString.replace(",", ".");
 
 
-
-        if(dcx.format(promedio).contains(".")){
-            arrayValue= dcx.format(promedio).split("\\.");
+        if(promedioString.contains(".")){
+            arrayValue= promedioString.split("\\.");
 
             if(arrayValue[1].length()==1){ ///3.5
-                miParagraph= new Paragraph(dcx.format(promedio)+"0").setTextAlignment(TextAlignment.CENTER).setBold();
+                miParagraph= new Paragraph(promedioString+"0").setTextAlignment(TextAlignment.CENTER).setBold();
 
             }else{
-                miParagraph= new Paragraph(dcx.format(promedio)).setTextAlignment(TextAlignment.CENTER);
+                miParagraph= new Paragraph(promedioString).setTextAlignment(TextAlignment.CENTER);
                 Log.i("pesoclci","se eejcuto el else ");
             }
         }
         else{
-            miParagraph= new Paragraph(dcx.format(promedio)+".00").setTextAlignment(TextAlignment.CENTER);
+            miParagraph= new Paragraph(promedioString+".00").setTextAlignment(TextAlignment.CENTER);
         }
 
 

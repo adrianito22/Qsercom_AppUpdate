@@ -12,6 +12,27 @@ public class ContenedoresEnAcopio {
 
     private String clienteReporte;
 
+    private String ubicacionTermografo1;
+
+    public String getUbicacionTermografo1() {
+        return ubicacionTermografo1;
+    }
+
+    public void setUbicacionTermografo1(String ubicacionTermografo1) {
+        this.ubicacionTermografo1 = ubicacionTermografo1;
+    }
+
+    public String getUbicacionTermografo2() {
+        return ubicacionTermografo2;
+    }
+
+    public void setUbicacionTermografo2(String ubicacionTermografo2) {
+        this.ubicacionTermografo2 = ubicacionTermografo2;
+    }
+
+    private String ubicacionTermografo2;
+
+
     public int getSemanaNum() {
         return semanaNum;
     }
@@ -75,7 +96,7 @@ public class ContenedoresEnAcopio {
                                 String otrosSellos, String companiaTranportista, String nombredeChofer, String cedula,
                                 String celular, String placa, String marcaCabezal, String colorCabezal,
                                 int cajasProcesadasDespachadas, String inspectorAcopio, int cedulaIdenti
-                                ,String clienteReporte,int semanaNum) {
+                                ,String clienteReporte,int semanaNum,String ubicacionTermografo1,String ubicacionTermografo2) {
 
 
         this.uniqueIDinforme = uniqueIDinforme;
@@ -133,9 +154,11 @@ public class ContenedoresEnAcopio {
         this. cedulaIdenti=cedulaIdenti;
         this.clienteReporte=clienteReporte;
        this.semanaNum =semanaNum;
-
           nombreRevisa="";
           codigonRevisa="";
+
+        this .ubicacionTermografo1=ubicacionTermografo1;
+        this. ubicacionTermografo2=ubicacionTermografo2;
 
         }
 

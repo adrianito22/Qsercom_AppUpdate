@@ -452,6 +452,14 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
 
+                        if(minutes.length()==1){
+
+                            minutes="0"+minutes;
+                        }
+
+
+
+
                         if (vista.getId() == R.id.ediHoraInicio) {
                             ediHoraInicio.setText(sHour + ":" + minutes+" "+ AM_PM);
 
@@ -2501,6 +2509,7 @@ else{
 
 
         informe3.setKeyFirebase(Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+        updateCaledarioEnfunde(informe3);
 
 
         RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
@@ -2508,7 +2517,6 @@ else{
         //agr5egamos la data finalemente
 
 
-        updateCaledarioEnfunde(informe3);
 
         //checkQueexistminim();
 

@@ -501,6 +501,12 @@ Log.i("hellosweer","se ehjecitp onstart");
                           }
 
 
+                        if(minutes.length()==1){
+
+                            minutes="0"+minutes;
+                        }
+
+
                         if(vista.getId()==R.id.ediHoraInicio) {
 
                             ediHoraInicio.setText(sHour + ":" + minutes+" "+AM_PM);
@@ -2910,7 +2916,7 @@ private void createObjcInformeAndUpload(){
 
     updateDatosEvaludoresOFinforme3(informe3);
 
-
+    getResultDatCalibCalEnfundes();//CLVAE
 
 
     //agr5egamos la data finalemente

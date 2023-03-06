@@ -120,7 +120,6 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     boolean copiamosDatax;
     private int currentTypeImage=0;
     private final int CODE_TWO_PERMISIONS = 12;
-    TextInputEditText ediClienteNombreReporte;
 
     ProgressBar progressBarFormulario;
     String keyNodeActualizar="";
@@ -299,48 +298,53 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
 
+                        String minutes=String.valueOf(sMinute);
 
                         String AM_PM ;
 
                         if(sHour < 12) {
-                            AM_PM = "am";
+                            AM_PM = "AM";
                         } else {
-                            AM_PM = "pm";
+                            AM_PM = "PM";
                         }
+
+                        if(minutes.equals("0")){
+                            minutes="00";
+                        }
+
+                        if(minutes.length()==1){
+
+                            minutes="0"+minutes;
+                        }
+
 
 
                         if(vista.getId()==R.id.ediHoraInicio) {
-                            ediHoraInicio.setText(sHour + ":" + sMinute+" "+AM_PM);
-
-
+                            ediHoraInicio.setText(sHour + ":" + minutes+" "+AM_PM);
                         }
 
 
+
                         else if (vista.getId()== R.id.ediHoraTermino) {
-                            ediHoraTermino.setText(sHour + ":" + sMinute+" "+AM_PM);
-
-
+                            ediHoraTermino.setText(sHour + ":" + minutes+" "+AM_PM);
                         }
 
 
 
                         else if (vista.getId()== R.id.ediHoraLLegadaContenedor) {
-                            ediHoraLLegadaContenedor.setText(sHour + ":" + sMinute+" "+AM_PM);
-
-
+                            ediHoraLLegadaContenedor.setText(sHour + ":" + minutes+" "+AM_PM);
                         }
 
 
 
                         else if (vista.getId()== R.id.ediHoraSalidaContenedor) {
-                            ediHoraSalidaContenedor.setText(sHour + ":" + sMinute+" "+AM_PM);
-
+                            ediHoraSalidaContenedor.setText(sHour + ":" + minutes+" "+AM_PM);
 
                         }
 
 
                         else if (vista.getId()== R.id.ediHoraEncendido1) {
-                            ediHoraEncendido1.setText(sHour + ":" + sMinute+" "+AM_PM);
+                            ediHoraEncendido1.setText(sHour + ":" + minutes+" "+AM_PM);
 
 
                         }
@@ -348,7 +352,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
                         else if (vista.getId()== R.id.ediHoraEncendido2) {
-                            ediHoraEncendido2.setText(sHour + ":" + sMinute+" "+AM_PM);
+                            ediHoraEncendido2.setText(sHour + ":" + minutes+" "+AM_PM);
 
 
                         }
@@ -467,7 +471,6 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
 
@@ -1743,8 +1746,9 @@ return true;
                 ,ediCandadoBotella.getText().toString(),ediCableExportadora.getText().toString(),ediSelloAdesivoexpor.getText().toString(),esiSelloAdhNaviera.getText().toString()
                 ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
                 ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
-                Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString()),
-                ediClienteNombreReporte.getText().toString(),Integer.parseInt(ediSemana.getText().toString()));
+                Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString()),"",
+                Integer.parseInt(ediSemana.getText().toString()),ediUbicacion1.getText().toString(),
+                ediUbicacion2.getText().toString());
 
 
 
@@ -2124,7 +2128,8 @@ private void createObjcInformeAndUpload(){
             ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
             ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
             Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString()),
-            ediClienteNombreReporte.getText().toString(),Integer.parseInt(ediSemana.getText().toString()));
+            "",Integer.parseInt(ediSemana.getText().toString()),ediUbicacion1.getText().toString(),
+            ediUbicacion2.getText().toString());
 
 
 
@@ -2431,14 +2436,7 @@ private void createObjcInformeAndUpload(){
         }
 
 
-        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediClienteNombreReporte.requestFocus();
-            ediClienteNombreReporte.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
 
 
 
@@ -3386,7 +3384,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 ediHoraEncendido2,    ediUbicacion2,    ediRuma2,    ediCandadoqsercon,    ediSelloNaviera,    ediCableNaviera,    ediSelloPlastico,
                 ediCandadoBotella,    ediCableExportadora,    ediSelloAdesivoexpor,    esiSelloAdhNaviera,    ediOtherSellos,
                 spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla
-                ,ediClienteNombreReporte,ediSemana
+                ,ediSemana
 
     };
 
@@ -3579,7 +3577,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                         ediTermofrafo1,    ediHoraEncendido1,    ediUbicacion1,    ediRuma1,    ediTermofrafo2,
                 ediHoraEncendido2,    ediUbicacion2,    ediRuma2,    ediCandadoqsercon,    ediSelloNaviera,    ediCableNaviera,    ediSelloPlastico,
                 ediCandadoBotella,    ediCableExportadora,    ediSelloAdesivoexpor,    esiSelloAdhNaviera,    ediOtherSellos,
-                spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla ,ediClienteNombreReporte,ediSemana};
+                spinnerSelectZona,     spFumigaCorL1 ,     spTipoBoquilla ,ediSemana};
 
 
         HelperEditAndPreviewmode.diseableViewsByTipe(misViewsArray);
@@ -3624,7 +3622,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         ediPuerto.setText(currentInform.getPuerto());
                 ediNumContenedor.setText(currentInform.getNumContenedor());
         ediAgenciaNav.setText(currentInform.getAgenciaNaviera());
-        ediClienteNombreReporte.setText(currentInform.getClienteReporte());
         ediFechaInicio.setText(currentInform.getFechaInicio());
        // Format formatter = new SimpleDateFormat("dd-MM-yyyy");
        // String fechaString = formatter.format(currentInform.get);
@@ -3666,12 +3663,11 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         ediTermofrafo1.setText(currentInform.getTermografoN1());
        // ediHoraEncendido1.setText(currentInform.getho);
 
-       // ediUbicacion1.setText(currentInform.ubi);
-      //  ediRuma1.setText(currentInform.);
+        ediUbicacion1.setText(currentInform.getUbicacionTermografo1());
+        ediUbicacion2.setText(currentInform.getUbicacionTermografo2());
 
        // ediTermofrafo2.setText(currentInform.getRumaPalletN2());
       //  ediHoraEncendido2.setText(currentInform.getTermografo2HoraEncendido());
-       // ediUbicacion2.setText(currentInform.getUbicacionPalletN2());
       //  ediRuma2.setText(currentInform.getRuma);
         ediCandadoqsercon.setText(currentInform.getCandadoDeQsercon());
         ediSelloNaviera.setText(currentInform.getSelloDeNaviera());

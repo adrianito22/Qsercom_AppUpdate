@@ -108,7 +108,6 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
     private String UNIQUE_ID_iNFORME;
     boolean hayUnformularioIcompleto ;
     private final int CODE_TWO_PERMISIONS = 12;
-    TextInputEditText ediClienteNombreReporte;
     HashMap<String, DatosDeProceso> mimapaDatosProcesMap=new HashMap<>();
 
 
@@ -379,6 +378,10 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
                             minutes="00";
                         }
 
+                        if(minutes.length()==1){
+
+                            minutes="0"+minutes;
+                        }
 
                         if(vista.getId()==R.id.ediHoraInicio) {
                             ediHoraInicio.setText(sHour + ":" + minutes+" "+ AM_PM);
@@ -528,7 +531,6 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
 
 
 
-        ediClienteNombreReporte=findViewById(R.id.ediClienteNombreReporte);
 
         ediNtargetaEmbarque=findViewById(R.id.ediNtargetaEmbarque);
          ediZona=findViewById(R.id.ediZona);
@@ -1541,7 +1543,8 @@ private void createObjcInformeAndUpload(){
             ,ediOtherSellos.getText().toString(),ediCompaniaTransporte.getText().toString(),ediNombreChofer.getText().toString(),ediCedula.getText().toString()
             ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
             Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString() ),
-            ediClienteNombreReporte.getText().toString(),Integer.parseInt(ediSemana.getText().toString())
+            "",Integer.parseInt(ediSemana.getText().toString()),ediUbicacion1.getText().toString(),
+            ediUbicacion2.getText().toString()
     );
 
 
@@ -2069,16 +2072,6 @@ private void createObjcInformeAndUpload(){
          if(ediExpSolicitante.getText().toString().isEmpty()){ //chekamos que no este vacia
              ediExpSolicitante.requestFocus();
              ediExpSolicitante.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-
-        if(ediClienteNombreReporte.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediClienteNombreReporte.requestFocus();
-            ediClienteNombreReporte.setError("Este espacio es obligatorio");
 
             layoutContainerSeccion1.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -2840,8 +2833,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         ediRuma2.setVisibility(View.GONE);
         ediHoraEncendido1.setVisibility(View.GONE);
         ediHoraEncendido2.setVisibility(View.GONE);
-        ediUbicacion1.setVisibility(View.GONE);
-        ediUbicacion2.setVisibility(View.GONE);
+
+       // ediUbicacion1.setVisibility(View.GONE);
+        //ediUbicacion2.setVisibility(View.GONE);
 
     }
 
@@ -2948,7 +2942,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         View [] arrayViews = {
                 ediSemana,
-                ediClienteNombreReporte,
                 ediFechaInicio,
                 fechDetermino,
                 ediExpSolicitante,
