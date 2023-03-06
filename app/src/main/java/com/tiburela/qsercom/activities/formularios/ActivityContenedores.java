@@ -1206,9 +1206,12 @@ Log.i("hellosweer","se ehjecitp onstart");
                             if(promDecim.contains(".")){
                                 String [] array=promDecim.split("\\."); //tendremos un valor asi 58.50 normal
 
+
                                 if(array[1].length()==1){ //tiene solo un valor.
                                     promDecim=promDecim+"0";
                                 }
+
+
                             }
 
                             miArraypORCENTAHJES[i].setText(promDecim);

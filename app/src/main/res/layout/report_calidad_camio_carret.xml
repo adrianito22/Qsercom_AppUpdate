@@ -295,7 +295,7 @@
                 android:layout_weight="1" />
 
             <include
-                layout="@layout/lay_imagenes_add"
+                layout="@layout/lay_imagenes_add_camiones_carretas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />

@@ -1834,21 +1834,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
                 break;
 
-            case Variables.FOTO_LLEGADA_CONTENEDOR:
-                recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
-                break;
-
-            case Variables.FOTO_SELLO_LLEGADA:
-                recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
-                break;
-
-            case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
-                recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
-                break;
-
-            case Variables.FOTO_PALLETS:
-                recyclerView= findViewById(R.id.recyclerFotoPallets);
-                break;
 
             case Variables.FOTO_CIERRE_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
@@ -1857,6 +1842,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
                 break;
+
         }
 
 
@@ -3639,25 +3625,11 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         switch(currentTypeImage){
+
             case Variables.FOTO_PROCESO_FRUTA_FINCA:
                 recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
                 break;
 
-            case Variables.FOTO_LLEGADA_CONTENEDOR:
-                recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
-                break;
-
-            case Variables.FOTO_SELLO_LLEGADA:
-                recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
-                break;
-
-            case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
-                recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
-                break;
-
-            case Variables.FOTO_PALLETS:
-                recyclerView= findViewById(R.id.recyclerFotoPallets);
-                break;
 
             case Variables.FOTO_CIERRE_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
@@ -3666,6 +3638,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
                 break;
+
         }
 
 
@@ -3922,8 +3895,6 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         EditText ediPorc9 =findViewById(R.id.ediPorc9);
 
 
-
-
         int numRacimosCosechados=Integer.parseInt(ediRacimosCosech.getText().toString());
         float resultpercente;
         DecimalFormat format = new DecimalFormat("#.##");
@@ -3942,10 +3913,16 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 if(Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString())>0)
                 {  //operamoss
                     resultpercente= (Float.parseFloat(miArrayNUmrACIMOS[i].getText().toString())/numRacimosCosechados)*100;
-
                     String promDecim=format.format(resultpercente)   ;
-                    miArraypORCENTAHJES[i].setText(promDecim);
 
+                    if(promDecim.contains(".")){
+                        String [] array=promDecim.split("\\."); //tendremos un valor asi 58.50 normal
+                        if(array[1].length()==1){ //tiene solo un valor.
+                            promDecim=promDecim+"0";
+                        }
+                    }
+
+                    miArraypORCENTAHJES[i].setText(promDecim);
                     //sumaoslos racimos totale
                     numeroRacimosContador=numeroRacimosContador+Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString());
 
@@ -4006,73 +3983,21 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
     boolean cehckFaltanImagenes() {
 
 
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA_CONTENEDOR)){
 
-            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoLLegadaContenedor);
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PROCESO_FRUTA_FINCA)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoProcesoEnFruta);
             ediFotoProcesoEnFruta.requestFocus();
             scroollElementoFaltante(ediFotoProcesoEnFruta);
             showToast();
 
             return false;
         }else{
-            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoLLegadaContenedor);
-            ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoProcesoEnFruta);
+            ediFotoProcesoEnFruta.clearFocus();
+            ediFotoProcesoEnFruta.setError(null);
         }
-
-
-
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
-
-            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoSellosLLegada);
-            ediFotoProcesoEnFruta.requestFocus();
-            scroollElementoFaltante(ediFotoProcesoEnFruta);
-            showToast();
-
-            return false;
-        }else{
-
-            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoSellosLLegada);
-            ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
-
-        }
-
-
-
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR)){
-            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotoPuertacontenedor);
-            ediFotoProcesoEnFruta.requestFocus();
-            scroollElementoFaltante(ediFotoProcesoEnFruta);
-            showToast();
-
-            return false;
-        }else{
-            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotoPuertacontenedor);
-            ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
-        }
-
-
-
-
-
-        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PALLETS)){
-
-            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosPallets);
-            ediFotoProcesoEnFruta.requestFocus();
-            scroollElementoFaltante(ediFotoProcesoEnFruta);
-            showToast();
-
-            return false;
-        }else{
-
-            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosPallets);
-            ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
-
-        }
-
 
 
 
@@ -4098,17 +4023,17 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_DOCUMENTACION)){
-            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosDocumentacion);
-            ediFotoProcesoEnFruta.requestFocus();
-            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            TextView txtFotosDocumentacion=findViewById(R.id.txtFotosDocumentacion);
+            txtFotosDocumentacion.requestFocus();
+            scroollElementoFaltante(txtFotosDocumentacion);
             showToast();
 
             return false;
         }else{
 
-            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosDocumentacion);
-            ediFotosSellosInstalados.clearFocus();
-            ediFotosSellosInstalados.setError(null);
+            TextView txtFotosDocumentacion=findViewById(R.id.txtFotosDocumentacion);
+            txtFotosDocumentacion.clearFocus();
+            txtFotosDocumentacion.setError(null);
 
         }
 
@@ -4122,19 +4047,12 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
     void hideSomeElemtosAnexosAndChangeValues(){
 
-        LinearLayout  lay1x=findViewById(R.id.lay1x);
-        RecyclerView recyclerFotoProcesoFrEnFinca=findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+      //  LinearLayout  lay1x=findViewById(R.id.lay1x);
+       // RecyclerView recyclerFotoProcesoFrEnFinca=findViewById(R.id.recyclerFotoProcesoFrEnFinca);
 
-        TextView ediFotoLLegadaContenedor=findViewById(R.id.ediFotoLLegadaContenedor);
-        TextView txtFotoPuertacontenedor=findViewById(R.id.txtFotoPuertacontenedor);
-        TextView txtCierreContenedor=findViewById(R.id.txtCierreContenedor);
 
-        lay1x.setVisibility(View.GONE);
-        recyclerFotoProcesoFrEnFinca.setVisibility(View.GONE);
 
-        ediFotoLLegadaContenedor.setText("FOTOS LLEGADA CAMION");
-        txtFotoPuertacontenedor.setText("FOTOS PUERTA CAMION");
-        txtCierreContenedor.setText("FOTOS CIERRE CAMION");
+       // lay1x.setVisibility(View.GONE);
 
 
     }
