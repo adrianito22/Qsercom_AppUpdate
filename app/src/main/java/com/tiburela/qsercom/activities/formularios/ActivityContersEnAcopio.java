@@ -314,7 +314,7 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
         findViewsIds();
 
         configCertainSomeViewsAliniciar();
-        ocultaCertainViews();
+      //  ocultaCertainViews();
 
         listViewsClickedUser=new ArrayList<>();
 
@@ -2742,12 +2742,15 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
         GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
-
         // at last set adapter to recycler view.
-        assert recyclerView != null;
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        eventoBtnclicklistenerDelete(adapter);
+
+         if(recyclerView!=null){
+
+             recyclerView.setLayoutManager(layoutManager);
+             recyclerView.setAdapter(adapter);
+             eventoBtnclicklistenerDelete(adapter);
+
+         }
 
 
     }
@@ -2829,10 +2832,10 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     private void ocultaCertainViews(){
 
-        ediRuma1.setVisibility(View.GONE);
-        ediRuma2.setVisibility(View.GONE);
-        ediHoraEncendido1.setVisibility(View.GONE);
-        ediHoraEncendido2.setVisibility(View.GONE);
+       // ediRuma1.setVisibility(View.GONE);
+     //  ediRuma2.setVisibility(View.GONE);
+      // ediHoraEncendido1.setVisibility(View.GONE);
+      //  ediHoraEncendido2.setVisibility(View.GONE);
 
        // ediUbicacion1.setVisibility(View.GONE);
         //ediUbicacion2.setVisibility(View.GONE);

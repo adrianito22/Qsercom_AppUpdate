@@ -4614,10 +4614,14 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
         GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
         // at last set adapter to recycler view.
-        assert recyclerView != null;
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        eventoBtnclicklistenerDelete(adapter);
+
+            if(recyclerView!=null){
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
+                eventoBtnclicklistenerDelete(adapter);
+            }
+
+
 
 
     }

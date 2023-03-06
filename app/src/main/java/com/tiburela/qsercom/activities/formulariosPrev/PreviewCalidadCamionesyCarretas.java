@@ -3287,9 +3287,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int [] arrayTiposImagenes = {Variables.FOTO_LLEGADA_CONTENEDOR,Variables.FOTO_SELLO_LLEGADA,
-                Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS,Variables.FOTO_CIERRE_CONTENEDOR,
-                Variables.FOTO_DOCUMENTACION};
+        int []arrayTiposImagenes={Variables.PROCESO_FRUT_IN_FINCA,Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION};
 
 
         for(int indice=0; indice<arrayTiposImagenes.length; indice++){

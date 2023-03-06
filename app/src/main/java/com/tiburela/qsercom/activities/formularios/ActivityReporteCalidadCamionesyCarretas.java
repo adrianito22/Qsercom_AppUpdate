@@ -3637,11 +3637,14 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
         GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
 
-        // at last set adapter to recycler view.
-        assert recyclerView != null;
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        eventoBtnclicklistenerDelete(adapter);
+           // at last set adapter to recycler view.
+           if(recyclerView!=null){
+               recyclerView.setLayoutManager(layoutManager);
+               recyclerView.setAdapter(adapter);
+               eventoBtnclicklistenerDelete(adapter);
+           }
+
+
 
 
     }
@@ -3653,7 +3656,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int []arrayTiposImagenes={Variables.FOTO_LLEGADA,Variables.FOTO_PROD_POSTCOSECHA,Variables.FOTO_TRANSPORTISTA,Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_CONTENEDOR};
+        int []arrayTiposImagenes={Variables.PROCESO_FRUT_IN_FINCA,Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION};
 
         for(int indice=0; indice<arrayTiposImagenes.length; indice++){
 

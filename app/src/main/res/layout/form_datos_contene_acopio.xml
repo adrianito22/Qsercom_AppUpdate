@@ -193,7 +193,7 @@
 
 
             <include
-                layout="@layout/ly_sellos_instal"
+                layout="@layout/ly_sellos_instal_conten_acopio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

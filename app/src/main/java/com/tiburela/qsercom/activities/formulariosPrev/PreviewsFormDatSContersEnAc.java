@@ -257,7 +257,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
         findViewsIds();
         configCertainSomeViewsAliniciar();
-        ocultaCertainViews();
+      //  ocultaCertainViews();
         listViewsClickedUser=new ArrayList<>();
 
         addClickListeners();
@@ -3061,10 +3061,14 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
         // at last set adapter to recycler view.
-        assert recyclerView != null;
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        eventoBtnclicklistenerDelete(adapter);
+
+        if(recyclerView!=null){
+
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+            eventoBtnclicklistenerDelete(adapter);
+
+        }
 
 
     }
