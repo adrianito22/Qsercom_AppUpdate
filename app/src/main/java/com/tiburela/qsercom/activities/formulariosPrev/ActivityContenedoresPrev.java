@@ -374,7 +374,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
             addClickListeners();
             // resultatachImages();
-            listennersSpinners();
 
             // EstateFieldView.adddataListsStateFields();
             addOnTouchaMayoriaDeViews();
@@ -1781,6 +1780,57 @@ else{
         });
 
 
+
+        swAguaCorrida.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (swAguaCorrida.isChecked()) {
+
+                    swAguaCorrida.setText(" SI ");
+
+                } else {
+                    swAguaCorrida.setText(" NO ");
+
+                }
+            }
+        });
+
+
+        switchLavdoRacimos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (switchLavdoRacimos.isChecked()) {
+
+                    switchLavdoRacimos.setText(" SI ");
+
+                } else {
+                    switchLavdoRacimos.setText(" NO ");
+
+                }
+            }
+        });
+
+
+
+        switchContenedor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (switchContenedor.isChecked()) {
+
+                    ediContenedor.setText(" SI ");
+
+                } else {
+                    ediContenedor.setText(" NO ");
+
+                }
+            }
+        });
+
+
+
     }
 
 
@@ -2491,6 +2541,10 @@ else{
 
 
         informe2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+
+
+        Log.i("swirhchc","el swAguaCorrida upload es  es  "+swAguaCorrida.isChecked());
+        Log.i("swirhchc","el switchLavdoRacimos upload es  es  "+switchLavdoRacimos.isChecked());
 
 
         SetInformDatsHacienda informe3 = new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(), swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
@@ -4158,7 +4212,12 @@ else{
 
 
         swAguaCorrida.setChecked(info3Object.isHayAguaCorrida());
+
+        Log.i("swirhchc","el swAguaCorrida es  "+info3Object.isHayAguaCorrida());
+
+
         switchLavdoRacimos.setChecked(info3Object.isHayLavadoRacimos());
+        Log.i("swirhchc","el switchLavdoRacimos es  "+info3Object.isHayLavadoRacimos());
 
 
         if (info1Object.getContenedor().equalsIgnoreCase(" SI ")) {

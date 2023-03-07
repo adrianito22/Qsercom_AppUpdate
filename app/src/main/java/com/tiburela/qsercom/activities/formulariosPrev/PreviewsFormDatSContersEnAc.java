@@ -1748,7 +1748,7 @@ return true;
                 ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
                 Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString()),"",
                 Integer.parseInt(ediSemana.getText().toString()),ediUbicacion1.getText().toString(),
-                ediUbicacion2.getText().toString());
+                ediUbicacion2.getText().toString(),ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString());
 
 
 
@@ -2129,7 +2129,7 @@ private void createObjcInformeAndUpload(){
             ,ediCelular.getText().toString(),ediPLaca.getText().toString(),ediMarcaCabezal.getText().toString(),ediColorCabezal.getText().toString(),
             Integer.parseInt(ediCjasProcesDespacha.getText().toString()), ediInspectorAcopio.getText().toString(), Integer.parseInt(ediCedulaI.getText().toString()),
             "",Integer.parseInt(ediSemana.getText().toString()),ediUbicacion1.getText().toString(),
-            ediUbicacion2.getText().toString());
+            ediUbicacion2.getText().toString(),ediHoraEncendido1.getText().toString(),ediHoraEncendido2.getText().toString());
 
 
 
@@ -3665,14 +3665,14 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         Log.i("termografo","el termografo 1 es "+currentInform.getTermografoN1());
 
         ediTermofrafo1.setText(currentInform.getTermografoN1());
-       // ediHoraEncendido1.setText(currentInform.getho);
+       ediHoraEncendido1.setText(currentInform.getTermografo1HoraEncendido());
 
         ediUbicacion1.setText(currentInform.getUbicacionTermografo1());
         ediUbicacion2.setText(currentInform.getUbicacionTermografo2());
 
-       // ediTermofrafo2.setText(currentInform.getRumaPalletN2());
-      //  ediHoraEncendido2.setText(currentInform.getTermografo2HoraEncendido());
-      //  ediRuma2.setText(currentInform.getRuma);
+        ediTermofrafo2.setText(currentInform.getTermogragoN2());
+       ediHoraEncendido2.setText(currentInform.getTermografo2HoraEncendido());
+       // ediRuma2.setText(currentInform.getRuma);
         ediCandadoqsercon.setText(currentInform.getCandadoDeQsercon());
         ediSelloNaviera.setText(currentInform.getSelloDeNaviera());
         ediCableNaviera.setText(currentInform.getCableDeNaviera());

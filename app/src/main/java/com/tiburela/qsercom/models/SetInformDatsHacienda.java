@@ -412,8 +412,8 @@ this.ediRacimProces=ediRacimProces;
         HashMap<String, Object> result = new HashMap<>();
 
         result.put("fuenteAgua", fuenteAgua);
-        result.put("aguaCorrida", hayAguaCorrida);
-        result.put("lavadoRacimos", hayLavadoRacimos);
+        result.put("hayAguaCorrida", hayAguaCorrida);
+        result.put("hayLavadoRacimos", hayLavadoRacimos);
         result.put("fumigacionClin1", fumigacionClin1);
         result.put("ediTipoBoquilla", ediTipoBoquilla);
         result.put("ediCajasProcDesp", ediCajasProcDesp);

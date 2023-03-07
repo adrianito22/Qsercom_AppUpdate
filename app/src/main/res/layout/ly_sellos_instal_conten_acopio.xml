@@ -52,7 +52,7 @@ android:textAllCaps="true" />
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:hint="HORA DE ENCENDIDO"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediHoraEncendido1"
@@ -129,7 +129,7 @@ android:textAllCaps="true" />
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:hint="HORA DE ENCENDIDO"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ediHoraEncendido2"

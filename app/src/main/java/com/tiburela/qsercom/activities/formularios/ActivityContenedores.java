@@ -2542,9 +2542,11 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
             if(switchLavdoRacimos.isChecked()){
 
                 ediLavadoRacimos.setText(" SI ") ;
-
+                switchLavdoRacimos.setText(" SI ");
             }else {
                 ediLavadoRacimos.setText(" NO ") ;
+                switchLavdoRacimos.setText(" NO ");
+
 
             }
         }
@@ -2559,9 +2561,11 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
             if(swAguaCorrida.isChecked()){
 
+                swAguaCorrida.setText(" SI ") ;
                 ediAguaCorrida.setText(" SI ") ;
 
             }else {
+                swAguaCorrida.setText(" NO ") ;
                 ediAguaCorrida.setText(" NO ") ;
 
             }
@@ -2675,6 +2679,7 @@ void checkDataFields(){ //
 
 
     if(! checkDatosGeneralesIsLleno()){
+        btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
         return;
@@ -2690,6 +2695,7 @@ void checkDataFields(){ //
 
 
     if(! checkcantidadPostcosechaIsLleno()){
+        btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
         return;
@@ -2700,6 +2706,8 @@ void checkDataFields(){ //
 
 
     if(! checkDatosContenedorIsLleno()){
+        btnCheck.setEnabled(true);
+
         Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
 
         return;
@@ -2710,6 +2718,8 @@ void checkDataFields(){ //
 
 
     if(! checkDataSellosLlegadaIsLleno()){
+       btnCheck.setEnabled(true);
+
         Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
 
         return;
@@ -2722,6 +2732,8 @@ void checkDataFields(){ //
 
 
     if(! checkSellosInstaladosIsLleno()){
+        btnCheck.setEnabled(true);
+
         Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
 
         return;
@@ -2734,10 +2746,14 @@ void checkDataFields(){ //
 
 
     if(! checkDatosTransportistaIsLleno()){
+        btnCheck.setEnabled(true);
+
         Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
 
         return;
-    }else{
+    }
+
+    else{
 
         Log.i("test001","si  esta lleno  checkDatosTransportistaIsLleno");
 
@@ -2746,10 +2762,15 @@ void checkDataFields(){ //
 
 
     if(! checkDatosProcesoIsLleno()){
+        btnCheck.setEnabled(true);
+
         Log.i("test001","no esta lleno  checkDatosProcesoIsLleno");
 
         return;
-    }else{
+    }
+
+    else
+    {
 
         Log.i("test001","si  esta lleno  checkDatosProcesoIsLleno");
 
@@ -2759,10 +2780,16 @@ void checkDataFields(){ //
 
 
     if(! checkDatosHaciendaIsLleno()){
+        btnCheck.setEnabled(true);
+
         Log.i("test001","no esta lleno  checkDatosHaciendaIsLleno");
 
         return;
-    }else{
+    }
+
+    else
+
+    {
 
         Log.i("test001","si  esta lleno  checkDatosHaciendaIsLleno");
 
@@ -2772,10 +2799,15 @@ void checkDataFields(){ //
 
     if(! checkQueexistminim()){
         Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
+        btnCheck.setEnabled(true);
 
         return;
-    }else
+    }
 
+
+
+
+    else
     {
 
         Log.i("test001","si  esta lleno  checkDataCalibFrutaCalEnfn");
@@ -2789,65 +2821,59 @@ void checkDataFields(){ //
 
     if(! getResultDatCalibCalEnfundes()){
         Log.i("test001","no esta lleno  getResultDatCalibCalEnfundes");
+        btnCheck.setEnabled(true);
 
         return;
-    }else
-
-    {
-
-        Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
-
 
     }
 
+    /*
+    else
+
+    {
+        Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
+    }
+*/
 
     if(! cehckFaltanImagenes()){
         Log.i("test001","no esta lleno  cehckFaltanImagenes");
+        btnCheck.setEnabled(true);
 
         return;
-    }else
+    }
+
+
+
+    /*
+    else
 
     {
         Log.i("test001","si  esta lleno  cehckFaltanImagenes");
-
     }
-
+*/
 
 
 
     if(!Utils.checkifAtach()){
-
+        btnCheck.setEnabled(true);
         Log.i("test001","no esta lleno  checkifAtach");
-
         FragmentManager fm = getSupportFragmentManager();
         DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CONTENEDORES);
-        // alertDialog.setCancelable(false);
         alertDialog.show(fm, "duialoffragment_alertZ");
-
         return;
-    }else
+    }
 
+    else
+
+    /*
     {
 
         Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
 
-
     }
+   */
 
-
-
-
-//
-
-
-   //AGERGAR AQUI
-
-
-
-    createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
-
-
+        createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
 
 }
@@ -3953,19 +3979,6 @@ return true;
         }
 
 */
-
-        if(ediLavadoRacimos.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediLavadoRacimos.requestFocus();
-            ediLavadoRacimos.setError("Este espacio es obligatorio");
-
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }else{
-
-            ediLavadoRacimos.setError(null);
-
-        }
 
         if(ediFumigacionClin1.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediFumigacionClin1.requestFocus();
@@ -5080,7 +5093,7 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                 }
 
 
-                if(user == null) { //quiere decir que no existe
+                if(user == null && ! seSubioform) { //quiere decir que no existe
 
                     Log.i("imagebrr","elunique id informe es "+currenTidGenrate);
 
@@ -5714,7 +5727,6 @@ private void callPrefrencesSaveAndImagesData(){
 
     @Override
     public void uploadNewForm() {
-
         btnCheck.setEnabled(false);
 
         seSubioform=true;
@@ -5738,7 +5750,6 @@ private void callPrefrencesSaveAndImagesData(){
 
                 SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
-
             }
 
             catch (Exception e) {
@@ -5747,6 +5758,8 @@ private void callPrefrencesSaveAndImagesData(){
                 Log.i("dineroa","hello haaxxx");
 
             }
+
+
 
         }
 

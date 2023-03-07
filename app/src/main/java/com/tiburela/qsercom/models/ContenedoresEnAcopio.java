@@ -9,6 +9,25 @@ public class ContenedoresEnAcopio {
     public String getClienteReporte() {
         return clienteReporte;
     }
+    private String termografo1HoraEncendido;
+
+    public String getTermografo1HoraEncendido() {
+        return termografo1HoraEncendido;
+    }
+
+    public void setTermografo1HoraEncendido(String termografo1HoraEncendido) {
+        this.termografo1HoraEncendido = termografo1HoraEncendido;
+    }
+
+    public String getTermografo2HoraEncendido() {
+        return termografo2HoraEncendido;
+    }
+
+    public void setTermografo2HoraEncendido(String termografo2HoraEncendido) {
+        this.termografo2HoraEncendido = termografo2HoraEncendido;
+    }
+
+    private String termografo2HoraEncendido;
 
     private String clienteReporte;
 
@@ -96,7 +115,9 @@ public class ContenedoresEnAcopio {
                                 String otrosSellos, String companiaTranportista, String nombredeChofer, String cedula,
                                 String celular, String placa, String marcaCabezal, String colorCabezal,
                                 int cajasProcesadasDespachadas, String inspectorAcopio, int cedulaIdenti
-                                ,String clienteReporte,int semanaNum,String ubicacionTermografo1,String ubicacionTermografo2) {
+                                ,String clienteReporte,int semanaNum,String ubicacionTermografo1,String ubicacionTermografo2,
+                                  String  termografo1HoraEncendido, String termografo2HoraEncendido
+                                ) {
 
 
         this.uniqueIDinforme = uniqueIDinforme;
@@ -160,7 +181,11 @@ public class ContenedoresEnAcopio {
         this .ubicacionTermografo1=ubicacionTermografo1;
         this. ubicacionTermografo2=ubicacionTermografo2;
 
-        }
+        this.  termografo1HoraEncendido=termografo1HoraEncendido;
+        this.  termografo2HoraEncendido=termografo2HoraEncendido;
+
+
+    }
 
     public double getFechaUploadMilliseconds() {
         return fechaUploadMilliseconds;
