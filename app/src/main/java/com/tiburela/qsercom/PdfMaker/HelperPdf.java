@@ -684,7 +684,7 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("CABLE DE RASTREO LLEGADA",Object1.getCableRastreoLlegada()));
             listTOrETURN1.add(new NameAndValue("BOOKING",Object1.getBooking()));
             listTOrETURN1.add(new NameAndValue("MAX GROSS",Object1.getMaxGross()+"KG"));
-            listTOrETURN1.add(new NameAndValue("TARE",Object1.getTare()));
+            listTOrETURN1.add(new NameAndValue("TARE",Object1.getTare()+"KG"));
 
 
         }else if(tableInfo==5){ //SELLOS INSTALADOS
@@ -2399,8 +2399,6 @@ if(contadorProductsPostCosecha>10){
         /***obtenemos el mayor defecto empaque ahora*/
 
 
-                Log.i("ELWEIGTH","EN TOTAL TODOS LOS DEFECTOE ES "+NUMERO_DEFECTS);
-
 
                 //obtenemos los nombre de los defectos que selecionaron
         ArrayList<String>defectsSelecNames = new ArrayList<>();
@@ -2602,11 +2600,9 @@ if(contadorProductsPostCosecha>10){
         table1X.addCell(cellGlobal);
 
 
-
         cellGlobal= new Cell();
-        cellGlobal.add(new Paragraph(promedioPeso).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        cellGlobal.add(new Paragraph(promedioPeso+"lbs").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
         table1X.addCell(cellGlobal);
-
 
 
             /***hasta por aqui en bacground*/
@@ -2624,6 +2620,8 @@ if(contadorProductsPostCosecha>10){
         cellGlobal= new Cell(1,1).setBackgroundColor(rgbColor);
         cellGlobal.add(new Paragraph("PORCENTAJE DE DEFECTOS").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
         table1X.addCell(cellGlobal);
+
+
 
         cellGlobal= new Cell();
         cellGlobal.add(new Paragraph(porcenjeDefects).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());

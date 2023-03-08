@@ -672,7 +672,11 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 // Variables.CurrenReportPart1=  reportsListPart1.get(position);
 
+                Log.i("dateis","equi hay un click  ");
+
+
                 Variables.currentInformRegisterSelected=listReport.get(position);
+
 
                 showBottomSheetDialog(listReport.get(position).getTypeInform(), listReport.get(position).getInformUniqueIdPertenece());
 
@@ -965,6 +969,9 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
     private void DowloadReportContersAcopio(String uniqeuIDiNFORME,int modoReporte){ //para informe contenedores
 
+        Log.i("dateis","vamos a descargar  contenedores en acopio");
+
+
         //to fetch all the users of firebase Auth app
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -982,6 +989,9 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                     if(informe!=null){
                         Variables.CurrenReportContensEnACp=informe;
                         Log.i("verididjf","el value es "+ Variables.CurrenReportContensEnACp.getAgenciaNaviera());
+
+
+                        Log.i("dateis","tenemos un contenedores en acopio");
 
                         break;
 
@@ -1019,6 +1029,8 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 }else{
                     if(informe!=null){
 
+
+
                         intencion.putExtra(Variables.KEYEXTRA_CONTEN_EN_ACP,false);
                         //si queremos deciion le ponemos true;
                         Log.i("verididjf","ahora se llamo intent");
@@ -1026,6 +1038,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                         //  startActivity(intencion);
                         // pdialogff.dismiss();
                         // finish();
+                        Log.i("dateis","ahora se llamo intent");
 
                         showPRogress(intencion);  //activar
                     }else{
@@ -1044,7 +1057,10 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("misdata","el error es  "+ error.getMessage());
+
+
+
+                Log.i("dateis","el error es  "+ error.getMessage());
 
 
             }
@@ -1428,6 +1444,9 @@ Log.i("puslado","el value es "+idReport);
 
                 else if(reportTipo==Constants.CONTENEDORES_EN_ACOPIO){
 
+
+                    Log.i("dateis","es conteendores en acopio por aqui");
+
                     Log.i("verididjf","es conteendores en acopio por aqui");
                     Log.i("verididjf","el id reporte es "+idReport);
 
@@ -1706,7 +1725,9 @@ Log.i("puslado","el value es "+idReport);
 
                 }
 
-                Log.i("muestrodff","el size de lista 222es  "+ listReport.size());
+
+
+                Log.i("dateis","el size de lista 222es  "+ listReport.size());
                 ///  dowloadinformesby_PACKE_lIST(dateSelecionado);
                 //setAdapaterDataAndShow(reportsListPart1);
 

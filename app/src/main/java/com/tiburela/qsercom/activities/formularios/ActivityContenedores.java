@@ -2657,11 +2657,11 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View view) {
+            btnCheck.setEnabled(false);
 
 
 
             checkDataFields();
-
 
 
 
@@ -5097,10 +5097,7 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
                     Log.i("imagebrr","elunique id informe es "+currenTidGenrate);
 
-
-
                     StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
-
 
 
                     informe.setUniqueIDinforme(currenTidGenrate);
@@ -5128,9 +5125,6 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
 
                     //informe register
-
-
-
                     Log.i("imagebrr","elsize es "+ImagenReport.hashMapImagesData.size());
 
 

@@ -259,14 +259,18 @@ public class HelperContenedoresAcopio {
             list.add(new NameAndValue("NÚMERO DE SERIE DE FUNDA",Variables.CurrenReportContensEnACp.getNumSerieFunda())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("CABLE DE RASTREO LLEGADA",Variables.CurrenReportContensEnACp.getCableRastreoLlegada())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("BOOKING",Variables.CurrenReportContensEnACp.getBooking())); //AQUI ACTUALIZAR
-            list.add(new NameAndValue("MAX GROSS",Variables.CurrenReportContensEnACp.getMaxGross())); //AQUI ACTUALIZAR NAMES
-            list.add(new NameAndValue("TARE",Variables.CurrenReportContensEnACp.getTare())); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("MAX GROSS",Variables.CurrenReportContensEnACp.getMaxGross()+ "KG")); //AQUI ACTUALIZAR NAMES
+            list.add(new NameAndValue("TARE",Variables.CurrenReportContensEnACp.getTare()+ "KG")); //AQUI ACTUALIZAR NAMES
 
 
         }
 
         else if(idTableGenerate==TABLE_SELLOS_INSTALADOS){
-            list.add(new NameAndValue("TERMÓGRAFO",Variables.CurrenReportContensEnACp.getTermografoN1())); //AQUI ACTUALIZAR NAMES
+
+
+            //  list.add(new NameAndValue("TERMÓGRAFO",Variables.CurrenReportContensEnACp.getTermografoN1())); //AQUI ACTUALIZAR NAMES
+
+
             list.add(new NameAndValue("SELLO NAVIERA",Variables.CurrenReportContensEnACp.getSelloDeNaviera())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("STICKER",Variables.CurrenReportContensEnACp.getStickerDeVentolExternn1())); //AQUI ACTUALIZAR NAMES
             list.add(new NameAndValue("OTROS CANDADOS 1",Variables.CurrenReportContensEnACp.getOtrosCandados())); //AQUI ACTUALIZAR NAMES
@@ -290,6 +294,110 @@ public class HelperContenedoresAcopio {
 
 
 return  list;
+
+    }
+
+
+
+    public static  Table generateTermografoTable(){
+        /**a esta tabla le falta un color y otras cosillas mas...
+         * ver app de tom despues haber que se puede hacer......*/
+
+        float sizeColumns5[]= {210,1,1,1,1,1}; //estzba en 195
+        Table table1=  new Table(sizeColumns5);
+        Paragraph  paragraph2;
+        Cell cell1;
+
+
+        /**VAMOS A REVISAR. **/
+
+
+        if(!Variables.CurrenReportContensEnACp.getTermografoN1().trim().isEmpty()){
+
+            paragraph2=   new Paragraph("TERMÓGRAFO 1").setFontSize(8f).setFont(font).setBold();
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+            paragraph2=   new Paragraph(Variables.CurrenReportContensEnACp.getTermografoN1()).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+            paragraph2=   new Paragraph("HORA DE ENCEND:" ).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+
+            paragraph2=   new Paragraph(Variables.CurrenReportContensEnACp.getTermografo1HoraEncendido()).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+
+            /***/
+            paragraph2=   new Paragraph("UBICACION:" ).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+
+            paragraph2=   new Paragraph(Variables.CurrenReportContensEnACp.getUbicacionTermografo1()).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+
+            //
+
+
+
+
+        }
+
+
+        if(!Variables.CurrenReportContensEnACp.getTermogragoN2().trim().isEmpty()){
+
+            paragraph2=   new Paragraph("TERMÓGRAFO 2").setFontSize(8f).setFont(font).setBold();
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+            paragraph2=   new Paragraph(Variables.CurrenReportContensEnACp.getTermogragoN2()).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+            paragraph2=   new Paragraph("HORA DE ENCEND:" ).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+
+            paragraph2=   new Paragraph(Variables.CurrenReportContensEnACp.getTermografo2HoraEncendido()).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+
+            /***/
+            paragraph2=   new Paragraph("UBICACION:" ).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+            paragraph2=   new Paragraph(Variables.CurrenReportContensEnACp.getUbicacionTermografo2()).setFontSize(8f).setFont(font);
+            cell1= new Cell(1,4).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            table1.addCell(cell1);
+
+
+
+        }
+
+
+
+        return  table1;
 
     }
 

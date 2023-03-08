@@ -139,28 +139,34 @@ public static  Context myContext;
 
     }
 
-    public static void updateInformContenresAcopio( ContenedoresEnAcopio informeObjct) {
+    public static void updateInformContenresAcopio( ContenedoresEnAcopio informeObjct,Context context) {
 
-        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("contenedoresAcopio").child(informeObjct.getKeyFirebase());
+        Log.i("elkeyfirebase ","el keyfirebase es "+informeObjct.getKeyFirebase());
 
+        if(informeObjct.getKeyFirebase()!=null && informeObjct.getKeyFirebase().length()>0){
 
-        mibasedata.setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+            DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("contenedoresAcopio").child(informeObjct.getKeyFirebase());
 
-
-
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
+            mibasedata.setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
-                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
 
-                }else  {
+                        Toast.makeText(context, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+
+                        // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                    }else  {
 
 
+                    }
                 }
-            }
-        });
+            });
+
+        }
+
 
 
     }
@@ -273,23 +279,27 @@ public static  Context myContext;
         informeObjct.setSimpleDataFormat(antiguoInformObject.getSimpleDataFormat());
 
 
-        mibasedata.child(antiguoInformObject.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+          if(antiguoInformObject.getKeyFirebase().length()>0){
+              mibasedata.child(antiguoInformObject.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
 
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
+                  @Override
+                  public void onComplete(@NonNull Task<Void> task) {
+                      if (task.isSuccessful()) {
 
 
-                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                          // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
-                }else  {
+                      }else  {
 
 
-                }
-            }
-        });
+                      }
+                  }
+              });
+
+          }
+
 
 
     }
@@ -335,7 +345,6 @@ public static  Context myContext;
 
 
     public static void actualizaInformePart1( SetInformEmbarque1 informeObjct) {
-
 
         Log.i("somerliker", "llamamos actualiza informe parte 1 bb ");
 
@@ -897,7 +906,7 @@ public static  Context myContext;
     }
 
 
-    public static void UpdateProductosPostCosecha( ProductPostCosecha productosObject) {
+    public static void UpdateProductosPostCosecha( ProductPostCosecha productosObject,Context context) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listProductosPostCosecha").child(productosObject.keyFirebase);
         // Map<String, Object> mapValues = informeObjct.toMap();
@@ -910,7 +919,7 @@ public static  Context myContext;
                 if (task.isSuccessful()) {
 
 
-                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
 

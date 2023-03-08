@@ -386,6 +386,18 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
                         String dateSelec=i2+"/"+(i1+1)+"/"+i;
 
+                        if(i2<10  && i1+1<10){
+                            dateSelec="0"+i2+"/0"+(i1+1)+"/"+i;
+                        }
+
+                        else if (i2<10){
+                            dateSelec="0"+i2+"/"+(i1+1)+"/"+i;
+                        }
+
+                        else  if(i1+1<10){
+                            dateSelec=i2+"/0"+(i1+1)+"/"+i;
+                        }
+
                         if(idView==R.id.ediFechaInicio){
                             ediFechaInicio.setText(dateSelec);
 
@@ -2134,7 +2146,6 @@ private void createObjcInformeAndUpload(){
 
 
 
-    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     //agr5egamos la data finalemente
 
@@ -2148,17 +2159,17 @@ private void createObjcInformeAndUpload(){
     informe.setCodigonRevisa(ediCodigoRevisa.getText().toString());
 
 
-
-
-
-    RealtimeDB.updateInformContenresAcopio(informe);
+    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
-    Toast.makeText(context, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+    RealtimeDB.updateInformContenresAcopio(informe,PreviewsFormDatSContersEnAc.this);
 
-    finish();
+
+ ///   Toast.makeText(context, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+
+   // finish();
 
 }
 

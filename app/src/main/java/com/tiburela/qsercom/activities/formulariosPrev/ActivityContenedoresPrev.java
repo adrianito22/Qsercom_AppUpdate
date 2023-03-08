@@ -3781,7 +3781,7 @@ else{
         }
 
 
-        RealtimeDB.UpdateProductosPostCosecha(producto);
+        RealtimeDB.UpdateProductosPostCosecha(producto,ActivityContenedoresPrev.this);
 
 
         try {
@@ -4972,9 +4972,9 @@ else{
         createObjcInformeAndUpload();
 
 
-        Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
 
-        finish();
+     //   finish();
 
     }
 

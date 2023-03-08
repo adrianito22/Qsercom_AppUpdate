@@ -460,6 +460,19 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
 
                         String dateSelec=i2+"/"+(i1+1)+"/"+i;
 
+                        if(i2<10  && i1+1<10){
+                            dateSelec="0"+i2+"/0"+(i1+1)+"/"+i;
+                        }
+
+                        else if (i2<10){
+                            dateSelec="0"+i2+"/"+(i1+1)+"/"+i;
+                        }
+
+                       else  if(i1+1<10){
+                            dateSelec=i2+"/0"+(i1+1)+"/"+i;
+                        }
+
+
                         if(idView==R.id.ediFechaInicio){
 
                             ediFechaInicio.setText(dateSelec);

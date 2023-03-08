@@ -605,6 +605,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,5,Variables.currenProductPostCosecha);
+
         mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,600);
 
         //editamos otras columnas 10

@@ -109,6 +109,8 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
     final int CODE_READ_EXTERNAL_STORAGE = 133;
 
 
+     String [] dateCreate;
+
     LinearLayout layoutDown;
     Button btnDescargar ;
 
@@ -186,10 +188,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
                     btnDescargar.setEnabled(false);
 
-
                 }
-
-
 
 
 
@@ -204,7 +203,14 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
                         Toast.makeText(PdfMakerContenresAcopio.this, "Descargando Pdf", Toast.LENGTH_SHORT).show();
 
-                        createPdfContenrAcopio2("exampledockk"); ;
+                      //03-03 TEMU 838382-8
+
+                        dateCreate=Variables.CurrenReportContensEnACp.getFechaInicio().split("/");
+
+                        //String date=Variable
+                     //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
+                       // createPdfContenrAcopio2("holaas");
+                        createPdfContenrAcopio2(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor()); ;
 
 
                     }else{
@@ -346,7 +352,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
         /**TABLE 1 */
 
-        Cell cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS CONTENEDORES DE ACOPIO SEMANA "+Variables.CurrenReportContensEnACp.getSemanaNum()).setPadding(0.2f).
+        Cell cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS CONTENEDORES DE ACOPIO SEMANA "+Variables.CurrenReportContensEnACp.getSemanaNum()+"   -"+Variables.CurrenReportContensEnACp.getUniqueIDinforme()).setPadding(0.2f).
                 setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
 
         cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
@@ -419,7 +425,13 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
         midocumentotoAddData.add(cellGlobal);
 
 
-        /**creamos la 4 tabla*/
+
+        //table termografo
+        tableGlobal=HelperContenedoresAcopio.generateTermografoTable();
+        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+        midocumentotoAddData.add(tableGlobal);
+
+
         listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_SELLOS_INSTALADOS);
         tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_SELLOS_INSTALADOS);
         HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
@@ -816,6 +828,36 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
 
+    private void addCellsInTable(HashMap<String,Cell >hasmpa, Table table){
+        for(int indice=0; indice<hasmpa.size(); indice++) {
+
+            if(hasmpa.containsKey(indice+"name")){
+                Log.i("mismundo","si hay  name");
+
+                table.addCell(hasmpa.get(indice+"name"));
+            }else{
+
+                Log.i("mismundo","no contiene name");
+            }
+
+            if(hasmpa.containsKey(indice+"value")){
+                table.addCell(hasmpa.get(indice+"value"));
+
+
+            }
+            else{
+                Log.i("mismundo","no contiene value");
+
+
+            }
+
+
+
+
+        }
+
+
+    }
 
 
 }

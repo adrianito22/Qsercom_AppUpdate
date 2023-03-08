@@ -545,10 +545,6 @@ public static int counTbucle=0;
 
                           //  String url = String.valueOf(uri);
 
-
-
-
-
                             String iconPathFirebase = uri.toString();
 
                             currenImageReport.setUrlStoragePic(iconPathFirebase);
@@ -561,9 +557,6 @@ public static int counTbucle=0;
                             RealtimeDB.addNewSetPicsInforme(currenImageReport);
 
 
-
-
-
                             // SendLink(url);
                         }
                     });
@@ -573,6 +566,8 @@ public static int counTbucle=0;
 
 
         }
+
+
 
 
     }
