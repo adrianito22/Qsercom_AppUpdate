@@ -315,7 +315,11 @@ return  list;
         if(!Variables.CurrenReportContensEnACp.getTermografoN1().trim().isEmpty()){
 
             paragraph2=   new Paragraph("TERMÓGRAFO 1").setFontSize(8f).setFont(font).setBold();
+            //                   cell.setBorder(new SolidBorder(Color.convertRgbToCmyk(rgbColorStrocke), 0.7f));
             cell1= new Cell(1,1).setHeight(11f).setPadding(0).add(paragraph2).setPaddingLeft(10f); ///le agragmos un span
+            cell.setBorder(new SolidBorder(Color.convertRgbToCmyk(rgbColorStrocke), 0.7f));
+
+
             table1.addCell(cell1);
 
 
