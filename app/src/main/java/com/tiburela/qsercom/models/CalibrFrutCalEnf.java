@@ -9,12 +9,69 @@ public class CalibrFrutCalEnf {
     private String colorSemana10;
     private String colorSemana9;
 
-    private int numeracionRacimosSem14;
-    private int numeracionRacimosSem13;
-    private int numeracionRacimosSem12;
-    private int numeracionRacimosSem11;
-    private int numeracionRacimosSem10;
-    private int numeracionRacimosSem9;
+    private String numeracionRacimosSem14;
+    private String numeracionRacimosSem13;
+    private String numeracionRacimosSem12;
+    private String numeracionRacimosSem11;
+    private String numeracionRacimosSem10;
+    private String numeracionRacimosSem9;
+
+
+    public String getPorc14() {
+        return porc14;
+    }
+
+    public void setPorc14(String porc14) {
+        this.porc14 = porc14;
+    }
+
+    public String getPorc13() {
+        return porc13;
+    }
+
+    public void setPorc13(String porc13) {
+        this.porc13 = porc13;
+    }
+
+    public String getPorc12() {
+        return porc12;
+    }
+
+    public void setPorc12(String porc12) {
+        this.porc12 = porc12;
+    }
+
+    public String getPorc11() {
+        return porc11;
+    }
+
+    public void setPorc11(String porc11) {
+        this.porc11 = porc11;
+    }
+
+    public String getPorc10() {
+        return porc10;
+    }
+
+    public void setPorc10(String porc10) {
+        this.porc10 = porc10;
+    }
+
+    public String getPorc9() {
+        return porc9;
+    }
+
+    public void setPorc9(String porc9) {
+        this.porc9 = porc9;
+    }
+
+    private String porc14;
+    private String porc13;
+    private String porc12;
+    private String porc11;
+    private String porc10;
+    private String porc9;
+
 
 
     private String idPertenece;
@@ -69,51 +126,51 @@ public class CalibrFrutCalEnf {
         this.colorSemana9 = colorSemana9;
     }
 
-    public int getNumeracionRacimosSem14() {
+    public String getNumeracionRacimosSem14() {
         return numeracionRacimosSem14;
     }
 
-    public void setNumeracionRacimosSem14(int numeracionRacimosSem14) {
+    public void setNumeracionRacimosSem14(String numeracionRacimosSem14) {
         this.numeracionRacimosSem14 = numeracionRacimosSem14;
     }
 
-    public int getNumeracionRacimosSem13() {
+    public String getNumeracionRacimosSem13() {
         return numeracionRacimosSem13;
     }
 
-    public void setNumeracionRacimosSem13(int numeracionRacimosSem13) {
+    public void setNumeracionRacimosSem13(String numeracionRacimosSem13) {
         this.numeracionRacimosSem13 = numeracionRacimosSem13;
     }
 
-    public int getNumeracionRacimosSem12() {
+    public String getNumeracionRacimosSem12() {
         return numeracionRacimosSem12;
     }
 
-    public void setNumeracionRacimosSem12(int numeracionRacimosSem12) {
+    public void setNumeracionRacimosSem12(String numeracionRacimosSem12) {
         this.numeracionRacimosSem12 = numeracionRacimosSem12;
     }
 
-    public int getNumeracionRacimosSem11() {
+    public String getNumeracionRacimosSem11() {
         return numeracionRacimosSem11;
     }
 
-    public void setNumeracionRacimosSem11(int numeracionRacimosSem11) {
+    public void setNumeracionRacimosSem11(String numeracionRacimosSem11) {
         this.numeracionRacimosSem11 = numeracionRacimosSem11;
     }
 
-    public int getNumeracionRacimosSem10() {
+    public String getNumeracionRacimosSem10() {
         return numeracionRacimosSem10;
     }
 
-    public void setNumeracionRacimosSem10(int numeracionRacimosSem10) {
+    public void setNumeracionRacimosSem10(String numeracionRacimosSem10) {
         this.numeracionRacimosSem10 = numeracionRacimosSem10;
     }
 
-    public int getNumeracionRacimosSem9() {
+    public String getNumeracionRacimosSem9() {
         return numeracionRacimosSem9;
     }
 
-    public void setNumeracionRacimosSem9(int numeracionRacimosSem9) {
+    public void setNumeracionRacimosSem9(String numeracionRacimosSem9) {
         this.numeracionRacimosSem9 = numeracionRacimosSem9;
     }
 
@@ -148,13 +205,22 @@ public class CalibrFrutCalEnf {
         colorSemana10="";
         colorSemana9="";
 
-        numeracionRacimosSem14=0;
-        numeracionRacimosSem13=0;
-        numeracionRacimosSem12=0;
-        numeracionRacimosSem11=0;
-        numeracionRacimosSem10=0;
-        numeracionRacimosSem9=0;
+        numeracionRacimosSem14="";
+        numeracionRacimosSem13="";
+        numeracionRacimosSem12="";
+        numeracionRacimosSem11="";
+        numeracionRacimosSem10="";
+        numeracionRacimosSem9="";
          keyFirebase="";
+
+          porc14="";
+          porc13="";
+          porc12="";
+          porc11="";
+          porc10="";
+          porc9="";
+
+
     }
 
 

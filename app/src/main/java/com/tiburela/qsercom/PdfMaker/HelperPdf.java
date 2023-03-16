@@ -36,11 +36,13 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsCantdad;
 import com.tiburela.qsercom.models.NameAndValue;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -61,12 +63,14 @@ public class HelperPdf {
    public static  PdfFont font=null;
 
    public static boolean hayMasDe10products;
+    public static DeviceRgb rgbColorVerdeCanaFuerte= new DeviceRgb(56, 86, 35);
 
    public static DeviceRgb rgbColorVerdeCana= new DeviceRgb(197, 224, 179);
     public static DeviceRgb rgbColorAzulClaro= new DeviceRgb(189, 214, 238);
     public static DeviceRgb rgbColorNaranja= new DeviceRgb(255, 217, 102);
     public static DeviceRgb rgbColorDurazno= new DeviceRgb(247, 202, 172);
 
+    public static DeviceRgb rgbColorPlomoBlanco= new DeviceRgb(242, 242, 242);
 
    // private static  ArrayList<String>listNamesGlobal= new ArrayList<>();
 
@@ -799,6 +803,158 @@ if(contadorProductsPostCosecha>10){
     }
 
 
+    public static  ArrayList<NameAndValue> generaDataToTable(ReportCamionesyCarretas Object1,
+                                                             int tableInfo, ProductPostCosecha product){
+        ArrayList<NameAndValue> listTOrETURN1 = new ArrayList<>();
+
+        if(tableInfo==1){
+
+            listTOrETURN1.add(new NameAndValue("SEMANA "+Object1.getSemana() ,"FECHA: "+Object1.getSimpleDataFormat()));
+            listTOrETURN1.add(new NameAndValue("PRODUCTOR ",Object1.getProductor()));
+            listTOrETURN1.add(new NameAndValue("HACIENDA ",Object1.getHacienda()));
+            listTOrETURN1.add(new NameAndValue("CÓDIGO PRODUCTOR ",Object1.getCodigo()));
+            listTOrETURN1.add(new NameAndValue("CÓDIGO MAGAP ",Object1.getInscirpMagap()));
+            listTOrETURN1.add(new NameAndValue("PUERTO EMBARQUE ",Object1.getPemarque()));
+            listTOrETURN1.add(new NameAndValue("ZONA",Object1.getZona()));
+
+
+
+            String [] arrayTime=Object1.getHoraInicio().split(":");
+
+            if(arrayTime[0].length()==1){
+                listTOrETURN1.add(new NameAndValue("HORA INICIO","0"+Object1.getHoraInicio()));
+            }
+
+            else{
+                listTOrETURN1.add(new NameAndValue("HORA INICIO",Object1.getHoraInicio()));
+            }
+
+
+
+
+            arrayTime=Object1.getHoraTermino().split(":");
+
+            if(arrayTime[0].length()==1){
+                listTOrETURN1.add(new NameAndValue("HORA TERMINO","0"+Object1.getHoraTermino()));
+            }
+
+            else{
+                listTOrETURN1.add(new NameAndValue("HORA TERMINO",Object1.getHoraTermino()));
+            }
+
+
+
+
+
+
+
+            listTOrETURN1.add(new NameAndValue("GUÍA REMISIÓN",Object1.getNguiaRemision()));
+            listTOrETURN1.add(new NameAndValue("GUÍA DE TRANSPORTE",Object1.get_nguia_transporte()));
+            listTOrETURN1.add(new NameAndValue("TARJA DE EMBARQUE",Object1.getNtargetaEmbarque()));
+
+            listTOrETURN1.add(new NameAndValue("HOJA DE EVALUACIÓN",String.valueOf(Object1.getEdiNhojaEvaluacion())));
+
+        }
+
+
+        else   if(tableInfo==2){ /**la segunda tabla productos postocosecha*/
+            ///si contienen data
+
+            if(!product.bromorux.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("BROMORUX",product.bromorux));
+            }
+
+            if(!product.acido_citrico.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("ACIDO CITRICO",product.acido_citrico));
+            }
+
+            if(!product.alumbre.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("ALUMBRE",product.alumbre));
+            }
+
+            if(!product.bc100.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("BC100",product.bc100));
+            }
+
+            if(!product.biottol.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("BIOTTOL",product.biottol));
+            }
+
+            if(!product.eclipse.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("ECLIPSE",product.eclipse));
+            }
+
+            if(!product.gib_bex.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("GIB_BEX",product.gib_bex));
+            }
+
+            if(!product.mertec.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("MERTEC",product.mertec));
+            }
+
+            if(!product.nlarge.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("NLARGE",product.nlarge));
+
+            }
+
+            if(!product.otro_especifique.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue(product.otro_especifique,product.otroCantidad));
+            }
+
+            if(!product.ryzuc.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("RYZUX",product.ryzuc));
+            }
+
+            if(!product.sastifar.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("SASTISFARR",product.sastifar));
+            }
+
+            if(!product.xtrata.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("XTRATA",product.xtrata));
+            }
+
+            if(!product.sb100.trim().isEmpty()){
+                listTOrETURN1.add(new NameAndValue("SB100",product.sb100));
+            }
+
+        }
+
+
+        else if(tableInfo==6){/**datos transportista */
+
+         //   listTOrETURN1.add(new NameAndValue("COMPAÑIA TRANSPORTISTA ",Object1.getce()));
+            listTOrETURN1.add(new NameAndValue("NOMBRE CHOFER ",Object1.getNombredeChofer()));
+            listTOrETURN1.add(new NameAndValue("CÉDULA  ",Object1.getCedula()));
+            listTOrETURN1.add(new NameAndValue("CELULAR ",Object1.getCelular()));
+            listTOrETURN1.add(new NameAndValue("PLACA ",Object1.getPlaca()));
+          //  listTOrETURN1.add(new NameAndValue("COLOR CABEZAL ",Object1.getcc()));
+
+
+
+        }  ///falta datos de proceso yPosicion otro
+
+
+        else if(tableInfo==8){/**CONTROL DE GANCHO*/
+
+            // por aquiracimos rechzados
+
+
+            listTOrETURN1.add(new NameAndValue("CAJAS PROCESADAS DESPACHADAS",String.valueOf(Object1.getCajasProcesadasDespachadas() )));
+            listTOrETURN1.add(new NameAndValue("RACIMOS COSECHADOS ",String.valueOf(Object1.getRacimosCosechados())));
+            listTOrETURN1.add(new NameAndValue("RACIMOS RECHAZADOS ",String.valueOf(Object1.getRacimosRechazados())));
+            listTOrETURN1.add(new NameAndValue("RACIMOS PROCESADOS ",String.valueOf(Object1.getRacimosProcesados())));
+
+        }
+
+
+
+
+        return listTOrETURN1;
+
+    }
+
+
+
 
     public static Table createTable2(Table miTable, DeviceRgb rgbColor,SetInformEmbarque2 object2) {
         Cell cellTipPlastic= new Cell().setPaddingLeft(10f);
@@ -992,6 +1148,198 @@ if(contadorProductsPostCosecha>10){
         return miTable;
 
     }
+
+    public static Table createTable2(Table miTable, DeviceRgb rgbColor,ReportCamionesyCarretas object2) {
+        Cell cellTipPlastic= new Cell().setPaddingLeft(10f).setBackgroundColor(rgbColor);
+        Cell cellPolitubo= new Cell().setPaddingLeft(10f).setBackgroundColor(rgbColor);
+        Cell cellPolituboX= new Cell().setPaddingLeft(10f); //x
+
+        Cell cellPolipack= new Cell().setPaddingLeft(10f).setBackgroundColor(rgbColor);
+        Cell cellPolipackX= new Cell().setPaddingLeft(10f);
+
+        Cell cellbanavac= new Cell().setPaddingLeft(10f).setBackgroundColor(rgbColor);
+        Cell cellbanavacX= new Cell().setPaddingLeft(10f);
+
+        Cell cellTipPlasbagS= new Cell().setPaddingLeft(10f).setBackgroundColor(rgbColor);
+        Cell cellTipPlasbagX= new Cell().setPaddingLeft(10f);
+
+        Cell celltipodEcAJA= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setBackgroundColor(rgbColor);
+
+        Cell cell22Xu= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setBackgroundColor(rgbColor);
+        Cell cell22XuX= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
+
+        Cell cellDisplay= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setBackgroundColor(rgbColor);
+        Cell cellDisplayX= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
+
+        Cell cell13kg= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setBackgroundColor(rgbColor);
+        Cell cell13kgX= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
+
+        Cell cell208= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setBackgroundColor(rgbColor);
+        Cell cell208X= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
+
+
+
+        //cellPolituboX.setBackgroundColor(rgbColor) ; //MNARCAR LA X CON BACVGROUND VERDE
+        //cellPolipackX.setBackgroundColor(rgbColor);
+       // cellbanavacX.setBackgroundColor(rgbColor);
+     //  cellTipPlasbagX.setBackgroundColor(rgbColor);
+
+
+        //FALTA AGREGAR A LAS TABLAS
+        miTable.addCell(cellTipPlastic.add(new Paragraph("TIPO DE PLÁSTICO").setFontSize(7.3f).setFont(font)).setBold()) ;
+        miTable.addCell(cellPolitubo.add(new Paragraph("POLITUBO").setFontSize(7.3f).setFont(font))) ;
+        //tipo de caja
+
+
+        if(object2.getTipoDePlastico().equalsIgnoreCase("Politubo")) {
+            cellPolituboX.add(new Paragraph(" X ").setFontSize(6.5f).setFont(font));
+
+        }else{
+
+            cellPolituboX.add(new Paragraph("   ").setWidth(10));
+
+
+        }
+        miTable.addCell(cellPolituboX);
+
+
+
+        miTable.addCell(cellPolipack.add(new Paragraph("POLIPACK").setFont(font).setFontSize(7.3f))) ;
+
+        if(object2.getTipoDePlastico().equalsIgnoreCase("Polipack")) {
+            cellPolipackX.add(new Paragraph(" X ").setFontSize(6.5f));
+
+        }else{
+            cellPolipackX.add(new Paragraph("  ").setWidth(10));
+
+        }
+        miTable.addCell(cellPolipackX);
+
+
+
+        miTable.addCell(cellbanavac.add(new Paragraph("BANAVAC").setFontSize(7.3f).setFont(font))) ;
+
+        if(object2.getTipoDePlastico().equalsIgnoreCase("Banavac")) {
+            cellbanavacX.add(new Paragraph(" X ").setFontSize(6.5f));
+
+        }
+
+        else{
+
+            cellbanavacX.add(new Paragraph("  ").setWidth(10));
+
+        }
+
+        miTable.addCell(cellbanavacX);
+
+
+        // miTable.addCell(cellbanavac.add(new Paragraph("BANAVAC").setFontSize(6.5f))) ;
+
+
+        miTable.addCell(cellTipPlasbagS.add(new Paragraph("BAGS").setFontSize(7.3f).setFont(font))) ;
+
+        if(object2.getTipoDePlastico().equalsIgnoreCase("BAGS")) {
+            cellTipPlasbagX.add(new Paragraph("  X ").setFontSize(6.5f));
+
+        }else{
+
+            cellTipPlasbagX.add(new Paragraph("  ").setWidth(10));
+
+        }
+        miTable.addCell(cellTipPlasbagX);
+
+
+
+        /**tipo de cja */
+
+        miTable.addCell(celltipodEcAJA.add(new Paragraph("TIPO DE CAJA").setFontSize(7.3f).setFont(font).setBold())) ;
+        miTable.addCell(cell22Xu.add(new Paragraph("22xU").setFontSize(6.5f).setFont(font))) ;
+
+
+       // cell22XuX.setBackgroundColor(rgbColor) ; //MNARCAR LA X CON BACVGROUND VERDE
+      //  cellDisplayX.setBackgroundColor(rgbColor);
+      //  cell13kgX.setBackgroundColor(rgbColor);
+      //  cell208X.setBackgroundColor(rgbColor);
+
+
+        if(object2.getTipoDeCaja().equalsIgnoreCase("22xu")) {
+            cell22XuX.add(new Paragraph(" X ").setFontSize(7.3f));
+        }else{
+            cell22XuX.add(new Paragraph("  ").setWidth(10));
+
+        }
+
+
+        miTable.addCell(cell22XuX) ;
+
+
+        miTable.addCell(cellDisplay.add(new Paragraph("DISPLAY").setFontSize(7.3f).setFont(font))) ;
+
+
+        if(object2.getTipoDeCaja().equalsIgnoreCase("Display")) {
+            cellDisplayX.add(new Paragraph(" X ").setFontSize(6.5f));
+
+
+        }else{
+            cellDisplayX.add(new Paragraph("  ").setWidth(10));
+
+        }
+
+
+        miTable.addCell(cellDisplayX) ;
+
+
+
+        miTable.addCell(cell13kg.add(new Paragraph("13KG").setFontSize(7.3f).setFont(font))) ;
+
+        if(object2.getTipoDeCaja().equalsIgnoreCase("13KG")) {
+            cell13kgX.add(new Paragraph(" X ").setFontSize(6.5f));
+
+        }else{
+
+            cell13kgX.add(new Paragraph("  ").setWidth(10));
+
+        }
+        miTable.addCell(cell13kgX) ;
+
+
+
+        //aqui agregamos 3 opciones incluida la
+
+        if(object2.getTipoDeCaja().equalsIgnoreCase("9,5kg")){
+            miTable.addCell(cell13kg.add(new Paragraph("9,5KG").setFontSize(7.3f).setFont(font))) ;
+            cell13kgX.add(new Paragraph(" X ").setFontSize(6.5f));
+
+
+        }
+
+        else{
+
+            miTable.addCell(cell208.add(new Paragraph("208").setFontSize(7.3f).setFont(font))) ;
+
+            if(object2.getTipoDeCaja().equalsIgnoreCase("208")) {
+                cell208X.add(new Paragraph(" X ").setFontSize(6.5f));
+
+            }else{
+                cell208X.add(new Paragraph("  ").setWidth(10));
+
+
+            }
+        }
+
+
+        miTable.setBorderBottom(Border.NO_BORDER);
+
+        miTable.addCell(cell208X) ;
+
+
+
+
+
+        return miTable;
+
+    }
+
 
     public static Table createTbale6(Table table1,SetInformDatsHacienda object){
         Cell cellDatosHaciend = new Cell(1,7).setBackgroundColor(rgbColorAzulClaro).add(new Paragraph("DATOS DE HACIENDA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(font).setBold());
@@ -1227,6 +1575,305 @@ if(contadorProductsPostCosecha>10){
         return table1;
     }
 
+    public static Table createTbale6(ReportCamionesyCarretas object){
+
+        float sizeColumns10[]= {190,1,1,1,1,1,1};
+        Table table1=  new Table(sizeColumns10);
+
+/*
+        Cell cellDatosHaciend = new Cell(1,7).setBackgroundColor(rgbColorAzulClaro).add(new Paragraph("DATOS DE HACIENDA").
+                setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(font).setBold());
+
+        */
+
+        Cell micelda;
+        Paragraph   paragrapMarcado = new Paragraph(" X ").setFontSize(7f).setFont(font).setTextAlignment(TextAlignment.CENTER);;
+        Paragraph   paragragSinMarcar = new Paragraph("  ");
+
+        Paragraph paragraph;
+
+     //   table1.addCell(cellDatosHaciend);
+
+        Cell cellx1 = new Cell().add(new Paragraph("FUENTE DE AGUA").setFontSize(7.3f).setFont(font).setPaddingLeft(10f).setBold()).setBackgroundColor(rgbColorPlomoBlanco);
+        Cell cellx2 = new Cell().add(new Paragraph("AGUA POTABLE").setFontSize(7.3f).setFont(font).setPaddingLeft(10f).setBackgroundColor(rgbColorPlomoBlanco));
+        table1.addCell(cellx1);
+        table1.addCell(cellx2);
+
+        if(object.getFuenteAgua().equalsIgnoreCase("AGUA POTABLE")) {
+            micelda = new Cell(1,1).setFontSize(7.3f).add(paragrapMarcado);
+            micelda .setWidth(10f);
+            table1.addCell(micelda);
+
+
+        }else{
+
+            micelda = new Cell(1,1).setFontSize(7.3f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+
+
+        }
+
+
+        cellx1= new Cell();
+        paragraph=new Paragraph("POZO").setFontSize(7.5f).setFont(font).setPaddingLeft(10f);
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+
+
+        table1.addCell(cellx1);
+
+        Log.i("elaguaes","la fuente de agua es "+object.getFuenteAgua());
+
+
+        if(object.getFuenteAgua().equalsIgnoreCase("pozo")) {
+
+            Log.i("elaguaes","la fuente de agua es pozo");
+
+            micelda = new Cell(1,1).setFontSize(6.5f).add(paragrapMarcado);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }
+        else{
+            Log.i("elaguaes","la fuente de agua no es pozo ");
+
+
+            micelda = new Cell(1,1).setFontSize(6.5f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }
+
+
+        cellx1= new Cell();
+        paragraph=new Paragraph("BIDÓN").setFontSize(7.5f).setFont(font).setPaddingLeft(10f);
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+
+
+
+
+        table1.addCell(cellx1);
+
+        if(object.getFuenteAgua().equalsIgnoreCase("BIDÓN")) {
+
+            micelda = new Cell(1,1).setFontSize(6.5f).add(paragrapMarcado);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }else{
+
+            micelda = new Cell(1,1).setFontSize(6.5f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }
+
+
+        //2DA FILA DE DATOS DE HACIENDA...
+        cellx1= new Cell();
+        paragraph=new Paragraph("AGUA CORRIDA").setFontSize(7.5f).setFont(font).setPaddingLeft(10f).setBold();
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+
+        table1.addCell(cellx1);
+
+
+        cellx1= new Cell();
+        paragraph=new Paragraph("SI").setFontSize(7.5f).setFont(font).setPaddingLeft(10f);
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+
+
+        table1.addCell(cellx1);
+
+
+        if(object.isHayAguaCorrida()) {
+            //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor).setFontSize(7.5f));
+
+            micelda = new Cell(1,1).add(paragrapMarcado);
+            micelda .setWidth(10f);
+            table1.addCell(micelda);
+
+        }else{
+
+            micelda = new Cell(1,1).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+            table1.addCell(micelda);
+
+        }
+
+        micelda = new Cell(1,2).add(new Paragraph("NO").setFontSize(7.5f).setFont(font).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco);
+        table1.addCell(micelda);
+
+        if(!object.isHayAguaCorrida()) {
+
+            micelda = new Cell(1,2).setFontSize(7.5f).add(paragrapMarcado);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+            ///
+
+
+
+
+
+        }else{
+
+            micelda = new Cell(1,2).setFontSize(7.5f).add(paragragSinMarcar);
+            //micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }
+
+//
+        cellx1= new Cell();
+        paragraph=new Paragraph("LAVADO DE RACIMOS").setFontSize(7.5f).setFont(font).setPaddingLeft(10f).setBold();
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+
+        table1.addCell(cellx1);
+
+
+
+
+
+        cellx1= new Cell();
+        paragraph=new Paragraph("SI").setFontSize(7.5f).setFont(font).setPaddingLeft(10f);
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+
+        table1.addCell(cellx1);
+       // table1.addCell(new Paragraph("SI").setFontSize(7.5f).setFont(font).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco);
+
+
+        /**tiene 7 columnas*/
+
+        if(object.isLavadoRacimos()) {
+            //  table1.addCell(new Paragraph(" X").setBackgroundColor(rgbColor));
+            micelda = new Cell(1,1).setFontSize(7.5f).add(paragrapMarcado);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+
+        }else{
+
+            micelda = new Cell(1,1).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }
+
+        cellx1= new Cell();
+        paragraph=new Paragraph("NO").setFontSize(7.5f).setFont(font).setPaddingLeft(10f);
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+
+        table1.addCell(cellx1);
+
+        if(!object.isLavadoRacimos()) {
+            micelda = new Cell(1,3).setFontSize(7.5f).add(paragrapMarcado);
+            // micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }else{
+
+            micelda = new Cell(1,3).setFontSize(7.5f).add(paragragSinMarcar);
+            //  micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }
+
+
+        /**fumigacion corona linea `1*/
+
+        cellx1= new Cell();
+        paragraph=new Paragraph("FUMIGACIÓN CORONA LINEA 1").setFontSize(7.5f).setFont(font).setPaddingLeft(10f).setBold();
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+
+
+        table1.addCell(cellx1);
+
+
+        cellx1= new Cell();
+        paragraph=new Paragraph("FOGGING").setFontSize(7.5f).setFont(font).setPaddingLeft(10f);
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+        table1.addCell(cellx1);
+
+
+        if(object.getFumigacionClin1().equalsIgnoreCase("FOGGING")) {
+            micelda = new Cell(1,1).setFontSize(7.5f).add(paragrapMarcado);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+
+        }else{
+
+            micelda = new Cell(1,1).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+
+        }
+
+
+        ////////
+
+        cellx1= new Cell();
+        paragraph=new Paragraph("BOMBA CP3").setFontSize(7.5f).setFont(font).setPaddingLeft(10f);
+        cellx1.add(paragraph).setBackgroundColor(rgbColorPlomoBlanco);
+        table1.addCell(cellx1);
+
+
+
+
+/*
+        if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3 MANUAL") ) {
+
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragrapMarcado);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+
+
+        }else{
+
+            micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }
+*/
+////////////4
+
+
+
+        //   table1.addCell();
+
+        if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3 ELÉCTRICA")) {
+
+            micelda = new Cell(1,3).
+                    setFontSize(7.5f).add(new Paragraph("ELÉCTRICA").setFontSize(7.5f).setFont(font).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco);
+
+            micelda .setWidth(10f);
+            table1.addCell(micelda);
+
+        }else if(object.getFumigacionClin1().equalsIgnoreCase("BOMBA CP3 MANUAL")) {
+
+            micelda = new Cell(1,3).
+                    setFontSize(7.5f).add(new Paragraph("MANUAL").setFontSize(7.5f).setFont(font).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco);
+
+            //   micelda = new Cell(1,1).setBackgroundColor(rgbColorVerdeCana).setFontSize(7.5f).add(paragragSinMarcar);
+            micelda .setWidth(10f);
+
+            table1.addCell(micelda);
+        }else{
+            micelda = new Cell(1,3).setFontSize(7.5f).add(paragragSinMarcar);
+            table1.addCell(micelda);
+
+
+        }
+
+
+
+        return table1;
+    }
+
 
     public static Table createTable3(Table miTable,SetInformEmbarque2 object2) {
 
@@ -1439,6 +2086,231 @@ if(contadorProductsPostCosecha>10){
 
             else {
                 miTable.addCell(new Cell().setBackgroundColor(rgbColorVerdeCana).add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f))) ;
+            }
+
+
+        }
+
+
+
+        ///QUEDAMOS EN DATOS DE HACIENDA..
+
+        return miTable;
+
+    }
+
+
+    public static Table createTable3(Table miTable,ReportCamionesyCarretas object2) {
+
+
+        ///Cell cell208X= new Cell().setPaddingLeft(10f);
+
+
+        ///cellPolituboX.setBackgroundColor(rgbColor) ; //MNARCAR LA X CON BACVGROUND VERDE
+
+        //FALTA AGREGAR A LAS TABLAS
+        //  miTable.addCell(new Cell().add(new Paragraph("TIPO DE PLASTICO").setFontSize(7.5f))) ;
+
+
+        miTable.addCell(new Cell().setBackgroundColor(rgbColorPlomoBlanco).add(new Paragraph("ENZUCHADO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font)).setBold()) ;
+        miTable.addCell(new Cell().setBackgroundColor(rgbColorPlomoBlanco).add(new Paragraph("SI").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+
+        if(object2.isHayEnsunchado()) {
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        }
+
+        else {
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        }
+
+        miTable.addCell(new Cell().setBackgroundColor(rgbColorPlomoBlanco).add(new Paragraph("NO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font).setBackgroundColor(rgbColorPlomoBlanco))) ;
+
+
+        if(!object2.isHayEnsunchado()) {
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        }
+
+        else {
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        }
+
+
+        /**BALANZA*///*/
+
+        miTable.addCell(new Cell().add(new Paragraph("BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold().setBackgroundColor(rgbColorPlomoBlanco)) ;
+        miTable.addCell(new Cell().add(new Paragraph("SI").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+        if(object2.isHayBalanza()) {
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        }
+
+        else {
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f)).setFont(font)) ;
+        }
+
+
+        miTable.addCell(new Cell().add(new Paragraph("NO").setFontSize(7.5f).setPaddingLeft(10f).setFont(font)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+
+        if(!object2.isHayBalanza()) {
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        }
+
+        else {
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+        }
+
+
+
+        /** CONDICION DE BALANZA*///*/
+
+
+        /**condicion de  BALANZA*///*/
+
+        miTable.addCell(new Cell().add(new Paragraph("CONDICIÓN DE BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold().setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+        //BUENO ,ALO Y REGUKLAR
+
+        if(object2.getCondicionBalanza().equalsIgnoreCase("ACEPTABLE")) {
+
+
+            miTable.addCell(new Cell().add(new Paragraph("ACEPTABLE").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setFont(font)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+
+
+            miTable.addCell(new Cell().add(new Paragraph("MALA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setFont(font)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+
+
+        }
+
+
+
+
+
+
+        if(object2.getCondicionBalanza().equalsIgnoreCase("BUENA")) {
+
+            Log.i("condicoon","es buena se ejecuto esto ") ;
+
+            miTable.addCell(new Cell().add(new Paragraph("BUENA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setFont(font)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+
+
+            miTable.addCell(new Cell().add(new Paragraph("MALA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f).setFont(font)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f).setFont(font))) ;
+
+
+        }
+
+        if(object2.getCondicionBalanza().equalsIgnoreCase("MALA")) {
+            miTable.addCell(new Cell().add(new Paragraph("MALA ").setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+            miTable.addCell(new Cell().add(new Paragraph("X").setFontSize(7.5f).setPaddingLeft(10f)).setFont(font)) ;
+
+            miTable.addCell(new Cell().add(new Paragraph("BUENA").setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f)).setFont(font)) ;
+        }
+
+        if(object2.getCondicionBalanza().equalsIgnoreCase("REGULAR")) {
+            miTable.addCell(new Cell().add(new Paragraph("REGULAR").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+
+
+            miTable.addCell(new Cell().add(new Paragraph("BUENA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+
+        }
+
+
+/***tipo de balanza/
+ *
+ */
+
+
+        miTable.addCell(new Cell().add(new Paragraph("TIPO BALANZA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold().setBackgroundColor(rgbColorPlomoBlanco)) ;
+        miTable.addCell(new Cell().add(new Paragraph("BASCULA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+        if(object2.getTipoBalanza().equalsIgnoreCase("BASCULA")) {
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        }
+
+        else {
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        }
+
+
+
+        miTable.addCell(new Cell().add(new Paragraph("DIGITAL").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+        if(object2.getTipoBalanza().equalsIgnoreCase("DIGITAL")) {
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        }
+
+        else {
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+        }
+
+
+
+
+
+/***BALANZA DE REPESA/
+ */
+
+
+        miTable.addCell(new Cell().add(new Paragraph("BALANZA DE REPESA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold().setBackgroundColor(rgbColorPlomoBlanco)) ;
+        miTable.addCell(new Cell().add(new Paragraph("SI").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+        if(object2.isHayBalanzaRepesa()) {
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7f).setPaddingLeft(10f))) ;
+        }
+
+        else {
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f))) ;
+        }
+
+
+
+        miTable.addCell(new Cell().add(new Paragraph("NO").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+        if(!object2.isHayBalanzaRepesa()) {
+            miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7f).setPaddingLeft(10f))) ;
+        }
+
+        else {
+            miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f))) ;
+        }
+
+
+
+        //////// //si hay balanza de repeso
+        if(object2.isHayBalanzaRepesa()){
+            miTable.addCell(new Cell().add(new Paragraph("TIPO DE BALANZA DE REPESA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBold().setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+            miTable.addCell(new Cell().add(new Paragraph("BASCULA").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+
+            if(object2.getTipoBalanzaRepesa().equalsIgnoreCase("bascula")) {
+                miTable.addCell(new Cell().add(new Paragraph(" X ").setFont(font).setFontSize(7f).setPaddingLeft(10f))) ;
+            }
+
+            else {
+                miTable.addCell(new Cell().add(new Paragraph(" ").setFont(font).setFontSize(7.5f).setPaddingLeft(10f))) ;
+            }
+
+
+
+            miTable.addCell(new Cell().add(new Paragraph("DIGITAL").setFont(font).setFontSize(7.5f).setPaddingLeft(10f)).setBackgroundColor(rgbColorPlomoBlanco)) ;
+
+
+            if(!object2.getTipoBalanzaRepesa().equalsIgnoreCase("DIGITAL")) {
+                miTable.addCell(new Cell().add(new Paragraph(" X ").setFontSize(7f).setPaddingLeft(10f))) ;
+            }
+
+            else {
+                miTable.addCell(new Cell().add(new Paragraph(" ").setFontSize(7.5f).setPaddingLeft(10f))) ;
             }
 
 
@@ -1736,6 +2608,574 @@ if(contadorProductsPostCosecha>10){
     }
 
 
+    public static  Table createTABLEcalendarioEnfude(CalibrFrutCalEnf inform){
+
+
+        float araycolumccc[]= {1,1,1,1};
+       Table table1X=  new Table(araycolumccc);
+
+
+        Cell cellHeader2= new Cell(1,4).setBackgroundColor(rgbColorAzulClaro);
+        cellHeader2.add(new Paragraph("CALIBRACIÓN DE FRUTA(CALENDARIO DE ENFUNDE)").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
+        table1X.addCell(cellHeader2);
+
+
+        Cell cellSemana= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
+        cellSemana.add(new Paragraph(" SEMANA ").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
+
+        table1X.addCell(cellSemana);
+
+
+
+        Cell cellColor= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
+        cellColor.add(new Paragraph(" COLOR ").setBold().setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f));
+
+        table1X.addCell(cellColor);
+
+
+        Cell cellNUMrAC= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
+        cellNUMrAC.add(new Paragraph("NUMERACIÓN RACIMOS ").setBold().setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f));
+        table1X.addCell(cellNUMrAC);
+
+
+        Cell cellPorcent= new Cell(1,1).setBackgroundColor(rgbColorDurazno);
+        cellPorcent.add(new Paragraph(" PORCENTAJE ").setBold().setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f));
+        table1X.addCell(cellPorcent);
+
+
+        ArrayList<String> values= new ArrayList<>();
+
+        String [] arrayporcentaje;
+
+        String remplace;
+
+        values.add(" 14 ");
+        values.add(inform.getColorSemana14());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem14()));
+        // values.add(inform.getPorc14());
+
+        if(!inform.getPorc14().trim().isEmpty()){
+            remplace=inform.getPorc14().replace(",", ".");
+            inform.setPorc14(remplace);
+
+            if(inform.getPorc14().contains(".")) { ///40
+                arrayporcentaje=inform.getPorc14().split("\\.");
+
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc14(inform.getPorc14()+"0");
+                }
+            }else{
+                inform.setPorc14(inform.getPorc14()+".00");
+
+
+            }
+
+            values.add(inform.getPorc14()+"%");
+
+
+
+        }else{
+            values.add(inform.getPorc14());
+
+            Log.i("samerr","14 ES EMPTY");
+
+        }
+
+        values.add(" 13 ");
+        values.add(inform.getColorSemana13());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem13()));
+        //values.add(inform.getPorc13());
+
+        if(!inform.getPorc13().trim().isEmpty()){
+            remplace=inform.getPorc13().replace(",", ".");
+            inform.setPorc13(remplace);
+
+            arrayporcentaje=inform.getPorc13().split("\\.");
+
+            if(inform.getPorc13().contains(".")) {
+
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc13(inform.getPorc13()+"0");
+                }
+            }
+
+            else{
+                inform.setPorc13(inform.getPorc13()+".00");
+
+
+
+            }
+
+            values.add(inform.getPorc13()+"%");
+
+
+        }else
+            values.add(inform.getPorc13());
+
+        Log.i("samerr","13 ES EMPTY");
+
+
+        values.add(" 12 ");
+        values.add(inform.getColorSemana12());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem12()));
+        // values.add(inform.getPorc12());
+
+
+        if(!inform.getPorc12().trim().isEmpty()){
+
+            remplace=inform.getPorc12().replace(",", ".");
+            inform.setPorc12(remplace);
+            Log.i("samerr","el informe es "+inform.getPorc12());
+
+            arrayporcentaje=inform.getPorc12().split("\\.");
+
+            if(inform.getPorc12().contains(".")) {
+
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc12(inform.getPorc12()+"0");
+                }
+            }
+
+            else{
+
+                inform.setPorc12(inform.getPorc12()+".00");
+
+            }
+
+            values.add(inform.getPorc12()+"%");
+
+        }else
+            values.add(inform.getPorc12());
+
+        Log.i("samerr","12 ES EMPTY");
+
+
+        values.add(" 11 ");
+        values.add(inform.getColorSemana11());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem11()));
+
+
+        if(!inform.getPorc11().trim().isEmpty()){
+            remplace=inform.getPorc11().replace(",", ".");
+            inform.setPorc11(remplace);
+
+
+            arrayporcentaje=inform.getPorc11().split("\\.");
+
+
+            if(inform.getPorc11().contains(".")) {
+
+
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc11(inform.getPorc11()+"0");
+                }
+
+            }else{
+                inform.setPorc11(inform.getPorc11()+".00");
+
+
+            }
+
+            values.add(inform.getPorc11()+"%");
+
+
+
+
+        }else
+            values.add(inform.getPorc11());
+
+
+        values.add(" 10 ");
+        values.add(inform.getColorSemana10());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem10()));
+
+        if(!inform.getPorc10().trim().isEmpty()){
+            remplace=inform.getPorc10().replace(",", ".");
+            inform.setPorc10(remplace);
+
+            arrayporcentaje=inform.getPorc10().split("\\.");
+
+            if(inform.getPorc10().contains(".")) {
+                if(arrayporcentaje[1].length()==1) { //SI TIene
+                    inform.setPorc10("0"+inform.getPorc10());
+                }
+            }
+            else{
+                inform.setPorc10(inform.getPorc10()+".00");
+
+
+
+            }
+
+
+
+
+            values.add(inform.getPorc10()+"%");
+
+        }else
+            values.add(inform.getPorc10());
+
+
+
+
+
+        values.add(" 9 ");
+        values.add(inform.getColorSemana9()); //CORREGIR
+        values.add(String.valueOf(inform.getNumeracionRacimosSem9()));
+
+
+
+        if(!inform.getPorc9().trim().isEmpty()){
+            remplace=inform.getPorc9().replace(",", ".");
+            inform.setPorc9(remplace);
+
+            arrayporcentaje=inform.getPorc9().split("\\.");
+
+            if(inform.getPorc9().contains(".")){
+                if(arrayporcentaje[1].length()==1) { //SI TIene
+                    inform.setPorc9("0"+inform.getPorc9());
+                }
+
+            }
+            else{
+                inform.setPorc9(inform.getPorc9()+".00");
+
+
+
+            }
+
+
+
+
+
+            values.add(inform.getPorc9()+"%");
+
+        }
+
+        else
+            values.add(inform.getPorc9());
+
+
+
+
+
+
+        int  [] arranumsAddOtherFontSize  = {0,4,8,12,16,20} ;
+
+
+        for (int i = 0; i < values.size(); i++) {
+
+            Cell cellNUMrACx= new Cell(1,1);
+
+            if(Arrays.asList(arranumsAddOtherFontSize).contains(i)){
+
+                cellNUMrACx.add(new Paragraph(values.get(i)).
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
+
+            }else{
+
+                cellNUMrACx.add(new Paragraph(values.get(i)).
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8f));
+            }
+
+            table1X.addCell(cellNUMrACx);
+
+
+        }
+
+        return table1X;
+    }
+
+
+    public static  Table createTABLEcalendarioEnfudeToCamionesYcarretas(CalibrFrutCalEnf inform){
+        Log.i("sellamo","se llamo esto first ");
+
+
+        float araycolumccc[]= {1,1,1,1};
+        Table table1X=  new Table(araycolumccc);
+
+
+        Cell cellHeader2= new Cell(1,4).setBackgroundColor(rgbColorDurazno);
+        cellHeader2.add(new Paragraph("CALIBRACIÓN DE FRUTA(CALENDARIO DE ENFUNDE)").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
+        table1X.addCell(cellHeader2);
+
+
+        Cell cellSemana= new Cell(1,1).setBackgroundColor(rgbColorVerdeCana);
+        cellSemana.add(new Paragraph(" SEMANA ").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
+
+        table1X.addCell(cellSemana);
+
+
+
+        Cell cellColor= new Cell(1,1).setBackgroundColor(rgbColorVerdeCana);
+        cellColor.add(new Paragraph(" COLOR ").setBold().setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f));
+
+        table1X.addCell(cellColor);
+
+
+        Cell cellNUMrAC= new Cell(1,1).setBackgroundColor(rgbColorVerdeCana);
+        cellNUMrAC.add(new Paragraph("NUMERACIÓN RACIMOS ").setBold().setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f));
+        table1X.addCell(cellNUMrAC);
+
+
+        Cell cellPorcent= new Cell(1,1).setBackgroundColor(rgbColorVerdeCana);
+        cellPorcent.add(new Paragraph(" PORCENTAJE ").setBold().setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(8f));
+        table1X.addCell(cellPorcent);
+
+
+        ArrayList<String> values= new ArrayList<>();
+
+        String [] arrayporcentaje;
+
+        String remplace;
+
+        values.add(" 14 ");
+        values.add(inform.getColorSemana14());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem14()));
+        // values.add(inform.getPorc14());
+
+        if(!inform.getPorc14().trim().isEmpty()){
+            remplace=inform.getPorc14().replace(",", ".");
+            inform.setPorc14(remplace);
+
+            if(inform.getPorc14().contains(".")) { ///40
+                arrayporcentaje=inform.getPorc14().split("\\.");
+
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc14(inform.getPorc14()+"0");
+                }
+            }else{
+                inform.setPorc14(inform.getPorc14()+".00");
+
+
+            }
+
+            values.add(inform.getPorc14()+"%");
+
+
+
+        }else{
+            values.add(inform.getPorc14());
+
+            Log.i("samerr","14 ES EMPTY");
+
+        }
+
+        values.add(" 13 ");
+        values.add(inform.getColorSemana13());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem13()));
+        //values.add(inform.getPorc13());
+
+        if(!inform.getPorc13().trim().isEmpty()){
+            remplace=inform.getPorc13().replace(",", ".");
+            inform.setPorc13(remplace);
+
+            arrayporcentaje=inform.getPorc13().split("\\.");
+
+            if(inform.getPorc13().contains(".")) {
+
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc13(inform.getPorc13()+"0");
+                }
+            }
+
+            else{
+                inform.setPorc13(inform.getPorc13()+".00");
+
+
+
+            }
+
+            values.add(inform.getPorc13()+"%");
+
+
+        }else
+            values.add(inform.getPorc13());
+
+        Log.i("samerr","13 ES EMPTY");
+
+
+        values.add(" 12 ");
+        values.add(inform.getColorSemana12());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem12()));
+        // values.add(inform.getPorc12());
+
+
+        if(!inform.getPorc12().trim().isEmpty()){
+
+            remplace=inform.getPorc12().replace(",", ".");
+            inform.setPorc12(remplace);
+            Log.i("samerr","el informe es "+inform.getPorc12());
+
+            arrayporcentaje=inform.getPorc12().split("\\.");
+
+            if(inform.getPorc12().contains(".")) {
+
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc12(inform.getPorc12()+"0");
+                }
+            }
+
+            else{
+
+                inform.setPorc12(inform.getPorc12()+".00");
+
+            }
+
+            values.add(inform.getPorc12()+"%");
+
+        }else
+            values.add(inform.getPorc12());
+
+        Log.i("samerr","12 ES EMPTY");
+
+
+        values.add(" 11 ");
+        values.add(inform.getColorSemana11());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem11()));
+
+
+        if(!inform.getPorc11().trim().isEmpty()){
+            remplace=inform.getPorc11().replace(",", ".");
+            inform.setPorc11(remplace);
+
+
+            arrayporcentaje=inform.getPorc11().split("\\.");
+
+
+            if(inform.getPorc11().contains(".")) {
+
+
+                if (arrayporcentaje[1].length() == 1) { //SI TIene
+                    inform.setPorc11(inform.getPorc11()+"0");
+                }
+
+            }else{
+                inform.setPorc11(inform.getPorc11()+".00");
+
+
+            }
+
+            values.add(inform.getPorc11()+"%");
+
+
+
+
+        }else
+            values.add(inform.getPorc11());
+
+
+        values.add(" 10 ");
+        values.add(inform.getColorSemana10());
+        values.add(String.valueOf(inform.getNumeracionRacimosSem10()));
+
+        if(!inform.getPorc10().trim().isEmpty()){
+            remplace=inform.getPorc10().replace(",", ".");
+            inform.setPorc10(remplace);
+
+            arrayporcentaje=inform.getPorc10().split("\\.");
+
+            if(inform.getPorc10().contains(".")) {
+                if(arrayporcentaje[1].length()==1) { //SI TIene
+                    inform.setPorc10("0"+inform.getPorc10());
+                }
+            }
+            else{
+                inform.setPorc10(inform.getPorc10()+".00");
+
+
+
+            }
+
+
+
+
+            values.add(inform.getPorc10()+"%");
+
+        }else
+            values.add(inform.getPorc10());
+
+
+
+
+
+        values.add(" 9 ");
+        values.add(inform.getColorSemana9()); //CORREGIR
+        values.add(String.valueOf(inform.getNumeracionRacimosSem9()));
+
+
+
+        if(!inform.getPorc9().trim().isEmpty()){
+            remplace=inform.getPorc9().replace(",", ".");
+            inform.setPorc9(remplace);
+
+            arrayporcentaje=inform.getPorc9().split("\\.");
+
+            if(inform.getPorc9().contains(".")){
+                if(arrayporcentaje[1].length()==1) { //SI TIene
+                    inform.setPorc9("0"+inform.getPorc9());
+                }
+
+            }
+            else{
+                inform.setPorc9(inform.getPorc9()+".00");
+
+
+
+            }
+
+
+
+
+
+            values.add(inform.getPorc9()+"%");
+
+        }
+
+        else
+            values.add(inform.getPorc9());
+
+
+
+
+
+
+        int  [] arranumsAddOtherFontSize  = {0,4,8,12,16,20} ;
+
+
+        for (int i = 0; i < values.size(); i++) {
+
+            Cell cellNUMrACx= new Cell(1,1);
+
+            if(Arrays.asList(arranumsAddOtherFontSize).contains(i)){
+                cellNUMrACx.add(new Paragraph(values.get(i)).
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
+
+             //   cellNUMrACx.setBackgroundColor(rgbColorPlomoBlanco);
+
+
+                Log.i("sellamo","se llamo esto ");
+
+            }else{
+
+                cellNUMrACx.add(new Paragraph(values.get(i)).
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8f));
+            }
+
+            if(values.get(i).equals(" 14 ") ||values.get(i).equals(" 13 ")|| values.get(i).equals(" 12 ")||values.get(i).equals(" 11 ")
+            ||values.get(i).equals(" 10 ")|| values.get(i).equals(" 9 ")){
+                cellNUMrACx.setBackgroundColor(rgbColorPlomoBlanco);
+
+            }
+
+
+            table1X.addCell(cellNUMrACx);
+
+
+        }
+
+        return table1X;
+    }
 
 
     public static Table descripciondEFECXTOSFRUTA(Table table){
@@ -1890,6 +3330,10 @@ if(contadorProductsPostCosecha>10){
                 R.id.edif2NdedoXclustxC5, R.id.edif2NdedoXclustxC6, R.id.edif2NdedoXclustxC7, R.id.edif2NdedoXclustxC8, R.id.edif2NdedoXclustxC9, R.id.edif2NdedoXclustxC10
                 , R.id.edif2NdedoXclustxC11, R.id.edif2NdedoXclustxC12, R.id.edif2NdedoXclustxC13, R.id.edif2NdedoXclustxC14, R.id.edif2NdedoXclustxC15, R.id.edif2NdedoXclustxC16,
                 R.id.edif2NdedoXclustxC17, R.id.edif2NdedoXclustxC18};
+
+
+
+
 
         int[] keyaRRAYnumClustXcajaLine2 = {R.id.ediNdedoXclustXc1, R.id.ediNdedoXclustXc2, R.id.ediNdedoXclustXc3, R.id.ediNdedoXclustXc4,
                 R.id.ediNdedoXclustXc5, R.id.ediNdedoXclustXc6, R.id.ediNdedoXclustXc7, R.id.ediNdedoXclustXc8, R.id.ediNdedoXclustXc9, R.id.ediNdedoXclustXc10
@@ -2905,10 +4349,10 @@ if(contadorProductsPostCosecha>10){
 
 
 
-    public static Paragraph generateTexCertificoLaCALIDAD(String marcaCurrent){
+    public static Paragraph generateTexCertificoLaCALIDAD(String marcaCurrent,String semana){
 
         Text certico = new Text("Certifico la calidad y porcentaje de calidad ").setFontSize(8);
-        Text semanaNum = new Text("Semana "+Variables.CurrenReportPart1.getSemana()).setBold().setFontSize(8);
+        Text semanaNum = new Text("Semana "+semana).setBold().setFontSize(8);
         Text marcax = new Text(", marca ").setFontSize(8);
         Text marca = new Text(marcaCurrent.toUpperCase()).setFontSize(8).setBold();
 
@@ -3413,7 +4857,7 @@ int contadorAlldefectos=0;
         ArrayList<String>listDatsEvaluadores= new ArrayList<>();
 
         if(objectDatosHaCIENDA.getExtensionistCalid().trim().length()>1){
-           numClumnas++;
+            numClumnas++;
             listDatsEvaluadores.add("Sr. "+objectDatosHaCIENDA.getExtensionistCalid().toUpperCase());
         }
 
@@ -3428,7 +4872,7 @@ int contadorAlldefectos=0;
         }
 
 
-              //ahora los titulos
+        //ahora los titulos
         if(objectDatosHaCIENDA.getExtensionistCalid().trim().length()>1){
             listDatsEvaluadores.add("Inspector de calidad");
 
@@ -3440,6 +4884,74 @@ int contadorAlldefectos=0;
         }
 
         if(objectDatosHaCIENDA.getExtensionistEnGancho().trim().length()>1){
+            listDatsEvaluadores.add("Inspector de Gancho");
+
+        }
+
+
+
+
+
+
+
+        Table table1= new Table(numClumnas);
+
+        for(String value:listDatsEvaluadores){
+            Paragraph paragraph= new Paragraph(value).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f);
+            Cell cell1 = new Cell().setBorder(Border.NO_BORDER);
+            cell1.add(paragraph);
+            table1.addCell(cell1);
+
+
+        }
+
+        table1.setWidth(sizeDocument-200f);
+        // table1.setMarginLeft(70f);
+        table1.setMarginTop(10f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+        return table1;
+    }
+
+
+    public static Table generaTableInspectores(ReportCamionesyCarretas objectDatosHaCIENDA, float sizeDocument){
+        /**NOMBRE DE LOS INSPECTORES*/
+        int numClumnas=0;
+
+      //  Log.i("extensionista","el getExtensionistCalid es "+objectDatosHaCIENDA.getExtensionistCalid());
+      //  Log.i("extensionista","el getCI_extensionistCalid  es "+objectDatosHaCIENDA.getCI_extensionistCalid());
+
+
+        ArrayList<String>listDatsEvaluadores= new ArrayList<>();
+
+        if(objectDatosHaCIENDA.getExtensionistaEnCalidad().trim().length()>1){
+           numClumnas++;
+            listDatsEvaluadores.add("Sr. "+objectDatosHaCIENDA.getExtensionistaEnCalidad().toUpperCase());
+        }
+
+        if(objectDatosHaCIENDA.getExtensionistaEnRodillo().trim().length()>1){
+            numClumnas++;
+            listDatsEvaluadores.add("Sr. "+objectDatosHaCIENDA.getExtensionistaEnRodillo().toUpperCase());
+        }
+
+        if(objectDatosHaCIENDA.getExtensionistaEnGancho().trim().length()>1){
+            numClumnas++;
+            listDatsEvaluadores.add("Sr. "+objectDatosHaCIENDA.getExtensionistaEnGancho().toUpperCase());
+        }
+
+
+              //ahora los titulos
+        if(objectDatosHaCIENDA.getExtensionistaEnCalidad().trim().length()>1){
+            listDatsEvaluadores.add("Inspector de calidad");
+
+        }
+
+        if(objectDatosHaCIENDA.getExtensionistaEnRodillo().trim().length()>1){
+            listDatsEvaluadores.add("Inspector de rodillo");
+
+        }
+
+        if(objectDatosHaCIENDA.getExtensionistaEnGancho().trim().length()>1){
             listDatsEvaluadores.add("Inspector de Gancho");
 
         }

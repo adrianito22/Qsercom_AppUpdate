@@ -9,6 +9,26 @@ public class ReportCamionesyCarretas {
 
     private String exportadoraProcesada;
     private String  nombreRevisa;
+    private String atachControCalidadInfrms;
+    private String atachControCuadroMuestreo;
+
+    public String getAtachControCalidadInfrms() {
+        return atachControCalidadInfrms;
+    }
+
+    public void setAtachControCalidadInfrms(String atachControCalidadInfrms) {
+        this.atachControCalidadInfrms = atachControCalidadInfrms;
+    }
+
+    public String getAtachControCuadroMuestreo() {
+        return atachControCuadroMuestreo;
+    }
+
+    public void setAtachControCuadroMuestreo(String atachControCuadroMuestreo) {
+        this.atachControCuadroMuestreo = atachControCuadroMuestreo;
+    }
+
+
 
     public void setNombreRevisa(String nombreRevisa) {
         this.nombreRevisa = nombreRevisa;
@@ -393,6 +413,16 @@ public class ReportCamionesyCarretas {
         this.extensionistaEnGancho = extensionistaEnGancho;
     }
 
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    private String marca;
+
     private String cedula;
     private String celular;
     private String placa;
@@ -520,7 +550,7 @@ public class ReportCamionesyCarretas {
                                    int racimosCosechados, int racimosRechazados, int racimosProcesados, int cajasProcesadasDespachadas,
                                    String extensionistaEnCalidad, String extensionistaEnRodillo, String extensionistaEnGancho
                                    , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc, String nodoQueContieneMapPesoBrutoCloster2y3l
-                                   , String clienteReporte, String tipoBoquilla, String exportadoraProcesada, String exportadoraSolicitante
+                                   , String clienteReporte, String tipoBoquilla, String exportadoraProcesada, String exportadoraSolicitante,String marca
 
 
 
@@ -590,6 +620,10 @@ public class ReportCamionesyCarretas {
 
         nombreRevisa="";
         codigonRevisa="";
+        this.marca=marca;
+
+          atachControCalidadInfrms="";
+         atachControCuadroMuestreo="";
 
 
     }

@@ -2521,9 +2521,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
             else {
 
-
                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
+
+
             }
 
 

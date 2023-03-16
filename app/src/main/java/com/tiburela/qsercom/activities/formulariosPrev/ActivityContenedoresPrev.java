@@ -171,22 +171,10 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     private Spinner spFuenteAgua;
     private Spinner spFumigaCorL1;
     ImageView imgAtachVinculacion;
-    RecyclerView reciclerViewBottomSheet;
-    TextView txtAdviseer;
-    TextView txtAdviserDesvicunlar;
-    ArrayList<ControlCalidad> listFormsControlCalidad = new ArrayList<>();
-    ArrayList<CuadroMuestreo> listCuadrosMuestreos = new ArrayList<>();
-
-    HashMap<String, CuadroMuestreo> mapCudroMuestreo = new HashMap<>();
-    HashMap<String, ControlCalidad> mapControlCalidad = new HashMap<>();
-
 
     TextView txtNumReportsVinclds;
 
-
-    ArrayList<CheckedAndAtatch> checkedListForms = new ArrayList<>();
     private long millisDateSelect = 0;
-    BottomSheetDialog bottomSheetDialog;
 
     private Spinner spTipoBoquilla;
     private static int currentTypeImage = 0;
@@ -2185,7 +2173,7 @@ else{
 
         if(ediNombreRevisa.getText().toString().equals("")){
             ediNombreRevisa.requestFocus();
-            ediNombreRevisa.setError("Agrega un nombre del que reviso");
+            ediNombreRevisa.setError("Agrega un nombre del que revisó");
             return;
         }
 
@@ -2193,7 +2181,7 @@ else{
 
         if(ediCodigoRevisa.getText().toString().equals("")){
             ediCodigoRevisa.requestFocus();
-            ediCodigoRevisa.setError("Agrega un codigo del que reviso");
+            ediCodigoRevisa.setError("Agrega un codigo del que revisó");
             return;
         }
 
@@ -2372,12 +2360,10 @@ else{
                 ediNumSerieFunda.getText().toString(), stikVentolerExterna.getText().toString(),
                 ediCableRastreoLlegada.getText().toString(), ediSelloPlasticoNaviera.getText().toString(), FieldOpcional.otrosSellosLLegaEspecif,
                 ediClienteNombreReporte.getText().toString());
-        Variables.CurrenReportPart1.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
-
+       // Variables.CurrenReportPart1.setKeyFirebase(Variables.CurrenReportPart1.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
         Variables.CurrenReportPart1.setAtachControCalidadInfrms(atachViucladoControlCalidad);
         Variables.CurrenReportPart1.setAtachControCuadroMuestreo(atachViucladoCuadroX);
-
         Variables.CurrenReportPart1.setNombreRevisa(ediNombreRevisa.getText().toString());
         Variables.CurrenReportPart1.setCodigonRevisa(ediCodigoRevisa.getText().toString());
 
@@ -2422,7 +2408,7 @@ else{
                 , switchHaybalanza.isChecked(), switchHayEnsunchado.isChecked(), spinnertipodePlastico.getSelectedItem().toString(),
                 switchBalanzaRep.isChecked(), spinnerubicacionBalanza.getSelectedItem().toString(), ediTipoBalanza.getText().toString(), ediBalanzaRepeso.getText().toString());
 
-        Variables.CurrenReportPart2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+     //   Variables.CurrenReportPart2.setKeyFirebase(Variables.CurrenReportPart2.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
         Variables.CurrenReportPart3 = new SetInformDatsHacienda(spFuenteAgua.getSelectedItem().toString(), swAguaCorrida.isChecked(), switchLavdoRacimos.isChecked(),
@@ -2439,7 +2425,7 @@ else{
 
         updateDatosEvaludoresOFinforme3(Variables.CurrenReportPart3);
 
-        Variables.CurrenReportPart3.setKeyFirebase(Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
+       // Variables.CurrenReportPart3.setKeyFirebase(Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
 
 
         updateCaledarioEnfunde(Variables.CurrenReportPart3);
@@ -4682,7 +4668,7 @@ else{
 
                     DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
-                } else { //sino hay ningun cuadro muestreo;
+                } else {
 
                     btnGENERARpdf.setEnabled(true);
 
@@ -4937,12 +4923,6 @@ else{
 
         return true;
 
-    }
-
-
-    private boolean checkDataCalibFrutaCalEnfn() {
-        //le decimos que esta todo bien y omitiremos estos datos....
-        return true;
     }
 
 

@@ -2003,7 +2003,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
                 ediExtCalid.getText().toString(),ediExtRodillo.getText().toString(), ediExtGancho.getText().toString(),
                 ediExtCalidCi.getText().toString(),ediExtRodilloCi.getText().toString(),ediExtGanchoCi.getText().toString(),FieldOpcional.observacionOpcional,""
                 ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString(),
-                ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString()
+                ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString(),ediMarca.getText().toString()
 
         ) ;
 
@@ -2037,6 +2037,15 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
     HashMap<String, Float> generateMapLibriadoIfExistAndUpload(){
+
+        EditText        ediMarcaCol1 = findViewById(R.id.ediMarcaCol1);
+        EditText        ediMarcaCol2 = findViewById(R.id.ediMarcaCol2);
+        EditText        ediMarcaCol3 = findViewById(R.id.ediMarcaCol3);
+        EditText        ediMarcaCol4 = findViewById(R.id.ediMarcaCol4);
+        EditText        ediMarcaCol5 = findViewById(R.id.ediMarcaCol5);
+
+
+
 
 
         EditText        pbCluster01 = findViewById(R.id.pbCluster01);
@@ -2132,6 +2141,8 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
 
         EditText [] miArray= {
+                ediMarcaCol1,ediMarcaCol2,ediMarcaCol3,ediMarcaCol4,ediMarcaCol5,
+
                 pbCluster01, pbCluster05, pbCluster03, pbCluster02, pbCluster04, pbCluster010, pbCluster09, pbCluster07, pbCluster08, pbCluster06, pbCluster011,
                 pbCluster015, pbCluster012, pbCluster013, pbCluster014, pbCluster016, pbCluster019, pbCluster018, pbCluster020, pbCluster017, pbCluster025,
                 pbCluster024 ,pbCluster023, pbCluster022, pbCluster021, pbCluster028, pbCluster027, pbCluster029, pbCluster026, pbCluster030, pbCluster034,
@@ -2154,7 +2165,21 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
                 //le agregamos un slash al id key mas o menos este fomrato idddd/fil1
 
-                miMapData.put(String.valueOf(currentEdit.getId())+"-"+currentEdit.getTag(),Float.parseFloat(currentEdit.getText().toString()));
+                if(currentEdit.getId()==R.id.ediMarcaCol1 || currentEdit.getId()==R.id.ediMarcaCol2 || currentEdit.getId()==R.id.ediMarcaCol3
+                        ||currentEdit.getId()==R.id.ediMarcaCol4||currentEdit.getId()==R.id.ediMarcaCol5){
+
+                    miMapData.put(currentEdit.getText().toString() + "-" +currentEdit.getTag() , 9.999f);
+
+
+                }else{
+
+                    miMapData.put(currentEdit.getId()+"-"+currentEdit.getTag(),Float.parseFloat(currentEdit.getText().toString()));
+
+                }
+
+
+
+
             }
 
 
@@ -3400,45 +3425,47 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
                     switch (currentEditextColorSem.getId()){
 
-                        case R.id.ediColortSem14:
 
+                        case R.id.ediColortSem14:
                             calibrFrutCalEnf.setColorSemana14(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem14(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+
+                            //AQUI EL PARSE
+
+                            calibrFrutCalEnf.setNumeracionRacimosSem14(currentEditextNumRacims.getText().toString());
 
                             break;
                         case R.id.ediColortSem13:
                             calibrFrutCalEnf.setColorSemana13(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem13(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+
+
+                            calibrFrutCalEnf.setNumeracionRacimosSem13(currentEditextNumRacims.getText().toString());
 
                             break;
 
                         case R.id.ediColortSem12:
-
                             calibrFrutCalEnf.setColorSemana12(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem12(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem12(currentEditextNumRacims.getText().toString());
 
                             break;
 
                         case R.id.ediColortSem11:
-
                             calibrFrutCalEnf.setColorSemana11(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem11(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem11(currentEditextNumRacims.getText().toString());
 
                             break;
                         case R.id.ediColortSem10:
-
                             calibrFrutCalEnf.setColorSemana10(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem10(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem10(currentEditextNumRacims.getText().toString());
 
                             break;
                         case R.id.ediColortSem9:
-
                             calibrFrutCalEnf.setColorSemana9(currentEditextColorSem.getText().toString());
-                            calibrFrutCalEnf.setNumeracionRacimosSem9(Integer.parseInt(currentEditextNumRacims.getText().toString()));
+                            calibrFrutCalEnf.setNumeracionRacimosSem9(currentEditextNumRacims.getText().toString());
 
                             break;
 
                     }
+
 
                 }
 
@@ -3656,7 +3683,7 @@ public class ActivityReporteCalidadCamionesyCarretas extends AppCompatActivity i
 
         ArrayList<ImagenReport>lisFiltrada;
 
-        int []arrayTiposImagenes={Variables.PROCESO_FRUT_IN_FINCA,Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION};
+        int []arrayTiposImagenes={Variables.FOTO_PROCESO_FRUTA_FINCA,Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION};
 
         for(int indice=0; indice<arrayTiposImagenes.length; indice++){
 

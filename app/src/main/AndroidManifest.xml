@@ -32,6 +32,12 @@
 
 
 
+
+        <activity
+            android:name=".PdfMaker.PdfMakerCamionesyCarretas"
+            android:exported="true" />
+
+
         <activity
             android:name=".activities.othersActivits.PdfActivity"
             android:exported="true" />
@@ -153,16 +159,6 @@
         </activity>
         <activity
             android:name=".activities.othersActivits.ActivityGoogleDrive"
-            android:configChanges="orientation"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.othersActivits.MainActivity2"
-            android:configChanges="orientation"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.othersActivits.MainActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />

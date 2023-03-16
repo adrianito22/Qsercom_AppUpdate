@@ -270,7 +270,7 @@ public static  Context myContext;
     }
 
 
-    public static void updateCalidaCamionCarrretas( ReportCamionesyCarretas informeObjct,ReportCamionesyCarretas antiguoInformObject) {
+    public static void updateCalidaCamionCarrretas( ReportCamionesyCarretas informeObjct,ReportCamionesyCarretas antiguoInformObject,Context myContext) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("informeCamionesYcarretas");
 
@@ -288,11 +288,14 @@ public static  Context myContext;
                   public void onComplete(@NonNull Task<Void> task) {
                       if (task.isSuccessful()) {
 
+                           //un calllback de se actualizo informe...
 
-                          // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                          Log.i("upfste","se actualizo informe ");
+                           Toast.makeText(myContext, "Se actualizó informe", Toast.LENGTH_SHORT).show();
 
                       }else  {
 
+                          Toast.makeText(myContext, "Ocurrio un error :(", Toast.LENGTH_SHORT).show();
 
                       }
                   }
@@ -312,6 +315,10 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+
+                    Log.i("upfste","se actualizo jhasmap libriado ccc ");
+
+
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
                 }else  {
 
@@ -882,9 +889,9 @@ public static  Context myContext;
 
     }
 
-    public static void UpdateCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf,String keyNodeToUpdate) {
+    public static void UpdateCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf) {
 
-        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal").child(keyNodeToUpdate);
+        DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal").child(calibrFrutCalEnf.getKeyFirebase());
         // Map<String, Object> mapValues = informeObjct.toMap();
         //SUBE MAPA
         mibasedata.setValue(calibrFrutCalEnf).addOnCompleteListener(new OnCompleteListener<Void>() {

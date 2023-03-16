@@ -837,7 +837,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**TEXTO SEGUNDA LINEA*/
         //table1=  HelperPdf.generateTexCertificationTable("MARCA AQUI");
-        title=HelperPdf.generateTexCertificoLaCALIDAD(Variables.CurrenReportPart1.getMarrca());
+        title=HelperPdf.generateTexCertificoLaCALIDAD(Variables.CurrenReportPart1.getMarrca(),Variables.CurrenReportPart1.getSemana());
         title.setMarginLeft(60f);
 
         midocumentotoAddData.add(title);

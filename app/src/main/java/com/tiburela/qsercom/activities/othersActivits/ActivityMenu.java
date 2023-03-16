@@ -500,6 +500,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Log.i("ciclelife","onstart call");
         Variables.currentMapPreferences  =new HashMap<>();
         PerecentHelp.estateForm= new HashMap<>();
+
         PerecentHelp.listViewsClickedUser =new ArrayList<>();
         showDataByMode();
 

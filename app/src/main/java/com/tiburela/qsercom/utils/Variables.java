@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -121,12 +122,19 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
 
     public static SetInformEmbarque1 CurrenReportPart1;
     public static SetInformEmbarque2 CurrenReportPart2;
-
     public static SetInformDatsHacienda CurrenReportPart3;
-    public static ContenedoresEnAcopio CurrenReportContensEnACp;
+
+ public static CalibrFrutCalEnf CurrenCalibCalEnfunde;
+
+
+ public static ContenedoresEnAcopio CurrenReportContensEnACp;
     public static PackingListMod currenReportPackinList;
     public static ReportCamionesyCarretas currenReportCamionesyCarretas;
     public static    ColorCintasSemns  currentColorCIntas;
+
+    public static     CalibrFrutCalEnf calEnfundeGLOB;
+
+
     public static CuadroMuestreo currentcuadroMuestreo;
     public static ControlCalidad currenControlCalReport;
 

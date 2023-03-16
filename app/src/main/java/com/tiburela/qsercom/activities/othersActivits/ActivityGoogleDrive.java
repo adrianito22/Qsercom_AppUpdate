@@ -282,10 +282,12 @@ public class ActivityGoogleDrive extends AppCompatActivity {
 //
 //                            }
 //                        });
+
+              /*
                 Intent openActivity = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(openActivity);
 
-
+*/
 
             }
         });

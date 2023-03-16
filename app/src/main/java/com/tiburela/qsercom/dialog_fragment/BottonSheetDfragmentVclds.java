@@ -33,6 +33,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CheckedAndAtatch;
@@ -624,6 +625,12 @@ private void listternSpinner(){
 
             case Constants.PREV_CONTENEDORES:
                 ((ActivityContenedoresPrev)getActivity()).updateVinucladosObject();
+
+                break;
+
+
+            case Constants.PREV_CAMIONES_Y_CARRETAS:
+                ((PreviewCalidadCamionesyCarretas)getActivity()).updateVinucladosObject();
 
                 break;
 

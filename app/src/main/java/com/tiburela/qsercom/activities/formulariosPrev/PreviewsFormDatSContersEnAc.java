@@ -1589,7 +1589,7 @@ boolean checkDataFieldsToUploadAndGeneratePdf(boolean isGeneratePdf){ //
         if(isGeneratePdf){
             if(ediNombreRevisa.getText().toString().equals("")){
                 ediNombreRevisa.requestFocus();
-                ediNombreRevisa.setError("Agrega un nombre del que reviso");
+                ediNombreRevisa.setError("Agrega un nombre del que revisó");
                 return false;
             }
 
@@ -1597,7 +1597,7 @@ boolean checkDataFieldsToUploadAndGeneratePdf(boolean isGeneratePdf){ //
 
             if(ediCodigoRevisa.getText().toString().equals("")){
                 ediCodigoRevisa.requestFocus();
-                ediCodigoRevisa.setError("Agrega un codigo del que reviso");
+                ediCodigoRevisa.setError("Agrega un codigo del que revisó");
                 return false;
             }
         }

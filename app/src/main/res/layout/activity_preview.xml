@@ -477,6 +477,7 @@
                     android:background="@drawable/btn"
                     android:text="Marcar como Revisado" />
 
+
                 <Button
                     android:id="@+id/btnGENERARpdf"
                     android:layout_width="match_parent"

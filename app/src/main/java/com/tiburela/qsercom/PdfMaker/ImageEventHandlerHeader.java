@@ -93,7 +93,7 @@ public class ImageEventHandlerHeader implements IEventHandler {
     @Override
     public void handleEvent(Event event) {
 
-        if(Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW) {
+        if(Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW || Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview) {
             addImage(event);
 
         }else{

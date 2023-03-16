@@ -185,12 +185,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                     btnDescargar.setEnabled(false);
                 }
 
-
-
-
-
                 try {
-
 
                         if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED &&
@@ -204,24 +199,15 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
                         HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
 
-                        createPDFContenedores() ;
+                        createPDFCamionesyCarretas() ;
 
                             Toast.makeText(PdfMakerCamionesyCarretas.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
-
-
 
                         }else{
                         Log.i("permisodd","no tiene ambos permisos ");
 
-
-
                         requestPermision(PdfMakerCamionesyCarretas.this);
 
-
-                       /*
-                        ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{WRITE_EXTERNAL_STORAGE},
-                                2);
-*/
                     }
 
 
@@ -244,23 +230,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             }
         });
 
-
-        Log.i("debbdf","activity donde vino es "+ActivityFormularioDondeVino);
-
-        if(ActivityFormularioDondeVino== Variables.FormPreviewContenedores){
-            Log.i("debbdf","es el primer if");
-
             Log.i("debbdf","el size de listReprsVinculads es: "+Variables.listReprsVinculads.size());
 
-            //obtenemos los hasmaps
-
-                 //TENEMOS UNA LISTA CON LSO REPORTES
-
-
             UpdateProgressAndText("Descargando Data",10);
-
-
-            Log.i("hameha","empezamos a crear data" );
 
 
                 for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
@@ -269,40 +241,8 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                         String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyWhereLocateasHmapFieldsRecha();
                     dowloadRecszCcalidadMapAndCallDowloadRechdz(currentlOCATIONwHEREisHAMAP, indice+1);
 
-
                 }
-
-
-
-
-
-                Log.i("debbdf","excelente create");
-        }
-
-
-
-        else if(ActivityFormularioDondeVino  == Variables.FormatDatsContAcopiPREVIEW){  //completar estos
-
-            Log.i("debbdf","es el segundo if");
-
-           // h
-
-        }else if (ActivityFormularioDondeVino  == Variables.FormCamionesyCarretasActivityPreview){
-            Log.i("debbdf","es el tercer if");
-
-
-        }
-
-
-
-
-
-
     }
-
-
-
-
 
   private  void UpdateProgressAndText(String texto,int progressPercent) {
 
@@ -315,11 +255,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-    public void createPDFContenedores() throws Exception {
+    public void createPDFCamionesyCarretas() throws Exception {
 
 
-
-        //prueba now
 
        int sizedd= Variables.listPromedioLibriado.size();
 
@@ -374,11 +312,16 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
          imageHeader.setFixedPosition(0, 650); // si no usamos este
          imageHeader.setMarginTop(0f); // de prueba
-        ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData);
 
+
+        Image imagBack=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.logo_qsercon_baclgg),1);
+        imagBack.setFixedPosition(100, 200); //probando posotion //estabe en 250
+        imagBack.setMarginTop(0f); // de prueba
+
+
+
+        ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData,imagBack);
         miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
-
-
 
         Rectangle remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
 
@@ -387,13 +330,6 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         Log.i("miodatr","el size de table es"+sizeTable);
 
-        Log.i("debian","sellamoaqui tambien ");
-
-        Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() en logo es ES "+y);
-
-
-        float position = midocumentotoAddData.getRenderer().getCurrentArea().getBBox().getTop();
-        Log.i("miodatr","el mi logoqsercom "+position);
 
 
         Image imglogqSercomfooterBacground=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.footer_pdf),1);
@@ -406,12 +342,13 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         Table tableTitle=  new Table(1);
 
         /**TABLE TITULO EXPORTADORA SOLICTADA yPosicion procesada*/
-        Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
-        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITANTE "+Variables.CurrenReportPart1.getExportadoraSolicitante().toUpperCase()+" MARCA "+" "+Variables.CurrenReportPart1.getMarrca().toUpperCase())
-                .setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE DE CALIDAD CAMIONES Y CARRETAS ").setFontColor(HelperPdf.rgbColorVerdeCanaFuerte).setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+        Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITANTE "+Variables.currenReportCamionesyCarretas.getExportadoraSolicitante().toUpperCase()+" MARCA "+" "+Variables.currenReportCamionesyCarretas.getMarca().toUpperCase())
+                .setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold().setFontColor(HelperPdf.rgbColorVerdeCanaFuerte));
         Cell cell3= new Cell().setBorder(Border.NO_BORDER)
-                .add(new Paragraph("EXPORTADORA PROCESADA "+Variables.CurrenReportPart1.getExportadoraProcesada()+" "+Variables.CurrenReportPart1.getUniqueIDinforme().toUpperCase()).
-                        setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+                .add(new Paragraph("EXPORTADORA PROCESADA "+Variables.currenReportCamionesyCarretas.getExportadoraProcesada()+" "+Variables.currenReportCamionesyCarretas.getUniqueIDinforme().toUpperCase()).
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold().setFontColor(HelperPdf.rgbColorVerdeCanaFuerte));
+
 
         tableTitle.addCell(cell1);
         tableTitle.addCell(cell2);
@@ -436,31 +373,30 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         /**add primer cuadro..*/
         //crea list de celds...yPosicion add values...
-        ArrayList<NameAndValue>dataTOtable1=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,1,Variables.currenProductPostCosecha);
+        ArrayList<NameAndValue>dataTOtable1=HelperPdf.generaDataToTable(Variables.currenReportCamionesyCarretas,1,Variables.currenProductPostCosecha);
         HashMap<String,Cell> mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable1,50,0);
 
 
-
         //editamos la tabla 1
-        mapCellsToTabCurrentTab.get("0name").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
-        mapCellsToTabCurrentTab.get("0value").setBackgroundColor(HelperPdf.rgbColorVerdeCana);
+        mapCellsToTabCurrentTab.get("0name").setBackgroundColor(HelperPdf.rgbColorDurazno).setBold();
+        mapCellsToTabCurrentTab.get("0value").setBackgroundColor(HelperPdf.rgbColorDurazno).setBold();
 
-        mapCellsToTabCurrentTab.get("0name").setBold();
-        mapCellsToTabCurrentTab.get("0value").setBold();
+     //   mapCellsToTabCurrentTab.get("0name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+     //   mapCellsToTabCurrentTab.get("0value").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
 
         //
-        mapCellsToTabCurrentTab.get("1name").setBold();
-        mapCellsToTabCurrentTab.get("2name").setBold();
-        mapCellsToTabCurrentTab.get("3name").setBold();
-        mapCellsToTabCurrentTab.get("4name").setBold();
-        mapCellsToTabCurrentTab.get("5name").setBold();
-        mapCellsToTabCurrentTab.get("6name").setBold();
-        mapCellsToTabCurrentTab.get("7name").setBold();
-        mapCellsToTabCurrentTab.get("8name").setBold();
-        mapCellsToTabCurrentTab.get("9name").setBold();
-        mapCellsToTabCurrentTab.get("10name").setBold();
-        mapCellsToTabCurrentTab.get("11name").setBold();
-        mapCellsToTabCurrentTab.get("12name").setBold();
+        mapCellsToTabCurrentTab.get("1name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("2name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("3name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("4name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("5name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("6name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("7name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("8name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("9name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("10name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("11name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("12name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
 
 
 
@@ -479,10 +415,12 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         float sizeColumns2[]= {190,1};
         table1=  new Table(sizeColumns2);
 
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f).setBold()
+        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFontSize(8f).setBold()
                 .setTextAlignment(TextAlignment.CENTER)) ;
 
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorDurazno); //editamos el color
+        cell0.setPaddingBottom(0f);
+        table1.setPaddingBottom(0f);
         table1.addCell(cell0);
 
 
@@ -490,7 +428,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
         if(numProductsPostcosecha<=4){
-            ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
+            ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.currenReportCamionesyCarretas,2,Variables.currenProductPostCosecha);
             mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
             ///productos postcosecha
             ///
@@ -498,8 +436,8 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             for(int indice=0; indice<mapCellsToTabCurrentTab.size()/2; indice++){
               try {
 
-                  mapCellsToTabCurrentTab.get(indice+"name").setBold();
-                  mapCellsToTabCurrentTab.get(indice+"value").setBold();
+                  mapCellsToTabCurrentTab.get(indice+"name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+                  mapCellsToTabCurrentTab.get(indice+"value").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
               } catch (Exception e) {
                   throw new RuntimeException(e);
               }
@@ -510,12 +448,20 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
             addCellsInTable(mapCellsToTabCurrentTab,table1);
 
-        }else{
+        }
+
+        else
+
+        {
 
             HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+           // cell0.setPaddingBottom(0f);
+            table1.setPaddingBottom(0f);
             midocumentotoAddData.add(table1);
 
             table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha,contexto);
+            table1.setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+
 
         }
 
@@ -523,22 +469,23 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+        table1.setPaddingBottom(0f);
         midocumentotoAddData.add(table1);
 
         // table1.setMarginTop(10f);
 
-        /**DATOS  DE CONTENEDOR***/
+        /**DATOS  DE CONTENEDOR
 
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFont(HelperPdf.font).setFontSize(8f).setBold()) ;
+        cell0= new Cell(1,2).add(new Paragraph("DATOS DE CONTENEDOR").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
         ArrayList<NameAndValue>dataTOtable2;
 
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,3,Variables.currenProductPostCosecha);
+        dataTOtable2=HelperPdf.generaDataToTable(Variables.currenReportCamionesyCarretas1,Variables.currenReportCamionesyCarretas2,Variables.currenReportCamionesyCarretas3,3,Variables.currenProductPostCosecha);
         mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
         ///LA POSICION 5 LA EDITAMOS
 
@@ -556,20 +503,18 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         midocumentotoAddData.add(table1);
 
-        /**SELLOS DE LLEGADA*/
+*/
+        /**SELLOS DE LLEGADA
 
         table1=  new Table(sizeColumns2);
 
-        cell0= new Cell(1,2).add(new Paragraph("SELLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,2).add(new Paragraph("SELLOS LLEGADA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
-
-
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,4,Variables.currenProductPostCosecha);
+        dataTOtable2=HelperPdf.generaDataToTable(Variables.currenReportCamionesyCarretas1,Variables.currenReportCamionesyCarretas2,Variables.currenReportCamionesyCarretas3,4,Variables.currenProductPostCosecha);
         mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
-        ///LA POSICION 5 LA EDITAMOS
         mapCellsToTabCurrentTab.get("0name").setBold(); //editamos el color
         mapCellsToTabCurrentTab.get("1name").setBold(); //editamos el color
         mapCellsToTabCurrentTab.get("2name").setBold(); //editamos el color
@@ -583,20 +528,21 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         addCellsInTable(mapCellsToTabCurrentTab,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
+*/
 
         /**SELLOS INSTALADOS*/
 
-
+        /*
         float sizeColumns5[]= {190,2,1,1};
         table1=  new Table(sizeColumns5);
 
-        cell0= new Cell(1,4).add(new Paragraph("SELLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,4).add(new Paragraph("SELLOS INSTALADOS").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold()) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
 
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,5,Variables.currenProductPostCosecha);
+        dataTOtable2=HelperPdf.generaDataToTable(Variables.currenReportCamionesyCarretas1,Variables.currenReportCamionesyCarretas2,Variables.currenReportCamionesyCarretas3,5,Variables.currenProductPostCosecha);
         mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,600);
 
         //editamos otras columnas 10
@@ -626,9 +572,11 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
+        */
+
         /**TERMINA PRIMERA HOJA DEBERIA CREAR OTROA HOJA*/
 
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+   //     midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
         //agregamos el header
 
@@ -652,25 +600,32 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                 setTextAlignment(TextAlignment.CENTER).setFontSize(8f).
                 setFont(HelperPdf.font).setBold()) ;
 
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorDurazno); //editamos el color
+        cell0.setPaddingTop(0f);
+        cell0.setPaddingBottom(0f);
+        table1.setPaddingTop(0f);
+        table1.setPaddingBottom(0f);
+
         table1.addCell(cell0);
 
 
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,6,Variables.currenProductPostCosecha);
+
+
+        ArrayList<NameAndValue>dataTOtable2=HelperPdf.generaDataToTable(Variables.currenReportCamionesyCarretas,6,Variables.currenProductPostCosecha);
         mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
 
         //editamos otras columnas 10
-        mapCellsToTabCurrentTab.get("0name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("1name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("2name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("3name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("4name").setBold(); //editamos el color
-        mapCellsToTabCurrentTab.get("5name").setBold(); //editamos el color
+        mapCellsToTabCurrentTab.get("0name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco); //editamos el color
+        mapCellsToTabCurrentTab.get("1name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco); //editamos el color
+        mapCellsToTabCurrentTab.get("2name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco); //editamos el color
+        mapCellsToTabCurrentTab.get("3name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco); //editamos el color
+     //   mapCellsToTabCurrentTab.get("4name").setBold(); //editamos el color
+      //  mapCellsToTabCurrentTab.get("5name").setBold(); //editamos el color
 
 
         addCellsInTable(mapCellsToTabCurrentTab,table1);
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        table1.setMarginTop(5f);
+       // table1.setMarginTop(5f);
         midocumentotoAddData.add(table1);
 
 
@@ -682,13 +637,13 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold()) ;
+        cell0= new Cell(1,9).add(new Paragraph("DATOS DE PROCESO").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold()) ;
 
-        cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
+        cell0.setBackgroundColor(HelperPdf.rgbColorDurazno); //editamos el color
         table1.addCell(cell0);
 
 
-        table1 =    HelperPdf.createTable2(table1,HelperPdf.rgbColorAzulClaro,Variables.CurrenReportPart2) ;
+        table1 = HelperPdf.createTable2(table1,HelperPdf.rgbColorPlomoBlanco,Variables.currenReportCamionesyCarretas) ;
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         //table1.setMarginTop(5f);
         midocumentotoAddData.add(table1);
@@ -701,47 +656,55 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         table1=  new Table(sizeColumns8);
 
 
-        table1 =    HelperPdf.createTable3(table1,Variables.CurrenReportPart2) ;
+        table1 =    HelperPdf.createTable3(table1,Variables.currenReportCamionesyCarretas) ;
 
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
 
 
-        /**DATOS DE PROCESO parte 3 */
+        /**DATOS DE hacienda  */
 
         float sizeColumns10[]= {190,1,1,1,1,1,1};
         table1=  new Table(sizeColumns10);
 
+       cell0= new Cell(1,9).add(new Paragraph("DATOS DE HACIENDA").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold()) ;
+        cell0.setBackgroundColor(HelperPdf.rgbColorDurazno); //editamos el color
+        table1.addCell(cell0);
 
-        table1 =HelperPdf.createTbale6(table1,Variables.CurrenReportPart3) ;
+        //table1 =    HelperPdf.createTable2(table1,HelperPdf.rgbColorAzulClaro,Variables.currenReportCamionesyCarretas) ;
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+        //table1.setMarginTop(5f);
+        midocumentotoAddData.add(table1);
 
 
+        table1 =HelperPdf.createTbale6(Variables.currenReportCamionesyCarretas) ;
 
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+
         /**CONTROL DE GANCHOI**/
-
-
 
         float araycolum[]= {190,2};
         table1=  new Table(araycolum);
 
-        Cell cellHeader2= new Cell(1,2).setBackgroundColor(HelperPdf.rgbColorAzulClaro);
-        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setFont(HelperPdf.font).setBold());
+        Cell cellHeader2= new Cell(1,2).setBackgroundColor(HelperPdf.rgbColorDurazno);
+        cellHeader2.add(new Paragraph(" CONTROL DE GANCHO ").setTextAlignment(TextAlignment.CENTER).setFontSize(8f).setBold());
         table1.addCell(cellHeader2);
 
-        dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,8,Variables.currenProductPostCosecha);
+        dataTOtable2=HelperPdf.generaDataToTable(Variables.currenReportCamionesyCarretas,8,Variables.currenProductPostCosecha);
 
 
         Log.i("debugtablesss","el size de dataTOtable2 es "+dataTOtable2.size());
 
         mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,50,0);
-        mapCellsToTabCurrentTab.get("0name").setBold();
-        mapCellsToTabCurrentTab.get("1name").setBold();
-        mapCellsToTabCurrentTab.get("2name").setBold();
-        mapCellsToTabCurrentTab.get("3name").setBold();
+        mapCellsToTabCurrentTab.get("0name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("1name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("2name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
+        mapCellsToTabCurrentTab.get("3name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
 
 
 
@@ -756,7 +719,14 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         /**Calibracion de fruta calnedario de enfunde*/
 
-        table1= HelperPdf.createTABLEcalendarioEnfude(table1,Variables.CurrenReportPart3);
+        /** esta bien vamos */
+
+        table1= HelperPdf.createTABLEcalendarioEnfudeToCamionesYcarretas(Variables.calEnfundeGLOB);
+
+
+
+
+
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         midocumentotoAddData.add(table1);
 
@@ -828,7 +798,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         /**TEXTO SEGUNDA LINEA*/
         //table1=  HelperPdf.generateTexCertificationTable("MARCA AQUI");
-        title=HelperPdf.generateTexCertificoLaCALIDAD(Variables.CurrenReportPart1.getMarrca());
+        title=HelperPdf.generateTexCertificoLaCALIDAD(Variables.currenReportCamionesyCarretas.getMarca(),Variables.currenReportCamionesyCarretas.getSemana());
         title.setMarginLeft(60f);
 
         midocumentotoAddData.add(title);
@@ -893,7 +863,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente.").
                 setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
 /*
-        midocumentotoAddData.add(new Paragraph(Variables.CurrenReportPart1.getClienteReporte()).
+        midocumentotoAddData.add(new Paragraph(Variables.currenReportCamionesyCarretas1.getClienteReporte()).
                 setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
 */
 
@@ -901,7 +871,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                 setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
           /**NOMBRE DE LOS INSPECTORES*/
-         table1=  HelperPdf.generaTableInspectores(Variables.CurrenReportPart3,pageSize.getWidth());
+         table1=  HelperPdf.generaTableInspectores(Variables.currenReportCamionesyCarretas,pageSize.getWidth());
          midocumentotoAddData.add(table1);
 
          /**BAR CHART Sporcentaje de frutas*/
@@ -1166,7 +1136,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-        Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.CurrenReportPart1.getNombreRevisa(),Variables.CurrenReportPart1.getCodigonRevisa());
+        Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.currenReportCamionesyCarretas.getNombreRevisa(),Variables.currenReportCamionesyCarretas.getCodigonRevisa());
         midocumentotoAddData.add(paragraph);
 
 

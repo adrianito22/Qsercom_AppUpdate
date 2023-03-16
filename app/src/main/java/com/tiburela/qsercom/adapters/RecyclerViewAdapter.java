@@ -348,8 +348,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onSuccess(Uri uri) {
 
-
-
                 Glide.with(context)
                         .load(uri)
                         .fitCenter()
