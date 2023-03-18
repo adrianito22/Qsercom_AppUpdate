@@ -487,11 +487,14 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns2[]= {190,1};
         table1=  new Table(sizeColumns2);
 
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTOCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f).setBold()
+        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f).setBold()
                 .setTextAlignment(TextAlignment.CENTER)) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
+
+         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+         midocumentotoAddData.add(table1);
 
 
         /**devulve productos postcosecha table inf0 = 2 */
@@ -520,8 +523,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         }else{
 
-            HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-            midocumentotoAddData.add(table1);
 
             table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha,contexto);
 

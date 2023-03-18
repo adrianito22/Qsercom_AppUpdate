@@ -38,7 +38,8 @@ preguntar eso y otrapregunta que tenia en notas en el cell
 //en control de hancho algo asi donde salen rechazados y eso,, agregar 2 decimales 
 //forma de subir los reportes,,, despues de que se suba toda la data ... subir la demas data.... si no ... marca un error..
 //soolo despues de eso subir el for register
-## cambiarle la fuente a default.. ..selecionar metodo y remplace en nueva clase... puede ser...la estratagia.
 ## crear nuevo productos postcosecha 
-## probablemente hacer mas grande font como el de contenedores en acopio
+
+## cambiarle la fuente a default.. ..selecionar metodo y remplace en nueva clase... puede ser...la estratagia.
+## probablemente hacer mas grande font como el de contenedores en acopio`
 
