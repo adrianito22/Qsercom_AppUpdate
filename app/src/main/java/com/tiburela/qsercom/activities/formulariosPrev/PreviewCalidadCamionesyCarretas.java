@@ -4827,7 +4827,12 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
                 if (sizeListIterate == contador) {
 
 
-                    String nameFilePdf = Variables.currenReportCamionesyCarretas.getNumcionContenedor()+" "+Variables.currenReportCamionesyCarretas.getProductor();
+                    //String nameFilePdf = Variables.currenReportCamionesyCarretas.getNumcionContenedor()+" "+Variables.currenReportCamionesyCarretas.getProductor();
+
+                  String [] dateCreate=Variables.currenReportCamionesyCarretas.getSimpleDataFormat().split("-");
+
+                    String nameFilePdf=""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.currenReportCamionesyCarretas.getClienteReporte();
+
 
                     Log.i("comnadaer", "bien vamos a activity pdf maker");
 
