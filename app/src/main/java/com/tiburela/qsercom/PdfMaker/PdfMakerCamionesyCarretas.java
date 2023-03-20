@@ -454,8 +454,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
             }
 
-
+            table1=  new Table(sizeColumns2); //reseteamos table
             addCellsInTable(mapCellsToTabCurrentTab,table1);
+
 
         }
 
@@ -969,11 +970,11 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-
+         /**si hay dos fotos en la columna o 2 filas de fotos ,,, quiere decir que en la promxima dara un salto de hoja cre3o... **/
 
         /**FOTO_LLEGADA_CONTENEDOR...*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
+     //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
 
 
         HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
@@ -987,11 +988,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-
-
         /**FOTO_PALLETS ...*/
        // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
+      //  HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
 
 
 

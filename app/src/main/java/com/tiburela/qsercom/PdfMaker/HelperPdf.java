@@ -1316,9 +1316,9 @@ if(contadorProductsPostCosecha>10){
         // miTable.addCell(cellbanavac.add(new Paragraph("BANAVAC").setFontSize(6.5f))) ;
 
 
-        miTable.addCell(cellTipPlasbagS.add(new Paragraph("BAGS").setFontSize(7.3f).setFont(font))) ;
+        miTable.addCell(cellTipPlasbagS.add(new Paragraph("BAG").setFontSize(7.3f).setFont(font))) ;
 
-        if(object2.getTipoPlastico().equalsIgnoreCase("BAGS")) {
+        if(object2.getTipoPlastico().equalsIgnoreCase("BAG")) {
             cellTipPlasbagX.add(new Paragraph("  X ").setFontSize(6.5f));
 
         }else{
@@ -1461,6 +1461,8 @@ if(contadorProductsPostCosecha>10){
         //tipo de caja
 
 
+        Log.i("tipoplastico","el tipo pladtico es "+object2.getTipoDePlastico());
+
         if(object2.getTipoDePlastico().equalsIgnoreCase("Politubo")) {
             cellPolituboX.add(new Paragraph(" X ").setFontSize(7.6f).setFont(font));
 
@@ -1506,9 +1508,9 @@ if(contadorProductsPostCosecha>10){
         // miTable.addCell(cellbanavac.add(new Paragraph("BANAVAC").setFontSize(6.5f))) ;
 
 
-        miTable.addCell(cellTipPlasbagS.add(new Paragraph("BAGS").setPaddingLeft(10f).setPaddingTop(0f).setPaddingBottom(0f).setFontSize(8.5f).setFont(font))) ;
+        miTable.addCell(cellTipPlasbagS.add(new Paragraph("BAG").setPaddingLeft(10f).setPaddingTop(0f).setPaddingBottom(0f).setFontSize(8.5f).setFont(font))) ;
 
-        if(object2.getTipoDePlastico().equalsIgnoreCase("BAGS")) {
+        if(object2.getTipoDePlastico().equalsIgnoreCase("BAG")) {
             cellTipPlasbagX.add(new Paragraph("  X ").setFontSize(7.6f));
 
         }else{

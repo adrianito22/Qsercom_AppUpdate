@@ -2056,66 +2056,40 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         if (isGeneratePdf) {
-            //obtenemos el p
 
-            //fil1
+            Utils.hashMappromedioLibriado=new HashMap<>();
 
-            Variables.listPromedioLibriado= new ArrayList<>();
+            EditText [] idsKeysAndNames={ ediMarcaCol1,ediMarcaCol2,ediMarcaCol3, ediMarcaCol4, ediMarcaCol5};
 
-            float sumFilas;
-            int contadorItemsConTag;
+            String currentKeyofMap="";
 
+            for (int indice = 0; indice <5; indice++) { //5 columnas
 
-            for (int indice = 0; indice < 18; indice++) {
-                //                String keyOFeditextCurrent = edi.getId() + "-" + edi.getTag();
+                currentKeyofMap=idsKeysAndNames[indice].getText().toString()+"-"+idsKeysAndNames[indice].getId();
 
-                sumFilas=0;
-                contadorItemsConTag=0;
+                /***preguntar si este nombre siempre sera unico y no cambiara..*/
 
-                // String keyActualToSearch=
+                ArrayList <PromedioLibriado> listPromedioLibriado= new ArrayList<>();
 
+                for(int indicex=1; indicex<18; indicex++){ //iteramos las 18 filas en la columna cprrepsondiente
 
-                //buscamos solo los que contengan esta key
+                    String keyCompletaObentidaBySubstring=generateKeybyString("col"+(indice+1)+"-"+"fil"+indicex,miMapData);
 
+                    if(miMapData.containsKey(keyCompletaObentidaBySubstring)){
+                        float value =miMapData.get(keyCompletaObentidaBySubstring);
+                        Log.i("hdooerr","hay una valor en la columna: "+(indice+1)+" y fila"+indicex);
 
-                for (HashMap.Entry<String, Float> entry : miMapData.entrySet()) {
-
-                    String keyHashMap = entry.getKey();
-                    Float value = entry.getValue();
-
-
-                    Log.i("miodataxx","hay texto aqui"+keyHashMap+" el value es "+"fil"+(indice+1));
-
-
-                    if(keyHashMap.contains("fil"+(indice+1)) ){
-                        contadorItemsConTag++;
-
-                        sumFilas=sumFilas+value;
-
-
+                        listPromedioLibriado.add(new PromedioLibriado(indicex,value));
                     }
 
-
                 }
 
+                if(listPromedioLibriado.size()>0){
+                    Log.i("hdooerr","hay una lista aqui");
 
-
-
-                //ahora creamos un nuevo objet[
-
-                if(sumFilas>0){
-
-                    Variables.listPromedioLibriado.add(new PromedioLibriado(indice+1,sumFilas/contadorItemsConTag));
-
+                    Utils.hashMappromedioLibriado.put(currentKeyofMap,listPromedioLibriado);
                 }
-
-
-
-
             }
-
-            Log.i("miodataxx","el size es: "+Variables.listPromedioLibriado.size());
-
 
         }
 
@@ -2123,6 +2097,20 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     }
 
+    private String generateKeybyString(String keySearch,HashMap<String,Float > miMapData){
+        String key="";
+
+        for (HashMap.Entry<String, Float> entry : miMapData.entrySet()) {  //iteramos el mapa
+            String keyHashMap = entry.getKey();
+            if(keyHashMap.contains(keySearch)){
+                key=keyHashMap;
+                break;
+            }
+        }
+
+        return key;
+
+    }
 
     private void eventoBtnclicklistenerDelete(RecyclerViewAdapter adapter) {
 

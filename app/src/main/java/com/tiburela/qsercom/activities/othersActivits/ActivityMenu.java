@@ -509,6 +509,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds=new HashMap<>();
         RecyclerViewAdapLinkage. mapWhitIdsCuadroMuestreo=new HashMap<>();
         Utils.numReportsVinculadsAll=0;
+        Variables.listPromedioLibriado= new ArrayList<>();
 
            Variables.isClickable = true;
 

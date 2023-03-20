@@ -518,7 +518,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
             }
 
-
+            table1=  new Table(sizeColumns2); //reseteamos table
             addCellsInTable(mapCellsToTabCurrentTab,table1);
 
         }else{
