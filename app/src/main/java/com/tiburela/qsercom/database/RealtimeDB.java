@@ -1166,7 +1166,7 @@ public static  Context myContext;
 
     public static void decideCallbackHere(){
 
-
+ ///fgfg
         Log.i("dineroa","hel activityCurrent  es "+Variables.activityCurrent);
         Log.i("dineroa","hel FormContenedores es "+Variables.FormContenedores);
 
