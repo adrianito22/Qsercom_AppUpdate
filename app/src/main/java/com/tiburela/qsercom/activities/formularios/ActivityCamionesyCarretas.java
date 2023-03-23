@@ -29,6 +29,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,15 +53,20 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
+import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
+import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -87,6 +94,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     public static CallbackUploadNewReport callbackUploadNewReport;
     String currentKeySharePrefrences="";
     boolean userCreoRegisterForm=false;
+    ImageView imgAtachVinculacion;
 
     boolean seSubioform=false;
 
@@ -293,10 +301,11 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_calidad_camio_carret);
 
+        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
+
 
         callbackUploadNewReport = this;
-
-
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormCamionesyCarretasActivity;
 
@@ -835,6 +844,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
           btnSaveLocale=findViewById(R.id.btnSaveLocale);
+        imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
 
           ediExportadoraProcesada=findViewById(R.id.ediExportadoraProcesada);
           ediExportadoraSolicitante=findViewById(R.id.ediExportadoraSolicitante);
@@ -1051,6 +1061,9 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         /**todos add a todos clicklistener de la implemntacion*/
 
+        imgAtachVinculacion.setOnClickListener(this);
+
+
         imgVAtachDocumentacionss.setOnClickListener(this);//ultimo
         imgVAtachProcesoFrutaFinca.setOnClickListener(this);
         imbTakePicProcesoFrutaFinca.setOnClickListener(this);
@@ -1158,6 +1171,13 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         {
 
             switch (view.getId()) {
+
+
+                case R.id.imgAtachVinculacion:
+                    Log.i("miclickimgddd","sellamo este");
+                    showEditDialogAndSendData();
+                    break;
+
 
 
                 case R.id.imgUpdatecAlfrutaEnfunde:
@@ -1335,6 +1355,96 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         }
 
     }
+
+
+    private void showEditDialogAndSendData() {
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS, RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED, RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
+
+
+
+        FragmentManager fm = getSupportFragmentManager();
+        BottonSheetDfragmentVclds alertDialog = BottonSheetDfragmentVclds.newInstance(Constants.CAMIONES_Y_CARRETAS);
+        // alertDialog.setCancelable(false);
+
+        alertDialog.setArguments(bundle);
+        alertDialog.show(fm, "duialoffragment_alert");
+
+
+
+    }
+
+    public void updateVinucladosObject(){
+
+        TextView txtNumReportsVinclds=findViewById(R.id.txtNumReportsVinclds);
+
+        txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
+
+
+        if(!RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()){ //lodecsrgamos y seteamos info
+
+            DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
+
+        }
+
+
+    }
+    private void DowloadUniqeuRechazadosObjectCUADROMuestreoAndSetNumRechzados(String currentIDoBJECTvinuc ){
+
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("CuadrosMuestreo");
+
+        Query query = usersdRef.orderByChild("uniqueIdObject").equalTo(currentIDoBJECTvinuc);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    CuadroMuestreo informe=ds.getValue(CuadroMuestreo.class);
+                    Log.i("holerd","aqui se encontro un cuadro muestreo......");
+
+                    if(informe!=null){
+
+                        // Variables.CurrenReportPart3.setEdiRacimosRecha(  String.valueOf(informe.getTotalRechazadosAll()));
+
+                        ediRacimosRecha.setText(String.valueOf(informe.getTotalRechazadosAll()));
+
+                        //actualizamos el objeto..\\
+
+
+                        //   if( Variables.CurrenReportPart1!=null){
+
+
+                        //   }
+                        ///  Variables.CurrenReportPart3.setEdiRacimosRecha(String.valueOf(informe.getTotalRechazadosAll()));
+
+
+                        //  btnGENERARpdf.setEnabled(true);
+
+                        break;
+                    }
+
+
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("misdata","el error es  "+ error.getMessage());
+
+            }
+        } );
+
+    }
+
 
     private void takepickNow() {
 
@@ -2015,6 +2125,14 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         }
 
 
+        if(!Utils.checkifAtach()){
+            btnCheck.setEnabled(true);
+            Log.i("test001","no esta lleno  checkifAtach");
+            FragmentManager fm = getSupportFragmentManager();
+            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CAMIONES_Y_CARRETAS);
+            alertDialog.show(fm, "duialoffragment_alertZ");
+            return;
+        }
 
 
 
@@ -2285,6 +2403,17 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                     StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
                     objecCamionesyCarretas.setUniqueIDinforme(currenTidGenrate);
+
+
+                    if( RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString!=null){
+                        objecCamionesyCarretas.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+                    }
+
+
+                    if( RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado !=null){
+                        objecCamionesyCarretas.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
+
+                    }
 
 
                      //informe actual
@@ -4069,5 +4198,39 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     }
 
+    public void decideaAtachReport(boolean userSelecion) {
+
+
+        if (userSelecion) { //SELECIONO ATCH
+            Log.i("test001", " seleciono 200");
+
+            ScrollView scrollView2 = findViewById(R.id.scrollView2);
+
+            scrollView2.post(new Runnable() {
+                public void run() {
+                    scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
+                }
+            });
+
+        }
+
+
+/*
+        else { //USUARIO SELECION OMITR TODS
+            //AQUI VAMOS A SUBIR DATA..
+
+            //gaurdamops  aqui
+            createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+            Log.i("test001"," seleciono 300");
+
+
+        }
+
+
+*/
+
+
+    }
 
 }

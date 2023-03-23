@@ -2863,15 +2863,6 @@ void checkDataFields(){ //
         return;
     }
 
-    else
-
-    /*
-    {
-
-        Log.i("test001","si  esta lleno  getResultDatCalibCalEnfundes");
-
-    }
-   */
 
         createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 

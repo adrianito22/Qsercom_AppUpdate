@@ -15,8 +15,10 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.utils.Utils;
 
 public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements View.OnClickListener {
@@ -163,6 +165,44 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
             }else{
 
                 ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(false);//  ///
+
+            }
+
+
+
+
+
+        }
+
+
+        else  if(tipoFormulario== Constants.PREV_CAMIONES_Y_CARRETAS){
+
+            if(userDecicidoVinucularSomeReport){
+
+                ((PreviewCalidadCamionesyCarretas)getActivity()).decideaAtachReport(true);//  ///
+
+            }else{
+
+                ((PreviewCalidadCamionesyCarretas)getActivity()).decideaAtachReport(false);//  ///
+
+            }
+
+
+
+
+
+        }
+
+
+        else  if(tipoFormulario== Constants.CAMIONES_Y_CARRETAS){
+
+            if(userDecicidoVinucularSomeReport){
+
+                ((ActivityCamionesyCarretas)getActivity()).decideaAtachReport(true);//  ///
+
+            }else{
+
+                ((ActivityCamionesyCarretas)getActivity()).decideaAtachReport(false);//  ///
 
             }
 

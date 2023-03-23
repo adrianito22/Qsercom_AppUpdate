@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -316,6 +317,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_calidad_camio_carret_pewv);
         context=getApplicationContext();
+
+        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
+
 
         Variables.copiamosData=false;
 
@@ -4850,6 +4855,40 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
             }
         });
+
+
+    }
+    public void decideaAtachReport(boolean userSelecion) {
+
+
+        if (userSelecion) { //SELECIONO ATCH
+            Log.i("test001", " seleciono 200");
+
+            ScrollView scrollView2 = findViewById(R.id.scrollView2);
+
+            scrollView2.post(new Runnable() {
+                public void run() {
+                    scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
+                }
+            });
+
+        }
+
+
+/*
+        else { //USUARIO SELECION OMITR TODS
+            //AQUI VAMOS A SUBIR DATA..
+
+            //gaurdamops  aqui
+            createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+            Log.i("test001"," seleciono 300");
+
+
+        }
+
+
+*/
 
 
     }

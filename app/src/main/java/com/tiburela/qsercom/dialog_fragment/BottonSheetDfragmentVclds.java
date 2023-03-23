@@ -29,6 +29,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
@@ -627,6 +628,13 @@ private void listternSpinner(){
                 ((ActivityContenedoresPrev)getActivity()).updateVinucladosObject();
 
                 break;
+
+
+            case Constants.CAMIONES_Y_CARRETAS:
+                ((ActivityCamionesyCarretas)getActivity()).updateVinucladosObject();
+
+                break;
+
 
 
             case Constants.PREV_CAMIONES_Y_CARRETAS:

@@ -383,7 +383,9 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
+
         RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
         ImagenReport.hashMapImagesData = new HashMap<>();
 
@@ -391,7 +393,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         Log.i("imagebrr", "probandodebug");
 
 
-        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
         Utils.userDecidioNoVincularAhora = false;
 
