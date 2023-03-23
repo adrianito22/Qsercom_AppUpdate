@@ -39,9 +39,6 @@
 
 
         <activity
-            android:name=".activities.othersActivits.PdfActivity"
-            android:exported="true" />
-        <activity
             android:name=".PdfMaker.PdfMakerContenresAcopio"
             android:configChanges="orientation"
             android:exported="true"
@@ -123,16 +120,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.othersActivits.PieChartActivity"
-            android:configChanges="orientation"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.othersActivits.CharActivity"
-            android:configChanges="orientation"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.othersActivits.PdfPreviewActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
