@@ -59,10 +59,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
-import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.PdfMaker.PdfMakerCamionesyCarretas;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -77,9 +75,6 @@ import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
-import com.tiburela.qsercom.models.SetInformDatsHacienda;
-import com.tiburela.qsercom.models.SetInformEmbarque1;
-import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
@@ -1067,7 +1062,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                     break; //
 
                 case R.id.ediCajas7:
-                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    // Utils.closeKeyboard(ActivityCamionesyCarretas.this);
 
                     selecionaFecha();
 
@@ -1076,14 +1071,14 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
                 case R.id.ediHoraInicio:
-                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    // Utils.closeKeyboard(ActivityCamionesyCarretas.this);
 
                     showingTimePicker(view);
 
                     break; //
 
                 case R.id.ediHoraTermino:
-                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    // Utils.closeKeyboard(ActivityCamionesyCarretas.this);
                     showingTimePicker(view);
 
                     break; //
@@ -1092,13 +1087,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
                 case R.id.ediTipoEmp2:
-                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    // Utils.closeKeyboard(ActivityCamionesyCarretas.this);
                     showingTimePicker(view);
 
                     break; //
 
                 case R.id.ediHoraEncendido2:
-                    // Utils.closeKeyboard(ActivityReporteCalidadCamionesyCarretas.this);
+                    // Utils.closeKeyboard(ActivityCamionesyCarretas.this);
                     showingTimePicker(view);
 
                     break; //
@@ -2234,13 +2229,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
-        //  startActivity(new Intent(ActivityReporteCalidadCamionesyCarretas.this,PdfPreviewActivity.class));
+        //  startActivity(new Intent(ActivityCamionesyCarretas.this,PdfPreviewActivity.class));
 
         //generamos un pdf con la data que tenemos()
 
         /*
 
-        PdfMaker.generatePdfReport1(ActivityReporteCalidadCamionesyCarretas.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
+        PdfMaker.generatePdfReport1(ActivityCamionesyCarretas.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
                 ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
                 ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
                 ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),

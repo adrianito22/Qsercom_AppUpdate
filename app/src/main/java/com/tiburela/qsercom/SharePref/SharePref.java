@@ -283,6 +283,11 @@ public class SharePref {
 
         }else{
 
+            if(mapImagesReport==null){
+                mapImagesReport= new HashMap<>();
+
+            }
+
             Log.i("lashareperf","Si hay data en share  plant y el length es "+mapImagesReport.size());
 
             return mapImagesReport;

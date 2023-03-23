@@ -51,15 +51,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.tiburela.qsercom.PdfMaker.PdfMakerContenresAcopio;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
-import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -73,7 +72,6 @@ import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -247,7 +245,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
-                Intent intencion=new Intent(ActivityMenu.this,ActivityReporteCalidadCamionesyCarretas.class);
+                Intent intencion=new Intent(ActivityMenu.this, ActivityCamionesyCarretas.class);
                 showPRogressAndStartActivity(intencion);
 
 
@@ -595,7 +593,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                 }
                 else if(currentFormSelect ==Variables.FormCamionesyCarretasActivity){
-                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this,ActivityReporteCalidadCamionesyCarretas.class,keyShareDelete);
+                    OBJEC.showBottomSheetDialogConfirmMenu(ActivityMenu.this, ActivityCamionesyCarretas.class,keyShareDelete);
 
                 }
                 else if(currentFormSelect ==Variables.FormMuestreoRechaz){
@@ -680,9 +678,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         else  if(tipoFormulario==Variables.FormCamionesyCarretasActivity){//
-          //  startActivity(new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class)) ;
+          //  startActivity(new Intent(ActivityMenu.this, ActivityCamionesyCarretas.class)) ;
 
-            Intent intencion=new Intent(ActivityMenu.this, ActivityReporteCalidadCamionesyCarretas.class);
+            Intent intencion=new Intent(ActivityMenu.this, ActivityCamionesyCarretas.class);
 
             showPRogressAndStartActivity(intencion);
 

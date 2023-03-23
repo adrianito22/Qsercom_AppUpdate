@@ -38,7 +38,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
-import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
+import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
@@ -916,7 +916,7 @@ Log.i("puslado","el value es "+idReport);
 
                 else if(reportTipo==Constants.CAMIONES_Y_CARRETAS){
 
-                    Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityReporteCalidadCamionesyCarretas.class);
+                    Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityCamionesyCarretas.class);
                     intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
 
                     startActivity(intencion);

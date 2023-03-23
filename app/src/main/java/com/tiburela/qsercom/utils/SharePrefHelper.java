@@ -53,7 +53,7 @@ public class SharePrefHelper {
 
             }
 
-
+/*
             if (vistCurrent instanceof TextInputEditText) { //asi es un editex compobamos si esta lleno
                 TextInputEditText editText = (TextInputEditText) vistCurrent;
 
@@ -66,7 +66,7 @@ public class SharePrefHelper {
 
 
             }
-
+*/
 
 
 

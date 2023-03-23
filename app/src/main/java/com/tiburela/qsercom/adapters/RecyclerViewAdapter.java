@@ -20,12 +20,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.StorageReference;
+import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
-import com.tiburela.qsercom.activities.formularios.ActivityReporteCalidadCamionesyCarretas;
 import com.tiburela.qsercom.models.ImagenReport;
 
 import java.io.InputStream;
@@ -133,7 +133,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivity){
 
-                    inputStream = ActivityReporteCalidadCamionesyCarretas.context.getContentResolver().openInputStream(uri);
+                    inputStream = ActivityCamionesyCarretas.context.getContentResolver().openInputStream(uri);
 
                 }
 

@@ -632,10 +632,15 @@ public static float generaAlturaDeTabla(ArrayList<Float>altoQueContendraCadaFila
         View vista=null;
         for(View vistaCurrent: arrayAllViews){
 
-            if(String.valueOf(vistaCurrent.getId()).equals(idSearch)){
-                vista=vistaCurrent;
-                break;
+            if(vistaCurrent!=null){
+                if(String.valueOf(vistaCurrent.getId()).equals(idSearch)){
+                    vista=vistaCurrent;
+                    break;
+                }
+
             }
+
+
 
         }
 
