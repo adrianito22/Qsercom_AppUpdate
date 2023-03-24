@@ -8,7 +8,7 @@ import java.util.Map;
 public class UsuarioQsercom
 {
 
-    public UsuarioQsercom(String tiposUSUARI, String uniqueIDuser, String mailGooglaUser, String nombreUsuario) {
+    public UsuarioQsercom(int tiposUSUARI, String uniqueIDuser, String mailGooglaUser, String nombreUsuario) {
         this.tiposUSUARI = tiposUSUARI;
         this.uniqueIDuser = uniqueIDuser;
         this.mailGooglaUser = mailGooglaUser;
@@ -23,11 +23,11 @@ public UsuarioQsercom(){
 
 
 
-    public String getTiposUSUARI() {
+    public int getTiposUSUARI() {
         return tiposUSUARI;
     }
 
-    public void setTiposUSUARI(String tiposUSUARI) {
+    public void setTiposUSUARI(int tiposUSUARI) {
         this.tiposUSUARI = tiposUSUARI;
     }
 
@@ -39,7 +39,7 @@ public UsuarioQsercom(){
         this.uniqueIDuser = uniqueIDuser;
     }
 
-    private String tiposUSUARI; //SI ES insepector de campo o de hacienda
+    private int tiposUSUARI; //SI ES insepector de campo o de hacienda
     private String uniqueIDuser;
 
     private String mailGooglaUser;

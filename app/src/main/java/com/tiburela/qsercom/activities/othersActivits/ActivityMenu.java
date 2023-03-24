@@ -1132,7 +1132,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                     Log.i("skjsf","el correo google es : "+idMailGoogle);
 
 
-                    RealtimeDB.addNewUser(ActivityMenu.this,  new UsuarioQsercom("Colaborador", UUID.randomUUID().toString(),idMailGoogle,Variables.userGoogle.getDisplayName()));
+                    RealtimeDB.addNewUser(ActivityMenu.this,  new UsuarioQsercom(102, UUID.randomUUID().toString(),idMailGoogle,Variables.userGoogle.getDisplayName()));
 
 
 

@@ -53,7 +53,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
- public static boolean isOfflineReport=false;
+
+  public static final int INSPECTOR_OFICINA=100;
+    public static final int INSPECTOR_CAMPO=101;
+
+    public static final int NO_DEFINIDO=102;
+
+
+    public static boolean isOfflineReport=false;
 
 
  ///cada item usaremos esa data para crear un cuadro...
