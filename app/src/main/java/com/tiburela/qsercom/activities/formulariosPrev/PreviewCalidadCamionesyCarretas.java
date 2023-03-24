@@ -4244,6 +4244,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
     void ocultaoTherVIEWs(){
+
         btnGENERARpdf.setEnabled(false);
         btnGENERARpdf.setVisibility(View.GONE);
 

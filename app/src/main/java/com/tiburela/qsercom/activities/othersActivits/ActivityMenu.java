@@ -25,10 +25,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -79,7 +81,7 @@ import java.util.Map;
 import java.util.UUID;
 
 //package com.tiburela.qsercom.activities.formularios;
-public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation {
+public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation,PopupMenu.OnMenuItemClickListener {
 
     boolean userIniciosSesion=false;
     private FirebaseAuth mAuth;
@@ -899,7 +901,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
     void estableceHeaderTextAndListerner(){
         txtHeader=findViewById(R.id.txtHeader);
-        txtSubHeader=findViewById(R.id.txtSubHeader);
 
 
         if(Variables.userGoogle!=null)
@@ -920,7 +921,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
             txtHeader.setText(Variables.userGoogle.getDisplayName());
-            txtSubHeader.setText(Variables.userGoogle.getEmail());
 
         }else{
 
@@ -940,6 +940,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
            // txtSubHeader.setEnabled(true);
 
             txtHeader.setText("!No has iniciado Sesion !");
+
+            txtSubHeader=findViewById(R.id.txtSubHeader);
             txtSubHeader.setText("Inicia sesion Aqui");
 
             ///LE CAMBISMO DE COLOR A UN
@@ -1182,6 +1184,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                         seeUserActivate(Variables.usuarioQserconGlobal);
 
 
+
+
+
                         //  checkIFuserIsActivatexx(Variables.usuarioQserconGlobal.getMailGooglaUser());
 
                     }
@@ -1400,8 +1405,23 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(user!=null){
 
                    Variables.usuarioQserconGlobal=user;
+                    txtSubHeader=findViewById(R.id.txtSubHeader);
+                    if(user.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){
+                        txtSubHeader.setText("Inspector de oficina");
 
-                   if(!Variables.usuarioQserconGlobal.isUserISaprobadp()){
+                    }else if(user.getTiposUSUARI()==Utils.INSPECTOR_CAMPO){
+                                               txtSubHeader.setText("Inspector de Campo");
+
+                    }else{
+
+                        txtSubHeader.setText("Cargo No definido");
+
+                    }
+
+
+
+
+                    if(!Variables.usuarioQserconGlobal.isUserISaprobadp()){
 
                        Intent intent = new Intent(getApplicationContext(), ActivityProhibido.class);
                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1429,5 +1449,56 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         ///si el usuario esta navegando
         //si cambio el nodo actual.....verifica si esta baneado...
 
+    }
+
+    public void showMenu(View v) {
+
+        Log.i("gdher","se oulso show here");
+
+
+        PopupMenu popup = new PopupMenu(this, v);
+        // This activity implements OnMenuItemClickListener
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.menu2);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+
+        case R.id.option2:
+
+
+        FirebaseAuth.getInstance().signOut();
+
+
+        GoogleSignIn.getClient(
+                ActivityMenu.this,
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+        ).signOut();
+
+
+
+        //actualizamos las vistas
+
+            //chekeamos quwe so inicilizamos estos txtHeader
+          //  y subheader
+            //cambianos texto, imagen y objeto current user.....
+            //aqui el user no a iniciado sesion...
+            //si no inica sesion no puede subir...
+            //si no inicia no puede ver si axctiva generar pdf..
+
+
+            ff chekear sque si no inicia no le saldra revisar informes y informes guardados... solo es para usuario de campo...
+
+            ////informes por revisar... y eso tambien pilas..
+
+        Log.i("gdher","se oulso option2");
+
+        return true;
+        default:
+        return false;
+    }
     }
 }

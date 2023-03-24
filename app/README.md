@@ -42,4 +42,4 @@ preguntar eso y otrapregunta que tenia en notas en el cell
 
 ## cambiarle la fuente a default.. ..selecionar metodo y remplace en nueva clase... puede ser...la estratagia.
 ## probablemente hacer mas grande font como el de contenedores en acopio`
-
+## cerrar como en gmail y datos como acerca user,,,
