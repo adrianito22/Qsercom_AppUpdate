@@ -432,6 +432,18 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
     private void configCertainSomeViewsAliniciar( ) { //configuraremos algos views al iniciar
 
+        btnGenerarPdf.setEnabled(false);
+        btnGenerarPdf.setVisibility(View.GONE);
+
+
+        if(Variables.usuarioQserconGlobal!=null && Variables.usuarioQserconGlobal.isUserISaprobadp() && Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){
+
+            btnGenerarPdf.setEnabled(true);
+            btnGenerarPdf.setVisibility(View.VISIBLE);
+
+        }
+
+
         disableEditText(ediFechaInicio);
         disableEditText(fechDetermino);
 

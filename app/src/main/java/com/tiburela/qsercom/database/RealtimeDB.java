@@ -35,7 +35,7 @@ import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.models.UsuarioQsercom;
+import com.tiburela.qsercom.models.UsuarioQsercon;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -1085,16 +1085,16 @@ public static  Context myContext;
 
 
 
-    public static void addNewUser(Context contexto, UsuarioQsercom user) {
+    public static void addNewUser(Context contexto, UsuarioQsercon user) {
 
-        Variables.usuarioQsercomGlobal=user;
+        Variables.usuarioQserconGlobal =user;
 
 
-        DatabaseReference mibasedata = rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom");
+        DatabaseReference mibasedata = rootDatabaseReference.child("Usuarios").child("Colaboradores");
 
         Map<String, Object> mapValues = user.toMap(); //lo convertimos en mapa
 
-        mibasedata.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mibasedata.child(user.getKeyLocaliceUser()).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
             @Override

@@ -5110,8 +5110,8 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                     uploadInformeToDatabase(informe,informe2,informe3);
 
                     user= new InformRegister(currenTidGenrate,Constants.CONTENEDORES,
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            Variables.usuarioQserconGlobal.getNombreUsuario(),
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
                             , "CONTENEDORES ");
 
 

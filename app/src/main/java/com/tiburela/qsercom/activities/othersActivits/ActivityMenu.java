@@ -3,6 +3,7 @@ package com.tiburela.qsercom.activities.othersActivits;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
 import static com.tiburela.qsercom.utils.Variables.currentFormSelect;
 
 import androidx.annotation.NonNull;
@@ -66,7 +67,7 @@ import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.models.UsuarioQsercom;
+import com.tiburela.qsercom.models.UsuarioQsercon;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
@@ -530,6 +531,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 public void onSuccess(GetTokenResult getTokenResult) {
                     Log.i("solodataaqui", "el user esta autentificado");
                     userIniciosSesion=true;
+
                     descragCurrentUsuario(Variables.userGoogle.getEmail());
 
 
@@ -1109,11 +1111,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UsuarioQsercom user=null;
+                UsuarioQsercon user=null;
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                     user=ds.getValue(UsuarioQsercom.class);
+                     user=ds.getValue(UsuarioQsercon.class);
 
 
                 }
@@ -1122,26 +1124,27 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(user !=null){
 
 
-                    //existe
+                    Log.i("skjsf","MAIL ES DIFRENTE DE NULO, EXISTE MAIL ");
+
+
 
                 }else{  //no existe los registramos...
 
 
 
-
-                    Log.i("skjsf","el correo google es : "+idMailGoogle);
-
-
-                    RealtimeDB.addNewUser(ActivityMenu.this,  new UsuarioQsercom(102, UUID.randomUUID().toString(),idMailGoogle,Variables.userGoogle.getDisplayName()));
+                    Log.i("skjsf","ES NULO, NO EXISTE AGREGAMOS");
 
 
+                     UsuarioQsercon userx=   new UsuarioQsercon(Utils.NO_DEFINIDO, UUID.randomUUID().toString(),idMailGoogle,Variables.userGoogle.getDisplayName());
 
+                     String keyuser=RealtimeDB.rootDatabaseReference.push().getKey();
+                     userx.setKeyLocaliceUser(keyuser);
+
+                    RealtimeDB.addNewUser(ActivityMenu.this,userx);
 
 
 
                 }
-
-
 
 
             }
@@ -1158,15 +1161,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     }
 
 
-
-    ///descragmos current usuario();
-
-
-
     void descragCurrentUsuario(String mailUserThisUser){
 
 
-        Query query = RealtimeDB.rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom").orderByChild("mailGooglaUser").equalTo(mailUserThisUser);
+        Query query = RealtimeDB.rootDatabaseReference.child("Usuarios").child("Colaboradores").orderByChild("mailGooglaUser").equalTo(mailUserThisUser);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1174,16 +1172,21 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    UsuarioQsercom usuarioQsercom=ds.getValue(UsuarioQsercom.class);
+                    UsuarioQsercon usuarioQsercon =ds.getValue(UsuarioQsercon.class);
 
-                    if(usuarioQsercom!=null){
-                        Variables.usuarioQsercomGlobal=usuarioQsercom;
+                    if(usuarioQsercon !=null){
+                        Variables.usuarioQserconGlobal = usuarioQsercon;
 
                         Log.i("hahsger","no es nulo");
 
-                        checkIFuserIsActivatexx(Variables.usuarioQsercomGlobal.getMailGooglaUser());
+                        seeUserActivate(Variables.usuarioQserconGlobal);
+
+
+                        //  checkIFuserIsActivatexx(Variables.usuarioQserconGlobal.getMailGooglaUser());
 
                     }
+
+
 
                     estableceHeaderTextAndListerner();
 
@@ -1236,7 +1239,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Log.i("holerr", "se llamo checkIFuserIsActivatexx ");
 
 
-        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom");
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Usuarios").child("Colaboradores");
 
         Query query = usersdRef.orderByChild("mailGooglaUser").equalTo(mailGoogleUser);
 
@@ -1246,17 +1249,17 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 Log.i("hahsger","el value de snpatshot es "+snapshot.getValue());
-                UsuarioQsercom currentObect = null;
+                UsuarioQsercon currentObect = null;
                 if(snapshot.exists()) {
 
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        currentObect = ds.getValue(UsuarioQsercom.class);
+                        currentObect = ds.getValue(UsuarioQsercon.class);
                     }
 
 
                     //   isUserAptobadoAccount[0] = currentObect.isUserISaprobadp() ;
                     //  System.out.println("worked");
-                  //  currentObect=snapshot.getValue(UsuarioQsercom.class);
+                  //  currentObect=snapshot.getValue(UsuarioQsercon.class);
 
 
 
@@ -1265,12 +1268,12 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                     //
                     Log.i("holerr", "el user se aprobo  "+currentObect.isUserISaprobadp());
 
-
+/*
                     if(currentObect.isUserISaprobadp()){
 
                         checkIRealTimeUserSiFaltaReportPorRevisa();
                     }
-
+*/
                 }
 
 
@@ -1383,4 +1386,48 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     }
 
 
+
+    private void seeUserActivate(UsuarioQsercon objec) {
+
+        DatabaseReference databaseReference = RealtimeDB.rootDatabaseReference.child("Usuarios").child("Colaboradores").child(objec.getKeyLocaliceUser());
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                UsuarioQsercon user = dataSnapshot.getValue(UsuarioQsercon.class);
+
+                if(user!=null){
+
+                   Variables.usuarioQserconGlobal=user;
+
+                   if(!Variables.usuarioQserconGlobal.isUserISaprobadp()){
+
+                       Intent intent = new Intent(getApplicationContext(), ActivityProhibido.class);
+                       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                       startActivity(intent);
+
+                   }
+
+
+
+                }
+
+
+
+
+                // ..
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        databaseReference.addValueEventListener(postListener);
+        ///si el usuario esta navegando
+        //si cambio el nodo actual.....verifica si esta baneado...
+
+    }
 }

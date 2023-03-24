@@ -2517,8 +2517,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     informRegister= new InformRegister(currenTidGenrate,Constants.CONTROL_CALIDAD,
 
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(), //EEROR
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            Variables.usuarioQserconGlobal.getNombreUsuario(), //EEROR
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
                             , "CONTROL CALIDAD ");
 
 

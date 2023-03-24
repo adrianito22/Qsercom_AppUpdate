@@ -11,7 +11,6 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
@@ -29,15 +28,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="s">
-
-
-
-
+        <activity
+            android:name=".activities.othersActivits.ActivityProhibido"
+            android:exported="false" />
         <activity
             android:name=".PdfMaker.PdfMakerCamionesyCarretas"
             android:exported="true" />
-
-
         <activity
             android:name=".PdfMaker.PdfMakerContenresAcopio"
             android:configChanges="orientation"

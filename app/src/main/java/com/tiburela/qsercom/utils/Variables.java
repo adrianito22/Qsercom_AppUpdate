@@ -20,7 +20,7 @@ import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.models.UsuarioQsercom;
+import com.tiburela.qsercom.models.UsuarioQsercon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +54,7 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
     public static  ArrayList<ControlCalidad>listReprsVinculads=new ArrayList<>();
 
 
-    public static UsuarioQsercom usuarioQsercomGlobal;
+    public static UsuarioQsercon usuarioQserconGlobal;
 
     public static InformRegister currentInformRegisterSelected;
 

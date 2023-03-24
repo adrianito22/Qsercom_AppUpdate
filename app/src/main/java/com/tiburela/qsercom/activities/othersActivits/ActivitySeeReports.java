@@ -43,7 +43,6 @@ import com.tiburela.qsercom.adapters.AdapterAllReports;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerVAdapterReportsList;
 import com.tiburela.qsercom.database.RealtimeDB;
-import com.tiburela.qsercom.models.CheckedAndAtatch;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -273,10 +272,10 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                     if(informRegister!=null){  //creamos un objet
 
                         /**si el id report QUE SEA DEL MISMO USER QUE SUBIO **/
-                        Log.i("userre","el user id de adrian es "+Variables.usuarioQsercomGlobal.getUniqueIDuser());
+                        Log.i("userre","el user id de adrian es "+Variables.usuarioQserconGlobal.getUniqueIDuser());
 
-                        if(informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQsercomGlobal.getUniqueIDuser()) ||
-                                Variables.usuarioQsercomGlobal.getUniqueIDuser().equals(Variables.userAdriniatoToDeveloper)){
+                        if(informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser()) ||
+                                Variables.usuarioQserconGlobal.getUniqueIDuser().equals(Variables.userAdriniatoToDeveloper)){
 
                             listReport.add(informRegister);
                         }

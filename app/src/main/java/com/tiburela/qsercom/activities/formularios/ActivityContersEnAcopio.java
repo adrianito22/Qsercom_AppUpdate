@@ -1637,8 +1637,8 @@ private void createObjcInformeAndUpload(){
                 if(informRegister == null && !seSubioform) { //quiere decir que no existe
 
                     informRegister= new InformRegister(currenTidGenrate,Constants.CONTENEDORES_EN_ACOPIO,
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            Variables.usuarioQserconGlobal.getNombreUsuario(),
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
                             , "CONTENEDORES ACOPIO ");
 
 

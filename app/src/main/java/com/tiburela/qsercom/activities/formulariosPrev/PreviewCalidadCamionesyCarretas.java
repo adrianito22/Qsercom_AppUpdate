@@ -4244,8 +4244,18 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
     void ocultaoTherVIEWs(){
+        btnGENERARpdf.setEnabled(false);
+        btnGENERARpdf.setVisibility(View.GONE);
 
-       // ediMarca.setVisibility(View.GONE);
+        if(Variables.usuarioQserconGlobal!=null && Variables.usuarioQserconGlobal.isUserISaprobadp() && Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){
+
+            btnGENERARpdf.setEnabled(true);
+            btnGENERARpdf.setVisibility(View.VISIBLE);
+
+        }
+
+
+        // ediMarca.setVisibility(View.GONE);
         ediUbicacionBalanza.setVisibility(View.GONE);
         spinnerubicacionBalanza.setVisibility(View.GONE);
 

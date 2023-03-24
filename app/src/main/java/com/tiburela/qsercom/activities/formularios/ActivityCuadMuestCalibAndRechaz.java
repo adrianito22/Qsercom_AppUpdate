@@ -541,8 +541,8 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                 if(informRegister == null) { //quiere decir que no existe
 
                     informRegister= new InformRegister(currenTidGenrate,Constants.CUADRO_MUESTRO_CAL_RECHZDS,
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            Variables.usuarioQserconGlobal.getNombreUsuario(),
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
                             , "CUADRO MUESTREO");
 
 

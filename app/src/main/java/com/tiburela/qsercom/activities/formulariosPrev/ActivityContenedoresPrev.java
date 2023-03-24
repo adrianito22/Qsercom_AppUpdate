@@ -531,6 +531,16 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
     private void configCertainSomeViewsAliniciar() { //configuraremos algos views al iniciar
+        btnGENERARpdf.setEnabled(false);
+        btnGENERARpdf.setVisibility(View.GONE);
+
+        if(Variables.usuarioQserconGlobal!=null && Variables.usuarioQserconGlobal.isUserISaprobadp() && Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){
+
+            btnGENERARpdf.setEnabled(true);
+            btnGENERARpdf.setVisibility(View.VISIBLE);
+
+        }
+
 
         disableEditText(ediFecha);
         disableEditText(ediHoraInicio);

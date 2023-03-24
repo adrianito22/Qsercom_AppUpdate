@@ -2394,8 +2394,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
                 {
                     informRegister= new InformRegister(currenTidGenrate,Constants.CAMIONES_Y_CARRETAS,
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
+                            Variables.usuarioQserconGlobal.getNombreUsuario(),
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
                            , "CAMIONES Y CARRETAS ");
 
 

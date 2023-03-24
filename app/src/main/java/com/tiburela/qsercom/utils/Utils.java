@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
@@ -38,7 +37,7 @@ import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
-import com.tiburela.qsercom.models.UsuarioQsercom;
+import com.tiburela.qsercom.models.UsuarioQsercon;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -949,7 +948,7 @@ return
 
        // Log.i("hahsger","vamos a metodo check ");
 
-      //  final TaskCompletionSource<UsuarioQsercom> tcs = new TaskCompletionSource<>();
+      //  final TaskCompletionSource<UsuarioQsercon> tcs = new TaskCompletionSource<>();
 
 
       //  CountDownLatch done = new CountDownLatch(1);
@@ -965,11 +964,11 @@ return
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                   Log.i("hahsger","el value de snpatshot es "+snapshot.getValue());
-                UsuarioQsercom currentObect = null;
+                UsuarioQsercon currentObect = null;
                   if(snapshot.exists()){
 
                       for (DataSnapshot ds : snapshot.getChildren()) {
-                          currentObect=ds.getValue(UsuarioQsercom.class);
+                          currentObect=ds.getValue(UsuarioQsercon.class);
                       }
 
 
@@ -1398,6 +1397,8 @@ return true;
          //aqui mostramos un sheet...
 
     }
+
+
 
 }
 
