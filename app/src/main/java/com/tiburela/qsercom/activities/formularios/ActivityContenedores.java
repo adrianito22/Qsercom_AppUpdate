@@ -2677,6 +2677,12 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 void checkDataFields(){ //
 
 
+       if(Variables.usuarioQserconGlobal==null){
+           Toast.makeText(ActivityContenedores.this, "No puedes subir hasta que inicies sesión, ¡Guárdalo  localmente", Toast.LENGTH_LONG).show();
+           return;
+       }
+
+
 
     if(! checkDatosGeneralesIsLleno()){
         btnCheck.setEnabled(true);

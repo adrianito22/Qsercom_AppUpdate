@@ -733,6 +733,14 @@ return object;
 
     private boolean chekeadDataListIsReady(){
 
+
+        if(Variables.usuarioQserconGlobal==null){
+            Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "No puedes subir hasta que inicies sesión, ¡Guárdalo  localmente", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
+
        if(ediSemanaxc.getText().toString().trim().isEmpty()){
            ediSemanaxc.requestFocus();
            ediSemanaxc.setError("Este dato es requerido");

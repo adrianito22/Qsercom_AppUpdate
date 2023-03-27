@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Qsercon App</string>
 
+    <string name="acercaapp">Qsercon App , es la app oficial de... desarrollada exclusivamente  por Iberlat.com ,este proyecto tiene el objetivo de ..... y ademas</string>
+
 
     <string-array name="zonaOpciones">
         <item>NINGUNA</item>

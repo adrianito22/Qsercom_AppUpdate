@@ -2270,7 +2270,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 showsumDfectsSelected();
 
 
-                if (Double.isNaN(calidadFinally)) {
+            if(Variables.usuarioQserconGlobal==null){
+                  Toast.makeText(ActivityControlCalidad.this, "No puedes subir hasta que inicies sesión, ¡Guárdalo  localmente", Toast.LENGTH_LONG).show();
+                  return;
+               }
+
+
+               if (Double.isNaN(calidadFinally)) {
                     Log.i("misdatassd","el numero es nam");
                     return;
                 }

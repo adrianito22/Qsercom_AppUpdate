@@ -472,6 +472,15 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
     }
     private boolean CheckData(){
 
+
+        if(Variables.usuarioQserconGlobal==null){
+            Toast.makeText(ActivityPackingList.this, "No puedes subir hasta que inicies sesión, ¡Guárdalo  localmente", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
+
+
         if(mEdiTotalCajas.getText().toString().isEmpty()){
             mEdiTotalCajas.requestFocus();
             mEdiTotalCajas.setError("Agrega el total de cajas");

@@ -66,6 +66,7 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
+import com.tiburela.qsercom.dialog_fragment.DialogFragmentMenu;
 import com.tiburela.qsercom.models.EstateFieldView;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
@@ -82,6 +83,7 @@ import java.util.UUID;
 
 //package com.tiburela.qsercom.activities.formularios;
 public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation,PopupMenu.OnMenuItemClickListener {
+    Bundle bundle= new Bundle();
 
     boolean userIniciosSesion=false;
     private FirebaseAuth mAuth;
@@ -147,8 +149,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        SharePref.init(ActivityMenu.this);
 
+
+
+
+        SharePref.init(ActivityMenu.this);
 
 
         //  Variables.actividad =ActivityMenu;
@@ -158,7 +163,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         RealtimeDB.initDatabasesRootOnly();
-
 
 
 
@@ -922,13 +926,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
             txtHeader.setText(Variables.userGoogle.getDisplayName());
 
-        }else{
+        }else
 
-
-            Log.i("solodataaqui", "aqui si es nulo");
-
-
-        }
 
 
         if(userIniciosSesion){ ///mostramos el nombre y el cargo que tiene
@@ -997,11 +996,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 Log.i("defugero", "firebaseAuthWithGoogle:" + account.getDisplayName());
 
 
-                if(task.isSuccessful()){  ///vamohaber tareaspendientes
-
-                }
-
-
                 firebaseAuthWithGoogle(account.getIdToken());
                 Log.i("defugero","se jecuito el try");
 
@@ -1042,6 +1036,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                              estableceHeaderTextAndListerner();
 
                            // estableceHeaderTextAndListerner
+
+
+                            descragCurrentUsuario(Variables.userGoogle.getEmail());
 
 
                             /**verificar si por aqui creamos el nuevo nodo
@@ -1407,6 +1404,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                    Variables.usuarioQserconGlobal=user;
                     txtSubHeader=findViewById(R.id.txtSubHeader);
                     if(user.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){
+
                         txtSubHeader.setText("Inspector de oficina");
 
                     }else if(user.getTiposUSUARI()==Utils.INSPECTOR_CAMPO){
@@ -1467,8 +1465,19 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
 
-        case R.id.option2:
 
+            case R.id.informacion:
+
+                DialogFragmentMenu dfragmentLevel= new DialogFragmentMenu();
+                bundle.putInt("key",Variables.ACERCA);
+                dfragmentLevel.setArguments(bundle);
+                dfragmentLevel.show(getSupportFragmentManager(),"Fragment");
+
+                return true;
+
+
+
+            case R.id.cerrarSesion:
 
         FirebaseAuth.getInstance().signOut();
 
@@ -1478,6 +1487,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         ).signOut();
 
+            setdataSigOut();
+
+        //
 
 
         //actualizamos las vistas
@@ -1490,8 +1502,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             //si no inicia no puede ver si axctiva generar pdf..
 
 
-            ff chekear sque si no inicia no le saldra revisar informes y informes guardados... solo es para usuario de campo...
-
+           // ff chekear sque si no inicia no le saldra revisar informes y informes guardados... solo es para usuario de campo...
+//sol is user is aprobado podra subir...eso creo que ya esta,,
             ////informes por revisar... y eso tambien pilas..
 
         Log.i("gdher","se oulso option2");
@@ -1501,4 +1513,20 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         return false;
     }
     }
+
+
+    private void setdataSigOut(){
+        txtSubHeader=findViewById(R.id.txtSubHeader);
+        txtHeader=findViewById(R.id.txtHeader);
+
+
+        txtHeader.setText("! NO HAS INICIADO SESIÓN !");
+        txtSubHeader.setText("INICIA SESIÓN AQUÍ");
+        imGProfile.setImageResource(R.drawable.ic_baseline_face_24);
+
+
+        Variables.usuarioQserconGlobal =null;
+
+    }
+
 }
