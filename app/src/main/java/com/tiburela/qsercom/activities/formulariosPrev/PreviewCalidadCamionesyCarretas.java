@@ -62,6 +62,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMakerCamionesyCarretas;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -352,6 +353,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         findViewsIds();
+
+        hideViewsIfUserISCampo();
+
+
         ocultaoTherVIEWs();
         configCertainSomeViewsAliniciar();
         listViewsClickedUser=new ArrayList<>();
@@ -3896,8 +3901,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         ediCodigoRevisa.setText(currenReport.getCodigonRevisa());
         ediMarca.setText(currenReport.getMarca());
 
-
-
         ediExportadoraProcesada.setText(currenReport.getExportadoraProcesada());
         ediExportadoraSolicitante.setText(currenReport.getExportadoraSolicitante());
 
@@ -5255,6 +5258,27 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
             }
         });
+
+    }
+    private void hideViewsIfUserISCampo(){
+
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO || SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
+
+
+            ediNombreRevisa.setEnabled(false);
+            ediCodigoRevisa.setEnabled(false);
+        }
+
+
+        if(Variables.usuarioQserconGlobal!=null){
+
+            if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
+                ediNombreRevisa.setEnabled(false);
+                ediCodigoRevisa.setEnabled(false);
+            }
+
+        }
+
 
     }
 

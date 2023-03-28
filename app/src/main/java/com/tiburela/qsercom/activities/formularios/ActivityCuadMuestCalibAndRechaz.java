@@ -218,6 +218,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                         "", "","","","","","",""
                 );
 
+
                 ///editamos los otos datos de la cantidad de rechzados..
                 CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
 
@@ -256,16 +257,14 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
 
                     ///editamos los otros datos de la cantidad de rechzados..
-                    //CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
+                    objec=addRechazadosData(objec);
 
 
                     int totalRechazados=obtenTotaLrechazados(objec);
                     Log.i("eldaterr","el total rechzados es "+totalRechazados);
                     objec.setTotalRechazadosAll(totalRechazados);
-
-
+                    
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(objec);
-
 
                   HashMap<String,ColorCintasSemns>mapita= iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
 

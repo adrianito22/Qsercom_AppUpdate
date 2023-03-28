@@ -65,6 +65,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.auth.Auth;
@@ -330,6 +331,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         if (esFirstCharge) {
             findViewsIds();
+
+            hideViewsIfUserISCampo();
 
             context = getApplicationContext();
 
@@ -6140,6 +6143,29 @@ else{
           return key;
 
     }
+
+    private void hideViewsIfUserISCampo(){
+
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO || SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
+
+
+            ediNombreRevisa.setEnabled(false);
+            ediCodigoRevisa.setEnabled(false);
+        }
+
+
+        if(Variables.usuarioQserconGlobal!=null){
+
+            if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
+                ediNombreRevisa.setEnabled(false);
+                ediCodigoRevisa.setEnabled(false);
+            }
+
+        }
+
+
+    }
+
 
 
 }

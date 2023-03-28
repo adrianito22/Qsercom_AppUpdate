@@ -55,6 +55,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.PdfMaker.PdfMakerContenresAcopio;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
@@ -256,6 +257,10 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
         findViewsIds();
+
+        hideViewsIfUserISCampo();
+
+
         configCertainSomeViewsAliniciar();
       //  ocultaCertainViews();
         listViewsClickedUser=new ArrayList<>();
@@ -3916,6 +3921,27 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
+    private void hideViewsIfUserISCampo(){
+
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO || SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
+
+
+            ediNombreRevisa.setEnabled(false);
+            ediCodigoRevisa.setEnabled(false);
+        }
+
+
+        if(Variables.usuarioQserconGlobal!=null){
+
+            if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
+                ediNombreRevisa.setEnabled(false);
+                ediCodigoRevisa.setEnabled(false);
+            }
+
+        }
+
+
+    }
 
 
 

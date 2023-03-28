@@ -313,6 +313,8 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
 
         findViewsIds();
 
+        hideViewsIfUserISCampo();
+
         configCertainSomeViewsAliniciar();
       //  ocultaCertainViews();
 
@@ -3139,5 +3141,28 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
+    private void hideViewsIfUserISCampo(){
+        TextInputEditText  ediNombreRevisa =findViewById(R.id.ediNombreRevisa);
+        TextInputEditText  ediCodigoRevisa =findViewById(R.id.ediCodigoRevisa);
+
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO || SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
+
+
+            ediNombreRevisa.setEnabled(false);
+            ediCodigoRevisa.setEnabled(false);
+        }
+
+
+        if(Variables.usuarioQserconGlobal!=null){
+
+            if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
+                ediNombreRevisa.setEnabled(false);
+                ediCodigoRevisa.setEnabled(false);
+            }
+
+        }
+
+
+    }
 
 }

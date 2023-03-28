@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
+import com.tiburela.qsercom.models.UsuarioQsercon;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +22,9 @@ import java.util.Map;
 
 public class SharePref {
  //al menos 5 keys.. UNA POR CADA FORMULARIO
+
+    public static final String KEY_QSERCON_USER="KEY_QSERCON_USER";
+
 
     public static final String KEY_ALL_REPORTS_OFLINE_REGISTER="KEYALL_REPORT_OFFFLINE";
 
@@ -58,6 +62,23 @@ public class SharePref {
 
             //confomre cre le basamos guardando..
         }
+    }
+
+
+
+    public static void saveQserconTipoUser(int object){
+        mSharedPrefUniqueObjc.edit()
+                .putInt(KEY_QSERCON_USER, object)
+                .apply();
+
+    }
+
+
+
+    public static int getQserconTipoUser(){
+        int name = mSharedPrefUniqueObjc.getInt(KEY_QSERCON_USER, 0);
+        return name;
+
     }
 
 

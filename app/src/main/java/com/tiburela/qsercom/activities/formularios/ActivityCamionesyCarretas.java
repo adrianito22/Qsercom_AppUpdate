@@ -314,22 +314,15 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         hideSomeElemtosAnexosAndChangeValues();
 
 
-
-        Log.i("saberrr","el current key extra es "+currentKeySharePrefrences);
-
-
-
         UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
-
-        // FirebaseApp.initializeApp(this);
-        //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
-
         Auth.initAuth(this);
 
         StorageData. initStorageReference();
 
 
         findViewsIds();
+
+        hideViewsIfUserISCampo();
         ocultaoTherVIEWs();
         configCertainSomeViewsAliniciar();
         listViewsClickedUser=new ArrayList<>();
@@ -352,9 +345,9 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         }
 
 
-
-
     }
+
+
 
 
     private EditText[] creaArrayOfEditextCalendario () {
@@ -3696,19 +3689,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
 
-    void addInfotomap(ArrayList<ImagenReport>listImagenReports){
 
-        ImagenReport.hashMapImagesData= new HashMap<>();
-
-        for(int indice2=0; indice2<listImagenReports.size(); indice2++){
-
-            ImagenReport currentImareportObj=listImagenReports.get(indice2);
-
-            ImagenReport.hashMapImagesData.put(currentImareportObj.getUniqueIdNamePic(),currentImareportObj);
-
-        }
-
-    }
 
 
 
@@ -3959,7 +3940,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
     void ocultaoTherVIEWs(){
-        ediMarca.setVisibility(View.GONE);
+     //   ediMarca.setVisibility(View.GONE);
         ediUbicacionBalanza.setVisibility(View.GONE);
         spinnerubicacionBalanza.setVisibility(View.GONE);
     }
@@ -4232,5 +4213,31 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
     }
+
+
+    private void hideViewsIfUserISCampo(){
+        TextInputEditText  ediNombreRevisa =findViewById(R.id.ediNombreRevisa);
+        TextInputEditText  ediCodigoRevisa =findViewById(R.id.ediCodigoRevisa);
+
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO || SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
+
+
+            ediNombreRevisa.setEnabled(false);
+            ediCodigoRevisa.setEnabled(false);
+        }
+
+
+        if(Variables.usuarioQserconGlobal!=null){
+
+            if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
+                ediNombreRevisa.setEnabled(false);
+                ediCodigoRevisa.setEnabled(false);
+            }
+
+        }
+
+
+    }
+
 
 }

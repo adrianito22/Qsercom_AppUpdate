@@ -1035,7 +1035,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                              estableceHeaderTextAndListerner();
 
-                           // estableceHeaderTextAndListerner
+                             txtSubHeader=findViewById(R.id.txtSubHeader);
+                             txtSubHeader.setText("Pendiente");
 
 
                             descragCurrentUsuario(Variables.userGoogle.getEmail());
@@ -1180,9 +1181,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                         seeUserActivate(Variables.usuarioQserconGlobal);
 
-
-
-
+                        SharePref.saveQserconTipoUser(Variables.usuarioQserconGlobal.getTiposUSUARI());
 
                         //  checkIFuserIsActivatexx(Variables.usuarioQserconGlobal.getMailGooglaUser());
 
