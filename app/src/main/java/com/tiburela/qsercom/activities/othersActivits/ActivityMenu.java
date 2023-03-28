@@ -151,8 +151,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
 
-
-
         SharePref.init(ActivityMenu.this);
 
 
@@ -161,10 +159,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         imGProfile=findViewById(R.id.imageView2);
 
-
         RealtimeDB.initDatabasesRootOnly();
-
-
 
         inigoogleSigni();//iniciamos google account autentificacion
 

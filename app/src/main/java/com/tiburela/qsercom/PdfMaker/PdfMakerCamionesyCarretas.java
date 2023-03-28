@@ -646,7 +646,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-             table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked, PdfMakerCamionesyCarretas.this,contadorTablas);
+             table1=  HelperPdf.createTableEvaluacionYcondcionFrutaCmnsyCarretas(currenControCaldRep,currentMap,currentMapDefectsCheked, PdfMakerCamionesyCarretas.this,contadorTablas);
 
 
                  if( contadorTablas % 2==0){  //yPosicion si existen mas tablas yPosicion es un numero
@@ -683,7 +683,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         Paragraph title= new Paragraph("CERTIFICACIÓN").setFontSize(12f).setTextAlignment(TextAlignment.CENTER).setMarginTop(10f).setBold();
 
         midocumentotoAddData.add(title);
-        midocumentotoAddData.add(new Paragraph("Estimados.").setFontSize(8.6f).setMarginTop(5f).setPaddingLeft(60f));
+        midocumentotoAddData.add(new Paragraph("Estimados.").setFontSize(11f).setMarginTop(4f).setPaddingLeft(60f));
 
 
         /**TEXTO SEGUNDA LINEA*/
@@ -694,8 +694,8 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         midocumentotoAddData.add(title);
 
 
-        midocumentotoAddData.add(new Paragraph("A continuación describimos lo siguiente:").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f));
-        midocumentotoAddData.add(new Paragraph("Tabla1.-  Descripción de porcentaje de calidad de productores y tipos de empaque").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
+        midocumentotoAddData.add(new Paragraph("A continuación describimos lo siguiente:").setFontSize(10f).setMarginTop(4f).setPaddingLeft(60f));
+        midocumentotoAddData.add(new Paragraph("Tabla1.-  Descripción de porcentaje de calidad de productores y tipos de empaque").setFontSize(10f).setMarginTop(4f).setPaddingLeft(60f).setBold());
 
 
            /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
@@ -712,7 +712,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-        midocumentotoAddData.add(new Paragraph("Gráfico 1.- Demostración de calidad total y daños- estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+        midocumentotoAddData.add(new Paragraph("Gráfico 1.- Demostración de calidad total y daños- estropeos en fruta.").setFontSize(8.5f).setMarginTop(10f).setPaddingLeft(60f));
 
          /**Agregamos pie  Grafico*/
          PieChart pieChart;
@@ -751,14 +751,14 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         /**Texto como verfiicadora tenemos...*/
 
         midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente.").
-                setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
+                setFontSize(10f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
 /*
         midocumentotoAddData.add(new Paragraph(Variables.currenReportCamionesyCarretas1.getClienteReporte()).
                 setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
 */
 
         midocumentotoAddData.add(new Paragraph("Atentamente,").
-                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+                setFontSize(10f).setMarginTop(10f).setPaddingLeft(60f));
 
           /**NOMBRE DE LOS INSPECTORES*/
          table1=  HelperPdf.generaTableInspectores(Variables.currenReportCamionesyCarretas,pageSize.getWidth());
@@ -883,7 +883,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
             midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
-                    setFontSize(7.9f).setMarginTop(10f).setPaddingLeft(60f).setBold());
+                    setFontSize(8.5f).setMarginTop(10f).setPaddingLeft(60f).setBold());
 
             Log.i("miodatr","se eejcuto el pdd");
 

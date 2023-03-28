@@ -4845,7 +4845,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
                   String [] dateCreate=Variables.currenReportCamionesyCarretas.getSimpleDataFormat().split("-");
 
-                    String nameFilePdf=""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.currenReportCamionesyCarretas.getClienteReporte();
+                    String nameFilePdf=""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.currenReportCamionesyCarretas.getProductor();
 
 
                     Log.i("comnadaer", "bien vamos a activity pdf maker");

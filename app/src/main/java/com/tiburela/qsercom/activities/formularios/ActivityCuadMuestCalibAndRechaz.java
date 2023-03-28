@@ -263,7 +263,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                     int totalRechazados=obtenTotaLrechazados(objec);
                     Log.i("eldaterr","el total rechzados es "+totalRechazados);
                     objec.setTotalRechazadosAll(totalRechazados);
-                    
+
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(objec);
 
                   HashMap<String,ColorCintasSemns>mapita= iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
