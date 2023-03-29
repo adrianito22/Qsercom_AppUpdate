@@ -3,6 +3,7 @@ package com.tiburela.qsercom.PdfMaker;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.os.Build.VERSION.SDK_INT;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,10 +25,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -176,39 +183,115 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                 //DESCTIVAMSO EL BOTON SOLO SI TENEMOS LOS 2  PERMISOS CONCEDIDOS
-                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED &&
+                if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R &&
+                        Utils.checkPermission(PdfMakerCamionesyCarretas.this)) {//adnroid 11
 
-                        ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                                == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+
                     btnDescargar.setEnabled(false);
+
                 }
 
-                try {
-
-                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                else{
+                    //DESCTIVAMSO EL BOTON SOLO SI TENEMOS LOS 2  PERMISOS CONCEDIDOS
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED &&
 
                             ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                                    == PackageManager.PERMISSION_GRANTED)
+                                    == PackageManager.PERMISSION_GRANTED) {
+                        //si tiene permisos
+                        btnDescargar.setEnabled(false);
+                    }
 
 
-                        { //si tiene permisos
-                        Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
+                }
 
-                        HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
 
-                        createPDFCamionesyCarretas() ;
+
+
+                try {
+
+
+                    if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
+
+
+                        if(Utils.checkPermission(PdfMakerCamionesyCarretas.this)){
+                            Log.i("PERMISO"," es sdk mayor  a R version, tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
+
+                            HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
+
+                            createPDFCamionesyCarretas() ;
+
+                            Toast.makeText(PdfMakerCamionesyCarretas.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
+
+
+                        }else{
+
+
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                            intent.setData(Uri.parse(String.format("package:%s", getApplicationContext().getPackageName())));
+                            //  startActivityForResult(intent, 2296);
+                            setResult(123, intent);
+
+                            activityResultLaunch.launch(intent);
+
+                            Log.i("PERMISO","solictamos permiso ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
+
+
+/*
+
+                            HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
+
+                            createPDFCamionesyCarretas() ;
+
+                            Toast.makeText(PdfMakerCamionesyCarretas.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
+
+
+
+
+*/
+
+
+
+
+
+
+
+                           //   requestPermision(PdfMakerCamionesyCarretas.this);
+                            //solictamos permiso
+                        }
+
+
+
+                    }else{
+
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED &&
+
+                                ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                        == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+                            Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
+
+                            HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
+
+                            createPDFCamionesyCarretas() ;
 
                             Toast.makeText(PdfMakerCamionesyCarretas.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
 
                         }else{
-                        Log.i("permisodd","no tiene ambos permisos ");
+                            Log.i("permisodd","no tiene ambos permisos ");
 
-                        requestPermision(PdfMakerCamionesyCarretas.this);
+                            requestPermision(PdfMakerCamionesyCarretas.this);
+
+                        }
 
                     }
+
+
+
+
+
+
+
 
 
 
@@ -269,11 +352,41 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         HelperPdf.TableCalidProdc=new ArrayList<>();
 
 
-        String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         //doble chekeo si la current canvas object no fue terminada la finalizamos
         // pdfDocument.finishPage(currentPagePdfObjec) ;
         File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-         file = new File(directory, nameOFPDFrEPORTfile+".pdf");
+
+      //  File directory2 = getExternalFilesDirs (Environment.DIRECTORY_DOWNLOADS);
+
+
+
+        if(!directory.exists())
+        {
+
+            Log.i("credff","no existe");
+
+            directory.mkdirs();
+        }
+
+
+/*
+        boolean secreoDorectorio= directory.mkdirs(); // make sure you call mkdirs() and not mkdir()
+
+        if(secreoDorectorio){
+            Log.i("credff","si se creo directorio file");
+
+        }else{
+
+            Log.i("credff","no  se cre2zzzzzzzzo directorio file");
+
+        }
+*/
+
+        file  = new File(directory, nameOFPDFrEPORTfile+".pdf");
+
+
+
+
 
         uriThiSfile=Uri.fromFile(file);
 
@@ -283,7 +396,25 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
+        if(android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R){
+
+          //  file.createNewFile();
+
+         // File  audioFile = new File(file.getAbsolutePath());
+          //  String filePath = direPath + "/recording";
+          // OutputStream estrema =new FileOutputStream(audioFile);
+
+
+        }else{
+
+
+        }
+
+
         OutputStream estrema =new FileOutputStream(file);
+
+
+
         PdfWriter writer = new PdfWriter(file); //le pasmaos el file
 
 
@@ -1387,7 +1518,24 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE)
+                    if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
+
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED){
+
+
+                            Toast.makeText(PdfMakerCamionesyCarretas.this, "Permiso concedido, puedes descargar", Toast.LENGTH_SHORT).show();
+
+
+                        }
+
+
+
+                        return;
+                    }
+
+
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED){
 
 
@@ -1401,13 +1549,6 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
                         Log.i("permisodd"," PERMISO RAD_EXTERNAL_STORAGE  ");
 
-/*
-                        try {
-                            createPDFContenedores() ;
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-*/
 
                     }
 
@@ -1430,6 +1571,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         }
     }
 
+
     private void requestPermision( Context contex){
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(contex);
@@ -1440,112 +1582,162 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         Button btnCerrar =bottomSheetDialog.findViewById(R.id.btnCerrar);
 
         btnConceder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                                           @Override
+                                           public void onClick(View view) {
+
+                                               if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
+
+                                                   if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                                                           == PackageManager.PERMISSION_DENIED) {
+
+                                                       Log.i("permisodd","solitando permioso hrre...");
+
+                                                       ActivityCompat.requestPermissions(PdfMakerCamionesyCarretas.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                                               CODE_READ_EXTERNAL_STORAGE);
 
 
-                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_DENIED &&
-                        ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                                == PackageManager.PERMISSION_DENIED){
+                                                   }
 
-                    Log.i("permisodd","SE EJECUTO ESTE IF ");
+                                               }
 
+                                                   else{
 
+                                                       if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                                                               == PackageManager.PERMISSION_DENIED &&
+                                                               ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                                                       == PackageManager.PERMISSION_DENIED){
 
-
-
-                    ActivityCompat.requestPermissions(PdfMakerCamionesyCarretas.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        TWO_PERMISION_REQUEST);
-
-
-            }
-
-               else if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_DENIED){
-                    Log.i("permisodd","SE EJECUTO ES TEELSE  IF 1 ");
-
-                    ActivityCompat.requestPermissions(PdfMakerCamionesyCarretas.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            CODE_READ_EXTERNAL_STORAGE);
-
-
-                }
-
-
-
-               else if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_DENIED ){
-                    Log.i("permisodd","SE EJECUTO ES TEELSE  IF 2 ");
-
-                    ActivityCompat.requestPermissions(PdfMakerCamionesyCarretas.this, new String[]{WRITE_EXTERNAL_STORAGE},
-                            CODE_WRITE_EXTERNAL_STORAGE);
-
-
-                }
+                                                           Log.i("permisodd","SE EJECUTO ESTE IF ");
 
 
 
 
 
+                                                           ActivityCompat.requestPermissions(PdfMakerCamionesyCarretas.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                                   TWO_PERMISION_REQUEST);
 
-                bottomSheetDialog.dismiss();
 
-            }
-        });
+                                                       }
+
+                                                       else if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                                                               == PackageManager.PERMISSION_DENIED){
+                                                           Log.i("permisodd","SE EJECUTO ES TEELSE  IF 1 ");
+
+                                                           ActivityCompat.requestPermissions(PdfMakerCamionesyCarretas.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                                                   CODE_READ_EXTERNAL_STORAGE);
+
+
+                                                       }
+
+
+
+                                                       else if(ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                                               == PackageManager.PERMISSION_DENIED ){
+                                                           Log.i("permisodd","SE EJECUTO ES TEELSE  IF 2 ");
+
+                                                           ActivityCompat.requestPermissions(PdfMakerCamionesyCarretas.this, new String[]{WRITE_EXTERNAL_STORAGE},
+                                                                   CODE_WRITE_EXTERNAL_STORAGE);
+
+
+                                                       }
+
+
+
+
+                                                   }
+
+
+
+
+                                                   bottomSheetDialog.dismiss();
+
+                                               }
+                                           });
 
 
 
         btnCerrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                                               @Override
+                                               public void onClick(View view) {
 
-                bottomSheetDialog.dismiss();
+                                                   bottomSheetDialog.dismiss();
 
 
-            }
-        });
+                                               }
+                                           });
         bottomSheetDialog.show();
 
 
 
 
+                                       }
+
+
+                /****AGREGAR LAS NUEVAS PROPIEDADES AL OBJETOS IMAGEREPORT ALGO ASI... VERIFICAR LAS PROPIEDADES Y AGREGARLES
+                 ***DESPUES CEHKEAR SI EN REALIDAD TODO FUNCIONA CON REPSECTO A IMAGENES
+                 * **CUANTA MEMORIA CONSUME ,AHORA ESTA EN 850MB CASI UN GIGA...
+                 * ***CHEKEAR PDF SI SALEN LAS IMAGENES...
+                 *
+                 * OAGREGAR UN PUNTO DE QUIEBRE Y OBTENER LAS IMAGENES ID Y DESPUES AGREGARLES UNO POR UNO ESA PROPIEDAD..
+                 * //SUBIR MAS IMAGENES CON ESA NUEVA PROPIEDAD...//UNAS 3 IMAGENES POR SET COMOMAXI, ELIMNAR ALGUNAS..
+                 * EN EACTIVITY PREVIW PAR ASI CAMBAIR A POCAS...
+                 *
+
+
+                 ****/
+
+
+                ActivityResultLauncher<Intent> activityResultLaunch = registerForActivityResult(
+                        new ActivityResultContracts.StartActivityForResult(),
+                        new ActivityResultCallback<ActivityResult>() {
+                            @Override
+                            public void onActivityResult(ActivityResult result) {
+
+
+
+                                Log.i("PERMISO","el reuslt es "+result.getResultCode());
+
+
+                                if (result.getResultCode() == 0) {
+
+                                    Log.i("misdtas","es codigo");
+                                    // ToDo : Do your stuff...
+                                    if (SDK_INT >= Build.VERSION_CODES.R) {
+                                        if (Environment.isExternalStorageManager()) {
+
+                                            Toast.makeText(PdfMakerCamionesyCarretas.this, "Permiso concedido puedes descargar", Toast.LENGTH_LONG).show();
+
+
+                                            /*
+                                            if (ContextCompat.checkSelfPermission(PdfMakerCamionesyCarretas.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                    == PackageManager.PERMISSION_GRANTED && Environment.isExternalStorageManager()) { //y ademas tenemos los demas permisos
+                                                Log.i("misdtas","es dowload empleados");
+
+                                            }
+
+                                              */
+                                            // perform action when allow permission success
+
+                                         //   Log.i("PERMISO","el reuslt es "+result.getResultCode());
+
+
+
+
+                                            Log.i("PERMISO","dimos permisos storage manager");
+
+
+                                        } else {
+
+                                            Log.i("PERMISO","no dimos permiso");
+
+                                            Toast.makeText(PdfMakerCamionesyCarretas.this, "Permite el acceso  a archivos !", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+
     }
 
 
-    /****AGREGAR LAS NUEVAS PROPIEDADES AL OBJETOS IMAGEREPORT ALGO ASI... VERIFICAR LAS PROPIEDADES Y AGREGARLES
-     ***DESPUES CEHKEAR SI EN REALIDAD TODO FUNCIONA CON REPSECTO A IMAGENES
-     * **CUANTA MEMORIA CONSUME ,AHORA ESTA EN 850MB CASI UN GIGA...
-     * ***CHEKEAR PDF SI SALEN LAS IMAGENES...
-     *
-     * OAGREGAR UN PUNTO DE QUIEBRE Y OBTENER LAS IMAGENES ID Y DESPUES AGREGARLES UNO POR UNO ESA PROPIEDAD..
-     * //SUBIR MAS IMAGENES CON ESA NUEVA PROPIEDAD...//UNAS 3 IMAGENES POR SET COMOMAXI, ELIMNAR ALGUNAS..
-     * EN EACTIVITY PREVIW PAR ASI CAMBAIR A POCAS...
-     *
-
-
-     ****/
-
-
-
-
-
-    void cancelTimer() {
-        //si se destruye la actividad ...lo cancelamos....
-
-
-        if(cTimer!=null)
-            cTimer.cancel();
-    }
-
-
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        cancelTimer();
-
-    }
-
-}
