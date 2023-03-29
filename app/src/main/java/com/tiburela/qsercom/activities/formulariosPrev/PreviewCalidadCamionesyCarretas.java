@@ -1122,25 +1122,30 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     private void takepickNow() {
 
+        if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R && //adnroid 11
+                ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED ){ //ANDROID 11
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-        ){
             takePickCamera();
-
-            Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
         }
 
         else
 
         {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
-                    CODE_TWO_PERMISIONS);
 
-            Log.i("codereister","permiso DENEGADO SOLICTAMOS PERMISO") ;
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                takePickCamera();
+
+                Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
+            }else{
+
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                        CODE_TWO_PERMISIONS);
+            }
 
         }
+
     }
 
     void takePickCamera() {
