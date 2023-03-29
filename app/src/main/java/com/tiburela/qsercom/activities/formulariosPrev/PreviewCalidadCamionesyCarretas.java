@@ -279,9 +279,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         if(hayUnformularioIcompleto){
 
-            TextInputEditText [] arrayEditex =creaArryOfTextInputEditText();
 
-           // Utils.addDataOfPrefrencesInView(arrayEditex);
 
             Map<String, ImagenReport> mapImagesReport = Utils.loadMapiMAGEData(PreviewCalidadCamionesyCarretas.this);
 
@@ -489,6 +487,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
       //   LinearLayout lyUbicacionBalanza=findViewById(R.id.lyUbicacionBalanza);
        // lyUbicacionBalanza.setVisibility(LinearLayout.GONE);
+
+
+
+        disableEditText(ediRacimosRecha);
 
         disableEditText(ediFecha);
         disableEditText(ediHoraInicio);
@@ -4079,10 +4081,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 ediSemana, ediFecha, ediProductor, ediHacienda, ediCodigo, ediInscirpMagap, ediPemarque, ediZona, ediHoraInicio, ediHoraTermino,
                 ediNguiaRemision, edi_nguia_transporte, ediNtargetaEmbarque, ediNhojaEvaluacion, ediObservacion, ediEmpacadora,
                 ediContenedor, ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07, ediPPC08, ediPPC09, ediPPC010, ediPPC011,
-                ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016, ediEnsunchado, ediBalanzaRepeso, ediCandadoQsercom,
-                ediBalanza, ediFuenteAgua, ediAguaCorrida, ediLavadoRacimos, ediFumigacionClin1, ediTipoBoquilla, ediCajasProcDesp, ediRacimosCosech,
-                ediRacimosRecha, ediRacimProces, ediNombreChofer, ediCedula, ediCelular, ediPLaca, ediCondicionBalanza,
-                ediTipodeCaja, ediTipoPlastico, ediTipoBalanza, editipbalanzaRepeso, ediExtCalid, ediExtRodillo,
+                ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016, ediEnsunchado, ediBalanzaRepeso,
+                   ediCajasProcDesp, ediRacimosCosech,
+                ediRacimosRecha, ediRacimProces, ediNombreChofer, ediCedula, ediCelular, ediPLaca,
+                    ediExtCalid, ediExtRodillo,
                 ediExtGancho, ediExtCalidCi, ediExtRodilloCi, ediExtGanchoCi, spinnerSelectZona, spinnerCondicionBalanza, spinnertipoCaja,
                 spinnertipodePlastico, spinnertipodeBlanza , spinnertipodeBlanzaRepeso  , spFuenteAgua ,
                 spFumigaCorL1 , spTipoBoquilla , spinnerCandadoQsercon, switchHaybalanza, switchHayEnsunchado, switchBalanzaRep,

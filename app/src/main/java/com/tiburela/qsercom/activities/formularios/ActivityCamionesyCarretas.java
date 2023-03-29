@@ -813,7 +813,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
       //  LinearLayout lyUbicacionBalanza=findViewById(R.id.lyUbicacionBalanza);
        // lyUbicacionBalanza.setVisibility(LinearLayout.GONE);
 
-
+         disableEditText(ediRacimosRecha);
         disableEditText(ediFecha);
         disableEditText(ediHoraInicio);
         disableEditText(ediHoraTermino);
