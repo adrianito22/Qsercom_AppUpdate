@@ -921,12 +921,15 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
             txtHeader.setText(Variables.userGoogle.getDisplayName());
 
+            txtSubHeader.setOnClickListener(null);
+
+
         }else
 
 
 
         if(userIniciosSesion){ ///mostramos el nombre y el cargo que tiene
-            txtSubHeader.setOnClickListener(null);
+           txtSubHeader.setOnClickListener(null);
 
 
 
@@ -1521,6 +1524,15 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         Variables.usuarioQserconGlobal =null;
 
+
+
+        txtSubHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                signInGoogle();
+            }
+        });
     }
 
 }
