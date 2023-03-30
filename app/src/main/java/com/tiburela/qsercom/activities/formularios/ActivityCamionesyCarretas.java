@@ -3160,12 +3160,15 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         }
 
+        /*
         if(ediRacimosRecha.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimosRecha.requestFocus();
             ediRacimosRecha.setError("Este espacio es obligatorio");
 
             return false;
         }
+
+         */
 
         if(ediRacimProces.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimProces.requestFocus();
