@@ -1933,7 +1933,6 @@ else{
             @Override
             public void onClick(View view) {
 
-                // generatePDFandImport();
 
                 checkDataFields();
 
@@ -2688,30 +2687,6 @@ else{
         }
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void generatePDFandImport() {
-        //generate pdf
-
-
-        if (!checkPermission()) {
-
-            requestPermission();
-            //   Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-            // checkPermission2();
-
-            /****por aqui pedir permisos antes **/
-
-        }
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            //   Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
-            //  startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
-        }
-
-
-    }
 
 
     private boolean checkPermission() {

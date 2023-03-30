@@ -214,6 +214,10 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                     if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
 
 
+                        createPDFCamionesyCarretas() ;
+
+
+/*
                         if(Utils.checkPermission(PdfMakerCamionesyCarretas.this)){
                             Log.i("PERMISO"," es sdk mayor  a R version, tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
@@ -222,6 +226,8 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                             createPDFCamionesyCarretas() ;
 
                             Toast.makeText(PdfMakerCamionesyCarretas.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
+
+
 
 
                         }else{
@@ -237,7 +243,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                             Log.i("PERMISO","solictamos permiso ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
 
 
-/*
+
 
                             HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
 
@@ -248,7 +254,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-*/
+
 
 
 
@@ -261,7 +267,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                         }
 
 
-
+*/
                     }else{
 
                         if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -285,15 +291,6 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                         }
 
                     }
-
-
-
-
-
-
-
-
-
 
 
 

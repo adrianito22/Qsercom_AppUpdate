@@ -181,53 +181,72 @@ public class PdfMaker2_0 extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                 //DESCTIVAMSO EL BOTON SOLO SI TENEMOS LOS 2  PERMISOS CONCEDIDOS
-                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED &&
 
-                        ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                                == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+                if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R &&
+                        Utils.checkPermission(PdfMaker2_0.this)) {//adnroid 11
+
+
                     btnDescargar.setEnabled(false);
-                }
 
-
-
-
-
-                try {
-
-
-                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                }else{
+                    //DESCTIVAMSO EL BOTON SOLO SI TENEMOS LOS 2  PERMISOS CONCEDIDOS
+                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED &&
 
                             ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                                    == PackageManager.PERMISSION_GRANTED)
+                                    == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+                        btnDescargar.setEnabled(false);
+                    }
+
+                }
+
+              //    checkear aun si asignar permisos mmange en android 11 si funciona+
 
 
-                        { //si tiene permisos
-                        Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
+                
 
-                        HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
+                try {
+
+                    if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
+
 
                         createPDFContenedores() ;
+
+
+                    }
+
+                    else{
+
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED &&
+
+                                ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                        == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+                            Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
+
+                            HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
+
+                            createPDFContenedores() ;
 
                             Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
 
 
 
                         }else{
-                        Log.i("permisodd","no tiene ambos permisos ");
+                            Log.i("permisodd","no tiene ambos permisos ");
 
 
 
-                        requestPermision(PdfMaker2_0.this);
+                            requestPermision(PdfMaker2_0.this);
+
+                        }
 
 
-                       /*
-                        ActivityCompat.requestPermissions(PdfMaker2_0.this, new String[]{WRITE_EXTERNAL_STORAGE},
-                                2);
-*/
                     }
+
+
+
+
 
 
 

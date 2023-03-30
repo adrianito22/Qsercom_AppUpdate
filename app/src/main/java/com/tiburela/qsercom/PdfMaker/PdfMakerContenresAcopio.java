@@ -193,36 +193,61 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
                 try {
-                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED &&
-                            ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                                    == PackageManager.PERMISSION_GRANTED
 
-                    ){ //si tiene permisos
+
+                    if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
+
+
                         Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
                         Toast.makeText(PdfMakerContenresAcopio.this, "Descargando Pdf", Toast.LENGTH_SHORT).show();
 
-                      //03-03 TEMU 838382-8
+                        //03-03 TEMU 838382-8
 
                         dateCreate=Variables.CurrenReportContensEnACp.getFechaInicio().split("/");
 
                         //String date=Variable
-                     //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
-                       // createPdfContenrAcopio2("holaas");
+                        //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
+                        // createPdfContenrAcopio2("holaas");
                         createPdfContenrAcopio2(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor()); ;
 
 
                     }else{
-                        Log.i("permisodd","no tiene ambos permisos ");
+
+
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED &&
+                                ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                        == PackageManager.PERMISSION_GRANTED
+
+                        ){ //si tiene permisos
+                            Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
+
+                            Toast.makeText(PdfMakerContenresAcopio.this, "Descargando Pdf", Toast.LENGTH_SHORT).show();
+
+                            //03-03 TEMU 838382-8
+
+                            dateCreate=Variables.CurrenReportContensEnACp.getFechaInicio().split("/");
+
+                            //String date=Variable
+                            //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
+                            // createPdfContenrAcopio2("holaas");
+                            createPdfContenrAcopio2(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor()); ;
+
+
+                        }else{
+                            Log.i("permisodd","no tiene ambos permisos ");
 
 
 
-                        requestPermision(PdfMakerContenresAcopio.this);
+                            requestPermision(PdfMakerContenresAcopio.this);
+
+
+                        }
+
 
 
                     }
-
 
 
 
