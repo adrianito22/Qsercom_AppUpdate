@@ -900,6 +900,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
     void estableceHeaderTextAndListerner(){
         txtHeader=findViewById(R.id.txtHeader);
+        txtSubHeader=findViewById(R.id.txtSubHeader);
 
 
         if(Variables.userGoogle!=null)
