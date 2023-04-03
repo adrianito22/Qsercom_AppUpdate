@@ -26,17 +26,19 @@ import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
+import com.tiburela.qsercom.callbacks.ItemTouchHelperAdapter;
 import com.tiburela.qsercom.models.ImagenReport;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>  implements   View.OnClickListener  {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>    implements   View.OnClickListener , ItemTouchHelperAdapter {
 
     private View.OnClickListener listener;
     private static ClickListener clickListener;
@@ -60,6 +62,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // Inflate Layout
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_of_recycler, parent, false);
         view.setOnClickListener(this);
+
 
         return new RecyclerViewHolder(view);
     }
@@ -241,24 +244,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                try{
+                    /***en edicion arreglar que remplzamos el correcto*/
 
-                /***en edicion arreglar que remplzamos el correcto*/
+                    String key= holder.textImputEditext.getTag().toString();
 
-                String key= holder.textImputEditext.getTag().toString();
-                ImagenReport.hashMapImagesData.get(key).setDescripcionImagen( holder.textImputEditext.getText().toString());
-
-                Log.i("zaaample","el texto del current edi es "+  holder.textImputEditext.getText().toString());
-
-                Log.i("zaaample","el nombre de esta foto o key es "+  ImagenReport.hashMapImagesData.get(key).getUniqueIdNamePic());
-                ///editamos la propiedad descripcion del objeto ImagenRerpot mapa..
+                    if(  ImagenReport.hashMapImagesData.containsKey(key)){
+                        ImagenReport.hashMapImagesData.get(key).setDescripcionImagen( holder.textImputEditext.getText().toString());
 
 
-                if(!holder.textImputEditext.getText().toString().isEmpty()){ //si contiene al menos un caratcer
+                    }
 
-                    Utils.objsIdsDecripcionImgsMOreDescripc.add(ImagenReport.hashMapImagesData.get(key).getUniqueIdNamePic()+"@"+holder.textImputEditext.getText().toString());
+
+                 //   Log.i("zaaample","el texto del current edi es "+  holder.textImputEditext.getText().toString());
+
+                //    Log.i("zaaample","el nombre de esta foto o key es "+  ImagenReport.hashMapImagesData.get(key).getUniqueIdNamePic());
+                    ///editamos la propiedad descripcion del objeto ImagenRerpot mapa..
+
+
+                    if(!holder.textImputEditext.getText().toString().isEmpty()){ //si contiene al menos un caratcer
+
+                        Utils.objsIdsDecripcionImgsMOreDescripc.add(ImagenReport.hashMapImagesData.get(key).getUniqueIdNamePic()+"@"+holder.textImputEditext.getText().toString());
+                    }
+
+                    //probableent tambien guardar la descripcion en share prefrences...
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
-
-                //probableent tambien guardar la descripcion en share prefrences...
 
 
             }
@@ -279,9 +292,36 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onClick(View view) {
+
+
         if (listener!=null){
             listener.onClick(view);
         }
+    }
+
+
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(listImagenData, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(listImagenData, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+
+       // listImagenData.remove(position);
+      //  notifyItemRemoved(position);
+
     }
 
     // View Holder Class to handle Recycler View.
@@ -289,7 +329,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         private TextInputEditText textImputEditext;
         private ImageView imageview;
-        private ImageView imvClose;
+        public ImageView imvClose;
 
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -303,10 +343,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View v) {
 
+
+
                     if(!Variables.isClickable)
                         return;
 
+
                     clickListener.onItemClick(getAdapterPosition(), v);
+
+                    deleteItem(getAdapterPosition());
+
 
                 }
             });
@@ -396,5 +442,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
+    private void deleteItem(int position) {
+        listImagenData.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, listImagenData.size());
+       // holder.itemView.setVisibility(View.GONE);
+    }
 
+
+    public void addItems(ArrayList<ImagenReport> newItems)
+    {
+        //  listImagenData.clear();
+      //  notifyDataSetChanged();
+        listImagenData.clear();
+        listImagenData.addAll(newItems);
+        notifyDataSetChanged();
+
+
+    }
 }

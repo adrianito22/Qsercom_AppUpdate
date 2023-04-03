@@ -53,6 +53,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -66,6 +67,7 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
+import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -102,10 +104,13 @@ import com.tiburela.qsercom.R;
 
 public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,
         ConnectionReceiver.ReceiverListener , CallbackUploadNewReport {
+    boolean esPrimeravezQueadd=true;
 
     public static CallbackUploadNewReport callbackUploadNewReport;
     boolean userCreoRegisterForm=false;
 
+
+    RecyclerViewAdapter adapterFrutas;
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -2584,10 +2589,13 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
+
           if(isDeleteImg){
 
         currentTypeImage=Variables.typeoFdeleteImg;
     }
+
+
 
 
     ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
@@ -2611,47 +2619,103 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     }
 
 
+    GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
+    RecyclerViewAdapter adapter;
+    RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremos  el adpater en caso que contrnga el reciclerview..
     switch(currentTypeImage){
         case Variables.FOTO_PROCESO_FRUTA_FINCA:
             recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
             break;
 
         case Variables.FOTO_LLEGADA_CONTENEDOR:
             recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_SELLO_LLEGADA:
             recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
             recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_PALLETS:
             recyclerView= findViewById(R.id.recyclerFotoPallets);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_CIERRE_CONTENEDOR:
             recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_DOCUMENTACION:
             recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
     }
 
 
-    RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
-    GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
 
-    // at last set adapter to recycler view.
-    recyclerView.setLayoutManager(layoutManager);
-    recyclerView.setAdapter(adapter);
-    eventoBtnclicklistenerDelete(adapter);
+
+    if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+        if(!isDeleteImg){
+            //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
+            ///   aadpater.notifyDataSetChanged();
+            aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
+
+            aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
+
+            // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
+            // aadpater. notifyItemRangeChanged(position, listImagenData.size());
+
+            Log.i("adpatertt","adpasternotiff");
+
+        }
+
+        Log.i("adpatertt","es difrentede nulo");
+
+    }else{
+
+        adapter=new RecyclerViewAdapter(filterListImagesData,this);
+        // at last set adapter to recycler view.
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        eventoBtnclicklistenerDelete(adapter);
+
+        Log.i("adpatertt","el adpater es nulo");
+
+
+        Log.i("adpatertt","el adpater es nulo");
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+
+
+    }
+
+
+    Log.i("superemasisa","el size de lista aqui before "+filterListImagesData.size());
+
+
 
 }
+
 
 
 private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
@@ -2877,7 +2941,43 @@ void checkDataFields(){ //
     }
 
 
-        createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+    //asi guardamos la posiscion de las imagenes para prdenar.......
+    updatePostionImegesSort();
+
+     aqui mirarr..
+
+    createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+
+}
+
+private void updatePostionImegesSort(){
+    RecyclerView recyclerView=null;
+    recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+    Utils.updatePositionObjectImagenReport(recyclerView);
+
+    recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+    Utils.updatePositionObjectImagenReport(recyclerView);
+
+    recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+    Utils.updatePositionObjectImagenReport(recyclerView);
+
+    recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+    Utils.updatePositionObjectImagenReport(recyclerView);
+
+    recyclerView= findViewById(R.id.recyclerFotoPallets);
+    Utils.updatePositionObjectImagenReport(recyclerView);
+
+    recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+    Utils.updatePositionObjectImagenReport(recyclerView);
+
+    recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+    Utils.updatePositionObjectImagenReport(recyclerView);
+
+
+
+
 
 
 }
@@ -4636,12 +4736,29 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
                 eventoBtnclicklistenerDelete(adapter);
+
+             //   Utils.drawImages(adapter,recyclerView,listImagenReports,ActivityContenedores.this);
+
+
+
+
+
+                ItemTouchHelper.Callback callback =
+                        new SimpleItemTouchHelperCallback(adapter);
+                ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+                touchHelper.attachToRecyclerView(recyclerView);
+
+
+
             }
 
 
 
 
     }
+
+
+
 
     void createlistsForReciclerviewsImages(ArrayList<ImagenReport>listImagenReports){
 

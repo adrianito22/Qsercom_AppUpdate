@@ -19,6 +19,16 @@ public class ImagenReport {
     private int tipoImagenCategory;
     private String idReportePerteence;
 
+    public int getSortPositionImage() {
+        return sortPositionImage;
+    }
+
+    public void setSortPositionImage(int sortPositionImage) {
+        this.sortPositionImage = sortPositionImage;
+    }
+
+    private int sortPositionImage;
+
     public String getImagenPathNow() {
         return imagenPathNow;
     }
@@ -122,6 +132,7 @@ public class ImagenReport {
         estaENPdf=false;
         urlStoragePic="";
         imagenPathNow="";
+        sortPositionImage=Utils.NOPOSITION_DEFINIDA; //cuando no tenemos posicion..
     }
 
 
@@ -142,6 +153,7 @@ public ImagenReport(){
         result.put("horientacionImage", horientacionImage);
         result.put("estaENPdf", estaENPdf);
         result.put("urlStoragePic", urlStoragePic);
+        result.put("sortPositionImage", sortPositionImage);
 
         return result;
 
