@@ -2945,7 +2945,6 @@ void checkDataFields(){ //
     //asi guardamos la posiscion de las imagenes para prdenar.......
     updatePostionImegesSort();
 
-     aqui mirarr..
 
     createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
@@ -2974,9 +2973,6 @@ private void updatePostionImegesSort(){
 
     recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
     Utils.updatePositionObjectImagenReport(recyclerView);
-
-
-
 
 
 
