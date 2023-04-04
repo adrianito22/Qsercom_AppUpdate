@@ -4,6 +4,8 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -25,6 +27,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -50,6 +53,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -66,16 +70,20 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
+import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
+import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
@@ -96,6 +104,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -105,7 +115,9 @@ import java.util.UUID;
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener ,
         View.OnTouchListener {
+    HashMap<String, Exportadora> hasmpaExportadoras;
 
+    Spinner spinnerExportadora;
 
      TextInputEditText ediNombreRevisa;
     TextInputEditText ediCodigoRevisa;
@@ -332,6 +344,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         if (esFirstCharge) {
             findViewsIds();
 
+
             hideViewsIfUserISCampo();
 
             context = getApplicationContext();
@@ -399,7 +412,9 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         Variables.activityCurrent = Variables.FormPreviewContenedores;
 
+        spinnerExportadora=findViewById(R.id.spinnerExportadora);
 
+        getExportadorasAndSetSpinner();
 
 
     }
@@ -569,6 +584,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
          ediNombreRevisa=findViewById(R.id.ediNombreRevisa);
          ediCodigoRevisa=findViewById(R.id.ediCodigoRevisa);
+
 
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
@@ -1600,6 +1616,25 @@ else{
 
     private void listennersSpinners() {
 
+        spinnerExportadora .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String textSelect= spinnerExportadora.getSelectedItem().toString();
+                ediExportadoraProcesada.setText(textSelect);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
+
+
+
+
+
         spinnerSelectZona.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -1869,55 +1904,97 @@ else{
 
         Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE  es cc  es " + ImagenReport.hashMapImagesData.size());
 
+        RecyclerViewAdapter adapter;
+        RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
         switch(currentTypeImage){
             case Variables.FOTO_PROCESO_FRUTA_FINCA:
                 recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_LLEGADA_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_SELLO_LLEGADA:
                 recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_PALLETS:
                 recyclerView= findViewById(R.id.recyclerFotoPallets);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_CIERRE_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
         }
 
 
 
-        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE AA  es  es " + ImagenReport.hashMapImagesData.size());
 
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(filterListImagesData, this);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+            if(!isDeleteImg){
+                //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
+                ///   aadpater.notifyDataSetChanged();
+                aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
+
+                aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
+
+                // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
+                // aadpater. notifyItemRangeChanged(position, listImagenData.size());
+
+                Log.i("adpatertt","adpasternotiff");
+
+            }
+
+            Log.i("adpatertt","es difrentede nulo");
+
+        }else{
+
+            adapter=new RecyclerViewAdapter(filterListImagesData,this);
+            // at last set adapter to recycler view.
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+
+            eventoBtnclicklistenerDelete(adapter);
+
+            Log.i("adpatertt","el adpater es nulo");
 
 
-        // at last set adapter to recycler view.
-        assert recyclerView != null;
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE EE  es  es " + ImagenReport.hashMapImagesData.size());
+            Log.i("adpatertt","el adpater es nulo");
+            ItemTouchHelper.Callback callback =
+                    new SimpleItemTouchHelperCallback(adapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            touchHelper.attachToRecyclerView(recyclerView);
 
 
-        eventoBtnclicklistenerDelete(adapter);
-        Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE SA  es  es " + ImagenReport.hashMapImagesData.size());
+        }
+
 
 
     }
@@ -2276,6 +2353,8 @@ else{
 
 //all reportsdfgdf
         // exieste al menos un reporte generado vinuculado///
+
+        updatePostionImegesSort();
 
         generateMapLibriadoIfExistAndUpload(true);
 
@@ -2685,6 +2764,15 @@ else{
             RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
 
         }
+
+
+
+
+        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
+
+
+
+
     }
 
 
@@ -3863,7 +3951,6 @@ else{
         Variables.isClickable = false;
 
 
-        diseableViewsByTipe(ediExportadoraProcesada);
         diseableViewsByTipe(ediClienteNombreReporte);
         diseableViewsByTipe(ediExportadoraSolicitante);
         diseableViewsByTipe(ediMarca);
@@ -4016,7 +4103,6 @@ else{
     private void activateModeEdit() {
         Variables.isClickable = true;
 
-        activateViewsByTypeView(ediExportadoraProcesada);
         activateViewsByTypeView(ediExportadoraSolicitante);
         activateViewsByTypeView(ediMarca);
         activateViewsByTypeView(ediClienteNombreReporte);
@@ -4168,6 +4254,9 @@ else{
 
         Log.i("mizona", "la zona obtenida en addDataENfiledsoTHERviews (data descargada ) es  " + info1Object.getZona());
 
+
+
+
         selectValue(spinnerSelectZona, info1Object.getZona());
         selectValue(spinnerCondicionBalanza, info2Object.getCondicionBalanza());
         selectValue(spinnertipoCaja, info2Object.getTipoCaja());
@@ -4178,6 +4267,7 @@ else{
         selectValue(spFuenteAgua, info3Object.getFuenteAgua());
         selectValue(spFumigaCorL1, info3Object.getFumigacionClin1());
         selectValue(spTipoBoquilla, info3Object.getEdiTipoBoquilla());
+        selectValue(spinnerExportadora, info1Object.getExportadoraProcesada());
 
 
         swAguaCorrida.setChecked(info3Object.isHayAguaCorrida());
@@ -4478,52 +4568,80 @@ else{
 
     void addImagesInRecyclerviews(ArrayList<ImagenReport> listImagenReports) {
 
+        /**reordenamos lista asu */
+        Collections.sort(listImagenReports, new Comparator<ImagenReport>()
+        {
+            @Override
+            public int compare(ImagenReport lhs, ImagenReport rhs) {
+                return lhs.getSortPositionImage() - rhs.getSortPositionImage();
+
+              //  return Integer.compare(lhs.getSortPositionImage(), rhs.getSortPositionImage());
+            }
+        });
+
+
         //agregamos data al map
 
         RecyclerView recyclerView= null;
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
+        RecyclerViewAdapter adapter;
         switch(currentTypeImage){
             case Variables.FOTO_PROCESO_FRUTA_FINCA:
                 recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+
                 break;
 
             case Variables.FOTO_LLEGADA_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+
                 break;
 
             case Variables.FOTO_SELLO_LLEGADA:
                 recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+
                 break;
 
             case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+
                 break;
 
             case Variables.FOTO_PALLETS:
                 recyclerView= findViewById(R.id.recyclerFotoPallets);
+
                 break;
 
             case Variables.FOTO_CIERRE_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+
                 break;
 
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+
                 break;
         }
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(listImagenReports, this);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+
+            adapter=new RecyclerViewAdapter(listImagenReports,this);
+            // at last set adapter to recycler view.
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+
+            eventoBtnclicklistenerDelete(adapter);
+
+            Log.i("adpatertt","el adpater es nulo");
 
 
-        // at last set adapter to recycler view.
+            Log.i("adpatertt","el adpater es nulo");
+            ItemTouchHelper.Callback callback =
+                    new SimpleItemTouchHelperCallback(adapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            touchHelper.attachToRecyclerView(recyclerView);
 
-           if(recyclerView!=null){
-               recyclerView.setLayoutManager(layoutManager);
-               recyclerView.setAdapter(adapter);
-               eventoBtnclicklistenerDelete(adapter);
-           }
 
+            Log.i("adpatertt","es difrentede nulo");
 
 
 
@@ -4917,6 +5035,7 @@ else{
         pdialogff.setMessage("Actualizando data ");
         pdialogff.show();
 
+        updatePostionImegesSort();
 
 
         uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
@@ -4932,6 +5051,9 @@ else{
 
         //aliminamos cambios
 
+
+
+
         createObjcInformeAndUpload();
 
 
@@ -4941,6 +5063,32 @@ else{
 
     }
 
+    private void updatePostionImegesSort(){
+        RecyclerView recyclerView=null;
+        recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoPallets);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+
+
+    }
 
     private boolean checkQueexistminim() {
 
@@ -6141,6 +6289,25 @@ else{
 
     }
 
+
+    private void getExportadorasAndSetSpinner(){
+        //tenemos exportadoras de prefrencias//
+
+        hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+        ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+        for(Exportadora exportadora: hasmpaExportadoras.values()){
+            nombresExportadoras.add(exportadora.getNameExportadora());
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+        spinnerExportadora.setAdapter(arrayAdapter);
+
+
+
+        ///vamos a descrgar desde la base de datos...
+
+    }
 
 
 }

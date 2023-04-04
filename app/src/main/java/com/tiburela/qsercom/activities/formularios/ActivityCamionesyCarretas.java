@@ -5,6 +5,8 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.view.View.GONE;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
+
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -23,6 +25,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -47,6 +50,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -60,6 +64,7 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
+import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -67,6 +72,7 @@ import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -82,6 +88,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,6 +100,7 @@ import com.tiburela.qsercom.R;
 
 public class ActivityCamionesyCarretas extends AppCompatActivity implements View.OnClickListener, CallbackUploadNewReport {
     public static CallbackUploadNewReport callbackUploadNewReport;
+    Spinner spinnerExportadora;
     String currentKeySharePrefrences="";
     boolean userCreoRegisterForm=false;
     ImageView imgAtachVinculacion;
@@ -322,6 +331,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         findViewsIds();
 
+
         hideViewsIfUserISCampo();
         ocultaoTherVIEWs();
         configCertainSomeViewsAliniciar();
@@ -329,7 +339,12 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         addClickListeners();
         resultatachImages();
+
+        getExportadorasAndSetSpinner();
+
+
         listennersSpinners();
+
 
         eventButtons();
 
@@ -347,6 +362,25 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     }
 
+    private void getExportadorasAndSetSpinner(){
+        //tenemos exportadoras de prefrencias//
+
+        Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+        ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+        for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+            nombresExportadoras.add(exportadora.getNameExportadora());
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+        spinnerExportadora.setAdapter(arrayAdapter);
+
+
+
+        ///vamos a descrgar desde la base de datos...
+
+
+    }
 
 
 
@@ -639,7 +673,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
             Log.i("saberrr","el key generado es "+currentKeySharePrefrences);
 
 
-            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CAMIONES_Y_CARRETAS,"Usuario", "","Camiones y carretas"  );
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CAMIONES_Y_CARRETAS,"Usuario", "","Camiones y carretas" ,ediExportadoraProcesada.getText().toString(),Utils.hasmpaExportadoras.get(ediExportadoraProcesada.getText().toString()).getNameExportadora() );
 
 
             //gudramos oejto en el mapa
@@ -836,6 +870,9 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        spinnerExportadora=findViewById(R.id.spinnerExportadora);
+
           btnSaveLocale=findViewById(R.id.btnSaveLocale);
         imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
 
@@ -1645,6 +1682,18 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     private void listennersSpinners() {
 
+        spinnerExportadora .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String textSelect= spinnerExportadora.getSelectedItem().toString();
+                ediExportadoraProcesada.setText(textSelect);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         spTipoBoquilla .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1971,33 +2020,88 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         //buscamos este
 
+        RecyclerViewAdapter adapter;
+        RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
 
         switch(currentTypeImage){
             case Variables.FOTO_PROCESO_FRUTA_FINCA:
                 recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
 
             case Variables.FOTO_CIERRE_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
         }
 
 
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+            if(!isDeleteImg){
+                //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
+                ///   aadpater.notifyDataSetChanged();
+                aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
+
+                aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
+
+                // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
+                // aadpater. notifyItemRangeChanged(position, listImagenData.size());
+
+                Log.i("adpatertt","adpasternotiff");
+
+            }
+
+            Log.i("adpatertt","es difrentede nulo");
+
+        }else{
+
+            adapter=new RecyclerViewAdapter(filterListImagesData,this);
+            // at last set adapter to recycler view.
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+
+            eventoBtnclicklistenerDelete(adapter);
+
+            Log.i("adpatertt","el adpater es nulo");
 
 
-        // at last set adapter to recycler view.
-        assert recyclerView != null;
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        eventoBtnclicklistenerDelete(adapter);
+            Log.i("adpatertt","el adpater es nulo");
+            ItemTouchHelper.Callback callback =
+                    new SimpleItemTouchHelperCallback(adapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            touchHelper.attachToRecyclerView(recyclerView);
+
+
+        }
+
+
+
+
+    }
+    private void updatePostionImegesSort(){
+
+        RecyclerView recyclerView=null;
+        recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+        Utils.updatePositionObjectImagenReport(recyclerView);
 
 
 
@@ -2141,6 +2245,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         Log.i("test001","toda la data esta completa HUrra ");
 
+        updatePostionImegesSort();
 
         createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
@@ -2394,7 +2499,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                     informRegister= new InformRegister(currenTidGenrate,Constants.CAMIONES_Y_CARRETAS,
                             Variables.usuarioQserconGlobal.getNombreUsuario(),
                             Variables.usuarioQserconGlobal.getUniqueIDuser()
-                           , "CAMIONES Y CARRETAS ");
+                           , "CAMIONES Y CARRETAS ",ediExportadoraProcesada.getText().toString(),
+                            Utils.hasmpaExportadoras.get(ediExportadoraProcesada.getText().toString()).getNameExportadora());
 
 
                     //informe register
@@ -3653,6 +3759,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
              //   esiSelloAdhNaviera,
               //  ediOtherSellos,
 
+                spinnerExportadora,
+
                 spinnerSelectZona,
          spinnerCondicionBalanza,
          spinnertipoCaja,
@@ -3705,9 +3813,19 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
 
         //agregamos data al map
+        Collections.sort(listImagenReports, new Comparator<ImagenReport>()
+        {
+            @Override
+            public int compare(ImagenReport lhs, ImagenReport rhs) {
+                return lhs.getSortPositionImage() - rhs.getSortPositionImage();
+
+                //  return Integer.compare(lhs.getSortPositionImage(), rhs.getSortPositionImage());
+            }
+        });
 
 
-        RecyclerView recyclerView=null;
+        RecyclerView recyclerView= null;
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
 
         switch(currentTypeImage){
@@ -3727,17 +3845,21 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         }
 
+        RecyclerViewAdapter  adapter=new RecyclerViewAdapter(listImagenReports,this);
+        // at last set adapter to recycler view.
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        eventoBtnclicklistenerDelete(adapter);
+
+        Log.i("adpatertt","el adpater es nulo");
 
 
-           // at last set adapter to recycler view.
-           if(recyclerView!=null){
-               recyclerView.setLayoutManager(layoutManager);
-               recyclerView.setAdapter(adapter);
-               eventoBtnclicklistenerDelete(adapter);
-           }
+        Log.i("adpatertt","el adpater es nulo");
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
 
 

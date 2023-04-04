@@ -278,7 +278,7 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
              currentKeySharePrefrences= UUID.randomUUID().toString();
 
-            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES,"Usuario", "","Packing List"  );
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES,"Usuario", "","Packing List","",""  );
 
 
             //gudramos oejto en el mapa
@@ -364,8 +364,7 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
                     informRegister= new InformRegister(currenTidGenrate,Constants.PACKING_lIST,
                             Variables.usuarioQserconGlobal.getNombreUsuario(),
                             Variables.usuarioQserconGlobal.getUniqueIDuser()
-                            , "PACKING LIST ");
-
+                            , "PACKING LIST ","","");
 
                     //informe register
                     RealtimeDB.addNewRegistroInforme(ActivityPackingList.this,informRegister);

@@ -30,6 +30,7 @@ import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
@@ -483,7 +484,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
              currentKeySharePrefrences= UUID.randomUUID().toString();
 
-            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CUADRO_MUESTRO_CAL_RECHZDS,"Usuario", "","Cuadro Muestreo"  );
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CUADRO_MUESTRO_CAL_RECHZDS,"Usuario", "","Cuadro Muestreo","",""  );
 
 
             //gudramos oejto en el mapa
@@ -542,7 +543,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                     informRegister= new InformRegister(currenTidGenrate,Constants.CUADRO_MUESTRO_CAL_RECHZDS,
                             Variables.usuarioQserconGlobal.getNombreUsuario(),
                             Variables.usuarioQserconGlobal.getUniqueIDuser()
-                            , "CUADRO MUESTREO");
+                            , "CUADRO MUESTREO","","");
 
 
                     //informe register

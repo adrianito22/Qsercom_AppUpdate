@@ -2,6 +2,8 @@ package com.tiburela.qsercom.activities.formularios;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -28,6 +30,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -75,6 +78,7 @@ import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -108,8 +112,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     public static CallbackUploadNewReport callbackUploadNewReport;
     boolean userCreoRegisterForm=false;
-
-
+      Spinner spinnerExportadora;
     RecyclerViewAdapter adapterFrutas;
 
     ImageView imgVAtachProcesoFrutaFinca;
@@ -447,6 +450,7 @@ Log.i("hellosweer","se ehjecitp onstart");
         resultatachImages();
         listennersSpinners();
 
+        getExportadorasAndSetSpinner();
         eventCheckdata();
         //creaFotos();
 
@@ -639,6 +643,8 @@ Log.i("hellosweer","se ehjecitp onstart");
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        spinnerExportadora=findViewById(R.id.spinnerExportadora);
 
         imgVAtachProcesoFrutaFinca=findViewById(R.id.imgVAtachProcesoFrutaFinca);
         imbTakePicProcesoFrutaFinca=findViewById(R.id.imbTakePicProcesoFrutaFinca);
@@ -2291,6 +2297,21 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
     private void listennersSpinners() {
 
 
+
+
+        spinnerExportadora .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String textSelect= spinnerExportadora.getSelectedItem().toString();
+                ediExportadoraProcesada.setText(textSelect);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
     spTipoBoquilla .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -3153,6 +3174,9 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
             ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
            ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
          StorageData.uploaddata(list);
+
+       //  Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
+
 
 
         // StorageData.uploadImage(ActivityContenedores.this, ImagenReport.hashMapImagesData);
@@ -4606,7 +4630,7 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
 
 
-
+                spinnerExportadora,
                 spinnerSelectZona,
                 spinnerCondicionBalanza,
                 spinnertipoCaja,
@@ -4614,6 +4638,7 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                 spinnertipodeBlanza ,
                 spinnertipodeBlanzaRepeso ,
                 spinnerubicacionBalanza ,
+
 
                 spFuenteAgua ,
                 spFumigaCorL1 ,
@@ -4687,8 +4712,6 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
 
-        //agregamos data al map
-
 
         RecyclerView recyclerView= null;
 
@@ -4734,8 +4757,6 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                 eventoBtnclicklistenerDelete(adapter);
 
              //   Utils.drawImages(adapter,recyclerView,listImagenReports,ActivityContenedores.this);
-
-
 
 
 
@@ -5238,7 +5259,7 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                     user= new InformRegister(currenTidGenrate,Constants.CONTENEDORES,
                             Variables.usuarioQserconGlobal.getNombreUsuario(),
                             Variables.usuarioQserconGlobal.getUniqueIDuser()
-                            , "CONTENEDORES ");
+                            , "CONTENEDORES ",ediExportadoraProcesada.getText().toString(),Utils.hasmpaExportadoras.get(ediExportadoraProcesada.getText().toString()).getNameExportadora());
 
 
                     //informe register
@@ -5484,7 +5505,9 @@ private void callPrefrencesSaveAndImagesData(){
 
         currentKeySharePrefrences=UUID.randomUUID().toString();
 
-        InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES,"Usuario", "","Contenedores"  );
+        InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES,"Usuario", "","Contenedores" ,ediExportadoraProcesada.getText().toString(),
+                Utils.hasmpaExportadoras.get(ediExportadoraProcesada.getText().toString()).getNameExportadora()
+                );
 
 
         //gudramos oejto en el mapa
@@ -6040,6 +6063,35 @@ private void callPrefrencesSaveAndImagesData(){
 
 
     }
+
+
+    //obteniendo nombres de exrpotadoras....
+
+    private void getExportadorasAndSetSpinner(){
+         //tenemos exportadoras de prefrencias//
+
+
+
+        if(Utils.hasmpaExportadoras.size()==0){
+            Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+
+        }
+
+
+         ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+            for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+                nombresExportadoras.add(exportadora.getNameExportadora());
+            }
+
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+            spinnerExportadora.setAdapter(arrayAdapter);
+
+
+    }
+
+
+
 
 
 }

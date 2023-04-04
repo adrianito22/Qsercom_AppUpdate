@@ -27,6 +27,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,6 +69,7 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
 import com.tiburela.qsercom.dialog_fragment.DialogFragmentMenu;
 import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.UsuarioQsercon;
@@ -167,6 +169,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Log.i("elnumber","el numero generado es ss "+uniqueId);
 
 
+      //  addExportadorasd();
       //  testCreateRegisters();
 
 
@@ -174,7 +177,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Utils.dataFieldsPreferencias=new HashMap<String,String>();
         Utils.listImagesToSaVE=new ArrayList<>();
 
-
+        descargaExportadorasFromDatabaseAddAddySavePrefrences();
 
 
         Variables.contexto=this;
@@ -1535,5 +1538,108 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             }
         });
     }
+
+
+
+    private void addExportadorasd(){
+
+         /***
+          * Exprobiologico
+          * Traboar
+          * Bandecua
+          * Latbio
+          * Exporval
+          * Asopratverde
+          * Cijoscariska
+          * Bagatocorp
+          * Bananagold*/
+
+
+        Exportadora export= new Exportadora("Exprobiologico".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+         export= new Exportadora("Traboar".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+        export= new Exportadora("Bandecua".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+        export= new Exportadora("Latbio".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+        export= new Exportadora("Exporval".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+        export= new Exportadora("Asopratverde".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+        export= new Exportadora("Cijoscariska".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+
+        export= new Exportadora("Bagatocorp".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+        export= new Exportadora("Bananagold".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+
+    }
+
+
+    private void descargaExportadorasFromDatabaseAddAddySavePrefrences(){
+
+        DatabaseReference databaseReference = RealtimeDB.rootDatabaseReference.child("exportadoras").child("listExportadoras");
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Utils.hasmpaExportadoras = new HashMap<>();
+
+                Utils.nombresExportadoras= new ArrayList<>();
+
+                for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                    Exportadora exportadora = dss.getValue(Exportadora.class);
+
+                    if (exportadora != null) {
+
+                        Utils.hasmpaExportadoras.put(exportadora.getIdExportadora(),exportadora);
+                        Utils. nombresExportadoras.add(exportadora.getNameExportadora().toUpperCase());
+
+                    }
+
+
+                }
+
+                SharePref.saveHashMapExpotadoras(Utils.hasmpaExportadoras,SharePref.KEY_EXPORTADORAS);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        databaseReference.addValueEventListener(postListener);
+        ///si el usuario esta navegando
+        //si cambio el nodo actual.....verifica si esta baneado...
+
+
+
+    }
+
+
+
+
+    ///
 
 }

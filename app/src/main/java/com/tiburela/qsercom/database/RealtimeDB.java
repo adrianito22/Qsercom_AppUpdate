@@ -27,6 +27,7 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.DatosDeProceso;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
@@ -735,6 +736,35 @@ public static  Context myContext;
 
     }
 
+    public static void updateImagenReport( ImagenReport objecImageReport ) {
+
+        if(mibasedataPathImages==null ) {
+            initDatabasesReferenceImagesData();
+
+        }
+
+        Map<String, Object> mapValues = objecImageReport.toMap();
+
+        //SUBE MAPA
+        mibasedataPathImages.child(objecImageReport.getImagenPathNow()).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.i("latypeimage","se subio set data y el id pertence es "+objecImageReport.getIdReportePerteence());
+
+
+                    //  Toast.makeText(context, "HECHO", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+                    Log.i("imagheddd","no se subio SEDATA y elerro es "+task.getException());
+
+                }
+            }
+        });
+
+
+    }
 
 
     public static void UploadProductosPostCosecha( ProductPostCosecha producto) {
@@ -889,6 +919,34 @@ public static  Context myContext;
 
     }
 
+
+    public static void AddExportadora( Exportadora exportadora) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("exportadoras").child("listExportadoras");
+        // Map<String, Object> mapValues = informeObjct.toMap();
+        String PuskEY = mibasedata.push().getKey();
+
+       // calibrFrutCalEnf.setKeyFirebase(PuskEY);
+        //SUBE MAPA
+        mibasedata.push().setValue(exportadora).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                }else  {
+
+
+                }
+            }
+        });
+
+
+    }
+
+
     public static void UpdateCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal").child(calibrFrutCalEnf.getKeyFirebase());
@@ -1039,6 +1097,26 @@ public static  Context myContext;
 
     }
 
+    private static void editValue(String keyAtoUpdate, int sortvalue ){
+
+        try{
+
+            HashMap<String, Object> update = new HashMap<>(); //CAMBIAMOS LA PROPIEDA TITULO  Y LE GRAGAMOS EL NUEVO TITULO..
+
+            update.put("sortPositionImage", sortvalue);//
+
+
+            mibasedataPathImages.child(keyAtoUpdate).updateChildren(update);//
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
 
 
     private static void getkeyActualizaDescripcion(String NameImageunique, String nuevaDescripcion){
@@ -1082,6 +1160,44 @@ public static  Context myContext;
 
 
 
+    public static void getkeyActualizaSortNum(String NameImageunique, int numSort){
+
+        Query query = mibasedataPathImages.orderByChild("uniqueIdNamePic").equalTo(NameImageunique);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                try{
+                    DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                    String key = nodeShot.getKey();
+                    //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
+
+                    // String KeyNodeFatheroFObject = snapshot.getKey(); // will be efg
+
+                    if(key !=null){
+                        ///editamos el objeto
+
+                        editValue(key,numSort);
+
+                    }
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
 
 

@@ -46,6 +46,7 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
@@ -65,6 +66,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
+
+    public static HashMap<String, Exportadora>hasmpaExportadoras= new HashMap<>();
+    public static ArrayList<String>nombresExportadoras= new ArrayList<>();
+
 
     public static final int NOPOSITION_DEFINIDA=2000;
 
@@ -1488,12 +1493,15 @@ return true;
             RecyclerView.ViewHolder holder = reciclerView.getChildViewHolder(reciclerView.getChildAt(i));
              ImageView img = holder.itemView.findViewById(R.id.imvClose);
 
-             Log.i("superemasisa","ell idtag es "+img.getTag());
+            // Log.i("superemasisa","ell idtag es "+img.getTag());
 
              if(ImagenReport.hashMapImagesData.containsKey(img.getTag())){
                  ImagenReport objec= ImagenReport.hashMapImagesData.get(img.getTag());
                  assert objec != null;
                  objec.setSortPositionImage(i);
+                  Log.i("superemasisass","esta imagen "+objec.getUrlStoragePic()+" esta en posicion"+i);
+
+
                  ImagenReport.hashMapImagesData.put(img.getTag().toString(),objec);
 
 
@@ -1503,6 +1511,22 @@ return true;
 
 
         }
+
+    }
+
+
+    public static void  updateImageReportObjec(){
+
+        for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) { //creamos otra lista
+            //  String key = entry.getKey();
+            ImagenReport imageRoBject = entry.getValue();
+            RealtimeDB.getkeyActualizaSortNum(imageRoBject.getUniqueIdNamePic(),imageRoBject.getSortPositionImage());
+
+
+        }
+
+
+
 
     }
 

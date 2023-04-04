@@ -32,9 +32,8 @@ public class Variables {
 
 
 
-    public static String userAdriniatoToDeveloper="821524be-f5a0-450a-b5e3-f6ba7bf6b5db";
-   // public static String mailDveloper="adriapps10@gmail.com";
-    public static String mailDveloper="edhacker81@gmail.com";
+    public static String mailDveloper="adriapps10@gmail.com";
+  //  public static String mailDveloper="edhacker81@gmail.com";
 
 
     public static String KEY_FORM_EXTRA ="MIKEYXTR";
@@ -44,7 +43,6 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
  public static String  KEY_CONTROL_CALIDAD_ATACHEDS="MICTRNLDLD";
  public static String  KEY_CUADRO_MUETREO_ATACHED="MICUDAROR";
 
- public static CuadroMuestreo cuadroMuestreoVinculado;
 
  public static String idCuadroMuestreoToDowload ="";
 

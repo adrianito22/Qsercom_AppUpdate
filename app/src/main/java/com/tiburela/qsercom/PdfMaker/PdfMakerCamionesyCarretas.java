@@ -1461,6 +1461,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
                 // final int CODE_WRITE_EXTERNAL_STORAGE = 132;
             //    final int CODE_READ_EXTERNAL_STORAGE = 133;
+            break;
 
             case CODE_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
@@ -1510,6 +1511,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             }
 
 
+            break;
 
             case CODE_READ_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0

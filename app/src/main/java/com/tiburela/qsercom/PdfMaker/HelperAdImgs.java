@@ -45,6 +45,8 @@ import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.ExecutionException;
 
 public class HelperAdImgs implements LifecycleOwner {
@@ -81,6 +83,19 @@ public class HelperAdImgs implements LifecycleOwner {
         Log.i("xamil","la foto selecionada categoria es  "+setFotoCategory);
 
         currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORYz(ImagenReport.hashMapImagesData,setFotoCategory);///era Variables.FOTO_LLEGADA
+
+        Collections.sort(currentListImagesSeccion, new Comparator<ImagenReport>()
+        {
+            @Override
+            public int compare(ImagenReport lhs, ImagenReport rhs) {
+                return lhs.getSortPositionImage() - rhs.getSortPositionImage();
+
+                //  return Integer.compare(lhs.getSortPositionImage(), rhs.getSortPositionImage());
+            }
+        });
+
+
+
 
         Log.i("xamil","el SIZE DE  current list images seccion es "+currentListImagesSeccion.size()+" y la categoria es "+setFotoCategory);
 

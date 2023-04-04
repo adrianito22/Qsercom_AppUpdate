@@ -5,6 +5,8 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.view.View.GONE;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
+
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -23,6 +25,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -48,6 +51,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -63,8 +67,10 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMakerCamionesyCarretas;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
+import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
@@ -73,6 +79,7 @@ import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
@@ -90,6 +97,8 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,6 +108,7 @@ import java.util.UUID;
 public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener  {
     ImageView imgAtachVinculacion;
     TextView txtNumReportsVinclds;
+    Spinner spinnerExportadora;
 
 
     ReportCamionesyCarretas objecActivityCaminsCarretas;
@@ -352,6 +362,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         findViewsIds();
 
+        getExportadorasAndSetSpinner();
+
+
         hideViewsIfUserISCampo();
 
 
@@ -371,6 +384,23 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
+    private void getExportadorasAndSetSpinner(){
+        //tenemos exportadoras de prefrencias//
+
+        Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+        ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+        for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+            nombresExportadoras.add(exportadora.getNameExportadora());
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+        spinnerExportadora.setAdapter(arrayAdapter);
+
+
+        ///vamos a descrgar desde la base de datos...
+
+    }
 
 
     void showingTimePicker( View vista){
@@ -584,6 +614,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        spinnerExportadora=findViewById(R.id.spinnerExportadora);
+
 
         txtNumReportsVinclds = findViewById(R.id.txtNumReportsVinclds);
         imgAtachVinculacion = findViewById(R.id.imgAtachVinculacion);
@@ -1327,6 +1360,19 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     private void listennersSpinners() {
 
 
+        spinnerExportadora .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String textSelect= spinnerExportadora.getSelectedItem().toString();
+                ediExportadoraProcesada.setText(textSelect);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         spTipoBoquilla .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -1668,35 +1714,73 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         //buscamos este
 
+        RecyclerViewAdapter adapter;
+        RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
 
         switch(currentTypeImage){
 
             case Variables.FOTO_PROCESO_FRUTA_FINCA:
                 recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
 
 
             case Variables.FOTO_CIERRE_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
         }
 
+        if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+            if(!isDeleteImg){
+                //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
+                ///   aadpater.notifyDataSetChanged();
+                aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
+
+                aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
+
+                // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
+                // aadpater. notifyItemRangeChanged(position, listImagenData.size());
+
+                Log.i("adpatertt","adpasternotiff");
+
+            }
+
+            Log.i("adpatertt","es difrentede nulo");
+
+        }else{
+
+            adapter=new RecyclerViewAdapter(filterListImagesData,this);
+            // at last set adapter to recycler view.
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+
+            eventoBtnclicklistenerDelete(adapter);
+
+            Log.i("adpatertt","el adpater es nulo");
 
 
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+            Log.i("adpatertt","el adpater es nulo");
+            ItemTouchHelper.Callback callback =
+                    new SimpleItemTouchHelperCallback(adapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            touchHelper.attachToRecyclerView(recyclerView);
 
 
-        // at last set adapter to recycler view.
-        assert recyclerView != null;
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        eventoBtnclicklistenerDelete(adapter);
+        }
+
 
 
 
@@ -2210,6 +2294,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
+        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
         //aqui subimos
 
@@ -3319,9 +3404,20 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
 
         //agregamos data al map
+        Collections.sort(listImagenReports, new Comparator<ImagenReport>()
+        {
+            @Override
+            public int compare(ImagenReport lhs, ImagenReport rhs) {
+                return lhs.getSortPositionImage() - rhs.getSortPositionImage();
+
+                //  return Integer.compare(lhs.getSortPositionImage(), rhs.getSortPositionImage());
+            }
+        });
 
 
-        RecyclerView recyclerView=null;
+        RecyclerView recyclerView= null;
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
 
 
         switch(currentTypeImage){
@@ -3340,22 +3436,21 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         }
-
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
-
-
+        RecyclerViewAdapter  adapter=new RecyclerViewAdapter(listImagenReports,this);
         // at last set adapter to recycler view.
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        eventoBtnclicklistenerDelete(adapter);
+
+        Log.i("adpatertt","el adpater es nulo");
 
 
-        if(recyclerView!=null){
-
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
-            eventoBtnclicklistenerDelete(adapter);
-
-        }
-
+        Log.i("adpatertt","el adpater es nulo");
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
     }
 
@@ -3993,6 +4088,12 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     private  void addDataENfiledsoTHERviews(ReportCamionesyCarretas info1Object) {
 
 
+        selectValue(spinnerExportadora,info1Object.getExportadoraProcesada()) ;
+
+
+        Log.i("mizonasss","la exportadora procesada  es  "+ info1Object.getExportadoraProcesada());
+
+
 
         Log.i("mizona","la zona obtenida en addDataENfiledsoTHERviews (data descargada ) es  "+info1Object.getZona());
 
@@ -4028,7 +4129,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     private void selectValue(Spinner spinner, String value) {
         for (int i = 0; i < spinner.getCount(); i++) {
-            if (spinner.getItemAtPosition(i).equals(value)) {
+
+
+            if (spinner.getItemAtPosition(i).toString().toUpperCase().equals(value)) {
                 spinner.setSelection(i);
                 Log.i("mizona","existe hurra"+value);
                 break;
@@ -4050,7 +4153,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         //cremoas un super array...de todo tipos de Views
 
-        View [] arrayAllFields={ediMarca,ediExportadoraSolicitante,ediExportadoraProcesada,ediClienteNombreReporte,
+        View [] arrayAllFields={ediMarca,ediExportadoraSolicitante,ediClienteNombreReporte,
                 ediSemana, ediFecha, ediProductor, ediHacienda, ediCodigo, ediInscirpMagap, ediPemarque, ediZona, ediHoraInicio, ediHoraTermino,
                 ediNguiaRemision, edi_nguia_transporte, ediNtargetaEmbarque, ediNhojaEvaluacion, ediObservacion, ediEmpacadora,
                 ediContenedor, ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07, ediPPC08, ediPPC09, ediPPC010, ediPPC011,
@@ -4076,7 +4179,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         View [] arrayAllFields={
 
-                ediMarca, ediExportadoraSolicitante,ediExportadoraProcesada,ediClienteNombreReporte,
+                ediMarca, ediExportadoraSolicitante,ediClienteNombreReporte,
 
                 ediSemana, ediFecha, ediProductor, ediHacienda, ediCodigo, ediInscirpMagap, ediPemarque, ediZona, ediHoraInicio, ediHoraTermino,
                 ediNguiaRemision, edi_nguia_transporte, ediNtargetaEmbarque, ediNhojaEvaluacion, ediObservacion, ediEmpacadora,
@@ -4131,6 +4234,21 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         });
 
         bottomSheetDialog.show();
+    }
+    private void updatePostionImegesSort(){
+
+        RecyclerView recyclerView=null;
+        recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+
+
     }
 
     ///peso bruto por clsters
@@ -4243,6 +4361,10 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
     public void saveInfo() {
+
+        updatePostionImegesSort();
+
+
 
         RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
@@ -4446,6 +4568,11 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
             Log.i("test001", "no esta lleno  cehckExisteMiumReportsVINCULADOSx");
             return;
         }
+
+
+        updatePostionImegesSort();
+
+
 
 
         Log.i("test001", "se eejcuto esto tambienx");

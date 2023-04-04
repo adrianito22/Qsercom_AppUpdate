@@ -1,5 +1,7 @@
 package com.tiburela.qsercom.activities.formularios;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +12,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,18 +27,21 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanos;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanosEmpaque;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
@@ -51,6 +58,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
      String keyUploadInforme="";
    public static CallbackUploadNewReport callbackUploadNewReport;
+   Spinner spinnerExportadora;
 
    boolean seSubioInforme=false;
     String currentKeyAndSharePrefrences ="";
@@ -474,16 +482,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         inicialiceListOfListChekedItems();
 
-        Bundle extras = getIntent().getExtras();
+       if(!sellamoFindViewIds){
+
+          findviewsIdsMayoriaViews();
+
+       }
+       listennersSpinners();
+       getExportadorasAndSetSpinner();
+
+       Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
             currentKeyAndSharePrefrences =extras.getString(Variables.KEY_FORM_EXTRA);
 
-         if(!sellamoFindViewIds){
 
-          findviewsIdsMayoriaViews();
-
-         }
             AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
         }
 
@@ -543,6 +555,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             View [] arrayViewsAll = {
                   //  ediPromediozx,ediLargDedPulpTotalFila1,ediLargDedPulpTotalFila2,ediPromedioPulpP,
 
+
+                     spinnerExportadora,
                     mEdiVaporzz, mEdiProductorzz, mEdiCodigozz, mEdiZonazz, mEdiHaciendazz, mEdiExportadorazz, mEdiCompaniazz, mEdiClientezz,
                     mEdisemanazz, mEdiFechazz, mEdiMagapzz, mEdiMarcaCajazz, mEdiTipoEmpazz, mEdiDestinzz, mEdiTotalCajaszz,
                     mEdioCalidaCampzz, mEdiHoraInizz, mEdiHoraTermizz, mEdiContenedorzz, mEdiSellosnavzz, mEdiSelloVerzz,
@@ -638,7 +652,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
          currentKeyAndSharePrefrences= UUID.randomUUID().toString();
 
-            InformRegister inform= new InformRegister(currentKeyAndSharePrefrences,Constants.CONTROL_CALIDAD,"Usuario", "","Ctrl Calidad"  );
+            InformRegister inform= new InformRegister(currentKeyAndSharePrefrences,Constants.CONTROL_CALIDAD,"Usuario", "","Ctrl Calidad",mEdiExportadorazz.getText().toString(),
+                    Utils.hasmpaExportadoras.get(mEdiExportadorazz.getText().toString()).getNameExportadora() );
 
 
             //gudramos oejto en el mapa
@@ -698,6 +713,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     //determinar que posicion pulso o si pusla este hacer esto
 
     private void findviewsIdsMayoriaViews() {
+
+
+       spinnerExportadora=findViewById(R.id.spinnerExportadora);
+
         //first views fields
         ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
 
@@ -2525,7 +2544,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                             Variables.usuarioQserconGlobal.getNombreUsuario(), //EEROR
                             Variables.usuarioQserconGlobal.getUniqueIDuser()
-                            , "CONTROL CALIDAD ");
+                            , "CONTROL CALIDAD ",mEdiExportadorazz.getText().toString(),
+                            Utils.hasmpaExportadoras.get(mEdiExportadorazz.getText().toString()).getNameExportadora());
 
 
                     Log.i("misdatassd","la calidad es "+controlCalidad.getCalidaCamp());
@@ -3524,4 +3544,41 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
  }
-}
+
+   private void listennersSpinners() {
+
+      spinnerExportadora.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+         @Override
+         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String textSelect = spinnerExportadora.getSelectedItem().toString();
+            mEdiExportadorazz.setText(textSelect);
+         }
+
+         @Override
+         public void onNothingSelected(AdapterView<?> adapterView) {
+
+         }
+      });
+   }
+   private void getExportadorasAndSetSpinner(){
+      //tenemos exportadoras de prefrencias//
+
+      Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+      ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+      for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+         nombresExportadoras.add(exportadora.getNameExportadora());
+      }
+
+      ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+      spinnerExportadora.setAdapter(arrayAdapter);
+
+
+
+      ///vamos a descrgar desde la base de datos...
+
+
+   }
+
+
+   }

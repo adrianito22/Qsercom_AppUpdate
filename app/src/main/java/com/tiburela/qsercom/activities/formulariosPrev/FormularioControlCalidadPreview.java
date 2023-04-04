@@ -1,5 +1,7 @@
 package com.tiburela.qsercom.activities.formulariosPrev;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -7,6 +9,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -31,12 +35,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanos;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanosEmpaque;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -50,6 +57,7 @@ import java.util.Map;
 public class FormularioControlCalidadPreview extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
     HashMap <String, String> hasmapMapControlCalid;
+    Spinner spinnerExportadora;
 
     String numeroDeClusterOmanos ="";
 
@@ -462,6 +470,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         findviewsIds();
         addListnners();
+
+        listennersSpinners();
+
+
+
         eventoUploadFormulario();
 
         arrayDefect1 = getResources().getStringArray(R.array.array_defectos_fruta);
@@ -472,6 +485,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         RealtimeDB.initDatabasesRootOnly();
 
+
+        getExportadorasAndSetSpinner();
 
         if((Variables.currenControlCalReport!=null)){
 
@@ -677,7 +692,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdiTipoEmpazz .setText(controlCalidad.getTipoEmpaque());
         mEdiDestinzz .setText(controlCalidad.getDestino());
         mEdiTotalCajaszz.setText(String.valueOf(controlCalidad.getTotalCajas()));
-
+         selectValue(spinnerExportadora,controlCalidad.getExportadora());
 
         Log.i("micalidacampo","micalidadcampo es"+controlCalidad.getCalidaCamp());
         Log.i("micalidacampo","micalidadcampo es"+controlCalidad.getCalidaCamp());
@@ -887,6 +902,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
     private void findviewsIds() {
+
+
+        spinnerExportadora=findViewById(R.id.spinnerExportadora);
 
         //first views fields
         ediNumPromedioDedsXcaja =findViewById(R.id.ediNumPromedioDedsXcaja);
@@ -3763,6 +3781,60 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
         return  numClustersInspeccionados;
+    }
+
+    private void listennersSpinners() {
+
+        spinnerExportadora.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String textSelect = spinnerExportadora.getSelectedItem().toString();
+                mEdiExportadorazz.setText(textSelect);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void getExportadorasAndSetSpinner(){
+        //tenemos exportadoras de prefrencias//
+
+        Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+        ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+        for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+            nombresExportadoras.add(exportadora.getNameExportadora());
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+        spinnerExportadora.setAdapter(arrayAdapter);
+
+
+
+        ///vamos a descrgar desde la base de datos...
+
+
+    }
+
+
+    private void selectValue(Spinner spinner, String value) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+
+            if (spinner.getItemAtPosition(i).equals(value)) {
+                spinner.setSelection(i);
+                Log.i("mizona", "existe hurra" + value);
+                break;
+
+            } else {
+
+                Log.i("mizona", "no exiwste " + value);
+
+            }
+        }
+
     }
 
 }

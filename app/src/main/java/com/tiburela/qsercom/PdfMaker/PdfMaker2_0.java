@@ -182,8 +182,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-                if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R &&
-                        Utils.checkPermission(PdfMaker2_0.this)) {//adnroid 11
+                if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R && Utils.checkPermission(PdfMaker2_0.this)) {//adnroid 11
 
 
                     btnDescargar.setEnabled(false);
@@ -222,6 +221,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                                 ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
                                         == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+
                             Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
                             HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
@@ -1505,6 +1505,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
                 // final int CODE_WRITE_EXTERNAL_STORAGE = 132;
             //    final int CODE_READ_EXTERNAL_STORAGE = 133;
 
+                 break;
             case CODE_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
@@ -1553,6 +1554,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
             }
 
 
+            break;
 
             case CODE_READ_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0
