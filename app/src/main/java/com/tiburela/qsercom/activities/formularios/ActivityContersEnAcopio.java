@@ -630,7 +630,6 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
 
 
 
-        progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
 
 

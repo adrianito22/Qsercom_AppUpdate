@@ -566,7 +566,6 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         ediHoraLLegadaContenedor=findViewById(R.id.ediHoraLLegadaContenedor);
         ediHoraSalidaContenedor=findViewById(R.id.ediHoraSalidaContenedor);
 
-        progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
         ediTermofrafo1=findViewById(R.id.ediTermofrafo1);
         ediHoraEncendido1=findViewById(R.id.ediHoraEncendido1);

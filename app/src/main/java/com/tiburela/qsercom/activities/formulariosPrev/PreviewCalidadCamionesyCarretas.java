@@ -747,16 +747,12 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
        // p2pbCluster01=findViewById(R.id.p2pbCluster01);
 
         ediNViaje=findViewById(R.id.ediNViaje);
-
-        progressBarFormulario=findViewById(R.id.progressBarFormulario);
-
         ediCondicionBalanza=findViewById(R.id.ediCondicionBalanza);
         ediTipodeCaja=findViewById(R.id.ediTipodeCaja);
         ediTipoPlastico=findViewById(R.id.ediTipoPlastico);
         ediTipoBalanza=findViewById(R.id.ediTipoBalanza);
         editipbalanzaRepeso=findViewById(R.id.editipbalanzaRepeso);
         ediUbicacionBalanza=findViewById(R.id.ediUbicacionBalanza);
-
 
 
         ediUbicacion1=findViewById(R.id.ediCod2);

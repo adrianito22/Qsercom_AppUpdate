@@ -783,7 +783,6 @@ Log.i("hellosweer","se ehjecitp onstart");
         ediHoraSalidaContenedor=findViewById(R.id.ediHoraSalidaContenedor);
 
         ediTipoContenedor=findViewById(R.id.ediTipoContenedor);
-        progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
         ediCondicionBalanza=findViewById(R.id.ediCondicionBalanza);
         ediTipodeCaja=findViewById(R.id.ediTipodeCaja);

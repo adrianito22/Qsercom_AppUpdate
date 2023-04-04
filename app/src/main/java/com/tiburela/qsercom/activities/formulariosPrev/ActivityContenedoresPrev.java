@@ -731,10 +731,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         ediTipoContenedor = findViewById(R.id.ediTipoContenedor);
 
-
-        progressBarFormulario = findViewById(R.id.progressBarFormulario);
-
-
         ediCondicionBalanza = findViewById(R.id.ediCondicionBalanza);
         ediTipodeCaja = findViewById(R.id.ediTipodeCaja);
         ediTipoPlastico = findViewById(R.id.ediTipoPlastico);

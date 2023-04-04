@@ -22,29 +22,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progressBarFormulario"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="366dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:progress="1"
-        android:progressTint="#01B151"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView59" />
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarFormulario">
+        app:layout_constraintTop_toBottomOf="@+id/textView59">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,7 +93,6 @@
 
 
             </LinearLayout>
-
 
 
             <include
@@ -376,7 +359,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
 
             <include
                 layout="@layout/ly_peso_bruto_por_clust_solo_para"
@@ -407,7 +390,6 @@
                 layout="@layout/lay_imagenes_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
 
 
             <LinearLayout
