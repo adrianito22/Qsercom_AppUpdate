@@ -1200,7 +1200,8 @@ if(contadorProductsPostCosecha>10){
             listTOrETURN1.add(new NameAndValue("CÉDULA  ",Object1.getCedula()));
             listTOrETURN1.add(new NameAndValue("CELULAR ",Object1.getCelular()));
             listTOrETURN1.add(new NameAndValue("PLACA ",Object1.getPlaca()));
-          //  listTOrETURN1.add(new NameAndValue("COLOR CABEZAL ",Object1.getcc()));
+
+            listTOrETURN1.add(new NameAndValue("CANDADO/S QSERCON ",generaCandadosQsercon(Object1)));
 
 
 
@@ -6381,6 +6382,30 @@ return  numDefectosAll;
 
 
         return 1;
+    }
+
+
+  private static  String generaCandadosQsercon(ReportCamionesyCarretas object){
+        String candados="";
+
+        //            //candado 1: ,candado2: ,candado3:
+
+        if(!object.getCandadoName1().trim().isEmpty()){
+            candados="Candado 1: "+object.getCandadoName1();
+        }
+        //candado 1:name
+
+        if(!object.getCandadoName2().trim().isEmpty()){
+            candados=candados+", Candado 2: "+object.getCandadoName2();
+        }
+        ////candado 1:name, candad 2:sdffsdf
+
+        if(!object.getCandadoName3().trim().isEmpty()){
+            candados=candados+", Candado 3: "+object.getCandadoName3();
+        }
+
+return  candados.toUpperCase();
+
     }
 
 }

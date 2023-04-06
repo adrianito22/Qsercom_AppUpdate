@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -33,6 +34,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.CuadMuestreoCalibAndRechazPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.FormularioControlCalidadPreview;
@@ -46,6 +48,7 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
@@ -53,7 +56,10 @@ import com.tiburela.qsercom.models.ReportsAllModel;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
+
+import org.slf4j.helpers.Util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,6 +71,12 @@ import java.util.HashMap;
 public class ActivitySeeReports extends AppCompatActivity  implements   View.OnTouchListener{
     RecyclerView recyclerVReports;
     Spinner  spinnerDatesSelector;
+
+    Spinner spinnerExportadoras;
+    private String timeselecionadoSpn="";
+    private String exportadoraSelecionadaSpn="";
+
+
     ArrayList<SetInformEmbarque1> reportsListPart1;
     ProgressDialog pd;
     DatabaseReference rootDatabaseReference ; //anterior
@@ -103,7 +115,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         context = getApplicationContext();
 
         findViewsIDs();
-
+        getExportadorasAndSetSpinner();
         Variables.listImagesToDelete=new ArrayList<String>();
 
         RealtimeDB.initDatabasesRootOnly();
@@ -148,12 +160,29 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         recyclerVReports=findViewById(R.id.recyclerVReports);
         spinnerDatesSelector=findViewById(R.id.spinnerDatesSelector);
         txtConfirmExitenciaData=findViewById(R.id.txtConfirmExitenciaData);
-
+        spinnerExportadoras=findViewById(R.id.spinnerExportadoras);
 
     }
 
 
     void listenenrSpinner() {
+        spinnerExportadoras.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                exportadoraSelecionadaSpn=spinnerExportadoras.getSelectedItem().toString();
+
+                Log.i("itemselected","el item seecioando es "+exportadoraSelecionadaSpn);
+
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         spinnerDatesSelector .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -162,6 +191,7 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                 String timeSelecionado= spinnerDatesSelector.getSelectedItem().toString();
                 String fechaToSearch="";
 
+                 timeselecionadoSpn=spinnerDatesSelector.getSelectedItem().toString();
 
 
                 //  ediZona.setText("Zona "+zonaEelejida+" ");
@@ -271,14 +301,58 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
                     //agregamos solo los que no esten en esta lista..
                     if(informRegister!=null){  //creamos un objet
 
-                        /**si el id report QUE SEA DEL MISMO USER QUE SUBIO **/
-                        Log.i("userre","el user id de adrian es "+Variables.usuarioQserconGlobal.getUniqueIDuser());
+                        Log.i("filtrodata","el exportadora selecionada es"+exportadoraSelecionadaSpn);
 
-                        if(informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser()) ||
-                                Variables.usuarioQserconGlobal.getMailGooglaUser().equals(Variables.mailDveloper)){
+                        Log.i("filtrodata","el tipo de usaurio es "+ Variables.usuarioQserconGlobal.getTiposUSUARI());
 
-                            listReport.add(informRegister);
+
+                        if(Variables.usuarioQserconGlobal!=null &&  Variables.usuarioQserconGlobal.getTiposUSUARI()== Utils.INSPECTOR_OFICINA){
+
+                            if(exportadoraSelecionadaSpn.equalsIgnoreCase("TODAS")){ //si le dio en todos
+                                listReport.add(informRegister);
+
+
+                            }else{  //ES UNS EXPORTRADORA ESPFICIA
+                                if(informRegister.getExportadoraName().equals(exportadoraSelecionadaSpn)){
+                                    listReport.add(informRegister);
+
+                                }
+
+
+                            }
+
+
                         }
+
+
+
+                        else if(Variables.usuarioQserconGlobal!=null &&  Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO){
+
+                            if(exportadoraSelecionadaSpn.equalsIgnoreCase("TODAS")){ //si le dio en todos
+
+                               if(informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser())){
+                                   listReport.add(informRegister);
+
+                               }
+
+
+                            }else{  //ES UNS EXPORTRADORA ESPFICIA
+                                if(informRegister.getIdQuienSUbioForm().equals(exportadoraSelecionadaSpn)){
+                                    if(informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser())){
+                                        listReport.add(informRegister);
+
+                                    }
+
+                                }
+
+
+                            }
+
+
+                        }
+
+
+
 
                     }
 
@@ -1720,7 +1794,42 @@ Log.i("puslado","el value es "+idReport);
 
                     InformRegister report=ds.getValue(InformRegister.class);
 
-                    listReport.add(report);
+                    if(exportadoraSelecionadaSpn.equals("TODAS")){
+
+                        if(Variables.usuarioQserconGlobal!=null & Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){ //si es user oficina
+
+                            listReport.add(report);
+
+
+                        }else if(Variables.usuarioQserconGlobal!=null &
+                                Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO &
+                                report.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser())){
+                            listReport.add(report);
+
+                        }
+
+
+                    }
+                    else { //es una exportadora especificz
+
+                        if(Variables.usuarioQserconGlobal!=null &
+                                Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_OFICINA & report.getExportadoraName().equals(exportadoraSelecionadaSpn)
+                        ){ //si es user oficina
+
+                            listReport.add(report);
+
+//rmRegister.getIdQuienSUbioForm()
+                        }else if(Variables.usuarioQserconGlobal!=null &
+                                Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO &
+                                report.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser())
+                        && report.getExportadoraName().equals(exportadoraSelecionadaSpn)){
+                            listReport.add(report);
+
+                        }
+
+                    }
+
+
 
                 }
 
@@ -1747,6 +1856,31 @@ Log.i("puslado","el value es "+idReport);
 
     }
 
+    private void getExportadorasAndSetSpinner(){
+        //tenemos exportadoras de prefrencias//
+
+
+
+        if(Utils.hasmpaExportadoras.size()==0){
+            Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+
+        }
+
+
+        ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+        for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+            nombresExportadoras.add(exportadora.getNameExportadora());
+        }
+
+
+        nombresExportadoras.add(0,"TODAS");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+        spinnerExportadoras.setAdapter(arrayAdapter);
+
+
+    }
 
 
 

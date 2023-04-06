@@ -1610,7 +1610,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                     if (exportadora != null) {
 
-                        Utils.hasmpaExportadoras.put(exportadora.getIdExportadora(),exportadora);
+                        Utils.hasmpaExportadoras.put(exportadora.getNameExportadora(),exportadora);
                         Utils. nombresExportadoras.add(exportadora.getNameExportadora().toUpperCase());
 
                     }

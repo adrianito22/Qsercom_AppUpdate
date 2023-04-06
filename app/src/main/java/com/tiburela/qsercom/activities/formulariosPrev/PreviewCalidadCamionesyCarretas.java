@@ -110,6 +110,11 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     TextView txtNumReportsVinclds;
     Spinner spinnerExportadora;
 
+    EditText ediCandadoName1;
+    EditText ediCandadoName2;
+    EditText ediCandadoName3;
+
+
 
     ReportCamionesyCarretas objecActivityCaminsCarretas;
 
@@ -193,7 +198,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     TextInputEditText ediBalanzaRepeso;
 
 
-    TextInputEditText ediCandadoQsercom;
     TextInputEditText ediBalanza;
     TextInputEditText ediFuenteAgua;
     TextInputEditText ediAguaCorrida;
@@ -258,7 +262,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     Spinner spFuenteAgua ;
     Spinner spFumigaCorL1 ;
     Spinner spTipoBoquilla ;
-    Spinner spinnerCandadoQsercon;
 
 
     Switch switchHaybalanza;
@@ -615,6 +618,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+        ediCandadoName1=findViewById(R.id.ediCandadoName1);
+        ediCandadoName2=findViewById(R.id.ediCandadoName2);
+        ediCandadoName3=findViewById(R.id.ediCandadoName3);
+
         spinnerExportadora=findViewById(R.id.spinnerExportadora);
 
 
@@ -659,7 +666,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
 
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
-        ediCandadoQsercom=findViewById(R.id.ediCandadoQsercom);
         lyEscontenedor=findViewById(R.id.lyEscontenedor);
         ediSemana=findViewById(R.id.ediSemana);
         ediFecha=findViewById(R.id.ediFecha);
@@ -705,7 +711,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
          ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
          ediExtGanchoCi =findViewById(R.id.ediExtGanchoCi);
 
-        spinnerCandadoQsercon=findViewById(R.id.spinnerCandadoQsercon);
 
 
         linLayoutHeader1 =findViewById(R.id.linLayoutHeader1);
@@ -759,7 +764,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         ediRuma1=findViewById(R.id.edinCajas3);
         ediTermofrafo2=findViewById(R.id.ediTermofrafo2);
         ediUbicacion2=findViewById(R.id.ediUbicacion2);
-        ediCandadoQsercom =findViewById(R.id.ediCandadoQsercom);
 
 
         ediNombreChofer=findViewById(R.id.ediNombreChofer);
@@ -1495,31 +1499,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
-        spinnerCandadoQsercon .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String candadoQsercom= spinnerCandadoQsercon.getSelectedItem().toString();
-                ediCandadoQsercom.setText(candadoQsercom);
-
-
-
-
-              /*
-                if(condicion.equals("Ninguna")){
-                    //actualizamos
-                    Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                    ediCondicionBalanza.setText("");
-                    actualizaListStateView("ediCondicionBalanza",false) ;
-                }else {
-                    actualizaListStateView("ediCondicionBalanza",true) ;
-                }
-*/
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
         spinnertipoCaja .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1931,7 +1910,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 ediCodigo.getText().toString(), ediPemarque.getText().toString(),
                  ediNguiaRemision.getText().toString(),ediHacienda.getText().toString(),edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
                 ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString(),ediSemana.getText().toString(),ediEmpacadora.getText().toString(),
-                ediNombreChofer.getText().toString(),ediCedula.getText().toString(),ediCelular.getText().toString(),ediPLaca.getText().toString(),ediCandadoQsercom.getText().toString(),
+                ediNombreChofer.getText().toString(),ediCedula.getText().toString(),ediCelular.getText().toString(),ediPLaca.getText().toString(),
                    ediTipoPlastico.getText().toString(),ediTipodeCaja.getText().toString(),switchHayEnsunchado.isChecked(),switchHaybalanza.isChecked(),
                    ediCondicionBalanza.getText().toString(),ediTipoBalanza.getText().toString(),switchBalanzaRep.isChecked(),editipbalanzaRepeso.getText().toString(),
                 ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),ediFumigacionClin1.getText().toString(),
@@ -1941,7 +1920,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 ,FieldOpcional.observacionOpcional,Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l()
 
                 ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString(),  ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString()
-                ,ediMarca.getText().toString()
+                ,ediMarca.getText().toString(),   ediCandadoName1.getText().toString(),ediCandadoName2.getText().toString(), ediCandadoName3.getText().toString()
         ) ;
 
 
@@ -2747,6 +2726,17 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         }
 
 
+
+        if(ediCandadoName1.getText().toString().trim().isEmpty() && ediCandadoName2.getText().toString().trim().isEmpty()&&
+                ediCandadoName3.getText().toString().trim().isEmpty()){
+
+            ediCandadoName1.requestFocus();
+            ediCandadoName1.setError("Inserte al menos un candado ");
+
+        }
+
+
+
         if(ediNombreChofer.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediNombreChofer.requestFocus();
             ediNombreChofer.setError("Este espacio es obligatorio");
@@ -3270,87 +3260,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 //si hay un formulario obtenerlo..
     //una propiedad que diga si ya lo subio...
     ///el primer valor del map conttendra esa propiedad...
-    private TextInputEditText[] creaArryOfTextInputEditText() {
-
-        TextInputEditText [] arrayEditex = {
-
-                ediSemana,
-                ediFecha,
-                ediProductor,
-                ediHacienda,
-                ediCodigo,
-                ediInscirpMagap,
-                ediPemarque,
-                ediZona,
-                ediHoraInicio,
-                ediHoraTermino,
-                ediNguiaRemision,
-                edi_nguia_transporte,
-                ediNtargetaEmbarque,
-                ediNhojaEvaluacion,
-                ediObservacion,
-                ediEmpacadora,
-                ediContenedor,
-                ediPPC01,
-                ediPPC02,
-                ediPPC03,
-                ediPPC04,
-                ediPPC05,
-                ediPPC06,
-                ediPPC07,
-                ediPPC08,
-                ediPPC09,
-                ediPPC010,
-                ediPPC011,
-                ediPPC012,
-                ediPPC013,
-                ediPPC014,
-                ediPPC015,
-                ediPPC016,
-                ediNViaje,
-                ediEnsunchado,
-                ediBalanzaRepeso,
-
-
-                ediBalanza,
-                ediFuenteAgua,
-                ediAguaCorrida,
-                ediLavadoRacimos,
-                ediFumigacionClin1,
-                ediTipoBoquilla,
-                ediCajasProcDesp,
-                ediRacimosCosech,
-                ediRacimosRecha,
-                ediRacimProces,
-
-
-                ediNombreChofer,
-                ediCedula,
-                ediCelular,
-                ediPLaca,
-                ediCondicionBalanza,
-                ediTipodeCaja,
-                ediTipoPlastico,
-                ediTipoBalanza,
-                editipbalanzaRepeso,
-              //  ediUbicacionBalanza,
-                ediUbicacion1,
-                ediRuma1,
-                ediTermofrafo2,
-                ediHoraEncendido2,
-                ediUbicacion2,
-                ediCandadoQsercom,
-
-
-
-
-
-
-        } ;
-
-
-        return arrayEditex;
-    }
 
 
     void addInfotomap(ArrayList<ImagenReport>listImagenReports){
@@ -4012,6 +3921,12 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         ediProductor.setText(currenReport.getProductor());
         ediHacienda.setText(currenReport.getHacienda());
         ediCodigo.setText(currenReport.getCodigo());
+        ediCandadoName1.setText(currenReport.getCandadoName1());
+        ediCandadoName2.setText(currenReport.getCandadoName2());
+        ediCandadoName3.setText(currenReport.getCandadoName3());
+
+
+
         ediInscirpMagap.setText(currenReport.getInscirpMagap());
         ediPemarque.setText(currenReport.getPemarque());
         ediZona.setText(currenReport.getZona());
@@ -4046,8 +3961,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         ediTipoPlastico.setText(currenReport.getTipoDePlastico());
         ediTipoBalanza.setText(currenReport.getTipoBalanza());
         editipbalanzaRepeso.setText(currenReport.getTipoBalanzaRepesa());
-
-        ediCandadoQsercom.setText(currenReport.getCandadoQsercom());
 
 
         //configuramos los ultimos datos
@@ -4149,17 +4062,17 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         //cremoas un super array...de todo tipos de Views
 
-        View [] arrayAllFields={ediMarca,ediExportadoraSolicitante,ediClienteNombreReporte,
+        View [] arrayAllFields={ediCandadoName1,ediCandadoName2,ediCandadoName3,   ediMarca,ediExportadoraSolicitante,ediClienteNombreReporte,
                 ediSemana, ediFecha, ediProductor, ediHacienda, ediCodigo, ediInscirpMagap, ediPemarque, ediZona, ediHoraInicio, ediHoraTermino,
                 ediNguiaRemision, edi_nguia_transporte, ediNtargetaEmbarque, ediNhojaEvaluacion, ediObservacion, ediEmpacadora,
                 ediContenedor, ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07, ediPPC08, ediPPC09, ediPPC010, ediPPC011,
-                ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016, ediEnsunchado, ediBalanzaRepeso, ediCandadoQsercom,
+                ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016, ediEnsunchado, ediBalanzaRepeso,
                 ediBalanza, ediFuenteAgua, ediAguaCorrida, ediLavadoRacimos, ediFumigacionClin1, ediTipoBoquilla, ediCajasProcDesp, ediRacimosCosech,
                 ediRacimosRecha, ediRacimProces, ediNombreChofer, ediCedula, ediCelular, ediPLaca, ediCondicionBalanza,
                 ediTipodeCaja, ediTipoPlastico, ediTipoBalanza, editipbalanzaRepeso, ediExtCalid, ediExtRodillo,
                 ediExtGancho, ediExtCalidCi, ediExtRodilloCi, ediExtGanchoCi, spinnerSelectZona, spinnerCondicionBalanza, spinnertipoCaja,
                 spinnertipodePlastico, spinnertipodeBlanza , spinnertipodeBlanzaRepeso  , spFuenteAgua ,
-                spFumigaCorL1 , spTipoBoquilla , spinnerCandadoQsercon, switchHaybalanza, switchHayEnsunchado, switchBalanzaRep,
+                spFumigaCorL1 , spTipoBoquilla , switchHaybalanza, switchHayEnsunchado, switchBalanzaRep,
                 switchLavdoRacimos, swAguaCorrida
 
         };
@@ -4173,7 +4086,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     private void activateModeEdit() {
 
-        View [] arrayAllFields={
+        View [] arrayAllFields={ediCandadoName1,ediCandadoName2,ediCandadoName3,
 
                 ediMarca, ediExportadoraSolicitante,ediClienteNombreReporte,
 
@@ -4186,7 +4099,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                     ediExtCalid, ediExtRodillo,
                 ediExtGancho, ediExtCalidCi, ediExtRodilloCi, ediExtGanchoCi, spinnerSelectZona, spinnerCondicionBalanza, spinnertipoCaja,
                 spinnertipodePlastico, spinnertipodeBlanza , spinnertipodeBlanzaRepeso  , spFuenteAgua ,
-                spFumigaCorL1 , spTipoBoquilla , spinnerCandadoQsercon, switchHaybalanza, switchHayEnsunchado, switchBalanzaRep,
+                spFumigaCorL1 , spTipoBoquilla , switchHaybalanza, switchHayEnsunchado, switchBalanzaRep,
                 switchLavdoRacimos, swAguaCorrida
 
         };
@@ -4620,7 +4533,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
                 ediCodigo.getText().toString(), ediPemarque.getText().toString(),
                 ediNguiaRemision.getText().toString(),ediHacienda.getText().toString(),edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
                 ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString(),ediSemana.getText().toString(),ediEmpacadora.getText().toString(),
-                ediNombreChofer.getText().toString(),ediCedula.getText().toString(),ediCelular.getText().toString(),ediPLaca.getText().toString(),ediCandadoQsercom.getText().toString(),
+                ediNombreChofer.getText().toString(),ediCedula.getText().toString(),ediCelular.getText().toString(),ediPLaca.getText().toString(),
                 ediTipoPlastico.getText().toString(),ediTipodeCaja.getText().toString(),switchHayEnsunchado.isChecked(),switchHaybalanza.isChecked(),
                 ediCondicionBalanza.getText().toString(),ediTipoBalanza.getText().toString(),switchBalanzaRep.isChecked(),editipbalanzaRepeso.getText().toString(),
                 ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),ediFumigacionClin1.getText().toString(),
@@ -4630,7 +4543,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
                 ,FieldOpcional.observacionOpcional,Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l()
 
                 ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString(),  ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString()
-                ,ediMarca.getText().toString()  );
+                ,ediMarca.getText().toString(),   ediCandadoName1.getText().toString(),ediCandadoName2.getText().toString(), ediCandadoName3.getText().toString()  );
 
 
         Log.i("atachxxc","el key firebase es "+Variables.currenReportCamionesyCarretas.getKeyFirebase());
@@ -5391,20 +5304,28 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
     }
     private void hideViewsIfUserISCampo(){
+        TextInputEditText  ediNombreRevisa =findViewById(R.id.ediNombreRevisa);
+        TextInputEditText  ediCodigoRevisa =findViewById(R.id.ediCodigoRevisa);
 
-        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO || SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO ||
+                SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
 
 
-            ediNombreRevisa.setEnabled(false);
-            ediCodigoRevisa.setEnabled(false);
+            ediNombreRevisa.setVisibility(View.GONE);
+            ediCodigoRevisa.setVisibility(View.GONE);
         }
 
 
         if(Variables.usuarioQserconGlobal!=null){
 
             if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
-                ediNombreRevisa.setEnabled(false);
-                ediCodigoRevisa.setEnabled(false);
+                ediNombreRevisa.setVisibility(View.GONE);
+                ediCodigoRevisa.setVisibility(View.GONE);
+            }else{
+
+                ediNombreRevisa.setVisibility(View.VISIBLE);
+                ediCodigoRevisa.setVisibility(View.VISIBLE);
+
             }
 
         }

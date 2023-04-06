@@ -6043,19 +6043,25 @@ private void callPrefrencesSaveAndImagesData(){
         TextInputEditText  ediNombreRevisa =findViewById(R.id.ediNombreRevisa);
         TextInputEditText  ediCodigoRevisa =findViewById(R.id.ediCodigoRevisa);
 
-        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO || SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO ||
+                SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
 
 
-            ediNombreRevisa.setEnabled(false);
-            ediCodigoRevisa.setEnabled(false);
+            ediNombreRevisa.setVisibility(View.GONE);
+            ediCodigoRevisa.setVisibility(View.GONE);
         }
 
 
         if(Variables.usuarioQserconGlobal!=null){
 
             if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
-                ediNombreRevisa.setEnabled(false);
-                ediCodigoRevisa.setEnabled(false);
+                ediNombreRevisa.setVisibility(View.GONE);
+                ediCodigoRevisa.setVisibility(View.GONE);
+            }else{
+
+                ediNombreRevisa.setVisibility(View.VISIBLE);
+                ediCodigoRevisa.setVisibility(View.VISIBLE);
+
             }
 
         }

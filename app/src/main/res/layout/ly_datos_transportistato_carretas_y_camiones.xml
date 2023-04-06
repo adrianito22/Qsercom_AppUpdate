@@ -104,35 +104,102 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            <EditText
+                android:id="@+id/ediCandadoName1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_back_text"
+                android:hint="NOMBRE"
+                android:padding="10dp"
+                android:textSize="17sp">
+
+            </EditText>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
 
-                android:hint="CANDADO QSERCON"
-                >
+                android:background="@drawable/round_back_text"
+                android:padding="10dp"
+                android:text="CANDADO QSERCON 1">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ediCandadoQsercom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters"
-                    android:textAllCaps="true" />
-            </com.google.android.material.textfield.TextInputLayout>
+            </TextView>
 
-            <Spinner
-                android:id="@+id/spinnerCandadoQsercon"
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ediCandadoName2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
+
                 android:layout_weight="1"
-                android:entries="@array/candadoQsercomArray" />
+                android:background="@drawable/round_back_text"
+                android:hint="NOMBRE"
+                android:padding="10dp"
+                android:textSize="17sp">
+
+            </EditText>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/round_back_text"
+                android:padding="10dp"
+                android:text="CANDADO QSERCON 2">
+
+            </TextView>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ediCandadoName3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_back_text"
+                android:hint="NOMBRE"
+                android:padding="10dp"
+                android:textSize="17sp">
+
+            </EditText>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/round_back_text"
+                android:padding="10dp"
+                android:text="CANDADO QSERCON 3">
+
+            </TextView>
+
 
         </LinearLayout>
 

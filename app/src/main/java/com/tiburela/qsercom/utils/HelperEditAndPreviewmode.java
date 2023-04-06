@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -30,6 +31,18 @@ public class HelperEditAndPreviewmode {
             if (view instanceof TextInputEditText) { //asi es un editex compobamos si esta lleno
 
                 TextInputEditText editText = (TextInputEditText) view; //asi lo convertimos
+
+                // editText.setFocusable(false);
+                editText.setEnabled(false);
+                // editText.setCursorVisible(false);
+                // editText.setKeyListener(null);
+                //  editText.setBackgroundColor(Color.TRANSPARENT);
+
+            }
+
+            if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
+
+                EditText editText = (EditText) view; //asi lo convertimos
 
                 // editText.setFocusable(false);
                 editText.setEnabled(false);
@@ -95,16 +108,17 @@ public class HelperEditAndPreviewmode {
 
                 editText.setEnabled(true);
 
+            }
+            if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
 
-                //  editText.requestFocus();
+                EditText editText = (EditText) view; //asi lo convertimos
 
-                // editText.setFocusable(true);
-                //  editText.setEnabled(true);
-                // editText.setCursorVisible(true);
-                // editText.setKeyListener(false);
-                //  editText.setBackgroundColor(Color.TRANSPARENT);
+                editText.setEnabled(true);
 
-            } else if (view instanceof Spinner) {
+            }
+
+
+            else if (view instanceof Spinner) {
                 Spinner spinner = (Spinner) view; //asi lo convertimos
                 spinner.setEnabled(true);
                 spinner.setClickable(true);
