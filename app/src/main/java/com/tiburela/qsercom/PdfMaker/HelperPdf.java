@@ -1004,15 +1004,10 @@ if(contadorProductsPostCosecha>10){
 
                     listTOrETURN1.add(new NameAndValue("HORA DE ENCEND:" +Object2.getTermografo2HoraEncendido(),"UBICACIÓN PALLET: "+Object2.getUbicacionPalletN2()));
 
-
                 }
 
 
             }
-
-
-
-
 
             listTOrETURN1.add(new NameAndValue("CANDADO QSERCON",Object2.getCandadoQsercom()));
             listTOrETURN1.add(new NameAndValue("CABLE NAVIERA",Object2.getCableNaviera()));

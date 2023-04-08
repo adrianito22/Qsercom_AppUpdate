@@ -2732,6 +2732,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
             ediCandadoName1.requestFocus();
             ediCandadoName1.setError("Inserte al menos un candado ");
+            return false;
 
         }
 

@@ -750,8 +750,14 @@ public class HelperAdImgs implements LifecycleOwner {
 
 
 
-
             Table table = new Table(1,true);
+
+
+
+            Log.i("urlptint","la url es "+HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic());
+            Log.i("urlptint","la url es "+HelperImage.imagesSetToCurrentFila.get(0).getUniqueIdNamePic());
+
+
 
             Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical.setAutoScale(true);
