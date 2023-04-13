@@ -113,8 +113,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener ,
-        View.OnTouchListener {
+public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener {
     HashMap<String, Exportadora> hasmpaExportadoras;
 
     Spinner spinnerExportadora;
@@ -374,7 +373,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
             // resultatachImages();
 
             // EstateFieldView.adddataListsStateFields();
-            addOnTouchaMayoriaDeViews();
             eventCheckdata();
             //creaFotos();
             listennersSpinners();
@@ -1253,199 +1251,13 @@ else{
             });
 
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
 
 
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 
-            //agregamos esta vista clickada a la lista
 
-            Log.i("casnasd", "se llamo on touch ");
 
-            listViewsClickedUser.add(view);
 
 
-            Log.i("casnasd", "el size de la lista es " + listViewsClickedUser.size());
-
-            if (listViewsClickedUser.size() > 1) {
-                //obtenemos la lista anterior y verficamos si esta completada;
-                View vistFieldAnterior = getVistaAnteriorClick();
-                checkeamosSiFieldViewIScompleted(vistFieldAnterior);
-                //actualizamos
-
-
-            }
-
-
-        }
-        return false;
-    }
-
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void addOnTouchaMayoriaDeViews() {
-        ediObservacion.setOnTouchListener(this);
-        ediSemana.setOnTouchListener(this);
-        ediFecha.setOnTouchListener(this);
-        ediProductor.setOnTouchListener(this);
-        ediHacienda.setOnTouchListener(this);
-        ediCodigo.setOnTouchListener(this);
-        ediInscirpMagap.setOnTouchListener(this);
-        ediPemarque.setOnTouchListener(this);
-        ediHoraInicio.setOnTouchListener(this);
-        ediHoraTermino.setOnTouchListener(this);
-        ediNguiaRemision.setOnTouchListener(this);
-        edi_nguia_transporte.setOnTouchListener(this);
-        ediNtargetaEmbarque.setOnTouchListener(this);
-        ediNhojaEvaluacion.setOnTouchListener(this);
-        spinnerSelectZona.setOnTouchListener(this);
-
-        spinnerCondicionBalanza.setOnTouchListener(this);
-        spinnertipoCaja.setOnTouchListener(this);
-        spinnertipodePlastico.setOnTouchListener(this);
-        spinnertipodeBlanza.setOnTouchListener(this);
-        spinnertipodeBlanzaRepeso.setOnTouchListener(this);
-        spinnerubicacionBalanza.setOnTouchListener(this);
-
-
-        switchContenedor.setOnTouchListener(this);
-        ediEmpacadora.setOnTouchListener(this);
-
-        imgVAtachProcesoFrutaFinca.setOnTouchListener(this);
-        imbTakePicProcesoFrutaFinca.setOnTouchListener(this);
-        imgVAtachLlegadaContenedor.setOnTouchListener(this);
-        imbTakePicLllegadaContenedor.setOnTouchListener(this);
-        imgVAtachSellosLlegada.setOnTouchListener(this);
-        imbTakePicSellosLlegada.setOnTouchListener(this);
-        imgVAtachPuertaAbiertaContenedor.setOnTouchListener(this);
-        imbTakePicPuertaAbiertaContenedor.setOnTouchListener(this);
-        imgVAtachFotosPallet.setOnTouchListener(this);
-        imbTakePicPallet.setOnTouchListener(this);
-        imgVAtachCierreContenedor.setOnTouchListener(this);
-        imbTakePicCierreContenedor.setOnTouchListener(this);
-        imgVAtachDocumentacionss.setOnTouchListener(this);
-        imbTakePicDocuementacionxx.setOnTouchListener(this);
-
-
-
-        ediPPC01.setOnTouchListener(this);
-        ediPPC02.setOnTouchListener(this);
-        ediPPC03.setOnTouchListener(this);
-        ediPPC04.setOnTouchListener(this);
-        ediPPC05.setOnTouchListener(this);
-        ediPPC06.setOnTouchListener(this);
-        ediPPC07.setOnTouchListener(this);
-        ediPPC08.setOnTouchListener(this);
-        ediPPC09.setOnTouchListener(this);
-        ediPPC010.setOnTouchListener(this);
-        ediPPC011.setOnTouchListener(this);
-        ediPPC012.setOnTouchListener(this);
-        ediPPC013.setOnTouchListener(this);
-        ediPPC014.setOnTouchListener(this);
-        ediPPC015.setOnTouchListener(this);
-        ediPPC016.setOnTouchListener(this);
-
-
-    }
-
-
-    private View getVistaAnteriorClick() { //el estado puede ser lleno o vacio isEstaLleno
-
-
-        if (listViewsClickedUser.size() == 3) { //SOLO GUARDAMOS DOS NUMEROS para ahorra memoria
-            listViewsClickedUser.remove(0);   //ya no queremoes el primer objeto de la lista siempre y cuando la lista contnega 3 objetos
-
-        }
-        Log.i("casnasd", "el size aqui en metodo es " + listViewsClickedUser.size());
-
-
-        View vistAnterior = listViewsClickedUser.get(0);
-        //  Log.i("soeobjetc","el objeto anterioR TAG ES "+vistAnterior.getTag().toString());
-
-
-        return vistAnterior;
-
-    }
-
-
-    private void checkeamosSiFieldViewIScompleted(View view) {
-
-        //revismaos si el usuario lleno el file o completo la tarea solictada
-
-        Log.i("miodata", "el id del selecionado anterior es " + view.getResources().getResourceName(view.getId()));
-
-
-        if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
-            EditText editText = (EditText) view; //asi lo convertimos
-            Log.i("miodata", "el id es " + view.getResources().getResourceName(view.getId()));
-
-            if (view.getResources().getResourceName(view.getId()).contains("ediPPC0")) { //asi comprobamos que es un fiel opcional
-                if (editText.getText().toString().length() > 0) {
-                    if (!editText.getText().toString().equalsIgnoreCase("0")) {
-
-                        Log.i("miodata", "el state ediPPC/someProductPostCosecha esta lleno ");
-
-
-                        actualizaListStateView("ediPPC/someProductPostCosecha", true);
-
-
-                    }
-                }
-
-            } else if (editText.getText().toString().isEmpty()) {
-
-
-                Log.i("idCheck", "la data del editext anterior : " + view.getResources().getResourceName(view.getId()) + " esta vacio");
-
-
-                actualizaListStateView(view.getResources().getResourceName(view.getId()), false);
-
-            }
-
-
-            ////si existe lo cambiamos a tru
-
-
-            else if (!editText.getText().toString().isEmpty()) { //si esta lleno
-
-                Log.i("idCheck", "la data del editext anterior : " + view.getResources().getResourceName(view.getId()) + " esta lleno");
-
-                actualizaListStateView(view.getResources().getResourceName(view.getId()), true);
-
-
-            }
-
-
-        } else if (view.getResources().getResourceName(view.getId()).contains("imbAtach") || view.getResources().getResourceName(view.getId()).contains("imbTakePic")) { //imBtakePic
-
-            //COMPORBAQMOS SI EXISTE AL ME4NOS UN IMAGEN URI LIST..
-
-            if (ImagenReport.hashMapImagesData.size() > 0) {
-                actualizaListStateView("imbAtach/imbTakePic", true);
-
-                Log.i("miodata", "el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
-
-
-            } else {
-
-                actualizaListStateView("imbAtach/imbTakePic", false);
-                Log.i("miodata", "el slecionado anteruior es imbAtach/imbTakePic y no contiene fotos");
-
-
-            }
-
-
-        }
-
-
-        //seran mas comprobacion para verificar si imagenes por ejemplo fiueron completadas..
-        //otra para radiobutton y otr para otro tipo de view..tec
-
-
-        actualizaProgressBar();
-
-    }
 
 
     private void actualizaListStateView(String idSearch, boolean isEstaLleno) {
@@ -1644,10 +1456,8 @@ else{
                     //actualizamos
                     Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
                     ediZona.setText("");
-                    actualizaListStateView("spinnerZona", false);
-                } else {
-                    actualizaListStateView("spinnerZona", true);
                 }
+
 
             }
 
@@ -1667,10 +1477,8 @@ else{
                     //actualizamos
                     Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
                     ediZona.setText("");
-                    actualizaListStateView("addetiquetaaqui", false);
-                } else {
-                    actualizaListStateView("addetiquetaaqui", true);
                 }
+
 
             }
 
@@ -1690,10 +1498,8 @@ else{
                     //actualizamos
                     Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
                     ediTipodeCaja.setText("");
-                    actualizaListStateView("addetiquetaaqui", false);
-                } else {
-                    actualizaListStateView("addetiquetaaqui", true);
                 }
+
 
             }
 
@@ -1713,10 +1519,8 @@ else{
                     //actualizamos
                     Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
                     ediTipoPlastico.setText("");
-                    actualizaListStateView("addetiquetaaqui", false);
-                } else {
-                    actualizaListStateView("addetiquetaaqui", true);
                 }
+
 
             }
 
@@ -1736,12 +1540,10 @@ else{
                     //actualizamos
                     Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
                     ediTipoBalanza.setText("");
-                    actualizaListStateView("addetiquetaaqui", false);
-                } else {
-
-
-                    actualizaListStateView("addetiquetaaqui", true);
                 }
+
+
+
 
             }
 
@@ -1777,9 +1579,6 @@ else{
                     //actualizamos
                     Log.i("maswiso", "eSPINNER ZONA SELECIONO NINGUNO ");
                     ediUbicacionBalanza.setText("");
-                    actualizaListStateView("addetiquetaaqui", false);
-                } else {
-                    actualizaListStateView("addetiquetaaqui", true);
                 }
 
             }
@@ -1870,7 +1669,6 @@ else{
 
             currentTypeImage = Variables.typeoFdeleteImg;
         }
-
 
 
 

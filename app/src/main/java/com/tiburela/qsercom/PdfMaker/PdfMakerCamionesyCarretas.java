@@ -1085,14 +1085,12 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         /**Agregamos anexos*/
 
-       // UpdateProgressAndText("Agregando Fotos al Reporte",90);
-
            HelperAdImgs.initpdfDocument(miPFDocumentkernel);
 
 
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
+        HelperImage.indiceValues=0;
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
 
 
@@ -1102,8 +1100,11 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         /**FOTO_LLEGADA_CONTENEDOR...*/
      //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperImage.indiceValues=0;
+
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
 
+        HelperImage.indiceValues=0;
 
         HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
 
@@ -1111,6 +1112,8 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperImage.indiceValues=0;
+
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
 
 
@@ -1123,33 +1126,15 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
      //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperImage.indiceValues=0;
+
         HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
 
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperImage.indiceValues=0;
+
         HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
-
-
-
-        /**aqui colcamos por quien revisado y eso 33jjjjj1` e*/
-       /// revisado por y bacground para ceptura...
-     //   Canvas canvas = new Canvas(new PdfCanvas(pagePdf), miPFDocumentkernel, pagePdf.getMediaBox());
-      //  RootRenderer canvasRenderer = canvas.getRenderer();
-
-     //   Paragraph paragraph= new Paragraph("firmaqui");
-      //  paragraph.setBackgroundColor(Color.convertRgbToCmyk(new DeviceRgb(56,56,56)));
-        /*
-        while (paragraph.createRendererSubTree().setParent(canvasRenderer).layout(new LayoutContext(new LayoutArea(pageNumber, new Rectangle(allowedWidth, fontSize * 2)))).getStatus() != LayoutResult.FULL) {
-            paragraph.setFontSize(--fontSize);
-        }
-*/
-      //  float xCoord = 151;
-      //  float yCoord = 73;
-
-
-       // canvas.showTextAligned(paragraph, xCoord, yCoord, TextAlignment.CENTER);
-     //   canvas.close();
-
 
 
         Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.currenReportCamionesyCarretas.getNombreRevisa(),Variables.currenReportCamionesyCarretas.getCodigonRevisa());

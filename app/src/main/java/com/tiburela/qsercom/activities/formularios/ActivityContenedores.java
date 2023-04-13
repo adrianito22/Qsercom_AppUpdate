@@ -2052,118 +2052,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
 
-/*
-    private void checkeamosSiFieldViewIScompleted(View view ) {
-
-        //revismaos si el usuario lleno el file o completo la tarea solictada
-
-        Log.i("miodata","el id del selecionado anterior es "+view.getResources().getResourceName(view.getId()));
-
-
-        if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
-            EditText editText = (EditText) view; //asi lo convertimos
-             Log.i("miodata","el id es "+view.getResources().getResourceName(view.getId()));
-
-                if ( view.getResources().getResourceName(view.getId()).contains("ediPPC0")){ //asi comprobamos que es un fiel opcional
-                    if (editText.getText().toString().length() > 0) {
-                        if (!editText.getText().toString().equals("0")) {
-
-                            Log.i("miodata","el state ediPPC/someProductPostCosecha esta lleno ");
-
-                          //  actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-
-
-                            //add VALUES IN TO MAP
-                              Variables.currentMapPreferences.put(String.valueOf(view.getId()),editText.getText().toString());
-
-                             //lo guardamos en esa key
-                              SharePref.saveMapPreferFields(Variables.currentMapPreferences,SharePref.KEY_CONTENEDORES);
-
-                           //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere",ActivityContenedores.this);
-
-
-                        }
-                    }
-
-                }
-
-                else if(editText.getText().toString().isEmpty()) {
-
-
-                    Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta vacio");
-
-
-                    actualizaListStateView(view.getResources().getResourceName(view.getId()),false) ;
-
-                }
-
-
-
-
-                ////si existe lo cambiamos a tru
-
-
-
-                else if(! editText.getText().toString().isEmpty()) { //si esta lleno
-
-                    Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta lleno");
-
-                    actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
-
-
-                    //add VALUES IN TO MAP
-                    Variables.currentMapPreferences.put(String.valueOf(view.getId()),editText.getText().toString());
-
-                    //lo guardamos en esa key
-                    SharePref.saveMapPreferFields(Variables.currentMapPreferences,SharePref.KEY_CONTENEDORES);
-
-
-
-                }
-
-
-
-        }
-
-
-
-
-        else if (view.getResources().getResourceName(view.getId()).contains("imbAtach")  ||  view.getResources().getResourceName(view.getId()).contains("imbTakePic")){ //imBtakePic
-
-             //COMPORBAQMOS SI EXISTE AL ME4NOS UN IMAGEN URI LIST..
-
-            if(ImagenReport.hashMapImagesData.size()> 0 ) {
-                actualizaListStateView("imbAtach/imbTakePic",true) ;
-
-               Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
-
-
-            }else {
-
-                actualizaListStateView("imbAtach/imbTakePic",false) ;
-                Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y no contiene fotos");
-
-
-
-            }
-
-
-        }
-
-
-
-
-
-
-        //seran mas comprobacion para verificar si imagenes por ejemplo fiueron completadas..
-        //otra para radiobutton y otr para otro tipo de view..tec
-
-
-        actualizaProgressBar();
-
-            }
-
-*/
 
 
 
@@ -2320,10 +2208,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoBoquilla.setText("");
-               // actualizaListStateView("spTipoBoquilla",false) ;
-            }else {
-               // actualizaListStateView("spTipoBoquilla",true) ;
             }
+
 
         }
         @Override
@@ -2342,10 +2228,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediFumigacionClin1.setText("");
-              //  actualizaListStateView("spFumigaCorL1",false) ;
-            }else {
-              //  actualizaListStateView("spFumigaCorL1",true) ;
             }
+
 
         }
         @Override
@@ -2365,10 +2249,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediFuenteAgua.setText("");
-              //  actualizaListStateView("spFuenteAgua",false) ;
-            }else {
-              //  actualizaListStateView("spFuenteAgua",true) ;
             }
+
 
         }
         @Override
@@ -2394,10 +2276,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                     //actualizamos
                     Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                     ediZona.setText("");
-                 //   actualizaListStateView("spinnerZona",false) ;
-                }else {
-                  //  actualizaListStateView("spinnerZona",true) ;
                 }
+
 
             }
             @Override
@@ -2417,10 +2297,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediCondicionBalanza.setText("");
-              //  actualizaListStateView("ediCondicionBalanza",false) ;
-            }else {
-              //  actualizaListStateView("ediCondicionBalanza",true) ;
             }
+
 
         }
         @Override
@@ -2442,10 +2320,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipodeCaja.setText("");
-               // actualizaListStateView("ediTipodeCaja",false) ;
-            }else {
-               // actualizaListStateView("ediTipodeCaja",true) ;
             }
+
 
         }
         @Override
@@ -2465,12 +2341,9 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoPlastico.setText("");
-               // actualizaListStateView("ediTipoPlastico",false) ;
-            }else {
-
-              //  actualizaListStateView("ediTipoPlastico",true) ;
-
             }
+
+
 
         }
         @Override
@@ -2489,7 +2362,6 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediTipoBalanza.setText("");
-              //  actualizaListStateView("ediTipoBalanza",false) ;
             }
 
         }
@@ -2509,13 +2381,11 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 editipbalanzaRepeso.setText("");
-               // actualizaListStateView("addetiquetaaqui",false) ;
             }
 
 
 
 
-              //  actualizaListStateView("addetiquetaaqui",true) ;
 
 
         }
@@ -2538,10 +2408,8 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 //actualizamos
                 Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                 ediUbicacionBalanza.setText("");
-               // actualizaListStateView("ediUbicacionBalanza",false) ;
-            }else {
-              ///  actualizaListStateView("ediUbicacionBalanza",true) ;
             }
+
 
         }
         @Override

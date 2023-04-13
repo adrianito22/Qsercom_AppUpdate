@@ -349,9 +349,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         return;
 
 
-                    clickListener.onItemClick(getAdapterPosition(), v);
+                    if(getAdapterPosition()!=-1){ //si no es menos 1
 
-                    deleteItem(getAdapterPosition());
+                        clickListener.onItemClick(getAdapterPosition(), v);
+
+                        deleteItem(getAdapterPosition());
+                    }
+
 
 
                 }
@@ -443,10 +447,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     private void deleteItem(int position) {
-        listImagenData.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, listImagenData.size());
-       // holder.itemView.setVisibility(View.GONE);
+
+        try{
+            listImagenData.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, listImagenData.size());
+            // holder.itemView.setVisibility(View.GONE);
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
 

@@ -189,6 +189,9 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
     //imagenes pdf ubicaciones POR FILAS
     public static final int  TRES_IMGS_VERTCLES= 2500 ;
     public static final int  UNAVERTICAL_Y_OTRA_HORIZONTAL= 2501 ;
+    public static final int  UNAHORIZONTAL_Y_OTRA_VERTICAL= 2508 ;
+
+
     public static final int  DOS_IMGS_VERTICALES= 2502 ;
     public static final int  DOS_HORIZONTALES= 2503 ;
     public static final int  DEFAULNO_ENCONTRO_NADA= 2504 ;

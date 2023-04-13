@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutionException;
 public class HelperImage {
    public static  ArrayList<ImagenReport> imAGESpdfSetGlobal=new ArrayList<ImagenReport>();
 
-
+     public static int indiceValues=0;
    public static  ArrayList<ImagenReport> imagesSetToCurrentFila;
 
    public static  HashMap<String, ImagenReport> ImagenReportMap;
@@ -199,6 +199,9 @@ public class HelperImage {
 
 
 
+
+
+    /*
     public static int buscaPosiblePatronParaOrdenar(ArrayList<ImagenReport> list){
 
         imagesSetToCurrentFila=new ArrayList<>();
@@ -226,6 +229,7 @@ public class HelperImage {
                   }
 
               }
+
 
 
         if(!encontramos) {
@@ -413,7 +417,147 @@ public class HelperImage {
 
         return  valorDevolver;
     }
+*/
 
+static boolean yaLlamo=false;
+
+    public static int buscaPosiblePatronParaOrdenar(ArrayList<ImagenReport>list){
+
+        imagesSetToCurrentFila= new ArrayList<>();
+
+       //  indiceValues++;
+
+        if(!yaLlamo){
+
+            for(ImagenReport incm: list){
+                Log.i("misdtaurl ","num value es "+incm.getSortPositionImage()+" el url es "+incm.getUrlStoragePic());
+
+            }
+            yaLlamo=true;
+
+        }
+
+
+        Log.i("PATRONX","el indice es : "+indiceValues);
+
+
+        ///no aseguramos que exista....
+        if(indiceValues+2 <list.size() && list.get(indiceValues).getHorientacionImage().equals("vertical") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+            list.get(indiceValues+1).getHorientacionImage().equals("vertical")&& list.get(indiceValues+2).getHorientacionImage().equals("vertical")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            imagesSetToCurrentFila.add(list.get(indiceValues+2));
+            indiceValues=indiceValues+3;
+
+              return  Variables.TRES_IMGS_VERTCLES;
+        }
+
+
+         /**chekeamos si no son dos verticales*/
+
+        if(indiceValues+1 <list.size() && list.get(indiceValues).getHorientacionImage().equals("vertical") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                list.get(indiceValues+1).getHorientacionImage().equals("vertical")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            indiceValues=indiceValues+2;
+
+            return  Variables.DOS_IMGS_VERTICALES;
+        }
+
+
+
+
+        /**chekeamos si no son dos HORIOZONTALES*/
+
+        if(indiceValues+1 <list.size() && list.get(indiceValues).getHorientacionImage().equals("horizontal") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                list.get(indiceValues+1).getHorientacionImage().equals("horizontal")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            indiceValues=indiceValues+2;
+
+            return  Variables.DOS_HORIZONTALES;
+        }
+
+
+
+        /**chekeamos si la primera es vertical y la otroa horizontal*/
+
+        if(indiceValues+1 <list.size() && list.get(indiceValues).getHorientacionImage().equals("vertical") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                list.get(indiceValues+1).getHorientacionImage().equals("horizontal")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            indiceValues=indiceValues+2;
+
+            return  Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL;
+        }
+
+
+
+        /**chekeamos si la primera es HORIZONTAL y la otroa VERTICAL*/
+
+        if(indiceValues+1  <list.size()&& list.get(indiceValues).getHorientacionImage().equals("horizontal") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                list.get(indiceValues+1).getHorientacionImage().equals("vertical")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            indiceValues=indiceValues+2;
+
+            return  Variables.UNAHORIZONTAL_Y_OTRA_VERTICAL;
+        }
+
+
+
+        /**UNA VERTICAL*/
+
+        if(indiceValues <list.size() && list.get(indiceValues).getHorientacionImage().equals("vertical")   //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+               ){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            indiceValues=indiceValues+1;
+
+
+
+            return  Variables.UNA_VERTICAL;
+        }
+
+
+
+        /**UNA HORIZONTAL*/
+
+        if(indiceValues <list.size()&& list.get(indiceValues).getHorientacionImage().equals("horizontal")   //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                ){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            indiceValues=indiceValues+1;
+
+            return  Variables.UNA_HORIZONTAL;
+        }
+
+
+
+        //SI NO ENCONTRA,MOPS NADA LE DAMOS ESTE..
+        imagesSetToCurrentFila=new ArrayList<ImagenReport>();
+        Log.i("PATRONX","NO HEMOS ENCONTRADO NADA ");
+        indiceValues=indiceValues+1;
+
+        return  Variables.DEFAULNO_ENCONTRO_NADA;
+
+
+
+
+
+    }
 
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {

@@ -9,3 +9,5 @@ ocultar editext que dice revisado por en forms de campo..
 selectValue en preview selecionar despues de obtener una lista de ...
 
 ## chekear como saldran imagenes cuando guarda imagenes uri en prefrencias chekear a ver como las muestra y drag
+
+## en pdf maker contenedores ocultar cuando el user a hecho click... mirar,,,,

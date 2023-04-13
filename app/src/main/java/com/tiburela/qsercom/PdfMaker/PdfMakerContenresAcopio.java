@@ -541,7 +541,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
         //aqui aregmaos
 
-
+        HelperImage.indiceValues=0;
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR," ",midocumentotoAddData,pageSize,contexto);
         Log.i("foticoss","terminamos foto llegada");
 
@@ -549,11 +549,13 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         /**FOTO_SELLOS LLEGADA...*/
+        HelperImage.indiceValues=0;
 
         HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
 
         Log.i("foticoss","terminamos sellos llegada");
 
+        HelperImage.indiceValues=0;
 
         /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
@@ -562,17 +564,21 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         /**FOTO_PALLETS ...*/
+        HelperImage.indiceValues=0;
+
         // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
 
         Log.i("foticoss","terminamos foto pallets");
 
+        HelperImage.indiceValues=0;
 
         //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
 
         Log.i("foticoss","terminamos foto cierre contenedor");
 
+        HelperImage.indiceValues=0;
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"* DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);

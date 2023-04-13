@@ -1149,10 +1149,8 @@ private void listennersSpinners() {
                     //actualizamos
                     Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
                     ediZona.setText("");
-                   // actualizaListStateView("spinnerZona",false) ;
-                }else {
-                   // actualizaListStateView("spinnerZona",true) ;
                 }
+
 
             }
             @Override

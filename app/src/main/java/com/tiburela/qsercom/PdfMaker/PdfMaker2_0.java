@@ -1126,29 +1126,28 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**Agregamos anexos*/
 
-       // UpdateProgressAndText("Agregando Fotos al Reporte",90);
 
-           HelperAdImgs.initpdfDocument(miPFDocumentkernel);
-
+        HelperAdImgs.initpdfDocument(miPFDocumentkernel);
 
 
+        HelperImage.indiceValues=0;
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
 
 
 
-
-
-
         /**FOTO_LLEGADA_CONTENEDOR...*/
+        HelperImage.indiceValues=0;
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
 
 
+        HelperImage.indiceValues=0;
         HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
 
 
+        HelperImage.indiceValues=0;
 
         /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
@@ -1157,19 +1156,21 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-
-
         /**FOTO_PALLETS ...*/
-       // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperImage.indiceValues=0;
+
+        // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
 
 
 
      //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperImage.indiceValues=0;
         HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
 
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        HelperImage.indiceValues=0;
         HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
 
 

@@ -1590,32 +1590,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         });
 
 
-/*
-        spinnerubicacionBalanza .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String zonaEelejida= spinnerubicacionBalanza.getSelectedItem().toString();
-
-                ediUbicacionBalanza.setText(zonaEelejida);
-
-                if(zonaEelejida.equals("Ninguna")){
-                    //actualizamos
-                    Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                    ediUbicacionBalanza.setText("");
-                  //  actualizaListStateView("ediUbicacionBalanza",false) ;
-                }else {
-                 //   actualizaListStateView("ediUbicacionBalanza",true) ;
-                }
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-*/
 
         switchLavdoRacimos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

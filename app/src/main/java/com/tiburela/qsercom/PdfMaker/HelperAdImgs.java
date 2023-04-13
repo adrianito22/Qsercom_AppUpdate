@@ -188,6 +188,14 @@ public class HelperAdImgs implements LifecycleOwner {
             }
 
 
+            else if(patronEncontrado == Variables.UNAHORIZONTAL_Y_OTRA_VERTICAL) {
+                Log.i("PATRONX","es  UNAHORIZONTAL_Y_OTRA_VERTICAL");
+                wehaveAddSpaceyIndescrip =false;
+
+                addImagenSetAndCreateNewPage(Variables.UNAHORIZONTAL_Y_OTRA_VERTICAL,midocumentotoAddData,pageSize,contexto);
+            }
+
+
             else if(patronEncontrado == Variables.UNA_HORIZONTAL) {
                 Log.i("PATRONX","es el UNA_HORIZONTAL ");
                 wehaveAddSpaceyIndescrip =false;
@@ -356,7 +364,7 @@ public class HelperAdImgs implements LifecycleOwner {
 
 
 
-             imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
+            imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
             imagVertical1.setAutoScale(true);
             imagVertical1.scaleAbsolute(widthImg,heigthImg);
 
@@ -582,6 +590,79 @@ public class HelperAdImgs implements LifecycleOwner {
 
         //    Rectangle remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
           //  posicionLastELEMENTAd = remaining.getTop();
+            Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() ES "+posicionLastELEMENTAd);
+
+            docuemnto.add(table);
+
+            markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
+
+
+
+        }
+
+        else if(tipoOrdenImgs==Variables.UNAHORIZONTAL_Y_OTRA_VERTICAL){ //1 vertical yPosicion otro horizontal en la misma linea
+
+            Log.i("salertty","hay UNAHORIZONTAL_Y_OTRA_VERTICAL");
+
+
+            float [] tableWidth  = {1,1} ;
+            Table table = new Table(tableWidth,true);
+
+
+
+            Image imgHorizontal=HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
+            imgHorizontal.setAutoScale(true);
+            //imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+
+
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imgHorizontal,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
+            }
+            else {
+                cell = new Cell().setBorder(Border.NO_BORDER).add(imgHorizontal); //estaba asi
+            }
+
+            table.addCell(cell);
+
+
+
+
+            Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
+            imagVertical.setAutoScale(true);
+            imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+            imagVertical.setMarginRight(10f);
+            imagVertical.setMarginLeft(10f);
+
+
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen());
+            }
+            else {
+                cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical); //estaba asi
+            }
+
+            table.addCell(cell);
+
+
+
+
+            table.setWidth((widthImg*2)+80f);
+            table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            table.setMarginTop(8f);
+            table.setHeight(heigthImg);
+
+            //  configtable(table,pageSize);
+
+            espcioCuparaThisItem= yPosicion +8+ heigthImg ; //8 es margin
+
+            if(heigthImg+8 >yPosicionSuper) {  // +8 de margin
+
+                docuemnto.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            }
+
+
+            //    Rectangle remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
+            //  posicionLastELEMENTAd = remaining.getTop();
             Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() ES "+posicionLastELEMENTAd);
 
             docuemnto.add(table);
