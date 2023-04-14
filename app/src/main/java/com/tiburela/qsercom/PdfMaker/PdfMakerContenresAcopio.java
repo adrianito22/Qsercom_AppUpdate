@@ -29,10 +29,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -598,7 +601,11 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         midocumentotoAddData.close();
+
         btnIrAARCHIVOpdf.setEnabled(true);
+        FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
+        fabUploadDrive.setVisibility(View.VISIBLE);
+
 
 
     }
@@ -889,6 +896,23 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
         }
 
+
+    }
+
+    public  void uploadFileDrive(View vista){
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        Uri uri = FileProvider.getUriForFile(PdfMakerContenresAcopio.this, "com.tiburela.qsercom.provider", file); //fue necesario usar provider... funciona///
+
+        Intent shareIntent = new ShareCompat.IntentBuilder(this)
+
+                .setText("Share PDF doc")
+                .setType("application/pdf")
+                .setStream(uri )
+                .getIntent()
+                .setPackage("com.google.android.apps.docs");
+        startActivity(shareIntent);
 
     }
 

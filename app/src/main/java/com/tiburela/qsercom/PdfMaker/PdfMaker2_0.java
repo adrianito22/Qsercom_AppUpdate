@@ -8,8 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -32,10 +35,10 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.internal.Util;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
@@ -75,8 +78,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PdfMaker2_0 extends AppCompatActivity {
+
+
     int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
+
+    AlertDialog dialog;
 
     LinearLayout layoutGraficos;
 
@@ -194,7 +201,12 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                             ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
                                     == PackageManager.PERMISSION_GRANTED) { //si tiene permisos
+
                         btnDescargar.setEnabled(false);
+
+                        Log.i("debugenado","se llamo este deactivate ");
+
+
                     }
 
                 }
@@ -208,6 +220,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                     if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
 
+                        Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
 
                         createPDFContenedores() ;
 
@@ -226,10 +239,14 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                             HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
 
+
+                           Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
+
+
+                            Log.i("debugenado","mostramos dialogo ");
+
+
                             createPDFContenedores() ;
-
-                            Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
-
 
 
                         }else{
@@ -301,20 +318,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
                 Log.i("debbdf","excelente create");
-        }
-
-
-
-        else if(ActivityFormularioDondeVino  == Variables.FormatDatsContAcopiPREVIEW){  //completar estos
-
-            Log.i("debbdf","es el segundo if");
-
-           // h
-
-        }else if (ActivityFormularioDondeVino  == Variables.FormCamionesyCarretasActivityPreview){
-            Log.i("debbdf","es el tercer if");
-
-
         }
 
 
@@ -1139,7 +1142,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**FOTO_LLEGADA_CONTENEDOR...*/
         HelperImage.indiceValues=0;
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        //midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
 
 
@@ -1150,7 +1153,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         HelperImage.indiceValues=0;
 
         /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+       // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
 
 
@@ -1200,46 +1203,36 @@ public class PdfMaker2_0 extends AppCompatActivity {
         midocumentotoAddData.add(paragraph);
 
 
-        /**DEBUG borrar*/
-
-        int aray[]= {
-                Variables.FOTO_PROCESO_FRUTA_FINCA,Variables.FOTO_LLEGADA_CONTENEDOR,
-                Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS,
-        Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION}
-                ;
-
-
-        for(int indice=0; indice<aray.length; indice++){
-              int categoiria=aray [indice];
-
-              Log.i("categoriasxx","estos son los ids de la categoria : "+categoiria);
-
-            for(int indice2 = 0; indice2<HelperImage.imAGESpdfSetGlobal.size(); indice2++){
-
-                if(HelperImage.imAGESpdfSetGlobal.get(indice2).getTipoImagenCategory()==categoiria){
-
-                  //  Log.i("categoriasxx","el id  de esta imagen es : "+HelperImage.imAGESpdfSetGlobal.get(indice2).uniQueIdimgPertenece);
-
-
-                }
-
-
-            }
-
-
-        }
-
-
-
         btnIrAARCHIVOpdf.setEnabled(true);
+
+
+        FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
+        fabUploadDrive.setVisibility(View.VISIBLE);
+
         Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
-
-        Log.i("himanan","aqui ya es visible vamooos");
-
-
 
         midocumentotoAddData.close();
        // UpdateProgressAndText("Terminado",100);
+
+
+
+    }
+
+    public  void uploadFileDrive(View vista){
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        Uri uri = FileProvider.getUriForFile(PdfMaker2_0.this, "com.tiburela.qsercom.provider", file); //fue necesario usar provider... funciona///
+
+        Intent shareIntent = new ShareCompat.IntentBuilder(this)
+
+                .setText("Share PDF doc")
+                .setType("application/pdf")
+                .setStream(uri )
+                .getIntent()
+                .setPackage("com.google.android.apps.docs");
+        startActivity(shareIntent);
+
 
 
     }
