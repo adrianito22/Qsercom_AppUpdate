@@ -2477,18 +2477,13 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
-
           if(isDeleteImg){
 
         currentTypeImage=Variables.typeoFdeleteImg;
     }
 
 
-
-
-    ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
-    RecyclerView recyclerView=null;
-
+    ArrayList<ImagenReport>filterListImagesData= new ArrayList<>();
 
 
     for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
@@ -2502,15 +2497,13 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
             filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
 
         }
-
-
     }
 
-
+    RecyclerView recyclerView=null;
     GridLayoutManager layoutManager=new GridLayoutManager(this,2);
-
     RecyclerViewAdapter adapter;
     RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremos  el adpater en caso que contrnga el reciclerview..
+
     switch(currentTypeImage){
         case Variables.FOTO_PROCESO_FRUTA_FINCA:
             recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
@@ -2557,26 +2550,25 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 
 
-
     if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+        Log.i("vamos","es diferente de null y es deletimage es "+isDeleteImg);
 
         if(!isDeleteImg){
-            //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
-            ///   aadpater.notifyDataSetChanged();
+
+
+            Log.i("vamos","el size es "+filterListImagesData.size());
+
             aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
-
-            aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
-
-            // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
-            // aadpater. notifyItemRangeChanged(position, listImagenData.size());
-
-            Log.i("adpatertt","adpasternotiff");
 
         }
 
         Log.i("adpatertt","es difrentede nulo");
 
-    }else{
+    }
+
+    else
+
+    {
 
         adapter=new RecyclerViewAdapter(filterListImagesData,this);
         // at last set adapter to recycler view.
@@ -2995,23 +2987,23 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
-                //  Variables.currentCuponObjectGlob =listGiftCards.get(position);
 
                 Log.i("midaclick","el click es here, posicion es "+position);
 
-               ///elimnar el hasmap
-               //vamos a ver el tipo del objeto removivo
-               Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+                try {
 
-                Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
-
-                ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
+                    Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+                    ImagenReport.hashMapImagesData.remove(v.getTag().toString());
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
 
 
-                Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
-                showImagesPicShotOrSelectUpdateView(true);
+                  //  showImagesPicShotOrSelectUpdateView(true);
+
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
 
 
             }

@@ -171,10 +171,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
               //    private void dowloadImagesAndaddTag(String imgPath, RecyclerViewHolder holder,String tag){
 
               Log.i("cancionx","existe file in the phone");
-
-
               //  Uri myUri = Uri.parse(listImagenData.get(position).geturiImage());
-              holder.imageview.setImageURI(uri);
+             // holder.imageview.setImageURI(uri);
+
+              Glide.with(mcontext)
+                      .load(uri)
+                      .sizeMultiplier(0.6f)
+                      .diskCacheStrategy(DiskCacheStrategy.ALL)
+                      .into(holder.imageview);
 
             //  holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
               Log.i("ladtastor","existe "+imagenReport.getUniqueIdNamePic());
@@ -351,6 +355,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     if(getAdapterPosition()!=-1){ //si no es menos 1
 
+                        Log.i("vamos","vamos a borrar imagen aqui");
+
                         clickListener.onItemClick(getAdapterPosition(), v);
 
                         deleteItem(getAdapterPosition());
@@ -397,18 +403,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+                Glide.with(mcontext)
+                        .load(uri)
+                        .fitCenter()
+                        .sizeMultiplier(0.6f)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder);
 
+
+
+
+                /*
                 Glide.with(context)
                         .load(uri)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.DATA)  //ESTABA EN ALL         //ALL or NONE as your requirementDiskCacheStrategy.DATA
-                        //.thumbnail(Glide.with(OfertsAdminActivity.context).load(R.drawable.enviado_icon))
-                       //.error(R.drawable.)
-                        //aqi cargamos una version lower
-
                         .into(holder);
 
-
+                         */
 
               //  imagenReport.setUrlStoragePic(uri.toString());
 
@@ -449,10 +461,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private void deleteItem(int position) {
 
         try{
-            listImagenData.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, listImagenData.size());
-            // holder.itemView.setVisibility(View.GONE);
+
+            if(position<listImagenData.size()){
+
+                Log.i("vamos","vamos a borrar imagen aqui");
+
+                listImagenData.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, listImagenData.size());
+                // holder.itemView.setVisibility(View.GONE);
+
+            }
 
 
         } catch (Exception e) {
@@ -465,12 +484,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public void addItems(ArrayList<ImagenReport> newItems)
     {
-        //  listImagenData.clear();
-      //  notifyDataSetChanged();
+        //listImagenData.clear();
+        //notifyDataSetChanged();
+
+        Log.i("vamos","el size es en add items es "+newItems.size());
+
         listImagenData.clear();
         listImagenData.addAll(newItems);
+
         notifyDataSetChanged();
 
 
+
     }
+
 }

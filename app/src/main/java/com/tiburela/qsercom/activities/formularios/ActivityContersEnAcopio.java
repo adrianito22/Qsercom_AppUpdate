@@ -1177,7 +1177,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     }
 
 
-     ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
+         ArrayList<ImagenReport>filterListImagesData= new ArrayList<>();
 
     for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
 
@@ -1190,7 +1190,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
             filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
 
         }
-
 
     }
 
@@ -1249,7 +1248,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
             ///   aadpater.notifyDataSetChanged();
             aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
 
-            aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
+           // aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
 
             // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
             // aadpater. notifyItemRangeChanged(position, listImagenData.size());
