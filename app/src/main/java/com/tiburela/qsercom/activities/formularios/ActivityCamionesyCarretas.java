@@ -266,7 +266,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     Spinner spinnerSelectZona;
     Spinner spinnerCondicionBalanza;
-    Spinner spinnertipoCaja;
     Spinner spinnertipodePlastico;
     Spinner spinnertipodeBlanza ;
     Spinner spinnertipodeBlanzaRepeso ;
@@ -1078,7 +1077,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
         spinnerCondicionBalanza=  findViewById(R.id.spinnerCondicionBalanza);
-        spinnertipoCaja =  findViewById(R.id.spinnertipoCaja);
         spinnertipodePlastico = findViewById(R.id.spinnertipodePlastico);
         spinnertipodeBlanza =  findViewById(R.id.spinnertipodeBlanza);
         spinnertipodeBlanzaRepeso =  findViewById(R.id.spinnertipodeBlanzaRepeso);
@@ -1806,24 +1804,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-        spinnertipoCaja .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String zonaEelejida= spinnertipoCaja.getSelectedItem().toString();
-                ediTipodeCaja.setText(zonaEelejida);
-                if(zonaEelejida.equals("Ninguna")){
-                    //actualizamos
-                    Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                    ediTipodeCaja.setText("");
-                }
-
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
 
@@ -3764,7 +3744,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
                 spinnerSelectZona,
          spinnerCondicionBalanza,
-         spinnertipoCaja,
          spinnertipodePlastico,
          spinnertipodeBlanza ,
          spinnertipodeBlanzaRepeso,

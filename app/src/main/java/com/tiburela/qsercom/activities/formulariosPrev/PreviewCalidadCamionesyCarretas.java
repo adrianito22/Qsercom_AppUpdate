@@ -253,7 +253,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     Spinner spinnerSelectZona;
     Spinner spinnerCondicionBalanza;
-    Spinner spinnertipoCaja;
     Spinner spinnertipodePlastico;
     Spinner spinnertipodeBlanza ;
     Spinner spinnertipodeBlanzaRepeso ;
@@ -777,7 +776,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         spinnerCondicionBalanza=  findViewById(R.id.spinnerCondicionBalanza);
-        spinnertipoCaja =  findViewById(R.id.spinnertipoCaja);
         spinnertipodePlastico = findViewById(R.id.spinnertipodePlastico);
         spinnertipodeBlanza =  findViewById(R.id.spinnertipodeBlanza);
         spinnertipodeBlanzaRepeso =  findViewById(R.id.spinnertipodeBlanzaRepeso);
@@ -1498,29 +1496,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         });
 
 
-
-
-
-        spinnertipoCaja .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String zonaEelejida= spinnertipoCaja.getSelectedItem().toString();
-                ediTipodeCaja.setText(zonaEelejida);
-                if(zonaEelejida.equals("Ninguna")){
-                    //actualizamos
-                    Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                    ediTipodeCaja.setText("");
-                  //  actualizaListStateView("ediTipodeCaja",false) ;
-                }else {
-                  //  actualizaListStateView("ediTipodeCaja",true) ;
-                }
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
 
@@ -3989,7 +3964,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         selectValue(spinnerCondicionBalanza,info1Object.getCondicionBalanza()) ;
-        selectValue(spinnertipoCaja,info1Object.getTipoDeCaja()) ;
         selectValue(spinnertipodePlastico,info1Object.getTipoDePlastico()) ;
         selectValue(spinnertipodeBlanza,info1Object.getTipoBalanza()) ;
         selectValue(spinnertipodeBlanzaRepeso,info1Object.getTipoBalanzaRepesa()) ;
@@ -4045,7 +4019,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 ediBalanza, ediFuenteAgua, ediAguaCorrida, ediLavadoRacimos, ediFumigacionClin1, ediTipoBoquilla, ediCajasProcDesp, ediRacimosCosech,
                 ediRacimosRecha, ediRacimProces, ediNombreChofer, ediCedula, ediCelular, ediPLaca, ediCondicionBalanza,
                 ediTipodeCaja, ediTipoPlastico, ediTipoBalanza, editipbalanzaRepeso, ediExtCalid, ediExtRodillo,
-                ediExtGancho, ediExtCalidCi, ediExtRodilloCi, ediExtGanchoCi, spinnerSelectZona, spinnerCondicionBalanza, spinnertipoCaja,
+                ediExtGancho, ediExtCalidCi, ediExtRodilloCi, ediExtGanchoCi, spinnerSelectZona, spinnerCondicionBalanza,
                 spinnertipodePlastico, spinnertipodeBlanza , spinnertipodeBlanzaRepeso  , spFuenteAgua ,
                 spFumigaCorL1 , spTipoBoquilla , switchHaybalanza, switchHayEnsunchado, switchBalanzaRep,
                 switchLavdoRacimos, swAguaCorrida
@@ -4072,7 +4046,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                    ediCajasProcDesp, ediRacimosCosech,
                 ediRacimosRecha, ediRacimProces, ediNombreChofer, ediCedula, ediCelular, ediPLaca,
                     ediExtCalid, ediExtRodillo,
-                ediExtGancho, ediExtCalidCi, ediExtRodilloCi, ediExtGanchoCi, spinnerSelectZona, spinnerCondicionBalanza, spinnertipoCaja,
+                ediExtGancho, ediExtCalidCi, ediExtRodilloCi, ediExtGanchoCi, spinnerSelectZona, spinnerCondicionBalanza,
                 spinnertipodePlastico, spinnertipodeBlanza , spinnertipodeBlanzaRepeso  , spFuenteAgua ,
                 spFumigaCorL1 , spTipoBoquilla , switchHaybalanza, switchHayEnsunchado, switchBalanzaRep,
                 switchLavdoRacimos, swAguaCorrida
