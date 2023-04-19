@@ -2053,22 +2053,22 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                 @Override
                 public void onActivityResult(List<Uri> result) {
                     if (result != null) {
-
+                        Bitmap bitmap;
                         //creamos un objeto
 
                         for(int indice=0; indice<result.size(); indice++){
                             try {
 
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedores.this.getContentResolver(),result.get(indice));
+                                bitmap   = MediaStore.Images.Media.getBitmap(ActivityContenedores.this.getContentResolver(),result.get(indice));
 
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
                                 Uri myUri = result.get(indice);
 
-
                                 ActivityContenedores.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
 
-                                ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
+                                ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage,
+                                        UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,result.get(indice))),horientacionImg);
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
                                 Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
