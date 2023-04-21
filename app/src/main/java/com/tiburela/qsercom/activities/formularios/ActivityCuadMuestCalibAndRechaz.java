@@ -127,6 +127,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                 pegamosDataCopiada();
 
                 return false;
+
             }
         });
 
