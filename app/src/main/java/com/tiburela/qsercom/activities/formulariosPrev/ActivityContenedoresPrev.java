@@ -391,6 +391,23 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
 
+
+       TextView txtTitle=findViewById(R.id.txtTitle);
+        txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                Log.i("copiamos","hemos copiado");
+
+                copiamosHere();
+
+                return false;
+
+            }
+        });
+
+
+
         RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
         RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
@@ -6085,21 +6102,29 @@ else{
 
     }
 
+    private void copiamosHere(){
+
+        Utils. miMapCopiar.clear();
+        Utils.miMapCopiar.put("semana",ediSemana.getText().toString());
+        Utils.miMapCopiar.put("fecha",ediFecha.getText().toString());
+        Utils.miMapCopiar.put("productor",ediProductor.getText().toString());
+        Utils.miMapCopiar.put("hacienda",ediHacienda.getText().toString());
+        Utils.miMapCopiar.put("codigo",ediCodigo.getText().toString());
+        Utils.miMapCopiar.put("inscripcionMagap",ediInscirpMagap.getText().toString());
+        Utils.miMapCopiar.put("horaDeTermino",ediHoraTermino.getText().toString());
+        Utils.miMapCopiar.put("numeracionContenedor",ediNumContenedor.getText().toString());
+        Utils.miMapCopiar.put("destino",ediDestino.getText().toString());
+        Utils.miMapCopiar.put("vapor",ediVapor.getText().toString());
+
+
+        Toast.makeText(ActivityContenedoresPrev.this, "Copiado", Toast.LENGTH_SHORT).show();
+
+
+    }
+
 
 }
 
 
 
 
-
-    /*****
-     * probando parte de selcion almenos una foto...
-     * en tipo de balanza spinner
-     * extensionista ci
-     * fotos llegada  dice selcione al menos una foto.....incluso en otras secciones
-     *cuando vamos a check racimos rechzados mostrar el dilgo frag,et con confirmacion........
-     * ////crear nuevo reporte antes agergarle eso...
-     * //y revisar resportes...
-     * cuando estamos en activity preview y vamos a activity no deja delete... resetear eso.. en actvity menu.... onstart...o see reports...
-     * en el recicler deberi estar el onclick o en el callback de la actividad
-     * **/

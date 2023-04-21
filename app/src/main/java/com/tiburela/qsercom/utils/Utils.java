@@ -67,6 +67,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
 
+
+    public static HashMap<String,String>miMapCopiar= new HashMap<>();
+
+
     public static HashMap<String, Exportadora>hasmpaExportadoras= new HashMap<>();
     public static ArrayList<String>nombresExportadoras= new ArrayList<>();
 

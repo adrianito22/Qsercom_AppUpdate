@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -61,6 +63,10 @@ public class BottonSheetDfragmentVclds extends BottomSheetDialogFragment {
     TextView txtAdviserDesvicunlar;
     ImageView imgClose;
     TextView txtNumReportsVinclds;
+    EditText ediIdNumber;
+    ImageView imgSearch;
+    LinearLayout layFindId;
+
  boolean esReportsVinculadosMod=false;
 
    HashMap <String,ControlCalidad> mapControlCalidad= new HashMap<>();
@@ -92,8 +98,39 @@ public class BottonSheetDfragmentVclds extends BottomSheetDialogFragment {
             imgClose=vista.findViewById(R.id.imgClose);
             txtNumReportsVinclds=vista.findViewById(R.id.txtNumReportsVinclds);
 
-//        bundle.putString(Variables.KEY_CUADRO_MUETREO_ATACHED,RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
-//        bundle.putString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS,RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+            ediIdNumber=vista.findViewById(R.id.ediIdNumber);
+            imgSearch=vista.findViewById(R.id.imgSearch);
+
+            layFindId=vista.findViewById(R.id.layFindId);
+            layFindId.setVisibility(View.GONE);
+
+             imgSearch.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     if(ediIdNumber.getText().toString().trim().isEmpty()){ //si es menos a 6
+                         ediIdNumber.requestFocus();
+                         ediIdNumber.setError("No puede estar vacio ");
+                         return;
+                     }
+
+                     if(ediIdNumber.getText().toString().trim().length() <6){ //si es menos a 6
+                         ediIdNumber.requestFocus();
+                         ediIdNumber.setError("El id tiene que tener 6 digitos ");
+
+                         return;
+                     }
+
+                     ediIdNumber.setError(null);
+
+
+                     //aqui buscamos...
+                     getQueContieneId(ediIdNumber.getText().toString());
+
+                 }
+             });
+
+
+
             RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = getArguments().getString(Variables.KEY_CUADRO_MUETREO_ATACHED);
             RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = getArguments().getString(Variables.KEY_CONTROL_CALIDAD_ATACHEDS);
 
@@ -203,16 +240,36 @@ private void listternSpinner(){
             Calendar cald2 = Calendar.getInstance();
 
 
-            //   idsFormsControlCalidVinculados=generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosCntres);
+            if(selecionado.equalsIgnoreCase("BUSCAR POR ID")) {
+                txtAdviseer.setVisibility(View.INVISIBLE);
+
+                esReportsVinculadosMod=false;
+
+                layFindId.setVisibility(View.VISIBLE);
+
+                ArrayList<CheckedAndAtatch>MILISTeMPTY= new ArrayList<>();
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                RecyclerViewAdapLinkage adapter = new RecyclerViewAdapLinkage(getActivity(), MILISTeMPTY);
+                mirecyclerViewAtach.setLayoutManager(layoutManager);
+                mirecyclerViewAtach.setAdapter(adapter);
+
+
+            }
+
+            else{
+
+                txtAdviseer.setVisibility(View.VISIBLE);
+
+                layFindId.setVisibility(View.GONE);
+
+
+            }
+
 
             if(selecionado.equalsIgnoreCase("Hoy")) {
                 esReportsVinculadosMod=false;
 
-                // long timeCurrent = new Date().getTime();
-                cal.add(Calendar.DATE, -0);
-                cald2.add(Calendar.DATE,0);
 
-                dowloadInformRegistrosByDateRange(cal.getTimeInMillis(),cald2.getTimeInMillis());
 
 
             }
@@ -484,6 +541,55 @@ private void listternSpinner(){
     }
 
 
+    private void getQueContieneId(String currenTid){
+
+        mapCheckedListForms=new HashMap<>();//resetemaos cada vez que se llame este metodop
+            Query query = RealtimeDB.rootDatabaseReference.child("Registros").
+                    child("InformesRegistros").
+                    orderByChild("informUniqueIdPertenece").equalTo(currenTid);
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                        InformRegister informRegister=ds.getValue(InformRegister.class);
+
+                        //agregamos solo los que no esten en esta lista..
+                        if(informRegister!=null){  //creamos un objeto
+
+                            if(informRegister.getTypeInform()==Constants.CONTROL_CALIDAD  || informRegister.getTypeInform()==Constants.CUADRO_MUESTRO_CAL_RECHZDS    ) {
+                                mapCheckedListForms.put(informRegister.getInformUniqueIdPertenece(),new CheckedAndAtatch(informRegister.getSimpleDateForm(),
+                                        informRegister.getNombreQUienSubio(),   informRegister.getTypeReportString(),false,informRegister.getInformUniqueIdPertenece()) );
+                            }
+
+                        }
+
+                    }
+
+
+                    //conveertimos mapa en aay list..
+                    setDataInRecyclerOfBottomSheet(mapCheckedListForms);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                    Log.i("sliexsa","el error es "+error.getMessage());
+
+                }
+            });
+
+
+
+
+
+
+
+    }
+
+
     private void setDataInRecyclerOfBottomSheet(HashMap<String,CheckedAndAtatch>mapa) {
 
         ///cobnvertimos mapaen aray lisr
@@ -502,7 +608,6 @@ private void listternSpinner(){
             txtAdviseer.setText("No hay Reportes en este periodo, selecione otro");
 
             txtAdviserDesvicunlar.setVisibility(TextView.GONE);
-            //  btnSaveCambiosxxx.setVisibility(TextView.GONE);
 
             Log.i("samerr", "se ejeduto el if ");
 
@@ -513,7 +618,6 @@ private void listternSpinner(){
         {
             Log.i("samerr", "se ejeduto el else ");
             txtAdviserDesvicunlar.setVisibility(TextView.VISIBLE);
-            // btnSaveCambiosxxx.setVisibility(TextView.VISIBLE);
 
             txtAdviseer.setVisibility(TextView.GONE);
         }
@@ -585,6 +689,8 @@ private void listternSpinner(){
         });
 
     }
+
+
 
     @Override
     public void onDismiss(DialogInterface dialog)

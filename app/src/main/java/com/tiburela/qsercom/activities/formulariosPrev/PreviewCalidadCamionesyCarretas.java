@@ -329,6 +329,18 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         setContentView(R.layout.report_calidad_camio_carret_pewv);
         context=getApplicationContext();
 
+
+        TextView txtTitle=findViewById(R.id.txtTitle);
+        txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                copiamosHere();
+                return false;
+
+            }
+        });
+
         RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
         RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
@@ -5282,5 +5294,23 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
     }
 
+    private void copiamosHere(){
+
+        Utils. miMapCopiar.clear();
+        Utils.miMapCopiar.put("semana",ediSemana.getText().toString());
+        Utils.miMapCopiar.put("fecha",ediFecha.getText().toString());
+        Utils.miMapCopiar.put("productor",ediProductor.getText().toString());
+        Utils.miMapCopiar.put("hacienda",ediHacienda.getText().toString());
+        Utils.miMapCopiar.put("codigo",ediCodigo.getText().toString());
+        Utils.miMapCopiar.put("inscripcionMagap",ediInscirpMagap.getText().toString());
+        Utils.miMapCopiar.put("horaDeTermino",ediHoraTermino.getText().toString());
+        //   Utils.miMapCopiar.put("numeracionContenedor",ediNumContenedor.getText().toString());
+
+        /// Utils.miMapCopiar.put("vapor",edivapo.getText().toString());
+
+        Toast.makeText(PreviewCalidadCamionesyCarretas.this, "Copiado", Toast.LENGTH_SHORT).show();
+
+
+    }
 
 }

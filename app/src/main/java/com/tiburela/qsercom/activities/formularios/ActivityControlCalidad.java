@@ -1,7 +1,5 @@
 package com.tiburela.qsercom.activities.formularios;
 
-import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -27,14 +25,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
-import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanos;
@@ -471,6 +467,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.control_calid_activity);
+
+       TextView txtPegar= findViewById(R.id.txtPegar);
+       txtPegar.setOnLongClickListener(new View.OnLongClickListener() {
+          @Override
+          public boolean onLongClick(View view) {
+
+             Log.i("copiamos","hemos pegamos ");
+
+             pegamosDataCopiada();
+             return false;
+          }
+       });
+
+
        callbackUploadNewReport = this;
 
        Variables.activityCurrent=Variables.FormCantrolCalidad;
@@ -3581,4 +3591,31 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
    }
 
 
+   private void pegamosDataCopiada(){
+
+       if( Utils.miMapCopiar.size()==0){
+
+          Toast.makeText(this, "No hay nada para pegar", Toast.LENGTH_SHORT).show();
+          return;
+       }
+
+
+       String [] keysArray={"semana","fecha","productor","hacienda","codigo","inscripcionMagap","horaDeTermino","numeracionContenedor","destino","vapor"};
+       TextInputEditText [] ediTexArray={mEdisemanazz,mEdiFechazz,mEdiProductorzz,mEdiHaciendazz,mEdiCodigozz,mEdiMagapzz,mEdiHoraTermizz,mEdiContenedorzz,mEdiDestinzz,mEdiVaporzz};
+
+
+       for(int i=0; i<keysArray.length; i++){
+          if(Utils.miMapCopiar.containsKey(keysArray[i])){
+             ediTexArray[i].setText(Utils.miMapCopiar.get(keysArray[i]));
+          }
+       }
+
+
+      Utils. miMapCopiar.clear();
+
+
    }
+
+
+
+}

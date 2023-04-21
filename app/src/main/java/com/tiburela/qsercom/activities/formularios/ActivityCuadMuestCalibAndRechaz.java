@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -117,6 +118,17 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lay_cuadro_muestreo_recha);
         callbackUploadNewReport = this;
+
+        TextView txtTitle=findViewById(R.id.txtTitle);
+        txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                pegamosDataCopiada();
+
+                return false;
+            }
+        });
 
 
         btnSaveLocale=findViewById(R.id.btnSaveLocale);
@@ -1234,6 +1246,31 @@ private TextInputEditText[] devuleArrayTiEditext(){
             }
 
         }
+
+    }
+
+    private void pegamosDataCopiada(){
+
+        if( Utils.miMapCopiar.size()==0){
+
+            Toast.makeText(this, "No hay nada para pegar", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        String [] keysArray={"semana","fecha","productor","codigo","vapor"};
+        TextInputEditText [] ediTexArray={ediSemanaxc,ediFechax,ediProductoras,ediCodigoxs,ediVaporx};
+
+
+        for(int i=0; i<keysArray.length; i++){
+            if(Utils.miMapCopiar.containsKey(keysArray[i])){
+                ediTexArray[i].setText(Utils.miMapCopiar.get(keysArray[i]));
+            }
+        }
+
+
+        Utils. miMapCopiar.clear();
+
 
     }
 }

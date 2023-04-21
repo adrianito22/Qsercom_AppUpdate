@@ -125,6 +125,8 @@
         <item>ULTIMOS 7 DIAS</item>
         <item>ULTIMOS 15 DIAS</item>
         <item>ULTIMOS 30 DIAS</item>
+        <item>BUSCAR POR ID</item>
+
 
     </string-array>
 

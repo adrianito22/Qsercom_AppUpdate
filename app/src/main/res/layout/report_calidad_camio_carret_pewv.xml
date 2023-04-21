@@ -9,7 +9,7 @@
     tools:context=".activities.formulariosPrev.PreviewCalidadCamionesyCarretas">
 
     <TextView
-        android:id="@+id/textView60"
+        android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#605F5F"

@@ -110,6 +110,8 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         ConnectionReceiver.ReceiverListener , CallbackUploadNewReport {
     boolean esPrimeravezQueadd=true;
 
+     TextView txtTitle;
+
     public static CallbackUploadNewReport callbackUploadNewReport;
     boolean userCreoRegisterForm=false;
       Spinner spinnerExportadora;
@@ -401,6 +403,21 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
+
+        txtTitle=findViewById(R.id.txtTitle);
+        txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                Log.i("copiamos","hemos copiado");
+
+                copiamosHere();
+
+                return false;
+
+            }
+        });
 
         callbackUploadNewReport = this;
 
@@ -5927,6 +5944,29 @@ private void callPrefrencesSaveAndImagesData(){
     }
 
 
+
+
+    private void copiamosHere(){
+
+        Utils. miMapCopiar.clear();
+        Utils.miMapCopiar.put("semana",ediSemana.getText().toString());
+        Utils.miMapCopiar.put("fecha",ediFecha.getText().toString());
+        Utils.miMapCopiar.put("productor",ediProductor.getText().toString());
+        Utils.miMapCopiar.put("hacienda",ediHacienda.getText().toString());
+        Utils.miMapCopiar.put("codigo",ediCodigo.getText().toString());
+        Utils.miMapCopiar.put("inscripcionMagap",ediInscirpMagap.getText().toString());
+        Utils.miMapCopiar.put("horaDeTermino",ediHoraTermino.getText().toString());
+        Utils.miMapCopiar.put("numeracionContenedor",ediNumContenedor.getText().toString());
+        Utils.miMapCopiar.put("destino",ediDestino.getText().toString());
+        Utils.miMapCopiar.put("vapor",ediVapor.getText().toString());
+
+
+            Toast.makeText(ActivityContenedores.this, "Se copio", Toast.LENGTH_SHORT).show();
+
+
+
+
+    }
 
 
 
