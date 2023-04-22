@@ -43,6 +43,7 @@ import com.tiburela.qsercom.utils.Variables;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class RealtimeDB {
@@ -1179,13 +1180,17 @@ public static  Context myContext;
                     if(key !=null){
                         ///editamos el objeto
 
-                        editValue(key,numSort);
+                     //   editValue(key,numSort);
 
                     }
 
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                   // throw new NoSuchElementException();
+
+                  //  throw new RuntimeException(e);
                 }
+
+
 
 
 

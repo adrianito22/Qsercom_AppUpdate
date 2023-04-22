@@ -1521,6 +1521,8 @@ return true;
 
     public static void  updateImageReportObjec(){
 
+        Log.i("","");
+
         for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) { //creamos otra lista
             //  String key = entry.getKey();
             ImagenReport imageRoBject = entry.getValue();
