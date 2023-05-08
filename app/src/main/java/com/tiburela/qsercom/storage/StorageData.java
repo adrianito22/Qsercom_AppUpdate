@@ -525,14 +525,17 @@ public static int counTbucle=0;
 
         final StorageReference ImageFolder =  FirebaseStorage.getInstance().getReference().child("imagenes_all_reports");
         for (int uploads=0; uploads < ImageList.size(); uploads++) {
+
        //     String curreNTkEY=mimap.get(ImageList.get(uploads).getUniqueIdNamePic());
 
                  ImagenReport currenImageReport= ImageList.get(uploads);
 
             Uri uriImage  = Uri.parse(currenImageReport.geturiImage());
 
-
             final StorageReference imagename = ImageFolder.child(ImageList.get(uploads).getUniqueIdNamePic());
+
+            //Bitmap bitmap,
+            //
 
             imagename.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
