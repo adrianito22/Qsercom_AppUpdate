@@ -2,6 +2,8 @@ package com.tiburela.qsercom.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,10 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,6 +37,7 @@ import com.tiburela.qsercom.models.ImagenReport;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.ExecutionException;
 
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.storage.StorageData;
@@ -395,7 +401,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private void dowloadAndSetImg(ImagenReport imagenReport, ImageView holder,Context context){
 
-        Log.i("ladtastor","ladtastor es "+imagenReport.getUniqueIdNamePic());
 
 
         storageRef  = StorageData.rootStorageReference.child("imagenes_all_reports/"+imagenReport.getUniqueIdNamePic());
@@ -403,6 +408,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+
+/*
                 Glide.with(mcontext)
                         .load(uri)
                         .fitCenter()
@@ -411,20 +418,58 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         .into(holder);
 
 
+  */
+                Glide.with(mcontext)
+                        .asBitmap()
+                        .load(uri)
+                        .sizeMultiplier(0.6f)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                        .into(new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                if(resource.getWidth()>resource.getHeight()) {
+
+                                    Log.i("cuandoexecuta","la imagen es horizontal EL URL ES : "+imagenReport.getUrlStoragePic());
+
+                                }else {
+
+                                    Log.i("cuandoexecuta", "la imagen es vertical");
+                                    Log.i("cuandoexecuta", "la imagen es vertical EL URL ES : " + imagenReport.getUrlStoragePic());
+
+                                }
+
+                                holder.setImageBitmap(resource);
+
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+                            }
+                        });
 
 
-                /*
+
+
+
+
+
+
+/*
+
                 Glide.with(context)
                         .load(uri)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.DATA)  //ESTABA EN ALL         //ALL or NONE as your requirementDiskCacheStrategy.DATA
                         .into(holder);
+*/
 
-                         */
 
               //  imagenReport.setUrlStoragePic(uri.toString());
 
                   //  ImagenReport.hashMapImagesData.put(imagenReport.getUniqueIdNamePic(),imagenReport);
+
+
 
 
             }

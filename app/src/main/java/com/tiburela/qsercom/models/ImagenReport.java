@@ -1,5 +1,10 @@
 package com.tiburela.qsercom.models;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
+
 import com.google.firebase.database.Exclude;
 import com.tiburela.qsercom.utils.Utils;
 
@@ -173,5 +178,19 @@ public ImagenReport(){
 
     }
 
+
+    public static  String getRealPathFromURI(Uri contentURI, Context context) {
+        String result;
+        Cursor cursor =context. getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
 
 }

@@ -2,7 +2,11 @@ package com.tiburela.qsercom.PdfMaker;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.text.Layout;
 import android.util.Log;
@@ -501,6 +505,7 @@ public class HelperAdImgs implements LifecycleOwner {
 
 
             float [] tableWidth  = {190f,400} ; //estaba en 250.. le ponemos
+           //  float [] tableWidth  = {155f,200} ; //estaba en 250.. le ponemos
 
             Table table = new Table(tableWidth,true);
 
@@ -508,7 +513,10 @@ public class HelperAdImgs implements LifecycleOwner {
                  imagVertical.setAutoScale(true);
 
 
-            imagVertical.scaleAbsolute(190,heigthImg);
+           // imagVertical.scaleAbsolute(190,heigthImg);
+
+            imagVertical.scaleToFit(190,heigthImg);
+
 
             //imagVertical.setHorizontalAlignment(HorizontalAlignment.LEFT);
           //  imagVertical.setMarginRight(10f); //borramos
@@ -533,7 +541,10 @@ public class HelperAdImgs implements LifecycleOwner {
               imgHorizontal.setAutoScale(true);
             //imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
 
-            imgHorizontal.scaleAbsolute(335-6,heigthImg);
+            //imgHorizontal.scaleAbsolute(335-6,heigthImg);
+            imgHorizontal.scaleToFit(335-6,heigthImg);
+
+
 
           //  imgHorizontal.scaleToFit((pageSize.getWidth()-70f)/1.8f,heigthImg); //estaba en 1.9
             imgHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
@@ -598,7 +609,7 @@ public class HelperAdImgs implements LifecycleOwner {
             Image imgHorizontal=HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imgHorizontal.setAutoScale(true);
 
-
+             Log.i("cuandoexecuta","se ejecduto esta");
           // imgHorizontal.scaleAbsolute((pageSize.getWidth()-70f)/2,heigthImg);
             imgHorizontal.scaleAbsolute(335,heigthImg);
             imgHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
@@ -676,17 +687,21 @@ public class HelperAdImgs implements LifecycleOwner {
         }
 
 
-        else if(tipoOrdenImgs==Variables.DOS_HORIZONTALES){ //2 imagenes verticales en una linea
+        else if(tipoOrdenImgs==Variables.DOS_HORIZONTALES) { //2 imagenes verticales en una linea
 
-            Log.i("salertty","hay DOS_HORIZONTALES");
+            Log.i("salertty", "hay DOS_HORIZONTALES erl nacho es "+pageSize.getWidth());
 
-            float [] tableWidth  = {1,1} ;
-            Table table = new Table(tableWidth,true);
+            float[] tableWidth = {1, 1};
+            Table table = new Table(tableWidth, true);
 
-            Image imagHorizontal=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
+            Image imagHorizontal = HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta, HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(), HelperImage.imagesSetToCurrentFila.get(0)));
             imagHorizontal.setAutoScale(true);
-            imagHorizontal.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-            imagHorizontal.setMarginRight(6f);
+
+            imagHorizontal.scaleAbsolute(((pageSize.getWidth()-70)/2   ),heigthImg-60);
+
+
+            imagHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            imagHorizontal.setMarginRight(3f);
 
 
             if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
@@ -702,8 +717,12 @@ public class HelperAdImgs implements LifecycleOwner {
 
             imagHorizontal=HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
             imagHorizontal.setAutoScale(true);
+
+            imagHorizontal.scaleAbsolute(((pageSize.getWidth()-70)/2   ),heigthImg-60);
+
+
             imagHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
-            imagHorizontal.setMarginLeft(6f);
+            imagHorizontal.setMarginLeft(3f);
 
 
             if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
@@ -1249,17 +1268,42 @@ public static  Bitmap retornaBitmaPhere(Context contexto, String urlImage,Imagen
     thread.join();
     myBitmap = foo.getValueBitmap();
 
+      Bitmap dstBmp ;
+
+    //si el alto de la image es el doble del ancho
+    if (myBitmap.getHeight() > myBitmap.getWidth() + myBitmap.getWidth()   ){
+
+       // int dimension = Math.min(myBitmap.getWidth(), myBitmap.getHeight());
+     //   return ThumbnailUtils.extractThumbnail(myBitmap, dimension, dimension);
+            Log.i("comenzar","se ejecuto esto here");
 
 
-if(myBitmap==null){
-    Log.i("ladtastor","este es nulo y el id es "+image.getUniqueIdNamePic());
+             int tercio=myBitmap.getHeight()/3;
+              int y=myBitmap.getHeight()/2  - myBitmap.getWidth()/2;
+              int heigth=myBitmap.getHeight()/2;
 
 
-}else{
+        Log.i("comenzar","el tercio es  "+ tercio) ;
+        Log.i("comenzar","el y es  "+ y) ;
+        Log.i("comenzar","el heigth es"+heigth);
 
-    Log.i("ladtastor","no es null");
 
-}
+        dstBmp = Bitmap.createBitmap(
+                myBitmap,
+                0,
+                (myBitmap.getHeight()/2  - myBitmap.getWidth()/2) - myBitmap.getWidth()/3  , //estaba en dividio para 4
+                 myBitmap.getWidth(),
+                (myBitmap.getHeight()/2) + myBitmap.getWidth()/3
+              //  myBitmap.getWidth()
+        );
+
+        return dstBmp;
+
+    }
+
+
+
+
 
 
 return  myBitmap;
@@ -1360,6 +1404,48 @@ return  myBitmap;
 
 
 
+    }
+public static Bitmap generabitmnaprotado(Bitmap bitmap, String filePath) {
+
+       // Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+
+        try
+        {
+            // Determine Orientation
+            ExifInterface exif = new ExifInterface(filePath);
+            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            // Determine Rotation
+            int rotation = 0;
+            if      (orientation == 6)      rotation = 90;
+            else if (orientation == 3)      rotation = 180;
+            else if (orientation == 8)      rotation = 270;
+
+            // Rotate Image if Necessary
+            if (rotation != 0)
+            {
+                // Create Matrix
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotation);
+
+                // Rotate Bitmap
+                Bitmap rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+                // Pretend none of this ever happened!
+                bitmap.recycle();
+                bitmap = rotated;
+                rotated = null;
+            }
+        }
+        catch (Exception e)
+        {
+            // TODO: Log Error Messages Here
+        }
+
+// TODO: Use Result Here
+       // xxx.setBitmap(bitmap);
+
+      return  bitmap;
     }
 
 

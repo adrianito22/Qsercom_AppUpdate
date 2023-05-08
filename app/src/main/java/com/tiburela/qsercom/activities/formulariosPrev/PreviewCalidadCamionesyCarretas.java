@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.icu.text.DecimalFormat;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -54,6 +55,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -103,13 +105,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 
 public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener  {
     ImageView imgAtachVinculacion;
     TextView txtNumReportsVinclds;
     Spinner spinnerExportadora;
+    Uri urix;
+    String horientacionImg4;
 
+    boolean esprimervezEntra=true;
+
+    MiTarea tare;
     EditText ediCandadoName1;
     EditText ediCandadoName2;
     EditText ediCandadoName3;
@@ -328,6 +336,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_calidad_camio_carret_pewv);
         context=getApplicationContext();
+
+
 
 
         TextView txtTitle=findViewById(R.id.txtTitle);
@@ -1237,18 +1247,17 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                             showImagesPicShotOrSelectUpdateView(false);
 
                         }
-
-
                       catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
-
                         Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
-
                         showImagesPicShotOrSelectUpdateView(false);
+
+
+
+
 
                     }
                 }
@@ -1279,93 +1288,72 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
     private void resultatachImages() {
+
+
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.GetMultipleContents(), new ActivityResultCallback<List<Uri>>() {
                     @Override
                     public void onActivityResult(List<Uri> result) {
                         if (result != null) {
 
-                            //creamos un objeto
-
-                            for(int indice=0; indice<result.size(); indice++){
+                                  tare= new MiTarea();
 
 
-                                try {
-
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(PreviewCalidadCamionesyCarretas.this.getContentResolver(),result.get(indice));
-
-                                    String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
-
-                                    Log.i("latypeimage","la imagen tipo es "+currentTypeImage);
-
-                                    //creamos un nuevo objet de tipo ImagenReport
-                                    ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,result.get(indice))),horientacionImg);
-                                    obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
-
-                                    //agregamos este objeto a la lista
-                                    ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
-                                    Log.i("latypeimage","el size de map es  "+ImagenReport.hashMapImagesData.size());
-
-
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
-
-                            }
-
-
-                            Log.i("latypeimage","el size de map cc es  "+ImagenReport.hashMapImagesData.size());
-
-                            showImagesPicShotOrSelectUpdateView(false);
-
-
+                            tare.execute(result);
 
                         }
-                    }
+                      }
                 });
     }
 
-    void showImageByUri(Uri uri )  {
-        try {
-
-            // Setting image on image view using Bitmap
-            Bitmap bitmap = MediaStore
-                    .Images
-                    .Media
-                    .getBitmap(
-                            getContentResolver(),
-                            uri);
 
 
+    class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
 
-            //escalamos el bitmap
-            Bitmap bitmap2=Bitmap.createScaledBitmap(bitmap, 420, 400, false);
-            Log.i("registrand","los encontrado");
+        @Override
+        protected Void doInBackground(List<Uri>... lists) {
+            List<Uri>  result = lists[0];
+
+            for(int indice=0; indice<result.size(); indice++){
+
+                urix = result.get(indice);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = Glide.with(PreviewCalidadCamionesyCarretas.this)
+                            .asBitmap()
+                            .load(urix)
+                            .sizeMultiplier(0.6f)
+                            .submit().get();
+                } catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
+               // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
+
+                ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,urix)),horientacionImg4);
+                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                //   PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
 
-            ImageView imageView= new ImageView(this);
+                if(ImagenReport.hashMapImagesData.size()>0){
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
 
+                }
 
-            imageView.setImageBitmap(bitmap2);
+            }
 
-
-
-
-
-
+            return null;
         }
 
-        catch (IOException e) {
-            // Log the exception
-            e.printStackTrace();
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+                showImagesPicShotOrSelectUpdateView(false);
+
         }
     }
-
 
     private void listennersSpinners() {
 
@@ -3684,14 +3672,22 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                     ImagenReport imagenReport=ds.getValue(ImagenReport.class);
                     listImagenData.add(imagenReport);
 
+                    Log.i("cuandoexecuta","la  img xx es "+imagenReport.getHorientacionImage());
+
+                    Log.i("cuandoexecuta","la  url es "+imagenReport.getUrlStoragePic());
+
+
+
                 }
+
+                Log.i("cuandoexecuta","la  img lista size es  "+listImagenData.size());
+
 
 
                 Variables.listImagenDataGlobalCurrentReport =listImagenData;
 
               //  dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
-                Log.i("mispiggi","se llamo a: addInfotomap");
 
                 Log.i("dowloadxs","el size de lista es "+Variables.listImagenDataGlobalCurrentReport.size());
 

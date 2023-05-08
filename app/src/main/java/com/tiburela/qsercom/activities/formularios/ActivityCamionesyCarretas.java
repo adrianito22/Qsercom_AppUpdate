@@ -10,13 +10,20 @@ import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
+import android.graphics.ImageDecoder;
+import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.icu.text.DecimalFormat;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,6 +60,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
@@ -61,8 +69,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
+import com.tiburela.qsercom.PdfMaker.HelperAdImgs;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
@@ -85,8 +95,10 @@ import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -95,6 +107,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 import com.tiburela.qsercom.R;
 
@@ -105,6 +119,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     String currentKeySharePrefrences="";
     boolean userCreoRegisterForm=false;
     ImageView imgAtachVinculacion;
+    Uri urix;
+    String horientacionImg4;
 
     boolean seSubioform=false;
 
@@ -1606,44 +1622,48 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
     private void resultatachImages() {
+
+
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.OpenMultipleDocuments(), new ActivityResultCallback<List<Uri>>() {
                     @Override
                     public void onActivityResult(List<Uri> result) {
                         if (result != null) {
 
-                            //creamos un objeto
-
                             for(int indice=0; indice<result.size(); indice++){
 
+                                    urix = result.get(indice);
+                                    new Thread(new Runnable() {
 
-                                try {
+                                        public void run() {
+                                            try {
+                                                Bitmap bitmap = Glide.with(ActivityCamionesyCarretas.this)
+                                                        .asBitmap()
+                                                        .load(urix)
+                                                        .submit().get();
+
+                                                horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
+                                                Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
 
 
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),result.get(indice));
+                                            } catch (ExecutionException | InterruptedException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }
+                                    }).start();
 
-                                    String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
 
-                                    Uri myUri = result.get(indice);
-
-                                    ActivityCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityCamionesyCarretas.this,result.get(indice))),horientacionImg);
+                                    ActivityCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityCamionesyCarretas.this,result.get(indice))),horientacionImg4);
                                     ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
                                     showImagesPicShotOrSelectUpdateView(false);
 
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+
+                                if(ImagenReport.hashMapImagesData.size()>0){
+                                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityCamionesyCarretas.this);
+
                                 }
 
-
-//
-
-
-                                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityCamionesyCarretas.this);
 
                             }
 
@@ -1658,41 +1678,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                 });
     }
 
-    void showImageByUri(Uri uri )  {
-        try {
-
-            // Setting image on image view using Bitmap
-            Bitmap bitmap = MediaStore
-                    .Images
-                    .Media
-                    .getBitmap(
-                            getContentResolver(),
-                            uri);
-
-
-
-            //escalamos el bitmap
-            Bitmap bitmap2=Bitmap.createScaledBitmap(bitmap, 420, 400, false);
-            Log.i("registrand","los encontrado");
-
-
-            ImageView imageView= new ImageView(this);
-
-
-            imageView.setImageBitmap(bitmap2);
-
-
-
-
-
-
-        }
-
-        catch (IOException e) {
-            // Log the exception
-            e.printStackTrace();
-        }
-    }
 
 
     private void listennersSpinners() {
