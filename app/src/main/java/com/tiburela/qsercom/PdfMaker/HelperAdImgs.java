@@ -504,18 +504,19 @@ public class HelperAdImgs implements LifecycleOwner {
             Log.i("salertty","hay UNAVERTICAL_Y_OTRA_HORIZONTAL");
 
 
-            float [] tableWidth  = {190f,400} ; //estaba en 250.. le ponemos
+            float [] tableWidth  = {190f , 390 } ; //estaba en 250.. le ponemos
            //  float [] tableWidth  = {155f,200} ; //estaba en 250.. le ponemos
 
             Table table = new Table(tableWidth,true);
 
-                 Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
-                 imagVertical.setAutoScale(true);
+            Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
+            imagVertical.setAutoScale(true);
 
 
            // imagVertical.scaleAbsolute(190,heigthImg);
 
-            imagVertical.scaleToFit(190,heigthImg);
+           // imagVertical.scaleAbsolute(190,heigthImg);
+            imagVertical.scaleAbsolute(190,heigthImg);
 
 
             //imagVertical.setHorizontalAlignment(HorizontalAlignment.LEFT);
@@ -541,14 +542,14 @@ public class HelperAdImgs implements LifecycleOwner {
               imgHorizontal.setAutoScale(true);
             //imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
 
-            //imgHorizontal.scaleAbsolute(335-6,heigthImg);
-            imgHorizontal.scaleToFit(335-6,heigthImg);
+
+            imgHorizontal.scaleAbsolute(363,heigthImg); //360 estaba
 
 
 
           //  imgHorizontal.scaleToFit((pageSize.getWidth()-70f)/1.8f,heigthImg); //estaba en 1.9
             imgHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
-            imgHorizontal.setMarginLeft(15f);
+            imgHorizontal.setMarginLeft(5f);
           //  imgHorizontal.setMarginRight(30f);
 
 
@@ -600,9 +601,11 @@ public class HelperAdImgs implements LifecycleOwner {
 
             //  Log.i("salertty","hay UNAHORIZONTAL_Y_OTRA_VERTICAL");
             //  float [] tableWidth  = {190,300} ; //estaba en 250.. le ponemos
+            float widthImgxxx=(pageSize.getWidth()-70f);
+            Log.i("cuandoexecuta","el ancho es"+widthImgxxx);
 
 
-            float [] tableWidth  = {200,155f} ;// 1.5 estaba
+            float [] tableWidth  = {360f,230f} ;// 1.5 estaba 200  ///probamos con 220 despues
             Table table = new Table(tableWidth,true);
 
 
@@ -611,7 +614,8 @@ public class HelperAdImgs implements LifecycleOwner {
 
              Log.i("cuandoexecuta","se ejecduto esta");
           // imgHorizontal.scaleAbsolute((pageSize.getWidth()-70f)/2,heigthImg);
-            imgHorizontal.scaleAbsolute(335,heigthImg);
+            imgHorizontal.scaleAbsolute(360,heigthImg); //estaba en 350
+
             imgHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
             //imgHorizontal.setMarginRight(20);
 
@@ -642,7 +646,7 @@ public class HelperAdImgs implements LifecycleOwner {
           //  imagVertical.sca
             imagVertical.setHorizontalAlignment(HorizontalAlignment.LEFT);
             //imagVertical.setMarginRight(10f);
-            imagVertical.setMarginLeft(10f); //estaba en 10
+            imagVertical.setMarginLeft(5f); //estaba en 10
 
 
             if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
@@ -1270,15 +1274,36 @@ public static  Bitmap retornaBitmaPhere(Context contexto, String urlImage,Imagen
 
       Bitmap dstBmp ;
 
-    //si el alto de la image es el doble del ancho
+    Log.i("comenzar","el heigth es "+myBitmap.getHeight()+" y el ancho es "+myBitmap.getWidth());
+
+
+     if(image.getHorientacionImage().equals("vertical")  && myBitmap.getWidth() > myBitmap.getHeight()  ) { //si la imagen esta girada ,,USAMOS
+
+         Matrix matrix = new Matrix();
+
+         matrix.postRotate(90);
+
+         myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
+
+     }
+
+
+   else if(image.getHorientacionImage().equals("horizontal")  && myBitmap.getHeight() > myBitmap.getWidth()  ) { //si la imagen esta girada ,,USAMOS
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);  ///git,oas 90 grados a la derecha
+
+        myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
+
+    }
+
+
     if (myBitmap.getHeight() > myBitmap.getWidth() + myBitmap.getWidth()   ){
 
-       // int dimension = Math.min(myBitmap.getWidth(), myBitmap.getHeight());
-     //   return ThumbnailUtils.extractThumbnail(myBitmap, dimension, dimension);
             Log.i("comenzar","se ejecuto esto here");
 
-
              int tercio=myBitmap.getHeight()/3;
+
               int y=myBitmap.getHeight()/2  - myBitmap.getWidth()/2;
               int heigth=myBitmap.getHeight()/2;
 
