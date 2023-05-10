@@ -25,6 +25,7 @@ import android.graphics.Rect;
 import android.icu.text.DecimalFormat;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -1564,8 +1565,10 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
                         try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),cam_uri);
 
+                            Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(ActivityCamionesyCarretas.this,cam_uri);
+
+                         //   Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),cam_uri);
 
                          //   Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                             String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
@@ -1629,49 +1632,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                     @Override
                     public void onActivityResult(List<Uri> result) {
                         if (result != null) {
-
-                            for(int indice=0; indice<result.size(); indice++){
-
-                                    urix = result.get(indice);
-                                    new Thread(new Runnable() {
-
-                                        public void run() {
-                                            try {
-                                                Bitmap bitmap = Glide.with(ActivityCamionesyCarretas.this)
-                                                        .asBitmap()
-                                                        .load(urix)
-                                                        .submit().get();
-
-                                                horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
-                                                Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
-
-
-                                            } catch (ExecutionException | InterruptedException e) {
-                                                throw new RuntimeException(e);
-                                            }
-                                        }
-                                    }).start();
-
-
-                                    ActivityCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityCamionesyCarretas.this,result.get(indice))),horientacionImg4);
-                                    ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-                                    showImagesPicShotOrSelectUpdateView(false);
-
-
-                                if(ImagenReport.hashMapImagesData.size()>0){
-                                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityCamionesyCarretas.this);
-
-                                }
-
-
-                            }
-
-
-
-                            showImagesPicShotOrSelectUpdateView(false);
-
-
+                         MiTarea mit= new MiTarea();
+                         mit.execute(result);
 
                         }
                     }
@@ -4367,6 +4329,55 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         Toast.makeText(ActivityCamionesyCarretas.this, "Copiado", Toast.LENGTH_SHORT).show();
 
 
+    }
+    class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<Uri>... lists) {
+            List<Uri>  result = lists[0];
+
+            for(int indice=0; indice<result.size(); indice++){
+
+                urix = result.get(indice);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = Glide.with(ActivityCamionesyCarretas.this)
+                            .asBitmap()
+                            .load(urix)
+                            .sizeMultiplier(0.6f)
+                            .submit().get();
+
+                } catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
+
+                ActivityCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityCamionesyCarretas.this,result.get(indice))),horientacionImg4);
+                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+              //  showImagesPicShotOrSelectUpdateView(false);
+
+
+
+
+                if(ImagenReport.hashMapImagesData.size()>0){
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityCamionesyCarretas.this);
+
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            showImagesPicShotOrSelectUpdateView(false);
+
+        }
     }
 
 

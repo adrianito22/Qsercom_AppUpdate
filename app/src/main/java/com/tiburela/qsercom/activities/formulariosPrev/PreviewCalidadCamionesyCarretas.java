@@ -1228,12 +1228,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                     if (result.getResultCode() == RESULT_OK) {
                         // There are no request codes
 
-
                         try {
 
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(PreviewCalidadCamionesyCarretas.this.getContentResolver(),cam_uri);
-
-                            //Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                            Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(PreviewCalidadCamionesyCarretas.this,cam_uri);
                             String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
                             //creamos un nuevo objet de tipo ImagenReport
@@ -1242,20 +1239,14 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
                             showImagesPicShotOrSelectUpdateView(false);
 
-                        }
-                      catch (FileNotFoundException e) {
-                            e.printStackTrace();
+
                         } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                              e.printStackTrace();
+                          }
                         Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
                         showImagesPicShotOrSelectUpdateView(false);
-
-
 
 
 
@@ -1297,8 +1288,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                         if (result != null) {
 
                                   tare= new MiTarea();
-
-
                             tare.execute(result);
 
                         }
@@ -1324,7 +1313,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                             .load(urix)
                             .sizeMultiplier(0.6f)
                             .submit().get();
-                } catch (ExecutionException | InterruptedException e) {
+                }
+                catch (ExecutionException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
@@ -5161,23 +5151,6 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
             return false;
 
         }
-
-
-
-        /*
-
-        if(allInformCuadroMuetreo.length>=1 && allInformcONTROLcALIDA.length>=1){
-
-            return true;
-        }
-
-        else{
-
-            return false;
-
-        }
-
-    */
 
 
         return true;

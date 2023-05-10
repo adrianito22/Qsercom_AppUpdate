@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,6 +29,7 @@ import com.tiburela.qsercom.storage.StorageData;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -622,4 +624,57 @@ static boolean yaLlamo=false;
         //   bitmap = BitmapFactory.decodeFile( , Options);
 
     }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
+                true);
+    }
+
+    public static Bitmap handleSamplingAndRotationBitmap(Context context, Uri selectedImage)
+            throws IOException {
+        int MAX_HEIGHT = 1024;
+        int MAX_WIDTH = 1024;
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        InputStream imageStream = context.getContentResolver().openInputStream(selectedImage);
+        BitmapFactory.decodeStream(imageStream, null, options);
+        imageStream.close();
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, MAX_WIDTH, MAX_HEIGHT);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        imageStream = context.getContentResolver().openInputStream(selectedImage);
+        Bitmap img = BitmapFactory.decodeStream(imageStream, null, options);
+
+        img = rotateImageIfRequired(context, img, selectedImage);
+        return img;
+    }
+
+    private static Bitmap rotateImageIfRequired(Context context, Bitmap img, Uri selectedImage) throws IOException {
+
+        InputStream input = context.getContentResolver().openInputStream(selectedImage);
+        ExifInterface ei;
+            ei = new ExifInterface(input);
+
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+
 }
