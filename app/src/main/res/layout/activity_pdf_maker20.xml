@@ -106,7 +106,7 @@
                 android:layout_margin="20dp"
                 android:background="@drawable/clicked_btn"
                 android:enabled="false"
-                android:text="Ir a archivo" />
+                android:text="Ir al archivo" />
         </LinearLayout>
 
     </LinearLayout>

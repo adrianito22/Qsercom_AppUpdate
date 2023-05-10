@@ -721,14 +721,12 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Log.i("latypeimage","se subio set data y el id pertence es "+objecImageReport.getIdReportePerteence());
 
-
-                  //  Toast.makeText(context, "HECHO", Toast.LENGTH_SHORT).show();
+                    Log.i("pertenence","succes uplaod register img "+objecImageReport.getIdReportePerteence());
 
                 }else  {
 
-                    Log.i("imagheddd","no se subio SEDATA y elerro es "+task.getException());
+                    Log.i("pertenence","no se subio SEDATA y elerro es "+task.getException());
 
                 }
             }

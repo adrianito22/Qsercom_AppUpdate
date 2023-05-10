@@ -74,7 +74,7 @@
             android:background="@drawable/back_edit"
             android:gravity="center"
             android:padding="7dp"
-            android:text="FOTOS CIERRE CAMIÓN ">
+            android:text="FOTOS  APERTURA, INSPECCION Y CIERRE CAMIÓN ">
 
         </TextView>
 

@@ -59,7 +59,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class HelperPdf {
-
+public static int percentvalue=0;
    public static  PdfFont font=null;
 
    public static boolean hayMasDe10products;
@@ -617,7 +617,7 @@ public class HelperPdf {
 
 if(contadorProductsPostCosecha>10){
     hayMasDe10products=true;
-    Toast.makeText(context, "Hay mas de 10 productos, SE ADMITE MAXIMO 10", Toast.LENGTH_LONG).show();
+   // Toast.makeText(context, "Hay mas de 10 productos, SE ADMITE MAXIMO 10", Toast.LENGTH_LONG).show();
 }else{
 
     hayMasDe10products=false;
@@ -781,7 +781,7 @@ if(contadorProductsPostCosecha>10){
 
         if(contadorProductsPostCosecha>10){
             hayMasDe10products=true;
-            Toast.makeText(context, "Hay mas de 10 productos, SE ADMITE MAXIMO 10", Toast.LENGTH_LONG).show();
+          //  Toast.makeText(context, "Hay mas de 10 productos, SE ADMITE MAXIMO 10", Toast.LENGTH_LONG).show();
         }else{
 
             hayMasDe10products=false;

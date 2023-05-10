@@ -6,6 +6,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -76,7 +77,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PdfMakerCamionesyCarretas extends AppCompatActivity {
@@ -220,8 +220,14 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
                     if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
 
+                        Toast.makeText(PdfMakerCamionesyCarretas.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
 
-                        createPDFCamionesyCarretas() ;
+
+                        CreaPdfHilo tare= new CreaPdfHilo();
+                        tare.execute();
+
+
+                      //  createPDFCamionesyCarretas() ;
 
 
 /*
@@ -285,10 +291,12 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                             Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
                             HelperPdf.TableCalidProdc=new ArrayList<>();//le agregamos aqui
-
-                            createPDFCamionesyCarretas() ;
-
                             Toast.makeText(PdfMakerCamionesyCarretas.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
+
+                           // createPDFCamionesyCarretas() ;
+                            CreaPdfHilo tare= new CreaPdfHilo();
+                            tare.execute();
+
 
                         }else{
                             Log.i("permisodd","no tiene ambos permisos ");
@@ -301,12 +309,6 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-
-                }
-
-                catch (FileNotFoundException e) {
-
-                    e.printStackTrace();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1200,7 +1202,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
     }
 
-       //lalamos en un asyc
+
     public void createPDFCamionesyCarretas1() throws Exception {
 
 
@@ -1283,7 +1285,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
          miPFDocumentkernel= new PdfDocument(writer);
 
-        PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
+         pageSize= PageSize.A4;  //si no le quitamos el rotate...
 
         PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
 
@@ -1485,6 +1487,8 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
    // llamamos en un async
     public void createparte2(){
+        sizeTable= pageSize.getWidth()-120f;
+
         float sizeColumns6[]= {190,5};
       Table  table1=  new Table(sizeColumns6);
 
@@ -1859,220 +1863,300 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
     }
 
-
-    ff
      ///este de aca el que contiene las imagees de anexocomo un AsyncTask para las imagenes...
-    public void createPDF4() throws Exception {
+
+    class TareaImagenesAddPart4 extends AsyncTask<Void, Integer, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+                /**descripcion de defectos de fruta*/
+
+                //agregamos el hedaer
+                /**add header imagen*/
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                float araycolumzz[]= {1,1,1,1,1,1};
+                Table table1=  new Table(araycolumzz);
+
+                table1=HelperPdf.descripciondEFECXTOSFRUTA(table1);
+                HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+                table1.setMarginTop(8f);
+                midocumentotoAddData.add(table1);
+
+                float ancho=pageSize.getWidth();   //MAS O MENOS EL DE LA ULTIMA TABLA
+                float alto=pageSize.getHeight();
+
+
+                Log.i("miodatr","el ancho del doc es "+ancho);
+                Log.i("miodatr","el alto  del doc es "+alto);
+
+                //   miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
 
 
 
-        /**descripcion de defectos de fruta*/
-
-        //agregamos el hedaer
-        /**add header imagen*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-        float araycolumzz[]= {1,1,1,1,1,1};
-        Table table1=  new Table(araycolumzz);
-
-        table1=HelperPdf.descripciondEFECXTOSFRUTA(table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        table1.setMarginTop(8f);
-        midocumentotoAddData.add(table1);
-
-        float ancho=pageSize.getWidth();   //MAS O MENOS EL DE LA ULTIMA TABLA
-        float alto=pageSize.getHeight();
+                /**libriado**/
 
 
-        Log.i("miodatr","el ancho del doc es "+ancho);
-        Log.i("miodatr","el alto  del doc es "+alto);
+                if(Utils.hashMappromedioLibriado.size()>0){ //si hay libriado
+                    boolean isPrimeraTablaLibriado=true;
+                    midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-        //   miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
+                    midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
+                            setFontSize(8.5f).setMarginTop(10f).setPaddingLeft(60f).setBold());
+
+                    Log.i("miodatr","se eejcuto el pdd");
+
+
+                    Rectangle remainingZZ ;
+
+                    String [] keyandanme;
+
+
+                    for (Map.Entry<String,ArrayList<PromedioLibriado>> entry : Utils.hashMappromedioLibriado.entrySet()) {
+                        String key = entry.getKey();
+                        ArrayList<PromedioLibriado> arrayList = entry.getValue();
+
+                        keyandanme = key.split("-");
+
+
+                        /**obtenemos tabla by array list item*/
+                        table1 = HelperPdf.devulveTablaToLibriado(arrayList, keyandanme[0]);
+                        HelperPdf.configTableMaringAndWidth(table1, sizeTable - 200);
+
+
+                        if (isPrimeraTablaLibriado) {
+
+                            table1.setMarginTop(10f);
+                            table1.setMarginBottom(10f);
+                            midocumentotoAddData.add(table1);
+                            isPrimeraTablaLibriado = false;
+
+                        } else { /**aqui havemos el calculo...*/
+
+                            Log.i("simpredert", "esta table tiene de size" +arrayList.size());
+
+
+                            /***tenemos un valor contsante que es el heihgt del title y el promedio abajo serian unos 70*/
+                            float estimacionPosicionOcuparaTable=posicionyTablasLibriado-(arrayList.size()*22)-90;
+
+                            Log.i("simpredert", "la posicion estmada seria " + estimacionPosicionOcuparaTable);
 
 
 
-        /**libriado**/
+                            if(estimacionPosicionOcuparaTable<210){
+                                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                            }
 
 
-        if(Utils.hashMappromedioLibriado.size()>0){ //si hay libriado
-            boolean isPrimeraTablaLibriado=true;
+
+                            table1.setMarginTop(10f);
+                            table1.setMarginBottom(10f);
+
+                            midocumentotoAddData.add(table1);
+
+
+                        }
+
+                        remainingZZ = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+                        posicionyTablasLibriado = remainingZZ.getTop();
+
+
+
+                        Log.i("simpredert", "la posicionyTablasLibriado table real DESPUES DE ADD es  " + posicionyTablasLibriado);
+
+
+                    }
+                    Log.i("miodataxx","es mayor a cero");
+
+
+                }
+
+
+                publishProgress(40);
+
+                /**Agregamos anexos*/
+
+                HelperAdImgs.initpdfDocument(miPFDocumentkernel);
+
+
+
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                HelperImage.indiceValues=0;
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+
+            publishProgress(50);
+
+            /**si hay dos fotos en la columna o 2 filas de fotos ,,, quiere decir que en la promxima dara un salto de hoja cre3o... **/
+
+                /**FOTO_LLEGADA_CONTENEDOR...*/
+                 //  midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                HelperImage.indiceValues=0;
+/*
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+*/
+            publishProgress(60);
+
+
+            HelperImage.indiceValues=0;
+/*
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+*/
+
+            /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                HelperImage.indiceValues=0;
+/*
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+*/
+            publishProgress(70);
+
+
+            /**FOTO_PALLETS ...*/
+                // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                //  HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
+
+                //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                HelperImage.indiceValues=0;
+
+
+
+                //
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"*  APERTURA, INSPECCIÒN Y CIERRE DE CAMIONES",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
             midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                HelperImage.indiceValues=0;
 
-            midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
-                    setFontSize(8.5f).setMarginTop(10f).setPaddingLeft(60f).setBold());
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-            Log.i("miodatr","se eejcuto el pdd");
+            publishProgress(80);
 
-
-            Rectangle remainingZZ ;
-
-            String [] keyandanme;
-
-
-            for (Map.Entry<String,ArrayList<PromedioLibriado>> entry : Utils.hashMappromedioLibriado.entrySet()) {
-                String key = entry.getKey();
-                ArrayList<PromedioLibriado> arrayList = entry.getValue();
-
-                keyandanme = key.split("-");
+            Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.currenReportCamionesyCarretas.getNombreRevisa(),Variables.currenReportCamionesyCarretas.getCodigonRevisa());
+                midocumentotoAddData.add(paragraph);
 
 
-                /**obtenemos tabla by array list item*/
-                table1 = HelperPdf.devulveTablaToLibriado(arrayList, keyandanme[0]);
-                HelperPdf.configTableMaringAndWidth(table1, sizeTable - 200);
+                /**DEBUG borrar*/
+
+                int aray[]= {
+                        Variables.FOTO_PROCESO_FRUTA_FINCA,Variables.FOTO_LLEGADA_CONTENEDOR,
+                        Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS,
+                        Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION}
+                        ;
 
 
-                if (isPrimeraTablaLibriado) {
+                for(int indice=0; indice<aray.length; indice++){
+                    int categoiria=aray [indice];
 
-                    table1.setMarginTop(10f);
-                    table1.setMarginBottom(10f);
-                    midocumentotoAddData.add(table1);
-                    isPrimeraTablaLibriado = false;
+                    Log.i("categoriasxx","estos son los ids de la categoria : "+categoiria);
 
-                } else { /**aqui havemos el calculo...*/
+                    for(int indice2 = 0; indice2<HelperImage.imAGESpdfSetGlobal.size(); indice2++){
 
-                    Log.i("simpredert", "esta table tiene de size" +arrayList.size());
+                        if(HelperImage.imAGESpdfSetGlobal.get(indice2).getTipoImagenCategory()==categoiria){
 
-
-                    /***tenemos un valor contsante que es el heihgt del title y el promedio abajo serian unos 70*/
-                    float estimacionPosicionOcuparaTable=posicionyTablasLibriado-(arrayList.size()*22)-90;
-
-                    Log.i("simpredert", "la posicion estmada seria " + estimacionPosicionOcuparaTable);
+                            //  Log.i("categoriasxx","el id  de esta imagen es : "+HelperImage.imAGESpdfSetGlobal.get(indice2).uniQueIdimgPertenece);
 
 
+                        }
 
-                    if(estimacionPosicionOcuparaTable<210){
-                        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
                     }
 
 
-
-                    table1.setMarginTop(10f);
-                    table1.setMarginBottom(10f);
-
-                    midocumentotoAddData.add(table1);
-
-
                 }
 
-                remainingZZ = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
-                posicionyTablasLibriado = remainingZZ.getTop();
 
 
 
-                Log.i("simpredert", "la posicionyTablasLibriado table real DESPUES DE ADD es  " + posicionyTablasLibriado);
+            publishProgress(100);
 
+
+                midocumentotoAddData.close();
+                // UpdateProgressAndText("Terminado",100);
+            return null;
 
             }
-            Log.i("miodataxx","es mayor a cero");
 
+        @Override
+        protected void onPreExecute() {
+            txtTareaAqui.setText("Agregando imagenes...");
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            btnIrAARCHIVOpdf.setEnabled(true);
+            Toast.makeText(PdfMakerCamionesyCarretas.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
+
+            FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
+            fabUploadDrive.setVisibility(View.VISIBLE);
 
         }
 
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            progressBar2.setProgress(values[0],true);
+
+            switch(values[0]){
+                case 50:
+                    txtTareaAqui.setText("Fotos Seccion 1");
+                 break;
+
+                case 60:
+                    txtTareaAqui.setText("Fotos Seccion 2");
+
+                    break;
 
 
-        /**Agregamos anexos*/
+                case 70:
+                    txtTareaAqui.setText("Fotos Seccion 3");
 
-        HelperAdImgs.initpdfDocument(miPFDocumentkernel);
-
-
-
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperImage.indiceValues=0;
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
-
-
-
-
-        /**si hay dos fotos en la columna o 2 filas de fotos ,,, quiere decir que en la promxima dara un salto de hoja cre3o... **/
-
-        /**FOTO_LLEGADA_CONTENEDOR...*/
-        //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperImage.indiceValues=0;
-
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
-
-        HelperImage.indiceValues=0;
-
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
+                    break;
 
 
 
-        /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperImage.indiceValues=0;
+                case 100:
+                    txtTareaAqui.setText("Pdf listo para visualizarse");
 
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
-
-
-
-
-        /**FOTO_PALLETS ...*/
-        // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        //  HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
-
-
-
-        //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperImage.indiceValues=0;
-
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
-
-
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperImage.indiceValues=0;
-
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
-
-
-        Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.currenReportCamionesyCarretas.getNombreRevisa(),Variables.currenReportCamionesyCarretas.getCodigonRevisa());
-        midocumentotoAddData.add(paragraph);
-
-
-        /**DEBUG borrar*/
-
-        int aray[]= {
-                Variables.FOTO_PROCESO_FRUTA_FINCA,Variables.FOTO_LLEGADA_CONTENEDOR,
-                Variables.FOTO_SELLO_LLEGADA,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR,Variables.FOTO_PALLETS,
-                Variables.FOTO_CIERRE_CONTENEDOR,Variables.FOTO_DOCUMENTACION}
-                ;
-
-
-        for(int indice=0; indice<aray.length; indice++){
-            int categoiria=aray [indice];
-
-            Log.i("categoriasxx","estos son los ids de la categoria : "+categoiria);
-
-            for(int indice2 = 0; indice2<HelperImage.imAGESpdfSetGlobal.size(); indice2++){
-
-                if(HelperImage.imAGESpdfSetGlobal.get(indice2).getTipoImagenCategory()==categoiria){
-
-                    //  Log.i("categoriasxx","el id  de esta imagen es : "+HelperImage.imAGESpdfSetGlobal.get(indice2).uniQueIdimgPertenece);
-
-
-                }
-
+                    break;
 
             }
 
 
+
         }
-
-
-
-        btnIrAARCHIVOpdf.setEnabled(true);
-        Toast.makeText(PdfMakerCamionesyCarretas.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
-
-        FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
-        fabUploadDrive.setVisibility(View.VISIBLE);
-
-
-
-        midocumentotoAddData.close();
-        // UpdateProgressAndText("Terminado",100);
 
     }
-
 
 
 
@@ -2632,39 +2716,71 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
     }
 
 
-    class MiTarea1 extends AsyncTask<List<Uri>, Integer, Void> {
+    class CreaPdfHilo extends AsyncTask<Void, Integer, Void> {
+         public  int valueUpdate=0;
+
         @Override
-        protected Void doInBackground(List<Uri>... lists) {
-            publishProgress(100);
+        protected Void doInBackground(Void... voids) {
+            publishProgress(valueUpdate);
+
+            try {
+                createPDFCamionesyCarretas1();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+           publishProgress(20);
+
+
+
+
+            try {
+                    createparte2();
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+            publishProgress(30);
+
+
 
             return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            txtTareaAqui.setText("Empezando");
+            super.onPreExecute();
 
         }
 
         @Override
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
+
+
+            try {
+                createPDFViews(); ///ui
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+            TareaImagenesAddPart4 tare=new TareaImagenesAddPart4();
+            tare.execute();
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
+            progressBar2.setProgress(values[0],true);
+
         }
-
-
     }
 
-
-    class MiTarea2 extends AsyncTask<List<Uri>, Void, Void> {
-
-        @Override
-        protected Void doInBackground(List<Uri>... lists) {
-            return null;
-        }
-
-
-
-    }
 
 
 

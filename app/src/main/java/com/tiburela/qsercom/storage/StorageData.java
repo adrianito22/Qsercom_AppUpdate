@@ -554,7 +554,9 @@ public static int counTbucle=0;
                             currenImageReport.setUrlStoragePic(iconPathFirebase);
                             // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
 
-                            Log.i("latypeimage","info es on success  y path es  "+iconPathFirebase);
+                            Log.i("pertenence", "id pertenece a: "+currenImageReport.getIdReportePerteence());
+
+                            Log.i("pertenence","info es on success  y path es  "+iconPathFirebase);
 
 
 

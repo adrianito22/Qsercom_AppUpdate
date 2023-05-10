@@ -56,6 +56,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -116,6 +118,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     String horientacionImg4;
 
     boolean esprimervezEntra=true;
+    ArrayList<String> listImagesToDelete = new ArrayList<>();
 
     MiTarea tare;
     EditText ediCandadoName1;
@@ -944,6 +947,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                     ///cuandole da en genear obtenmos nuevamente la data
 
 
+                     try {
+                         getResultDatCalibCalEnfundes();
+
+                     } catch (Exception e) {
+                         throw new RuntimeException(e);
+                     }
+
 
 
                     checkDataToCreatePdf();
@@ -1287,8 +1297,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                     public void onActivityResult(List<Uri> result) {
                         if (result != null) {
 
-                                  tare= new MiTarea();
+                            tare= new MiTarea();
                             tare.execute(result);
+
+
 
                         }
                       }
@@ -1322,6 +1334,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
 
                 ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,urix)),horientacionImg4);
+                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
                 //   PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -2137,7 +2150,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 //vamos a ver el tipo del objeto removivo
                 Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
 
-                Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
 
                 ImagenReport.hashMapImagesData.remove(v.getTag().toString());
@@ -4226,9 +4239,68 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
         uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
+
+        for (int i = 0; i < listImagesToDelete.size(); i++) {
+
+            geTidAndDelete(listImagesToDelete.get(i));
+
+        }
+
+
+
         createObjcInformeAndUpdate(); //CREAMOS LOS IN
 
     }
+    private void geTidAndDelete(String idUniqueToDelete) { //busca el que tenga esa propieda y obtiene el id node child
+
+        Log.i("imagheddd", "se lamo to delete");
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
+
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
+        //  Query query = usersdRef.orderByChild("uniqueIdNamePic").equalTo(Variables.currentCuponObjectGlob.getUniqueIdCupòn());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
+                try {
+
+                    DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                    String key = nodeShot.getKey();
+
+                    usersdRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+
+                                Log.i("eliminamos","aqui se elimino esto");
+
+                                //Toast.makeText(OfertsAdminActivity.this, "Se elimino correctamente", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+                    });
+
+                } catch (Exception e) {
+                    Log.i("eliminamos","aqui hay una expecion y es "+e.getMessage());
+
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
 
 
     void ocultaoTherVIEWs(){
