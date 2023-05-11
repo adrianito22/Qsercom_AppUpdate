@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -47,6 +48,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -93,6 +95,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 
 public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener {
@@ -1096,11 +1099,15 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
                             try {
+
+                                /*
                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),cam_uri);
-
-
-                               // Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+*/
+
+
+                                Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(PreviewsFormDatSContersEnAc.this,cam_uri);
+                                String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
 
                                 //creamos un nuevo objet de tipo ImagenReport
@@ -1173,50 +1180,8 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                 public void onActivityResult(List<Uri> result) {
                     if (result != null) {
 
-                        //creamos un objeto
-
-                        for(int indice=0; indice<result.size(); indice++){
-
-
-                            try {
-
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),result.get(indice));
-
-
-                            //    Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
-                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
-
-                                //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice))),horientacionImg);
-                                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
-
-                                //agregamos este objeto a la lista
-                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
-                                showImagesPicShotOrSelectUpdateView(false);
-
-                            }
-
-                           catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-
-                            ///     ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)));
-
-                            //   ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
-                            //  Log.i("mispiggi","el size de la  lists  el key del value es "+imagenReportObjc.getUniqueIdNamePic());
-
-
-                        }
-
-
-
-                        showImagesPicShotOrSelectUpdateView(false);
-
+                        MiTarea tare= new MiTarea();
+                        tare.execute(result);
 
 
                     }
@@ -3878,6 +3843,54 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         ///vamos a descrgar desde la base de datos...
 
+    }
+    class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<Uri>... lists) {
+            List<Uri>  result = lists[0];
+
+            for(int indice=0; indice<result.size(); indice++){
+
+                Uri  urix = result.get(indice);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = Glide.with(PreviewsFormDatSContersEnAc.this)
+                            .asBitmap()
+                            .load(urix)
+                            .sizeMultiplier(0.6f)
+                            .submit().get();
+                }
+                catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                String   horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
+                // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
+
+                ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,urix)),horientacionImg4);
+                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
+                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                //   PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+                if(ImagenReport.hashMapImagesData.size()>0){
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewsFormDatSContersEnAc.this);
+
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            showImagesPicShotOrSelectUpdateView(false);
+
+        }
     }
 
 }

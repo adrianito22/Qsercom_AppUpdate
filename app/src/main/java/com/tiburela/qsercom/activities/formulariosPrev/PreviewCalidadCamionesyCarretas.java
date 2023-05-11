@@ -5,10 +5,11 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.view.View.GONE;
 
-import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
-
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,6 +23,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -71,7 +74,6 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.PdfMaker.PdfMakerCamionesyCarretas;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
-import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
@@ -95,7 +97,6 @@ import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -108,6 +109,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener  {
@@ -912,13 +915,15 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         if(idCurrent==R.id.imgVAtachProcesoFrutaFinca || idCurrent==R.id.imgVAtachCierreContenedor ||
                 idCurrent == R.id.imgVAtachDocumentacionss){ //si es atach//si es atach
 
-
             currentTypeImage=Integer.parseInt(view.getTag().toString());
 
 
             activityResultLauncher.launch("image/*");
 
+
             Log.i("miclickimg","es foto es type selected es "+currentTypeImage);
+
+
 
         }
 
@@ -2185,94 +2190,67 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
             Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
             return;
         }
-        //boorara desee aqui
-        if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
-            Log.i("elfile","alguno o toos son diferentes images llamaos metodo filtra");
-
-            StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
-
-            ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
-
-
-            /**debugborrar*/
-            for(ImagenReport imagenReport: list2){
-
-                Log.i("latypeimage","el value es "+imagenReport.getTipoImagenCategory());
-            }
-
-            /**debugborrar*/
-
-
-            StorageData.uploaddata(list2);
-
-           // StorageData.uploadImage(PreviewCalidadCamionesyCarretas.this, Utils.creaHahmapNoDuplicado());
+/*
+        AlertDialog.Builder builder = new AlertDialog.Builder(PreviewCalidadCamionesyCarretas.this);
+        builder.setCancelable(false); // if you want user to wait for some process to finish,
+        builder.setView(R.layout.layout_loading_dialog);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+*/
+        Task2 tarea0 =new Task2();
+        tarea0.run();
 
 
 
-        }else{
-            Log.i("debugasd","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
 
 
-            Log.i("elfile","son iguales las imagenes");
-
-        }
-
-
-
-        //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
-        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
-
-        //aqui subimos
 
     }
+    private class Task2 implements Runnable {
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+       // AlertDialog  dialog;
+
+         Task2() {
+            // this.dialog=dialog;
+          //   this.dialog.show(); // to show this dialog
+
+         }
+
+
+        @Override
+        public void run() { //bacground
+            //boorara desee aqui
+            if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
+
+                Log.i("sertila","alguno o toos son diferentes images llamaos metodo filtra");
+
+                StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
+
+                ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
+
+                StorageData.uploaddata(list2);
+            }
+
+
+            Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
 
 
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() { //ui .,hilo principal
+
+                  //  Toast.makeText(PreviewCalidadCamionesyCarretas.this, "task2", Toast.LENGTH_SHORT).show();
+                    Log.i("sertila","hermos terminado.,.");
+                  //  dialog.dismiss();
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void generatePDFandImport(){
-        //generate pdf
-
-
-        if(!checkPermission()){
-
-            requestPermission();
-            //   Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-            // checkPermission2();
-
-            /****por aqui pedir permisos antes **/
-
+                }
+            });
         }
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            // Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
-            // startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
-        }
-
-
-
-
-
-
-
-        //  startActivity(new Intent(ActivityCamionesyCarretas.this,PdfPreviewActivity.class));
-
-        //generamos un pdf con la data que tenemos()
-
-        /*
-
-        PdfMaker.generatePdfReport1(ActivityCamionesyCarretas.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
-                ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
-                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString()
-                );
-
-*/
 
 
 

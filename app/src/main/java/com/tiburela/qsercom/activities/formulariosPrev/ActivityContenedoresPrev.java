@@ -19,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.icu.text.DecimalFormat;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -56,6 +57,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -112,6 +114,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener {
     HashMap<String, Exportadora> hasmpaExportadoras;
@@ -1220,29 +1223,12 @@ else{
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
-                        // There are no request codes
-
-
-                        //  mImageView.setImageURI(cam_uri);
-
-                        // showImageByUri(cam_uri);
-                        //  Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.onActivityResult();, imageUri);
-
-
-                        // Uri sourceTreeUri = data.getData();
-
-
-                      //  ActivityContenedoresPrev.this.getContentResolver().takePersistableUriPermission
-                              //  (cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
 
                         try {
 
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(), cam_uri);
-
-
-                            //  Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
-                            String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
+                            Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(ActivityContenedoresPrev.this,cam_uri);
+                            String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
                             //creamos un nuevo objet de tipo ImagenReport
                             ImagenReport obcjImagenReport = new ImagenReport("", cam_uri.toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, cam_uri), horientacionImg);
@@ -1357,78 +1343,8 @@ else{
                 public void onActivityResult(List<Uri> result) {
                     if (result != null) {
 
-                        //creamos un objeto
-
-                        Log.i("mispiggi", "el current type es " + currentTypeImage);
-                        Log.i("mispiggi", "el size de la list uris es " + result.size());
-                        Log.i("mispiggi", "el size de la  lista antes del for es  hashMapImagesData es " + ImagenReport.hashMapImagesData.size());
-
-
-                        for (int indice = 0; indice < result.size(); indice++) {
-
-
-                            try {
-
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContenedoresPrev.this.getContentResolver(), result.get(indice));
-
-                                // Bitmap bitmap=Glide.with(context).asBitmap().load(result.get(indice)).submit().get();
-                                String horientacionImg = HelperImage.devuelveHorientacionImg(bitmap);
-
-                                Log.i("mispiggi", "la horitacion de esta imagen es  "+horientacionImg);
-
-
-                                //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport = new ImagenReport("", result.get(indice).toString(),
-                                        currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice))), horientacionImg);
-                                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
-
-                                Log.i("mispiggi", "el size mde map es "+ImagenReport.hashMapImagesData.size());
-
-                                Log.i("mispiggi", "la imagen categoria add  es "+obcjImagenReport.getTipoImagenCategory());
-
-                                   // probar aqui haber que pasa....
-                                // chekar como esta esta parte en la version pasada appv4
-
-                                //agregamos este objeto a la lista
-                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-                                Log.i("mispiggi", "despues agregar el size map es "+ImagenReport.hashMapImagesData.size());
-
-
-                            } catch (FileNotFoundException e) {
-                                Log.i("mispiggi", "la primera excepcion es  " +e.getMessage());
-
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                Log.i("mispiggi", "la segunda expecion es  " + e.getMessage());
-
-                                e.printStackTrace();
-                            }
-
-
-
-
-                            ///     ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)));
-
-                            //   ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
-                            //  Log.i("mispiggi","el size de la  lists  el key del value es "+imagenReportObjc.getUniqueIdNamePic());
-
-
-                        }
-
-
-
-                        Log.i("mispiggi", "el map ahora size xx es "+ImagenReport.hashMapImagesData.size());
-
-                        Log.i("mispiggi", "el currentypeImagen es  " + currentTypeImage);
-
-
-                        showImagesPicShotOrSelectUpdateView(false);
-
-
-                        Log.i("mispiggi", "el size de la  lists  hashMapImagesData ahora es  es " + ImagenReport.hashMapImagesData.size());
-
-                        // showImagesPicShotOrSelectUpdateView(false);
+                       MiTarea tare= new MiTarea();
+                        tare.execute(result);
 
 
                     }
@@ -6121,6 +6037,59 @@ else{
 
 
     }
+
+    class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<Uri>... lists) {
+            List<Uri>  result = lists[0];
+
+            for(int indice=0; indice<result.size(); indice++){
+
+              Uri  urix = result.get(indice);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = Glide.with(ActivityContenedoresPrev.this)
+                            .asBitmap()
+                            .load(urix)
+                            .sizeMultiplier(0.6f)
+                            .submit().get();
+                }
+                catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+              String   horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
+                // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
+
+                ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedoresPrev.this,urix)),horientacionImg4);
+                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
+                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                //   PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+                if(ImagenReport.hashMapImagesData.size()>0){
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityContenedoresPrev.this);
+
+                }
+
+            }
+
+            return null;
+
+
+
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            showImagesPicShotOrSelectUpdateView(false);
+
+        }
+    }
+
 
 
 }

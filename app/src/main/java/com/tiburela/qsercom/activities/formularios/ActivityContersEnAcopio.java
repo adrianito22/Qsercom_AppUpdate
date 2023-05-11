@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -47,6 +48,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,6 +59,7 @@ import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.auth.Auth;
@@ -84,6 +87,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 
 public class ActivityContersEnAcopio extends AppCompatActivity implements View.OnClickListener,
@@ -970,10 +974,11 @@ else{
 
                             try {
 
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),cam_uri);
+                                Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(ActivityContersEnAcopio.this,cam_uri);
 
+                                //   Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),cam_uri);
 
-                               // Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
+                                //   Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
                                 //creamos un nuevo objet de tipo ImagenReport
@@ -1042,42 +1047,8 @@ else{
                 public void onActivityResult(List<Uri> result) {
                     if (result != null) {
 
-                        //creamos un objeto
-
-                        for(int indice=0; indice<result.size(); indice++){
-
-                            try {
-
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityContersEnAcopio.this.getContentResolver(),result.get(indice));
-
-                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
-
-                                Uri myUri = result.get(indice);
-                                ActivityContersEnAcopio.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-
-                                ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContersEnAcopio.this,result.get(indice))),horientacionImg);
-
-
-                                //agregamos este objeto a la lista
-                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
-                                showImagesPicShotOrSelectUpdateView(false);
-
-                            }
-                                catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-
-
-
-                        showImagesPicShotOrSelectUpdateView(false);
+                        MiTarea tare= new MiTarea();
+                        tare.execute(result);
 
 
 
@@ -1085,42 +1056,6 @@ else{
                 }
                   });
       }
-
-void showImageByUri(Uri uri )  {
-   try {
-
-        // Setting image on image view using Bitmap
-        Bitmap bitmap = MediaStore
-                .Images
-                .Media
-                .getBitmap(
-                        getContentResolver(),
-                      uri);
-
-
-
-        //escalamos el bitmap
-       Bitmap bitmap2=Bitmap.createScaledBitmap(bitmap, 420, 400, false);
-        Log.i("registrand","los encontrado");
-
-
-        ImageView imageView= new ImageView(this);
-
-
-       imageView.setImageBitmap(bitmap2);
-
-
-
-
-
-
-    }
-
-                    catch (IOException e) {
-        // Log the exception
-        e.printStackTrace();
-    }
-}
 
 
 private void listennersSpinners() {
@@ -3293,5 +3228,53 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     }
 
+    class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<Uri>... lists) {
+            List<Uri>  result = lists[0];
+
+            for(int indice=0; indice<result.size(); indice++){
+
+               Uri urix = result.get(indice);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = Glide.with(ActivityContersEnAcopio.this)
+                            .asBitmap()
+                            .load(urix)
+                            .sizeMultiplier(0.6f)
+                            .submit().get();
+                }
+                catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+               String  horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
+                // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
+
+                ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContersEnAcopio.this,urix)),horientacionImg4);
+                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
+                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                //   PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+                if(ImagenReport.hashMapImagesData.size()>0){
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityContersEnAcopio.this);
+
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            showImagesPicShotOrSelectUpdateView(false);
+
+        }
+    }
 
 }
