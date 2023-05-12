@@ -414,4 +414,7 @@
         <item> 54 </item>
 
     </string-array>
+
+    <item type="id" name="category"/>
+    <item type="id" name="keyID"/>
 </resources>

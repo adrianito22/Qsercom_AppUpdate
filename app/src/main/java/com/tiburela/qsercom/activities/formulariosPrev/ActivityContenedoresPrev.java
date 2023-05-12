@@ -1238,7 +1238,7 @@ else{
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
-                            showImagesPicShotOrSelectUpdateView(false);
+                            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -1570,7 +1570,7 @@ else{
     }
 
 
-    private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg) {
+    private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicionionBorrar) {
 
         //si es eliminar comprobar aqui
         if (isDeleteImg) {
@@ -1590,20 +1590,6 @@ else{
         Log.i("mispiggi", "el size de la MAPA AHORAXXC ES  " + ImagenReport.hashMapImagesData.size());
 
 
-        for(ImagenReport imagenObjec: ImagenReport.hashMapImagesData.values()){
-
-            Log.i("mispiggix", "el tipo es  " +imagenObjec.getTipoImagenCategory());
-
-
-            if(imagenObjec.getTipoImagenCategory()==currentTypeImage){
-                filterListImagesData.add(imagenObjec);
-
-                Log.i("mispiggi", "el size de filterListImagesData es " + filterListImagesData.size());
-
-
-            }
-
-        }
 
 
         Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE  es cc  es " + ImagenReport.hashMapImagesData.size());
@@ -1663,10 +1649,16 @@ else{
         if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
 
             if(!isDeleteImg){
-                //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
-                ///   aadpater.notifyDataSetChanged();
-                aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
 
+                for(ImagenReport imagenObjec: ImagenReport.hashMapImagesData.values()){
+                    if(imagenObjec.getTipoImagenCategory()==currentTypeImage){
+                        filterListImagesData.add(imagenObjec);
+                        Log.i("mispiggi", "el size de filterListImagesData es " + filterListImagesData.size());
+                    }
+                }
+
+
+                aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
                 aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
 
                 // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
@@ -1675,27 +1667,17 @@ else{
                 Log.i("adpatertt","adpasternotiff");
 
             }
+            else{
+
+                aadpaterRecuperadoOFrView. listImagenData.remove(posicionionBorrar);
+                aadpaterRecuperadoOFrView.notifyItemRemoved(posicionionBorrar);
+                aadpaterRecuperadoOFrView.notifyItemRangeChanged(posicionionBorrar, aadpaterRecuperadoOFrView.listImagenData.size());
+                // holder.itemView.setVisibility(View.GONE);
+
+            }
+
 
             Log.i("adpatertt","es difrentede nulo");
-
-        }else{
-
-            adapter=new RecyclerViewAdapter(filterListImagesData,this);
-            // at last set adapter to recycler view.
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
-
-            eventoBtnclicklistenerDelete(adapter);
-
-            Log.i("adpatertt","el adpater es nulo");
-
-
-            Log.i("adpatertt","el adpater es nulo");
-            ItemTouchHelper.Callback callback =
-                    new SimpleItemTouchHelperCallback(adapter);
-            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-            touchHelper.attachToRecyclerView(recyclerView);
-
 
         }
 
@@ -2404,8 +2386,9 @@ else{
                     listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
                     ImagenReport.hashMapImagesData.remove(v.getTag().toString());
+                   // Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
 
-                    showImagesPicShotOrSelectUpdateView(true);
+                    showImagesPicShotOrSelectUpdateView(true,position);
 
                 }
 
@@ -4447,11 +4430,10 @@ else{
                     ImagenReport imagenReport = ds.getValue(ImagenReport.class);
                     //  listImagenData.add(imagenReport);
 
-                    Variables.listImagenDataGlobalCurrentReport.add(imagenReport);
+                    if(!Utils.containsName(Variables.listImagenDataGlobalCurrentReport,imagenReport.getUniqueIdNamePic())) {
+                        Variables.listImagenDataGlobalCurrentReport.add(imagenReport);
 
-                    Log.i("imagheddd", "key uninque id es " + imagenReport.getUniqueIdNamePic());
-                    Log.i("imagheddd", "el url es  " + imagenReport.getUrlStoragePic());
-
+                    }
 
                 }
 
@@ -6085,7 +6067,7 @@ else{
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
 
-            showImagesPicShotOrSelectUpdateView(false);
+            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
         }
     }

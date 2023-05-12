@@ -27,6 +27,10 @@ import java.util.HashMap;
 
 public class Variables {
 
+    public static  String tagAndKeyToDelete="";
+
+    public static final int NINGUNO=11000;
+
     public static final int ACERCA=1;
     public static final int ATRIBUCIONES=2;
 

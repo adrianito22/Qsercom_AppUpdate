@@ -107,6 +107,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -342,7 +343,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_calidad_camio_carret_pewv);
         context=getApplicationContext();
-
 
 
 
@@ -960,6 +960,11 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                      }
 
 
+                   if(!cehckFaltanImagenes()){
+                       return; //
+                   }
+                    ;
+
 
                     checkDataToCreatePdf();
 
@@ -1254,14 +1259,14 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
                             //agregamos este objeto a la lista
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-                            showImagesPicShotOrSelectUpdateView(false);
+                            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
 
                         } catch (IOException e) {
                               e.printStackTrace();
                           }
                         Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
-                        showImagesPicShotOrSelectUpdateView(false);
+                        showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
 
 
@@ -1358,7 +1363,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
 
-                showImagesPicShotOrSelectUpdateView(false);
+                showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
         }
     }
@@ -1610,7 +1615,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
 
-    private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
+    private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicionionBorrar){
 
         //si es eliminar comprobar aqui
 
@@ -1621,31 +1626,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         Log.i("latypeimage","el currenttupe imagen es xxc "+currentTypeImage);
-
-
         ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
-
         RecyclerView recyclerView=null;
-
-
-        for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
-
-            String key = set.getKey();
-            ImagenReport value = set.getValue();
-
-            if(value.getTipoImagenCategory()==currentTypeImage){
-
-                Log.i("latypeimage","encontramos una imagen con este tipo");
-
-
-                filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
-            }
-
-        }
-
-
-        //buscamos este
-
         RecyclerViewAdapter adapter;
         RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
         GridLayoutManager layoutManager=new GridLayoutManager(this,2);
@@ -1667,6 +1649,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
                 break;
 
+
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
                 aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
@@ -1676,23 +1659,43 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
 
+
             if(!isDeleteImg){
-                //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
-                ///   aadpater.notifyDataSetChanged();
+
+                for(ImagenReport imagenObjec: ImagenReport.hashMapImagesData.values()){
+                    Log.i("mispiggix", "el tipo es  " +imagenObjec.getTipoImagenCategory());
+                    if(imagenObjec.getTipoImagenCategory()==currentTypeImage){
+                        filterListImagesData.add(imagenObjec);
+                        Log.i("mispiggi", "el size de filterListImagesData es " + filterListImagesData.size());
+                    }
+                }
+
                 aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
 
                 aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
-
-                // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
-                // aadpater. notifyItemRangeChanged(position, listImagenData.size());
-
                 Log.i("adpatertt","adpasternotiff");
 
+
+            }
+
+            else
+
+            {
+                aadpaterRecuperadoOFrView. listImagenData.remove(posicionionBorrar);
+                aadpaterRecuperadoOFrView.notifyItemRemoved(posicionionBorrar);
+                aadpaterRecuperadoOFrView.notifyItemRangeChanged(posicionionBorrar, aadpaterRecuperadoOFrView.listImagenData.size());
+                // holder.itemView.setVisibility(View.GONE);
+                Log.i("ADPATERXX","vamos a borrar EL SIZE DE ESTE ADPATER LIST despues de borrar es  "+aadpaterRecuperadoOFrView.listImagenData.size());
             }
 
             Log.i("adpatertt","es difrentede nulo");
 
-        }else{
+        }
+
+        /*
+        else{
+
+            Log.i("ADPATERXX","agregamos adpater");
 
             adapter=new RecyclerViewAdapter(filterListImagesData,this);
             // at last set adapter to recycler view.
@@ -1712,7 +1715,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         }
-
+        */
 
 
 
@@ -2147,27 +2150,29 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
-                //  Variables.currentCuponObjectGlob =listGiftCards.get(position);
 
-                Log.i("midaclick","el click es here, posicion es "+position);
+                Log.i("CLICKKATER","el TAG en activity  ES "+v.getTag().toString());
+               // Variables.typeoFdeleteImg = ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
 
-                ///elimnar el hasmap
-                //vamos a ver el tipo del objeto removivo
-                Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+// esed659357-2a32-4614-b4eb-9733ef5570f9.jpg
+                try {
 
-                listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
+                    listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
+                     ImagenReport.hashMapImagesData.remove(v.getTag().toString());
 
+                    Log.i("ADPATERXX","el size despues de eliminar hasmpa size es "+ ImagenReport.hashMapImagesData.size());
 
-                ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
+                showImagesPicShotOrSelectUpdateView(true,position);
 
-
-                Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
-
-                showImagesPicShotOrSelectUpdateView(true);
+                    Log.i("ADPATERXX","el size despues de eliminar hasmpa size 2   es "+ ImagenReport.hashMapImagesData.size());
 
 
+                }
 
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
 
 
                 //   Log.i("dtaas","switch a" + "ctivate is "+Variables.currentCuponObjectGlob.isEsActivateCupon());
@@ -2377,6 +2382,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
         }
+
+        Log.i("ADPATERXX","numiages minimo encootrado en la categoria "+categoriaImagenToSearch +"  es  :"+numImagesEcontradas);
 
 
         if(numImagesEcontradas>=numImagenNMinimo){
@@ -3649,20 +3656,18 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 ArrayList<ImagenReport>listImagenData=new ArrayList<>();
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
                     ImagenReport imagenReport=ds.getValue(ImagenReport.class);
-                    listImagenData.add(imagenReport);
+
+                    if(!Utils.containsName(listImagenData,imagenReport.getUniqueIdNamePic())) {
+                        listImagenData.add(imagenReport);
+
+                    }
 
                     Log.i("cuandoexecuta","la  img xx es "+imagenReport.getHorientacionImage());
-
                     Log.i("cuandoexecuta","la  url es "+imagenReport.getUrlStoragePic());
 
 
-
                 }
-
-                Log.i("cuandoexecuta","la  img lista size es  "+listImagenData.size());
-
 
 
                 Variables.listImagenDataGlobalCurrentReport =listImagenData;
@@ -3997,6 +4002,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
     private void activateModePreview() {
         //Cremoas un super array list de views...
+        Variables.isClickable = false;
 
         //cremoas un super array...de todo tipos de Views
 
@@ -4023,6 +4029,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
     private void activateModeEdit() {
+        Variables.isClickable = true;
+
 
         View [] arrayAllFields={ediCandadoName1,ediCandadoName2,ediCandadoName3,
 

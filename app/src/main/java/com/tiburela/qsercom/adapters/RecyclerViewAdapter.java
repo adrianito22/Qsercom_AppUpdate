@@ -52,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     StorageReference storageRef;
 
-    private ArrayList<ImagenReport> listImagenData;
+    public ArrayList<ImagenReport> listImagenData;
     private Context mcontext;
 
     public RecyclerViewAdapter(ArrayList<ImagenReport> imagenReportArrayList, Context mcontext) { //si no fuunciona este contexto lo obtenmos con getaplicarion context
@@ -82,7 +82,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textImputEditext.setTag(imagenReport.getUniqueIdNamePic());
 
         holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
-
+       // holder.imvClose.setTag(R.id.keyID,imagenReport.getUniqueIdNamePic());
+        holder.imvClose.setTag(R.id.category,imagenReport.getTipoImagenCategory());
         Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE SARECICLER  es  es "+ ImagenReport.hashMapImagesData.size());
 
 
@@ -353,22 +354,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View v) {
 
+                    Log.i("ADPATERXX","EL POSICION to delete en adpater es ES : "+getAdapterPosition());
 
 
-                    if(!Variables.isClickable)
+                    if(!Variables.isClickable){
                         return;
-
-
-                    if(getAdapterPosition()!=-1){ //si no es menos 1
-
-                        Log.i("vamos","vamos a borrar imagen aqui");
-
-                        clickListener.onItemClick(getAdapterPosition(), v);
-
-                        deleteItem(getAdapterPosition());
                     }
 
+                       Variables.tagAndKeyToDelete=v.getTag().toString();
 
+                    Log.i("ADPATERXX","EL tag to delete key in recicler es es"+Variables.tagAndKeyToDelete);
+
+                    String tag =v.getTag(R.id.category).toString();
+                    Variables.typeoFdeleteImg=Integer.parseInt(tag);
+                    clickListener.onItemClick(getAdapterPosition(), v);
 
                 }
             });
@@ -401,24 +400,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private void dowloadAndSetImg(ImagenReport imagenReport, ImageView holder,Context context){
 
-
-
         storageRef  = StorageData.rootStorageReference.child("imagenes_all_reports/"+imagenReport.getUniqueIdNamePic());
 
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
 
-/*
+
                 Glide.with(mcontext)
                         .load(uri)
                         .fitCenter()
-                        .sizeMultiplier(0.6f)
+                        .sizeMultiplier(0.5f)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder);
 
+/*
 
-  */
                 Glide.with(mcontext)
                         .asBitmap()
                         .load(uri)
@@ -449,11 +446,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         });
 
 
-
-
-
-
-
+*/
 
 /*
 

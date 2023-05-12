@@ -60,6 +60,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -1536,6 +1537,8 @@ return true;
 
     }
 
-
+    public static boolean containsName(final List<ImagenReport> list, final String name){
+        return list.stream().map(ImagenReport::getUniqueIdNamePic).anyMatch(name::equals);
+    }
 }
 
