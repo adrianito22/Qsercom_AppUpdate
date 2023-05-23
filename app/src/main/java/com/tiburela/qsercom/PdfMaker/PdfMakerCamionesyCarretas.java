@@ -1227,10 +1227,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         if(!directory.exists())
         {
-
             Log.i("credff","no existe");
-
             directory.mkdirs();
+
         }
 
 

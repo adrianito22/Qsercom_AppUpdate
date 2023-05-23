@@ -4133,7 +4133,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PROCESO_FRUTA_FINCA)){
             TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoProcesoEnFruta);
             ediFotoProcesoEnFruta.requestFocus();

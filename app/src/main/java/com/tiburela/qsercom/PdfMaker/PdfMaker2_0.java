@@ -360,10 +360,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
        HelperPdf.listNumsCustomDefects= new ArrayList<>();
         HelperPdf.TableCalidProdc=new ArrayList<>();
 
-
-        String pdfDirecory=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
-        //doble chekeo si la current canvas object no fue terminada la finalizamos
-        // pdfDocument.finishPage(currentPagePdfObjec) ;
         File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
          file = new File(directory, nameOFPDFrEPORTfile+".pdf");
 
