@@ -1691,7 +1691,11 @@ private void createObjcInformeAndUpload(){
 
                         RealtimeDB.addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);  //subimos
 
-                        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                        try {
+                            uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
 
                         RealtimeDB.addNewInformContenresAcopio(conetnedoresEnAcopioForm,currenTidGenrate);
 
@@ -1775,7 +1779,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-    void uploadImagesInStorageAndInfoPICS() {
+    void uploadImagesInStorageAndInfoPICS() throws IOException {
    //una lista de Uris
 
 
@@ -1788,7 +1792,7 @@ private void createObjcInformeAndUpload(){
         //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
         ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
         ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-        StorageData.uploaddata(list);
+        StorageData.uploaddata(list,ActivityContersEnAcopio.this);
 
 
     }

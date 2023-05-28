@@ -1986,7 +1986,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
 
 
-private void createObjcInformeAndUpload(){
+private void createObjcInformeAndUpload() throws IOException {
 
 
 
@@ -2087,7 +2087,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-    void uploadImagesInStorageAndInfoPICS() {
+    void uploadImagesInStorageAndInfoPICS() throws IOException {
    //una lista de Uris
 
 
@@ -2105,7 +2105,7 @@ private void createObjcInformeAndUpload(){
             StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
             ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
-            StorageData.uploaddata(list2);
+            StorageData.uploaddata(list2,PreviewsFormDatSContersEnAc.this);
 
           ///  HashMap<String , ImagenReport>mihasmap= Utils.creaHahmapNoDuplicado();
 
@@ -3737,7 +3737,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 */
 
-    public void saveInfo() {
+    public void saveInfo() throws IOException {
 
         updatePostionImegesSort();
 

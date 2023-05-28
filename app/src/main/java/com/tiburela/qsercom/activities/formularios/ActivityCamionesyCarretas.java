@@ -2442,7 +2442,11 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                      //informe actual
                     RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
 
-                    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                    try {
+                        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     addCalibracionFutaC_enfAndUpload(currenTidGenrate);
                     addProdcutsPostCosechaAndUpload(currenTidGenrate); //agregamos y subimos los productos postcosecha..
@@ -2513,7 +2517,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-    void uploadImagesInStorageAndInfoPICS() {
+    void uploadImagesInStorageAndInfoPICS() throws IOException {
         //una lista de Uris
 
 
@@ -2536,7 +2540,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
         ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-        StorageData.uploaddata(list);
+        StorageData.uploaddata(list,ActivityCamionesyCarretas.this);
 
 
     }

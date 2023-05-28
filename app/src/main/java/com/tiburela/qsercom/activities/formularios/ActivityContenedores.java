@@ -2970,7 +2970,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
 
 
-    void uploadImagesInStorageAndInfoPICS() {
+    void uploadImagesInStorageAndInfoPICS() throws IOException {
    //una lista de Uris
 
         Log.i("imagheddd","se llamometodoel size de lista es "+ImagenReport.hashMapImagesData.size());
@@ -2989,7 +2989,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
             ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
            ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-         StorageData.uploaddata(list);
+         StorageData.uploaddata(list,ActivityContenedores.this);
 
        //  Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
@@ -5081,7 +5081,11 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                     Log.i("imagebrr","elsize es "+ImagenReport.hashMapImagesData.size());
 
 
-                    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                    try {
+                        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,user);
 

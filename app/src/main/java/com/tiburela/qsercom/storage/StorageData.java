@@ -3,7 +3,9 @@ package com.tiburela.qsercom.storage;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,6 +24,9 @@ import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.utils.Utils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +36,10 @@ public class StorageData {
 
    public static  StorageReference rootStorageReference;
 
- public static    StorageReference stoRefToUpload ;
+   static Bitmap bitmapCompress;
+    static Bitmap bitmapOriginal;
+
+    public static    StorageReference stoRefToUpload ;
 
  public static String uniqueIDImagesSetAndUInforme="";
 
@@ -515,7 +523,7 @@ public static int counTbucle=0;
     }
 
 
-    public static void uploaddata(ArrayList<ImagenReport>ImageList) {
+    public static void uploaddata(ArrayList<ImagenReport>ImageList,Context contexto) throws IOException {
 
         /**SI HAY PROBELASM DE URI PERMISOS ASEGURARSE QUE EL URI CONTENGA UNA PROPIEDAD QUE HACER QUE LE DE PERMISOS DE
          * LECTURA ALGO AS..ESO EN INTENT AL SELECIONAR IMAGENES*/
@@ -534,10 +542,72 @@ public static int counTbucle=0;
 
             final StorageReference imagename = ImageFolder.child(ImageList.get(uploads).getUniqueIdNamePic());
 
-            //Bitmap bitmap,
-            //
+             bitmapOriginal = MediaStore.Images.Media.getBitmap(contexto.getContentResolver(), uriImage);
 
-            imagename.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+
+            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+           // bitmapCompress.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmapOriginal.compress(Bitmap.CompressFormat.WEBP,95,stream);//0=lowe
+           // Log.i("imagestorage", "es succes"+bitmapCompress.);
+           // byte[] data2=  convertBitmapToByteArray(bitmapOriginal);
+            byte[] data = stream.toByteArray();
+
+
+            //
+            UploadTask uploadTask = imagename.putBytes(data);
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                    Log.i("imagestorage", "existe una exepecion y es "+exception.getMessage());
+
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                  //  Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+
+                            Log.i("imagestorage", "es succes");
+
+                            //  String url = String.valueOf(uri);
+
+                            String iconPathFirebase = uri.toString();
+
+                            currenImageReport.setUrlStoragePic(iconPathFirebase);
+                            // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
+
+                            Log.i("imagestorage", "id pertenece a: "+currenImageReport.getIdReportePerteence());
+
+                            Log.i("imagestorage","info es on success  y path es  "+iconPathFirebase);
+
+
+
+                            RealtimeDB.addNewSetPicsInforme(currenImageReport);
+
+
+                            // SendLink(url);
+                        }
+
+
+
+
+                    });
+            }
+
+
+            /*
+            imagename.putFile(bitmapCompress).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -569,12 +639,29 @@ public static int counTbucle=0;
 
                 }
             });
+*/
+
+        });
 
 
         }
+    }
+
+    public static Bitmap compress(Bitmap yourBitmap){
+        //converted into webp into lowest quality
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        yourBitmap.compress(Bitmap.CompressFormat.WEBP,100,stream);//0=lowest, 100=highest quality
+        //byte[] byteArray = stream.toByteArray();
 
 
-
-
+        //convert your byteArray into bitmap
+      //  Bitmap yourCompressBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
+        return yourBitmap;
+    }
+    public static byte[] convertBitmapToByteArray(Bitmap bitmap){
+        ByteBuffer byteBuffer = ByteBuffer.allocate(bitmap.getByteCount());
+        bitmap.copyPixelsToBuffer(byteBuffer);
+        byteBuffer.rewind();
+        return byteBuffer.array();
     }
 }

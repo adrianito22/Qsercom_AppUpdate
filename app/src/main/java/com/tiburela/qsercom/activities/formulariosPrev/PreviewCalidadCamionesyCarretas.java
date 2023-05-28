@@ -1265,6 +1265,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                         } catch (IOException e) {
                               e.printStackTrace();
                           }
+
                         Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
                         showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
@@ -1336,6 +1337,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                             .sizeMultiplier(0.6f)
                             .submit().get();
                 }
+
                 catch (ExecutionException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -2236,7 +2238,11 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
                 ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
-                StorageData.uploaddata(list2);
+                try {
+                    StorageData.uploaddata(list2,PreviewCalidadCamionesyCarretas.this);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
 

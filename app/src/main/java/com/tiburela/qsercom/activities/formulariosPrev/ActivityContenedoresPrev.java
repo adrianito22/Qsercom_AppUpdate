@@ -2408,7 +2408,7 @@ else{
     }
 
 
-    void uploadImagesInStorageAndInfoPICS() {
+    void uploadImagesInStorageAndInfoPICS() throws IOException {
         //una lista de Uris
 
         Log.i("imagheddd", "sellamo method here");
@@ -2437,7 +2437,7 @@ else{
 
             ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
-            StorageData.uploaddata(list2);
+            StorageData.uploaddata(list2,ActivityContenedoresPrev.this);
 
 
         } else {
@@ -4710,7 +4710,7 @@ else{
     }
 
 
-    public void saveInfo() {
+    public void saveInfo() throws IOException {
 
         Log.i("somerliker", "llamamos save info ");
 
