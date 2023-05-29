@@ -1275,30 +1275,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 }
             });
 
-
-
-    private View getVistaAnteriorClick() { //el estado puede ser lleno o vacio isEstaLleno
-
-
-        if(listViewsClickedUser.size() ==3) { //SOLO GUARDAMOS DOS NUMEROS para ahorra memoria
-            listViewsClickedUser.remove(0);   //ya no queremoes el primer objeto de la lista siempre y cuando la lista contnega 3 objetos
-
-        }
-        Log.i("casnasd","el size aqui en metodo es "+listViewsClickedUser.size());
-
-
-
-
-        View vistAnterior = listViewsClickedUser.get(0);
-        //  Log.i("soeobjetc","el objeto anterioR TAG ES "+vistAnterior.getTag().toString());
-
-
-
-        return   vistAnterior;
-
-    }
-
-
     private void resultatachImages() {
 
 
@@ -1338,17 +1314,20 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                             .submit().get();
                 }
 
+
                 catch (ExecutionException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
+
+
                 horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
                // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
+                PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewCalidadCamionesyCarretas.this,urix)),horientacionImg4);
                 obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-                //   PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
 
                 if(ImagenReport.hashMapImagesData.size()>0){
@@ -3275,9 +3254,14 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                 break;
 
 
+
             case Variables.FOTO_CIERRE_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
                 break;
+
+
+
+
 
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);

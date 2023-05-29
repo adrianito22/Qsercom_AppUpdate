@@ -205,10 +205,14 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
+               ////throw new RuntimeException("Test Crash"); // Force a crash
+
+
                 SharePref.init(ActivityMenu.this);
                      Utils.isOfflineReport=true;
 
                 startActivity(new Intent(ActivityMenu.this,ActivitySeeReportsOffline.class));
+
 
 
             }
@@ -243,6 +247,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
 
 */
+
+
             }
         });
 

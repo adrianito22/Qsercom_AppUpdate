@@ -1230,7 +1230,6 @@ else{
                             Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(ActivityContenedoresPrev.this,cam_uri);
                             String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
-                            //creamos un nuevo objet de tipo ImagenReport
                             ImagenReport obcjImagenReport = new ImagenReport("", cam_uri.toString(), currentTypeImage, Utils.getFileNameByUri(ActivityContenedoresPrev.this, cam_uri), horientacionImg);
                             obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
 
@@ -1240,8 +1239,6 @@ else{
 
                             showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -1250,91 +1247,6 @@ else{
                     }
                 }
             });
-
-
-
-
-
-
-
-
-
-
-
-    private void actualizaListStateView(String idSearch, boolean isEstaLleno) {
-///
-
-
-        final String idview = idSearch.replace(Variables.paqueteName + ":id/", "");
-
-        //com.tiburela.qsercom:id/ediCodigo") ;
-
-        Log.i("camisila", "el id to search es " + idview);
-
-        for (int i = 0; i < EstateFieldView.listEstateViewField.size(); i++) {
-
-            if (EstateFieldView.listEstateViewField.get(i).getIdOfView().equals(idview)) {
-
-                EstateFieldView.listEstateViewField.get(i).setEstaLleno(isEstaLleno);
-
-
-            } else {
-
-
-            }
-
-        }
-
-
-    }
-
-
-    private void actualizaProgressBar() {
-
-        int numero_itemsCompletados = 0;
-
-        final int NUMERO_FIELDS_TOTAL = EstateFieldView.listEstateViewField.size(); // 19  ahora items emn total de completar 19,, algunos son opcionales...pero siempre deben haber 19 para que todos esten llenos
-
-
-        for (int i = 0; i < EstateFieldView.listEstateViewField.size(); i++) {
-
-            if (EstateFieldView.listEstateViewField.get(i).isEstaLleno()) {
-
-                numero_itemsCompletados = numero_itemsCompletados + 1;
-
-
-            }
-        }
-
-        Log.i("idCheck", "el NUMERO ITEMScOMPLETADOS ES " + numero_itemsCompletados);
-
-
-        //buscamos el porecntaje
-
-        //int porcentajeDeProgreso= numero_itemsCompletados*NUMERO_FIELDS_TOTAL/100;
-
-        int porcentajeDeProgreso = numero_itemsCompletados * 100 / NUMERO_FIELDS_TOTAL;
-
-        progressBarFormulario.setProgress(porcentajeDeProgreso);
-
-
-        Log.i("maswiso", "el porciento es " + porcentajeDeProgreso);
-        //un item opcional vale
-
-
-    }
-
-
-    private void selecImages() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-
-        //  resultatachImages();
-
-
-    }
 
 
     ActivityResultLauncher activityResultLauncher = registerForActivityResult(
@@ -1366,11 +1278,6 @@ else{
 
             }
         });
-
-
-
-
-
 
 
 

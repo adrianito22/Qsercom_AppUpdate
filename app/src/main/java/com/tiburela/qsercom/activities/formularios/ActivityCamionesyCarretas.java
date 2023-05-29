@@ -4356,12 +4356,12 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
                 horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
 
+
                 ActivityCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
                 ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityCamionesyCarretas.this,result.get(indice))),horientacionImg4);
                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
               //  showImagesPicShotOrSelectUpdateView(false);
-
-
 
 
                 if(ImagenReport.hashMapImagesData.size()>0){
