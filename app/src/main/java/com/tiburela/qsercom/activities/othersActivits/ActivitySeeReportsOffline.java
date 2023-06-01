@@ -88,6 +88,8 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
 
         findViewsIDs();
 
+        SharePref.init(ActivitySeeReportsOffline.this);
+
     }
 
 

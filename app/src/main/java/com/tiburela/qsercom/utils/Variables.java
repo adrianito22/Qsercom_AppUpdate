@@ -20,23 +20,33 @@ import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.models.UsuarioQsercom;
+import com.tiburela.qsercom.models.UsuarioQsercon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Variables {
 
- public static String userAdriniatoToDeveloper="821524be-f5a0-450a-b5e3-f6ba7bf6b5db";
+    public static  String tagAndKeyToDelete="";
 
- public static String KEY_FORM_EXTRA ="MIKEYXTR";
+    public static final int NINGUNO=11000;
+
+    public static final int ACERCA=1;
+    public static final int ATRIBUCIONES=2;
+
+
+
+    public static String mailDveloper="adriapps10@gmail.com";
+  //  public static String mailDveloper="edhacker81@gmail.com";
+
+
+    public static String KEY_FORM_EXTRA ="MIKEYXTR";
 
 public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>();
 
  public static String  KEY_CONTROL_CALIDAD_ATACHEDS="MICTRNLDLD";
  public static String  KEY_CUADRO_MUETREO_ATACHED="MICUDAROR";
 
- public static CuadroMuestreo cuadroMuestreoVinculado;
 
  public static String idCuadroMuestreoToDowload ="";
 
@@ -54,7 +64,7 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
     public static  ArrayList<ControlCalidad>listReprsVinculads=new ArrayList<>();
 
 
-    public static UsuarioQsercom usuarioQsercomGlobal;
+    public static UsuarioQsercon usuarioQserconGlobal;
 
     public static InformRegister currentInformRegisterSelected;
 
@@ -183,6 +193,9 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
     //imagenes pdf ubicaciones POR FILAS
     public static final int  TRES_IMGS_VERTCLES= 2500 ;
     public static final int  UNAVERTICAL_Y_OTRA_HORIZONTAL= 2501 ;
+    public static final int  UNAHORIZONTAL_Y_OTRA_VERTICAL= 2508 ;
+
+
     public static final int  DOS_IMGS_VERTICALES= 2502 ;
     public static final int  DOS_HORIZONTALES= 2503 ;
     public static final int  DEFAULNO_ENCONTRO_NADA= 2504 ;

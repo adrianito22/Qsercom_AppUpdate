@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id "com.google.gms.google-services" version "4.3.10" apply true
+    id 'com.google.firebase.crashlytics' version "2.9.5" apply true
 
 }
 
@@ -28,19 +29,50 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-/*
+
     buildTypes {
+
+
+
         release {
+/*
+firebaseCrashlytics {
+              // Enable processing and uploading of native symbols to Firebase servers.
+              // By default, this is disabled to improve build speeds.
+              // This flag must be enabled to see properly-symbolicated native
+              // stack traces in the Crashlytics dashboard.
+              nativeSymbolUploadEnabled true
 
 
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+    strippedNativeLibsDir 'build/intermediates/stripped_native_libs/release/out/lib'
+    unstrippedNativeLibsDir 'build/intermediates/merged_native_libs/release/out/lib'
+
 
         }
+           // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+*/
     }
 
-   */
+
+        debug {
+
+            /*
+            firebaseCrashlytics {
+
+
+                // Enable processing and uploading of native symbols to Firebase servers.
+                // By default, this is disabled to improve build speeds.
+                // This flag must be enabled to see properly-symbolicated native
+                // stack traces in the Crashlytics dashboard.
+                nativeSymbolUploadEnabled true
+                strippedNativeLibsDir 'build/intermediates/stripped_native_libs/release/out/lib'
+                unstrippedNativeLibsDir 'build/intermediates/merged_native_libs/release/out/lib'
+            }
+*/
+        }
+    }
 
 
 
@@ -125,6 +157,7 @@ dependencies {
     // Also add the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation platform('com.google.firebase:firebase-bom:29.0.1')
-
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
 
 }

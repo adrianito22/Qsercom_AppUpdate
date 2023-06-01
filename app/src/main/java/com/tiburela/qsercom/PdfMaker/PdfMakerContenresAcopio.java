@@ -29,10 +29,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -193,36 +196,61 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
                 try {
-                    if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED &&
-                            ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
-                                    == PackageManager.PERMISSION_GRANTED
 
-                    ){ //si tiene permisos
+
+                    if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R) {//adnroid 11
+
+
                         Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
 
                         Toast.makeText(PdfMakerContenresAcopio.this, "Descargando Pdf", Toast.LENGTH_SHORT).show();
 
-                      //03-03 TEMU 838382-8
+                        //03-03 TEMU 838382-8
 
                         dateCreate=Variables.CurrenReportContensEnACp.getFechaInicio().split("/");
 
                         //String date=Variable
-                     //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
-                       // createPdfContenrAcopio2("holaas");
+                        //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
+                        // createPdfContenrAcopio2("holaas");
                         createPdfContenrAcopio2(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor()); ;
 
 
                     }else{
-                        Log.i("permisodd","no tiene ambos permisos ");
+
+
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED &&
+                                ActivityCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE)
+                                        == PackageManager.PERMISSION_GRANTED
+
+                        ){ //si tiene permisos
+                            Log.i("permisodd","tiene ya el permiso READ_EXTERNAL_STORAGE  && WRITE_EXTERNAL_STORAGE ");
+
+                            Toast.makeText(PdfMakerContenresAcopio.this, "Descargando Pdf", Toast.LENGTH_SHORT).show();
+
+                            //03-03 TEMU 838382-8
+
+                            dateCreate=Variables.CurrenReportContensEnACp.getFechaInicio().split("/");
+
+                            //String date=Variable
+                            //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
+                            // createPdfContenrAcopio2("holaas");
+                            createPdfContenrAcopio2(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor()); ;
+
+
+                        }else{
+                            Log.i("permisodd","no tiene ambos permisos ");
 
 
 
-                        requestPermision(PdfMakerContenresAcopio.this);
+                            requestPermision(PdfMakerContenresAcopio.this);
+
+
+                        }
+
 
 
                     }
-
 
 
 
@@ -516,7 +544,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
         //aqui aregmaos
 
-
+        HelperImage.indiceValues=0;
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR," ",midocumentotoAddData,pageSize,contexto);
         Log.i("foticoss","terminamos foto llegada");
 
@@ -524,11 +552,13 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         /**FOTO_SELLOS LLEGADA...*/
+        HelperImage.indiceValues=0;
 
         HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
 
         Log.i("foticoss","terminamos sellos llegada");
 
+        HelperImage.indiceValues=0;
 
         /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
@@ -537,17 +567,21 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         /**FOTO_PALLETS ...*/
+        HelperImage.indiceValues=0;
+
         // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
 
         Log.i("foticoss","terminamos foto pallets");
 
+        HelperImage.indiceValues=0;
 
         //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
 
         Log.i("foticoss","terminamos foto cierre contenedor");
 
+        HelperImage.indiceValues=0;
 
         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"* DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
@@ -567,7 +601,11 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
         midocumentotoAddData.close();
+
         btnIrAARCHIVOpdf.setEnabled(true);
+        FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
+        fabUploadDrive.setVisibility(View.VISIBLE);
+
 
 
     }
@@ -636,6 +674,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
                 // final int CODE_WRITE_EXTERNAL_STORAGE = 132;
             //    final int CODE_READ_EXTERNAL_STORAGE = 133;
+            break;
 
             case CODE_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
@@ -672,6 +711,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
             }
 
 
+            break;
 
             case CODE_READ_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0
@@ -856,6 +896,23 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
         }
 
+
+    }
+
+    public  void uploadFileDrive(View vista){
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        Uri uri = FileProvider.getUriForFile(PdfMakerContenresAcopio.this, "com.tiburela.qsercom.provider", file); //fue necesario usar provider... funciona///
+
+        Intent shareIntent = new ShareCompat.IntentBuilder(this)
+
+                .setText("Share PDF doc")
+                .setType("application/pdf")
+                .setStream(uri )
+                .getIntent()
+                .setPackage("com.google.android.apps.docs");
+        startActivity(shareIntent);
 
     }
 

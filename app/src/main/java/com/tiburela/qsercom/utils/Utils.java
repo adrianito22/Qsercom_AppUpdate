@@ -1,9 +1,14 @@
 package com.tiburela.qsercom.utils;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.os.Build.VERSION.SDK_INT;
+
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,10 +22,14 @@ import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
@@ -31,29 +40,52 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
+import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
-import com.tiburela.qsercom.models.UsuarioQsercom;
+import com.tiburela.qsercom.models.UsuarioQsercon;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
- public static boolean isOfflineReport=false;
+
+
+    public static HashMap<String,String>miMapCopiar= new HashMap<>();
+
+
+    public static HashMap<String, Exportadora>hasmpaExportadoras= new HashMap<>();
+    public static ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+
+    public static final int NOPOSITION_DEFINIDA=2000;
+
+
+    public static final int INSPECTOR_OFICINA=100;
+    public static final int INSPECTOR_CAMPO=101;
+
+    public static final int NO_DEFINIDO=102;
+
+
+    public static boolean isOfflineReport=false;
 
 
  ///cada item usaremos esa data para crear un cuadro...
@@ -942,7 +974,7 @@ return
 
        // Log.i("hahsger","vamos a metodo check ");
 
-      //  final TaskCompletionSource<UsuarioQsercom> tcs = new TaskCompletionSource<>();
+      //  final TaskCompletionSource<UsuarioQsercon> tcs = new TaskCompletionSource<>();
 
 
       //  CountDownLatch done = new CountDownLatch(1);
@@ -958,11 +990,11 @@ return
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                   Log.i("hahsger","el value de snpatshot es "+snapshot.getValue());
-                UsuarioQsercom currentObect = null;
+                UsuarioQsercon currentObect = null;
                   if(snapshot.exists()){
 
                       for (DataSnapshot ds : snapshot.getChildren()) {
-                          currentObect=ds.getValue(UsuarioQsercom.class);
+                          currentObect=ds.getValue(UsuarioQsercon.class);
                       }
 
 
@@ -1392,5 +1424,121 @@ return true;
 
     }
 
+
+    public static  boolean checkPermission(Context contexto) {
+        if (SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        } else {
+            int result = ContextCompat.checkSelfPermission(contexto, READ_EXTERNAL_STORAGE);
+            int result1 = ContextCompat.checkSelfPermission(contexto, WRITE_EXTERNAL_STORAGE);
+            return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+
+    public static void drawImages(   RecyclerViewAdapter adapter,RecyclerView rec,ArrayList <ImagenReport>list,Context contexto){
+// Create an `ItemTouchHelper` and attach it to the `RecyclerView`
+
+        Log.i("imagesaddd","en drW IMAGES METHOS EL SIZE ES "+list.size());
+// Extend the Callback class
+
+        ItemTouchHelper.Callback _ithCallback=null;
+
+         _ithCallback = new ItemTouchHelper.Callback() {
+            //and in your imlpementaion of
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                Log.i("imagesaddd","aqui se llamo onMove y size lista es "+list.size());
+
+             //   Log.i("imagesaddd","aqui se llamo onMove");
+
+
+                // get the viewHolder's and target's positions in your adapter data, swap them
+                Collections.swap(list, viewHolder.getAdapterPosition(), target.getAdapterPosition());
+
+               // RecyclerViewAdapter adapter=new RecyclerViewAdapter(list,contexto);
+               // rec.setAdapter(adapter);
+
+
+                // and notify the adapter that its dataset has changed
+                adapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                Log.i("imagesaddd","aqui se llamo onSwiped");
+
+                //TODO
+            }
+
+            //defines the enabled move directions in each state (idle, swiping, dragging).
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                Log.i("imagesaddd654","aqui se llamo este");
+
+                return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG,
+                        ItemTouchHelper.DOWN | ItemTouchHelper.UP | ItemTouchHelper.START | ItemTouchHelper.END);
+
+
+            }
+        };
+
+
+        ItemTouchHelper ith = new ItemTouchHelper(_ithCallback);
+        ith.attachToRecyclerView(rec);
+
+    }
+
+
+
+    public static void updatePositionObjectImagenReport(RecyclerView reciclerView){
+
+        for (int i = 0; i < reciclerView.getChildCount(); ++i) {
+
+            RecyclerView.ViewHolder holder = reciclerView.getChildViewHolder(reciclerView.getChildAt(i));
+             ImageView img = holder.itemView.findViewById(R.id.imvClose);
+
+            // Log.i("superemasisa","ell idtag es "+img.getTag());
+
+             if(ImagenReport.hashMapImagesData.containsKey(img.getTag())){
+                 ImagenReport objec= ImagenReport.hashMapImagesData.get(img.getTag());
+                 assert objec != null;
+                 objec.setSortPositionImage(i);
+                  Log.i("superemasisass","esta imagen "+objec.getUrlStoragePic()+" esta en posicion"+i);
+
+
+                 ImagenReport.hashMapImagesData.put(img.getTag().toString(),objec);
+
+
+             }
+
+
+
+
+        }
+
+    }
+
+
+    public static void  updateImageReportObjec(){
+
+        Log.i("","");
+
+        for (Map.Entry<String, ImagenReport> entry : ImagenReport.hashMapImagesData.entrySet()) { //creamos otra lista
+            //  String key = entry.getKey();
+            ImagenReport imageRoBject = entry.getValue();
+            RealtimeDB.getkeyActualizaSortNum(imageRoBject.getUniqueIdNamePic(),imageRoBject.getSortPositionImage());
+
+
+        }
+
+
+
+
+    }
+
+    public static boolean containsName(final List<ImagenReport> list, final String name){
+        return list.stream().map(ImagenReport::getUniqueIdNamePic).anyMatch(name::equals);
+    }
 }
 

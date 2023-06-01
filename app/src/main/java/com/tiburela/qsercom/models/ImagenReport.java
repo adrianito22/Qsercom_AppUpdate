@@ -1,5 +1,10 @@
 package com.tiburela.qsercom.models;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
+
 import com.google.firebase.database.Exclude;
 import com.tiburela.qsercom.utils.Utils;
 
@@ -18,6 +23,16 @@ public class ImagenReport {
     private String uriImageString;
     private int tipoImagenCategory;
     private String idReportePerteence;
+
+    public int getSortPositionImage() {
+        return sortPositionImage;
+    }
+
+    public void setSortPositionImage(int sortPositionImage) {
+        this.sortPositionImage = sortPositionImage;
+    }
+
+    private int sortPositionImage;
 
     public String getImagenPathNow() {
         return imagenPathNow;
@@ -122,6 +137,7 @@ public class ImagenReport {
         estaENPdf=false;
         urlStoragePic="";
         imagenPathNow="";
+        sortPositionImage=Utils.NOPOSITION_DEFINIDA; //cuando no tenemos posicion..
     }
 
 
@@ -142,6 +158,7 @@ public ImagenReport(){
         result.put("horientacionImage", horientacionImage);
         result.put("estaENPdf", estaENPdf);
         result.put("urlStoragePic", urlStoragePic);
+        result.put("sortPositionImage", sortPositionImage);
 
         return result;
 
@@ -161,5 +178,19 @@ public ImagenReport(){
 
     }
 
+
+    public static  String getRealPathFromURI(Uri contentURI, Context context) {
+        String result;
+        Cursor cursor =context. getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
 
 }

@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +20,6 @@ import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
-import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.PackingModel;
@@ -30,7 +28,6 @@ import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -281,7 +278,7 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
 
              currentKeySharePrefrences= UUID.randomUUID().toString();
 
-            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES,"Usuario", "","Packing List"  );
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CONTENEDORES,"Usuario", "","Packing List","",""  );
 
 
             //gudramos oejto en el mapa
@@ -365,10 +362,9 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
                 if(informRegister == null) { //quiere decir que no existe
 
                     informRegister= new InformRegister(currenTidGenrate,Constants.PACKING_lIST,
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
-                            , "PACKING LIST ");
-
+                            Variables.usuarioQserconGlobal.getNombreUsuario(),
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
+                            , "PACKING LIST ","","");
 
                     //informe register
                     RealtimeDB.addNewRegistroInforme(ActivityPackingList.this,informRegister);
@@ -474,6 +470,15 @@ public class ActivityPackingList extends AppCompatActivity implements View.OnTou
         return arrayEditex;
     }
     private boolean CheckData(){
+
+
+        if(Variables.usuarioQserconGlobal==null){
+            Toast.makeText(ActivityPackingList.this, "No puedes subir hasta que inicies sesión, ¡Guárdalo  localmente", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
+
 
         if(mEdiTotalCajas.getText().toString().isEmpty()){
             mEdiTotalCajas.requestFocus();

@@ -1,11 +1,18 @@
 package com.tiburela.qsercom.utils;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -22,6 +29,7 @@ import com.tiburela.qsercom.storage.StorageData;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,118 +38,12 @@ import java.util.concurrent.ExecutionException;
 public class HelperImage {
    public static  ArrayList<ImagenReport> imAGESpdfSetGlobal=new ArrayList<ImagenReport>();
 
-
+     public static int indiceValues=0;
    public static  ArrayList<ImagenReport> imagesSetToCurrentFila;
 
    public static  HashMap<String, ImagenReport> ImagenReportMap;
 
 
-
-
-    public static void addImagenInPDF(Bitmap imagen2, Canvas canvas,RectF dst) {
-
-        //  RectF dst = new RectF(50, 225, 50 + 500, 50 + 350);
-       // canvas.drawBitmap(imagen, null, dst, null);
-        RectF dstx = new RectF(50, 450, 50 + 500, 50 + 600);
-
-
-      //  RectF dstx = new RectF(50, 450, 50 + 500, 50 + 600);
-        canvas.drawBitmap(imagen2, null, dst, null);
-       // canvas.drawBitmap(imagen2, null, dstx, null);
-
-
-    }
-
-
-    private void addImagenSet(int posicionUltimaImagenColoacadaY, ArrayList<ImagenReport> list, int tipoOrdenImgs, Canvas canvas){
-
-        //comprobar en que linea ... comprobar la posicion de la ultima
-
-        if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){ //modo 3 imagenes en una linea...
-
-            //LE SUMAMOS MAS 10 A LA POSICION  posicionUltimaImagenColoacadaY
-            posicionUltimaImagenColoacadaY= posicionUltimaImagenColoacadaY+10;
-
-          //  HelperImage.addImagenInPDF();
-
-            //e verticales serian
-
-
-
-
-            //**colocamos las 3 imagenes en una linea....
-            // ad imagen set i pdf....
-            //AQUI USAMOS EL RECTS Y GENERAMOS EL BITMAP PARA AGREGARLO AL CANVAS O PDF PAGE QUE RECIMOS POR PARAEMTRO....
-
-            ///1ERA imagen
-
-            //2DA imagen
-
-            //3ERA IMAGEN
-
-
-
-            posicionUltimaImagenColoacadaY=    posicionUltimaImagenColoacadaY+500 ; //+EL VALOR QUE OCUPA LA FILA IMAGENES  EN VERTICALMENTE
-            //EL SIZE DEL REC PUEDE SER 500 LA VARIABLE
-            //ASI EN LA SIGUIENTE SOLO LE SUMAMOS +10
-
-
-            //agregamos en la linea 2...
-
-
-        }
-
-        else if(tipoOrdenImgs==Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL){ //1 vertical y otro horizontal en la misma linea
-
-
-
-        }
-
-
-        else if(tipoOrdenImgs==Variables.DOS_IMGS_VERTICALES){ //2 imagenes verticales en una linea
-
-
-
-        }
-
-
-        else if(tipoOrdenImgs==Variables.DOS_HORIZONTALES){ //2 imagenes verticales en una linea
-
-
-
-        }
-
-        //y oior ultimo si hay una imagen sola....tamnto vertical o horizontal ..no la aghregues ,,es una opcion
-
-
-
-
-    }
-
-
-
-    public static ArrayList<ImagenReport> getImagesWhitthisCATEGORY( ArrayList <ImagenReport>allImagesData, int categoriaBuscar) {
-        ArrayList<ImagenReport> ImagenReport = new ArrayList<>();
-
-
-
-
-        for (ImagenReport imageObject: allImagesData) {
-
-            int  categoryCurrentImg=imageObject.getTipoImagenCategory();
-            Log.i("xamil","categoria current imagen es"+categoryCurrentImg);
-
-            if (categoryCurrentImg == categoriaBuscar) {
-                ImagenReport.add(imageObject);
-            }
-
-        }
-
-  
-        return  ImagenReport;
-
-
-    }
 
 
     public static ArrayList<ImagenReport> getImagesWhitthisCATEGORYz( HashMap<String, ImagenReport >allImagesData, int categoriaBuscar) {
@@ -183,6 +85,10 @@ public class HelperImage {
         int ancho = bitmap.getWidth();
         int alto = bitmap.getHeight();
 
+        Log.i("cuandoexecuta","el ancho es "+ancho);
+        Log.i("cuandoexecuta","el alto es "+alto);
+
+
         if(ancho > alto) { //modo 3 imagenes en una linea...
             return "horizontal";
         }else{
@@ -193,12 +99,31 @@ public class HelperImage {
 
 
     }
+    public static Bitmap rotate(Bitmap in, int angle) {
+        Matrix mat = new Matrix();
+        mat.postRotate(angle);
+        return Bitmap.createBitmap(in, 0, 0, in.getWidth(), in.getHeight(), mat, true);
+    }
 
 
 
+    public static int getOrientation(Uri selectedImage, Context context) {
+        int orientation = 0;
+        final String[] projection = new String[]{MediaStore.Images.Media.ORIENTATION};
+        final Cursor cursor = context.getContentResolver().query(selectedImage, projection, null, null, null);
+        if(cursor != null) {
+            final int orientationColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.ORIENTATION);
+            if(cursor.moveToFirst()) {
+                orientation = cursor.isNull(orientationColumnIndex) ? 0 : cursor.getInt(orientationColumnIndex);
+            }
+            cursor.close();
+        }
+        return orientation;
+    }
 
 
 
+    /*
     public static int buscaPosiblePatronParaOrdenar(ArrayList<ImagenReport> list){
 
         imagesSetToCurrentFila=new ArrayList<>();
@@ -226,6 +151,7 @@ public class HelperImage {
                   }
 
               }
+
 
 
         if(!encontramos) {
@@ -413,7 +339,214 @@ public class HelperImage {
 
         return  valorDevolver;
     }
+*/
 
+static boolean yaLlamo=false;
+
+
+
+    public static Bitmap ensureCorrectRotation( Uri uri, Bitmap bitmap) {
+
+        int degrees = getExifRotation(uri);
+        Log.i("cuandoexecuta","la  oriemntacioion deheres es sss "+degrees);
+
+        if (degrees != 0) {
+            Matrix matrix = new Matrix();
+            matrix.preRotate(degrees);
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+            return bitmap;
+          //  return transformBitmap(bitmap, matrix);
+        }
+
+
+        return bitmap;
+    }
+
+
+
+
+
+    public static int getExifRotation(Uri imgPath)
+    {
+        try
+        {
+            ExifInterface exif = new ExifInterface(imgPath.getPath());
+            String rotationAmount = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+            if (!TextUtils.isEmpty(rotationAmount))
+            {
+                int rotationParam = Integer.parseInt(rotationAmount);
+                switch (rotationParam)
+                {
+                    case ExifInterface.ORIENTATION_NORMAL:
+                        return 0;
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        return 90;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        return 180;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        return 270;
+                    default:
+                        return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            return 0;
+        }
+    }
+
+
+
+
+    public static int buscaPosiblePatronParaOrdenar(ArrayList<ImagenReport>list){
+
+        imagesSetToCurrentFila= new ArrayList<>();
+
+       //  indiceValues++;
+
+        if(!yaLlamo){
+
+            for(ImagenReport incm: list){
+                Log.i("misdtaurl ","num value es "+incm.getSortPositionImage()+" el url es "+incm.getUrlStoragePic());
+
+            }
+            yaLlamo=true;
+
+        }
+
+
+        Log.i("PATRONX","el indice es : "+indiceValues);
+
+
+        ///no aseguramos que exista....
+        if(indiceValues+2 <list.size() && list.get(indiceValues).getHorientacionImage().equals("vertical") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+            list.get(indiceValues+1).getHorientacionImage().equals("vertical")&& list.get(indiceValues+2).getHorientacionImage().equals("vertical")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            imagesSetToCurrentFila.add(list.get(indiceValues+2));
+            indiceValues=indiceValues+3;
+
+              return  Variables.TRES_IMGS_VERTCLES;
+        }
+
+
+         /**chekeamos si no son dos verticales*/
+
+        if(indiceValues+1 <list.size() && list.get(indiceValues).getHorientacionImage().equals("vertical")
+                &&  list.get(indiceValues+1).getHorientacionImage().equals("vertical")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            indiceValues=indiceValues+2;
+
+            return  Variables.DOS_IMGS_VERTICALES;
+        }
+
+
+
+
+        /**chekeamos si no son dos HORIOZONTALES*/
+
+        if(indiceValues+1 <list.size() && list.get(indiceValues).getHorientacionImage().equals("horizontal") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                list.get(indiceValues+1).getHorientacionImage().equals("horizontal")){
+            //imagen
+
+
+
+
+                    Log.i("PATRONX","lña primera imagen ur es "+list.get(indiceValues).getUrlStoragePic());
+            Log.i("PATRONX","lña primera imagen ur es "+list.get(indiceValues+1).getUrlStoragePic());
+
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            indiceValues=indiceValues+2;
+
+            return  Variables.DOS_HORIZONTALES;
+        }
+
+
+
+        /**chekeamos si la primera es vertical y la otroa horizontal*/
+
+        if(indiceValues+1 <list.size() && list.get(indiceValues).getHorientacionImage().equals("vertical") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                list.get(indiceValues+1).getHorientacionImage().equals("horizontal")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            indiceValues=indiceValues+2;
+
+            return  Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL;
+        }
+
+
+
+        /**chekeamos si la primera es HORIZONTAL y la otroa VERTICAL*/
+
+        if(indiceValues+1  <list.size()&& list.get(indiceValues).getHorientacionImage().equals("horizontal") &&  //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                list.get(indiceValues+1).getHorientacionImage().equals("vertical")){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            imagesSetToCurrentFila.add(list.get(indiceValues+1));
+            indiceValues=indiceValues+2;
+
+            return  Variables.UNAHORIZONTAL_Y_OTRA_VERTICAL;
+        }
+
+
+
+        /**UNA VERTICAL*/
+
+        if(indiceValues <list.size() && list.get(indiceValues).getHorientacionImage().equals("vertical")   //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+               ){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            indiceValues=indiceValues+1;
+
+
+
+            return  Variables.UNA_VERTICAL;
+        }
+
+
+
+        /**UNA HORIZONTAL*/
+
+        if(indiceValues <list.size()&& list.get(indiceValues).getHorientacionImage().equals("horizontal")   //imagem,imagen2,imagen3,imagen4,imagen5,imagen6 //chekeamos que exista este indice
+                ){
+            //imagen
+
+            imagesSetToCurrentFila.add(list.get(indiceValues));
+            indiceValues=indiceValues+1;
+
+            return  Variables.UNA_HORIZONTAL;
+        }
+
+
+
+        //SI NO ENCONTRA,MOPS NADA LE DAMOS ESTE..
+        imagesSetToCurrentFila=new ArrayList<ImagenReport>();
+        Log.i("PATRONX","NO HEMOS ENCONTRADO NADA ");
+        indiceValues=indiceValues+1;
+
+        return  Variables.DEFAULNO_ENCONTRO_NADA;
+
+
+
+
+
+    }
 
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -491,4 +624,57 @@ public class HelperImage {
         //   bitmap = BitmapFactory.decodeFile( , Options);
 
     }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
+                true);
+    }
+
+    public static Bitmap handleSamplingAndRotationBitmap(Context context, Uri selectedImage)
+            throws IOException {
+        int MAX_HEIGHT = 1024;
+        int MAX_WIDTH = 1024;
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        InputStream imageStream = context.getContentResolver().openInputStream(selectedImage);
+        BitmapFactory.decodeStream(imageStream, null, options);
+        imageStream.close();
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, MAX_WIDTH, MAX_HEIGHT);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        imageStream = context.getContentResolver().openInputStream(selectedImage);
+        Bitmap img = BitmapFactory.decodeStream(imageStream, null, options);
+
+        img = rotateImageIfRequired(context, img, selectedImage);
+        return img;
+    }
+
+    private static Bitmap rotateImageIfRequired(Context context, Bitmap img, Uri selectedImage) throws IOException {
+
+        InputStream input = context.getContentResolver().openInputStream(selectedImage);
+        ExifInterface ei;
+            ei = new ExifInterface(input);
+
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+
 }

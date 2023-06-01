@@ -15,9 +15,9 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="24dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +46,7 @@
         android:text="Adrianito Vicente"
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
-        android:textSize="17sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -313,5 +313,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnIformesRevisar" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="showMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_menu_ccg"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

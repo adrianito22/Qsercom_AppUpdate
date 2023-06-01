@@ -5,17 +5,27 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.view.View.GONE;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
+
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
+import android.graphics.ImageDecoder;
+import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.icu.text.DecimalFormat;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +33,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -47,8 +58,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
@@ -57,9 +70,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
+import com.tiburela.qsercom.PdfMaker.HelperAdImgs;
 import com.tiburela.qsercom.SharePref.SharePref;
+import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
+import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
+import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -67,6 +84,7 @@ import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -78,23 +96,32 @@ import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 import com.tiburela.qsercom.R;
 
 
 public class ActivityCamionesyCarretas extends AppCompatActivity implements View.OnClickListener, CallbackUploadNewReport {
     public static CallbackUploadNewReport callbackUploadNewReport;
+    Spinner spinnerExportadora;
     String currentKeySharePrefrences="";
     boolean userCreoRegisterForm=false;
     ImageView imgAtachVinculacion;
+    Uri urix;
+    String horientacionImg4;
 
     boolean seSubioform=false;
 
@@ -181,7 +208,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     TextInputEditText ediNumContenedor;
 
 
-    TextInputEditText ediCandadoQsercom;
     TextInputEditText ediBalanza;
     TextInputEditText ediFuenteAgua;
     TextInputEditText ediAguaCorrida;
@@ -258,7 +284,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     Spinner spinnerSelectZona;
     Spinner spinnerCondicionBalanza;
-    Spinner spinnertipoCaja;
     Spinner spinnertipodePlastico;
     Spinner spinnertipodeBlanza ;
     Spinner spinnertipodeBlanzaRepeso ;
@@ -267,7 +292,13 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     Spinner spFuenteAgua ;
     Spinner spFumigaCorL1 ;
     Spinner spTipoBoquilla ;
-    Spinner spinnerCandadoQsercon;
+
+
+      EditText ediCandadoName1;
+    EditText ediCandadoName2;
+    EditText ediCandadoName3;
+
+
     Switch switchHaybalanza;
     Switch switchHayEnsunchado;
     Switch switchBalanzaRep;
@@ -301,6 +332,16 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_calidad_camio_carret);
 
+         TextView txtTitle=findViewById(R.id.txtTitle);
+        txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                copiamosHere();
+                return false;
+            }
+        });
+
+
         RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
         RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
@@ -314,29 +355,28 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         hideSomeElemtosAnexosAndChangeValues();
 
 
-
-        Log.i("saberrr","el current key extra es "+currentKeySharePrefrences);
-
-
-
         UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
-
-        // FirebaseApp.initializeApp(this);
-        //  DatabaseReference rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
-
         Auth.initAuth(this);
 
         StorageData. initStorageReference();
 
 
         findViewsIds();
+
+
+        hideViewsIfUserISCampo();
         ocultaoTherVIEWs();
         configCertainSomeViewsAliniciar();
         listViewsClickedUser=new ArrayList<>();
 
         addClickListeners();
         resultatachImages();
+
+        getExportadorasAndSetSpinner();
+
+
         listennersSpinners();
+
 
         eventButtons();
 
@@ -352,9 +392,28 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         }
 
 
+    }
+
+    private void getExportadorasAndSetSpinner(){
+        //tenemos exportadoras de prefrencias//
+
+        Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+        ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+        for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+            nombresExportadoras.add(exportadora.getNameExportadora());
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+        spinnerExportadora.setAdapter(arrayAdapter);
+
+
+
+        ///vamos a descrgar desde la base de datos...
 
 
     }
+
 
 
     private EditText[] creaArrayOfEditextCalendario () {
@@ -646,7 +705,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
             Log.i("saberrr","el key generado es "+currentKeySharePrefrences);
 
 
-            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CAMIONES_Y_CARRETAS,"Usuario", "","Camiones y carretas"  );
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CAMIONES_Y_CARRETAS,"Usuario", "","Camiones y carretas" ,ediExportadoraProcesada.getText().toString(),Utils.hasmpaExportadoras.get(ediExportadoraProcesada.getText().toString()).getNameExportadora() );
 
 
             //gudramos oejto en el mapa
@@ -820,7 +879,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
       //  LinearLayout lyUbicacionBalanza=findViewById(R.id.lyUbicacionBalanza);
        // lyUbicacionBalanza.setVisibility(LinearLayout.GONE);
 
-
+         disableEditText(ediRacimosRecha);
         disableEditText(ediFecha);
         disableEditText(ediHoraInicio);
         disableEditText(ediHoraTermino);
@@ -839,10 +898,16 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
        // disableEditText(ediHoraEncendido1);
       //  disableEditText(ediHoraEncendido2);
 
-
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+         ediCandadoName1=findViewById(R.id.ediCandadoName1);
+         ediCandadoName2=findViewById(R.id.ediCandadoName2);
+         ediCandadoName3=findViewById(R.id.ediCandadoName3);
+
+
+        spinnerExportadora=findViewById(R.id.spinnerExportadora);
           btnSaveLocale=findViewById(R.id.btnSaveLocale);
         imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
 
@@ -882,7 +947,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         layoutPesobrutoPorClusterSolo=findViewById(R.id.layoutPesobrutoPorClusterSolo);
         ediEmpacadora=findViewById(R.id.ediEmpacadora);
-        ediCandadoQsercom=findViewById(R.id.ediCandadoQsercom);
         lyEscontenedor=findViewById(R.id.lyEscontenedor);
         ediSemana=findViewById(R.id.ediSemana);
         ediFecha=findViewById(R.id.ediFecha);
@@ -939,7 +1003,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
          ediExtRodilloCi=findViewById(R.id.ediExtRodilloCi);
          ediExtGanchoCi =findViewById(R.id.ediExtGanchoCi);
 
-        spinnerCandadoQsercon=findViewById(R.id.spinnerCandadoQsercon);
 
 
 
@@ -1042,7 +1105,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
         spinnerCondicionBalanza=  findViewById(R.id.spinnerCondicionBalanza);
-        spinnertipoCaja =  findViewById(R.id.spinnertipoCaja);
         spinnertipodePlastico = findViewById(R.id.spinnertipodePlastico);
         spinnertipodeBlanza =  findViewById(R.id.spinnertipodeBlanza);
         spinnertipodeBlanzaRepeso =  findViewById(R.id.spinnertipodeBlanzaRepeso);
@@ -1448,25 +1510,30 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     private void takepickNow() {
 
+        if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R && //adnroid 11
+                ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED ){ //ANDROID 11
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-        ){
             takePickCamera();
-
-            Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
         }
 
         else
 
         {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
-                    CODE_TWO_PERMISIONS);
 
-            Log.i("codereister","permiso DENEGADO SOLICTAMOS PERMISO") ;
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                takePickCamera();
+
+                Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
+            }else{
+
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                        CODE_TWO_PERMISIONS);
+            }
 
         }
+
     }
 
     void takePickCamera() {
@@ -1498,8 +1565,10 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
                         try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),cam_uri);
 
+                            Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(ActivityCamionesyCarretas.this,cam_uri);
+
+                         //   Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),cam_uri);
 
                          //   Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                             String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
@@ -1556,96 +1625,36 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
     private void resultatachImages() {
+
+
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.OpenMultipleDocuments(), new ActivityResultCallback<List<Uri>>() {
                     @Override
                     public void onActivityResult(List<Uri> result) {
                         if (result != null) {
-
-                            //creamos un objeto
-
-                            for(int indice=0; indice<result.size(); indice++){
-
-
-                                try {
-
-
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),result.get(indice));
-
-                                    String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
-
-                                    Uri myUri = result.get(indice);
-
-                                    ActivityCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(myUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    ImagenReport obcjImagenReport =new ImagenReport("",myUri.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityCamionesyCarretas.this,result.get(indice))),horientacionImg);
-                                    ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
-                                    showImagesPicShotOrSelectUpdateView(false);
-
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-
-//
-
-
-                                Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityCamionesyCarretas.this);
-
-                            }
-
-
-
-                            showImagesPicShotOrSelectUpdateView(false);
-
-
+                         MiTarea mit= new MiTarea();
+                         mit.execute(result);
 
                         }
                     }
                 });
     }
 
-    void showImageByUri(Uri uri )  {
-        try {
-
-            // Setting image on image view using Bitmap
-            Bitmap bitmap = MediaStore
-                    .Images
-                    .Media
-                    .getBitmap(
-                            getContentResolver(),
-                            uri);
-
-
-
-            //escalamos el bitmap
-            Bitmap bitmap2=Bitmap.createScaledBitmap(bitmap, 420, 400, false);
-            Log.i("registrand","los encontrado");
-
-
-            ImageView imageView= new ImageView(this);
-
-
-            imageView.setImageBitmap(bitmap2);
-
-
-
-
-
-
-        }
-
-        catch (IOException e) {
-            // Log the exception
-            e.printStackTrace();
-        }
-    }
 
 
     private void listennersSpinners() {
+
+        spinnerExportadora .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String textSelect= spinnerExportadora.getSelectedItem().toString();
+                ediExportadoraProcesada.setText(textSelect);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         spTipoBoquilla .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1752,51 +1761,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-        spinnerCandadoQsercon .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String candadoQsercom= spinnerCandadoQsercon.getSelectedItem().toString();
-                ediCandadoQsercom.setText(candadoQsercom);
 
-
-
-
-              /*
-                if(condicion.equals("Ninguna")){
-                    //actualizamos
-                    Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                    ediCondicionBalanza.setText("");
-                    actualizaListStateView("ediCondicionBalanza",false) ;
-                }else {
-                    actualizaListStateView("ediCondicionBalanza",true) ;
-                }
-*/
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-        spinnertipoCaja .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String zonaEelejida= spinnertipoCaja.getSelectedItem().toString();
-                ediTipodeCaja.setText(zonaEelejida);
-                if(zonaEelejida.equals("Ninguna")){
-                    //actualizamos
-                    Log.i("maswiso","eSPINNER ZONA SELECIONO NINGUNO ");
-                    ediTipodeCaja.setText("");
-                }
-
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
 
@@ -1973,33 +1938,88 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         //buscamos este
 
+        RecyclerViewAdapter adapter;
+        RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
 
         switch(currentTypeImage){
             case Variables.FOTO_PROCESO_FRUTA_FINCA:
                 recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
 
             case Variables.FOTO_CIERRE_CONTENEDOR:
                 recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
             case Variables.FOTO_DOCUMENTACION:
                 recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
                 break;
 
         }
 
 
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+            if(!isDeleteImg){
+                //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
+                ///   aadpater.notifyDataSetChanged();
+                aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
+
+                aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
+
+                // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
+                // aadpater. notifyItemRangeChanged(position, listImagenData.size());
+
+                Log.i("adpatertt","adpasternotiff");
+
+            }
+
+            Log.i("adpatertt","es difrentede nulo");
+
+        }else{
+
+            adapter=new RecyclerViewAdapter(filterListImagesData,this);
+            // at last set adapter to recycler view.
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+
+            eventoBtnclicklistenerDelete(adapter);
+
+            Log.i("adpatertt","el adpater es nulo");
 
 
-        // at last set adapter to recycler view.
-        assert recyclerView != null;
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        eventoBtnclicklistenerDelete(adapter);
+            Log.i("adpatertt","el adpater es nulo");
+            ItemTouchHelper.Callback callback =
+                    new SimpleItemTouchHelperCallback(adapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            touchHelper.attachToRecyclerView(recyclerView);
+
+
+        }
+
+
+
+
+    }
+    private void updatePostionImegesSort(){
+
+        RecyclerView recyclerView=null;
+        recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+        Utils.updatePositionObjectImagenReport(recyclerView);
 
 
 
@@ -2143,6 +2163,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         Log.i("test001","toda la data esta completa HUrra ");
 
+        updatePostionImegesSort();
 
         createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
@@ -2157,7 +2178,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                 ediCodigo.getText().toString(), ediPemarque.getText().toString(),
                  ediNguiaRemision.getText().toString(),ediHacienda.getText().toString(),edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
                 ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString(),ediSemana.getText().toString(),ediEmpacadora.getText().toString(),
-                ediNombreChofer.getText().toString(),ediCedula.getText().toString(),ediCelular.getText().toString(),ediPLaca.getText().toString(),ediCandadoQsercom.getText().toString(),
+                ediNombreChofer.getText().toString(),ediCedula.getText().toString(),ediCelular.getText().toString(),ediPLaca.getText().toString(),
                    ediTipoPlastico.getText().toString(),ediTipodeCaja.getText().toString(),switchHayEnsunchado.isChecked(),switchHaybalanza.isChecked(),
                    ediCondicionBalanza.getText().toString(),ediTipoBalanza.getText().toString(),switchBalanzaRep.isChecked(),editipbalanzaRepeso.getText().toString(),
                 ediFuenteAgua.getText().toString(),swAguaCorrida.isChecked(),switchLavdoRacimos.isChecked(),ediFumigacionClin1.getText().toString(),
@@ -2165,7 +2186,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                 ediExtCalid.getText().toString(),ediExtRodillo.getText().toString(), ediExtGancho.getText().toString(),
                 ediExtCalidCi.getText().toString(),ediExtRodilloCi.getText().toString(),ediExtGanchoCi.getText().toString(),FieldOpcional.observacionOpcional,""
                 ,ediClienteNombreReporte.getText().toString(),ediTipoBoquilla.getText().toString(),
-                ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString(),ediMarca.getText().toString()
+                ediExportadoraProcesada.getText().toString(),ediExportadoraSolicitante.getText().toString(),ediMarca.getText().toString(),
+                ediCandadoName1.getText().toString(),ediCandadoName2.getText().toString(), ediCandadoName3.getText().toString()
 
         ) ;
 
@@ -2394,9 +2416,10 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
                 {
                     informRegister= new InformRegister(currenTidGenrate,Constants.CAMIONES_Y_CARRETAS,
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
-                           , "CAMIONES Y CARRETAS ");
+                            Variables.usuarioQserconGlobal.getNombreUsuario(),
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
+                           , "CAMIONES Y CARRETAS ",ediExportadoraProcesada.getText().toString(),
+                            Utils.hasmpaExportadoras.get(ediExportadoraProcesada.getText().toString()).getNameExportadora());
 
 
                     //informe register
@@ -2419,7 +2442,11 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                      //informe actual
                     RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
 
-                    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                    try {
+                        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     addCalibracionFutaC_enfAndUpload(currenTidGenrate);
                     addProdcutsPostCosechaAndUpload(currenTidGenrate); //agregamos y subimos los productos postcosecha..
@@ -2490,7 +2517,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-    void uploadImagesInStorageAndInfoPICS() {
+    void uploadImagesInStorageAndInfoPICS() throws IOException {
         //una lista de Uris
 
 
@@ -2513,7 +2540,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
         ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-        StorageData.uploaddata(list);
+        StorageData.uploaddata(list,ActivityCamionesyCarretas.this);
 
 
     }
@@ -3029,9 +3056,24 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         if(layoutContainerSeccion6.getVisibility()== GONE){
             layoutContainerSeccion6.setVisibility(LinearLayout.VISIBLE);
 
+
         }
 
-        if(ediNombreChofer.getText().toString().isEmpty()){ //chekamos que no este vacia
+        /**al menos un candado name*/
+
+        if(ediCandadoName1.getText().toString().trim().isEmpty() && ediCandadoName2.getText().toString().trim().isEmpty()&&
+                ediCandadoName3.getText().toString().trim().isEmpty()){
+
+            ediCandadoName1.requestFocus();
+            ediCandadoName1.setError("Inserte al menos un candado ");
+            return false;
+
+        }
+
+
+
+
+        if(ediNombreChofer.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediNombreChofer.requestFocus();
             ediNombreChofer.setError("Este espacio es obligatorio");
 
@@ -3145,7 +3187,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         }
 
 
-        if(ediCajasProcDesp.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCajasProcDesp.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCajasProcDesp.requestFocus();
             ediCajasProcDesp.setError("Este espacio es obligatorio");
             return false;
@@ -3154,7 +3196,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-        if(ediRacimosCosech.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediRacimosCosech.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este espacio es obligatorio");
 
@@ -3162,6 +3204,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         }
 
+        /*
         if(ediRacimosRecha.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediRacimosRecha.requestFocus();
             ediRacimosRecha.setError("Este espacio es obligatorio");
@@ -3169,7 +3212,9 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
             return false;
         }
 
-        if(ediRacimProces.getText().toString().isEmpty()){ //chekamos que no este vacia
+         */
+
+        if(ediRacimProces.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediRacimProces.requestFocus();
             ediRacimProces.setError("Este espacio es obligatorio");
 
@@ -3553,6 +3598,11 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     private View[] creaArryOfViewsAll() {
 
         View [] arrayViewsAll = {
+
+
+                ediCandadoName1,ediCandadoName2,ediCandadoName3,
+
+                ediMarca,
                 ediExportadoraProcesada,
                 ediExportadoraSolicitante,
                 ediClienteNombreReporte,
@@ -3652,9 +3702,10 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
              //   esiSelloAdhNaviera,
               //  ediOtherSellos,
 
+                spinnerExportadora,
+
                 spinnerSelectZona,
          spinnerCondicionBalanza,
-         spinnertipoCaja,
          spinnertipodePlastico,
          spinnertipodeBlanza ,
          spinnertipodeBlanzaRepeso,
@@ -3662,7 +3713,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
          spFuenteAgua ,
          spFumigaCorL1 ,
          spTipoBoquilla ,
-         spinnerCandadoQsercon,
 
          switchHaybalanza,
          switchHayEnsunchado,
@@ -3696,19 +3746,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
 
-    void addInfotomap(ArrayList<ImagenReport>listImagenReports){
 
-        ImagenReport.hashMapImagesData= new HashMap<>();
-
-        for(int indice2=0; indice2<listImagenReports.size(); indice2++){
-
-            ImagenReport currentImareportObj=listImagenReports.get(indice2);
-
-            ImagenReport.hashMapImagesData.put(currentImareportObj.getUniqueIdNamePic(),currentImareportObj);
-
-        }
-
-    }
 
 
 
@@ -3716,9 +3754,19 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
 
         //agregamos data al map
+        Collections.sort(listImagenReports, new Comparator<ImagenReport>()
+        {
+            @Override
+            public int compare(ImagenReport lhs, ImagenReport rhs) {
+                return lhs.getSortPositionImage() - rhs.getSortPositionImage();
+
+                //  return Integer.compare(lhs.getSortPositionImage(), rhs.getSortPositionImage());
+            }
+        });
 
 
-        RecyclerView recyclerView=null;
+        RecyclerView recyclerView= null;
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
 
         switch(currentTypeImage){
@@ -3738,17 +3786,21 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         }
 
+        RecyclerViewAdapter  adapter=new RecyclerViewAdapter(listImagenReports,this);
+        // at last set adapter to recycler view.
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        eventoBtnclicklistenerDelete(adapter);
+
+        Log.i("adpatertt","el adpater es nulo");
 
 
-           // at last set adapter to recycler view.
-           if(recyclerView!=null){
-               recyclerView.setLayoutManager(layoutManager);
-               recyclerView.setAdapter(adapter);
-               eventoBtnclicklistenerDelete(adapter);
-           }
+        Log.i("adpatertt","el adpater es nulo");
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
 
 
@@ -3959,7 +4011,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
     void ocultaoTherVIEWs(){
-        ediMarca.setVisibility(View.GONE);
+     //   ediMarca.setVisibility(View.GONE);
         ediUbicacionBalanza.setVisibility(View.GONE);
         spinnerubicacionBalanza.setVisibility(View.GONE);
     }
@@ -4081,7 +4133,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
     boolean cehckFaltanImagenes() {
-
 
 
 
@@ -4232,5 +4283,105 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
     }
+
+
+    private void hideViewsIfUserISCampo(){
+        TextInputEditText  ediNombreRevisa =findViewById(R.id.ediNombreRevisa);
+        TextInputEditText  ediCodigoRevisa =findViewById(R.id.ediCodigoRevisa);
+
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO ||
+                SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
+
+
+            ediNombreRevisa.setVisibility(View.GONE);
+            ediCodigoRevisa.setVisibility(View.GONE);
+        }
+
+
+        if(Variables.usuarioQserconGlobal!=null){
+
+            if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
+                ediNombreRevisa.setVisibility(View.GONE);
+                ediCodigoRevisa.setVisibility(View.GONE);
+            }else{
+
+                ediNombreRevisa.setVisibility(View.VISIBLE);
+                ediCodigoRevisa.setVisibility(View.VISIBLE);
+
+            }
+
+        }
+
+
+    }
+
+    private void copiamosHere(){
+
+        Utils. miMapCopiar.clear();
+        Utils.miMapCopiar.put("semana",ediSemana.getText().toString());
+        Utils.miMapCopiar.put("fecha",ediFecha.getText().toString());
+        Utils.miMapCopiar.put("productor",ediProductor.getText().toString());
+        Utils.miMapCopiar.put("hacienda",ediHacienda.getText().toString());
+        Utils.miMapCopiar.put("codigo",ediCodigo.getText().toString());
+        Utils.miMapCopiar.put("inscripcionMagap",ediInscirpMagap.getText().toString());
+        Utils.miMapCopiar.put("horaDeTermino",ediHoraTermino.getText().toString());
+     //   Utils.miMapCopiar.put("numeracionContenedor",ediNumContenedor.getText().toString());
+
+       /// Utils.miMapCopiar.put("vapor",edivapo.getText().toString());
+
+        Toast.makeText(ActivityCamionesyCarretas.this, "Copiado", Toast.LENGTH_SHORT).show();
+
+
+    }
+    class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<Uri>... lists) {
+            List<Uri>  result = lists[0];
+
+            for(int indice=0; indice<result.size(); indice++){
+
+                urix = result.get(indice);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = Glide.with(ActivityCamionesyCarretas.this)
+                            .asBitmap()
+                            .load(urix)
+                            .sizeMultiplier(0.6f)
+                            .submit().get();
+
+                } catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
+
+
+                ActivityCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityCamionesyCarretas.this,result.get(indice))),horientacionImg4);
+                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+              //  showImagesPicShotOrSelectUpdateView(false);
+
+
+                if(ImagenReport.hashMapImagesData.size()>0){
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityCamionesyCarretas.this);
+
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            showImagesPicShotOrSelectUpdateView(false);
+
+        }
+    }
+
 
 }

@@ -7,6 +7,39 @@ import java.util.HashMap;
 
 public class ReportCamionesyCarretas {
 
+    private String  candadoName1;
+
+    public String getCandadoName1() {
+        return candadoName1;
+    }
+
+    public void setCandadoName1(String candadoName1) {
+        this.candadoName1 = candadoName1;
+    }
+
+    public String getCandadoName2() {
+        return candadoName2;
+    }
+
+    public void setCandadoName2(String candadoName2) {
+        this.candadoName2 = candadoName2;
+    }
+
+    public String getCandadoName3() {
+        return candadoName3;
+    }
+
+    public void setCandadoName3(String candadoName3) {
+        this.candadoName3 = candadoName3;
+    }
+
+    private String  candadoName2;
+    private String  candadoName3;
+
+
+
+
+
     private String exportadoraProcesada;
     private String  nombreRevisa;
     private String atachControCalidadInfrms;
@@ -157,13 +190,9 @@ public class ReportCamionesyCarretas {
         this.placa = placa;
     }
 
-    public String getCandadoQsercom() {
-        return CandadoQsercom;
-    }
 
-    public void setCandadoQsercom(String candadoQsercom) {
-        CandadoQsercom = candadoQsercom;
-    }
+
+
 
     public String getTipoDePlastico() {
         return tipoDePlastico;
@@ -426,7 +455,6 @@ public class ReportCamionesyCarretas {
     private String cedula;
     private String celular;
     private String placa;
-    private String CandadoQsercom;
 
 
     private String tipoDePlastico;
@@ -539,7 +567,7 @@ public class ReportCamionesyCarretas {
                                    String ntargetaEmbarque, String inscirpMagap, String horaInicio, String horaTermino, String semana,
                                    String empacadora,
 
-                                   String nombredeChofer, String cedula, String celular, String placa, String CandadoQsercom,
+                                   String nombredeChofer, String cedula, String celular, String placa,
 
                                    String tipoDePlastico, String tipoDeCaja, boolean hayEnsunchado, boolean hayBalanza, String condicionBalanza, String tipoBalanza,
                                    boolean  hayBalanzaRepesa, String tipoBalanzaRepesa,
@@ -550,7 +578,9 @@ public class ReportCamionesyCarretas {
                                    int racimosCosechados, int racimosRechazados, int racimosProcesados, int cajasProcesadasDespachadas,
                                    String extensionistaEnCalidad, String extensionistaEnRodillo, String extensionistaEnGancho
                                    , String calidadCi, String extRodilloCi, String ganchoCi, String observacionOpc, String nodoQueContieneMapPesoBrutoCloster2y3l
-                                   , String clienteReporte, String tipoBoquilla, String exportadoraProcesada, String exportadoraSolicitante,String marca
+                                   , String clienteReporte, String tipoBoquilla, String exportadoraProcesada, String exportadoraSolicitante,String marca,
+                                    String  candadoName1, String  candadoName2, String  candadoName3
+
 
 
 
@@ -584,7 +614,6 @@ public class ReportCamionesyCarretas {
         this. cedula=cedula;
         this. celular=celular;
         this. placa=placa;
-        this. CandadoQsercom=CandadoQsercom;
         this.tipoDePlastico=tipoDePlastico;
         this.tipoDeCaja=tipoDeCaja;
         this.hayEnsunchado=hayEnsunchado;
@@ -625,7 +654,9 @@ public class ReportCamionesyCarretas {
           atachControCalidadInfrms="";
          atachControCuadroMuestreo="";
 
-
+        this.  candadoName1=candadoName1 ;
+        this.  candadoName2=candadoName2;
+        this.  candadoName3=candadoName3;
     }
 
 

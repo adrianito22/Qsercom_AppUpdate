@@ -5,29 +5,42 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UsuarioQsercom
+public class UsuarioQsercon
 {
 
-    public UsuarioQsercom(String tiposUSUARI, String uniqueIDuser, String mailGooglaUser, String nombreUsuario) {
+    public String getKeyLocaliceUser() {
+        return keyLocaliceUser;
+    }
+
+    public void setKeyLocaliceUser(String keyLocaliceUser) {
+        this.keyLocaliceUser = keyLocaliceUser;
+    }
+
+    String keyLocaliceUser;
+
+    public UsuarioQsercon(int tiposUSUARI, String uniqueIDuser, String mailGooglaUser, String nombreUsuario) {
         this.tiposUSUARI = tiposUSUARI;
         this.uniqueIDuser = uniqueIDuser;
         this.mailGooglaUser = mailGooglaUser;
         this.nombreUsuario=nombreUsuario;
+        userISaprobadp=false;
+        keyLocaliceUser="";
+
 
     }
 
-public UsuarioQsercom(){
+public UsuarioQsercon(){
 
 
 }
 
 
 
-    public String getTiposUSUARI() {
+    public int getTiposUSUARI() {
         return tiposUSUARI;
     }
 
-    public void setTiposUSUARI(String tiposUSUARI) {
+    public void setTiposUSUARI(int tiposUSUARI) {
         this.tiposUSUARI = tiposUSUARI;
     }
 
@@ -39,7 +52,7 @@ public UsuarioQsercom(){
         this.uniqueIDuser = uniqueIDuser;
     }
 
-    private String tiposUSUARI; //SI ES insepector de campo o de hacienda
+    private int tiposUSUARI; //SI ES insepector de campo o de hacienda
     private String uniqueIDuser;
 
     private String mailGooglaUser;
@@ -78,7 +91,7 @@ public UsuarioQsercom(){
         result.put("mailGooglaUser", mailGooglaUser);
         result.put("nombreUsuario", nombreUsuario);
         result.put("userISaprobadp", userISaprobadp);
-
+        result.put("keyLocaliceUser",keyLocaliceUser);
 
 
         return  result;

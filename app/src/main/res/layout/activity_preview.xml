@@ -9,12 +9,25 @@
     tools:context=".activities.formulariosPrev.ActivityContenedoresPrev">
 
     <TextView
-        android:id="@+id/textView58"
+        android:id="@+id/txtModeAdviser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:text="Modo Visualizacion"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+    <TextView
+        android:id="@+id/txtTitle"
 
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#686868"
-        android:gravity="center_horizontal"
+        android:gravity="center|center_horizontal"
         android:padding="8dp"
         android:text="CONTENEDORES"
         android:textColor="@android:color/white"
@@ -22,39 +35,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progressBarFormulario"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:progress="1"
-        android:progressTint="#01B151"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView58" />
-
-    <TextView
-        android:id="@+id/txtModeAdviser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingBottom="5dp"
-        android:text="Modo Visualizacion"
-        android:textAllCaps="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarFormulario" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginRight="20dp"
 
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="25dp"
         android:src="@drawable/ic_baseline_preview_24jhj"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -65,6 +52,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtModeAdviser">
@@ -427,9 +415,6 @@
                 layout="@layout/lay_imagenes_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-
-
 
 
             <TextView

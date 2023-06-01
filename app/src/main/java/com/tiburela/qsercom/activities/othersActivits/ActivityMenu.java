@@ -3,6 +3,7 @@ package com.tiburela.qsercom.activities.othersActivits;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
 import static com.tiburela.qsercom.utils.Variables.currentFormSelect;
 
 import androidx.annotation.NonNull;
@@ -24,10 +25,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -63,10 +67,12 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.callbacks.CallbackDialogConfirmCreation;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmCreateNewForm;
+import com.tiburela.qsercom.dialog_fragment.DialogFragmentMenu;
 import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.models.UsuarioQsercom;
+import com.tiburela.qsercom.models.UsuarioQsercon;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
@@ -78,7 +84,8 @@ import java.util.Map;
 import java.util.UUID;
 
 //package com.tiburela.qsercom.activities.formularios;
-public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation {
+public class ActivityMenu extends AppCompatActivity implements CallbackDialogConfirmCreation,PopupMenu.OnMenuItemClickListener {
+    Bundle bundle= new Bundle();
 
     boolean userIniciosSesion=false;
     private FirebaseAuth mAuth;
@@ -144,8 +151,9 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        SharePref.init(ActivityMenu.this);
 
+
+        SharePref.init(ActivityMenu.this);
 
 
         //  Variables.actividad =ActivityMenu;
@@ -153,11 +161,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         imGProfile=findViewById(R.id.imageView2);
 
-
         RealtimeDB.initDatabasesRootOnly();
-
-
-
 
         inigoogleSigni();//iniciamos google account autentificacion
 
@@ -165,6 +169,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Log.i("elnumber","el numero generado es ss "+uniqueId);
 
 
+      //  addExportadorasd();
       //  testCreateRegisters();
 
 
@@ -172,7 +177,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Utils.dataFieldsPreferencias=new HashMap<String,String>();
         Utils.listImagesToSaVE=new ArrayList<>();
 
-
+        descargaExportadorasFromDatabaseAddAddySavePrefrences();
 
 
         Variables.contexto=this;
@@ -200,10 +205,14 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             @Override
             public void onClick(View view) {
 
+               ////throw new RuntimeException("Test Crash"); // Force a crash
+
+
                 SharePref.init(ActivityMenu.this);
                      Utils.isOfflineReport=true;
 
                 startActivity(new Intent(ActivityMenu.this,ActivitySeeReportsOffline.class));
+
 
 
             }
@@ -238,6 +247,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 }
 
 */
+
+
             }
         });
 
@@ -530,6 +541,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 public void onSuccess(GetTokenResult getTokenResult) {
                     Log.i("solodataaqui", "el user esta autentificado");
                     userIniciosSesion=true;
+
                     descragCurrentUsuario(Variables.userGoogle.getEmail());
 
 
@@ -918,19 +930,16 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
             txtHeader.setText(Variables.userGoogle.getDisplayName());
-            txtSubHeader.setText(Variables.userGoogle.getEmail());
 
-        }else{
-
-
-            Log.i("solodataaqui", "aqui si es nulo");
+            txtSubHeader.setOnClickListener(null);
 
 
-        }
+        }else
+
 
 
         if(userIniciosSesion){ ///mostramos el nombre y el cargo que tiene
-            txtSubHeader.setOnClickListener(null);
+           txtSubHeader.setOnClickListener(null);
 
 
 
@@ -938,6 +947,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
            // txtSubHeader.setEnabled(true);
 
             txtHeader.setText("!No has iniciado Sesion !");
+
+            txtSubHeader=findViewById(R.id.txtSubHeader);
             txtSubHeader.setText("Inicia sesion Aqui");
 
             ///LE CAMBISMO DE COLOR A UN
@@ -993,11 +1004,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 Log.i("defugero", "firebaseAuthWithGoogle:" + account.getDisplayName());
 
 
-                if(task.isSuccessful()){  ///vamohaber tareaspendientes
-
-                }
-
-
                 firebaseAuthWithGoogle(account.getIdToken());
                 Log.i("defugero","se jecuito el try");
 
@@ -1037,7 +1043,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                              estableceHeaderTextAndListerner();
 
-                           // estableceHeaderTextAndListerner
+                             txtSubHeader=findViewById(R.id.txtSubHeader);
+                             txtSubHeader.setText("Pendiente");
+
+
+                            descragCurrentUsuario(Variables.userGoogle.getEmail());
 
 
                             /**verificar si por aqui creamos el nuevo nodo
@@ -1109,11 +1119,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UsuarioQsercom user=null;
+                UsuarioQsercon user=null;
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                     user=ds.getValue(UsuarioQsercom.class);
+                     user=ds.getValue(UsuarioQsercon.class);
 
 
                 }
@@ -1122,26 +1132,27 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(user !=null){
 
 
-                    //existe
+                    Log.i("skjsf","MAIL ES DIFRENTE DE NULO, EXISTE MAIL ");
+
+
 
                 }else{  //no existe los registramos...
 
 
 
-
-                    Log.i("skjsf","el correo google es : "+idMailGoogle);
-
-
-                    RealtimeDB.addNewUser(ActivityMenu.this,  new UsuarioQsercom("Colaborador", UUID.randomUUID().toString(),idMailGoogle,Variables.userGoogle.getDisplayName()));
+                    Log.i("skjsf","ES NULO, NO EXISTE AGREGAMOS");
 
 
+                     UsuarioQsercon userx=   new UsuarioQsercon(Utils.NO_DEFINIDO, UUID.randomUUID().toString(),idMailGoogle,Variables.userGoogle.getDisplayName());
 
+                     String keyuser=RealtimeDB.rootDatabaseReference.push().getKey();
+                     userx.setKeyLocaliceUser(keyuser);
+
+                    RealtimeDB.addNewUser(ActivityMenu.this,userx);
 
 
 
                 }
-
-
 
 
             }
@@ -1158,15 +1169,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     }
 
 
-
-    ///descragmos current usuario();
-
-
-
     void descragCurrentUsuario(String mailUserThisUser){
 
 
-        Query query = RealtimeDB.rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom").orderByChild("mailGooglaUser").equalTo(mailUserThisUser);
+        Query query = RealtimeDB.rootDatabaseReference.child("Usuarios").child("Colaboradores").orderByChild("mailGooglaUser").equalTo(mailUserThisUser);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1174,16 +1180,22 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    UsuarioQsercom usuarioQsercom=ds.getValue(UsuarioQsercom.class);
+                    UsuarioQsercon usuarioQsercon =ds.getValue(UsuarioQsercon.class);
 
-                    if(usuarioQsercom!=null){
-                        Variables.usuarioQsercomGlobal=usuarioQsercom;
+                    if(usuarioQsercon !=null){
+                        Variables.usuarioQserconGlobal = usuarioQsercon;
 
                         Log.i("hahsger","no es nulo");
 
-                        checkIFuserIsActivatexx(Variables.usuarioQsercomGlobal.getMailGooglaUser());
+                        seeUserActivate(Variables.usuarioQserconGlobal);
+
+                        SharePref.saveQserconTipoUser(Variables.usuarioQserconGlobal.getTiposUSUARI());
+
+                        //  checkIFuserIsActivatexx(Variables.usuarioQserconGlobal.getMailGooglaUser());
 
                     }
+
+
 
                     estableceHeaderTextAndListerner();
 
@@ -1236,7 +1248,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Log.i("holerr", "se llamo checkIFuserIsActivatexx ");
 
 
-        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Usuarios").child("ColaboradoresQsercom");
+        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Usuarios").child("Colaboradores");
 
         Query query = usersdRef.orderByChild("mailGooglaUser").equalTo(mailGoogleUser);
 
@@ -1246,17 +1258,17 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 Log.i("hahsger","el value de snpatshot es "+snapshot.getValue());
-                UsuarioQsercom currentObect = null;
+                UsuarioQsercon currentObect = null;
                 if(snapshot.exists()) {
 
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        currentObect = ds.getValue(UsuarioQsercom.class);
+                        currentObect = ds.getValue(UsuarioQsercon.class);
                     }
 
 
                     //   isUserAptobadoAccount[0] = currentObect.isUserISaprobadp() ;
                     //  System.out.println("worked");
-                  //  currentObect=snapshot.getValue(UsuarioQsercom.class);
+                  //  currentObect=snapshot.getValue(UsuarioQsercon.class);
 
 
 
@@ -1265,12 +1277,12 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                     //
                     Log.i("holerr", "el user se aprobo  "+currentObect.isUserISaprobadp());
 
-
+/*
                     if(currentObect.isUserISaprobadp()){
 
                         checkIRealTimeUserSiFaltaReportPorRevisa();
                     }
-
+*/
                 }
 
 
@@ -1382,5 +1394,258 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
     }
 
+
+
+    private void seeUserActivate(UsuarioQsercon objec) {
+
+        DatabaseReference databaseReference = RealtimeDB.rootDatabaseReference.child("Usuarios").child("Colaboradores").child(objec.getKeyLocaliceUser());
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                UsuarioQsercon user = dataSnapshot.getValue(UsuarioQsercon.class);
+
+                if(user!=null){
+
+                   Variables.usuarioQserconGlobal=user;
+                    txtSubHeader=findViewById(R.id.txtSubHeader);
+                    if(user.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){
+
+                        txtSubHeader.setText("Inspector de oficina");
+
+                    }else if(user.getTiposUSUARI()==Utils.INSPECTOR_CAMPO){
+                                               txtSubHeader.setText("Inspector de Campo");
+
+                    }else{
+
+                        txtSubHeader.setText("Cargo No definido");
+
+                    }
+
+
+
+
+                    if(!Variables.usuarioQserconGlobal.isUserISaprobadp()){
+
+                       Intent intent = new Intent(getApplicationContext(), ActivityProhibido.class);
+                       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                       startActivity(intent);
+
+                   }
+
+
+
+                }
+
+
+
+
+                // ..
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        databaseReference.addValueEventListener(postListener);
+        ///si el usuario esta navegando
+        //si cambio el nodo actual.....verifica si esta baneado...
+
+    }
+
+    public void showMenu(View v) {
+
+        Log.i("gdher","se oulso show here");
+
+
+        PopupMenu popup = new PopupMenu(this, v);
+        // This activity implements OnMenuItemClickListener
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.menu2);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+
+
+            case R.id.informacion:
+
+                DialogFragmentMenu dfragmentLevel= new DialogFragmentMenu();
+                bundle.putInt("key",Variables.ACERCA);
+                dfragmentLevel.setArguments(bundle);
+                dfragmentLevel.show(getSupportFragmentManager(),"Fragment");
+
+                return true;
+
+
+
+            case R.id.cerrarSesion:
+
+        FirebaseAuth.getInstance().signOut();
+
+
+        GoogleSignIn.getClient(
+                ActivityMenu.this,
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+        ).signOut();
+
+            setdataSigOut();
+
+        //
+
+
+        //actualizamos las vistas
+
+            //chekeamos quwe so inicilizamos estos txtHeader
+          //  y subheader
+            //cambianos texto, imagen y objeto current user.....
+            //aqui el user no a iniciado sesion...
+            //si no inica sesion no puede subir...
+            //si no inicia no puede ver si axctiva generar pdf..
+
+
+           // ff chekear sque si no inicia no le saldra revisar informes y informes guardados... solo es para usuario de campo...
+//sol is user is aprobado podra subir...eso creo que ya esta,,
+            ////informes por revisar... y eso tambien pilas..
+
+        Log.i("gdher","se oulso option2");
+
+        return true;
+        default:
+        return false;
+    }
+    }
+
+
+    private void setdataSigOut(){
+        txtSubHeader=findViewById(R.id.txtSubHeader);
+        txtHeader=findViewById(R.id.txtHeader);
+
+
+        txtHeader.setText("! NO HAS INICIADO SESIÓN !");
+        txtSubHeader.setText("INICIA SESIÓN AQUÍ");
+        imGProfile.setImageResource(R.drawable.ic_baseline_face_24);
+
+
+        Variables.usuarioQserconGlobal =null;
+
+
+
+        txtSubHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                signInGoogle();
+            }
+        });
+    }
+
+
+
+    private void addExportadorasd(){
+
+         /***
+          * Exprobiologico
+          * Traboar
+          * Bandecua
+          * Latbio
+          * Exporval
+          * Asopratverde
+          * Cijoscariska
+          * Bagatocorp
+          * Bananagold*/
+
+
+        Exportadora export= new Exportadora("Exprobiologico".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+         export= new Exportadora("Traboar".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+        export= new Exportadora("Bandecua".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+        export= new Exportadora("Latbio".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+        export= new Exportadora("Exporval".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+        export= new Exportadora("Asopratverde".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+        export= new Exportadora("Cijoscariska".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+
+        export= new Exportadora("Bagatocorp".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+        export= new Exportadora("Bananagold".toUpperCase());
+        RealtimeDB.AddExportadora(export);
+
+
+
+    }
+
+
+    private void descargaExportadorasFromDatabaseAddAddySavePrefrences(){
+
+        DatabaseReference databaseReference = RealtimeDB.rootDatabaseReference.child("exportadoras").child("listExportadoras");
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Utils.hasmpaExportadoras = new HashMap<>();
+
+                Utils.nombresExportadoras= new ArrayList<>();
+
+                for (DataSnapshot dss : dataSnapshot.getChildren()) {
+                    Exportadora exportadora = dss.getValue(Exportadora.class);
+
+                    if (exportadora != null) {
+
+                        Utils.hasmpaExportadoras.put(exportadora.getNameExportadora(),exportadora);
+                        Utils. nombresExportadoras.add(exportadora.getNameExportadora().toUpperCase());
+
+                    }
+
+
+                }
+
+                SharePref.saveHashMapExpotadoras(Utils.hasmpaExportadoras,SharePref.KEY_EXPORTADORAS);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        databaseReference.addValueEventListener(postListener);
+        ///si el usuario esta navegando
+        //si cambio el nodo actual.....verifica si esta baneado...
+
+
+
+    }
+
+
+
+
+    ///
 
 }

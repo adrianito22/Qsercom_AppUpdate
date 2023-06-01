@@ -2,7 +2,11 @@ package com.tiburela.qsercom.PdfMaker;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.text.Layout;
 import android.util.Log;
@@ -45,6 +49,8 @@ import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.ExecutionException;
 
 public class HelperAdImgs implements LifecycleOwner {
@@ -82,6 +88,19 @@ public class HelperAdImgs implements LifecycleOwner {
 
         currentListImagesSeccion= HelperImage.getImagesWhitthisCATEGORYz(ImagenReport.hashMapImagesData,setFotoCategory);///era Variables.FOTO_LLEGADA
 
+        Collections.sort(currentListImagesSeccion, new Comparator<ImagenReport>()
+        {
+            @Override
+            public int compare(ImagenReport lhs, ImagenReport rhs) {
+                return lhs.getSortPositionImage() - rhs.getSortPositionImage();
+
+                //  return Integer.compare(lhs.getSortPositionImage(), rhs.getSortPositionImage());
+            }
+        });
+
+
+
+
         Log.i("xamil","el SIZE DE  current list images seccion es "+currentListImagesSeccion.size()+" y la categoria es "+setFotoCategory);
 
         //nos asegurammos que ninguna este en el pdf aun ,LAS DESMARCAMOS
@@ -104,7 +123,7 @@ public class HelperAdImgs implements LifecycleOwner {
             }
 
 
-            else if (contador==0  && setFotoCategory==Variables.FOTO_LLEGADA_CONTENEDOR ) {
+            else if (contador==0  && setFotoCategory==Variables.FOTO_CIERRE_CONTENEDOR ) {
                 ///AGREGMAOS TEXTO
                 midocumentotoAddData.add(new Paragraph(anexoNombre).setFontSize(10f).setBold().setMarginTop(2f).setTextAlignment(TextAlignment.CENTER));
 
@@ -170,6 +189,14 @@ public class HelperAdImgs implements LifecycleOwner {
                 wehaveAddSpaceyIndescrip =false;
 
                 addImagenSetAndCreateNewPage(Variables.UNAVERTICAL_Y_OTRA_HORIZONTAL,midocumentotoAddData,pageSize,contexto);
+            }
+
+
+            else if(patronEncontrado == Variables.UNAHORIZONTAL_Y_OTRA_VERTICAL) {
+                Log.i("PATRONX","es  UNAHORIZONTAL_Y_OTRA_VERTICAL");
+                wehaveAddSpaceyIndescrip =false;
+
+                addImagenSetAndCreateNewPage(Variables.UNAHORIZONTAL_Y_OTRA_VERTICAL,midocumentotoAddData,pageSize,contexto);
             }
 
 
@@ -268,18 +295,12 @@ public class HelperAdImgs implements LifecycleOwner {
 
     private static void addImagenSetAndCreateNewPage(int tipoOrdenImgs, Document docuemnto, PageSize pageSize, Context contexta) throws Exception {
 
-        float espacioDisponibleHorizontal=pageSize.getWidth()-100f; //
-        //si hay texto o comentario le restamos menos espacio....
-
-        float heigthImg=232;
+        float heigthImg=244; ///232 antes               ///237 +22....
         float widthImg=(pageSize.getWidth()-70f)/3;
 
-
         Rectangle remaining ;
-///
-       // Rectangle remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
-        Log.i("posicuon","el posicon del ultimo elemento es "+ yPosicion);
 
+        Log.i("posicuon","el posicon del ultimo elemento es "+ yPosicion);
 
         if(isPosicion0AndNewAnexo){
             heigthImg=heigthImg+10;
@@ -295,33 +316,21 @@ public class HelperAdImgs implements LifecycleOwner {
         float espcioCuparaThisItem;
 
 
-        //comprobar en que linea ... comprobar la posicion de la ultima
         if(tipoOrdenImgs==Variables.TRES_IMGS_VERTCLES){
 
 
             Log.i("salertty","hay TRES_IMGS_VERTCLES");
 
-          //  float [] tableWidth  = {1,1,1} ;
             float [] tableWidth  = {1,1,1} ;
 
             Table table = new Table(tableWidth,true);
-            // table.setHeight(200);  //Primera tabla ///este ancho...
 
             Image imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
 
 
             imagVertical1.setAutoScale(true);
-           //   imagVertical1.scaleToFit((pageSize.getWidth()-20f)/3,230);
             imagVertical1.scaleAbsolute(widthImg,heigthImg);
 
-
-
-            /*revismaos imagens**///
-          ///  imagVertical1.setProperty(Property.BORDER_BOTTOM, FloatPropertyValue.NONE);
-
-
-
-            //test a la primer imagen le agregamos texto
 
             if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){
 
@@ -341,7 +350,7 @@ public class HelperAdImgs implements LifecycleOwner {
 
 
 
-             imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
+            imagVertical1=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
             imagVertical1.setAutoScale(true);
             imagVertical1.scaleAbsolute(widthImg,heigthImg);
 
@@ -399,24 +408,6 @@ public class HelperAdImgs implements LifecycleOwner {
             docuemnto.add(table);
 
 
-/*
-
-            if(espcioCuparaThisItem < 131  ) { //debe de quedas mas del tamano del alto de laimagen
-                Log.i("posicuon","el espcioCuparaThisItem es "+espcioCuparaThisItem);
-
-                docuemnto.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                yPosicion=150;
-                docuemnto.add(table);
-
-            }else {
-                docuemnto.add(table);
-                remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
-                yPosicion= remaining.getTop();
-
-            }
-
-*/
-
 
             //posicionLastELEMENTAd = remaining.getTop();
             Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() ES "+posicionLastELEMENTAd);
@@ -436,6 +427,7 @@ public class HelperAdImgs implements LifecycleOwner {
 
             Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical.setAutoScale(true);
+            imagVertical.scaleAbsolute(widthImg,heigthImg);
             imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
             imagVertical.setMarginRight(10f);
             //imagVertical.scaleAbsolute(widthImg,heigthImg);
@@ -445,6 +437,9 @@ public class HelperAdImgs implements LifecycleOwner {
             if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
                 cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
             }
+
+
+
             else {
 
                 cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical); //estaba asi
@@ -455,6 +450,7 @@ public class HelperAdImgs implements LifecycleOwner {
 
             imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
             imagVertical.setAutoScale(true);
+            imagVertical.scaleAbsolute(widthImg,heigthImg);
             imagVertical.setMarginLeft(10f);
             // imagVertical.scaleAbsolute(widthImg,heigthImg);
 
@@ -508,14 +504,27 @@ public class HelperAdImgs implements LifecycleOwner {
             Log.i("salertty","hay UNAVERTICAL_Y_OTRA_HORIZONTAL");
 
 
-            float [] tableWidth  = {1,1} ;
-                 Table table = new Table(tableWidth,true);
+            float [] tableWidth  = {190f , 390 } ; //estaba en 250.. le ponemos
+           //  float [] tableWidth  = {155f,200} ; //estaba en 250.. le ponemos
 
-                 Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
-                 imagVertical.setAutoScale(true);
-                 imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-                 imagVertical.setMarginRight(10f);
+            Table table = new Table(tableWidth,true);
 
+            Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
+            imagVertical.setAutoScale(true);
+
+
+           // imagVertical.scaleAbsolute(190,heigthImg);
+
+           // imagVertical.scaleAbsolute(190,heigthImg);
+            imagVertical.scaleAbsolute(190,heigthImg);
+
+
+            //imagVertical.setHorizontalAlignment(HorizontalAlignment.LEFT);
+          //  imagVertical.setMarginRight(10f); //borramos
+
+            imagVertical.setHorizontalAlignment(HorizontalAlignment.LEFT);
+           // imagVertical.setMarginLeft(10f);
+            //imagVertical.setMarginRight(10f);
 
             if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
                 cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
@@ -530,43 +539,54 @@ public class HelperAdImgs implements LifecycleOwner {
 
 
                Image imgHorizontal=HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
-               imgHorizontal.setAutoScale(true);
+              imgHorizontal.setAutoScale(true);
             //imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-                 imagVertical.setMarginLeft(10f);
 
 
-            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+            imgHorizontal.scaleAbsolute(363,heigthImg); //360 estaba
+
+
+
+          //  imgHorizontal.scaleToFit((pageSize.getWidth()-70f)/1.8f,heigthImg); //estaba en 1.9
+            imgHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            imgHorizontal.setMarginLeft(5f);
+          //  imgHorizontal.setMarginRight(30f);
+
+
+
+
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){
+
+                //aqui agregamos la descripcion si contiene
                 cell= addImgAndTextDescriptionInCell(pdfDocumentx,imgHorizontal,HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen());
+
             }
+
             else {
+
                 cell = new Cell().setBorder(Border.NO_BORDER).add(imgHorizontal); //estaba asi
+
             }
+
 
             table.addCell(cell);
-
-
-
-
-            table.setWidth((widthImg*2)+80f);
+            //table.setWidth((imagVertical.getImageWidth())+(imgHorizontal.getImageWidth()+60));
             table.setHorizontalAlignment(HorizontalAlignment.CENTER);
             table.setMarginTop(8f);
+            table.setMarginLeft(15f);
+
             table.setHeight(heigthImg);
 
-          //  configtable(table,pageSize);
-
-            espcioCuparaThisItem= yPosicion +8+ heigthImg ; //8 es margin
+           // configtable(table,pageSize);
 
             if(heigthImg+8 >yPosicionSuper) {  // +8 de margin
 
                 docuemnto.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
             }
 
 
 
-
-
-        //    Rectangle remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
-          //  posicionLastELEMENTAd = remaining.getTop();
             Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() ES "+posicionLastELEMENTAd);
 
             docuemnto.add(table);
@@ -577,18 +597,115 @@ public class HelperAdImgs implements LifecycleOwner {
 
         }
 
+        else if(tipoOrdenImgs==Variables.UNAHORIZONTAL_Y_OTRA_VERTICAL){ //1 vertical yPosicion otro horizontal en la misma linea
 
-        else if(tipoOrdenImgs==Variables.DOS_HORIZONTALES){ //2 imagenes verticales en una linea
+            //  Log.i("salertty","hay UNAHORIZONTAL_Y_OTRA_VERTICAL");
+            //  float [] tableWidth  = {190,300} ; //estaba en 250.. le ponemos
+            float widthImgxxx=(pageSize.getWidth()-70f);
+            Log.i("cuandoexecuta","el ancho es"+widthImgxxx);
 
-            Log.i("salertty","hay DOS_HORIZONTALES");
 
-            float [] tableWidth  = {1,1} ;
+            float [] tableWidth  = {360f,230f} ;// 1.5 estaba 200  ///probamos con 220 despues
             Table table = new Table(tableWidth,true);
 
-            Image imagHorizontal=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
+
+            Image imgHorizontal=HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
+            imgHorizontal.setAutoScale(true);
+
+             Log.i("cuandoexecuta","se ejecduto esta");
+          // imgHorizontal.scaleAbsolute((pageSize.getWidth()-70f)/2,heigthImg);
+            imgHorizontal.scaleAbsolute(360,heigthImg); //estaba en 350
+
+            imgHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            //imgHorizontal.setMarginRight(20);
+
+           //imgHorizontal.setMarginL(20);
+
+
+            // imgHorizontal.scaleToFit(150,heigthImg);
+            //imagVertical.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+
+
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imgHorizontal,HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen());
+            }
+            else {
+                cell = new Cell().setBorder(Border.NO_BORDER).add(imgHorizontal); //estaba asi
+            }
+
+            table.addCell(cell);
+
+
+            Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
+            imagVertical.setAutoScale(true);
+
+           // imagVertical.scaleAbsolute(widthImg,heigthImg);
+            imagVertical.scaleAbsolute(190,heigthImg);
+
+
+          //  imagVertical.sca
+            imagVertical.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            //imagVertical.setMarginRight(10f);
+            imagVertical.setMarginLeft(5f); //estaba en 10
+
+
+            if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
+                cell= addImgAndTextDescriptionInCell(pdfDocumentx,imagVertical,HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen());
+            }
+            else {
+                cell = new Cell().setBorder(Border.NO_BORDER).add(imagVertical); //estaba asi
+            }
+
+            table.addCell(cell);
+
+
+            //table.setWidth(300); //*//SI NO COBFURAR SIZE TABLA //
+
+
+            table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            table.setMarginTop(8f);
+            table.setMarginLeft(15f);
+
+           // table.setMarginRight(25f);
+            table.setHeight(heigthImg);
+
+            //  configtable(table,pageSize);
+            //  espcioCuparaThisItem= yPosicion +8+ heigthImg ;
+            //margin 10
+
+
+            if(heigthImg+8 >yPosicionSuper) {  // +8 de margin
+
+                docuemnto.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            }
+
+            //    Rectangle remaining = docuemnto.getRenderer().getCurrentArea().getBBox();
+            //  posicionLastELEMENTAd = remaining.getTop();
+            Log.i("homero","eldocuemnto.getRenderer().getCurrentArea().getBBox() ES "+posicionLastELEMENTAd);
+
+            docuemnto.add(table);
+
+            markImgComoUsada(HelperImage.imagesSetToCurrentFila); //podemos pasarle una lista de este 3 imagenes o marca una por una como hicimos arriba
+
+
+        }
+
+
+        else if(tipoOrdenImgs==Variables.DOS_HORIZONTALES) { //2 imagenes verticales en una linea
+
+            Log.i("salertty", "hay DOS_HORIZONTALES erl nacho es "+pageSize.getWidth());
+
+            float[] tableWidth = {1, 1};
+            Table table = new Table(tableWidth, true);
+
+            Image imagHorizontal = HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta, HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(), HelperImage.imagesSetToCurrentFila.get(0)));
             imagHorizontal.setAutoScale(true);
-            imagHorizontal.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-            imagHorizontal.setMarginRight(6f);
+
+            imagHorizontal.scaleAbsolute(((pageSize.getWidth()-70)/2   ),heigthImg-60);
+
+
+            imagHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            imagHorizontal.setMarginRight(3f);
 
 
             if(HelperImage.imagesSetToCurrentFila.get(0).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
@@ -604,8 +721,12 @@ public class HelperAdImgs implements LifecycleOwner {
 
             imagHorizontal=HelperPdf.createInfoImgtoPDF(retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(1).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(1)));
             imagHorizontal.setAutoScale(true);
+
+            imagHorizontal.scaleAbsolute(((pageSize.getWidth()-70)/2   ),heigthImg-60);
+
+
             imagHorizontal.setHorizontalAlignment(HorizontalAlignment.LEFT);
-            imagHorizontal.setMarginLeft(6f);
+            imagHorizontal.setMarginLeft(3f);
 
 
             if(HelperImage.imagesSetToCurrentFila.get(1).getDescripcionImagen().length()>1){  //aqui agregamos la descripcion si contiene
@@ -671,6 +792,8 @@ public class HelperAdImgs implements LifecycleOwner {
 
             Image imagHorizontal=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagHorizontal.setAutoScale(true);
+            //imagHorizontal.scaleToFit()
+
             imagHorizontal.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
 
@@ -735,8 +858,14 @@ public class HelperAdImgs implements LifecycleOwner {
 
 
 
-
             Table table = new Table(1,true);
+
+
+
+            Log.i("urlptint","la url es "+HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic());
+            Log.i("urlptint","la url es "+HelperImage.imagesSetToCurrentFila.get(0).getUniqueIdNamePic());
+
+
 
             Image imagVertical=HelperPdf.createInfoImgtoPDF( retornaBitmaPhere(contexta,HelperImage.imagesSetToCurrentFila.get(0).getUrlStoragePic(),HelperImage.imagesSetToCurrentFila.get(0)));
             imagVertical.setAutoScale(true);
@@ -820,10 +949,11 @@ public class HelperAdImgs implements LifecycleOwner {
 
         table1.setWidth(pageSize.getWidth()-20f);
         table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table1.setMarginTop(8f);
+        table1.setMarginTop(10f);  //estaba 8 enn....
 
-        table1.setMarginLeft(10f);
+        table1.setMarginLeft(15f);
         table1.setMarginRight(10f);
+
     }
 
     public static void addTexDescripTOiMGSiHay(String textoDescripcion,Document document){
@@ -1142,17 +1272,63 @@ public static  Bitmap retornaBitmaPhere(Context contexto, String urlImage,Imagen
     thread.join();
     myBitmap = foo.getValueBitmap();
 
+      Bitmap dstBmp ;
+
+    Log.i("comenzar","el heigth es "+myBitmap.getHeight()+" y el ancho es "+myBitmap.getWidth());
 
 
-if(myBitmap==null){
-    Log.i("ladtastor","este es nulo y el id es "+image.getUniqueIdNamePic());
+     if(image.getHorientacionImage().equals("vertical")  && myBitmap.getWidth() > myBitmap.getHeight()  ) { //si la imagen esta girada ,,USAMOS
+
+         Matrix matrix = new Matrix();
+
+         matrix.postRotate(90);
+
+         myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
+
+     }
 
 
-}else{
+   else if(image.getHorientacionImage().equals("horizontal")  && myBitmap.getHeight() > myBitmap.getWidth()  ) { //si la imagen esta girada ,,USAMOS
 
-    Log.i("ladtastor","no es null");
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);  ///git,oas 90 grados a la derecha
 
-}
+        myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
+
+    }
+
+
+    if (myBitmap.getHeight() > myBitmap.getWidth() + myBitmap.getWidth()   ){
+
+            Log.i("comenzar","se ejecuto esto here");
+
+             int tercio=myBitmap.getHeight()/3;
+
+              int y=myBitmap.getHeight()/2  - myBitmap.getWidth()/2;
+              int heigth=myBitmap.getHeight()/2;
+
+
+        Log.i("comenzar","el tercio es  "+ tercio) ;
+        Log.i("comenzar","el y es  "+ y) ;
+        Log.i("comenzar","el heigth es"+heigth);
+
+
+        dstBmp = Bitmap.createBitmap(
+                myBitmap,
+                0,
+                (myBitmap.getHeight()/2  - myBitmap.getWidth()/2) - myBitmap.getWidth()/3  , //estaba en dividio para 4
+                 myBitmap.getWidth(),
+                (myBitmap.getHeight()/2) + myBitmap.getWidth()/3
+              //  myBitmap.getWidth()
+        );
+
+        return dstBmp;
+
+    }
+
+
+
+
 
 
 return  myBitmap;
@@ -1253,6 +1429,48 @@ return  myBitmap;
 
 
 
+    }
+public static Bitmap generabitmnaprotado(Bitmap bitmap, String filePath) {
+
+       // Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+
+        try
+        {
+            // Determine Orientation
+            ExifInterface exif = new ExifInterface(filePath);
+            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            // Determine Rotation
+            int rotation = 0;
+            if      (orientation == 6)      rotation = 90;
+            else if (orientation == 3)      rotation = 180;
+            else if (orientation == 8)      rotation = 270;
+
+            // Rotate Image if Necessary
+            if (rotation != 0)
+            {
+                // Create Matrix
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotation);
+
+                // Rotate Bitmap
+                Bitmap rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+                // Pretend none of this ever happened!
+                bitmap.recycle();
+                bitmap = rotated;
+                rotated = null;
+            }
+        }
+        catch (Exception e)
+        {
+            // TODO: Log Error Messages Here
+        }
+
+// TODO: Use Result Here
+       // xxx.setBitmap(bitmap);
+
+      return  bitmap;
     }
 
 

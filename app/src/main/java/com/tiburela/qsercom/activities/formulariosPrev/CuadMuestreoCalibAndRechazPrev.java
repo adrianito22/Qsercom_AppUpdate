@@ -472,6 +472,8 @@ return object;
 
  //aqui ya debemos tener un mpaa  mejor seria usar el mapa global que tenemos en la clase variables
 
+
+         txtTotalRechazados.setText(String.valueOf(cuadroMuestreo.getTotalRechazadosAll()));
          ediSemanaxc.setText(String.valueOf(cuadroMuestreo.getSemanaNum()));
          ediVaporx.setText(cuadroMuestreo.getVapor());
          ediFechax.setText(cuadroMuestreo.getSimpleDateFormat());
@@ -639,12 +641,6 @@ return object;
         int totalRechazados=obtenTotaLrechazados(objec);
         Log.i("eldaterr","el total rechzados es "+totalRechazados);
         objec.setTotalRechazadosAll(totalRechazados);
-
-
-
-        //obtenmos el total ... de erechzdos..
-
-
 
 
 

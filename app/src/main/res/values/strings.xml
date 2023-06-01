@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Qsercon App</string>
 
+    <string name="acercaapp">Qsercon App , es la app oficial de... desarrollada exclusivamente  por Iberlat.com ,este proyecto tiene el objetivo de ..... y ademas</string>
+
 
     <string-array name="zonaOpciones">
         <item>NINGUNA</item>
@@ -123,6 +125,8 @@
         <item>ULTIMOS 7 DIAS</item>
         <item>ULTIMOS 15 DIAS</item>
         <item>ULTIMOS 30 DIAS</item>
+        <item>BUSCAR POR ID</item>
+
 
     </string-array>
 
@@ -410,4 +414,7 @@
         <item> 54 </item>
 
     </string-array>
+
+    <item type="id" name="category"/>
+    <item type="id" name="keyID"/>
 </resources>

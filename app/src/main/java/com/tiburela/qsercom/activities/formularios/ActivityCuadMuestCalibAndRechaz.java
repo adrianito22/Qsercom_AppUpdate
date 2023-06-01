@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.CuadroMuestreo;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
@@ -116,6 +118,18 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lay_cuadro_muestreo_recha);
         callbackUploadNewReport = this;
+
+        TextView txtTitle=findViewById(R.id.txtTitle);
+        txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                pegamosDataCopiada();
+
+                return false;
+
+            }
+        });
 
 
         btnSaveLocale=findViewById(R.id.btnSaveLocale);
@@ -218,6 +232,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                         "", "","","","","","",""
                 );
 
+
                 ///editamos los otos datos de la cantidad de rechzados..
                 CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
 
@@ -256,16 +271,14 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
 
                     ///editamos los otros datos de la cantidad de rechzados..
-                    //CuadroMuestreo objectWhitMoreData=addRechazadosData(objec);
+                    objec=addRechazadosData(objec);
 
 
                     int totalRechazados=obtenTotaLrechazados(objec);
                     Log.i("eldaterr","el total rechzados es "+totalRechazados);
                     objec.setTotalRechazadosAll(totalRechazados);
 
-
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(objec);
-
 
                   HashMap<String,ColorCintasSemns>mapita= iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
 
@@ -484,7 +497,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
              currentKeySharePrefrences= UUID.randomUUID().toString();
 
-            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CUADRO_MUESTRO_CAL_RECHZDS,"Usuario", "","Cuadro Muestreo"  );
+            InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CUADRO_MUESTRO_CAL_RECHZDS,"Usuario", "","Cuadro Muestreo","",""  );
 
 
             //gudramos oejto en el mapa
@@ -541,9 +554,9 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                 if(informRegister == null) { //quiere decir que no existe
 
                     informRegister= new InformRegister(currenTidGenrate,Constants.CUADRO_MUESTRO_CAL_RECHZDS,
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(),
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
-                            , "CUADRO MUESTREO");
+                            Variables.usuarioQserconGlobal.getNombreUsuario(),
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
+                            , "CUADRO MUESTREO","","");
 
 
                     //informe register
@@ -732,6 +745,14 @@ return object;
 
 
     private boolean chekeadDataListIsReady(){
+
+
+        if(Variables.usuarioQserconGlobal==null){
+            Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "No puedes subir hasta que inicies sesión, ¡Guárdalo  localmente", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
 
        if(ediSemanaxc.getText().toString().trim().isEmpty()){
            ediSemanaxc.requestFocus();
@@ -1226,6 +1247,31 @@ private TextInputEditText[] devuleArrayTiEditext(){
             }
 
         }
+
+    }
+
+    private void pegamosDataCopiada(){
+
+        if( Utils.miMapCopiar.size()==0){
+
+            Toast.makeText(this, "No hay nada para pegar", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        String [] keysArray={"semana","fecha","productor","codigo","vapor"};
+        TextInputEditText [] ediTexArray={ediSemanaxc,ediFechax,ediProductoras,ediCodigoxs,ediVaporx};
+
+
+        for(int i=0; i<keysArray.length; i++){
+            if(Utils.miMapCopiar.containsKey(keysArray[i])){
+                ediTexArray[i].setText(Utils.miMapCopiar.get(keysArray[i]));
+            }
+        }
+
+
+        Utils. miMapCopiar.clear();
+
 
     }
 }

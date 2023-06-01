@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -35,6 +37,7 @@ import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanos;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetSelecDanosEmpaque;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
@@ -51,6 +54,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
      String keyUploadInforme="";
    public static CallbackUploadNewReport callbackUploadNewReport;
+   Spinner spinnerExportadora;
 
    boolean seSubioInforme=false;
     String currentKeyAndSharePrefrences ="";
@@ -463,6 +467,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.control_calid_activity);
+
+       TextView txtPegar= findViewById(R.id.txtPegar);
+       txtPegar.setOnLongClickListener(new View.OnLongClickListener() {
+          @Override
+          public boolean onLongClick(View view) {
+
+             Log.i("copiamos","hemos pegamos ");
+
+             pegamosDataCopiada();
+             return false;
+          }
+       });
+
+
        callbackUploadNewReport = this;
 
        Variables.activityCurrent=Variables.FormCantrolCalidad;
@@ -474,16 +492,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         inicialiceListOfListChekedItems();
 
-        Bundle extras = getIntent().getExtras();
+       if(!sellamoFindViewIds){
+
+          findviewsIdsMayoriaViews();
+
+       }
+       listennersSpinners();
+       getExportadorasAndSetSpinner();
+
+       Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
             currentKeyAndSharePrefrences =extras.getString(Variables.KEY_FORM_EXTRA);
 
-         if(!sellamoFindViewIds){
 
-          findviewsIdsMayoriaViews();
-
-         }
             AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
         }
 
@@ -543,6 +565,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             View [] arrayViewsAll = {
                   //  ediPromediozx,ediLargDedPulpTotalFila1,ediLargDedPulpTotalFila2,ediPromedioPulpP,
 
+
+                     spinnerExportadora,
                     mEdiVaporzz, mEdiProductorzz, mEdiCodigozz, mEdiZonazz, mEdiHaciendazz, mEdiExportadorazz, mEdiCompaniazz, mEdiClientezz,
                     mEdisemanazz, mEdiFechazz, mEdiMagapzz, mEdiMarcaCajazz, mEdiTipoEmpazz, mEdiDestinzz, mEdiTotalCajaszz,
                     mEdioCalidaCampzz, mEdiHoraInizz, mEdiHoraTermizz, mEdiContenedorzz, mEdiSellosnavzz, mEdiSelloVerzz,
@@ -638,7 +662,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
          currentKeyAndSharePrefrences= UUID.randomUUID().toString();
 
-            InformRegister inform= new InformRegister(currentKeyAndSharePrefrences,Constants.CONTROL_CALIDAD,"Usuario", "","Ctrl Calidad"  );
+            InformRegister inform= new InformRegister(currentKeyAndSharePrefrences,Constants.CONTROL_CALIDAD,"Usuario", "","Ctrl Calidad",mEdiExportadorazz.getText().toString(),
+                    Utils.hasmpaExportadoras.get(mEdiExportadorazz.getText().toString()).getNameExportadora() );
 
 
             //gudramos oejto en el mapa
@@ -698,6 +723,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     //determinar que posicion pulso o si pusla este hacer esto
 
     private void findviewsIdsMayoriaViews() {
+
+
+       spinnerExportadora=findViewById(R.id.spinnerExportadora);
+
         //first views fields
         ediObservacioneszszz= findViewById(R.id.ediObservacioneszszz);
 
@@ -2270,7 +2299,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 showsumDfectsSelected();
 
 
-                if (Double.isNaN(calidadFinally)) {
+            if(Variables.usuarioQserconGlobal==null){
+                  Toast.makeText(ActivityControlCalidad.this, "No puedes subir hasta que inicies sesión, ¡Guárdalo  localmente", Toast.LENGTH_LONG).show();
+                  return;
+               }
+
+
+               if (Double.isNaN(calidadFinally)) {
                     Log.i("misdatassd","el numero es nam");
                     return;
                 }
@@ -2517,9 +2552,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
                     informRegister= new InformRegister(currenTidGenrate,Constants.CONTROL_CALIDAD,
 
-                            Variables.usuarioQsercomGlobal.getNombreUsuario(), //EEROR
-                            Variables.usuarioQsercomGlobal.getUniqueIDuser()
-                            , "CONTROL CALIDAD ");
+                            Variables.usuarioQserconGlobal.getNombreUsuario(), //EEROR
+                            Variables.usuarioQserconGlobal.getUniqueIDuser()
+                            , "CONTROL CALIDAD ",mEdiExportadorazz.getText().toString(),
+                            Utils.hasmpaExportadoras.get(mEdiExportadorazz.getText().toString()).getNameExportadora());
 
 
                     Log.i("misdatassd","la calidad es "+controlCalidad.getCalidaCamp());
@@ -3518,4 +3554,68 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
  }
+
+   private void listennersSpinners() {
+
+      spinnerExportadora.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+         @Override
+         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String textSelect = spinnerExportadora.getSelectedItem().toString();
+            mEdiExportadorazz.setText(textSelect);
+         }
+
+         @Override
+         public void onNothingSelected(AdapterView<?> adapterView) {
+
+         }
+      });
+   }
+   private void getExportadorasAndSetSpinner(){
+      //tenemos exportadoras de prefrencias//
+
+      Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+      ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+      for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+         nombresExportadoras.add(exportadora.getNameExportadora());
+      }
+
+      ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+      spinnerExportadora.setAdapter(arrayAdapter);
+
+
+
+      ///vamos a descrgar desde la base de datos...
+
+
+   }
+
+
+   private void pegamosDataCopiada(){
+
+       if( Utils.miMapCopiar.size()==0){
+
+          Toast.makeText(this, "No hay nada para pegar", Toast.LENGTH_SHORT).show();
+          return;
+       }
+
+
+       String [] keysArray={"semana","fecha","productor","hacienda","codigo","inscripcionMagap","horaDeTermino","numeracionContenedor","destino","vapor"};
+       TextInputEditText [] ediTexArray={mEdisemanazz,mEdiFechazz,mEdiProductorzz,mEdiHaciendazz,mEdiCodigozz,mEdiMagapzz,mEdiHoraTermizz,mEdiContenedorzz,mEdiDestinzz,mEdiVaporzz};
+
+
+       for(int i=0; i<keysArray.length; i++){
+          if(Utils.miMapCopiar.containsKey(keysArray[i])){
+             ediTexArray[i].setText(Utils.miMapCopiar.get(keysArray[i]));
+          }
+       }
+
+
+      Utils. miMapCopiar.clear();
+
+
+   }
+
+
+
 }

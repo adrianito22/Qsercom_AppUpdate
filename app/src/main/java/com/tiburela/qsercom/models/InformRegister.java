@@ -25,6 +25,24 @@ public class InformRegister {
    private String idQUienRevisoForm;
    private boolean seSubioFormAlinea;
 
+   public String getExportadoraName() {
+      return exportadoraName;
+   }
+
+   public void setExportadoraName(String exportadoraName) {
+      this.exportadoraName = exportadoraName;
+   }
+
+   public String getExportadoraId() {
+      return exportadoraId;
+   }
+
+   public void setExportadoraId(String exportadoraId) {
+      this.exportadoraId = exportadoraId;
+   }
+
+   private String exportadoraName;
+   private String exportadoraId;
 
    private String keyLoactionThisForm;
 
@@ -159,7 +177,10 @@ public class InformRegister {
 
    public InformRegister(String informUniqueIdPertenece, int typeInform,
                          String nombreQUienSubio, String idQuienSUbioForm,
-                         String typeReportString)
+                         String typeReportString,String exportadoraName,String exportadoraId)
+
+
+
    {
 
 
@@ -186,6 +207,12 @@ public class InformRegister {
      keyLoactionThisForm="";
 
       seSubioFormAlinea=false;
+
+      this.exportadoraName=exportadoraName;
+      this.exportadoraId=exportadoraId;
+
+
+
    }
 
 
@@ -216,6 +243,9 @@ public InformRegister(){
       result.put("dateUltimaRevision", dateUltimaRevision);
       result.put("typeReportString", typeReportString);
       result.put("keyLoactionThisForm", keyLoactionThisForm);
+
+      result.put("exportadoraName", exportadoraName);
+      result.put("exportadoraId", exportadoraId);
 
 
 

@@ -21,6 +21,8 @@ import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCa
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewsFormDatSContersEnAc;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.IOException;
+
 public class DialogConfirmChanges extends BottomSheetDialogFragment implements View.OnClickListener {
         public static final String TAG = "ActionBottomDialog";
 
@@ -82,7 +84,11 @@ public class DialogConfirmChanges extends BottomSheetDialogFragment implements V
           // Button tvSelected = (Button) view;
 
             if(view.getId()==R.id.btnSi){ //crea un formulario nuevo
-                callmethod(formullarioSelect);
+                try {
+                    callmethod(formullarioSelect);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
             }
 
@@ -111,7 +117,7 @@ public class DialogConfirmChanges extends BottomSheetDialogFragment implements V
 
     }
 
-    public  void callmethod(int tipoFormulario) {
+    public  void callmethod(int tipoFormulario) throws IOException {
       //  openBottomSheetConfirmCreateNew  saveinfo
 
 

@@ -3,6 +3,8 @@ package com.tiburela.qsercom.activities.formulariosPrev;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
+
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -13,6 +15,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +23,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -41,8 +45,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,14 +61,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
 import com.tiburela.qsercom.PdfMaker.PdfMakerContenresAcopio;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
+import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.EstateFieldView;
+import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
@@ -80,19 +89,21 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 
-public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener
-{
+public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements View.OnClickListener {
 
     TextInputEditText ediNombreRevisa;
     TextInputEditText ediCodigoRevisa;
 
-
+  Spinner  spinnerExportadora;
 
 
     TextInputEditText ediSemana;
@@ -256,6 +267,12 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
         findViewsIds();
+
+        getExportadorasAndSetSpinner();
+
+        hideViewsIfUserISCampo();
+
+
         configCertainSomeViewsAliniciar();
       //  ocultaCertainViews();
         listViewsClickedUser=new ArrayList<>();
@@ -432,6 +449,18 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
     private void configCertainSomeViewsAliniciar( ) { //configuraremos algos views al iniciar
 
+        btnGenerarPdf.setEnabled(false);
+        btnGenerarPdf.setVisibility(View.GONE);
+
+
+        if(Variables.usuarioQserconGlobal!=null && Variables.usuarioQserconGlobal.isUserISaprobadp() && Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){
+
+            btnGenerarPdf.setEnabled(true);
+            btnGenerarPdf.setVisibility(View.VISIBLE);
+
+        }
+
+
         disableEditText(ediFechaInicio);
         disableEditText(fechDetermino);
 
@@ -454,6 +483,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
 
+        spinnerExportadora=findViewById(R.id.spinnerExportadora);
 
         ediNombreRevisa=findViewById(R.id.ediNombreRevisa);
         ediCodigoRevisa=findViewById(R.id.ediCodigoRevisa);
@@ -539,7 +569,6 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         ediHoraLLegadaContenedor=findViewById(R.id.ediHoraLLegadaContenedor);
         ediHoraSalidaContenedor=findViewById(R.id.ediHoraSalidaContenedor);
 
-        progressBarFormulario=findViewById(R.id.progressBarFormulario);
 
         ediTermofrafo1=findViewById(R.id.ediTermofrafo1);
         ediHoraEncendido1=findViewById(R.id.ediHoraEncendido1);
@@ -1008,39 +1037,55 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
     }
+    private void updatePostionImegesSort(){
+        RecyclerView recyclerView=null;
+
+        recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoPallets);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+        recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+
+        recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+        Utils.updatePositionObjectImagenReport(recyclerView);
+
+    }
 
     private void takepickNow() {
 
-        // Permisionx.checkPermission(Manifest.permission.CAMERA,1,this, ActivityContenedores.this)
+        if (android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R && //adnroid 11
+                ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED ){ //ANDROID 11
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-        ){
             takePickCamera();
-
-            Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
-
-
         }
 
         else
 
         {
 
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                takePickCamera();
 
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
-                    CODE_TWO_PERMISIONS);
+                Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
+            }else{
 
 
-
-
-
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                        CODE_TWO_PERMISIONS);
+            }
 
         }
-
-
-
 
     }
 
@@ -1054,11 +1099,15 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
                             try {
+
+                                /*
                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),cam_uri);
-
-
-                               // Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
+*/
+
+
+                                Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(PreviewsFormDatSContersEnAc.this,cam_uri);
+                                String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
 
                                 //creamos un nuevo objet de tipo ImagenReport
@@ -1069,7 +1118,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
-                                showImagesPicShotOrSelectUpdateView(false);
+                                showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
                             }
 
@@ -1086,7 +1135,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                             //Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityContersEnAcopio.this);
 
 
-                            showImagesPicShotOrSelectUpdateView(false);
+                            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
                         }
                     }
@@ -1121,195 +1170,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
     }
 
 
-    private void checkeamosSiFieldViewIScompleted(View view ) {
 
-        //revismaos si el usuario lleno el file o completo la tarea solictada
-
-        Log.i("miodata","el id del selecionado anterior es "+view.getResources().getResourceName(view.getId()));
-
-
-        if (view instanceof EditText) { //asi es un editex compobamos si esta lleno
-            EditText editText = (EditText) view; //asi lo convertimos
-             Log.i("miodata","el id es "+view.getResources().getResourceName(view.getId()));
-
-                if ( view.getResources().getResourceName(view.getId()).contains("ediPPC0")){ //asi comprobamos que es un fiel opcional
-                    if (editText.getText().toString().length() > 0) {
-                        if (!editText.getText().toString().equals("0")) {
-
-                            Log.i("miodata","el state ediPPC/someProductPostCosecha esta lleno ");
-
-
-                          //  actualizaListStateView("ediPPC/someProductPostCosecha",true) ;
-                           //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", ActivityContersEnAcopio.this);
-
-
-                        }
-                    }
-
-                }
-
-                else if(editText.getText().toString().isEmpty()) {
-
-
-                    Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta vacio");
-
-
-                   // actualizaListStateView(view.getResources().getResourceName(view.getId()),false) ;
-
-                }
-
-
-
-
-                ////si existe lo cambiamos a tru
-
-
-
-                else if(! editText.getText().toString().isEmpty()) { //si esta lleno
-
-                    Log.i("idCheck","la data del editext anterior : "+view.getResources().getResourceName(view.getId() )+" esta lleno");
-
-                 //   actualizaListStateView(view.getResources().getResourceName(view.getId()),true) ;
-
-                  //  Utils.addDataMapPreferences(String.valueOf(view.getId()),editText.getText().toString() ,"iduniquehere", ActivityContersEnAcopio.this);
-
-
-
-                }
-
-
-        }
-
-
-
-
-        else if (view.getResources().getResourceName(view.getId()).contains("imbAtach")  ||  view.getResources().getResourceName(view.getId()).contains("imbTakePic")){ //imBtakePic
-
-             //COMPORBAQMOS SI EXISTE AL ME4NOS UN IMAGEN URI LIST..
-
-            if(ImagenReport.hashMapImagesData.size()> 0 ) {
-              //  actualizaListStateView("imbAtach/imbTakePic",true) ;
-
-               Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y contiene al menos una foto");
-
-
-            }else {
-
-              //  actualizaListStateView("imbAtach/imbTakePic",false) ;
-                Log.i("miodata","el slecionado anteruior es imbAtach/imbTakePic y no contiene fotos");
-
-
-
-            }
-
-
-        }
-
-
-
-
-
-
-        //seran mas comprobacion para verificar si imagenes por ejemplo fiueron completadas..
-        //otra para radiobutton y otr para otro tipo de view..tec
-
-
-       // actualizaProgressBar();
-
-            }
-
-
-
-    private void actualizaListStateView(String idSearch,boolean isEstaLleno){
-///
-
-
-        final String  idview = idSearch.replace(Variables.paqueteName+":id/","");
-
-
-        Log.i("camisila","el id to search es "+idview) ;
-
-        for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
-
-            if(EstateFieldView.listEstateViewField.get(i).getIdOfView().equals(idview)){
-
-                EstateFieldView.listEstateViewField.get(i).setEstaLleno(isEstaLleno);
-
-
-            }else  {
-
-
-
-            }
-
-        }
-
-
-
-
-
-
-
-    }
-
-
-    private void actualizaProgressBar(){
-
-             int numero_itemsCompletados=0;
-
-            final int NUMERO_FIELDS_TOTAL=EstateFieldView.listEstateViewField.size(); // 19  ahora items emn total de completar 19,, algunos son opcionales...pero siempre deben haber 19 para que todos esten llenos
-
-
-            for(int i=0; i<EstateFieldView.listEstateViewField.size(); i++){
-
-                if(EstateFieldView.listEstateViewField.get(i).isEstaLleno()){
-
-                    numero_itemsCompletados =numero_itemsCompletados+1;
-
-
-                }
-
-            }
-
-        Log.i("idCheck","el NUMERO ITEMScOMPLETADOS ES "+numero_itemsCompletados);
-
-
-            //buscamos el porecntaje
-
-        //int porcentajeDeProgreso= numero_itemsCompletados*NUMERO_FIELDS_TOTAL/100;
-
-
-
-        int porcentajeDeProgreso= numero_itemsCompletados*100/NUMERO_FIELDS_TOTAL;
-
-        progressBarFormulario.setProgress(porcentajeDeProgreso);
-
-
-
-           Log.i("maswiso","el porciento es "+porcentajeDeProgreso);
-            //un item opcional vale
-
-
-
-        }
-
-
-
-
-
-
-
-    private void selecImages(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-
-        resultatachImages();
-
-
-
-    }
 
 
       private void resultatachImages() {
@@ -1319,50 +1180,8 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
                 public void onActivityResult(List<Uri> result) {
                     if (result != null) {
 
-                        //creamos un objeto
-
-                        for(int indice=0; indice<result.size(); indice++){
-
-
-                            try {
-
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),result.get(indice));
-
-
-                            //    Bitmap bitmap=Glide.with(context).asBitmap().load(cam_uri).submit().get();
-                                String horientacionImg=HelperImage.devuelveHorientacionImg(bitmap);
-
-                                //creamos un nuevo objet de tipo ImagenReport
-                                ImagenReport obcjImagenReport =new ImagenReport("",result.get(indice).toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,result.get(indice))),horientacionImg);
-                                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
-
-                                //agregamos este objeto a la lista
-                                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
-
-
-                                showImagesPicShotOrSelectUpdateView(false);
-
-                            }
-
-                           catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-
-                            ///     ImagenReport imagenReportObjc =new ImagenReport("",result.get(indice).toString(),currentTypeImage,UNIQUE_ID_iNFORME,Utils.getFileNameByUri(ActivityContenedoresPrev.this,result.get(indice)));
-
-                            //   ImagenReport.hashMapImagesData.put(imagenReportObjc.getUniqueIdNamePic(), imagenReportObjc);
-                            //  Log.i("mispiggi","el size de la  lists  el key del value es "+imagenReportObjc.getUniqueIdNamePic());
-
-
-                        }
-
-
-
-                        showImagesPicShotOrSelectUpdateView(false);
-
+                        MiTarea tare= new MiTarea();
+                        tare.execute(result);
 
 
                     }
@@ -1408,6 +1227,18 @@ void showImageByUri(Uri uri )  {
 
 
 private void listennersSpinners() {
+    spinnerExportadora .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String textSelect= spinnerExportadora.getSelectedItem().toString();
+            ediExpProcesada.setText(textSelect);
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    });
+
 
 
     spinnerSelectZona .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1436,7 +1267,7 @@ private void listennersSpinners() {
 }
 
 
-private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
+private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicionionBorrar){
 
         //si es eliminar comprobar aqui
     if(isDeleteImg){
@@ -1451,7 +1282,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
      ArrayList<ImagenReport> filterListImagesData=new ArrayList<ImagenReport>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
 
-    RecyclerView recyclerView=null;
 
 
     for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
@@ -1474,47 +1304,83 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
 
 
+    RecyclerView recyclerView=null;
+    RecyclerViewAdapter adapter;
+    RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
+    GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
 
 
     switch(currentTypeImage){
 
         case Variables.FOTO_LLEGADA_CONTENEDOR:
             recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_SELLO_LLEGADA:
             recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
             recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_PALLETS:
             recyclerView= findViewById(R.id.recyclerFotoPallets);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_CIERRE_CONTENEDOR:
             recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
 
         case Variables.FOTO_DOCUMENTACION:
             recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+            aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
             break;
     }
 
+    if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+        if(!isDeleteImg){
+
+            for(ImagenReport imagenObjec: ImagenReport.hashMapImagesData.values()){
+                Log.i("mispiggix", "el tipo es  " +imagenObjec.getTipoImagenCategory());
+                if(imagenObjec.getTipoImagenCategory()==currentTypeImage){
+                    filterListImagesData.add(imagenObjec);
+                    Log.i("mispiggi", "el size de filterListImagesData es " + filterListImagesData.size());
+                }
+            }
+
+            aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
+            aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
+
+            Log.i("adpatertt","adpasternotiff");
 
 
-    RecyclerViewAdapter adapter=new RecyclerViewAdapter(filterListImagesData,this);
-    GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
+        }else{
 
-    // at last set adapter to recycler view.
-    assert recyclerView != null;
-    recyclerView.setLayoutManager(layoutManager);
-    recyclerView.setAdapter(adapter);
-    eventoBtnclicklistenerDelete(adapter);
+            aadpaterRecuperadoOFrView. listImagenData.remove(posicionionBorrar);
+            aadpaterRecuperadoOFrView.notifyItemRemoved(posicionionBorrar);
+            aadpaterRecuperadoOFrView.notifyItemRangeChanged(posicionionBorrar, aadpaterRecuperadoOFrView.listImagenData.size());
+            // holder.itemView.setVisibility(View.GONE);
 
+        }
+
+        Log.i("adpatertt","es difrentede nulo");
+
+    }
 
 
 }
@@ -1779,6 +1645,7 @@ return true;
 
 
 
+        updatePostionImegesSort();
 
     }
 
@@ -2119,7 +1986,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
 
 
-private void createObjcInformeAndUpload(){
+private void createObjcInformeAndUpload() throws IOException {
 
 
 
@@ -2200,7 +2067,7 @@ private void createObjcInformeAndUpload(){
 
                     Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
-                    showImagesPicShotOrSelectUpdateView(true);
+                    showImagesPicShotOrSelectUpdateView(true,position);
 
 
 
@@ -2220,7 +2087,7 @@ private void createObjcInformeAndUpload(){
 
 
 
-    void uploadImagesInStorageAndInfoPICS() {
+    void uploadImagesInStorageAndInfoPICS() throws IOException {
    //una lista de Uris
 
 
@@ -2238,7 +2105,7 @@ private void createObjcInformeAndUpload(){
             StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
             ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
-            StorageData.uploaddata(list2);
+            StorageData.uploaddata(list2,PreviewsFormDatSContersEnAc.this);
 
           ///  HashMap<String , ImagenReport>mihasmap= Utils.creaHahmapNoDuplicado();
 
@@ -2259,6 +2126,9 @@ private void createObjcInformeAndUpload(){
             RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
 
         }
+
+
+        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
 
     }
@@ -3031,10 +2901,18 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
     void addImagesInRecyclerviews(ArrayList<ImagenReport>listImagenReports){
 
-        //agregamos data al map
+        Collections.sort(listImagenReports, new Comparator<ImagenReport>()
+        {
+            @Override
+            public int compare(ImagenReport lhs, ImagenReport rhs) {
+                return lhs.getSortPositionImage() - rhs.getSortPositionImage();
 
+                //  return Integer.compare(lhs.getSortPositionImage(), rhs.getSortPositionImage());
+            }
+        });
 
         RecyclerView recyclerView=null;
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
 
         switch(currentTypeImage){
@@ -3067,19 +2945,21 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
 
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(listImagenReports,this);
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
-
-
+        RecyclerViewAdapter  adapter=new RecyclerViewAdapter(listImagenReports,this);
         // at last set adapter to recycler view.
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
-        if(recyclerView!=null){
+        eventoBtnclicklistenerDelete(adapter);
 
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
-            eventoBtnclicklistenerDelete(adapter);
+        Log.i("adpatertt","el adpater es nulo");
 
-        }
+
+        Log.i("adpatertt","el adpater es nulo");
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
 
     }
@@ -3389,7 +3269,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         //vamos a probar ocn varios
 
-        View [] misViewsArray={ediCjasProcesDespacha,ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediExpProcesada,    ediMarca,    ediPuerto,    ediAgenciaNav,
+        View [] misViewsArray={ediCjasProcesDespacha,ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediMarca,    ediPuerto,    ediAgenciaNav,
                 ediInspectorAcopio,    ediCedulaI,    ediZona,    ediHoraInicio,    ediHoraTermino,    ediHoraLLegadaContenedor,
                 ediHoraSalidaContenedor,    ediNguiaRemision,    ediNtargetaEmbarque,        ediDestino,    ediVapor,
                 ediFotoContenedor,    ediNumContenedor,    ediCompaniaTransporte,    ediNombreChofer,    ediCedula,
@@ -3418,6 +3298,8 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
     private void activateModeEditMoreViews() {
+        Variables.isClickable=true;
+
         TextInputEditText     ediNombProd1=findViewById(R.id.ediNombProd1);
         TextInputEditText     ediNombProd2=findViewById(R.id.ediNombProd2);
         TextInputEditText     ediNombProd3=findViewById(R.id.ediNombProd3);
@@ -3452,7 +3334,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         TextInputEditText      edinCajas8=findViewById(R.id.edinCajas8);
 
 
-        Variables.isClickable=true;
         //Creamos un array de todos los objetos..
 
         //vamos a probar ocn varios
@@ -3511,6 +3392,8 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
     private void activateModePreviewMoreViews() {
+        Variables.isClickable=false;
+
         TextInputEditText     ediNombProd1=findViewById(R.id.ediNombProd1);
         TextInputEditText     ediNombProd2=findViewById(R.id.ediNombProd2);
         TextInputEditText     ediNombProd3=findViewById(R.id.ediNombProd3);
@@ -3545,7 +3428,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         TextInputEditText      edinCajas8=findViewById(R.id.edinCajas8);
 
 
-        Variables.isClickable=false;
         //Creamos un array de todos los objetos..
 
         //vamos a probar ocn varios
@@ -3583,7 +3465,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         //vamos a probar ocn varios
 
-        View [] misViewsArray={ediCjasProcesDespacha,ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediExpProcesada,    ediMarca,    ediPuerto,    ediAgenciaNav,
+        View [] misViewsArray={ediCjasProcesDespacha,ediFechaInicio,    fechDetermino,    ediExpSolicitante,    ediMarca,    ediPuerto,    ediAgenciaNav,
                 ediInspectorAcopio,    ediCedulaI,    ediZona,    ediHoraInicio,    ediHoraTermino,    ediHoraLLegadaContenedor,
                 ediHoraSalidaContenedor,    ediNguiaRemision,    ediNtargetaEmbarque,        ediDestino,    ediVapor,
                 ediFotoContenedor,       ediNumContenedor,    ediCompaniaTransporte,    ediNombreChofer,    ediCedula,
@@ -3696,6 +3578,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
         selectValue(spinnerSelectZona,Variables.CurrenReportContensEnACp.getZona()) ;
 
+        selectValue(spinnerExportadora,Variables.CurrenReportContensEnACp.getExportProcesada()) ;
 
         ediCjasProcesDespacha.setText(String.valueOf(currentInform.getCajasProcesadasDespachadas()));
         ediInspectorAcopio.setText(currentInform.getInspectorAcopio());
@@ -3731,7 +3614,14 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     ImagenReport imagenReport=ds.getValue(ImagenReport.class);
-                    listImagenData.add(imagenReport);
+
+
+                    if(!Utils.containsName(listImagenData,imagenReport.getUniqueIdNamePic())) { //por si hay magenes con el mismo id dupolicado..
+                        listImagenData.add(imagenReport);
+
+                    }
+
+
 
                 }
 
@@ -3847,7 +3737,11 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 */
 
-    public void saveInfo() {
+    public void saveInfo() throws IOException {
+
+        updatePostionImegesSort();
+
+
         RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);
         createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
@@ -3904,7 +3798,100 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
     }
 
 
+    private void hideViewsIfUserISCampo(){
+        TextInputEditText  ediNombreRevisa =findViewById(R.id.ediNombreRevisa);
+        TextInputEditText  ediCodigoRevisa =findViewById(R.id.ediCodigoRevisa);
+
+        if(SharePref.getQserconTipoUser()==Utils.INSPECTOR_CAMPO ||
+                SharePref.getQserconTipoUser()==Utils.NO_DEFINIDO ){
 
 
+            ediNombreRevisa.setVisibility(View.GONE);
+            ediCodigoRevisa.setVisibility(View.GONE);
+        }
+
+
+        if(Variables.usuarioQserconGlobal!=null){
+
+            if(Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO || Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.NO_DEFINIDO){
+                ediNombreRevisa.setVisibility(View.GONE);
+                ediCodigoRevisa.setVisibility(View.GONE);
+            }else{
+
+                ediNombreRevisa.setVisibility(View.VISIBLE);
+                ediCodigoRevisa.setVisibility(View.VISIBLE);
+
+            }
+
+        }
+
+
+    }
+
+
+    private void getExportadorasAndSetSpinner(){
+        //tenemos exportadoras de prefrencias//
+
+        Utils.hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
+        ArrayList<String>nombresExportadoras= new ArrayList<>();
+
+        for(Exportadora exportadora: Utils.hasmpaExportadoras.values()){
+            nombresExportadoras.add(exportadora.getNameExportadora());
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nombresExportadoras);
+        spinnerExportadora.setAdapter(arrayAdapter);
+
+        ///vamos a descrgar desde la base de datos...
+
+    }
+    class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<Uri>... lists) {
+            List<Uri>  result = lists[0];
+
+            for(int indice=0; indice<result.size(); indice++){
+
+                Uri  urix = result.get(indice);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = Glide.with(PreviewsFormDatSContersEnAc.this)
+                            .asBitmap()
+                            .load(urix)
+                            .sizeMultiplier(0.6f)
+                            .submit().get();
+                }
+                catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                String   horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
+                // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
+
+                ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(PreviewsFormDatSContersEnAc.this,urix)),horientacionImg4);
+                obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
+                ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
+                //   PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+                if(ImagenReport.hashMapImagesData.size()>0){
+                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewsFormDatSContersEnAc.this);
+
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
+
+        }
+    }
 
 }

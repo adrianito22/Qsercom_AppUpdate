@@ -7,14 +7,24 @@
     tools:context=".activities.formularios.ActivityCuadMuestCalibAndRechaz"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#605F5F"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:text="MUESTREO Y RECHAZADOS"
+        android:textColor="@android:color/white" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/hindeviewTxt"
@@ -218,8 +228,8 @@
                             android:layout_margin="5dp"
                             android:gravity="center_horizontal"
                             android:inputType="textCapCharacters"
-android:textAllCaps="true"
-                            android:text="10" />
+                            android:text="10"
+                            android:textAllCaps="true" />
 
 
                         <TextView
@@ -229,8 +239,8 @@ android:textAllCaps="true"
                             android:layout_margin="5dp"
                             android:gravity="center_horizontal"
                             android:inputType="textCapCharacters"
-android:textAllCaps="true"
-                            android:text="9" />
+                            android:text="9"
+                            android:textAllCaps="true" />
 
 
                     </LinearLayout>
@@ -338,8 +348,6 @@ android:textAllCaps="true"
                             android:textSize="16sp" />
 
 
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -426,9 +434,8 @@ android:textAllCaps="true"
                             android:textSize="16sp" />
 
 
-
-
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -615,10 +622,6 @@ android:textAllCaps="true"
             </ImageView>
 
 
-
-
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -650,7 +653,7 @@ android:textAllCaps="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                        android:textAllCaps="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -666,7 +669,7 @@ android:textAllCaps="true" />
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                        android:textAllCaps="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
@@ -702,7 +705,7 @@ android:textAllCaps="true" />
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                            android:textAllCaps="true" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -720,9 +723,8 @@ android:textAllCaps="true" />
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                        android:textAllCaps="true" />
                 </com.google.android.material.textfield.TextInputLayout>
-
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -738,7 +740,7 @@ android:textAllCaps="true" />
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                        android:textAllCaps="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -754,7 +756,7 @@ android:textAllCaps="true" />
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                        android:textAllCaps="true" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -797,7 +799,7 @@ android:textAllCaps="true" />
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -812,7 +814,7 @@ android:textAllCaps="true" />
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -827,7 +829,7 @@ android:textAllCaps="true" />
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapCharacters"
-android:textAllCaps="true" />
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
