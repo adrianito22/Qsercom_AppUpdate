@@ -897,7 +897,7 @@ if(contadorProductsPostCosecha>10){
 
             }
 
-            if(!product.otro_especifique.trim().isEmpty()){
+            if(!product.otro_especifique.trim().isEmpty() ){
                 listTOrETURN1.add(new NameAndValue(product.otro_especifique,product.otroCantidad));
             }
 

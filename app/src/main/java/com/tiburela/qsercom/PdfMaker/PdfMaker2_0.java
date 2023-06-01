@@ -500,6 +500,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**devulve productos postcosecha table inf0 = 2 */
 
 
+
+
+
         if(numProductsPostcosecha<=4){
             ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
             mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);

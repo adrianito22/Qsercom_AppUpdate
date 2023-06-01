@@ -430,7 +430,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         /**devulve productos postcosecha table inf0 = 2 */
 
 
-        if(numProductsPostcosecha<=2){
+        if(numProductsPostcosecha<=4){
 
             Log.i("prodcutrrr","se ejecuto el if aqui xx ");
 
