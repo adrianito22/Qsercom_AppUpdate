@@ -1425,7 +1425,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         if(numProductsPostcosecha<=4){
 
-s
+            table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha);
+
+
         }
 
         else
@@ -1449,7 +1451,8 @@ s
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         table1.setPaddingBottom(0f);
         midocumentotoAddData.add(table1);
-adssdadsasdadsf
+
+
 
           ///despues sigues dtaos de transportista
 

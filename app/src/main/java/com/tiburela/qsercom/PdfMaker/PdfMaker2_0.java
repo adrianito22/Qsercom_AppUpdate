@@ -527,33 +527,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
             table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha);
 
-            //   ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
-
-           // Log.i("numproducts","el size de data to table es "+dataTOtable2.size());
-
-
-         //   mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
-            ///productos postcosecha
-            ///
-            Log.i("numproducts","el size de mapCellsToTabCurrentTab es "+mapCellsToTabCurrentTab.size());
-
-
-/*
-            for(int indice=0; indice<mapCellsToTabCurrentTab.size()/2; indice++){
-              try {
-
-                  mapCellsToTabCurrentTab.get(indice+"name").setBold();
-                  mapCellsToTabCurrentTab.get(indice+"value").setBold();
-              } catch (Exception e) {
-                  throw new RuntimeException(e);
-              }
-
-
-            }
-*/
-           // table1=  new Table(sizeColumns2); //reseteamos table
-           // addCellsInTable(mapCellsToTabCurrentTab,table1);
-
         }else{
                  //si no usamo0s el de camiones y carretas
 
