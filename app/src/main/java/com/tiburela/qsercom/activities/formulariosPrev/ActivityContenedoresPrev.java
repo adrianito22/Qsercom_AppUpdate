@@ -1614,6 +1614,12 @@ else{
     }
 
     void checkDataFields() {
+        if(! cehckFaltanImagenes()){
+            Log.i("test001","no esta lleno  cehckFaltanImagenes");
+            //btnCheck.setEnabled(true);
+
+            return;
+        }
 
 
 
@@ -1861,6 +1867,16 @@ else{
             ediCodigoRevisa.setError("Agrega un codigo del que revisó");
             return;
         }
+
+
+
+        if(! cehckFaltanImagenes()){
+            Log.i("test001","no esta lleno  cehckFaltanImagenes");
+         //   btnCheck.setEnabled(true);
+
+            return;
+        }
+
 
 
         if (!checkDatosGeneralesIsLleno()) {
@@ -3311,14 +3327,22 @@ else{
 
 
                         case R.id.ediPPC015:
+                            Log.i("numproducts","se eejcuto el pp015  ");
+
                             products.otro_especifique = currentEditext.getText().toString();
+                            products.cantidadOtro = ediPPC016.getText().toString();
+
+                            Log.i("numproducts","el cnatidad otro es  "+ediPPC016.getText().toString());
+
+                            Log.i("numproducts","el cnatidad otro es  "+products.cantidadOtro);
+
                             break;
 
-
+/*
                         case R.id.ediPPC016:
                             products.cantidadOtro = currentEditext.getText().toString();
                             break;
-
+*/
 
                     }
 
@@ -3332,6 +3356,8 @@ else{
 
         }
 
+
+        Variables.currenProductPostCosecha=products;
 
     }
 
@@ -5345,6 +5371,11 @@ else{
 
 
         }
+        if (ediPPC015.getText().toString().trim().length() > 0) {
+
+            contadorpRODUCTS=contadorpRODUCTS-1;
+        }
+
 
         //update productos postcosechafsdfsd
         for (int indice = 0; indice < editextArray.length; indice++) {
@@ -5411,6 +5442,8 @@ else{
 
                     case R.id.ediPPC015:
                         Variables.currenProductPostCosecha.otro_especifique = currentEditext.getText().toString();
+                        Variables.currenProductPostCosecha.cantidadOtro = ediPPC016.getText().toString();
+
                         break;
 
 
@@ -5979,6 +6012,145 @@ else{
         }
     }
 
+
+    boolean cehckFaltanImagenes() {
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PROCESO_FRUTA_FINCA)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoProcesoEnFruta);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+            return false;
+
+        }
+        else
+        {
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoProcesoEnFruta);
+            ediFotosSellosInstalados.clearFocus();
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_LLEGADA_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoLLegadaContenedor);
+            ediFotosSellosInstalados.clearFocus();
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_SELLO_LLEGADA)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.ediFotoSellosLLegada);
+            ediFotosSellosInstalados.clearFocus();
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotoPuertacontenedor);
+            ediFotosSellosInstalados.clearFocus();
+        }
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PALLETS)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosPallets);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosPallets);
+            ediFotosSellosInstalados.clearFocus();
+
+        }
+
+
+
+
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CIERRE_CONTENEDOR)){
+
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtCierreContenedor);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtCierreContenedor);
+            ediFotosSellosInstalados.clearFocus();
+
+        }
+
+
+
+        if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_DOCUMENTACION)){
+            TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosDocumentacion);
+            ediFotoProcesoEnFruta.requestFocus();
+            scroollElementoFaltante(ediFotoProcesoEnFruta);
+            showToast();
+
+            return false;
+        }else{
+
+            TextView ediFotosSellosInstalados=findViewById(R.id.txtFotosDocumentacion);
+            ediFotosSellosInstalados.clearFocus();
+
+        }
+
+
+        return true;
+    }
+
+    public void scroollElementoFaltante(View vistFocus){
+
+        // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
+        vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+
+
+
+    }
+    private void  showToast(){
+
+        Toast.makeText(ActivityContenedoresPrev.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
+
+    }
 
 
 }

@@ -699,9 +699,9 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
         }
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivitySeeReports.this);
+        //convertimos este hasmap...
 
 
-        //convertimos este hasmape
 
 
         RecyclerVAdapterReportsList  adapter = new RecyclerVAdapterReportsList( createAarrayListBYmap(reports),ActivitySeeReports.this);

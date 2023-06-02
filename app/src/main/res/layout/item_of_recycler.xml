@@ -33,23 +33,18 @@
             android:contentDescription="holaa sps"
             android:src="@mipmap/ic_launcher" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        <EditText
+            android:id="@+id/textImputEditext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="10dp"
-            android:hint="Descripcion"
-            app:endIconMode="clear_text">
+            android:hint="Descripcion">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textImputEditext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </EditText>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

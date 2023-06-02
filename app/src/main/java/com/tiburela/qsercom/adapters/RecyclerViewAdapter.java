@@ -5,12 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -183,8 +185,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
               Glide.with(mcontext)
                       .load(uri)
-                      .sizeMultiplier(0.6f)
-                      .diskCacheStrategy(DiskCacheStrategy.ALL)
+                      .sizeMultiplier(0.3f)
+
+
+                      .skipMemoryCache(true)
+                     // .override(300,200).dontAnimate()
+
+
+
+
+                     // .diskCacheStrategy(DiskCacheStrategy.NONE)
                       .into(holder.imageview);
 
             //  holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
@@ -219,11 +229,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
               }else{  //es gaurdada localemente
 
                   Log.i("cancionx","se ejecto este else al final  ");
-
+                //  StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                 // StrictMode.setVmPolicy(builder.build());
 
                   try{
+                       //  holder.imageview.setImageURI(uri);
 
-                         holder.imageview.setImageURI(uri);
+
+                      Glide.with(mcontext)
+                              .load(uri)
+                              .sizeMultiplier(0.3f)
+
+                              .skipMemoryCache(true)
+
+                            //  .override(300,200).dontAnimate()
+
+
+                              //.diskCacheStrategy(DiskCacheStrategy.NONE)
+                              .into(holder.imageview);
+
+                      //  holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
+                      Log.i("ladtastor","existe "+imagenReport.getUniqueIdNamePic());
+
+
+
 
                   } catch (Exception e) {
 
@@ -338,7 +367,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // View Holder Class to handle Recycler View.
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextInputEditText textImputEditext;
+        private EditText textImputEditext;
         private ImageView imageview;
         public ImageView imvClose;
 
@@ -409,9 +438,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Glide.with(mcontext)
                         .load(uri)
-                        .fitCenter()
-                        .sizeMultiplier(0.5f)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                       // .fitCenter()
+                        .sizeMultiplier(0.3f)
+                        .skipMemoryCache(true)
+
+                      //  .override(300,200).dontAnimate()
+
+                       // .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(holder);
 
 /*

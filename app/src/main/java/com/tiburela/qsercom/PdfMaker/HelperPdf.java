@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -47,6 +46,7 @@ import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.models.TableCalidProdc;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
@@ -246,13 +246,16 @@ public static int percentvalue=0;
             Log.i("mismussndo","el lineacion es "+alineacion);
 
             for(int i=0;i<list.size();i++){
-                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.2f).setFont(font)
+                Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(7.2f).setFont(font)// 7.2
                         .setPaddingTop(0f).setPaddingBottom(0f);
 
                 Cell cell1= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
 
                 Paragraph paragraph2;
                 if(list.get(i).getValueContent()==null){
+
+                    Log.i("mismussndo","paragrap es nulo ");
+
                     paragraph2=new Paragraph("");
 
                 }else{
@@ -377,7 +380,7 @@ public static int percentvalue=0;
     }
 
 
-    public static Table generateTablePRODUCTSPOSTO (ProductPostCosecha product,Context context){
+    public static Table generateTablePRODUCTSPOSTO (ProductPostCosecha product){
 
       Table table= new Table(4);
       Cell cell;
@@ -542,11 +545,14 @@ public static int percentvalue=0;
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
 
+                Log.i("numproducts","el otro cantidad es  "+product.cantidadOtro);
+                Log.i("numproducts","el otro nomnbre  es  "+product.cantidadOtro);
 
-                paragraph1 = new Paragraph(product.otroCantidad).setFontSize(6.8f).setFont(font).setBold()  //cantidad
+                paragraph1 = new Paragraph(product.cantidadOtro).setFontSize(6.8f).setFont(font).setBold()  //cantidad
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell= new Cell().add(paragraph1).setTextAlignment(TextAlignment.CENTER).setHeight(9f).setPadding(0);
                 table.addCell(cell);
+
 
                 contadorProductsPostCosecha++;
 
@@ -628,7 +634,7 @@ if(contadorProductsPostCosecha>10){
 
     }
 
-    public static Table generateTablePRODUCTSPOSTOCamionesYcarretas (ProductPostCosecha product, Context context){
+    public static Table generateTablePRODUCTSPOSTOMas4pRODUCTS(ProductPostCosecha product){
 
         Table table= new Table(1);
         Cell cell;
@@ -736,7 +742,7 @@ if(contadorProductsPostCosecha>10){
 
             contadorProductsPostCosecha++;
 
-            productosPostcosecha=productosPostcosecha+product.otroCantidad+product.otro_especifique+" - ";
+            productosPostcosecha=productosPostcosecha+product.cantidadOtro+product.otro_especifique+" - ";
 
 
         }
@@ -799,6 +805,8 @@ if(contadorProductsPostCosecha>10){
         return table;
 
     }
+
+
 
 
     /**para el cuadrto 1*/
@@ -898,7 +906,7 @@ if(contadorProductsPostCosecha>10){
             }
 
             if(!product.otro_especifique.trim().isEmpty()){
-                listTOrETURN1.add(new NameAndValue(product.otro_especifique,product.otroCantidad));
+                listTOrETURN1.add(new NameAndValue(product.otro_especifique,product.cantidadOtro));
             }
 
             if(!product.ryzuc.trim().isEmpty()){
@@ -1166,7 +1174,7 @@ if(contadorProductsPostCosecha>10){
             }
 
             if(!product.otro_especifique.trim().isEmpty()){
-                listTOrETURN1.add(new NameAndValue(product.otro_especifique,product.otroCantidad));
+                listTOrETURN1.add(new NameAndValue(product.otro_especifique,product.cantidadOtro));
             }
 
             if(!product.ryzuc.trim().isEmpty()){
@@ -5455,9 +5463,38 @@ if(contadorProductsPostCosecha>10){
 
         String porcentajeFinalxString=df.format(porcentajeFinal);
 
+
+
+      if(porcentajeFinalxString.matches("-?\\d+")){ //si es un integer
+
+          celdaGlobal.add(new Paragraph(porcentajeFinalxString+".00 %").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
+
+      }
+
+       else  if(df.format(porcentajeFinal).contains(".")){
+            String [] arrayxc=df.format(porcentajeFinal).split("\\.");
+            if(arrayxc[1].length()==1){
+
+                celdaGlobal.add(new Paragraph(porcentajeFinalxString+"0 %").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
+
+            }else{
+
+                celdaGlobal.add(new Paragraph(porcentajeFinalxString+"%").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
+
+            }
+        }
+
+
+
+
+        else{
+          celdaGlobal.add(new Paragraph(porcentajeFinalxString+"%").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
+
+      }
+
+
         Log.i("holaddd","el porcentaje final string es  "+porcentajeFinalxString);
 
-        celdaGlobal.add(new Paragraph(porcentajeFinalxString+"%").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(7.5f));
         table.addCell(celdaGlobal);
 
 

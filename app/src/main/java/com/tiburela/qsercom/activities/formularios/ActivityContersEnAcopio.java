@@ -733,9 +733,15 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
+
+        if(!checkPermission()){
+
+            requestPermission();
+            /****por aqui pedir permisos antes **/
+
+        }
 
         String data[]={"image/*"};
 
@@ -980,6 +986,9 @@ else{
 
                                 //   Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
+
+                                ActivityContersEnAcopio.this.getContentResolver().takePersistableUriPermission(cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
                                 //creamos un nuevo objet de tipo ImagenReport
                                 ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityContersEnAcopio.this,cam_uri),horientacionImg);
@@ -1798,7 +1807,6 @@ private void createObjcInformeAndUpload(){
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void generatePDFandImport(){
      //generate pdf
 
@@ -3256,6 +3264,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
                String  horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
                 // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
 
+                ActivityContersEnAcopio.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContersEnAcopio.this,urix)),horientacionImg4);
                 obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);

@@ -29,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -1184,7 +1185,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
 
@@ -1567,11 +1567,11 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                         try {
 
                             Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(ActivityCamionesyCarretas.this,cam_uri);
-
                          //   Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),cam_uri);
 
                          //   Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                             String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
+                            ActivityCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                             //creamos un nuevo objet de tipo ImagenReport
                             ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage, Utils.getFileNameByUri(ActivityCamionesyCarretas.this,cam_uri),horientacionImg);
@@ -2439,6 +2439,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                     }
 
 
+                    Toast.makeText(ActivityCamionesyCarretas.this, "Espere, estamos subiendo", Toast.LENGTH_SHORT).show();
+
                      //informe actual
                     RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
 
@@ -2604,7 +2606,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestPermission() {
         // requesting permissions if not provided.
 
@@ -2612,9 +2613,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (shouldShowRequestPermissionRationale(
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Explain to the user why we need to read the contacts
+            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
             }
 
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -4340,6 +4340,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
             List<Uri>  result = lists[0];
 
             for(int indice=0; indice<result.size(); indice++){
+                Log.i("cancionx","se ejecto este else al final  ");
 
                 urix = result.get(indice);
                 Bitmap bitmap = null;

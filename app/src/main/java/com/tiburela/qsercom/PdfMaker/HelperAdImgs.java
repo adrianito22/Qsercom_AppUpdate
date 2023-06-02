@@ -123,7 +123,7 @@ public class HelperAdImgs implements LifecycleOwner {
             }
 
 
-            else if (contador==0  && setFotoCategory==Variables.FOTO_CIERRE_CONTENEDOR ) {
+            else if (contador==0  && setFotoCategory==Variables.FOTO_LLEGADA_CONTENEDOR ) { //FOTO_LLEGADA_CONTENEDOR //ese
                 ///AGREGMAOS TEXTO
                 midocumentotoAddData.add(new Paragraph(anexoNombre).setFontSize(10f).setBold().setMarginTop(2f).setTextAlignment(TextAlignment.CENTER));
 

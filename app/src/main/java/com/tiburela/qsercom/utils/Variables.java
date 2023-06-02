@@ -169,6 +169,7 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
 
     public static boolean isClickable = true;
 
+
     public static boolean VienedePreview = false;
     public static boolean copiamosData = false;
 

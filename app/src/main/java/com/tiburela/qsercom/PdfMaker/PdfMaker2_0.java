@@ -505,7 +505,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         float sizeColumns2[]= {190,1};
         table1=  new Table(sizeColumns2);
 
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f).setBold()
+        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTCOSECHA UTILIZADOS").setFont(HelperPdf.font).setFontSize(8f).setBold()
                 .setTextAlignment(TextAlignment.CENTER)) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
@@ -518,12 +518,27 @@ public class PdfMaker2_0 extends AppCompatActivity {
         /**devulve productos postcosecha table inf0 = 2 */
 
 
+        Log.i("numproducts","el producto postcosecha size es "+numProductsPostcosecha);
+        Log.i("numproducts","el producto postcosecha name- es  "+Variables.currenProductPostCosecha.otro_especifique);
+
+        Log.i("numproducts","el producto postcosecha cantidad es  "+Variables.currenProductPostCosecha.cantidadOtro);
+
         if(numProductsPostcosecha<=4){
-            ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
-            mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
+
+            table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha);
+
+            //   ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.CurrenReportPart1,Variables.CurrenReportPart2,Variables.CurrenReportPart3,2,Variables.currenProductPostCosecha);
+
+           // Log.i("numproducts","el size de data to table es "+dataTOtable2.size());
+
+
+         //   mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValue(dataTOtable2,100,0);
             ///productos postcosecha
             ///
+            Log.i("numproducts","el size de mapCellsToTabCurrentTab es "+mapCellsToTabCurrentTab.size());
 
+
+/*
             for(int indice=0; indice<mapCellsToTabCurrentTab.size()/2; indice++){
               try {
 
@@ -535,14 +550,15 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
             }
-
-            table1=  new Table(sizeColumns2); //reseteamos table
-            addCellsInTable(mapCellsToTabCurrentTab,table1);
+*/
+           // table1=  new Table(sizeColumns2); //reseteamos table
+           // addCellsInTable(mapCellsToTabCurrentTab,table1);
 
         }else{
+                 //si no usamo0s el de camiones y carretas
 
+            table1=HelperPdf.generateTablePRODUCTSPOSTOMas4pRODUCTS(Variables.currenProductPostCosecha);
 
-            table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha,contexto);
 
         }
 
@@ -1138,7 +1154,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
         /**FOTO_LLEGADA_CONTENEDOR...*/
         HelperImage.indiceValues=0;
-        //midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
 
 
@@ -1175,23 +1191,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
         /**aqui colcamos por quien revisado y eso 33jjjjj1` e*/
-       /// revisado por y bacground para ceptura...
-     //   Canvas canvas = new Canvas(new PdfCanvas(pagePdf), miPFDocumentkernel, pagePdf.getMediaBox());
-      //  RootRenderer canvasRenderer = canvas.getRenderer();
-
-     //   Paragraph paragraph= new Paragraph("firmaqui");
-      //  paragraph.setBackgroundColor(Color.convertRgbToCmyk(new DeviceRgb(56,56,56)));
-        /*
-        while (paragraph.createRendererSubTree().setParent(canvasRenderer).layout(new LayoutContext(new LayoutArea(pageNumber, new Rectangle(allowedWidth, fontSize * 2)))).getStatus() != LayoutResult.FULL) {
-            paragraph.setFontSize(--fontSize);
-        }
-*/
-      //  float xCoord = 151;
-      //  float yCoord = 73;
-
-
-       // canvas.showTextAligned(paragraph, xCoord, yCoord, TextAlignment.CENTER);
-     //   canvas.close();
 
 
 

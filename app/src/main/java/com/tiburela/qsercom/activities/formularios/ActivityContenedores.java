@@ -1,6 +1,7 @@
 package com.tiburela.qsercom.activities.formularios;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
 
@@ -920,9 +921,19 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
+
+        if(!checkPermission()){
+
+            requestPermission();
+            /****por aqui pedir permisos antes **/
+
+        }
+
+
+
+
 
         String data[]={"image/*"};
         Log.i("miclickimg","hemos hecho click");
@@ -1852,14 +1863,14 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
         {
 
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                    ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 takePickCamera();
 
                 Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
             }else{
 
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
                         CODE_TWO_PERMISIONS);
             }
 
@@ -1881,14 +1892,12 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
                                 Bitmap bitmap=   HelperImage.handleSamplingAndRotationBitmap(ActivityContenedores.this,cam_uri);
 
                                 //   Bitmap bitmap = MediaStore.Images.Media.getBitmap(ActivityCamionesyCarretas.this.getContentResolver(),cam_uri);
-
                                 //   Bitmap bitmap= Glide.with(context).asBitmap().load(cam_uri).submit().get();
                                 String horientacionImg= HelperImage.devuelveHorientacionImg(bitmap);
 
 
-
-                                //  ActivityContenedores.this.getContentResolver().takePersistableUriPermission(cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                                //      Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                  ActivityContenedores.this.getContentResolver().takePersistableUriPermission(cam_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                      Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
                                 ImagenReport obcjImagenReport =new ImagenReport("",cam_uri.toString(),currentTypeImage,
                                         UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,cam_uri))
@@ -1902,16 +1911,12 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
 
 
 
-                            }
-
-                         catch (FileNotFoundException e) {
-                                e.printStackTrace();
                             } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                                   e.printStackTrace();
+                               }
 
 
-                           // showImagesPicShotOrSelectUpdateView(false);
+                            // showImagesPicShotOrSelectUpdateView(false);
 
                         }
                     }
@@ -3050,28 +3055,27 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
     private boolean checkPermission() {
         // checking of permissions.
-       // int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
         int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
-      //  return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
+        return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
 
 
-   return true;
     }
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestPermission() {
         // requesting permissions if not provided.
 
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
+
             if (shouldShowRequestPermissionRationale(
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 // Explain to the user why we need to read the contacts
             }
+
 
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     12);
@@ -5962,8 +5966,8 @@ private void callPrefrencesSaveAndImagesData(){
                 }
 
                 String horientacionImg4 = HelperImage.devuelveHorientacionImg(bitmap);
-                // Log.i("cuandoexecuta", "la horientacion 4 es " + horientacionImg4);
 
+                ActivityContenedores.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedores.this,urix)),horientacionImg4);
                 obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);

@@ -6,7 +6,6 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -72,7 +71,6 @@ import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -549,10 +547,10 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         /**productos postosecha*/
 
-        float sizeColumns2[]= {190,1};
+        float[] sizeColumns2 = {190,1};
         table1=  new Table(sizeColumns2);
 
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSCOSECHA UTILIZADOS").setFontSize(8.5f).setBold()
+        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTCOSECHA UTILIZADOS").setFontSize(8.5f).setBold()
                 .setTextAlignment(TextAlignment.CENTER)) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorDurazno); //editamos el color
@@ -606,7 +604,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
           //  table1.setPaddingBottom(0f);
           //  midocumentotoAddData.add(table1);
 
-            table1=HelperPdf.generateTablePRODUCTSPOSTOCamionesYcarretas(Variables.currenProductPostCosecha,contexto);
+            table1=HelperPdf.generateTablePRODUCTSPOSTOMas4pRODUCTS(Variables.currenProductPostCosecha);
             table1.setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
 
 
@@ -1410,7 +1408,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         float sizeColumns2[]= {190,1};
         table1=  new Table(sizeColumns2);
 
-        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSCOSECHA UTILIZADOS").setFontSize(8.5f).setBold()
+        Cell cell0= new Cell(1,2).add(new Paragraph("PRODUCTOS POSTCOSECHA UTILIZADOS").setFontSize(8.5f).setBold()
                 .setTextAlignment(TextAlignment.CENTER)) ;
 
         cell0.setBackgroundColor(HelperPdf.rgbColorDurazno); //editamos el color
@@ -1425,34 +1423,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         /**devulve productos postcosecha table inf0 = 2 */
 
 
-        if(numProductsPostcosecha<=2){
+        if(numProductsPostcosecha<=4){
 
-            Log.i("prodcutrrr","se ejecuto el if aqui xx ");
-
-            ArrayList<NameAndValue> dataTOtable2=HelperPdf.generaDataToTable(Variables.currenReportCamionesyCarretas,2,Variables.currenProductPostCosecha);
-            mapCellsToTabCurrentTab= HelperPdf.generateHasmapFieldnameandValueCamionesYcarretas(dataTOtable2,100,0);
-            ///productos postcosecha
-            ///
-
-            for(int indice=0; indice<mapCellsToTabCurrentTab.size()/2; indice++){
-                try {
-
-                    mapCellsToTabCurrentTab.get(indice+"name").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
-                    mapCellsToTabCurrentTab.get(indice+"value").setBold().setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
-
-
-
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-
-            }
-
-            table1=  new Table(sizeColumns2); //reseteamos table
-            addCellsInTable(mapCellsToTabCurrentTab,table1);
-
-
+s
         }
 
         else
@@ -1464,7 +1437,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             //  table1.setPaddingBottom(0f);
             //  midocumentotoAddData.add(table1);
 
-            table1=HelperPdf.generateTablePRODUCTSPOSTOCamionesYcarretas(Variables.currenProductPostCosecha,contexto);
+            table1=HelperPdf.generateTablePRODUCTSPOSTOMas4pRODUCTS(Variables.currenProductPostCosecha);
             table1.setBackgroundColor(HelperPdf.rgbColorPlomoBlanco);
 
 
@@ -1476,8 +1449,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
         table1.setPaddingBottom(0f);
         midocumentotoAddData.add(table1);
-
-
+adssdadsasdadsf
 
           ///despues sigues dtaos de transportista
 
