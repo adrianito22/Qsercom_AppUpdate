@@ -5365,16 +5365,23 @@ else{
         for (EditText editext : editextArray) {
 
             if (!editext.getText().toString().trim().isEmpty() && editext.getText().toString().length() > 1) {
-
                 contadorpRODUCTS++;
             }
+        }
 
 
+        if (ediPPC015.getText().toString().trim().length() > 1) {
+
+            contadorpRODUCTS=contadorpRODUCTS-1;
         }
         if (ediPPC015.getText().toString().trim().length() > 0) {
 
             contadorpRODUCTS=contadorpRODUCTS-1;
         }
+
+
+
+
 
 
         //update productos postcosechafsdfsd
