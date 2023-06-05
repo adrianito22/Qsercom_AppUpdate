@@ -414,6 +414,11 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
         RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
+
+        RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString ="";//reseteamos
+        RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado ="";
+
+
         ImagenReport.hashMapImagesData = new HashMap<>();
 
 
@@ -1972,6 +1977,12 @@ else{
 
         updaTeProductsPostCosecha(); //actualizamos estetambien
 
+
+        //
+
+
+
+
         DowloadControlcalidadVinculadosandDecideIRpdfMAKER(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
 
 
@@ -2065,12 +2076,12 @@ else{
 
 
 
-        if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.length() > 1) {
+        if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.length() > 0) {
             Variables.CurrenReportPart1.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
         }
 
 
-        if (RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.length() > 1) {
+        if (RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.length() > 0) {
             Variables.CurrenReportPart1.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
         }
@@ -4040,6 +4051,7 @@ else{
         Utils.initializeAndGETnuMSvinuclads(info1Object.getAtachControCalidadInfrms(), info1Object.getAtachControCuadroMuestreo());
 
         txtNumReportsVinclds.setText(String.valueOf(Utils.numReportsVinculadsAll));
+
 
 
     }

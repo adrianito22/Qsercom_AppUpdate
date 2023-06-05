@@ -181,14 +181,9 @@ public static  Context myContext;
         String PuskEY = mibasedata.push().getKey();
 
         informeObjct.setKeyFirebase(PuskEY);
+
         Map<String, Object> mapValues = informeObjct.toMap();
-
-
-
         mibasedata.child(PuskEY).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
-
-
-
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

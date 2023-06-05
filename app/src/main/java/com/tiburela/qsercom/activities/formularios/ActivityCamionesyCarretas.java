@@ -346,6 +346,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
         RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
+        RecyclerViewAdapLinkage.mapWhitIdsCuadroMuestreo = new HashMap<>();
+        RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds= new HashMap<>();
 
         callbackUploadNewReport = this;
         context=getApplicationContext();

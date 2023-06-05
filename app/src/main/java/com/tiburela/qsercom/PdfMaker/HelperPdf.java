@@ -4281,6 +4281,7 @@ if(contadorProductsPostCosecha>10){
                 objecControlCald.getMarcaCaja()));
 
 
+
        Table table1 =  createTableWhitDateEvaluacionFrura(objecControlCald.getMarcaCaja(),df.format(PROMEDIO_PESO),
                df.format(CALIDAD_TOTAL)+"%",df.format(PORCENTAJE_DE_DEFECTOS)+"%",String.valueOf(NUMERO_DEFECTS),String.valueOf(MAYOR_DEFECTO_SELECCION),
                String.valueOf(MAYOR_DEFECTO_EMPAQUE),String.valueOf(NUMERO_DE_CLUSTERS_POR_CAJA),String.valueOf(NUMERO_DE_DEDOS),df.format(GRADO_CALIBRE_PROMEDIO)+" grados",

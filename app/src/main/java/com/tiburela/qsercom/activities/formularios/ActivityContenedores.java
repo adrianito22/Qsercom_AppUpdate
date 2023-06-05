@@ -424,8 +424,10 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
             }
         });
 
-        callbackUploadNewReport = this;
 
+
+
+        callbackUploadNewReport = this;
 
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
@@ -2886,12 +2888,16 @@ private void createObjcInformeAndUpload(){
             ,ediExtCalid.getText().toString(),ediExtCalidCi.getText().toString());
 
     updateDatosEvaludoresOFinforme3(informe3);
-
     getResultDatCalibCalEnfundes();//CLVAE
+
+
+
 
 
     //agr5egamos la data finalemente
     RealtimeDB.initDatabasesRootOnly();
+
+
 
     generateUniqueIdInformeAndContinuesIfIdIsUnique( informe,informe2,informe3);
 
@@ -5685,9 +5691,7 @@ private void callPrefrencesSaveAndImagesData(){
     @Override
     public void uploadNewForm() {
         btnCheck.setEnabled(false);
-
         seSubioform=true;
-
 
         if(!currentKeySharePrefrences.equals("")){
 
@@ -5695,7 +5699,6 @@ private void callPrefrencesSaveAndImagesData(){
                 Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
                 InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
-
 
 
                 Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);

@@ -1670,8 +1670,12 @@ Log.i("puslado","el value es "+idReport);
         progress.setMessage("Cargando Datos....");
        // progress.setProgressStyle(ProgressDialog.THEME_HOLO_LIGHT);
        progress.setIndeterminate(true);
-        progress.show();
 
+        if (! isFinishing()) {
+
+            progress.show();
+
+        }
 
         new Thread ( new Runnable()
         {

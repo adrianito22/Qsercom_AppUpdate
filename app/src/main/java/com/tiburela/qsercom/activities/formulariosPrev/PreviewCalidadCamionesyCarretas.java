@@ -360,6 +360,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString = "";//reseteamos
         RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado = "";
 
+        RecyclerViewAdapLinkage.mapWhitIdsCuadroMuestreo = new HashMap<>();
+        RecyclerViewAdapLinkage.mapWhitIDScontrolCaldVinclds= new HashMap<>();
+
 
         Variables.copiamosData=false;
 
@@ -4555,12 +4558,12 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
 
-        if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.length() > 1) {
+        if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.length() > 0) {
             Variables.currenReportCamionesyCarretas.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
         }
 
 
-        if (RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.length() > 1) {
+        if (RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.length() > 0) {
             Variables.currenReportCamionesyCarretas.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
         }
