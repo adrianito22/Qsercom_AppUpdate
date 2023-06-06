@@ -1803,17 +1803,19 @@ Log.i("puslado","el value es "+idReport);
                         if(Variables.usuarioQserconGlobal!=null & Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){ //si es user oficina
 
                             listReport.add(report);
+                        }
 
-
-                        }else if(Variables.usuarioQserconGlobal!=null &
+                        else if(Variables.usuarioQserconGlobal!=null &
                                 Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO &
                                 report.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser())){
                             listReport.add(report);
 
                         }
-
-
                     }
+
+
+
+
                     else { //es una exportadora especificz
 
                         if(Variables.usuarioQserconGlobal!=null &
@@ -1822,12 +1824,15 @@ Log.i("puslado","el value es "+idReport);
 
                             listReport.add(report);
 
-//rmRegister.getIdQuienSUbioForm()
-                        }else if(Variables.usuarioQserconGlobal!=null &
+                        }
+
+                        else if(Variables.usuarioQserconGlobal!=null &
                                 Variables.usuarioQserconGlobal.getTiposUSUARI()==Utils.INSPECTOR_CAMPO &
                                 report.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser())
                         && report.getExportadoraName().equals(exportadoraSelecionadaSpn)){
+
                             listReport.add(report);
+
 
                         }
 
