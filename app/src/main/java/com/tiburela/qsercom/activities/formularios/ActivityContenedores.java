@@ -77,6 +77,7 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.auth.Auth;
 import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
+import com.tiburela.qsercom.callbacks.ContenedoresCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
@@ -112,7 +113,7 @@ import com.tiburela.qsercom.R;
 
 
 public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,
-        ConnectionReceiver.ReceiverListener , CallbackUploadNewReport {
+        ConnectionReceiver.ReceiverListener , CallbackUploadNewReport, ContenedoresCallback {
     boolean esPrimeravezQueadd=true;
 
      TextView txtTitle;
@@ -2915,8 +2916,6 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     updateCaledarioEnfunde(informe3);
     RealtimeDB.addNewInforme(informe3);
     addProdcutsPostCosechaAndUpload(informe.getUniqueIDinforme()); //agregamos y subimos los productos postcosecha..
-
-
 
 
 }
@@ -5946,6 +5945,55 @@ private void callPrefrencesSaveAndImagesData(){
 
 
     }
+
+    @Override
+    public void uploadInformRegister() {
+
+    }
+
+    @Override
+    public void uploadContenedoresPart1() {
+
+        Handler handler1 = new Handler();
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {//esto en BACGROUND
+                handler1.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        progress.setProgress(10); //esto en interfas
+                    }
+                });
+
+            }
+        });   //call it
+        t.start();
+
+    }
+
+    @Override
+    public void uploadContenedoresPart2() {
+
+    }
+
+    @Override
+    public void uploadContenedoresPart3() {
+
+    }
+
+    @Override
+    public void uploadsImages() {
+
+    }
+
+    @Override
+    public void productosPostCosecha() {
+
+    }
+
+
+
 
     class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
 
