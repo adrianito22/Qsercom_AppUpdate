@@ -268,7 +268,7 @@
         android:text="Informes por Revisar : 1"
         android:textAllCaps="true"
         android:textColor="#434343"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

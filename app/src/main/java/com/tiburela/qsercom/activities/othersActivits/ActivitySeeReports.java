@@ -237,17 +237,13 @@ public class ActivitySeeReports extends AppCompatActivity  implements   View.OnT
 
                 }
 
-                else if (timeSelecionado.equals("ULTIMOS 7 DIAS")){
 
-                   //cal = Calendar.getInstance();
-                  //  cald2=Calendar.getInstance();
+                else if (timeSelecionado.equals("ULTIMOS 7 DIAS")){
 
                    cal.add(Calendar.DATE, -7);
                    cald2.add(Calendar.DATE,0);
                     dowloadInformRegistrosByDateRange(cal.getTimeInMillis(),cald2.getTimeInMillis());
 
-
-                   // selecionaFecha();
 
                 }
 

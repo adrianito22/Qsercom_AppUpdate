@@ -440,8 +440,36 @@ private void listternSpinner(){
 
                         if(informRegister.getTypeInform()==Constants.CONTROL_CALIDAD  || informRegister.getTypeInform()==Constants.CUADRO_MUESTRO_CAL_RECHZDS    ){
 
-                            mapCheckedListForms.put(informRegister.getInformUniqueIdPertenece(),new CheckedAndAtatch(informRegister.getSimpleDateForm(),
-                                    informRegister.getNombreQUienSubio(),   informRegister.getTypeReportString(),formEstaMarcadoComoVinclada[0],informRegister.getInformUniqueIdPertenece()) );
+                            if(Variables.usuarioQserconGlobal!=null){
+
+                                if(Variables.usuarioQserconGlobal.getTiposUSUARI()== Utils.INSPECTOR_OFICINA){ //ispector der oficina p[uede ver todos./
+                                    mapCheckedListForms.put(informRegister.getInformUniqueIdPertenece(),new CheckedAndAtatch(informRegister.getSimpleDateForm(),
+                                            informRegister.getNombreQUienSubio(),   informRegister.getTypeReportString(),formEstaMarcadoComoVinclada[0],informRegister.getInformUniqueIdPertenece()) );
+
+
+                                }
+                                else{ //si es inspector de campo..
+
+
+                                    if(informRegister.getTypeInform()==Constants.CONTROL_CALIDAD &&  informRegister.getIdQuienSUbioForm().equals(Variables.usuarioQserconGlobal.getUniqueIDuser())   ){
+                                        mapCheckedListForms.put(informRegister.getInformUniqueIdPertenece(),new CheckedAndAtatch(informRegister.getSimpleDateForm(),
+                                                informRegister.getNombreQUienSubio(),   informRegister.getTypeReportString(),formEstaMarcadoComoVinclada[0],informRegister.getInformUniqueIdPertenece()) );
+                                    }
+
+
+
+                                    else if(informRegister.getTypeInform()==Constants.CUADRO_MUESTRO_CAL_RECHZDS ){
+
+                                        mapCheckedListForms.put(informRegister.getInformUniqueIdPertenece(),new CheckedAndAtatch(informRegister.getSimpleDateForm(),
+                                                informRegister.getNombreQUienSubio(),   informRegister.getTypeReportString(),formEstaMarcadoComoVinclada[0],informRegister.getInformUniqueIdPertenece()) );
+
+                                    }
+
+                                }
+
+
+                            }
+
 
 
 

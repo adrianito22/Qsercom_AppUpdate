@@ -27,7 +27,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,6 +54,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
@@ -79,6 +79,7 @@ import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -488,9 +489,13 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         else if(Variables.tipoDeUser ==Variables.CALIFICADOR_OFICINA) {
 
-            btnInInformes.setText("Revisar Informes");
-            txtAdviser.setText("Informes por Revisar : 1");
-            txtAdviser2.setText("Tienes Tarea");
+            Calendar cal = Calendar.getInstance();
+            Calendar cald2 = Calendar.getInstance();
+
+            cal.add(Calendar.DATE, -7);
+            cald2.add(Calendar.DATE,0);
+            checkIfExistInformsRevisar(cal.getTimeInMillis(),cald2.getTimeInMillis());
+
 
             //chekjemos sio tiene informes que revisar
 
@@ -1367,13 +1372,11 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         Log.i("misdtata","el numcontador es "+numsInformsPorRevisar);
 
         if(numsInformsPorRevisar >0){
-
             //SACTUALIZAMOS VIEWS
             btnInInformes.setText("Revisar Informes");
             txtAdviser.setText("Hay "+numsInformsPorRevisar+ " informes por revisar");
             txtAdviser2.setText("Dale!");
             //mostramos data...Hay un formulario a medias....
-
 
         }
 
@@ -1646,6 +1649,67 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
 
-    ///
+
+
+    private void checkIfExistInformsRevisar(long desdeFecha, long hastFecha){
+         int[] numInformsUBIR = {0};
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").
+                orderByChild("dateUploadByinspCampoIformeMillisecond").startAt(desdeFecha).endAt(hastFecha);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    InformRegister informRegister=ds.getValue(InformRegister.class);
+                    if(informRegister!=null && ! informRegister.isSeRevisoForm() ){  //creamos un objet
+
+                       if(informRegister.getTypeInform()== Constants.CAMIONES_Y_CARRETAS ||
+                               informRegister.getTypeInform()== Constants.CONTENEDORES
+                               || informRegister.getTypeInform()== Constants.CONTENEDORES_EN_ACOPIO ) {
+
+                           numInformsUBIR[0]++;
+
+                       }
+
+
+                    }
+
+
+                }
+
+
+                btnInInformes.setText("Revisar Informes");
+                txtAdviser.setText("Informes por revisar. Ultimos 7 dias : "+numInformsUBIR[0]);
+
+                if(numInformsUBIR [0]==0) {
+
+                    txtAdviser2.setText("! Hurra no tienes Tarea");
+
+                }else{
+
+                    txtAdviser2.setText("Tienes Tarea");
+
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+
+    }
+
 
 }
