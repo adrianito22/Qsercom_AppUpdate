@@ -21,6 +21,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetUplad;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -32,6 +33,7 @@ import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.PackingListMod;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.RegisterTest;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
@@ -53,7 +55,6 @@ public class RealtimeDB {
     static  public  DatabaseReference mibasedataPathImages;
 
 public static  Context myContext;
-
 
 
     //ESTA VCLASED VA A ENCRAGARSE DE CREAR MODIFICAR ,BORRAR DATOS DE LA BASE DE DATOS REALTIME
@@ -1457,7 +1458,111 @@ public static  Context myContext;
 
     }
 
+    public static void addNewRegistroInforme2( RegisterTest registroInforme) {
 
+        DatabaseReference mibasedata = rootDatabaseReference.child("Registros2test").child("InformesRegistros");
+        String keyThisLoactionForm=mibasedata.push().getKey();
+
+       // registroInforme.setKeyLoactionThisForm(keyThisLoactionForm);
+
+     //   Map<String, Object> mapValues = registroInforme.toMap(); //lo convertimos en mapa
+        mibasedata.child(keyThisLoactionForm).setValue(registroInforme).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                      /**vamos a llamar a otro*/
+
+                   Log.i("hurraterminamos","aqui hemos terminado hurra");
+
+
+                }else  {
+
+                 //   Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+
+    }
+
+    public static void addNewRegistroInforme3( RegisterTest registroInforme) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Registros2test").child("InformesRegistros");
+
+        String keyThisLoactionForm=mibasedata.push().getKey();
+
+
+
+
+        mibasedata.child(keyThisLoactionForm).setValue(registroInforme).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    if(ActivityContenedores.callbackContenedores !=null){
+                        ActivityContenedores.callbackContenedores.uploadContenedoresPart1();
+                    }
+
+
+                }else  {
+
+                //    Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
+
+
+
+                }
+
+
+            }
+        });
+
+
+    }
+
+
+    public static void addNewRegistroInforme4( InformRegister registroInforme) {
+
+        DatabaseReference mibasedata = rootDatabaseReference.child("Registros2test").child("InformesRegistros");
+
+        String keyThisLoactionForm=mibasedata.push().getKey();
+
+        registroInforme.setKeyLoactionThisForm(keyThisLoactionForm);
+
+
+        Map<String, Object> mapValues = registroInforme.toMap(); //lo convertimos en mapa
+
+
+
+        mibasedata.child(keyThisLoactionForm).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+
+                    if(ActivityContenedores.callbackContenedores !=null){
+                        ActivityContenedores.callbackContenedores.uploadContenedoresPart1();
+                    }
+
+
+                }else  {
+
+                    //    Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
+
+
+
+                }
+            }
+        });
+
+
+    }
 
 
 }

@@ -69,6 +69,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
@@ -80,6 +81,7 @@ import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.callbacks.ContenedoresCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetUplad;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -87,6 +89,7 @@ import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
+import com.tiburela.qsercom.models.RegisterTest;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -113,12 +116,16 @@ import com.tiburela.qsercom.R;
 
 
 public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,
-        ConnectionReceiver.ReceiverListener , CallbackUploadNewReport, ContenedoresCallback {
+        ConnectionReceiver.ReceiverListener , CallbackUploadNewReport {
+
     boolean esPrimeravezQueadd=true;
 
      TextView txtTitle;
 
     public static CallbackUploadNewReport callbackUploadNewReport;
+
+    public static ContenedoresCallback callbackContenedores;
+
     boolean userCreoRegisterForm=false;
       Spinner spinnerExportadora;
     RecyclerViewAdapter adapterFrutas;
@@ -170,6 +177,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
     TextInputEditText ediSemana;
 
+    public RegisterTest objetest;
 
 
     TextInputEditText ediFecha;
@@ -410,22 +418,29 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
+        objetest=new RegisterTest("hola",1);
 
         txtTitle=findViewById(R.id.txtTitle);
         txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
 
-                Log.i("copiamos","hemos copiado");
+                Log.i("copiamos", "hemos copiado");
 
-                copiamosHere();
+
+                RegisterTest register=new RegisterTest("",3);
+
+                FragmentManager fm = getSupportFragmentManager();
+                BottonSheetUplad alertDialog =  BottonSheetUplad.newInstance(ActivityContenedores.this,register,register,register);
+                alertDialog.show(fm, "duialoffragment_alert");
+
+
+
 
                 return false;
 
             }
         });
-
-
 
 
         callbackUploadNewReport = this;
@@ -2573,11 +2588,13 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View view) {
-            btnCheck.setEnabled(false);
+
+          RealtimeDB.addNewRegistroInforme2(new RegisterTest("",1));
 
 
 
-            checkDataFields();
+         //   btnCheck.setEnabled(false);
+           // checkDataFields();
 
 
 
@@ -5946,53 +5963,6 @@ private void callPrefrencesSaveAndImagesData(){
 
     }
 
-    @Override
-    public void uploadInformRegister() {
-
-    }
-
-    @Override
-    public void uploadContenedoresPart1() {
-
-        Handler handler1 = new Handler();
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {//esto en BACGROUND
-                handler1.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        progress.setProgress(10); //esto en interfas
-                    }
-                });
-
-            }
-        });   //call it
-        t.start();
-
-    }
-
-    @Override
-    public void uploadContenedoresPart2() {
-
-    }
-
-    @Override
-    public void uploadContenedoresPart3() {
-
-    }
-
-    @Override
-    public void uploadsImages() {
-
-    }
-
-    @Override
-    public void productosPostCosecha() {
-
-    }
-
-
 
 
     class MiTarea extends AsyncTask<List<Uri>, Void, Void> {
@@ -6043,6 +6013,12 @@ private void callPrefrencesSaveAndImagesData(){
 
         }
     }
+
+
+
+
+
+
 
 
 
