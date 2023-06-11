@@ -12,8 +12,10 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
+import com.tiburela.qsercom.models.InformRegister;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class SharePrefHelper {
 
@@ -182,7 +184,26 @@ public class SharePrefHelper {
     }
 
 
+    public static void UpdateRegisterLOCALEMarcaSubido(boolean seSubioFile,String keyPrefrencesIfUserSaveReportLocale) {
 
+        Map<String, InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+        if (mapAllReportsRegister.containsKey(keyPrefrencesIfUserSaveReportLocale)) {
+
+            Log.i("superkey", "si contiene el key");
+
+            InformRegister objec = mapAllReportsRegister.get(keyPrefrencesIfUserSaveReportLocale);
+
+            objec.setSeSubioFormAlinea(seSubioFile);
+            mapAllReportsRegister.put(keyPrefrencesIfUserSaveReportLocale, objec);
+
+            Log.i("superkey", "se subio a linea?" + objec.isSeSubioFormAlinea());
+
+            SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister, SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
+        }
+    }
     ///aqui guardamos este....
         //creamos un objeto set informe y otro para gaurdar....
         //gaurdamos 2 en share prefrencias...

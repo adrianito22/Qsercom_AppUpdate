@@ -3,8 +3,6 @@ package com.tiburela.qsercom.activities.formularios;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-import static com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges.TAG;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -69,10 +67,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 import com.tiburela.qsercom.Constants.Constants;
 import com.tiburela.qsercom.SharePref.SharePref;
-import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
@@ -81,7 +77,6 @@ import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.callbacks.ContenedoresCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
-import com.tiburela.qsercom.dialog_fragment.BottonSheetUplad;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
@@ -101,7 +96,6 @@ import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,9 +111,9 @@ import com.tiburela.qsercom.R;
 
 public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,
         ConnectionReceiver.ReceiverListener , CallbackUploadNewReport {
-
+    HashMap<String,Float>miMapLbriado= new HashMap<>();
     boolean esPrimeravezQueadd=true;
-
+    ScrollView scrollView2;
      TextView txtTitle;
 
     public static CallbackUploadNewReport callbackUploadNewReport;
@@ -421,18 +415,14 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         objetest=new RegisterTest("hola",1);
 
         txtTitle=findViewById(R.id.txtTitle);
+
+         scrollView2 =findViewById(R.id.scrollView2);
+
         txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
 
                 Log.i("copiamos", "hemos copiado");
-
-
-                RegisterTest register=new RegisterTest("",3);
-
-                FragmentManager fm = getSupportFragmentManager();
-                BottonSheetUplad alertDialog =  BottonSheetUplad.newInstance(ActivityContenedores.this,register,register,register);
-                alertDialog.show(fm, "duialoffragment_alert");
 
 
 
@@ -493,7 +483,14 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
             currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
 
+
+
+             //esto es de prueba
+            SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(false,currentKeySharePrefrences);
+
+
             AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
+
         }
 
 
@@ -1888,7 +1885,7 @@ private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList
             }else{
 
 
-                ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
                         CODE_TWO_PERMISIONS);
             }
 
@@ -2585,16 +2582,10 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 
     btnCheck.setOnClickListener(new View.OnClickListener() {
-        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View view) {
-
-          RealtimeDB.addNewRegistroInforme2(new RegisterTest("",1));
-
-
-
-         //   btnCheck.setEnabled(false);
-           // checkDataFields();
+          //  btnCheck.setEnabled(false);
+            checkDataFields();
 
 
 
@@ -2608,6 +2599,8 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 }
 
 void checkDataFields(){ //
+    getResultDatCalibCalEnfundes(); //asi
+
 
 
        if(Variables.usuarioQserconGlobal==null){
@@ -2618,7 +2611,7 @@ void checkDataFields(){ //
 
 
     if(! checkDatosGeneralesIsLleno()){
-        btnCheck.setEnabled(true);
+       // btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkDatosGeneralesIsLleno");
         return;
@@ -2634,7 +2627,7 @@ void checkDataFields(){ //
 
 
     if(! checkcantidadPostcosechaIsLleno()){
-        btnCheck.setEnabled(true);
+     //   btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkcantidadPostcosechaIsLleno");
         return;
@@ -2645,7 +2638,7 @@ void checkDataFields(){ //
 
 
     if(! checkDatosContenedorIsLleno()){
-        btnCheck.setEnabled(true);
+      //  btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkDatosContenedorIsLleno");
 
@@ -2657,7 +2650,7 @@ void checkDataFields(){ //
 
 
     if(! checkDataSellosLlegadaIsLleno()){
-       btnCheck.setEnabled(true);
+      // btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkDataSellosLlegadaIsLleno");
 
@@ -2671,7 +2664,7 @@ void checkDataFields(){ //
 
 
     if(! checkSellosInstaladosIsLleno()){
-        btnCheck.setEnabled(true);
+      //  btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkSellosInstaladosIsLleno");
 
@@ -2685,7 +2678,7 @@ void checkDataFields(){ //
 
 
     if(! checkDatosTransportistaIsLleno()){
-        btnCheck.setEnabled(true);
+     //   btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
 
@@ -2701,7 +2694,7 @@ void checkDataFields(){ //
 
 
     if(! checkDatosProcesoIsLleno()){
-        btnCheck.setEnabled(true);
+      //  btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkDatosProcesoIsLleno");
 
@@ -2719,7 +2712,7 @@ void checkDataFields(){ //
 
 
     if(! checkDatosHaciendaIsLleno()){
-        btnCheck.setEnabled(true);
+     //   btnCheck.setEnabled(true);
 
         Log.i("test001","no esta lleno  checkDatosHaciendaIsLleno");
 
@@ -2738,7 +2731,7 @@ void checkDataFields(){ //
 
     if(! checkQueexistminim()){
         Log.i("test001","no esta lleno  checkDataCalibFrutaCalEnfn");
-        btnCheck.setEnabled(true);
+      //  btnCheck.setEnabled(true);
 
         return;
     }
@@ -2760,7 +2753,7 @@ void checkDataFields(){ //
 
     if(! getResultDatCalibCalEnfundes()){
         Log.i("test001","no esta lleno  getResultDatCalibCalEnfundes");
-        btnCheck.setEnabled(true);
+       // btnCheck.setEnabled(true);
 
         return;
 
@@ -2776,10 +2769,11 @@ void checkDataFields(){ //
 
     if(! cehckFaltanImagenes()){
         Log.i("test001","no esta lleno  cehckFaltanImagenes");
-        btnCheck.setEnabled(true);
+      //  btnCheck.setEnabled(true);
 
         return;
     }
+
 
 
 
@@ -2794,7 +2788,7 @@ void checkDataFields(){ //
 
 
     if(!Utils.checkifAtach()){
-        btnCheck.setEnabled(true);
+       // btnCheck.setEnabled(true);
         Log.i("test001","no esta lleno  checkifAtach");
         FragmentManager fm = getSupportFragmentManager();
         DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CONTENEDORES);
@@ -2843,21 +2837,13 @@ private void updatePostionImegesSort(){
 
 private void createObjcInformeAndUpload(){
 
-
         //cremaos un hasmpa con los libriados
-    HashMap<String,Float>miMapLbriado=generateMapLibriadoIfExistAndUpload();
+    miMapLbriado= generateMapLibriadoIfExist();
     String keyWhereLocaleHashMapLibriado="";
 
-
     if(miMapLbriado.size()>0){
-
          keyWhereLocaleHashMapLibriado=RealtimeDB.rootDatabaseReference.push().getKey();
-
-        RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,keyWhereLocaleHashMapLibriado);
-
-
     }
-
 
 //aplicamos la logica PARA CREAR UN NUEVO INFORME
 //SI LA DATA ES OPCIONAL EN EL FIELD LE AGREGAMOS UN "";en editex comprobacion le agragmos para que el texto no sea nulo
@@ -2924,16 +2910,15 @@ private void createObjcInformeAndUpload(){
 
 }
 
-private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
+private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3,
+                                     InformRegister inform, ProductPostCosecha productos,  ArrayList<ImagenReport>listImagesToUpload){
 
     //Agregamos un nuevo informe
     RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
-    RealtimeDB.addNewInforme(ActivityContenedores.this,informe);
-    RealtimeDB.addNewInforme(ActivityContenedores.this,informe2);
     updateCaledarioEnfunde(informe3);
-    RealtimeDB.addNewInforme(informe3);
-    addProdcutsPostCosechaAndUpload(informe.getUniqueIDinforme()); //agregamos y subimos los productos postcosecha..
 
+    Utils.show_AND_UPLOADContenedores(ActivityContenedores.this,ActivityContenedores.this,
+            informe,informe2,informe3,inform,productos,listImagesToUpload,miMapLbriado,Variables.FormContenedores,currentKeySharePrefrences);
 
 }
 
@@ -2997,32 +2982,13 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
 
 
-    void uploadImagesInStorageAndInfoPICS() throws IOException {
-   //una lista de Uris
-
-        Log.i("imagheddd","se llamometodoel size de lista es "+ImagenReport.hashMapImagesData.size());
-
-        if(ImagenReport.hashMapImagesData.size() ==0 ){
-            Log.i("imagheddd","es igual a cero");
-
-            Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
-             return;
-        }
-
-        Log.i("imagheddd","es difrente de cero");
-
-
-
+    ArrayList<ImagenReport> upDatalisImagesAndReturnListToUpload()  {
 
             ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
            ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-         StorageData.uploaddata(list,ActivityContenedores.this);
 
-       //  Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
+return list ;
 
-
-
-        // StorageData.uploadImage(ActivityContenedores.this, ImagenReport.hashMapImagesData);
     }
 
 
@@ -3126,7 +3092,10 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CODE_TWO_PERMISIONS) {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+
+            /*
+
+            if (grantResults.length > 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     Log.i("codereisterxcc","permisos concedidos") ;
                     takePickCamera();
 
@@ -3136,6 +3105,8 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
                     Log.i("codereisterxcc","no se concedieron") ;
 
                 }
+                */
+
     }
 
     }
@@ -3914,7 +3885,7 @@ return true;
         LinearLayout layoutContainerSeccion8=findViewById(R.id.layoutContainerSeccion8);
 
 
-        if(ediFuenteAgua.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediFuenteAgua.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediFuenteAgua.requestFocus();
             ediFuenteAgua.setError("Este espacio es obligatorio");
 
@@ -3931,22 +3902,8 @@ return true;
         }
 
 
-/*
-        if(ediAguaCorrida.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediAguaCorrida.requestFocus();
-            ediAguaCorrida.setError("Este espacio es obligatorio");
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
-            return false;
 
-        }else{
-
-            ediAguaCorrida.setError(null);
-
-        }
-
-*/
-
-        if(ediFumigacionClin1.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediFumigacionClin1.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediFumigacionClin1.requestFocus();
             ediFumigacionClin1.setError("Este espacio es obligatorio");
 
@@ -3963,11 +3920,13 @@ return true;
 
 
 
-        if(ediTipoBoquilla.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediTipoBoquilla.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
+            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
+            scroollElementoFaltante(ediTipoBoquilla);
+
             ediTipoBoquilla.requestFocus();
             ediTipoBoquilla.setError("Este espacio es obligatorio");
 
-            layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             return false;
 
         }
@@ -3979,7 +3938,7 @@ return true;
         }
 
 
-        if(ediCajasProcDesp.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediCajasProcDesp.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCajasProcDesp.requestFocus();
             ediCajasProcDesp.setError("Este espacio es obligatorio");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -3996,7 +3955,7 @@ return true;
 
 
 
-        if(ediRacimosCosech.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediRacimosCosech.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este espacio es obligatorio");
 
@@ -4039,7 +3998,7 @@ return true;
 
 
 
-        if(ediRacimProces.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediRacimProces.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediRacimProces.requestFocus();
             ediRacimProces.setError("Este espacio es obligatorio");
 
@@ -4048,7 +4007,7 @@ return true;
 
         }
 
-        if(ediExtCalid.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediExtCalid.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediExtCalid.requestFocus();
             ediExtCalid.setError("Este espacio es obligatorio");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -4057,7 +4016,7 @@ return true;
 
 
 
-        if(ediExtCalidCi.getText().toString().isEmpty()){ //chekamos que no este vacia
+        if(ediExtCalidCi.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediExtCalidCi.requestFocus();
             ediExtCalidCi.setError("Este espacio es obligatorio");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -4070,7 +4029,7 @@ return true;
 
         ///LOS DEMAS DATOS OPCIONALES
 
-        if(!ediExtRodillo.getText().toString().isEmpty() && ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if(!ediExtRodillo.getText().toString().trim().isEmpty() && ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
             ediExtRodilloCi.requestFocus();
             ediExtRodilloCi.setError("Se requiere La C.I");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -4081,7 +4040,7 @@ return true;
 
 
 
-        if(ediExtRodillo.getText().toString().isEmpty() && !ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if(ediExtRodillo.getText().toString().trim().isEmpty() && !ediExtRodilloCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
             ediExtRodillo.requestFocus();
             ediExtRodillo.setError("Se requiere el nombre");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -4091,7 +4050,7 @@ return true;
 
 
 
-        if(!ediExtGancho.getText().toString().isEmpty() && ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if(!ediExtGancho.getText().toString().trim().isEmpty() && ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
             ediExtGanchoCi.requestFocus();
             ediExtGanchoCi.setError("Se requiere La C.I");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -4102,7 +4061,7 @@ return true;
 
 
 
-        if(ediExtGancho.getText().toString().isEmpty() && !ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
+        if(ediExtGancho.getText().toString().trim().isEmpty() && !ediExtGanchoCi.getText().toString().isEmpty() ){ //chekamos que no este vacia
             ediExtGancho.requestFocus();
             ediExtGancho.setError("Se requiere el nombre");
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
@@ -4110,22 +4069,11 @@ return true;
 
         }
 
-
-
-        ///vamos con los datos de semananas y eso
-
-
-
-
         return true;
 
     }
 
-    private boolean checkDataCalibFrutaCalEnfn(){
 
-        //le decimos que esta todo bien y omitiremos estos datos....
-        return true;
-    }
 
     private boolean checkDatosProcesoIsLleno(){
         ///CHEKEAMOS DATA seccion CONTENEDOR
@@ -4133,7 +4081,7 @@ return true;
         if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediCondicionBalanza.requestFocus();
             ediCondicionBalanza.setError("Este espacio es obligatorio");
-            scroollElementoFaltante(ediCondicionBalanza);
+           scroollElementoFaltante(ediCondicionBalanza);
 
             layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
             return false;
@@ -4207,6 +4155,11 @@ return true;
 
             layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
              return false;
+        }else{
+
+            editipbalanzaRepeso.setError(null);
+
+
         }
 
 
@@ -4245,7 +4198,7 @@ return true;
     }
 
 
-private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
+private ProductPostCosecha generateProductPoscosecha(String uniqueIDinforme){
 
     ProductPostCosecha producto=new ProductPostCosecha(uniqueIDinforme);
     //creamos un array de editext
@@ -4340,9 +4293,8 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
     }
 
+return  producto;
 
-
-    RealtimeDB.UploadProductosPostCosecha(producto);
 
 
 }
@@ -5095,25 +5047,18 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
                     }
 
 
-                    uploadInformeToDatabase(informe,informe2,informe3);
-
                     user= new InformRegister(currenTidGenrate,Constants.CONTENEDORES,
                             Variables.usuarioQserconGlobal.getNombreUsuario(),
                             Variables.usuarioQserconGlobal.getUniqueIDuser()
                             , "CONTENEDORES ",ediExportadoraProcesada.getText().toString(),Utils.hasmpaExportadoras.get(ediExportadoraProcesada.getText().toString()).getNameExportadora());
 
+                      ArrayList<ImagenReport>listImagesToUpload=     upDatalisImagesAndReturnListToUpload(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
-                    //informe register
-                    Log.i("imagebrr","elsize es "+ImagenReport.hashMapImagesData.size());
+                     ProductPostCosecha products=generateProductPoscosecha(informe.getUniqueIDinforme()); //agregamos y subimos los productos postcosecha..
 
+                       /**LLAMOS UPLOAD TO DATABASE*/
 
-                    try {
-                        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    RealtimeDB.addNewRegistroInforme(ActivityContenedores.this,user);
+                        uploadInformeToDatabase(informe,informe2,informe3,user, products, listImagesToUpload );
 
                     //aqui subimos..
 
@@ -5136,6 +5081,8 @@ private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
 
     }
+
+
 
 
 
@@ -5279,7 +5226,7 @@ public void decideaAtachReport(boolean userSelecion){
       if(userSelecion){ //SELECIONO ATCH
             Log.i("test001"," seleciono 200");
 
-            ScrollView scrollView2 =findViewById(R.id.scrollView2);
+             scrollView2 =findViewById(R.id.scrollView2);
 
             scrollView2.post(new Runnable() {
                 public void run() {
@@ -5386,12 +5333,31 @@ private void callPrefrencesSaveAndImagesData(){
 }
 
 
-    public void scroollElementoFaltante(View vistFocus){
+    public void scroollElementoFaltante(View view){
 
-       // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
-        vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+        int y= view.getBottom();
 
+       // vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
 
+       // scrollView2.scrollTo(0, y+50);
+
+       // int vTop = vistFocus.getTop();
+        //int vBottom = vistFocus.getBottom();
+       // int sHeight = scrollView2.getBottom();
+       // scrollView2.smoothScrollTo(0, ((vTop + vBottom - sHeight) / 2));
+        // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
+       // vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+
+        int vTop = view.getTop();
+
+        while (!(view.getParent() instanceof ScrollView)) {
+            view = (View) view.getParent();
+            vTop += view.getTop();
+        }
+
+        final int scrollPosition = vTop;
+
+        new Handler().post(() -> scrollView2.smoothScrollTo(0, scrollPosition));
 
     }
 
@@ -5405,7 +5371,7 @@ private void callPrefrencesSaveAndImagesData(){
 
     /***iniciamos find view id en peso burto por clusters... **/
 
-    HashMap<String, Float> generateMapLibriadoIfExistAndUpload(){
+    HashMap<String, Float> generateMapLibriadoIfExist(){
 
         EditText        ediMarcaCol1 = findViewById(R.id.ediMarcaCol1);
         EditText        ediMarcaCol2 = findViewById(R.id.ediMarcaCol2);
@@ -5699,7 +5665,7 @@ private void callPrefrencesSaveAndImagesData(){
 
     private void  showToast(){
 
-        Toast.makeText(ActivityContenedores.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ActivityContenedores.this, "No tiene imagenes, agregue", Toast.LENGTH_LONG).show();
 
     }
 
@@ -5712,19 +5678,20 @@ private void callPrefrencesSaveAndImagesData(){
         if(!currentKeySharePrefrences.equals("")){
 
             try {
+
                 Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
                 InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
 
-
                 Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);
-
                 Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
 
                 objec.setSeSubioFormAlinea(true);
                 mapAllReportsRegister.put(currentKeySharePrefrences,objec);
 
                 SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+
+
 
             }
 

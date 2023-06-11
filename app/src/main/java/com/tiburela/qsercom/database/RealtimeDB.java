@@ -21,7 +21,7 @@ import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
 import com.tiburela.qsercom.activities.formularios.ActivityPackingList;
-import com.tiburela.qsercom.dialog_fragment.BottonSheetUplad;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -39,13 +39,14 @@ import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.models.UsuarioQsercon;
+import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class RealtimeDB {
@@ -175,7 +176,7 @@ public static  Context myContext;
     }
 
 
-    public static void addNewInforme(Context context, SetInformEmbarque1 informeObjct) {
+    public static void addNewDatosHacienda(SetInformEmbarque1 informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
 
         //agregamos la propiedad keyFirebase a al objeto
@@ -188,6 +189,8 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.OBJECT_SetInformEmbarque2);
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -195,16 +198,16 @@ public static  Context myContext;
                 }else  {
 
 
-                }
+
             }
-        });
+        }});
 
 
-    }
+        }
 
 
 
-    public static void addNewInforme( SetInformDatsHacienda informeObjct) {
+    public static void addNewDatosHacienda(SetInformDatsHacienda informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
 
         //agregamos la propiedad keyFirebase a al objeto
@@ -220,6 +223,9 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.LIBRIADO_IF_EXIST);
+
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -307,6 +313,15 @@ public static  Context myContext;
 
 
     public static void addNewhasmapPesoBrutoClosters2y3L( HashMap<String, Float> miMapa,String keyOrNodeToUpload) {
+        if(miMapa.size()==0){
+            BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.PRODUCTS_POST_COSECHA);
+
+            return;
+        }
+
+
+
+
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("MapsPesoBrutoCloster2y3l");
 
         mibasedata.child(keyOrNodeToUpload).setValue(miMapa).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -314,8 +329,7 @@ public static  Context myContext;
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    Log.i("upfste","se actualizo jhasmap libriado ccc ");
-
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.PRODUCTS_POST_COSECHA);
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
                 }else  {
@@ -532,7 +546,7 @@ public static  Context myContext;
 
 
 
-    public static void addNewInforme(Context context, SetInformEmbarque2 informeObjct) {
+    public static void addNewInformeEmbarque2(  Context context,SetInformEmbarque2 informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
 
         //agregamos la propiedad keyFirebase a al objeto
@@ -549,6 +563,9 @@ public static  Context myContext;
                 if (task.isSuccessful()) {
 
                     //lo borramos...
+
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.OBJECT_SetInformDatsHacienda);
+
 
                     try {
                         Utils.deleteMap(context);
@@ -703,7 +720,7 @@ public static  Context myContext;
     }
 
 
-    public static void addNewSetPicsInforme( ImagenReport objecImageReport ) {
+    public static void addNewSetPicsInforme( ImagenReport objecImageReport, Context context,int indiceNew ) {
 
         if(mibasedataPathImages==null ) {
             initDatabasesReferenceImagesData();
@@ -718,9 +735,32 @@ public static  Context myContext;
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    Log.i("pertenence","succes uplaod register img "+objecImageReport.getIdReportePerteence());
+                    StorageData.indiceCurrentOFlistIamges++;
+
+                    try {
+                        StorageData.uploaddImagesAndDataImages(StorageData.indiceCurrentOFlistIamges);
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                    Log.i("succesxccc","succes aqui y el indice es "+StorageData.indiceCurrentOFlistIamges);
+
 
                 }else  {
+                    StorageData.indiceCurrentOFlistIamges++;
+
+                    Log.i("succesxccc","no succes aqui y el indice es "+StorageData.indiceCurrentOFlistIamges);
+
+
+                    try {
+                        StorageData.uploaddImagesAndDataImages(StorageData.indiceCurrentOFlistIamges);
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
 
                     Log.i("pertenence","no se subio SEDATA y elerro es "+task.getException());
 
@@ -775,6 +815,7 @@ public static  Context myContext;
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.INFORM_REGISTER);
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
@@ -1256,13 +1297,12 @@ public static  Context myContext;
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.IMAGENES_SET_DE_REPORTE);
 
-               Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_LONG).show();
+              // Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_LONG).show();
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
-
                     //callback aqui...
-
-                    decideCallbackHere();
+                  //  decideCallbackHere();
 
 
                 }else  {
@@ -1473,6 +1513,8 @@ public static  Context myContext;
 
                       /**vamos a llamar a otro*/
 
+                   BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque2);
+
                    Log.i("hurraterminamos","aqui hemos terminado hurra");
 
 
@@ -1504,10 +1546,7 @@ public static  Context myContext;
                 if (task.isSuccessful()) {
 
 
-                    if(ActivityContenedores.callbackContenedores !=null){
-                        ActivityContenedores.callbackContenedores.uploadContenedoresPart1();
-                    }
-
+               BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.OBJECT_SetInformDatsHacienda);
 
                 }else  {
 
@@ -1525,30 +1564,29 @@ public static  Context myContext;
     }
 
 
-    public static void addNewRegistroInforme4( InformRegister registroInforme) {
+    public static void addNewRegistroInforme4( RegisterTest registroInforme) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Registros2test").child("InformesRegistros");
 
         String keyThisLoactionForm=mibasedata.push().getKey();
 
-        registroInforme.setKeyLoactionThisForm(keyThisLoactionForm);
-
-
-        Map<String, Object> mapValues = registroInforme.toMap(); //lo convertimos en mapa
 
 
 
-        mibasedata.child(keyThisLoactionForm).setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+        mibasedata.child(keyThisLoactionForm).setValue(registroInforme).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.IMAGENES_SET_DE_REPORTE);
 
-                    if(ActivityContenedores.callbackContenedores !=null){
-                        ActivityContenedores.callbackContenedores.uploadContenedoresPart1();
-                    }
+
+
+                  Log.i("hemos terminado de llenar todo","");
 
 
                 }else  {

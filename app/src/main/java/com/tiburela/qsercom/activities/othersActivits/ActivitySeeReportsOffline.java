@@ -99,8 +99,11 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
     protected void onStart() {
         super.onStart();
 
-        mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
+        Log.i("superkey","se llamo onstart");
+
+        mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+        spinnerDatesSelector.setSelection(0);
         listenenrSpinner();
 
 
@@ -142,9 +145,11 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
                 String fechaToSearch="";
 
 
-
                 //  ediZona.setText("Zona "+zonaEelejida+" ");
                 if(timeSelecionado.equals("HOY")){
+
+                    Log.i("superkey","se llamo hoy nuevamente");
+
 
                     fechaToSearch=generaFechaToSearch(Variables.HOY);
 
@@ -202,21 +207,6 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     void setAdapaterDataAndShow() {
@@ -888,7 +878,7 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
         LinearLayout lyRevisar = bottomSheetDialog.findViewById(R.id.lyhh);
 
 
-Log.i("puslado","el value es "+idReport);
+Log.i("superkey","el value que le vamos a pasar es "+idReport);
 
         lyRevisar.setOnClickListener(new View.OnClickListener() { //revisar
 

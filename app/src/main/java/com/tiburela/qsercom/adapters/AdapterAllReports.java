@@ -90,11 +90,8 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
             holder.txtReportCode.setText("Reporte "+(position+1)); //SI ES OFFLINE OCULTAMOS STATE VIEW
 
 
-
-
-            try {
     if(InformRegister.isSeSubioFormAlinea()){
-        holder.txtStateForm.setText("Subido"); //SI ES OFFLINE OCULTAMOS STATE VIEW
+        holder.txtStateForm.setText("Subido");
 
     }
     else{
@@ -105,9 +102,6 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
     }
 
 
-} catch (Exception e) {
-    e.printStackTrace();
-}
 
 
         }

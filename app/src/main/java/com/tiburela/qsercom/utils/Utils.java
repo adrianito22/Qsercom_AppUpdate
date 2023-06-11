@@ -14,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
@@ -28,6 +29,8 @@ import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,15 +44,22 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
+import com.tiburela.qsercom.models.RegisterTest;
+import com.tiburela.qsercom.models.SetInformDatsHacienda;
+import com.tiburela.qsercom.models.SetInformEmbarque1;
+import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.models.UsuarioQsercon;
 
 import org.json.JSONException;
@@ -1552,6 +1562,28 @@ return true;
             if(Character.digit(s.charAt(i),radix) < 0) return false;
         }
         return true;
+    }
+
+
+    public static void show_AND_UPLOADContenedores(Activity activity, Context contexta, SetInformEmbarque1 informEmbq1, SetInformEmbarque2 informEmbq2,
+                                                   SetInformDatsHacienda datoshda, InformRegister informRegisterx,
+                                                   ProductPostCosecha productos, ArrayList<ImagenReport>listImages,
+                                                   HashMap<String, Float> miMapLbriadox, int ActivityId,String keyPrefrencesx)
+    {
+        FragmentManager fm =((FragmentActivity)activity). getSupportFragmentManager();
+        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,informEmbq1,informEmbq2,datoshda,informRegisterx,productos,listImages,miMapLbriadox,ActivityId);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("keyPrefrencesReportCurrent", keyPrefrencesx);
+        alertDialog.setArguments(bundle);
+
+
+        alertDialog.setCancelable(false);
+       // alertDialog.setc(false);
+        alertDialog.show(fm, "duialoffragment_alert");
+
+
+
     }
 }
 

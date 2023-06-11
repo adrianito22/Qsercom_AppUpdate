@@ -6,10 +6,7 @@ import static android.os.Build.VERSION.SDK_INT;
 import static android.view.View.GONE;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -107,7 +104,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -2220,11 +2216,14 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
                 ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
+                /*
                 try {
-                    StorageData.uploaddata(list2,PreviewCalidadCamionesyCarretas.this);
+                  //  StorageData.uploaddImagesAndDataImages(list2,PreviewCalidadCamionesyCarretas.this);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                */
+
             }
 
 
