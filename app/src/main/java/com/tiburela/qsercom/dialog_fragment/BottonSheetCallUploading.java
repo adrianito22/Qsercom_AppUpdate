@@ -161,7 +161,10 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                    uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque1);
 
                }else{
-                   UpdateReportThread();
+
+                   //aqui llamos el nuevo metodo
+                   f
+                  // UpdateReportThread();
 
                }
 
@@ -422,10 +425,107 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
 
- private static void UpdateReportThread(){
+ public  static void UpdateReportThread(int  tipoObjectoQueSubiremosNow){
+
+    // addOnCompleteListener //podemos llmar esto cuando terminemos de subir todas las imagenes, si nos da pronelas ocularlo
+     // cuando los 5 0 6 informes se subiron llamra esta funcion con numero imagenes ... y cuando termine llamar esta funcion con int ginish...
+     //desecnadenar vamos imagenes alli mimso donde desencadena la finalizacion de task que creamos anteriomente..
+
+     final int[] valuePercent = {0};
 
      Task<String> task = Utils.sourceTareas.getTask();
-    new Thread(new Runnable() {
+
+     thread = new Thread(new Runnable() {
+         @Override
+         public void run() {//esto en BACGROUND
+
+                   if(tipoObjectoQueSubiremosNow== Variables.SEVERAL_INFORMS_UPDATE){
+                     valuePercent[0] =20;
+
+
+                       RealtimeDB.updateSetinformEmbarq1(informe1);
+                       RealtimeDB.actualizaInformePart2(informe2); //es dedcion
+                       RealtimeDB.actualizaInformePart3(informe3); //es dedcion
+                       RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //es dedcion
+                       RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha);
+                       Log.i("finalizando","SECOND");
+
+                       }
+                  else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){
+                       valuePercent[0] =50;
+
+
+                       try {
+
+                           StorageData.initImagenesAllAndArrayListAndContext(listImagesx, context);
+                           StorageData.uploaddImagesAndDataImages(0);
+
+                       } catch (IOException e) {
+                           throw new RuntimeException(e);
+                       }
+
+                   }else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
+
+                       valuePercent[0] =100;
+
+                   }
+
+
+//es dedcion
+             handler1.post(new Runnable() {
+                 @Override
+                 public void run() {
+
+                     if(progressBar!=null){
+
+                         if(valuePercent[0]==20) {
+                             progressBar.setProgress(20); //esto en interfas
+                             Log.i("finalizando", "value percent es igual a 100");
+
+                             /*
+                             txtSubTitle.setText("Hurra, se subio");
+                             txtTitle.setText("100% COMPLETADO");
+
+                             btnOkButton.setVisibility(View.VISIBLE);
+                             // imgIcon.setVisibility(View.VISIBLE);
+                             imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                             btnOkButton.setEnabled(true);
+
+                              */
+                         }
+                         } else if (valuePercent[0]==100) {
+
+                         progressBar.setProgress(100); //esto en interfas
+                         Log.i("finalizando", "value percent es igual a 100");
+
+
+                             txtSubTitle.setText("Hurra, se subio");
+                             txtTitle.setText("100% COMPLETADO");
+
+                             btnOkButton.setVisibility(View.VISIBLE);
+                             // imgIcon.setVisibility(View.VISIBLE);
+                             imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                             btnOkButton.setEnabled(true);
+
+
+
+                         }
+
+
+                 }
+             });
+
+
+
+
+              //cuando termine esto vamos a darle..
+
+         }
+     });   //call it
+     thread.start();
+
+/*
+     new Thread(new Runnable() {
         @Override
         public void run() {
 
@@ -437,6 +537,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
         }
     }).start();
+*/
 
     task.addOnCompleteListener(new OnCompleteListener<String>() {
         @Override
@@ -447,9 +548,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                 public void onSuccess(String result) {
                     Log.i("updatexxxx","es succces result es: "+result);
 
-                    progressBar.setProgress(50);
+                  //  progressBar.setProgress(50);
 
-                    UploadImages(); //vamos a subir imagenes
+                   // UploadImages(); //vamos a subir imagenes
                     // Task completed successfully
                     // ...
                 }
@@ -470,9 +571,33 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 }
 
 
-    private static void UploadImages(){
+    private static void UploadImages() {
 
-        Task<String> task = Utils.sourceTareaSubirIMAGENES.getTask();
+     //   Task<String> taskxx = Utils.sourceTareaSubirIMAGENES.getTask();
+
+
+        thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {//esto en BACGROUND
+
+                try {
+
+                    StorageData.initImagenesAllAndArrayListAndContext(listImagesx, context);
+                    StorageData.uploaddImagesAndDataImages(0);
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });   //call it
+        thread.start();
+
+
+        //
+/*
+        Task<String> taskxx = Utils.sourceTareaSubirIMAGENES.getTask();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -488,101 +613,11 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
             }
         }).start();
+*/
 
-        task.addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                //por cada teara completada aumentamos
-                task.addOnSuccessListener(new OnSuccessListener<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Log.i("finalizando","es succces result CUANDO IMAGES SUBIDAS es: "+result);
-
-                        progressBar.setProgress(100);
-                        btnOkButton.setVisibility(View.VISIBLE);
-                        btnOkButton.setEnabled(true);
-
-                        // Task completed successfully
-                        // ...
-                    }
-                });
-
-            }
-        });
-
-
-
-        task.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // Task failed with an exception
-                Log.i("finalizando","es fail y ala excepcion es : "+e.getMessage());
-
-                // ...
-            }
-        });
+/** para firebase mutitread que devulven obejtos cuando todad terminan...https://firebase.blog/posts/2016/10/become-a-firebase-taskmaster-part-4*/
     }
 
-
-private void task(){
-
-        /**este similar al de arriba con la difrencia que hay un metodo para esperar que todos terminen...*/
-
-     Task<Void> allTask;
-     TaskCompletionSource<String> dbSource = new TaskCompletionSource<>();
-     Task dbTask = dbSource.getTask();
-
-    dbTask.addOnCompleteListener(new OnCompleteListener() {
-        @Override
-        public void onComplete(@NonNull Task task) {
-
-        }
-    });
-
-     //Y CUndo terminemos la tarea le asigmaos este valor
-    dbSource.setResult("primera tarea terminada");
-
-
-    TaskCompletionSource<String> dbSource2 = new TaskCompletionSource<>();
-    Task dbTask2 = dbSource.getTask();
-    //Y CUndo terminemos la tarea le asigmaos este valor
-    dbSource.setResult("primera tarea terminada");
-
-
-
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-
-
-        }
-    }).start();
-
-   // allTask = Tasks.whenAll(fetchTask, dbTask, delayTask);
-
-
-
-// during onCreate():
-    allTask = Tasks.whenAll(dbTask); //aqui coloca,ps todos los task
-    allTask.addOnSuccessListener(new OnSuccessListener<Void>() {
-        @Override
-        public void onSuccess(Void aVoid) {
-            String data = dbTask.getResult().toString();
-
-            Log.i("eltaska","el task result es "+data);
-
-            // DataSnapshot data = dbTask.getResult();
-            // do something with db data?
-           // startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
-        }
-    });
-    allTask.addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception e) {
-            // apologize profusely to the user!
-        }
-    });
-}
 
 
 

@@ -39,6 +39,7 @@ public class Variables {
 
     public static  int FINISH_ALL_UPLOAD=107;
 
+    public static  int SEVERAL_INFORMS_UPDATE=108;
 
 
     public static  String tagAndKeyToDelete="";
