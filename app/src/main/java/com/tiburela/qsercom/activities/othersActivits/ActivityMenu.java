@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -321,9 +322,16 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         btnInInformes.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+
+                if(Variables.usuarioQserconGlobal==null){
+                    Toast.makeText(ActivityMenu.this, "No puedes abrir hasta que inicies sesión", Toast.LENGTH_LONG).show();
+
+                    return;
+                }
+
+
                 Utils.isOfflineReport=false;
 
 

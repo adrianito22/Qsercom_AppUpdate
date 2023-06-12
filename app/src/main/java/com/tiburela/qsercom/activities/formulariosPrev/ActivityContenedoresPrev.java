@@ -111,6 +111,19 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class ActivityContenedoresPrev extends AppCompatActivity implements View.OnClickListener {
+
+   /**COPIAS DE FORMS*/
+
+    SetInformEmbarque1 copiaSetInformEmbarque1;
+
+    SetInformEmbarque2 copiaSetInformEmbarque2;
+
+    //SetInformEmbarque3 copiaSetInformEmbarque3;
+
+
+
+
+
     HashMap<String, Exportadora> hasmpaExportadoras;
 
     Spinner spinnerExportadora;
@@ -338,7 +351,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
         if (esFirstCharge) {
             findViewsIds();
-
 
             hideViewsIfUserISCampo();
 
@@ -2165,8 +2177,6 @@ else{
         informe.setCodigonRevisa(ediCodigoRevisa.getText().toString());
 
 
-
-
         Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
 
@@ -2254,6 +2264,7 @@ else{
 
 
      ArrayList<ImagenReport> listImagesToUpload=  generateistImagesToUpload(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
         uploadInformeToDatabase(informe,informe2,informe3,Variables.currentInformRegisterSelected, objectProduc, listImagesToUpload );
 
 
@@ -2322,6 +2333,7 @@ else{
 
       ArrayList<ImagenReport>  generateistImagesToUpload()  {
         ArrayList<ImagenReport> list2 =new ArrayList<>();
+
         if (!Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())) { //si no son iguales
             list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
         }
@@ -4605,17 +4617,16 @@ else{
     }
 
 
-    public void saveInfo() throws IOException {
+    public void saveInfo() {
+        updatePostionImegesSort();
 
         Log.i("somerliker", "llamamos save info ");
 
+        /*
         pdialogff = new ProgressDialog(ActivityContenedoresPrev.this);
         pdialogff.setMessage("Actualizando data ");
         pdialogff.show();
-
-        updatePostionImegesSort();
-
-
+*/
 
 
         //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
@@ -5013,8 +5024,6 @@ else{
                         break;
                     }
                 }
-                Log.i("secondInform", "el id del secon resport es " + Variables.CurrenReportPart2.getUniqueIDinformePart2());
-                Log.i("secondInform", "el CANDAO ES " + Variables.CurrenReportPart2.getCandadoQsercom());
 
 
                 dowloadThirdReportAndCallSetData(reportUNIQUEidtoSEARCH, modo);
@@ -5435,7 +5444,6 @@ else{
     }
 
     private void getLibriadoMap(String nodeLocalizeMap) {
-        Log.i("hameha", "el NODEKey es : " + nodeLocalizeMap);
 
         ValueEventListener seenListener = RealtimeDB.rootDatabaseReference.child("Informes").child("MapsPesoBrutoCloster2y3l").
                 child(nodeLocalizeMap).addValueEventListener(new ValueEventListener() {

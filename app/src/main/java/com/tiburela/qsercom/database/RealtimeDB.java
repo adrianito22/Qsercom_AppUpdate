@@ -55,7 +55,7 @@ public class RealtimeDB {
 
     static  public  DatabaseReference mibasedataPathImages;
 
-public static  Context myContext;
+    public static  Context myContext;
 
 
     //ESTA VCLASED VA A ENCRAGARSE DE CREAR MODIFICAR ,BORRAR DATOS DE LA BASE DE DATOS REALTIME
@@ -110,7 +110,7 @@ public static  Context myContext;
 
                     Log.i("COMENMZAR","es succes");
 
-                  //  ((Activity)myContext).finish();
+                    //  ((Activity)myContext).finish();
 
 
                 }else  {
@@ -118,7 +118,7 @@ public static  Context myContext;
                     Log.i("COMENMZAR","es else");
 
 
-                 //   Toast.makeText(myContext, "Se produjo un erro   r", Toast.LENGTH_SHORT).show();
+                    //   Toast.makeText(myContext, "Se produjo un erro   r", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -199,11 +199,11 @@ public static  Context myContext;
 
 
 
-            }
-        }});
+                }
+            }});
 
 
-        }
+    }
 
 
 
@@ -283,29 +283,29 @@ public static  Context myContext;
         informeObjct.setSimpleDataFormat(antiguoInformObject.getSimpleDataFormat());
 
 
-          if(antiguoInformObject.getKeyFirebase().length()>0){
-              mibasedata.child(antiguoInformObject.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+        if(antiguoInformObject.getKeyFirebase().length()>0){
+            mibasedata.child(antiguoInformObject.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
 
-                  @Override
-                  public void onComplete(@NonNull Task<Void> task) {
-                      if (task.isSuccessful()) {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
 
-                           //un calllback de se actualizo informe...
+                        //un calllback de se actualizo informe...
 
-                          Log.i("upfste","se actualizo informe ");
-                           Toast.makeText(myContext, "Se actualizó informe", Toast.LENGTH_SHORT).show();
+                        Log.i("upfste","se actualizo informe ");
+                        Toast.makeText(myContext, "Se actualizó informe", Toast.LENGTH_SHORT).show();
 
-                      }else  {
+                    }else  {
 
-                          Toast.makeText(myContext, "Ocurrio un error :(", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(myContext, "Ocurrio un error :(", Toast.LENGTH_SHORT).show();
 
-                      }
-                  }
-              });
+                    }
+                }
+            });
 
-          }
+        }
 
 
 
@@ -355,7 +355,9 @@ public static  Context myContext;
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+
+                       // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
                     }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -389,7 +391,10 @@ public static  Context myContext;
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+
+                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+
+                        // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
                     }
 
@@ -421,7 +426,9 @@ public static  Context myContext;
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+
+                      //  Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
                     }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -453,7 +460,9 @@ public static  Context myContext;
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+
+                     //   Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
                     }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -625,7 +634,7 @@ public static  Context myContext;
 
 
                     Log.i("samamf","task is succes ! ");
-                  //  ((Activity)myContext).finish();
+                    //  ((Activity)myContext).finish();
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
@@ -989,7 +998,7 @@ public static  Context myContext;
         // Map<String, Object> mapValues = informeObjct.toMap();
         String PuskEY = mibasedata.push().getKey();
 
-       // calibrFrutCalEnf.setKeyFirebase(PuskEY);
+        // calibrFrutCalEnf.setKeyFirebase(PuskEY);
         //SUBE MAPA
         mibasedata.push().setValue(exportadora).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -1049,8 +1058,11 @@ public static  Context myContext;
 
                     Utils.contadorTareasCompletadas++;
 
+                    Log.i("updatexxxx","es  UpdateProductosPostCosecha y el indice es "+Utils.contadorTareasCompletadas);
+
                     if(Utils.contadorTareasCompletadas==5){
-                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+                       // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
                     }
 
@@ -1246,14 +1258,14 @@ public static  Context myContext;
                     if(key !=null){
                         ///editamos el objeto
 
-                     //   editValue(key,numSort);
+                        //   editValue(key,numSort);
 
                     }
 
                 } catch (Exception e) {
-                   // throw new NoSuchElementException();
+                    // throw new NoSuchElementException();
 
-                  //  throw new RuntimeException(e);
+                    //  throw new RuntimeException(e);
                 }
 
 
@@ -1330,15 +1342,15 @@ public static  Context myContext;
 
                     BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.IMAGENES_SET_DE_REPORTE);
 
-              // Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_LONG).show();
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
                     //callback aqui...
-                  //  decideCallbackHere();
+                    //  decideCallbackHere();
 
 
                 }else  {
 
-               Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
 
 
 
@@ -1352,7 +1364,7 @@ public static  Context myContext;
 
     public static void decideCallbackHere(){
 
- ///fgfg
+        ///fgfg
         Log.i("dineroa","hel activityCurrent  es "+Variables.activityCurrent);
         Log.i("dineroa","hel FormContenedores es "+Variables.FormContenedores);
 
@@ -1471,60 +1483,60 @@ public static  Context myContext;
 
 
 
-/*
-    private void checkIfExistIdAndUpload (String currenTidGenrate, SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
+    /*
+        private void checkIfExistIdAndUpload (String currenTidGenrate, SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
 
-        //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
-        //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
+            //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
+            //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
 
-        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").equalTo(currenTidGenrate);
+            Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").equalTo(currenTidGenrate);
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ControlCalidad  user=null;
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    user=ds.getValue(ControlCalidad.class);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ControlCalidad  user=null;
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        user=ds.getValue(ControlCalidad.class);
+                    }
+
+
+                    if(user == null) {
+
+
+                        informe.setUniqueIDinforme(currenTidGenrate);
+                        uploadInformeToDatabase(informe,informe2,informe3);
+                        //dfghdfh
+
+                        RealtimeDB.addNewRegisterUploadInform(new InformsRegister(currenTidGenrate,Variables.FormContenedores));
+
+
+                    }else {
+
+                        generateUniqueIdInformeAndContinuesIfIdIsUnique(informe,informe2,informe3);
+
+                    }
+
+
+
                 }
 
-
-                if(user == null) {
-
-
-                    informe.setUniqueIDinforme(currenTidGenrate);
-                    uploadInformeToDatabase(informe,informe2,informe3);
-                    //dfghdfh
-
-                    RealtimeDB.addNewRegisterUploadInform(new InformsRegister(currenTidGenrate,Variables.FormContenedores));
-
-
-                }else {
-
-                    generateUniqueIdInformeAndContinuesIfIdIsUnique(informe,informe2,informe3);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
+            });
 
 
 
-            }
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
-    }
-
-*/
+    */
     private void generateUniqueIdInformeAndContinuesIfIdIsUnique( SetInformEmbarque1 informe,SetInformEmbarque2 informe2, SetInformDatsHacienda informe3){
 
         String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
         Log.i("elnumber","el numero generado es ss"+uniqueId);
 
-      //  checkIfExistIdAndUpload(uniqueId,informe,informe2,informe3);
+        //  checkIfExistIdAndUpload(uniqueId,informe,informe2,informe3);
 
 
     }
@@ -1534,24 +1546,24 @@ public static  Context myContext;
         DatabaseReference mibasedata = rootDatabaseReference.child("Registros2test").child("InformesRegistros");
         String keyThisLoactionForm=mibasedata.push().getKey();
 
-       // registroInforme.setKeyLoactionThisForm(keyThisLoactionForm);
+        // registroInforme.setKeyLoactionThisForm(keyThisLoactionForm);
 
-     //   Map<String, Object> mapValues = registroInforme.toMap(); //lo convertimos en mapa
+        //   Map<String, Object> mapValues = registroInforme.toMap(); //lo convertimos en mapa
         mibasedata.child(keyThisLoactionForm).setValue(registroInforme).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                      /**vamos a llamar a otro*/
+                    /**vamos a llamar a otro*/
 
-                   BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque2);
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque2);
 
-                   Log.i("hurraterminamos","aqui hemos terminado hurra");
+                    Log.i("hurraterminamos","aqui hemos terminado hurra");
 
 
                 }else  {
 
-                 //   Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
+                    //   Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -1577,11 +1589,11 @@ public static  Context myContext;
                 if (task.isSuccessful()) {
 
 
-               BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.OBJECT_SetInformDatsHacienda);
+                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.OBJECT_SetInformDatsHacienda);
 
                 }else  {
 
-                //    Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
+                    //    Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
 
 
 
@@ -1617,7 +1629,7 @@ public static  Context myContext;
 
 
 
-                  Log.i("hemos terminado de llenar todo","");
+                    Log.i("hemos terminado de llenar todo","");
 
 
                 }else  {

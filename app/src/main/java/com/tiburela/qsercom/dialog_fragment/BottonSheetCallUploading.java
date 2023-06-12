@@ -140,11 +140,10 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             txtTitle =vista.findViewById(R.id.txtAdviser);
             CoordinatorLayout lineaLyaout =vista.findViewById(R.id.lineaLyaout);
             txtSubTitle =vista.findViewById(R.id.txtSubheader);
-
               imgIcon=vista.findViewById(R.id.imgIcon);
               btnOkButton=vista.findViewById(R.id.btnOkButton);
-
             Log.i("lamundo","el size upload es "+allkeys.size());
+
             btnOkButton.setEnabled(false);
 
             btnOkButton.setOnClickListener(new View.OnClickListener() {
@@ -162,8 +161,12 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
                }else{
 
+                   Utils.contadorTareasCompletadas=0;
+
+                   UpdateReportThread(Variables.SEVERAL_INFORMS_UPDATE);
+
                    //aqui llamos el nuevo metodo
-                   f
+                 //  f
                   // UpdateReportThread();
 
                }
@@ -322,7 +325,10 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                             RealtimeDB.UploadProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
 
                         }else{
-                            RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha); //es dedcion
+
+                         //   RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha,productosPoscosecha.keyFirebase); //es dedcion
+
+
                         }
 
 
@@ -430,10 +436,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
     // addOnCompleteListener //podemos llmar esto cuando terminemos de subir todas las imagenes, si nos da pronelas ocularlo
      // cuando los 5 0 6 informes se subiron llamra esta funcion con numero imagenes ... y cuando termine llamar esta funcion con int ginish...
      //desecnadenar vamos imagenes alli mimso donde desencadena la finalizacion de task que creamos anteriomente..
-
      final int[] valuePercent = {0};
 
-     Task<String> task = Utils.sourceTareas.getTask();
+    // Task<String> task = Utils.sourceTareas.getTask();
 
      thread = new Thread(new Runnable() {
          @Override
@@ -442,16 +447,18 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                    if(tipoObjectoQueSubiremosNow== Variables.SEVERAL_INFORMS_UPDATE){
                      valuePercent[0] =20;
 
-
                        RealtimeDB.updateSetinformEmbarq1(informe1);
-                       RealtimeDB.actualizaInformePart2(informe2); //es dedcion
-                       RealtimeDB.actualizaInformePart3(informe3); //es dedcion
-                       RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //es dedcion
+                       RealtimeDB.actualizaInformePart2(informe2);
+                       RealtimeDB.actualizaInformePart3(informe3);
+                       RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs());
                        RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha);
-                       Log.i("finalizando","SECOND");
+
 
                        }
+
+
                   else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){
+                       Log.i("updatexxxx","IMAGENES_SET_DE_REPORTE");
                        valuePercent[0] =50;
 
 
@@ -464,7 +471,11 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                            throw new RuntimeException(e);
                        }
 
-                   }else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
+                   }
+
+                  else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
+                       Log.i("updatexxxx","FINISH_ALL_UPLOAD");
+
 
                        valuePercent[0] =100;
 
@@ -492,12 +503,12 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                              btnOkButton.setEnabled(true);
 
                               */
+
                          }
-                         } else if (valuePercent[0]==100) {
+                          else if (valuePercent[0]==100) {
 
                          progressBar.setProgress(100); //esto en interfas
-                         Log.i("finalizando", "value percent es igual a 100");
-
+                         Log.i("updatexxxx", "update todos hurra");
 
                              txtSubTitle.setText("Hurra, se subio");
                              txtTitle.setText("100% COMPLETADO");
@@ -510,6 +521,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
                          }
+                     }
 
 
                  }
@@ -538,7 +550,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
         }
     }).start();
 */
-
+/*
     task.addOnCompleteListener(new OnCompleteListener<String>() {
         @Override
         public void onComplete(@NonNull Task<String> task) {
@@ -559,8 +571,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
         }
     });
 
-
-
      task.addOnFailureListener(new OnFailureListener() {
          @Override
          public void onFailure(@NonNull Exception e) {
@@ -568,6 +578,11 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
              // ...
          }
      });
+
+    */
+
+
+
 }
 
 

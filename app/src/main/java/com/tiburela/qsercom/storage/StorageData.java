@@ -220,11 +220,12 @@ public static int counTbucle=0;
                   Log.i("finalizando","se eejcuto el if ");
 
               }else{
-
                 //  Log.i("updatexxxx","es succces result CUANDO IMAGES SUBIDAS es: "+result);
-                  Log.i("finalizando","se eejcuto el else ");
+                  Log.i("updatexxxx","se eejcuto erl else llamois metodo con finish value");
+                  BottonSheetCallUploading.UpdateReportThread(Variables.FINISH_ALL_UPLOAD);
 
-                  Utils.sourceTareaSubirIMAGENES.setResult(Utils.TAREACOMPETADA_IMAGENS);
+                  //uploaddImagesAndDataImages
+                 // Utils.sourceTareaSubirIMAGENES.setResult(Utils.TAREACOMPETADA_IMAGENS);
               }
             return;
 

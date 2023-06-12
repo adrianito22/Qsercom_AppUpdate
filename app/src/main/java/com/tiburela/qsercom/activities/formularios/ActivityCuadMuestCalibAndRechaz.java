@@ -54,7 +54,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
     public static CallbackUploadNewReport callbackUploadNewReport;
 
-
+     boolean selllamoFindsviewsID =false;
     Button btnSaveLocale;
 
     boolean userCreoRegisterForm=false;
@@ -132,77 +132,39 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         });
 
 
+
         btnSaveLocale=findViewById(R.id.btnSaveLocale);
-
-        ediMutante=findViewById(R.id.ediMutante);
-        ediSPEKLING=findViewById(R.id.ediSPEKLING);
-        ediPuntaamarillayB=findViewById(R.id.ediPuntaamarillayB);
-        ediCremaAlmendraFloja=findViewById(R.id.ediCremaAlmendraFloja);
-        ediManchaRoja=findViewById(R.id.ediManchaRoja);
-        ediAlterados=findViewById(R.id.ediAlterados);    
-        ediPobres=findViewById(R.id.ediPobres);
-        ediCaidos=findViewById(R.id.ediCaidos);
-        ediSobreGrado=findViewById(R.id.ediSobreGrado);
-        ediBajoGrado=findViewById(R.id.ediBajoGrado);
-        edimosaico=findViewById(R.id.edimosaico);
-        ediDanoDeAnimal=findViewById(R.id.ediDanoDeAnimal);
-        ediExplosivo=findViewById(R.id.ediExplosivo);
-        ediDedoCorto=findViewById(R.id.ediDedoCorto);
-        ediRacimosPesadosDeEdad=findViewById(R.id.ediRacimosPesadosDeEdad);
-        ediCochinillaEscamaFumagina=findViewById(R.id.ediCochinillaEscamaFumagina);
-        ediRacimosSinEdintificacion=findViewById(R.id.ediRacimosSinEdintificacion);
-        ediErwinea=findViewById(R.id.ediErwinea);
-
-        btnSaveCambios=findViewById(R.id.btnSaveCambios);
-        ediSemanaxc=findViewById(R.id.ediSemanaxc);
-        ediExportadora=findViewById(R.id.ediExportadora);
-        ediVaporx=findViewById(R.id.ediVaporx);
-        ediFechax=findViewById(R.id.ediFechax);
-        ediProductoras=findViewById(R.id.ediProductoras);
-        ediCodigoxs=findViewById(R.id.ediCodigoxs);
-        ediEnfundex=findViewById(R.id.ediEnfundex);
-
-        ediExtCalidad=findViewById(R.id.ediExtCalidad);
-        ediExteRodillo=findViewById(R.id.ediExteRodillo);
-        ediExtGancho=findViewById(R.id.ediExtGancho);
-        txtTotalRechazados=findViewById(R.id.txtTotalRechazados);
-        imgVupdate=findViewById(R.id.imgVupdate);
-
-        hindeviewTxt=findViewById(R.id.hindeviewTxt);
-
         imageViewUpdate1=findViewById(R.id.imageViewUpdate1);
-
-         ediColor9=findViewById(R.id.ediColor9);
-        ediColor10=findViewById(R.id.ediColor10);
-        ediColor11=findViewById(R.id.ediColor11);
-        ediColor12=findViewById(R.id.ediColor12);
-        ediColor13=findViewById(R.id.ediColor13);
-        ediColor14=findViewById(R.id.ediColor14);
-
+        imgVupdate=findViewById(R.id.imgVupdate);
+        btnSaveCambios=findViewById(R.id.btnSaveCambios);
+        hindeviewTxt=findViewById(R.id.hindeviewTxt);
+        ediFechax=findViewById(R.id.ediFechax);
 
         Variables.activityCurrent=Variables.FormMuestreoRechaz;
-
-
-
         Bundle extras = getIntent().getExtras();
-
-
-
-
 
         imageViewUpdate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                if(!selllamoFindsviewsID) {
+                    initIdsOtherViews();
+
+                }
+
                 ///agfdfg
                 muestraResultsCuadroMuetreo1(mireciclerv);
             }
         });
-
-
         hindeviewTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                if(!selllamoFindsviewsID) {
+                    initIdsOtherViews();
+
+                }
 
                 if(mireciclerv.getVisibility()==View.VISIBLE){
                     mireciclerv.setVisibility(View.GONE);
@@ -219,13 +181,14 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
             }
         });
-
-
-
-
         imgVupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(!selllamoFindsviewsID) {
+                    initIdsOtherViews();
+
+                }
 
                 CuadroMuestreo objec= new CuadroMuestreo(0,"","",""
                         ,"", "","","",
@@ -244,10 +207,13 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
             }
         });
-
         btnSaveCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!selllamoFindsviewsID) {
+                    initIdsOtherViews();
+
+                }
 
 
                 if(chekeadDataListIsReady()){
@@ -300,10 +266,13 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         btnSaveLocale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!selllamoFindsviewsID) {
+                    initIdsOtherViews();
+
+                }
                 callPrefrencesSaveData();
             }
         });
-
 
 
         mireciclerv=findViewById(R.id.mireciclerv);
@@ -325,6 +294,10 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         ediFechax.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!selllamoFindsviewsID) {
+                    initIdsOtherViews();
+
+                }
 
                 //slecioamofecha
                 selecionaFecha();
@@ -344,6 +317,53 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
             AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
         }
+
+    }
+
+
+    private void initIdsOtherViews() {
+        selllamoFindsviewsID =true;
+
+        ediMutante=findViewById(R.id.ediMutante);
+        ediSPEKLING=findViewById(R.id.ediSPEKLING);
+        ediPuntaamarillayB=findViewById(R.id.ediPuntaamarillayB);
+        ediCremaAlmendraFloja=findViewById(R.id.ediCremaAlmendraFloja);
+        ediManchaRoja=findViewById(R.id.ediManchaRoja);
+        ediAlterados=findViewById(R.id.ediAlterados);
+        ediPobres=findViewById(R.id.ediPobres);
+        ediCaidos=findViewById(R.id.ediCaidos);
+        ediSobreGrado=findViewById(R.id.ediSobreGrado);
+        ediBajoGrado=findViewById(R.id.ediBajoGrado);
+        edimosaico=findViewById(R.id.edimosaico);
+        ediDanoDeAnimal=findViewById(R.id.ediDanoDeAnimal);
+        ediExplosivo=findViewById(R.id.ediExplosivo);
+        ediDedoCorto=findViewById(R.id.ediDedoCorto);
+        ediRacimosPesadosDeEdad=findViewById(R.id.ediRacimosPesadosDeEdad);
+        ediCochinillaEscamaFumagina=findViewById(R.id.ediCochinillaEscamaFumagina);
+        ediRacimosSinEdintificacion=findViewById(R.id.ediRacimosSinEdintificacion);
+        ediErwinea=findViewById(R.id.ediErwinea);
+
+        ediSemanaxc=findViewById(R.id.ediSemanaxc);
+        ediExportadora=findViewById(R.id.ediExportadora);
+        ediVaporx=findViewById(R.id.ediVaporx);
+        ediProductoras=findViewById(R.id.ediProductoras);
+        ediCodigoxs=findViewById(R.id.ediCodigoxs);
+        ediEnfundex=findViewById(R.id.ediEnfundex);
+
+        ediExtCalidad=findViewById(R.id.ediExtCalidad);
+        ediExteRodillo=findViewById(R.id.ediExteRodillo);
+        ediExtGancho=findViewById(R.id.ediExtGancho);
+        txtTotalRechazados=findViewById(R.id.txtTotalRechazados);
+
+
+
+        ediColor9=findViewById(R.id.ediColor9);
+        ediColor10=findViewById(R.id.ediColor10);
+        ediColor11=findViewById(R.id.ediColor11);
+        ediColor12=findViewById(R.id.ediColor12);
+        ediColor13=findViewById(R.id.ediColor13);
+        ediColor14=findViewById(R.id.ediColor14);
+
 
     }
 

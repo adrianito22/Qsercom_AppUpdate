@@ -3663,7 +3663,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
                 Variables.listImagenDataGlobalCurrentReport =listImagenData;
-
               //  dowloadAllImages2AddCallRecicler(Variables.listImagenData);
 
 
@@ -4082,7 +4081,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         bottomSheetDialog.show();
     }
-    private void updatePostionImegesSort(){
+    private void updatePostionImegesSortOnlyNewsImages(){
 
         RecyclerView recyclerView=null;
         recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
@@ -4209,21 +4208,16 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
     public void saveInfo() {
 
-        updatePostionImegesSort();
-
-
-
+        updatePostionImegesSortOnlyNewsImages();
         RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
         uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
-
 
         for (int i = 0; i < listImagesToDelete.size(); i++) {
 
             geTidAndDelete(listImagesToDelete.get(i));
 
         }
-
 
 
         createObjcInformeAndUpdate(); //CREAMOS LOS IN
@@ -4476,7 +4470,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
         }
 
 
-        updatePostionImegesSort();
+        updatePostionImegesSortOnlyNewsImages();
 
 
 

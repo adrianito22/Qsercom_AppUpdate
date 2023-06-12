@@ -4045,7 +4045,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         EditText [] miArraypORCENTAHJES ={ediPorc14,ediPorc13,ediPorc12,ediPorc11,ediPorc10,ediPorc9};
 
         for(int i=0; i<miArrayNUmrACIMOS.length; i++){
-
             if(!miArrayNUmrACIMOS[i].getText().toString().trim().isEmpty())
             {        ///tiene que ser mayor a cero
                 if(Integer.parseInt(miArrayNUmrACIMOS[i].getText().toString())>0)
