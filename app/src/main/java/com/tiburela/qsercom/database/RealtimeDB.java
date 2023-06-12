@@ -176,7 +176,7 @@ public static  Context myContext;
     }
 
 
-    public static void addNewDatosHacienda(SetInformEmbarque1 informeObjct) {
+    public static void addNewDSetinformEmarque1(SetInformEmbarque1 informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
 
         //agregamos la propiedad keyFirebase a al objeto
@@ -207,7 +207,7 @@ public static  Context myContext;
 
 
 
-    public static void addNewDatosHacienda(SetInformDatsHacienda informeObjct) {
+    public static void addNewDSetinformEmarque1(SetInformDatsHacienda informeObjct) {
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes");
 
         //agregamos la propiedad keyFirebase a al objeto
@@ -350,6 +350,14 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Log.i("updatexxxx","es succes UpdateHasmapPesoBrutoClosters2y3L");
+
+                    Utils.contadorTareasCompletadas++;
+
+                    if(Utils.contadorTareasCompletadas==5){
+                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+
+                    }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
                 }else  {
 
@@ -363,7 +371,7 @@ public static  Context myContext;
 
 
 
-    public static void actualizaInformePart1( SetInformEmbarque1 informeObjct) {
+    public static void updateSetinformEmbarq1(SetInformEmbarque1 informeObjct) {
 
         Log.i("somerliker", "llamamos actualiza informe parte 1 bb ");
 
@@ -371,13 +379,19 @@ public static  Context myContext;
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listInformes").child(informeObjct.getKeyFirebase());
         Map<String, Object> mapValues = informeObjct.toMap(); //lo convertimos en maP
 
-
         mibasedata.updateChildren(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
 
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Log.i("somerliker", "task es succes");
+                    Log.i("updatexxxx","es succes updateSetinformEmbarq1");
+
+                    Utils.contadorTareasCompletadas++;
+
+                    if(Utils.contadorTareasCompletadas==5){
+                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+
+                    }
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -402,8 +416,14 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Log.i("updatexxxx","es  actualizaInformePart2");
 
+                    Utils.contadorTareasCompletadas++;
 
+                    if(Utils.contadorTareasCompletadas==5){
+                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+
+                    }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
@@ -427,8 +447,15 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Log.i("updatexxxx","es  actualizaInformePart3");
 
 
+                    Utils.contadorTareasCompletadas++;
+
+                    if(Utils.contadorTareasCompletadas==5){
+                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+
+                    }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
@@ -1007,7 +1034,7 @@ public static  Context myContext;
     }
 
 
-    public static void UpdateProductosPostCosecha( ProductPostCosecha productosObject,Context context) {
+    public static void UpdateProductosPostCosecha( ProductPostCosecha productosObject) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listProductosPostCosecha").child(productosObject.keyFirebase);
         // Map<String, Object> mapValues = informeObjct.toMap();
@@ -1018,12 +1045,19 @@ public static  Context myContext;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Log.i("updatexxxx","es  UpdateProductosPostCosecha");
 
+                    Utils.contadorTareasCompletadas++;
 
-                    Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+                    if(Utils.contadorTareasCompletadas==5){
+                        Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+
+                    }
+
 
                 }else  {
 
+                    Log.i("updatexxxx","no es  succes producto poscosecha");
 
                 }
             }
@@ -1078,9 +1112,6 @@ public static  Context myContext;
             for(int indice=0; indice<listKeyTosearch.size(); indice++){
 
                 String[] array = listKeyTosearch.get(indice).split("@");
-
-
-                Log.i("samasu","el texto es "+listKeyTosearch.get(indice));
 
 
                 String keyCurrentToEdit=array[0]; //key primero /depsues el content

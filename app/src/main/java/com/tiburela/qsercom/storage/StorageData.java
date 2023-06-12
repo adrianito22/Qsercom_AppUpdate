@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -19,6 +20,7 @@ import com.google.firebase.storage.UploadTask;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
@@ -54,6 +56,8 @@ public static int counTbucle=0;
           imageListToUploadd =ImageList;
           contextaMiCiela=contexto;
           indiceCurrentOFlistIamges=0;
+         Utils.sourceTareas = new TaskCompletionSource<>();
+        Utils.sourceTareaSubirIMAGENES = new TaskCompletionSource<>();
       //  terminamosUploadAllImages =false;
 
 
@@ -95,7 +99,6 @@ public static int counTbucle=0;
             Uri myUri = Uri.parse(uriFilePath);
 
 
-            counTbucle++;
 
             // Defining the child of storageReference
             stoRefToUpload = rootStorageReference.child("imagenes_all_reports/"+value.getUniqueIdNamePic());
@@ -195,7 +198,10 @@ public static int counTbucle=0;
 
     public static void uploaddImagesAndDataImages(int indice) throws IOException {
 
-          if(indice<imageListToUploadd.size()){
+
+        Log.i("finalizando","el size de imagelistupload es :"+imageListToUploadd.size());
+
+        if(indice<imageListToUploadd.size()){ //indice  0 size 0 //el indice es 6  lenth 6
               currenImageReport= imageListToUploadd.get(indice);
           }
 
@@ -208,10 +214,22 @@ public static int counTbucle=0;
 
                //Ahora vamos a subir register inform
             //  StorageData.terminamosUploadAllImages=true;
-              BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.FINISH_ALL_UPLOAD);
 
-               return;
-          }
+              if(Utils.esNuevoReport){
+                  BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.FINISH_ALL_UPLOAD);
+                  Log.i("finalizando","se eejcuto el if ");
+
+              }else{
+
+                //  Log.i("updatexxxx","es succces result CUANDO IMAGES SUBIDAS es: "+result);
+                  Log.i("finalizando","se eejcuto el else ");
+
+                  Utils.sourceTareaSubirIMAGENES.setResult(Utils.TAREACOMPETADA_IMAGENS);
+              }
+            return;
+
+
+        }
 
         /**SI HAY PROBELASM DE URI PERMISOS ASEGURARSE QUE EL URI CONTENGA UNA PROPIEDAD QUE HACER QUE LE DE PERMISOS DE
          * LECTURA ALGO AS..ESO EN INTENT AL SELECIONAR IMAGENES*/

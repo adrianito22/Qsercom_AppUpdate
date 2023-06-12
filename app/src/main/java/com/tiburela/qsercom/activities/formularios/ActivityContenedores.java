@@ -412,6 +412,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
+         Utils.esNuevoReport=true;
         objetest=new RegisterTest("hola",1);
 
         txtTitle=findViewById(R.id.txtTitle);

@@ -81,6 +81,7 @@ import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
@@ -116,7 +117,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
      TextInputEditText ediNombreRevisa;
     TextInputEditText ediCodigoRevisa;
-
+    HashMap<String, Float> miMapLbriado= new HashMap<>();
 
     ImageView imgVAtachProcesoFrutaFinca;
     ImageView imbTakePicProcesoFrutaFinca;
@@ -387,7 +388,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
         // progressDialog=progressDialog
         setContentView(R.layout.activity_preview);
 
-
+        Utils.esNuevoReport=false;
        TextView txtTitle=findViewById(R.id.txtTitle);
         txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -2169,9 +2170,7 @@ else{
         Log.i("HOMERAS", "el string atch CUADRO MUESTREO ESes " + RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
 
-        //cremaos un hasmpa con los libriados
-
-        HashMap<String, Float> miMapLbriado = generateMapLibriadoIfExistAndUpload(false);
+      miMapLbriado = generateMapLibriadoIfExistAndUpload(false);
         String keyWhereLocaleHashMapLibriado = "";
 
 
@@ -2190,7 +2189,7 @@ else{
             }
 
 
-            RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado, keyWhereLocaleHashMapLibriado);
+           RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado, keyWhereLocaleHashMapLibriado);
 
         }
 
@@ -2250,27 +2249,13 @@ else{
         informe3.setKeyFirebase(Variables.CurrenReportPart3.getKeyFirebase()); //agregamos el mismo key qe tenia este objeto
         updateCaledarioEnfunde(informe3);
 
-
         RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
-
-        //agr5egamos la data finalemente
-
+        ProductPostCosecha objectProduc=   addProdcutsPostCosechaUpdate(); //agregamos y subimos los productos postcosecha..
 
 
-        //checkQueexistminim();
+     ArrayList<ImagenReport> listImagesToUpload=  generateistImagesToUpload(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+        uploadInformeToDatabase(informe,informe2,informe3,Variables.currentInformRegisterSelected, objectProduc, listImagesToUpload );
 
-        Log.i("somerliker", "llamamos actualiza informe parte 1 ");
-
-
-        RealtimeDB.actualizaInformePart1(informe);
-        RealtimeDB.actualizaInformePart2(informe2);
-
-        RealtimeDB.actualizaInformePart3(informe3); //vamos a subir este informe...
-
-        // RealtimeDB.actualizaInformePart3(informe3);
-
-
-        addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
 
 
     }
@@ -2335,45 +2320,16 @@ else{
     }
 
 
-    void uploadImagesInStorageAndInfoPICS() throws IOException {
-        //una lista de Uris
-
-        Log.i("imagheddd", "sellamo method here");
-
-        Log.i("imagheddd", " fue return" + ImagenReport.hashMapImagesData.size() + " ye l otro esw " + Variables.hashMapImagesStart.size());
-
-
-        if (ImagenReport.hashMapImagesData.size() == 0) {
-            Log.i("imagheddd", " fue return");
-
-            return;
-        }
-
-
-        Log.i("imagheddd", "no fue return");
-
-        //si introdujo texto en el recicler actualizar los objetos
-
-
-        //boorara desee aqui
+      ArrayList<ImagenReport>  generateistImagesToUpload()  {
+        ArrayList<ImagenReport> list2 =new ArrayList<>();
         if (!Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())) { //si no son iguales
-
-            Log.i("imagheddd", "alguno o toos son diferentes images llamaos metodo filtra");
-
-            StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
-
-            ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
-
-         //   StorageData.uploaddImagesAndDataImages(list2,ActivityContenedoresPrev.this);
-
-
-        } else {
-            Log.i("imagheddd", "el size de hashMapImagesStart es  " + Variables.hashMapImagesStart.size() + " y el size de hashMapImagesData es" + ImagenReport.hashMapImagesData.size());
-
+            list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
         }
+
 
         if (Utils.objsIdsDecripcionImgsMOreDescripc.size() > 0) {
 
+             //actualizamos la descripcion
             RealtimeDB.initDatabasesReferenceImagesData();
             RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
 
@@ -2381,8 +2337,9 @@ else{
 
 
 
+        return list2;
 
-        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
+      //  Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
 
 
@@ -3366,7 +3323,7 @@ else{
     }
 
 
-    private void addProdcutsPostCosechaAndUpload() {
+    private  ProductPostCosecha addProdcutsPostCosechaUpdate() {
 
         ProductPostCosecha producto = new ProductPostCosecha(UNIQUE_ID_iNFORME);
         //creamos un array de editext
@@ -3462,7 +3419,7 @@ else{
         }
 
 
-        RealtimeDB.UpdateProductosPostCosecha(producto,ActivityContenedoresPrev.this);
+       // RealtimeDB.UpdateProductosPostCosecha(producto,ActivityContenedoresPrev.this);
 
 
         try {
@@ -3472,10 +3429,10 @@ else{
             e.printStackTrace();
         }
 
-
-
         //  startActivity(new Intent(ActivityContenedoresPrev.this, ActivitySeeReports.class));
 
+
+        return producto;
     }
 
 
@@ -4659,7 +4616,6 @@ else{
         updatePostionImegesSort();
 
 
-        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
 
         //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
@@ -6164,6 +6120,17 @@ else{
 
     }
 
+    private void uploadInformeToDatabase(SetInformEmbarque1 informe, SetInformEmbarque2 informe2, SetInformDatsHacienda informe3,
+                                         InformRegister inform, ProductPostCosecha productos, ArrayList<ImagenReport>listImagesToUpload){
+
+        //Agregamos un nuevo informe
+        RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
+        updateCaledarioEnfunde(informe3);
+
+        Utils.show_AND_UPLOADContenedores(ActivityContenedoresPrev.this,ActivityContenedoresPrev.this,
+                informe,informe2,informe3,inform,productos,listImagesToUpload,miMapLbriado,Variables.FormContenedores,UNIQUE_ID_iNFORME);
+
+    }
 
 }
 

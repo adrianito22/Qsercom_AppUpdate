@@ -1,5 +1,8 @@
 package com.tiburela.qsercom.dialog_fragment;
 
+import static com.google.android.gms.tasks.Tasks.whenAll;
+import static com.itextpdf.kernel.pdf.PdfName.Collection;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -17,7 +20,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.callbacks.ContenedoresCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -30,6 +41,7 @@ import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.SharePrefHelper;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.IOException;
@@ -40,8 +52,9 @@ import java.util.HashMap;
 public class BottonSheetCallUploading extends BottomSheetDialogFragment {
         public static final String TAG = "ActionBottomDialog";
         private View vista;
-        private static String keyPrefrencesIfUserSaveReportLocale="";
 
+    private static String keyPrefrencesIfUserSaveReportLocale="";
+          static  Thread thread;
    static  Handler handler1 = new Handler();
     CoordinatorLayout lineaLyaout;
     int indicex=0;
@@ -144,9 +157,13 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             });
 
 
+               if(Utils.esNuevoReport){
+                   uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque1);
 
-            uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque1);
+               }else{
+                   UpdateReportThread();
 
+               }
 
             return  vista;
 
@@ -208,25 +225,43 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
     public static void uploadInsertClassQuevamosSubir(int tipoObjectoQueSubiremosNow){
      /**en llamos a este metodo agreghando el tipo de objeto class que subiremos */
         final int[] valuePercent = {0};
-        Thread t = new Thread(new Runnable() {
+
+
+         if(thread!=null && thread.isAlive()){
+          Log.i("isalivebbd","is alive aqui");
+         }
+         thread = new Thread(new Runnable() {
+
             @Override
             public void run() {//esto en BACGROUND
 
                 if(activityIdx==Variables.FormContenedores){
 
                     if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque1){
-
-                        RealtimeDB.addNewDatosHacienda(informe1);
-
                         valuePercent[0] =10;
+
+                         if(Utils.esNuevoReport){
+                             RealtimeDB.addNewDSetinformEmarque1(informe1);
+                         }else{
+                             RealtimeDB.updateSetinformEmbarq1(informe1);
+                         }
 
                         Log.i("finalizando","FISRT");
 
                     }
                     else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque2){
 
-                        RealtimeDB.addNewInformeEmbarque2(context,informe2); //addNewInformeEmbarque2
                         valuePercent[0] =20;
+
+                        if(Utils.esNuevoReport){
+
+                            RealtimeDB.addNewInformeEmbarque2(context,informe2); //addNewInformeEmbarque2
+
+                        }else{
+                            RealtimeDB.actualizaInformePart2(informe2); //es dedcion
+                        }
+
+
                         Log.i("finalizando","SECOND");
 
                     }
@@ -234,9 +269,18 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                     else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformDatsHacienda){
 
 
-                        RealtimeDB.addNewDatosHacienda(informe3); //por ejempo en este metodo cuando suba el refiter form/..
                         valuePercent[0] =30;
                         Log.i("finalizando","THIRD");
+
+                        if(Utils.esNuevoReport){
+
+                            RealtimeDB.addNewDSetinformEmarque1(informe3); //por ejempo en este metodo cuando suba el refiter form/..
+
+                        }else{
+                            RealtimeDB.actualizaInformePart3(informe3); //es dedcion
+                        }
+
+
 
                         //cuando llamemos a register terminamos todo...
                     }
@@ -244,32 +288,52 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                     else if(tipoObjectoQueSubiremosNow== Variables.LIBRIADO_IF_EXIST){
 
 
-                        RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //por ejempo en este metodo cuando suba el refiter form/..
                         valuePercent[0] =40;
+
+
+
+                        if(Utils.esNuevoReport){
+
+                            RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //por ejempo en este metodo cuando suba el refiter form/..
+
+                        }else{
+                            RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //es dedcion
+                        }
+
+
+
+
                         Log.i("finalizando","THIRD");
 
                         //cuando llamemos a register terminamos todo...
                     }
 
-
-
                     else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
                         valuePercent[0] =75;
 
-                        RealtimeDB.UploadProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
+
+
+
+                        if(Utils.esNuevoReport){
+
+                            RealtimeDB.UploadProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
+
+                        }else{
+                            RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha); //es dedcion
+                        }
+
+
+
 
                     }
 
-
                     else if(tipoObjectoQueSubiremosNow== Variables.INFORM_REGISTER){  //PENULTIMO
                         valuePercent[0] =80;
-
                         RealtimeDB.addNewRegistroInforme(context,informRegister);
 
 
                         //CUANDO SUBAMOS INFORM REGISTER TERMINAMOS...
                     }
-
 
 
                     else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
@@ -304,6 +368,12 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                     }
 
                 }
+
+
+
+
+
+
 
 
                 handler1.post(new Runnable() {
@@ -342,7 +412,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
             }
         });   //call it
-        t.start();
+        thread.start();
 
 
 
@@ -352,8 +422,167 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
 
+ private static void UpdateReportThread(){
+
+     Task<String> task = Utils.sourceTareas.getTask();
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+
+            RealtimeDB.updateSetinformEmbarq1(informe1);
+            RealtimeDB.actualizaInformePart2(informe2); //es dedcion
+            RealtimeDB.actualizaInformePart3(informe3); //es dedcion
+            RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //es dedcion
+            RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha); //es dedcion
+
+        }
+    }).start();
+
+    task.addOnCompleteListener(new OnCompleteListener<String>() {
+        @Override
+        public void onComplete(@NonNull Task<String> task) {
+            //por cada teara completada aumentamos
+            task.addOnSuccessListener(new OnSuccessListener<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    Log.i("updatexxxx","es succces result es: "+result);
+
+                    progressBar.setProgress(50);
+
+                    UploadImages(); //vamos a subir imagenes
+                    // Task completed successfully
+                    // ...
+                }
+            });
+
+        }
+    });
 
 
+
+     task.addOnFailureListener(new OnFailureListener() {
+         @Override
+         public void onFailure(@NonNull Exception e) {
+             // Task failed with an exception
+             // ...
+         }
+     });
+}
+
+
+    private static void UploadImages(){
+
+        Task<String> task = Utils.sourceTareaSubirIMAGENES.getTask();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    StorageData.initImagenesAllAndArrayListAndContext(listImagesx,context);
+                    StorageData.uploaddImagesAndDataImages(0);
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }).start();
+
+        task.addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                //por cada teara completada aumentamos
+                task.addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Log.i("finalizando","es succces result CUANDO IMAGES SUBIDAS es: "+result);
+
+                        progressBar.setProgress(100);
+                        btnOkButton.setVisibility(View.VISIBLE);
+                        btnOkButton.setEnabled(true);
+
+                        // Task completed successfully
+                        // ...
+                    }
+                });
+
+            }
+        });
+
+
+
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Task failed with an exception
+                Log.i("finalizando","es fail y ala excepcion es : "+e.getMessage());
+
+                // ...
+            }
+        });
+    }
+
+
+private void task(){
+
+        /**este similar al de arriba con la difrencia que hay un metodo para esperar que todos terminen...*/
+
+     Task<Void> allTask;
+     TaskCompletionSource<String> dbSource = new TaskCompletionSource<>();
+     Task dbTask = dbSource.getTask();
+
+    dbTask.addOnCompleteListener(new OnCompleteListener() {
+        @Override
+        public void onComplete(@NonNull Task task) {
+
+        }
+    });
+
+     //Y CUndo terminemos la tarea le asigmaos este valor
+    dbSource.setResult("primera tarea terminada");
+
+
+    TaskCompletionSource<String> dbSource2 = new TaskCompletionSource<>();
+    Task dbTask2 = dbSource.getTask();
+    //Y CUndo terminemos la tarea le asigmaos este valor
+    dbSource.setResult("primera tarea terminada");
+
+
+
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+
+
+        }
+    }).start();
+
+   // allTask = Tasks.whenAll(fetchTask, dbTask, delayTask);
+
+
+
+// during onCreate():
+    allTask = Tasks.whenAll(dbTask); //aqui coloca,ps todos los task
+    allTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+        @Override
+        public void onSuccess(Void aVoid) {
+            String data = dbTask.getResult().toString();
+
+            Log.i("eltaska","el task result es "+data);
+
+            // DataSnapshot data = dbTask.getResult();
+            // do something with db data?
+           // startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+        }
+    });
+    allTask.addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+            // apologize profusely to the user!
+        }
+    });
+}
 
 
 

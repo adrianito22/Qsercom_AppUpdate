@@ -34,6 +34,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,7 +45,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -56,7 +56,6 @@ import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
-import com.tiburela.qsercom.models.RegisterTest;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -78,6 +77,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
 
+  public static  int contadorTareasCompletadas=0;
+
+   public static boolean esNuevoReport=false;
 
     public static HashMap<String,String>miMapCopiar= new HashMap<>();
 
@@ -1585,5 +1587,19 @@ return true;
 
 
     }
+    public static  TaskCompletionSource<String> sourceTareas = new TaskCompletionSource<>();
+
+    public static  TaskCompletionSource<String> sourceTareaSubirIMAGENES = new TaskCompletionSource<>();
+
+
+
+    public static final String TAREACOMPETADA="TAREACOMPETADA";
+    public static final String TAREACOMPETADA_IMAGENS="TAREACOMPETADA_IMAGENES_SUBIDAS";
+
+
+    public static int  PorcientoTarea=0;
+
+
+
 }
 
