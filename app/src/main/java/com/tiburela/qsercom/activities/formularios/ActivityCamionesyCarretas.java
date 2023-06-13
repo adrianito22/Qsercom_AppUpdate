@@ -1173,6 +1173,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         if(!checkPermission()){
 
             requestPermission();
+
+          //  return;
             /****por aqui pedir permisos antes **/
 
         }
@@ -1509,8 +1511,12 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                 Log.i("codereister","permiso CONDEIDOIOTOMAMOS FOTO ES IF") ;
             }else{
 
+                String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+///
+             //   ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                   //     Log.i("permiso","vamos a solictar permiso camara") ;
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                ActivityCompat.requestPermissions(this,permissions,
                         CODE_TWO_PERMISIONS);
             }
 
@@ -1562,7 +1568,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                             ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
 
 
-                            showImagesPicShotOrSelectUpdateView(false);
+                            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
                         }
 
@@ -1576,7 +1582,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                         Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, ActivityCamionesyCarretas.this);
 
 
-                        showImagesPicShotOrSelectUpdateView(false);
+                        showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
                     }
                 }
@@ -1888,7 +1894,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
 
-    private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
+    private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicionionBorrar){
 
         //si es eliminar comprobar aqui
         if(isDeleteImg){
@@ -1903,15 +1909,10 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
         for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
-
             String key = set.getKey();
-
             ImagenReport value = set.getValue();
-
             if(value.getTipoImagenCategory()==currentTypeImage){
-
                 filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
-
             }
 
 
@@ -1951,19 +1952,23 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
 
             if(!isDeleteImg){
-                //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
-                ///   aadpater.notifyDataSetChanged();
-                aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
 
+
+                aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
                 aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
 
-                // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
-                // aadpater. notifyItemRangeChanged(position, listImagenData.size());
 
                 Log.i("adpatertt","adpasternotiff");
 
-            }
+            }else{ //borrmaos
+                aadpaterRecuperadoOFrView. listImagenData.remove(posicionionBorrar);
+                aadpaterRecuperadoOFrView.notifyItemRemoved(posicionionBorrar);
+                aadpaterRecuperadoOFrView.notifyItemRangeChanged(posicionionBorrar, aadpaterRecuperadoOFrView.listImagenData.size());
+                // holder.itemView.setVisibility(View.GONE);
 
+
+
+            }
             Log.i("adpatertt","es difrentede nulo");
 
         }else{
@@ -2488,7 +2493,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
-                showImagesPicShotOrSelectUpdateView(true);
+                showImagesPicShotOrSelectUpdateView(true,position);
 
 
 
@@ -2523,6 +2528,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
         ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
+
         ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
      ///   StorageData.uploaddImagesAndDataImages(list,ActivityCamionesyCarretas.this);
 
@@ -2530,53 +2536,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void generatePDFandImport(){
-        //generate pdf
-
-
-        if(!checkPermission()){
-
-            requestPermission();
-            //   Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-            // checkPermission2();
-
-            /****por aqui pedir permisos antes **/
-
-        }
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            // Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
-            // startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
-        }
-
-
-
-
-
-
-
-        //  startActivity(new Intent(ActivityCamionesyCarretas.this,PdfPreviewActivity.class));
-
-        //generamos un pdf con la data que tenemos()
-
-        /*
-
-        PdfMaker.generatePdfReport1(ActivityCamionesyCarretas.this,ediCodigo.getText().toString(),Integer.parseInt(ediNhojaEvaluacion.getText().toString()),
-                ediZona.getText().toString(),ediProductor.getText().toString(),ediCodigo.getText().toString()
-                ,ediPemarque.getText().toString(),ediNguiaRemision.getText().toString(),ediHacienda.getText().toString()
-                ,edi_nguia_transporte.getText().toString(),ediNtargetaEmbarque.getText().toString(),
-                ediInscirpMagap.getText().toString(),ediHoraInicio.getText().toString(),ediHoraTermino.getText().toString()
-                ,ediSemana.getText().toString(),ediEmpacadora.getText().toString(),ediContenedor.getText().toString(),ediObservacion.getText().toString()
-                );
-
-*/
-
-
-
-
-    }
 
 
     private boolean checkPermission() {
@@ -4360,7 +4319,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
 
-            showImagesPicShotOrSelectUpdateView(false);
+            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
         }
     }

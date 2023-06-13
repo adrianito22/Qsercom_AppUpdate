@@ -1,7 +1,9 @@
 package com.tiburela.qsercom.storage;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -25,6 +27,7 @@ import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -187,46 +190,35 @@ public static int counTbucle=0;
 
 
 
-     private static void callIterateUploadData(int indice){
-
-       //  ImagenReport  currenImageReport=  ImageListToUploadd.get(indice);
-
-       //  uploaddata
-     }
-
-
-
     public static void uploaddImagesAndDataImages(int indice) throws IOException {
-
-
-        Log.i("finalizando","el size de imagelistupload es :"+imageListToUploadd.size());
 
         if(indice<imageListToUploadd.size()){ //indice  0 size 0 //el indice es 6  lenth 6
               currenImageReport= imageListToUploadd.get(indice);
-          }
+
+        }
+
 
           else{
 
                /**quiere decir que ya hemos subido todos o fue fail ++
                 * seria bueno algun contador para contar los fails..*/
 
-              Log.i("finalizando","ok in uploaddImagesAndDataImages");
-
-               //Ahora vamos a subir register inform
-            //  StorageData.terminamosUploadAllImages=true;
 
               if(Utils.esNuevoReport){
+
                   BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.FINISH_ALL_UPLOAD);
                   Log.i("finalizando","se eejcuto el if ");
+              }
 
-              }else{
-                //  Log.i("updatexxxx","es succces result CUANDO IMAGES SUBIDAS es: "+result);
+              else
+
+              {
+
                   Log.i("updatexxxx","se eejcuto erl else llamois metodo con finish value");
                   BottonSheetCallUploading.UpdateReportThread(Variables.FINISH_ALL_UPLOAD);
 
-                  //uploaddImagesAndDataImages
-                 // Utils.sourceTareaSubirIMAGENES.setResult(Utils.TAREACOMPETADA_IMAGENS);
               }
+
             return;
 
 
@@ -234,71 +226,95 @@ public static int counTbucle=0;
 
         /**SI HAY PROBELASM DE URI PERMISOS ASEGURARSE QUE EL URI CONTENGA UNA PROPIEDAD QUE HACER QUE LE DE PERMISOS DE
          * LECTURA ALGO AS..ESO EN INTENT AL SELECIONAR IMAGENES*/
-          Log.i("imagheddd", "el size de ImageList es "+imageListToUploadd.size());
+
+
+            Log.i("imagheddd", "el size de ImageList es "+imageListToUploadd.size());
             Uri uriImage  = Uri.parse(currenImageReport.geturiImage());
-              imagename = ImageFolderReferenceImagesAll.child(currenImageReport.getUniqueIdNamePic());
-             bitmapOriginal = MediaStore.Images.Media.getBitmap(contextaMiCiela.getContentResolver(), uriImage);
-
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmapOriginal.compress(Bitmap.CompressFormat.WEBP,95,stream);//0=lowe
-            data = stream.toByteArray();
-
-            //
-             uploadTask = imagename.putBytes(data);
-
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-
-                    indiceCurrentOFlistIamges++;
-                    try {
-                        uploaddImagesAndDataImages(indiceCurrentOFlistIamges);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    Log.i("imagestorage", "existe una exepecion y es "+exception.getMessage());
-
-                    // Handle unsuccessful uploads
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                  //  Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Log.i("imagestorage", "es succes");
-
-                            String iconPathFirebase = uri.toString();
-
-                            currenImageReport.setUrlStoragePic(iconPathFirebase);
-                            // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
-
-                            Log.i("imagestorage", "id pertenece a: "+currenImageReport.getIdReportePerteence());
-
-                            Log.i("imagestorage","info es on success  y path es  "+iconPathFirebase);
-                           //  indiceCurrentOFlistIamges++;
-
-                            /**aumnetamos el valor del indice en ek on succes dek siguiente metodo*/
-                            RealtimeDB.addNewSetPicsInforme(currenImageReport,contextaMiCiela,indiceCurrentOFlistIamges);
+            imagename = ImageFolderReferenceImagesAll.child(currenImageReport.getUniqueIdNamePic());
 
 
-                        }
+        boolean existValue=false;
 
-
-
-
-                    });
+        if(null != uriImage) {
+            try {
+                InputStream inputStream = contextaMiCiela.getContentResolver().openInputStream(uriImage);
+                inputStream.close();
+                existValue = true;
+            } catch (Exception e) {
+                Log.i("exepciopmx","exepcion aqui y exist value es "+existValue);
             }
+        }
+
+
+        if(existValue){
+
+                     bitmapOriginal = MediaStore.Images.Media.getBitmap(contextaMiCiela.getContentResolver(), uriImage);
+                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                     bitmapOriginal.compress(Bitmap.CompressFormat.WEBP,95,stream);//0=lowe
+
+                     data = stream.toByteArray();
+                     uploadTask = imagename.putBytes(data);
+
+
+                     uploadTask.addOnFailureListener(new OnFailureListener() {
+                         @Override
+                         public void onFailure(@NonNull Exception exception) {
+
+                             indiceCurrentOFlistIamges++;
+                             try {
+                                 uploaddImagesAndDataImages(indiceCurrentOFlistIamges);
+                             }
+
+                             catch (IOException e) {
+                                 throw new RuntimeException(e);
+                             }
+
+                             Log.i("imagestorage", "existe una exepecion y es "+exception.getMessage());
+
+                             // Handle unsuccessful uploads
+                         }
+                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                         @Override
+                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                             //  Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                             imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                 @Override
+                                 public void onSuccess(Uri uri) {
+
+                                     Log.i("imagestorage", "es succes");
+
+                                     String iconPathFirebase = uri.toString();
+                                     currenImageReport.setUrlStoragePic(iconPathFirebase);
+                                     // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
+                                     Log.i("superstorage","se subio imagen y el url esd  al informe "+currenImageReport.getUrlStoragePic());
+
+                                     /**aumnetamos el valor del indice en ek on succes dek siguiente metodo*/
+                                     RealtimeDB.addNewSetPicsInforme(currenImageReport,contextaMiCiela,indiceCurrentOFlistIamges);
+
+
+                                 }
 
 
 
-        });
+
+                             });
+                         }
+                     });
+
+                 } else {
+
+                     Log.i("exepciopmx","no existe valores");
+                     StorageData.indiceCurrentOFlistIamges++;
+                     uploaddImagesAndDataImages(StorageData.indiceCurrentOFlistIamges);
 
 
-     //   }
+                 }
+
+
+
+
+
     }
 
     public static Bitmap compress(Bitmap yourBitmap){

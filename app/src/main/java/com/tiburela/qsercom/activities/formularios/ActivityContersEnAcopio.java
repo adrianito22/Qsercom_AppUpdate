@@ -994,7 +994,7 @@ else{
 
                                 //aqui guardamos para preferencias...
 
-                                showImagesPicShotOrSelectUpdateView(false);
+                                showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
                             }
 
@@ -1005,7 +1005,7 @@ else{
                             }
 
 
-                            showImagesPicShotOrSelectUpdateView(false);
+                            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
                         }
                     }
@@ -1104,7 +1104,7 @@ private void listennersSpinners() {
 }
 
 
-private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
+private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicionionBorrar){
 
         //si es eliminar comprobar aqui
     if(isDeleteImg){
@@ -1113,31 +1113,25 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
 
         Log.i("isdeletyin","is deleting ");
 
-
     }
-
 
          ArrayList<ImagenReport>filterListImagesData= new ArrayList<>();
 
-    for (Map.Entry<String, ImagenReport> set : ImagenReport.hashMapImagesData.entrySet()) {
-
-        String key = set.getKey();
-
-        ImagenReport value = set.getValue();
-
-        if(value.getTipoImagenCategory()==currentTypeImage){
-
-            filterListImagesData.add(ImagenReport.hashMapImagesData.get(key));
-
-        }
-
-    }
 
 
     RecyclerView recyclerView=null;
     RecyclerViewAdapter adapter;
     RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
     GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
+
+
+    for(ImagenReport imagenObjec: ImagenReport.hashMapImagesData.values()){
+        if(imagenObjec.getTipoImagenCategory()==currentTypeImage){
+            filterListImagesData.add(imagenObjec);
+            Log.i("mispiggi", "el size de filterListImagesData es " + filterListImagesData.size());
+        }
+    }
 
 
     switch(currentTypeImage){
@@ -1184,22 +1178,27 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
     if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
 
         if(!isDeleteImg){
-            //  aadpater.notifyItemInserted(filterListImagesData.size() - 1);
-            ///   aadpater.notifyDataSetChanged();
+
+
             aadpaterRecuperadoOFrView.addItems(filterListImagesData); //le agremos los items
-
-           // aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
-
-            // aadpater.notifyItemRangeInserted(0,filterListImagesData.size());
-            // aadpater. notifyItemRangeChanged(position, listImagenData.size());
+            aadpaterRecuperadoOFrView.notifyDataSetChanged(); //notificamos  no se si hace falta porque la clase del objeto ya lo tiene...
 
             Log.i("adpatertt","adpasternotiff");
 
-        }
+        }else{
 
+            aadpaterRecuperadoOFrView. listImagenData.remove(posicionionBorrar);
+            aadpaterRecuperadoOFrView.notifyItemRemoved(posicionionBorrar);
+            aadpaterRecuperadoOFrView.notifyItemRangeChanged(posicionionBorrar, aadpaterRecuperadoOFrView.listImagenData.size());
+            // holder.itemView.setVisibility(View.GONE);
+
+
+
+        }
         Log.i("adpatertt","es difrentede nulo");
 
     }else{
+
 
         adapter=new RecyclerViewAdapter(filterListImagesData,this);
         // at last set adapter to recycler view.
@@ -1209,7 +1208,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg){
         eventoBtnclicklistenerDelete(adapter);
 
         Log.i("adpatertt","el adpater es nulo");
-
 
         Log.i("adpatertt","el adpater es nulo");
         ItemTouchHelper.Callback callback =
@@ -1771,7 +1769,7 @@ private void createObjcInformeAndUpload(){
 
                 Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
 
-                showImagesPicShotOrSelectUpdateView(true);
+                showImagesPicShotOrSelectUpdateView(true,position);
 
 
 
@@ -3281,7 +3279,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
 
-            showImagesPicShotOrSelectUpdateView(false);
+            showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
         }
     }

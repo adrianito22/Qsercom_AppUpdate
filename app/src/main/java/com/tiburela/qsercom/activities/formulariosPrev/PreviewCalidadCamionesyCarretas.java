@@ -2141,7 +2141,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                     Log.i("ADPATERXX","el size despues de eliminar hasmpa size es "+ ImagenReport.hashMapImagesData.size());
 
                     Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
-                showImagesPicShotOrSelectUpdateView(true,position);
+                    showImagesPicShotOrSelectUpdateView(true,position);
 
                     Log.i("ADPATERXX","el size despues de eliminar hasmpa size 2   es "+ ImagenReport.hashMapImagesData.size());
 

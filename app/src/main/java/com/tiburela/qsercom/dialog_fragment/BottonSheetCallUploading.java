@@ -145,6 +145,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             Log.i("lamundo","el size upload es "+allkeys.size());
 
             btnOkButton.setEnabled(false);
+            StorageData.indiceCurrentOFlistIamges=0;
+
 
             btnOkButton.setOnClickListener(new View.OnClickListener() {
                 @Override

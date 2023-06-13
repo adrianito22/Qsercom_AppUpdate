@@ -1501,20 +1501,11 @@ else{
 
 
         ArrayList<ImagenReport> filterListImagesData = new ArrayList<>(); //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
-
         RecyclerView recyclerView =null;
-
-
-        Log.i("mispiggi", "el size de la MAPA AHORAXXC ES  " + ImagenReport.hashMapImagesData.size());
-
-
-
-
         Log.i("mispiggi", "el size de la  lists  hashMapImagesData HERE  es cc  es " + ImagenReport.hashMapImagesData.size());
-
-        RecyclerViewAdapter adapter;
+      //  RecyclerViewAdapter adapter;
         RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        //GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
         switch(currentTypeImage){
             case Variables.FOTO_PROCESO_FRUTA_FINCA:
@@ -2262,6 +2253,7 @@ else{
         RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
         ProductPostCosecha objectProduc=   addProdcutsPostCosechaUpdate(); //agregamos y subimos los productos postcosecha..
 
+        //no
 
      ArrayList<ImagenReport> listImagesToUpload=  generateistImagesToUpload(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
@@ -2295,10 +2287,8 @@ else{
 
         adapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
 
-
             @Override
-            public void onItemClick(int position, View v) {  //este para eminar
-
+            public void onItemClick(int position, View v) {
 
 
                 try {
@@ -4345,9 +4335,11 @@ else{
                 }
 
 
+                Log.i("superstorage","el size de lista dowload es "+Variables.listImagenDataGlobalCurrentReport.size());
+
+
+
                 createlistsForReciclerviewsImages(Variables.listImagenDataGlobalCurrentReport);
-
-
                 Utils.objsIdsDecripcionImgsMOreDescripc = new ArrayList<>();
 
 
@@ -5962,6 +5954,10 @@ else{
 
                 ImagenReport obcjImagenReport =new ImagenReport("",urix.toString(),currentTypeImage, UUID.randomUUID().toString()+Utils.getFormate2(Utils.getFileNameByUri(ActivityContenedoresPrev.this,urix)),horientacionImg4);
                 obcjImagenReport.setIdReportePerteence(UNIQUE_ID_iNFORME);
+
+                Log.i("imagestorage", "aqui el id pertence es "+obcjImagenReport.getIdReportePerteence());
+
+
                 ImagenReport.hashMapImagesData.put(obcjImagenReport.getUniqueIdNamePic(), obcjImagenReport);
                 //   PreviewCalidadCamionesyCarretas.this.getContentResolver().takePersistableUriPermission(urix, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 

@@ -760,17 +760,16 @@ public class RealtimeDB {
 
         if(mibasedataPathImages==null ) {
             initDatabasesReferenceImagesData();
-
         }
 
-        Map<String, Object> mapValues = objecImageReport.toMap();
 
-        //SUBE MAPA
+        Map<String, Object> mapValues = objecImageReport.toMap();
         mibasedataPathImages.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                    Log.i("superstorage","se subio imagen report "+objecImageReport.getUrlStoragePic());
                     StorageData.indiceCurrentOFlistIamges++;
 
                     try {
@@ -780,12 +779,13 @@ public class RealtimeDB {
                         throw new RuntimeException(e);
                     }
 
-
                     Log.i("succesxccc","succes aqui y el indice es "+StorageData.indiceCurrentOFlistIamges);
 
 
                 }else  {
                     StorageData.indiceCurrentOFlistIamges++;
+                    Log.i("superstorage","no se subio imagen report "+objecImageReport.getUrlStoragePic());
+
 
                     Log.i("succesxccc","no succes aqui y el indice es "+StorageData.indiceCurrentOFlistIamges);
 

@@ -939,8 +939,6 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                     .apply(RequestOptions.circleCropTransform())
                     //.circleCrop()
                     .into(imGProfile);
-            // set name on text view
-
 
             txtHeader.setText(Variables.userGoogle.getDisplayName());
 
