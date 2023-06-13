@@ -816,7 +816,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     void selecionaFecha(){
 
 
@@ -830,10 +829,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-
                         String dateSelec=i2+"/"+(i1+1)+"/"+i;
-
-
                         ediFecha.setText(dateSelec);
 
                     }

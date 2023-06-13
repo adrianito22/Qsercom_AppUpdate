@@ -496,9 +496,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     void selecionaFecha(){
-
 
         final Calendar cldr = Calendar.getInstance();
         int year = cldr.get(Calendar.YEAR);
