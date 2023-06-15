@@ -487,7 +487,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
 
              //esto es de prueba
-            SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(false,currentKeySharePrefrences);
+          //  SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(false,currentKeySharePrefrences);
 
 
             AddDataFormOfSharePrefeIfExistPrefrencesMap() ;

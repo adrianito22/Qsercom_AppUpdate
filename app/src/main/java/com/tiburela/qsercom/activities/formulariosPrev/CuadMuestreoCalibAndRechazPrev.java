@@ -644,7 +644,6 @@ return object;
 
 
 
-
         /// objecsetSimpleDateFormat();
          RealtimeDB.updateCuadroMuestreoObject(objec,Variables.currentcuadroMuestreo); //subimos un cuadro de muestreo object
 

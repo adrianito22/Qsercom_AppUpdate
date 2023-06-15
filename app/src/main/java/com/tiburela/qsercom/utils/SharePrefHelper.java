@@ -194,6 +194,7 @@ public class SharePrefHelper {
 
             InformRegister objec = mapAllReportsRegister.get(keyPrefrencesIfUserSaveReportLocale);
 
+            assert objec != null;
             objec.setSeSubioFormAlinea(seSubioFile);
             mapAllReportsRegister.put(keyPrefrencesIfUserSaveReportLocale, objec);
 

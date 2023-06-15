@@ -254,8 +254,6 @@ public static int counTbucle=0;
 
                      data = stream.toByteArray();
                      uploadTask = imagename.putBytes(data);
-
-
                      uploadTask.addOnFailureListener(new OnFailureListener() {
                          @Override
                          public void onFailure(@NonNull Exception exception) {

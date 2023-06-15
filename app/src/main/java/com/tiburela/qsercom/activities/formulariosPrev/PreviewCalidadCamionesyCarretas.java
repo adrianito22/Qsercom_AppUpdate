@@ -4471,8 +4471,6 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
         updatePostionImegesSortOnlyNewsImages();
 
 
-
-
         Log.i("test001", "se eejcuto esto tambienx");
 
 
@@ -4504,9 +4502,6 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
             return;
         }
 
-
-
-        DowloadControlcalidadVinculadosandDecideIRpdfMAKER(Variables.currenReportCamionesyCarretas.getAtachControCalidadInfrms());
 
 
     }
@@ -4818,11 +4813,11 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
     }
-
+/*
     private void DowloadControlcalidadVinculadosandDecideIRpdfMAKER(String valueVinculds) {
 
         // Utils.generateLISTbyStringVinculados
-        ArrayList<String> listIdSvINCULADOS = Utils.generateLISTbyStringVinculados(valueVinculds, "");
+        ArrayList<String> listIdSvINCULADOS = Utils.generateLISTofIdControlCALIDAD(valueVinculds, "");
 
         if (listIdSvINCULADOS.size() > 0) {  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
 
@@ -4844,10 +4839,10 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
         }
 
     }
-
+*/
     private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int contador, int sizeListIterate) {
 
-        Variables.listReprsVinculads = new ArrayList<>();
+        Variables.listControlCalidadVinculads = new ArrayList<>();
 
         Log.i("salero", "bsucando este reporte con este id  " + reportidToSearch);
 
@@ -4865,7 +4860,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
                     if (user != null) {
 
-                        Variables.listReprsVinculads.add(user);
+                        Variables.listControlCalidadVinculads.add(user);
 
                     }
                 }

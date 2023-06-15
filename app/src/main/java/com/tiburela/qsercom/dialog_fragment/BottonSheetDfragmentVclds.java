@@ -356,10 +356,8 @@ private void listternSpinner(){
                 Log.i("viculados","2 idsFormsVinucladosControlCalidadString es "+ RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
 
 
-
-
-                idsOfReportsVincldsList=  Utils.generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString, RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
-
+                idsOfReportsVincldsList=  Utils.generateLISTofIdControlCALIDAD(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
+                idsOfReportsVincldsList.add( RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
 
 
                 Log.i("midusiod","sidee "+idsOfReportsVincldsList.size());

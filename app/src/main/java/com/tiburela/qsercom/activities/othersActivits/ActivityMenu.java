@@ -899,8 +899,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         }
 
-        if(Variables.listReprsVinculads!=null){
-            Variables.listReprsVinculads= new ArrayList<>();
+        if(Variables.listControlCalidadVinculads !=null){
+            Variables.listControlCalidadVinculads = new ArrayList<>();
         }
 
 

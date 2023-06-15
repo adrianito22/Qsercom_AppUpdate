@@ -52,6 +52,9 @@ import java.util.UUID;
 public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implements CallbackUploadNewReport {
     String currentKeySharePrefrences="";
 
+    String currentIdFormHERE="";
+
+
     public static CallbackUploadNewReport callbackUploadNewReport;
 
      boolean selllamoFindsviewsID =false;
@@ -216,6 +219,10 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                 }
 
 
+
+
+
+
                 if(chekeadDataListIsReady()){
 
 
@@ -223,8 +230,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                     //creamos un objeto
                     RealtimeDB.initDatabasesRootOnly();
                     String keyDondeEstaraHashmap=RealtimeDB.rootDatabaseReference.push().getKey();
-
-
 
                     CuadroMuestreo objec= new CuadroMuestreo(Integer.parseInt(ediSemanaxc.getText().toString()),ediExportadora.getText().toString(),ediVaporx.getText().toString(),ediProductoras.getText().toString()
                             ,ediCodigoxs.getText().toString(), ediEnfundex.getText().toString(),keyDondeEstaraHashmap,ediExtCalidad.getText().toString(),
@@ -246,13 +251,9 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(objec);
 
-                  HashMap<String,ColorCintasSemns>mapita= iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
-
-                    RealtimeDB.addNewCuadroMuestreoHasMap(mapita,keyDondeEstaraHashmap); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
-
 
                     //   Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Se Guardo Informe", Toast.LENGTH_SHORT).show();
-                     Log.i("saber"," se subio la data ");
+                 //    Log.i("saber"," se subio la data ");
 
 
 
@@ -315,6 +316,19 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
             currentKeySharePrefrences=extras.getString(Variables.KEY_FORM_EXTRA);
 
+
+            Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+            if(miMpaAllrRegisters.containsKey(currentKeySharePrefrences)){
+                InformRegister infomr=miMpaAllrRegisters.get(currentKeySharePrefrences);
+                assert infomr != null;
+                if(infomr.isSeSubioFormAlinea()){
+                    btnSaveCambios.setEnabled(false);
+                }
+
+            }
+
+
+
             AddDataFormOfSharePrefeIfExistPrefrencesMap() ;
         }
 
@@ -376,7 +390,17 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
     private void AddDataFormOfSharePrefeIfExistPrefrencesMap() {
 
+        if(!currentKeySharePrefrences.equals("")) {
+            initIdsOtherViews();
+            Log.i("preferido","iniciamos views");
+        }
+
+
         View [] arrrayAllViews=creaArryOfViewsAll();
+
+        Log.i("preferido","el value de curren key es "+currentKeySharePrefrences);
+
+
 
 
 
@@ -386,7 +410,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
             HashMap<String, String> currentMapPreferences= (HashMap<String, String>) SharePref.loadMap(currentKeySharePrefrences);
             Log.i("preferido","el size de mapa es "+currentMapPreferences.size());
             Utils.addDataOfPrefrencesInView(arrrayAllViews,currentMapPreferences);
-
 
             Map<String, ColorCintasSemns> map=SharePref.getMapColorCintsSemns(currentKeySharePrefrences+"ColorCintasSemns");
 
@@ -473,6 +496,17 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                 txtTotalRechazados
         };
 
+        int posicion=0;
+        for(View view: arraViews){ //ckehemdno si es nulo
+
+            if(view==null){
+                Log.i("nulorrff","la posicon nula es "+posicion);
+            }
+            posicion++;
+
+        }
+
+
         return  arraViews;
 
 
@@ -484,15 +518,11 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         View [] arrayAllViewsData=creaArryOfViewsAll();
 
         /**agregamos data al hasmpa de */
-
-
         HashMap<String,ColorCintasSemns> miMap=iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);//asi agregamos objetos al mapque depsues gaurdamos
-
-
         Log.i("preferido","el current key es "+currentKeySharePrefrences);
 
 
-        if(!currentKeySharePrefrences.equals("") || userCreoRegisterForm){  //si no contiene
+        if(!currentKeySharePrefrences.equals("") ){  //si no contiene
             Log.i("saberrr","se ejecuto el if ");
 
             SharePrefHelper.viewsSaveInfo(arrayAllViewsData,currentKeySharePrefrences,ActivityCuadMuestCalibAndRechaz.this);
@@ -514,7 +544,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
             Map<String, InformRegister>miMpaAllrRegisters=SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
 
-
              currentKeySharePrefrences= UUID.randomUUID().toString();
 
             InformRegister inform= new InformRegister(currentKeySharePrefrences,Constants.CUADRO_MUESTRO_CAL_RECHZDS,"Usuario", "","Cuadro Muestreo","",""  );
@@ -532,8 +561,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
             Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Guardado Localmente", Toast.LENGTH_SHORT).show();
 
 
-            userCreoRegisterForm=true;
-
 
         }
 
@@ -547,15 +574,49 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
 
     private void generateUniqueIdInformeAndContinuesIfIdIsUnique( CuadroMuestreo cuadorMuestreo){
 
-        String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
-        Log.i("elnumber","el numero generado es ss"+uniqueId);
+        Toast.makeText(ActivityCuadMuestCalibAndRechaz.this, "Subiendo", Toast.LENGTH_SHORT).show();
 
-        checkIfExistIdAndUpload(uniqueId,cuadorMuestreo);
+        HashMap<String,ColorCintasSemns>mapita= iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
+        Log.i("misdjad","se llamo herett ");
+
+         Thread thread= new Thread(new Runnable() {
+             @Override
+             public void run() {
+
+                 if(!currentIdFormHERE.equals("")){ //ACTUALIZAMOS
+                     Log.i("misdjad","se llamo if  ");
+
+                     cuadorMuestreo.setUniqueIdObject(currentIdFormHERE);
+                     cuadorMuestreo.setKeyFirebaseLocation(RealtimeDB.keyFirebaselOACTIONCuadroMuestreo);
+                     RealtimeDB.updateCuadroMuestreoObject(cuadorMuestreo,cuadorMuestreo); //subimos un cuadro de muestreo object
+                     RealtimeDB.updateCuadroMuestreoHasMap(mapita,cuadorMuestreo.getNodoKyDondeEstaHasmap()); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
+
+
+                 }
+
+                 else
+
+                 { //subimos uno nuevo
+                     Log.i("misdjad","se llamo else  ");
+
+                     String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
+                     checkIfExistIdAndUpload(uniqueId,cuadorMuestreo,mapita);
+
+                 }
+
+
+             }
+
+
+         });
+        thread.start();
+
+
 
 
     }
 
-    private void checkIfExistIdAndUpload (String currenTidGenrate,  CuadroMuestreo cuadroMuetreo){
+    private void checkIfExistIdAndUpload (String currenTidGenrate,  CuadroMuestreo cuadroMuetreo,  HashMap<String,ColorCintasSemns>mapita){
 
         //  private void checkIfExistIdAndUpload(String currenTidGenrate ) {
         //  Log.i("salero","bsucando este reporte con este id  "+reportidToSearch);
@@ -565,13 +626,17 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 InformRegister informRegister=null;
+
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     informRegister=ds.getValue(InformRegister.class);
                 }
 
 
-                if(informRegister == null) { //quiere decir que no existe
+                if(informRegister == null) { //quiere decir que no existe aun este id
+
+                    currentIdFormHERE=currenTidGenrate;
 
                     informRegister= new InformRegister(currenTidGenrate,Constants.CUADRO_MUESTRO_CAL_RECHZDS,
                             Variables.usuarioQserconGlobal.getNombreUsuario(),
@@ -579,17 +644,15 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                             , "CUADRO MUESTREO","","");
 
 
-                    //informe register
+                    cuadroMuetreo.setUniqueIdObject(currenTidGenrate);
+                    RealtimeDB.addNewCuadroMuestreoObject(cuadroMuetreo); //subimos un cuadro de muestreo object
+                   // HashMap<String,ColorCintasSemns>mapita= iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
+                    RealtimeDB.addNewCuadroMuestreoHasMap(mapita,cuadroMuetreo.getNodoKyDondeEstaHasmap()); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
                     RealtimeDB.addNewRegistroInforme(ActivityCuadMuestCalibAndRechaz.this,informRegister);
 
+                     /**no mejor otra forma para detecra si se subio e todas un contador hasta */
 
-                    cuadroMuetreo.setUniqueIdObject(currenTidGenrate);
-                    //informe actual
-
-
-                    RealtimeDB.addNewCuadroMuestreoObject(cuadroMuetreo); //subimos un cuadro de muestreo object
-
-
+                    finish();
 
 
                     //aqui subimos..
@@ -1243,22 +1306,19 @@ private TextInputEditText[] devuleArrayTiEditext(){
         if(!currentKeySharePrefrences.equals("")){
 
             try {
+
+                SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,currentKeySharePrefrences);
+
+                /*
                 Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
-
                 InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
-
-
-
                 Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);
-
                 assert objec != null;
                 Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
-
                 objec.setSeSubioFormAlinea(true);
                 mapAllReportsRegister.put(currentKeySharePrefrences,objec);
-
                 SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
-
+*/
 
             }
 
@@ -1271,6 +1331,9 @@ private TextInputEditText[] devuleArrayTiEditext(){
 
         }
 
+        Toast.makeText(this, "Se subio Correctamente", Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 
     private void pegamosDataCopiada(){

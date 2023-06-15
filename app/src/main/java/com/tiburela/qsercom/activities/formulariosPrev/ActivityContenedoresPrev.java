@@ -1977,10 +1977,24 @@ else{
 
         //
 
+      /**anyes de llamar reseteamos y chekeamos si es mayor a */
+        Utils.indiceControlCalidad=0;
+        Variables.listIdSvINCULADOS = new ArrayList<>();
+        Variables.listControlCalidadVinculads = new ArrayList<>();
+        Variables.listIdSvINCULADOS = Utils.generateLISTofIdControlCALIDAD(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
+
+        Log.i("PORYECTOxxx", "bien el size de list vinculados id es  "+Variables.listIdSvINCULADOS.size());
+        if (Variables.listIdSvINCULADOS.size() > 0) {  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe i
+            RealtimeDB.initDatabasesRootOnly();
+            dowloadReportsVinucLdsControlCalidad();
 
 
+        } else {
 
-        DowloadControlcalidadVinculadosandDecideIRpdfMAKER(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
+            Toast.makeText(ActivityContenedoresPrev.this, "No Hay reportes vinculados ", Toast.LENGTH_SHORT).show();
+
+        }
+      //  DowloadControlcalidadVinculadosandDecideIRpdfMAKER(Variables.CurrenReportPart1.getAtachControCalidadInfrms());
 
 
     }
@@ -5091,16 +5105,11 @@ else{
     }
 
 
-    private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int contador, int sizeListIterate) {
+    private void dowloadReportsVinucLdsControlCalidad() {
 
-        Variables.listReprsVinculads = new ArrayList<>();
+        String idControlCalidadDowload=Variables.listIdSvINCULADOS.get(Utils.indiceControlCalidad);
 
-        Log.i("salero", "bsucando este reporte con este id  " + reportidToSearch);
-
-
-        RealtimeDB.initDatabasesRootOnly();
-
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("uniqueId").equalTo(reportidToSearch);
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("uniqueId").equalTo(idControlCalidadDowload);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -5111,18 +5120,16 @@ else{
 
                     if (user != null) {
 
-                        Variables.listReprsVinculads.add(user);
+                        Variables.listControlCalidadVinculads.add(user);
 
-                    }
+                    }   ////hay uno y e indice==1
                 }
 
-                if (sizeListIterate == contador) {
+                Utils.indiceControlCalidad++;//=1  y size ==1
 
-
+                if (Utils.indiceControlCalidad >= Variables.listIdSvINCULADOS.size()) {
                     String nameFilePdf = Variables.CurrenReportPart1.getNumcionContenedor()+" "+Variables.CurrenReportPart1.getProductor();
-
-                    Log.i("comnadaer", "bien vamos a activity pdf maker");
-
+                    Log.i("PORYECTOxxx", "bien vamos a activity pdf maker el size de list control calida object vinculados es "+Variables.listControlCalidadVinculads.size());
 
                     int numsPriodcutsPost = cuentaProdcutosposTcosechaAndUpdateGlobaProducPost();
 
@@ -5134,6 +5141,9 @@ else{
 
                     startActivity(intent);
 
+                }else{
+                    dowloadReportsVinucLdsControlCalidad();
+
                 }
             }
 
@@ -5143,33 +5153,6 @@ else{
             }
         });
 
-
-    }
-
-
-    private void DowloadControlcalidadVinculadosandDecideIRpdfMAKER(String valueVinculds) {
-
-        // Utils.generateLISTbyStringVinculados
-        ArrayList<String> listIdSvINCULADOS = Utils.generateLISTbyStringVinculados(valueVinculds, "");
-
-        if (listIdSvINCULADOS.size() > 0) {  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
-
-            //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
-            int contadorx = 0;
-
-            for (String value : listIdSvINCULADOS) {
-                contadorx++;
-
-                Log.i("comnadaer", "se ejecuto esto veces, buscamos este " + value);
-
-                dowloadReportsVinucLADSAndGOcREATEpdf(value, contadorx, listIdSvINCULADOS.size());
-
-            }
-        } else {
-
-            Toast.makeText(ActivityContenedoresPrev.this, "No Hay reportes vinculados ", Toast.LENGTH_SHORT).show();
-
-        }
 
     }
 

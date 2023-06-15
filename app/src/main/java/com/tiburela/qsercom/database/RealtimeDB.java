@@ -51,6 +51,8 @@ import java.util.UUID;
 
 public class RealtimeDB {
 
+    public static String keyFirebaselOACTIONCuadroMuestreo="";
+
     static  public DatabaseReference rootDatabaseReference ;
 
     static  public  DatabaseReference mibasedataPathImages;
@@ -485,6 +487,9 @@ public class RealtimeDB {
         //agregamos la propiedad keyFirebase a al objeto
         String PuskEY = mibasedata.push().getKey();
         informeObjct.setKeyFirebaseLocation(PuskEY);
+
+        keyFirebaselOACTIONCuadroMuestreo=informeObjct.getKeyFirebaseLocation();
+
         // informeObjct.setKeyFirebase(PuskEY);
         //   Map<String, Object> mapValues = informeObjct.toMap();
 
@@ -495,6 +500,8 @@ public class RealtimeDB {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    ///decide
+
 
                     Log.i("saber"," se subio la data ocmplete  ");
 
@@ -1340,7 +1347,29 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.IMAGENES_SET_DE_REPORTE);
+
+                    Log.i("misdjad","is sucefull here aqwui ");
+
+                    if(Variables.activityCurrent==Variables.FormContenedores || Variables.activityCurrent==Variables.FormPreviewContenedores ){
+                        BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.IMAGENES_SET_DE_REPORTE);
+
+                    }
+
+                    else if(Variables.activityCurrent==Variables.FormMuestreoRechaz){
+                        Log.i("misdjad","lsalakd ");
+
+
+                        if(ActivityCuadMuestCalibAndRechaz.callbackUploadNewReport !=null){
+                            ActivityCuadMuestCalibAndRechaz.callbackUploadNewReport.uploadNewForm();
+
+                            Log.i("misdjad","se llamo callback ");
+
+                        }
+
+
+
+                    }
+
 
                     // Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_LONG).show();
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();

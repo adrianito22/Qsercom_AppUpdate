@@ -5,6 +5,7 @@ import static com.itextpdf.kernel.pdf.PdfName.Collection;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -152,7 +153,18 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                 @Override
                 public void onClick(View view) {
 
-                    dismiss();
+                    Activity thisActivity = getActivity();
+                    if (thisActivity != null) {
+                        thisActivity.finish();
+                    }
+
+                     try {
+                         dismiss();
+
+                     } catch (Exception e) {
+                         Log.i("misfafa","la expecion es "+e.getMessage());
+
+                     }
 
                 }
             });

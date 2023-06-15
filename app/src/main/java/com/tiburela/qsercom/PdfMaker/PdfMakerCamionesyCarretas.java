@@ -317,15 +317,15 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             }
         });
 
-            Log.i("debbdf","el size de listReprsVinculads es: "+Variables.listReprsVinculads.size());
+            Log.i("debbdf","el size de listReprsVinculads es: "+Variables.listControlCalidadVinculads.size());
 
             UpdateProgressAndText("Descargando Data",10);
 
 
-                for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
+                for(int indice = 0; indice< Variables.listControlCalidadVinculads.size(); indice++){
                   //decsrgamos hasmap control calidad
 
-                        String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyWhereLocateasHmapFieldsRecha();
+                        String currentlOCATIONwHEREisHAMAP = Variables.listControlCalidadVinculads.get(indice).getKeyWhereLocateasHmapFieldsRecha();
                     dowloadRecszCcalidadMapAndCallDowloadRechdz(currentlOCATIONwHEREisHAMAP, indice+1);
 
                 }
@@ -769,9 +769,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
            int contadorTablas=1;
 
-         for(int i=0; i<Variables.listReprsVinculads.size(); i++ ){
+         for(int i = 0; i<Variables.listControlCalidadVinculads.size(); i++ ){
 
-             ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(i);
+             ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(i);
 
              HashMap<String,String>currentMap=Utils.devulveHasmapControClidadData(ListWhitHashMapsControlCalidad,
                      currenControCaldRep.getUniqueId());
@@ -918,9 +918,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
                 int contadorImageChar=1;
 
-        for(int indice=0; indice<Variables.listReprsVinculads.size(); indice++){  //2 tablas...  4 en total
+        for(int indice = 0; indice<Variables.listControlCalidadVinculads.size(); indice++){  //2 tablas...  4 en total
 
-            ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
+            ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(indice);
 
               //agregamos el texto en cel centro
              Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getMarcaCaja())
@@ -940,7 +940,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             if(contadorImageChar%2==0){  //es multiplo de 2
                  mipara.setMarginTop(25f);
 
-                 if(contadorImageChar<Variables.listReprsVinculads.size()){
+                 if(contadorImageChar<Variables.listControlCalidadVinculads.size()){
                      //cremoas nueva pagina siempre yPosicion cuando existan mas valores
                      midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                  }
@@ -1614,9 +1614,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         int contadorTablas=1;
 
-        for(int i=0; i<Variables.listReprsVinculads.size(); i++ ){
+        for(int i = 0; i<Variables.listControlCalidadVinculads.size(); i++ ){
 
-            ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(i);
+            ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(i);
 
             HashMap<String,String>currentMap=Utils.devulveHasmapControClidadData(ListWhitHashMapsControlCalidad,
                     currenControCaldRep.getUniqueId());
@@ -1762,9 +1762,9 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         int contadorImageChar=1;
 
-        for(int indice=0; indice<Variables.listReprsVinculads.size(); indice++){  //2 tablas...  4 en total
+        for(int indice = 0; indice<Variables.listControlCalidadVinculads.size(); indice++){  //2 tablas...  4 en total
 
-            ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
+            ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(indice);
 
             //agregamos el texto en cel centro
             Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getMarcaCaja())
@@ -1784,7 +1784,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
             if(contadorImageChar%2==0){  //es multiplo de 2
                 mipara.setMarginTop(25f);
 
-                if(contadorImageChar<Variables.listReprsVinculads.size()){
+                if(contadorImageChar<Variables.listControlCalidadVinculads.size()){
                     //cremoas nueva pagina siempre yPosicion cuando existan mas valores
                     midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 }
@@ -2210,7 +2210,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
                         Log.i("comnadaer","el size de hasmap es "+hasmapMapControlCalid.size());
 
 
-                          if(iterador==Variables.listReprsVinculads.size() ){
+                          if(iterador==Variables.listControlCalidadVinculads.size() ){
 
                               UpdateProgressAndText("Creando pdf",30);
 
@@ -2275,7 +2275,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
                // Log.i("debsumas"," el size de  "+hasmapMapdEFECTOSchekeed.size());
 
-                if(contador ==Variables.listReprsVinculads.size()){
+                if(contador ==Variables.listControlCalidadVinculads.size()){
 
 
                     Log.i("comnadaer","llamaor cel size de ListWhitHashMapsControlCalidad es: "+ListWhitHashMapsControlCalidad.size());
@@ -2334,10 +2334,10 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
     private void iterateCallDowldRechzadosDefects() {
 
-        for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
+        for(int indice = 0; indice< Variables.listControlCalidadVinculads.size(); indice++){
             //decsrgamos hasmap control calidad
 
-            String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyDondeEstaraHasmapDefecSelec();
+            String currentlOCATIONwHEREisHAMAP = Variables.listControlCalidadVinculads.get(indice).getKeyDondeEstaraHasmapDefecSelec();
             dowloadAllSelectDefectosPosiciones(currentlOCATIONwHEREisHAMAP,indice+ 1);
         }
 

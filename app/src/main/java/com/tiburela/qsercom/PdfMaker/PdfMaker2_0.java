@@ -145,11 +145,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         btnIrAARCHIVOpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
                 if(file!=null){
-
 
                     try{
 
@@ -263,13 +259,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
                 }
 
                 catch (FileNotFoundException e) {
@@ -286,37 +275,14 @@ public class PdfMaker2_0 extends AppCompatActivity {
         });
 
 
-        Log.i("debbdf","activity donde vino es "+ActivityFormularioDondeVino);
 
         if(ActivityFormularioDondeVino== Variables.FormPreviewContenedores){
-            Log.i("debbdf","es el primer if");
-
-            Log.i("debbdf","el size de listReprsVinculads es: "+Variables.listReprsVinculads.size());
-
-            //obtenemos los hasmaps
-
-                 //TENEMOS UNA LISTA CON LSO REPORTES
-
-
             UpdateProgressAndText("Descargando Data",10);
-
-
-            Log.i("hameha","empezamos a crear data" );
-
-
-                for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
+                for(int indice = 0; indice< Variables.listControlCalidadVinculads.size(); indice++){
                   //decsrgamos hasmap control calidad
-
-                        String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyWhereLocateasHmapFieldsRecha();
+                        String currentlOCATIONwHEREisHAMAP = Variables.listControlCalidadVinculads.get(indice).getKeyWhereLocateasHmapFieldsRecha();
                     dowloadRecszCcalidadMapAndCallDowloadRechdz(currentlOCATIONwHEREisHAMAP, indice+1);
-
-
                 }
-
-
-
-
-
                 Log.i("debbdf","excelente create");
         }
 
@@ -791,9 +757,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
            int contadorTablas=1;
 
-         for(int i=0; i<Variables.listReprsVinculads.size(); i++ ){
+         for(int i = 0; i<Variables.listControlCalidadVinculads.size(); i++ ){
 
-             ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(i);
+             ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(i);
 
              HashMap<String,String>currentMap=Utils.devulveHasmapControClidadData(ListWhitHashMapsControlCalidad,
                      currenControCaldRep.getUniqueId());
@@ -933,9 +899,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                 int contadorImageChar=1;
 
-        for(int indice=0; indice<Variables.listReprsVinculads.size(); indice++){  //2 tablas...  4 en total
+        for(int indice = 0; indice<Variables.listControlCalidadVinculads.size(); indice++){  //2 tablas...  4 en total
 
-            ControlCalidad currenControCaldRep= Variables.listReprsVinculads.get(indice);
+            ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(indice);
 
               //agregamos el texto en cel centro
              Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getMarcaCaja())
@@ -955,7 +921,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
             if(contadorImageChar%2==0){  //es multiplo de 2
                  mipara.setMarginTop(25f);
 
-                 if(contadorImageChar<Variables.listReprsVinculads.size()){
+                 if(contadorImageChar<Variables.listControlCalidadVinculads.size()){
                      //cremoas nueva pagina siempre yPosicion cuando existan mas valores
                      midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                  }
@@ -1283,7 +1249,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
                         Log.i("comnadaer","el size de hasmap es "+hasmapMapControlCalid.size());
 
 
-                          if(iterador==Variables.listReprsVinculads.size() ){
+                          if(iterador==Variables.listControlCalidadVinculads.size() ){
 
                               UpdateProgressAndText("Creando pdf",30);
 
@@ -1348,7 +1314,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                // Log.i("debsumas"," el size de  "+hasmapMapdEFECTOSchekeed.size());
 
-                if(contador ==Variables.listReprsVinculads.size()){
+                if(contador ==Variables.listControlCalidadVinculads.size()){
 
 
                     Log.i("comnadaer","llamaor cel size de ListWhitHashMapsControlCalidad es: "+ListWhitHashMapsControlCalidad.size());
@@ -1407,10 +1373,10 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
     private void iterateCallDowldRechzadosDefects() {
 
-        for(int indice=0; indice< Variables.listReprsVinculads.size(); indice++){
+        for(int indice = 0; indice< Variables.listControlCalidadVinculads.size(); indice++){
             //decsrgamos hasmap control calidad
 
-            String currentlOCATIONwHEREisHAMAP = Variables.listReprsVinculads.get(indice).getKeyDondeEstaraHasmapDefecSelec();
+            String currentlOCATIONwHEREisHAMAP = Variables.listControlCalidadVinculads.get(indice).getKeyDondeEstaraHasmapDefecSelec();
             dowloadAllSelectDefectosPosiciones(currentlOCATIONwHEREisHAMAP,indice+ 1);
         }
 

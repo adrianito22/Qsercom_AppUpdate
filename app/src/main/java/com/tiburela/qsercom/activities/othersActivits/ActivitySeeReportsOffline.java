@@ -104,6 +104,11 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
 
         mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
         spinnerDatesSelector.setSelection(0);
+
+    //   String  fechaToSearch=generaFechaToSearch(Variables.HOY);
+     //   getReportLocalStorageBYdate(fechaToSearch);
+        // dowloadinformesby_CONTENEDORES(fechaToSearch);
+        //dowloa
         listenenrSpinner();
 
 

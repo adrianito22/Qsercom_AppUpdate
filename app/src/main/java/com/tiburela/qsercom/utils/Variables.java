@@ -80,7 +80,8 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
 
    public static FirebaseUser userGoogle;
 
-    public static  ArrayList<ControlCalidad>listReprsVinculads=new ArrayList<>();
+    public static  ArrayList<ControlCalidad> listControlCalidadVinculads =new ArrayList<>();
+    public static  ArrayList<String> listIdSvINCULADOS =new ArrayList<>();
 
 
     public static UsuarioQsercon usuarioQserconGlobal;

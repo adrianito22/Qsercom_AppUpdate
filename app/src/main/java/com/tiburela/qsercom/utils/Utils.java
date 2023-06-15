@@ -64,7 +64,6 @@ import com.tiburela.qsercom.models.UsuarioQsercon;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1089,7 +1088,7 @@ return
 
     }
 
-    public static ArrayList<String> generateLISTbyStringVinculados(String controlCalidStrin,String cuadroReportString ){
+    public static ArrayList<String> generateLISTofIdControlCALIDAD(String controlCalidStrin ){
 
         ArrayList<String>listIdSvINCULADOS= new ArrayList<>();
 
@@ -1115,34 +1114,6 @@ return
 
 
         }
-
-
-        if(cuadroReportString!=null){
-            String [] miarrayiNFORMESvincx = cuadroReportString.split(",");
-            Log.i("datamapitkka","el size de aara es "+miarrayiNFORMESvincx.length);
-
-            if(miarrayiNFORMESvincx.length >0) {
-
-                for(String value : miarrayiNFORMESvincx){
-
-                    if(!value.trim().isEmpty()){
-
-                        listIdSvINCULADOS.add(value);
-
-                    }
-                }
-
-                Log.i("datamapitkka","es mayor a 1"+listIdSvINCULADOS.size());
-
-            }
-
-
-        }
-
-
-
-
-
 
 
         return listIdSvINCULADOS;
@@ -1597,6 +1568,8 @@ return true;
     public static final String TAREACOMPETADA="TAREACOMPETADA";
     public static final String TAREACOMPETADA_IMAGENS="TAREACOMPETADA_IMAGENES_SUBIDAS";
     public static int  PorcientoTarea=0;
+
+    public static int indiceControlCalidad=0;
 
 
 }
