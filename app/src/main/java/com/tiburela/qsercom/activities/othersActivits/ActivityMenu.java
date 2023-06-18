@@ -921,6 +921,13 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
     void estableceHeaderTextAndListerner(){
+
+
+        if(ActivityMenu.this.isFinishing() && ActivityMenu.this.isDestroyed()){
+            return;
+
+        }
+
         txtHeader=findViewById(R.id.txtHeader);
         txtSubHeader=findViewById(R.id.txtSubHeader);
 

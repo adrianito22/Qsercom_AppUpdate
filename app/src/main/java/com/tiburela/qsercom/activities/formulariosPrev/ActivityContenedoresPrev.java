@@ -1601,7 +1601,6 @@ else{
         btnCheck = findViewById(R.id.btnCheck);
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
 
@@ -1616,6 +1615,8 @@ else{
     }
 
     void checkDataFields() {
+
+
         if(! cehckFaltanImagenes()){
             Log.i("test001","no esta lleno  cehckFaltanImagenes");
             //btnCheck.setEnabled(true);

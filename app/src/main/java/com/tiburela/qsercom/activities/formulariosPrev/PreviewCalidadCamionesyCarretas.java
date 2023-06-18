@@ -1818,7 +1818,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         if (!Utils.checkifAtach()) {
             Log.i("test001", "no esta lleno  checkifAtach");
             FragmentManager fm = getSupportFragmentManager();
-            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
+            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CAMIONES_Y_CARRETAS);
             // alertDialog.setCancelable(false);
             alertDialog.show(fm, "duialoffragment_alertZ");
             return;

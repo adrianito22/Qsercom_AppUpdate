@@ -2623,6 +2623,9 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 }
 
 void checkDataFields(){ //
+
+
+
     getResultDatCalibCalEnfundes(); //asi
 
 
@@ -4002,7 +4005,8 @@ return true;
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
             Log.i("test001","no esta lleno  checkifAtach");
             FragmentManager fm = getSupportFragmentManager();
-            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.PREV_CONTENEDORES);
+            DialogConfirmNoAtach alertDialog = DialogConfirmNoAtach.newInstance(Constants.CONTENEDORES);
+
             // alertDialog.setCancelable(false);
             alertDialog.show(fm, "duialoffragment_alertZ");
             return false;
