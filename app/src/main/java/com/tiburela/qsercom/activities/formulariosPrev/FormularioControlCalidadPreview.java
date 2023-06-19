@@ -387,6 +387,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     EditextSupreme ediCalByA19 ;
     EditextSupreme ediCalByA20 ;
     EditextSupreme ediCalByA21 ;
+    EditextSupreme ediCalByA22;
+    EditextSupreme ediCalByA23;
+    EditextSupreme ediCalByA24;
+    EditextSupreme ediCalByA25;
+
 
 
     ///////////////////
@@ -741,7 +746,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                 ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13,
-                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 ,ediCalByA21
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19,ediCalByA20 ,ediCalByA21,
+                ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25
 
 
                 , edif2NdedoXclust27  ,
@@ -1190,7 +1196,15 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         ediCalByA18=findViewById(R.id.ediCalByA18);
         ediCalByA19=findViewById(R.id.ediCalByA19);
         ediCalByA20=findViewById(R.id.ediCalByA20);
-        ediCalByA21=findViewById(R.id.ediTotalFila1z);
+
+        ediCalByA21=findViewById(R.id.ediCalByA21);
+        ediCalByA22=findViewById(R.id.ediCalByA22);
+        ediCalByA23=findViewById(R.id.ediCalByA23);
+        ediCalByA24=findViewById(R.id.ediCalByA24);
+        ediCalByA25=findViewById(R.id.ediCalByA25);
+
+
+         /**vamos terminaf ind id esras edif2Calib21  y  esta ediCalByA25 agregarle el array y en otras [artes pendientes  */
 
 
         edif2Calib1=findViewById(R.id.edif2Calib1);

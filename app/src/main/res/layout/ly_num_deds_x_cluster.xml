@@ -42,24 +42,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:divider="@drawable/backage_text"
-                android:showDividers="middle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:divider="@drawable/backage_text"
+                android:orientation="horizontal"
+                android:showDividers="middle">
 
 
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="3"
                     android:textSize="14sp" />
 
@@ -67,10 +67,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="4"
                     android:textSize="14sp" />
 
@@ -78,10 +78,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="5"
                     android:textSize="14sp" />
 
@@ -89,10 +89,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="6"
                     android:textSize="14sp" />
 
@@ -100,10 +100,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="7"
                     android:textSize="14sp" />
 
@@ -111,10 +111,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="8"
                     android:textSize="14sp" />
 
@@ -122,10 +122,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="9"
                     android:textSize="14sp" />
 
@@ -133,10 +133,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="10"
                     android:textSize="14sp" />
 
@@ -144,11 +144,11 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
                     android:layout_width="65dp"
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="11"
                     android:textSize="14sp" />
 
@@ -156,12 +156,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="12"
                     android:textSize="14sp" />
 
@@ -169,12 +169,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="13"
                     android:textSize="14sp" />
 
@@ -182,10 +182,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="14"
                     android:textSize="14sp" />
 
@@ -193,11 +193,11 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
                     android:layout_width="65dp"
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="15"
                     android:textSize="14sp" />
 
@@ -205,11 +205,11 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
                     android:layout_width="65dp"
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="16"
                     android:textSize="14sp" />
 
@@ -217,10 +217,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="17"
                     android:textSize="14sp" />
 
@@ -228,11 +228,11 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
                     android:layout_width="65dp"
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="18"
                     android:textSize="14sp" />
 
@@ -240,10 +240,10 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="19"
                     android:textSize="14sp" />
 
@@ -251,11 +251,11 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
                     android:layout_width="65dp"
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="20"
                     android:textSize="14sp" />
 
@@ -263,11 +263,11 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
                     android:layout_width="65dp"
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="21"
                     android:textSize="14sp" />
 
@@ -275,12 +275,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="22"
                     android:textSize="14sp" />
 
@@ -288,12 +288,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="23"
                     android:textSize="14sp" />
 
@@ -301,12 +301,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="24"
                     android:textSize="14sp" />
 
@@ -314,12 +314,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="25"
                     android:textSize="14sp" />
 
@@ -327,12 +327,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="26"
                     android:textSize="14sp" />
 
@@ -340,12 +340,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="27"
                     android:textSize="14sp" />
 
@@ -353,12 +353,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="28"
                     android:textSize="14sp" />
 
@@ -366,12 +366,12 @@ android:gravity="center"
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
 
-android:gravity="center"
-
-
                     android:layout_width="65dp"
+
+
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:gravity="center"
                     android:text="29"
                     android:textSize="14sp" />
 
@@ -2076,7 +2076,7 @@ android:gravity="center"
                 <ImageView
                     android:id="@+id/imgUpdateCalibBasalYapical"
                     android:layout_width="wrap_content"
-                    android:layout_height="17dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     app:srcCompat="@drawable/ic_baseline_update_24" />
             </LinearLayout>
@@ -2116,17 +2116,54 @@ android:gravity="center"
                     android:text="OG"
                     android:textSize="14sp" />
 
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="32"
+                    android:textSize="14sp" />
+
 
                 <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="33"
+                    android:textSize="14sp" />
 
 
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="34"
+                    android:textSize="14sp" />
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="35"
+                    android:textSize="14sp" />
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="36"
+                    android:textSize="14sp" />
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:gravity="center"
                     android:text="37"
                     android:textSize="14sp" />
-
 
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
@@ -2317,11 +2354,7 @@ android:gravity="center"
 
 
                 <com.tiburela.qsercom.Customviews.EditextSupreme
-
-
                     android:layout_width="65dp"
-
-
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:gravity="center"
@@ -2394,7 +2427,6 @@ android:gravity="center"
 
 
                 <com.tiburela.qsercom.Customviews.EditextSupreme
-
 
                     android:id="@+id/ediCalByA3"
                     android:layout_width="65dp"
@@ -2604,16 +2636,58 @@ android:gravity="center"
 
 
                 <com.tiburela.qsercom.Customviews.EditextSupreme
-
-
                     android:id="@+id/ediCalByA20"
-
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:inputType="number"
                     android:textSize="14sp" />
 
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+
+                    android:id="@+id/ediCalByA21"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+
+                    android:id="@+id/ediCalByA22"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:id="@+id/ediCalByA23"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+
+                    android:id="@+id/ediCalByA24"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+
+                    android:id="@+id/ediCalByA25"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
 
                 <com.tiburela.qsercom.Customviews.EditextSupreme
 
@@ -2913,9 +2987,72 @@ android:gravity="center"
 
 
                 <com.tiburela.qsercom.Customviews.EditextSupreme
-
-
                     android:id="@+id/edif2Calib20"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+
+                    android:digits="0123456789"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:id="@+id/edif2Calib21"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+
+                    android:digits="0123456789"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+
+
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:id="@+id/edif2Calib22"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+
+                    android:digits="0123456789"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:id="@+id/edif2Calib23"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+
+                    android:digits="0123456789"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:id="@+id/edif2Calib24"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+
+                    android:digits="0123456789"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+
+
+                <com.tiburela.qsercom.Customviews.EditextSupreme
+                    android:id="@+id/edif2Calib25"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
 

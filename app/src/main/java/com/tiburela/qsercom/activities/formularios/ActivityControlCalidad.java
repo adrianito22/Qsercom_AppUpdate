@@ -167,10 +167,16 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     private EditextSupreme mEdif2LrgD29;
     private EditextSupreme mEdif2LrgD30;
 
+   EditextSupreme ediCalByA21;
+   EditextSupreme ediCalByA22;
+   EditextSupreme ediCalByA23;
+   EditextSupreme ediCalByA24;
+   EditextSupreme ediCalByA25;
 
 
 
-    int numeroClustersInspecc=0;
+
+   int numeroClustersInspecc=0;
     TextView textView;
     //  boolean[] selectedLanguage;
     Button btnSaveControlC;
@@ -406,8 +412,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     EditextSupreme edif2Calib18 ;
     EditextSupreme edif2Calib19 ;
     EditextSupreme edif2Calib20 ;
-    EditextSupreme ediTotalFila2z;
-    EditextSupreme edif2Calib22 ;
+
+   EditextSupreme edif2Calib21 ;
+   EditextSupreme edif2Calib22 ;
+   EditextSupreme edif2Calib23 ;
+   EditextSupreme edif2Calib24 ;
+   EditextSupreme edif2Calib25 ;
+
+
+   EditextSupreme ediTotalFila2z;
     //imgvEMPAQUES
 
 
@@ -957,7 +970,17 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         ediCalByA18=findViewById(R.id.ediCalByA18);
         ediCalByA19=findViewById(R.id.ediCalByA19);
         ediCalByA20=findViewById(R.id.ediCalByA20);
-        ediTotalFila1z =findViewById(R.id.ediTotalFila1z);
+       ediCalByA20=findViewById(R.id.ediCalByA20);
+
+       ediCalByA21=findViewById(R.id.ediCalByA21);
+       ediCalByA22=findViewById(R.id.ediCalByA22);
+       ediCalByA23=findViewById(R.id.ediCalByA23);
+       ediCalByA24=findViewById(R.id.ediCalByA24);
+       ediCalByA25=findViewById(R.id.ediCalByA25);
+
+
+
+       ediTotalFila1z =findViewById(R.id.ediTotalFila1z);
 
 
         edif2Calib1=findViewById(R.id.edif2Calib1);
@@ -1046,6 +1069,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
 
 
+       edif2Calib21 = findViewById(R.id.edif2Calib21);
+       edif2Calib22 = findViewById(R.id.edif2Calib22);
+       edif2Calib23 = findViewById(R.id.edif2Calib23);
+       edif2Calib24 = findViewById(R.id.edif2Calib24);
+       edif2Calib25 = findViewById(R.id.edif2Calib25);
 
 
         sellamoFindViewIds=true;
@@ -1745,6 +1773,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
                 edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20   ,
+                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25,
 
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
                 mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
@@ -1828,9 +1857,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediTotalFila1z,
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , ediTotalFila2z, edif2Calib22 ,
-
-
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20,
+                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25, ediTotalFila2z, edif2Calib22 ,
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
                 mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
                 mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
@@ -2816,15 +2844,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         EditextSupreme ediPromediozx=findViewById(R.id.ediPromediozx);
 
-        final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
-
+        final int [] arrayNJumsTOmult = {0,0,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;//26
 
 
         float totalFila1=0;
         float totalFial2=0;
 
 
-        EditextSupreme [] arrayEditsFilaArriba = { ediCalByA1	,
+        EditextSupreme [] arrayEditsFilaArriba = {
+                ediCalByA1	,
                 ediCalByA2	,
                 ediCalByA3	,
                 ediCalByA4	,
@@ -2845,6 +2873,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediCalByA19	,
                 ediCalByA20	,
 
+                ediCalByA21	,
+                ediCalByA22	,
+                ediCalByA23	,
+                ediCalByA24	,
+                ediCalByA25	,
+
+
 
         };
 
@@ -2855,6 +2890,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2Calib9	, edif2Calib10, edif2Calib11, edif2Calib12	,
                 edif2Calib13, edif2Calib14, edif2Calib15, edif2Calib16	,
                 edif2Calib17, edif2Calib18, edif2Calib19, edif2Calib20	,
+
+                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25
 
 
         };
@@ -3263,7 +3300,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         EditextSupreme []   arraCuadro3 = {
                 ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20
+                ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20,
+
+                ediCalByA21,ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25
 
         };
 
