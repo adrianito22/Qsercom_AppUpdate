@@ -27,6 +27,12 @@ import java.util.HashMap;
 
 public class Variables {
 
+    public static  int contadorDataUpladed=0;
+
+
+
+    public static  int contador=100;
+
     public static  int OBJECT_SetInformEmbarque1=100;
     public static  int OBJECT_SetInformEmbarque2=101;
     public static  int OBJECT_SetInformDatsHacienda=102;
@@ -40,6 +46,8 @@ public class Variables {
     public static  int FINISH_ALL_UPLOAD=107;
 
     public static  int SEVERAL_INFORMS_UPDATE=108;
+    public static  int CONTROL_CALIDAD_OBJECT=109;
+    public static  int ERROR_SUBIDA=110;
 
 
     public static  String tagAndKeyToDelete="";

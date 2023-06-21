@@ -31,8 +31,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.callbacks.ContenedoresCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -96,6 +98,25 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
     /**CONTEENDORES CONSTRUCTOR*/
 
+
+    static  ControlCalidad controlCalidadX;
+   static  HashMap<String, String> hasHmapOtherFieldsEditxsx;
+   static  HashMap<String,String>hasMapitemsSelecPosicRechazToUploadx;
+
+    public static BottonSheetCallUploading newInstance(Context contexta, ControlCalidad controlCalidad, HashMap<String, String> hasHmapOtherFieldsEditxs,
+                                                          HashMap<String,String>hasMapitemsSelecPosicRechazToUpload, InformRegister informRegisterx, int ActivityId) {
+        context=contexta;
+        controlCalidadX=controlCalidad;
+        hasMapitemsSelecPosicRechazToUploadx=hasMapitemsSelecPosicRechazToUpload;
+        hasHmapOtherFieldsEditxsx=hasHmapOtherFieldsEditxs;
+        informRegister=informRegisterx;
+        activityIdx=ActivityId;
+        return new BottonSheetCallUploading();
+
+    }
+
+
+
     public static BottonSheetCallUploading newInstance(Context contexta, SetInformEmbarque1 informEmbq1, SetInformEmbarque2 informEmbq2,
                                                        SetInformDatsHacienda datoshda, InformRegister informRegisterx,
                                                        ProductPostCosecha productos, ArrayList<ImagenReport>listImages, HashMap<String, Float> miMapLbriadox,int ActivityId) {
@@ -139,15 +160,12 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             vista= inflater.inflate(R.layout.layout_botton_sheetcd, container, false);
             progressBar =vista.findViewById(R.id.progressBar);
             txtTitle =vista.findViewById(R.id.txtAdviser);
-            CoordinatorLayout lineaLyaout =vista.findViewById(R.id.lineaLyaout);
             txtSubTitle =vista.findViewById(R.id.txtSubheader);
-              imgIcon=vista.findViewById(R.id.imgIcon);
-              btnOkButton=vista.findViewById(R.id.btnOkButton);
-            Log.i("lamundo","el size upload es "+allkeys.size());
-
+            imgIcon=vista.findViewById(R.id.imgIcon);
+            btnOkButton=vista.findViewById(R.id.btnOkButton);
             btnOkButton.setEnabled(false);
+            Variables.contador=0;
             StorageData.indiceCurrentOFlistIamges=0;
-
 
             btnOkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,9 +189,15 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
                if(Utils.esNuevoReport){
-                   uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque1);
 
-               }else{
+                    if(activityIdx==Variables.FormCantrolCalidad){
+                        UploadControlCalidad(Variables.CONTROL_CALIDAD_OBJECT);
+                    }else {
+                        uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque1);
+                    }
+               }
+               else
+               {
 
                    Utils.contadorTareasCompletadas=0;
 
@@ -598,6 +622,113 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
 }
+
+
+    public  static void UploadControlCalidad(int  tipoObjectoQueSubiremosNow){
+        final int[] valuePercent = {0};
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {//esto en BACGROUND
+
+                if(tipoObjectoQueSubiremosNow== Variables.CONTROL_CALIDAD_OBJECT){
+                    valuePercent[0] =20;
+
+                    RealtimeDB.UploadControlcalidadInform(controlCalidadX);
+
+                    Log.i("superff","el size de map 1 es "+hasHmapOtherFieldsEditxsx.size()+" y el key donde estar es "+ controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());
+
+                    Log.i("superff","el size de map 1 es "+hasMapitemsSelecPosicRechazToUploadx.size()+" y el key donde estar es "+ controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());
+
+                    RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxsx, controlCalidadX.getKeyWhereLocateasHmapFieldsRecha());
+                    RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUploadx,controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());
+                    RealtimeDB.addNewRegistroInforme(context,informRegister);
+
+                    //le decimos  que subido..
+
+
+
+
+                }
+
+                else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
+                    Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
+                    SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
+
+
+                    valuePercent[0] =100;
+
+                }
+
+                else if(tipoObjectoQueSubiremosNow== Variables.ERROR_SUBIDA){
+                    Log.i("updatexxxx","FINISH_ALL_UPLOAD");
+
+
+                    valuePercent[0] =100;
+
+                }
+
+
+//es dedcion
+                handler1.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if(progressBar!=null){
+
+                            if(valuePercent[0]==20) {
+                                progressBar.setProgress(20); //esto en interfas
+                                Log.i("finalizando", "value percent es igual a 100");
+                             }
+
+
+                             else if(tipoObjectoQueSubiremosNow==Variables.ERROR_SUBIDA){
+                                progressBar.setProgress(0); //esto en interfas
+                                Log.i("updatexxxx", ":( error ");
+
+                                txtSubTitle.setText("Se produjo un error :(");
+                                txtTitle.setText("0% COMPLETADO ");
+
+                                btnOkButton.setVisibility(View.VISIBLE);
+                                // imgIcon.setVisibility(View.VISIBLE);
+                                imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                                btnOkButton.setEnabled(true);
+                            }
+
+
+
+
+
+                            else if (valuePercent[0]==100) {
+
+                                progressBar.setProgress(100); //esto en interfas
+                                Log.i("updatexxxx", "update todos hurra");
+
+                                txtSubTitle.setText("Hurra, se subio");
+                                txtTitle.setText("100% COMPLETADO");
+
+                                btnOkButton.setVisibility(View.VISIBLE);
+                                // imgIcon.setVisibility(View.VISIBLE);
+                                imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                                btnOkButton.setEnabled(true);
+
+
+
+                            }
+                        }
+
+
+                    }
+                });
+
+                //cuando termine esto vamos a darle..
+
+            }
+        });   //call it
+        thread.start();
+
+
+    }
 
 
     private static void UploadImages() {

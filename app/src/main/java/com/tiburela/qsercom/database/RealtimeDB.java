@@ -883,10 +883,19 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                    Variables.contadorDataUpladed++;
+                 if(Variables.contadorDataUpladed==4){
+
+                     BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
+
+
+                 }
+
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
+                    BottonSheetCallUploading.UploadControlCalidad(Variables.ERROR_SUBIDA);
 
 
                 }
@@ -928,10 +937,28 @@ public class RealtimeDB {
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("ControCalidHasmap");
         // String nododDondeEstaraEsteHasmap = mibasedata2.push().getKey();
         // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
+        mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapControlCalid).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
 
-        mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapControlCalid);  //subimos el packing list mapa
+                if(task.isSuccessful()){
 
-        //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
+                    Variables.contadorDataUpladed++;
+
+                    if(Variables.contadorDataUpladed==4){
+                        BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
+
+                    }
+
+                }else{
+                    BottonSheetCallUploading.UploadControlCalidad(Variables.ERROR_SUBIDA);
+
+
+                }
+
+
+            }
+        });
 
 
     }
@@ -955,7 +982,26 @@ public class RealtimeDB {
 
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("DefectoSelecionadosHashmap");
 
-        mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapDefectsSelec);  //subimos el packing list mapa
+        mibasedata2.child(dondeEstaraThisHasmap).setValue(hasmapDefectsSelec).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                      if(task.isSuccessful()){
+                          Variables.contadorDataUpladed++;
+
+                          if(Variables.contadorDataUpladed==4){
+
+                              BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
+
+                          }
+
+                      }else{
+                          BottonSheetCallUploading.UploadControlCalidad(Variables.ERROR_SUBIDA);
+
+
+                      }
+
+            }
+        }); //subimos el packing list mapa
 
 
     }
@@ -1370,17 +1416,28 @@ public class RealtimeDB {
 
                     }
 
+                    else if(Variables.activityCurrent==Variables.FormCantrolCalidad){
+                        Variables.contadorDataUpladed++;
 
-                    // Toast.makeText(context, "Se subio Correctamente", Toast.LENGTH_LONG).show();
-                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
-                    //callback aqui...
-                    //  decideCallbackHere();
+                        if(Variables.contadorDataUpladed==4){
+
+                            BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
+
+
+                        }
+
+
+                        // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
+
+                    }
+
 
 
                 }else  {
 
-                    Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
+                        BottonSheetCallUploading.UploadControlCalidad(Variables.ERROR_SUBIDA);
 
+                  //  Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
 
 
                 }
@@ -1396,7 +1453,7 @@ public class RealtimeDB {
         ///fgfg
         Log.i("dineroa","hel activityCurrent  es "+Variables.activityCurrent);
         Log.i("dineroa","hel FormContenedores es "+Variables.FormContenedores);
-
+/*
         if(Variables.activityCurrent==Variables.FormContenedores){
 
             if(ActivityContenedores.callbackUploadNewReport !=null){
@@ -1404,16 +1461,13 @@ public class RealtimeDB {
             }
 
         }
-
-
-        else if (Variables.activityCurrent==Variables.FormatDatsContAcopi ){
+*/
+         if (Variables.activityCurrent==Variables.FormatDatsContAcopi ){
             if(ActivityContersEnAcopio.callbackUploadNewReport !=null){
                 ActivityContersEnAcopio.callbackUploadNewReport.uploadNewForm();
             }
 
         }
-
-
 
         else if (Variables.activityCurrent==Variables.FormCamionesyCarretasActivity ){
 

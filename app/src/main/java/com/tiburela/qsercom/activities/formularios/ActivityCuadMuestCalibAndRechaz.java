@@ -213,6 +213,16 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         btnSaveCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(!currentKeySharePrefrences.equals("") && Utils.checkIfReportSeSubio(currentKeySharePrefrences)){
+                    //ya se subio anteriomente
+                    Toast.makeText(     ActivityCuadMuestCalibAndRechaz.this, "Ya subiste este formulario", Toast.LENGTH_SHORT).show();
+                    Log.i("elformasd","se subio form anteriomenmte ");
+                    btnSaveCambios.setEnabled(false);
+                    return;
+                }
+
+
                 if(!selllamoFindsviewsID) {
                     initIdsOtherViews();
 

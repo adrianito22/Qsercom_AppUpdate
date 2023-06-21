@@ -394,6 +394,30 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
 
 
+    /**nuevos*/
+    EditextSupreme edif2Calib26;
+    EditextSupreme edif2Calib27;
+    EditextSupreme edif2Calib28;
+    EditextSupreme edif2Calib29;
+    EditextSupreme edif2Calib30;
+    EditextSupreme edif2Calib31;
+    EditextSupreme edif2Calib32;
+    EditextSupreme edif2Calib33;
+
+
+
+    /**nuevos 2*/
+    EditextSupreme ediCalByA26;
+    EditextSupreme ediCalByA27;
+    EditextSupreme ediCalByA28;
+    EditextSupreme ediCalByA29;
+    EditextSupreme ediCalByA30;
+    EditextSupreme ediCalByA31;
+    EditextSupreme ediCalByA32;
+    EditextSupreme ediCalByA33;
+
+
+
     ///////////////////
     EditextSupreme edif2Calib1;
     EditextSupreme edif2Calib2 ;
@@ -417,6 +441,12 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
     EditextSupreme edif2Calib20 ;
     EditextSupreme edif2Calib21 ;
     EditextSupreme edif2Calib22 ;
+
+    EditextSupreme edif2Calib23 ;
+    EditextSupreme edif2Calib24 ;
+    EditextSupreme edif2Calib25 ;
+
+
     //imgvEMPAQUES
 
 
@@ -747,13 +777,16 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13,
                 ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19,ediCalByA20 ,ediCalByA21,
-                ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25
+                ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25,
+                ediCalByA26,ediCalByA27,ediCalByA28,ediCalByA29,ediCalByA30,ediCalByA31,ediCalByA32,ediCalByA33
 
 
                 , edif2NdedoXclust27  ,
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
                 edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , edif2Calib21 , edif2Calib22 ,
+                edif2Calib23,edif2Calib24,edif2Calib25, edif2Calib26,edif2Calib27,edif2Calib28,edif2Calib29,edif2Calib30,
+                edif2Calib31 ,edif2Calib32,edif2Calib33,
 
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
                 mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
@@ -1204,7 +1237,29 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         ediCalByA25=findViewById(R.id.ediCalByA25);
 
 
-         /**vamos terminaf ind id esras edif2Calib21  y  esta ediCalByA25 agregarle el array y en otras [artes pendientes  */
+
+        edif2Calib26= findViewById(R.id.edif2Calib26);
+        edif2Calib27= findViewById(R.id.edif2Calib27);
+        edif2Calib28= findViewById(R.id.edif2Calib28);
+        edif2Calib29= findViewById(R.id.edif2Calib29);
+        edif2Calib30= findViewById(R.id.edif2Calib30);
+        edif2Calib31= findViewById(R.id.edif2Calib31);
+        edif2Calib32= findViewById(R.id.edif2Calib32);
+        edif2Calib33= findViewById(R.id.edif2Calib33);
+
+
+        ediCalByA26 = findViewById(R.id.ediCalByA26);
+        ediCalByA27 = findViewById(R.id.ediCalByA27);
+        ediCalByA28 = findViewById(R.id.ediCalByA28);
+        ediCalByA29 = findViewById(R.id.ediCalByA29);
+        ediCalByA30 = findViewById(R.id.ediCalByA30);
+        ediCalByA31 = findViewById(R.id.ediCalByA31);
+        ediCalByA32 = findViewById(R.id.ediCalByA32);
+        ediCalByA33 = findViewById(R.id.ediCalByA33);
+
+
+
+        /**vamos terminaf ind id esras edif2Calib21  y  esta ediCalByA25 agregarle el array y en otras [artes pendientes  */
 
 
         edif2Calib1=findViewById(R.id.edif2Calib1);
@@ -1227,16 +1282,22 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         edif2Calib18=findViewById(R.id.edif2Calib18);
         edif2Calib19=findViewById(R.id.edif2Calib19);
         edif2Calib20=findViewById(R.id.edif2Calib20);
-        edif2Calib21=findViewById(R.id.ediTotalFila2z);
+
+        edif2Calib21=findViewById(R.id.edif2Calib21);   //ediTotalFila2z
         edif2Calib22=findViewById(R.id.edif2Calib22);
+        edif2Calib23=findViewById(R.id.edif2Calib23);
+        edif2Calib24=findViewById(R.id.edif2Calib24);
+        edif2Calib25=findViewById(R.id.edif2Calib25);
+
 
         mEdiLargDeds1 = findViewById(R.id.ediLargDeds1);
+        mEdiLargDeds7 = findViewById(R.id.ediLargDeds7);
+
         mEdiLargDeds2 = findViewById(R.id.ediLargDeds2);
         mEdiLargDeds3 = findViewById(R.id.ediLargDeds3);
         mEdiLargDeds4 = findViewById(R.id.ediLargDeds4);
         mEdiLargDeds5 = findViewById(R.id.ediLargDeds5);
         mEdiLargDeds6 = findViewById(R.id.ediLargDeds6);
-        mEdiLargDeds7 = findViewById(R.id.ediLargDeds7);
         mEdiLargDeds8 = findViewById(R.id.ediLargDeds8);
         mEdiLargDeds9 = findViewById(R.id.ediLargDeds9);
         mEdiLargDeds10 = findViewById(R.id.ediLargDeds10);
@@ -1288,6 +1349,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         mEdif2LrgD19 = findViewById(R.id.edif2LrgD19);
         mEdif2LrgD20 = findViewById(R.id.edif2LrgD20);
         mEdif2LrgD21 = findViewById(R.id.edif2LrgD21);
+
         mEdif2LrgD22 = findViewById(R.id.edif2LrgD22);
         mEdif2LrgD23 = findViewById(R.id.edif2LrgD23);
         mEdif2LrgD24 = findViewById(R.id.edif2LrgD24);
@@ -2577,15 +2639,15 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         EditextSupreme ediPromediozx=findViewById(R.id.ediPromediozx);
 
-        final int [] arrayNJumsTOmult = {0,0,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;
-
-
+        final int [] arrayNJumsTOmult = {0,0,32,33,34,35,36 ,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,
+                55,56,57,58,59,60,61,62} ;
 
         float totalFila1=0;
         float totalFial2=0;
 
 
-        EditextSupreme [] arrayEditsFilaArriba = { ediCalByA1	,
+        EditextSupreme [] arrayEditsFilaArriba = {
+                ediCalByA1	,
                 ediCalByA2	,
                 ediCalByA3	,
                 ediCalByA4	,
@@ -2606,6 +2668,21 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 ediCalByA19	,
                 ediCalByA20	,
 
+                ediCalByA21	,
+                ediCalByA22	,
+                ediCalByA23	,
+                ediCalByA24	,
+                ediCalByA25	,
+
+                ediCalByA26,
+                ediCalByA27,
+                ediCalByA28,
+                ediCalByA29,
+                ediCalByA30,
+                ediCalByA31,
+                ediCalByA32,
+                ediCalByA33
+
 
         };
 
@@ -2617,6 +2694,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 edif2Calib13, edif2Calib14, edif2Calib15, edif2Calib16	,
                 edif2Calib17, edif2Calib18, edif2Calib19, edif2Calib20	,
 
+                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25,
+                edif2Calib26,edif2Calib27,edif2Calib28,edif2Calib29,edif2Calib30,
+                edif2Calib31,edif2Calib32,edif2Calib33
+
 
         };
 
@@ -2626,7 +2707,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             int productResult =0;
 
             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
-
                 arrayEditsFilaAbajo [i].getText().clear();
 
             }
@@ -2637,7 +2717,6 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
                 productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
-
 
                 totalFila1=totalFila1+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
                 totalFial2=totalFial2+productResult;
@@ -2814,10 +2893,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
                 ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 ,
+                ediCalByA21,ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25,ediCalByA26,ediCalByA27,ediCalByA28,
+                ediCalByA29,ediCalByA30,ediCalByA31,ediCalByA32,ediCalByA33,
 
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20   ,
+                edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20,
+                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25,edif2Calib26,edif2Calib27,edif2Calib28,edif2Calib29,
+                edif2Calib30,edif2Calib31,edif2Calib32,edif2Calib33,
 
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
                 mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
@@ -3607,9 +3690,14 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             ediTotalPesoLAll.setText(pesoLibras);
             ediNumClusInspAll.setText(String.valueOf(numeroClustersInspecc));
 
-            String percenTpesoLibras= df.format(allPesoLibras/contadorValoresPeso);
-            ediPromedioPorc.setText(percenTpesoLibras);
+            if(contadorValoresPeso==0){
+                return;
+            }
 
+            String percenTpesoLibras= df.format(allPesoLibras/contadorValoresPeso);
+
+            ediPromedioPorc.setText(percenTpesoLibras);
+ //difrente de cero contador Vlars
             String clusPercent= df.format(numeroClustersInspecc/contadorValrsCloseterIns);
             alNumClustPercent.setText(clusPercent);
 

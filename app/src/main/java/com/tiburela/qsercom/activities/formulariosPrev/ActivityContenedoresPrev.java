@@ -2270,7 +2270,7 @@ else{
 
         //no
 
-     ArrayList<ImagenReport> listImagesToUpload=  generateistImagesToUpload(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+           ArrayList<ImagenReport> listImagesToUpload=  generateistImagesToUpload(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
         uploadInformeToDatabase(informe,informe2,informe3,Variables.currentInformRegisterSelected, objectProduc, listImagesToUpload );
 
@@ -4650,11 +4650,6 @@ else{
 
 
         createObjcInformeAndUpload();
-
-
-      //  Toast.makeText(this, "Informe Actualizado", Toast.LENGTH_SHORT).show();
-
-     //   finish();
 
     }
 

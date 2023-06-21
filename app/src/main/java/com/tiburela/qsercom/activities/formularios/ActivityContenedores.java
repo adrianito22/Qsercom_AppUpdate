@@ -23,7 +23,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -110,13 +109,13 @@ import com.tiburela.qsercom.R;
 
 
 public class ActivityContenedores extends AppCompatActivity implements View.OnClickListener  ,
-        ConnectionReceiver.ReceiverListener , CallbackUploadNewReport {
+        ConnectionReceiver.ReceiverListener  {
     HashMap<String,Float>miMapLbriado= new HashMap<>();
     boolean esPrimeravezQueadd=true;
     ScrollView scrollView2;
      TextView txtTitle;
 
-    public static CallbackUploadNewReport callbackUploadNewReport;
+   // public static CallbackUploadNewReport callbackUploadNewReport;
 
     public static ContenedoresCallback callbackContenedores;
 
@@ -146,7 +145,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     public static Context context;
     ArrayList<ControlCalidad> listFormsControlCalidad = new ArrayList<>();
     ProgressDialog progress;
-    Button btnCheck;
+    Button btnSave;
     String currentKeySharePrefrences="";
     boolean seSubioform=false;
 
@@ -434,7 +433,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
         });
 
 
-        callbackUploadNewReport = this;
+     //   callbackUploadNewReport = this;
 
         context=getApplicationContext();
         Variables.activityCurrent=Variables.FormContenedores;
@@ -502,8 +501,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        callbackUploadNewReport = null;
-
+     //   callbackUploadNewReport = null;
     }
 
     void showingTimePicker( View vista){
@@ -2602,13 +2600,23 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicio
 private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
 
 
-    btnCheck=findViewById(R.id.btnCheck);
+    btnSave =findViewById(R.id.btnCheck);
 
 
-    btnCheck.setOnClickListener(new View.OnClickListener() {
+    btnSave.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          //  btnCheck.setEnabled(false);
+            if(!currentKeySharePrefrences.equals("") && Utils.checkIfReportSeSubio(currentKeySharePrefrences)){
+                //ya se subio anteriomente
+                Toast.makeText(     ActivityContenedores.this, "Ya subiste este formulario", Toast.LENGTH_SHORT).show();
+                Log.i("elformasd","se subio form anteriomenmte ");
+                btnSave.setEnabled(false);
+                return;
+            }
+
+
+
+            //  btnCheck.setEnabled(false);
             checkDataFields();
 
 
@@ -2822,6 +2830,7 @@ void checkDataFields(){ //
         alertDialog.show(fm, "duialoffragment_alertZ");
         return;
     }
+
 
 
 
@@ -5065,6 +5074,7 @@ return  producto;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 InformRegister  user=null;
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -5114,7 +5124,6 @@ return  producto;
                     generateUniqueIdInformeAndContinuesIfIdIsUnique(informe,informe2,informe3);
 
                 }
-
 
 
             }
@@ -5717,45 +5726,6 @@ private void callPrefrencesSaveAndImagesData(){
     }
 
 
-    @Override
-    public void uploadNewForm() {
-        btnCheck.setEnabled(false);
-        seSubioform=true;
-
-        if(!currentKeySharePrefrences.equals("")){
-
-            try {
-
-                Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
-
-                InformRegister objec= mapAllReportsRegister.get(currentKeySharePrefrences);
-
-                Log.i("dineroa","el currentKeySharePrefrences es : "+currentKeySharePrefrences);
-                Log.i("dineroa","el obec vaue is  es : "+objec.isSeSubioFormAlinea());
-
-                objec.setSeSubioFormAlinea(true);
-                mapAllReportsRegister.put(currentKeySharePrefrences,objec);
-
-                SharePref.saveHashMapOfHashmapInformRegister(mapAllReportsRegister,SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
-
-
-
-            }
-
-            catch (Exception e) {
-                e.printStackTrace();
-
-                Log.i("dineroa","hello haaxxx");
-
-            }
-
-
-
-        }
-
-
-
-    }
 
 
 

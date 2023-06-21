@@ -2019,9 +2019,20 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+
+                if(!currentKeySharePrefrences.equals("") && Utils.checkIfReportSeSubio(currentKeySharePrefrences)){
+                    //ya se subio anteriomente
+                    Toast.makeText(     ActivityCamionesyCarretas.this, "Ya subiste este formulario", Toast.LENGTH_SHORT).show();
+                    Log.i("elformasd","se subio form anteriomenmte ");
+                    btnCheck.setEnabled(false);
+                    return;
+                }
+
+
+
+
 
                 // generatePDFandImport();
 

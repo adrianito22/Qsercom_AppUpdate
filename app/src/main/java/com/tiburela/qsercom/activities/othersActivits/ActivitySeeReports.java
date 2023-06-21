@@ -1669,7 +1669,16 @@ Log.i("puslado","el value es "+idReport);
 
         if (! isFinishing()) {
 
-            progress.show();
+
+            try {
+                progress.show();
+
+            } catch (Exception e) {
+
+            }
+
+
+
 
         }
 

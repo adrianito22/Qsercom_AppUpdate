@@ -1229,9 +1229,19 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
 
 
     btnCheck.setOnClickListener(new View.OnClickListener() {
-        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View view) {
+
+            if(!currentKeySharePrefrences.equals("") && Utils.checkIfReportSeSubio(currentKeySharePrefrences)){
+                //ya se subio anteriomente
+                Toast.makeText(     ActivityContersEnAcopio.this, "Ya subiste este formulario", Toast.LENGTH_SHORT).show();
+                Log.i("elformasd","se subio form anteriomenmte ");
+                btnCheck.setEnabled(false);
+                return;
+            }
+
+
+
 
             btnCheck.setEnabled(false);
 

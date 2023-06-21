@@ -99,17 +99,13 @@ public class ActivitySeeReportsOffline extends AppCompatActivity  implements   V
     protected void onStart() {
         super.onStart();
 
-
         Log.i("superkey","se llamo onstart");
 
         mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
         spinnerDatesSelector.setSelection(0);
 
-    //   String  fechaToSearch=generaFechaToSearch(Variables.HOY);
-     //   getReportLocalStorageBYdate(fechaToSearch);
-        // dowloadinformesby_CONTENEDORES(fechaToSearch);
-        //dowloa
         listenenrSpinner();
+
 
 
         try {
@@ -890,24 +886,27 @@ Log.i("superkey","el value que le vamos a pasar es "+idReport);
             @Override
             public void onClick(View v) {
 
-
-
                 if(reportTipo== Constants.CONTENEDORES){
-
                     Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityContenedores.class);
                     intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
+                    intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     startActivity(intencion);
-
+                    finish();
 
                 }
+
+
 
                 else if(reportTipo==Constants.CONTENEDORES_EN_ACOPIO){
 
                     Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityContersEnAcopio.class);
                     intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
+                    intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     startActivity(intencion);
+                    finish();
+
 
                 }
 
@@ -915,8 +914,11 @@ Log.i("superkey","el value que le vamos a pasar es "+idReport);
 
                     Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityCamionesyCarretas.class);
                     intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
+                    intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     startActivity(intencion);
+                    finish();
+
 
                 }
 
@@ -925,8 +927,11 @@ Log.i("superkey","el value que le vamos a pasar es "+idReport);
 
                     Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityPackingList.class);
                     intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
+                    intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     startActivity(intencion);
+                    finish();
+
 
                 }
 
@@ -934,17 +939,21 @@ Log.i("superkey","el value que le vamos a pasar es "+idReport);
 
                     Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityControlCalidad.class);
                     intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
+                    intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     startActivity(intencion);
+                    finish();
+
                 }
 
                 else if(reportTipo==Constants.CUADRO_MUESTRO_CAL_RECHZDS){
 
                     Intent intencion=new Intent(ActivitySeeReportsOffline.this, ActivityCuadMuestCalibAndRechaz.class);
                     intencion.putExtra(Variables.KEY_FORM_EXTRA,idReport);
+                    intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     startActivity(intencion);
-
+                    finish();
 
                 }
 
@@ -977,7 +986,9 @@ Log.i("superkey","el value que le vamos a pasar es "+idReport);
         {
             public void run()
             {
-                  startActivity(i);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(i);
                   finish();
 
                // progress.dismiss();

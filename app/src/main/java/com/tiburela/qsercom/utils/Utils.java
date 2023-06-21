@@ -45,6 +45,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
 import com.tiburela.qsercom.R;
+import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
@@ -1559,6 +1560,28 @@ return true;
 
 
     }
+
+    public static void show_AND_UPLOADCOntrolcalidad(Activity activity, Context contexta, ControlCalidad controlCalidad,
+                                                     InformRegister informRegisterx,
+                                                     HashMap<String, String> hasHmapOtherFieldsEditxs
+                                                     ,HashMap<String,String>hasMapitemsSelecPosicRechazToUpload
+                                                     ,int ActivityIdx,String keyPrefrencesx) {
+
+        FragmentManager fm =((FragmentActivity)activity). getSupportFragmentManager();
+
+        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,controlCalidad,
+                hasHmapOtherFieldsEditxs,hasMapitemsSelecPosicRechazToUpload,informRegisterx,ActivityIdx);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("keyPrefrencesReportCurrent", keyPrefrencesx);
+        alertDialog.setArguments(bundle);
+
+        alertDialog.setCancelable(false);
+        alertDialog.show(fm, "duialoffragment_alert");
+
+    }
+
+
     public static  TaskCompletionSource<String> sourceTareas = new TaskCompletionSource<>();
 
     public static  TaskCompletionSource<String> sourceTareaSubirIMAGENES = new TaskCompletionSource<>();
@@ -1570,6 +1593,19 @@ return true;
     public static int  PorcientoTarea=0;
 
     public static int indiceControlCalidad=0;
+
+
+    public static boolean checkIfReportSeSubio(String currentKeyAndSharePrefrences ){
+
+        Map<String,  InformRegister> mapAllReportsRegister = SharePref.getMapAllReportsRegister(SharePref.KEY_ALL_REPORTS_OFLINE_REGISTER);
+        InformRegister objec= mapAllReportsRegister.get(currentKeyAndSharePrefrences);
+            if (objec!=null && objec.isSeSubioFormAlinea()){
+                return true;
+            }
+            return false;
+
+
+    }
 
 
 }

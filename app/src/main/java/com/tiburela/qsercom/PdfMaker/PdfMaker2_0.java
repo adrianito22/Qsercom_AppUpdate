@@ -767,8 +767,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
              HashMap<String,String>currentMapDefectsCheked= Utils.devulveHasmapRechzadoscheckdByKey(ListWhitHashMapsRechzadosChekeed,
                      currenControCaldRep.getUniqueId());
 
-
-
              table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this,contadorTablas);
 
 
@@ -1417,6 +1415,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 */
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
+
+
+
                 } else {
 
                     Log.i("permisodd","es permiso denegado 2 permisos  ");

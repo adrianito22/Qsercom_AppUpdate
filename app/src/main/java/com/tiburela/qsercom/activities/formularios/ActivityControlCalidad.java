@@ -174,9 +174,22 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
    EditextSupreme ediCalByA25;
 
 
+   /**nuevos 2*/
+    EditextSupreme ediCalByA26;
+    EditextSupreme ediCalByA27;
+    EditextSupreme ediCalByA28;
+    EditextSupreme ediCalByA29;
+    EditextSupreme ediCalByA30;
+    EditextSupreme ediCalByA31;
+    EditextSupreme ediCalByA32;
+    EditextSupreme ediCalByA33;
 
 
-   int numeroClustersInspecc=0;
+
+
+
+
+    int numeroClustersInspecc=0;
     TextView textView;
     //  boolean[] selectedLanguage;
     Button btnSaveControlC;
@@ -420,7 +433,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
    EditextSupreme edif2Calib25 ;
 
 
-   EditextSupreme ediTotalFila2z;
+
+   /**nuevos*/
+   EditextSupreme edif2Calib26;
+    EditextSupreme edif2Calib27;
+    EditextSupreme edif2Calib28;
+    EditextSupreme edif2Calib29;
+    EditextSupreme edif2Calib30;
+    EditextSupreme edif2Calib31;
+    EditextSupreme edif2Calib32;
+    EditextSupreme edif2Calib33;
+
+
+
+    EditextSupreme ediTotalFila2z;
     //imgvEMPAQUES
 
 
@@ -482,7 +508,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         setContentView(R.layout.control_calid_activity);
 
        TextView txtPegar= findViewById(R.id.txtPegar);
-       txtPegar.setOnLongClickListener(new View.OnLongClickListener() {
+
+        Utils.esNuevoReport=true;
+
+        txtPegar.setOnLongClickListener(new View.OnLongClickListener() {
           @Override
           public boolean onLongClick(View view) {
 
@@ -599,7 +628,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     edif2NdedoXclust13 , edif2NdedoXclust14 , edif2NdedoXclust15 , edif2NdedoXclust16 , edif2NdedoXclust17 ,
                     edif2NdedoXclust18 , edif2NdedoXclust19 , edif2NdedoXclust20 , edif2NdedoXclust21 , edif2NdedoXclust22 ,
                     edif2NdedoXclust23 , edif2NdedoXclust24 , edif2NdedoXclust25 , edif2NdedoXclust26 , edif2NdedoXclust27,
-                    edif2NdedoXclust28 , //edif2NdedoXclust29 ,// edif2NdedoXclust30
+                    edif2NdedoXclust28  ,// edif2NdedoXclust30
                     edif2NdedoXclustxC1, edif2NdedoXclustxC2 ,
                     edif2NdedoXclustxC3 , edif2NdedoXclustxC4 , edif2NdedoXclustxC5 , edif2NdedoXclustxC6 , edif2NdedoXclustxC7 ,
                     edif2NdedoXclustxC8 , edif2NdedoXclustxC9 , edif2NdedoXclustxC10 , edif2NdedoXclustxC11 , edif2NdedoXclustxC12 ,
@@ -610,10 +639,18 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                     ediNdedoXclustXc14 , ediNdedoXclustXc15 , ediNdedoXclustXc16 , ediNdedoXclustXc17 , ediNdedoXclustXc18 ,
                     ediNdedoXclustXcTotalAbajo, ediNdedoXclustXc20 , ediCalByA1, ediCalByA2 , ediCalByA3 , ediCalByA4 , ediCalByA5 ,
                     ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
-                    ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 , ediTotalFila1z,
+                    ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 ,
+
+                    ediCalByA21,ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25,ediCalByA26,ediCalByA27,ediCalByA28,ediCalByA29,ediCalByA30,
+                    ediCalByA31,ediCalByA32,ediCalByA33
+
+                    , ediTotalFila1z,
                     edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                     edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
-                    edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20 , ediTotalFila2z, edif2Calib22 ,
+                    edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20  ,edif2Calib21, edif2Calib22 ,
+
+                    edif2Calib23,edif2Calib24,edif2Calib25, edif2Calib26 ,edif2Calib27, edif2Calib28, edif2Calib29, edif2Calib30,
+                      edif2Calib31, edif2Calib32, edif2Calib33,ediTotalFila2z,
 
 
                     mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
@@ -970,7 +1007,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         ediCalByA18=findViewById(R.id.ediCalByA18);
         ediCalByA19=findViewById(R.id.ediCalByA19);
         ediCalByA20=findViewById(R.id.ediCalByA20);
-       ediCalByA20=findViewById(R.id.ediCalByA20);
 
        ediCalByA21=findViewById(R.id.ediCalByA21);
        ediCalByA22=findViewById(R.id.ediCalByA22);
@@ -1068,12 +1104,34 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         mEdif2LrgD29 = findViewById(R.id.edif2LrgD29);
         mEdif2LrgD30 = findViewById(R.id.edif2LrgD30);
 
-
        edif2Calib21 = findViewById(R.id.edif2Calib21);
        edif2Calib22 = findViewById(R.id.edif2Calib22);
        edif2Calib23 = findViewById(R.id.edif2Calib23);
        edif2Calib24 = findViewById(R.id.edif2Calib24);
        edif2Calib25 = findViewById(R.id.edif2Calib25);
+
+
+
+
+         edif2Calib26= findViewById(R.id.edif2Calib26);
+         edif2Calib27= findViewById(R.id.edif2Calib27);
+         edif2Calib28= findViewById(R.id.edif2Calib28);
+         edif2Calib29= findViewById(R.id.edif2Calib29);
+         edif2Calib30= findViewById(R.id.edif2Calib30);
+         edif2Calib31= findViewById(R.id.edif2Calib31);
+         edif2Calib32= findViewById(R.id.edif2Calib32);
+         edif2Calib33= findViewById(R.id.edif2Calib33);
+
+
+        ediCalByA26 = findViewById(R.id.ediCalByA26);
+        ediCalByA27 = findViewById(R.id.ediCalByA27);
+        ediCalByA28 = findViewById(R.id.ediCalByA28);
+        ediCalByA29 = findViewById(R.id.ediCalByA29);
+        ediCalByA30 = findViewById(R.id.ediCalByA30);
+        ediCalByA31 = findViewById(R.id.ediCalByA31);
+        ediCalByA32 = findViewById(R.id.ediCalByA32);
+        ediCalByA33 = findViewById(R.id.ediCalByA33);
+
 
 
         sellamoFindViewIds=true;
@@ -1729,7 +1787,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         hasHmapOtherFieldsEditxs = new HashMap<>();
 
-        EditextSupreme arrayAllFields[] =  {
+        EditextSupreme [] arrayAllFields =  {
 
                 ediTimeHoraxx1, ediTimeHoraxx2, ediTimeHoraxx3, ediTimeHoraxx4, ediTimeHoraxx5, ediTimeHoraxx6, ediTimeHoraxx7, ediTimeHoraxx8,
                 ediTimeHoraxx9, ediTimeHoraxx10, ediPesoL1, ediPesoL2, ediPesoL3, ediPesoL4, ediPesoL5, ediPesoL6, ediPesoL7, ediPesoL8,
@@ -1770,10 +1828,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
                 ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20 ,
 
+                ediCalByA21,ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25,ediCalByA26,ediCalByA27,ediCalByA28,ediCalByA29,ediCalByA30,
+                ediCalByA31,ediCalByA32,ediCalByA33,
+
+
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
                 edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20   ,
                 edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25,
+                edif2Calib26,edif2Calib27,edif2Calib28,edif2Calib29,edif2Calib30,edif2Calib31,edif2Calib32,edif2Calib33,
 
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
                 mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
@@ -1858,7 +1921,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2Calib1, edif2Calib2 , edif2Calib3 , edif2Calib4 , edif2Calib5 , edif2Calib6 , edif2Calib7 , edif2Calib8 ,
                 edif2Calib9 , edif2Calib10 , edif2Calib11 , edif2Calib12 , edif2Calib13 , edif2Calib14 , edif2Calib15 ,
                 edif2Calib16 , edif2Calib17 , edif2Calib18 , edif2Calib19 , edif2Calib20,
-                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25, ediTotalFila2z, edif2Calib22 ,
+                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25,
+                edif2Calib26,edif2Calib27,edif2Calib28,edif2Calib29,edif2Calib30,edif2Calib31,edif2Calib32,edif2Calib33,
+
+                ediTotalFila2z, edif2Calib22 ,
                 mEdiLargDeds1,mEdiLargDeds2,mEdiLargDeds3,mEdiLargDeds4,mEdiLargDeds5,
                 mEdiLargDeds6,mEdiLargDeds7,mEdiLargDeds8,mEdiLargDeds9,mEdiLargDeds10,
                 mEdiLargDeds11,mEdiLargDeds12,mEdiLargDeds13,mEdiLargDeds14,mEdiLargDeds15,
@@ -2316,12 +2382,28 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             @Override
             public void onClick(View view) {
 
+                Log.i("elformasd","se ejecuto el CURENET KEY ES  "+currentKeyAndSharePrefrences+" Y EL OTRO ES : "+Utils.checkIfReportSeSubio(currentKeyAndSharePrefrences));
+
+
+                if(!currentKeyAndSharePrefrences.equals("") && Utils.checkIfReportSeSubio(currentKeyAndSharePrefrences)){
+                    //ya se subio anteriomente
+                    Toast.makeText( ActivityControlCalidad.this, "Ya subiste este formulario", Toast.LENGTH_SHORT).show();
+                    Log.i("elformasd","se subio form anteriomenmte ");
+                    btnSaveControlC.setEnabled(false);
+                    return;
+                }
+
 
                 if(!sellamoFindViewIds){
 
                     findviewsIdsMayoriaViews();
 
                 }
+
+
+
+
+
 
                 muestraaLLResults();
                 showsumDfectsSelected();
@@ -2405,7 +2487,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                obecjControlCalidad.setNumCalibracionEntreApical(numCalibracionEntreApical);
                obecjControlCalidad.setNumGradoCalibrePromedio(numGradoCalibrePromedio);
 
-               Toast.makeText(ActivityControlCalidad.this, "Subiendo informe", Toast.LENGTH_SHORT).show();
 
                 generateUniqueIdInformeAndContinuesIfIdIsUnique(obecjControlCalidad);
 
@@ -2585,28 +2666,17 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                             , "CONTROL CALIDAD ",mEdiExportadorazz.getText().toString(),
                             Utils.hasmpaExportadoras.get(mEdiExportadorazz.getText().toString()).getNameExportadora());
 
-
                     Log.i("misdatassd","la calidad es "+controlCalidad.getCalidaCamp());
-
 
                     /**AQUI SUBIMOS ESTOS FORMS*/
                     controlCalidad.setUniqueId(currenTidGenrate);
-                    RealtimeDB.UploadControlcalidadInform(controlCalidad);
-                    RealtimeDB.addNewRegistroInforme(ActivityControlCalidad.this,informRegister);
-
-
-
                     /**asi vinculamos este con el reporte control calidad */
                     hasHmapOtherFieldsEditxs.put("idDeControlCalidad",controlCalidad.getUniqueId());
-                   RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxs,keyDondeEstaraHasmap);
-
-
                    hasMapitemsSelecPosicRechazToUpload.put("idDeControlCalidad",controlCalidad.getUniqueId());
-                   RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload,keyDondeEstaraHasmapDefecSelec);
 
-
-
-                   Toast.makeText(ActivityControlCalidad.this, "Guardado", Toast.LENGTH_SHORT).show();
+                     Utils.show_AND_UPLOADCOntrolcalidad(ActivityControlCalidad.this,
+                             ActivityControlCalidad.this,controlCalidad,informRegister,hasHmapOtherFieldsEditxs,
+                             hasMapitemsSelecPosicRechazToUpload,Variables.FormCantrolCalidad,currentKeyAndSharePrefrences);
 
 
                 }
@@ -2638,6 +2708,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
     private ControlCalidad creaNuevoFormularioByTxtImputEditext(){
 
+
         ControlCalidad controlCaL = new ControlCalidad(ediObservacioneszszz.getText().toString(),"nodekeylocal","keyWhereLocateasHmapFieldsRecha",
                 mEdiVaporzz.getText().toString(),mEdiProductorzz.getText().toString(), mEdiCodigozz.getText().toString(),
                 mEdiZonazz.getText().toString(),mEdiHaciendazz.getText().toString(),mEdiExportadorazz.getText().toString(),
@@ -2648,6 +2719,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 mEdiTermografozz.getText().toString(),mEdiPlacaCarrzz.getText().toString(),mEdiPuertEmbzz.getText().toString(),cuentaClustersInspeccionados());
 
         return controlCaL;
+
 
     }
 
@@ -2692,10 +2764,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         EditextSupreme  ediTotalFila2zxc=findViewById(R.id.ediTotalFila2zxc);
 
 
-
-
         final int [] arrayNJumsTOmult = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26,27,28,29,30  } ;
+
+
 
         EditextSupreme [] arrayEditsFilaArriba = { ediNdedoXclust1,	ediNdedoXclust2,
                 ediNdedoXclust3,	ediNdedoXclust4,	ediNdedoXclust5,ediNdedoXclust6,ediNdedoXclust7
@@ -2749,14 +2821,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
         }
 
 
-
         float result=sumaItemsFilaAbajo/sumaItemsFilaArriba;
         String resul= df.format(result)+" %";
         ediNdedoXclust29.setText(df.format(sumaItemsFilaAbajo));
 
         ediNumPromedioDedsXcaja.setText(resul);
-
-        //mostramos estos totales tambien
         ediTOTlafila1zx.setText(String.valueOf(sumaItemsFilaArriba));
         ediTotalFila2zxc.setText(String.valueOf(sumaItemsFilaAbajo));
         numeroDeDedosXclusterOmano=String.valueOf((int)result);
@@ -2844,7 +2913,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         EditextSupreme ediPromediozx=findViewById(R.id.ediPromediozx);
 
-        final int [] arrayNJumsTOmult = {0,0,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54} ;//26
+        final int [] arrayNJumsTOmult = {0,0,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,
+        55,56,57,58,59,60,61,62 };
+
 
 
         float totalFila1=0;
@@ -2879,6 +2950,15 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediCalByA24	,
                 ediCalByA25	,
 
+                ediCalByA26,
+                ediCalByA27,
+                ediCalByA28,
+                ediCalByA29,
+                ediCalByA30,
+                ediCalByA31,
+                ediCalByA32,
+                ediCalByA33
+
 
 
         };
@@ -2891,7 +2971,9 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 edif2Calib13, edif2Calib14, edif2Calib15, edif2Calib16	,
                 edif2Calib17, edif2Calib18, edif2Calib19, edif2Calib20	,
 
-                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25
+                edif2Calib21,edif2Calib22,edif2Calib23,edif2Calib24,edif2Calib25,
+                edif2Calib26,edif2Calib27,edif2Calib28,edif2Calib29,edif2Calib30,
+                edif2Calib31,edif2Calib32,edif2Calib33
 
 
         };
@@ -3302,7 +3384,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 ediCalByA6 , ediCalByA7 , ediCalByA8 , ediCalByA9 , ediCalByA10 , ediCalByA11 , ediCalByA12 , ediCalByA13 ,
                 ediCalByA14 , ediCalByA15 , ediCalByA16 , ediCalByA17 , ediCalByA18 , ediCalByA19 , ediCalByA20,
 
-                ediCalByA21,ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25
+                ediCalByA21,ediCalByA22,ediCalByA23,ediCalByA24,ediCalByA25,
+                ediCalByA26,ediCalByA27,ediCalByA28,ediCalByA29,ediCalByA30,ediCalByA31,
+                ediCalByA32,ediCalByA33
+
 
         };
 

@@ -1,5 +1,8 @@
 package com.tiburela.qsercom.adapters;
+import static com.tiburela.qsercom.utils.Variables.activity;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -434,68 +437,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+               // activity.getWindow().getDecorView().getRootView().isShown()
+              //  Activity.getWindow().getDecorView().isShown(
 
-
-                Glide.with(mcontext)
-                        .load(uri)
-                       // .fitCenter()
-                        .sizeMultiplier(0.3f)
-                        .skipMemoryCache(true)
-
-                      //  .override(300,200).dontAnimate()
-
-                       // .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .into(holder);
-
-/*
-
-                Glide.with(mcontext)
-                        .asBitmap()
-                        .load(uri)
-                        .sizeMultiplier(0.6f)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-
-                        .into(new CustomTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                if(resource.getWidth()>resource.getHeight()) {
-
-                                    Log.i("cuandoexecuta","la imagen es horizontal EL URL ES : "+imagenReport.getUrlStoragePic());
-
-                                }else {
-
-                                    Log.i("cuandoexecuta", "la imagen es vertical");
-                                    Log.i("cuandoexecuta", "la imagen es vertical EL URL ES : " + imagenReport.getUrlStoragePic());
-
-                                }
-
-                                holder.setImageBitmap(resource);
-
-                            }
-
-                            @Override
-                            public void onLoadCleared(@Nullable Drawable placeholder) {
-                            }
-                        });
-
-
-*/
-
-/*
-
-                Glide.with(context)
-                        .load(uri)
-                        .fitCenter()
-                        .diskCacheStrategy(DiskCacheStrategy.DATA)  //ESTABA EN ALL         //ALL or NONE as your requirementDiskCacheStrategy.DATA
-                        .into(holder);
-*/
-
-
-              //  imagenReport.setUrlStoragePic(uri.toString());
-
-                  //  ImagenReport.hashMapImagesData.put(imagenReport.getUniqueIdNamePic(),imagenReport);
-
-
+                 try {
+                     Glide.with(mcontext)
+                             .load(uri)
+                             // .fitCenter()
+                             .sizeMultiplier(0.3f)
+                             .skipMemoryCache(true)
+                             //  .override(300,200).dontAnimate()
+                             // .diskCacheStrategy(DiskCacheStrategy.NONE)
+                             .into(holder);
+                 } catch (Exception e) {
+                     Log.i("fsd","");
+                 }
 
 
             }
