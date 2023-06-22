@@ -3562,14 +3562,10 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         }
 
-
-
         float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
         Log.i("calidaddd","el defectosTotal es "+defectosTotal);
         float resultRestDefects=0;
         float calidadTotALX=0;
-
-
 
 
         EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
@@ -3587,7 +3583,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
               }
           }
-
 
 
           if( Variables.currentTipoCaja==Variables.CAJA_EN_MANOS){
