@@ -1510,8 +1510,47 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
 
-        float resultRestDefects=numeroClustersInspecc-defectosTotal;
-        float calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
+        Log.i("calidaddd","el defectosTotal es "+defectosTotal);
+        float resultRestDefects;
+        float calidadTotALX;
+
+
+        EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+                ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+
+
+        for(EditextSupreme edi: arrayNumeroCLUSTERinspec){
+            if(edi.getText().toString().equals("4") ||
+                    edi.getText().toString().equals("5")
+                    ||edi.getText().toString().equals("6")){
+                Variables.currentTipoCaja=Variables.CAJA_EN_MANOS;
+                Log.i("tagHERE","Aqui es caja en manos ");
+
+                break;
+
+            }
+        }
+
+
+        if( Variables.currentTipoCaja==Variables.CAJA_EN_MANOS){
+            float numTotal=numeroClustersInspecc * 2.25f;  //era2.5
+            resultRestDefects=numTotal-defectosTotal;   //
+            float resulDivision=resultRestDefects /numTotal;
+            calidadTotALX=  resulDivision *100;
+        }
+
+
+        else{ //si no es caja en manos es Variables.CAJA_EN_DEDOS
+            Log.i("tagHERE","Aqui es caja en dedos  ");
+
+            resultRestDefects=numeroClustersInspecc-defectosTotal;   //
+            calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
+        }
+
+
+
+     //   float resultRestDefects=numeroClustersInspecc-defectosTotal;
+      //  float calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
 
 
         DecimalFormat df = new DecimalFormat("#.##");
@@ -1982,8 +2021,8 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         float sumaFilasAbajo=0;
 
 
-        final int [] arrayNJumsTOmult = {9,10,11,12,13,14,15,16,17,18,19,20,21,
-                22,23,24,25,26  } ;
+        final int [] arrayNJumsTOmult = {4,5,6,12,13,14,15,16,17,18,19,20,21,
+                22,23,24,25,26} ;
 
         EditextSupreme [] arrayEditsFilaArriba = { edif2NdedoXclustxC1	, edif2NdedoXclustxC2	, edif2NdedoXclustxC3	,
                 edif2NdedoXclustxC4	, edif2NdedoXclustxC5, edif2NdedoXclustxC6	, edif2NdedoXclustxC7	,

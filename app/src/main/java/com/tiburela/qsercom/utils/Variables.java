@@ -27,34 +27,30 @@ import java.util.HashMap;
 
 public class Variables {
 
+    public static  final int CAJA_EN_DEDOS=500; ///los nums estaran entre : 54,64,68,,74 //formular cal =la suma del total de dedos  -defectos
+
+    //ese resultado divimos por el total..
+
+
+    public static  final int CAJA_EN_MANOS=501; //5,4,6,  //LA SUMA DE TODO Y EL RESULTADO SE MULTIPLICA X 2.25 ;
+    public static  final int CAJA_default=502;
+
+    public static   int currentTipoCaja=0;
+
     public static  int contadorDataUpladed=0;
-
-
-
     public static  int contador=100;
-
     public static  int OBJECT_SetInformEmbarque1=100;
     public static  int OBJECT_SetInformEmbarque2=101;
     public static  int OBJECT_SetInformDatsHacienda=102;
     public static  int IMAGENES_SET_DE_REPORTE =103;
-
     public static  int PRODUCTS_POST_COSECHA=104;
     public static  int LIBRIADO_IF_EXIST=105;
-
     public static  int INFORM_REGISTER=106;
-
     public static  int FINISH_ALL_UPLOAD=107;
-
     public static  int SEVERAL_INFORMS_UPDATE=108;
     public static  int CONTROL_CALIDAD_OBJECT=109;
     public static  int ERROR_SUBIDA=110;
-
-
     public static  String tagAndKeyToDelete="";
-
-
-
-
 
     public static final int NINGUNO=11000;
 

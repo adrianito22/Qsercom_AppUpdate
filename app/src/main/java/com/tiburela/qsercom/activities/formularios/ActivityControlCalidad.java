@@ -67,7 +67,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
     private boolean sellamoFindViewIds=false;
     DecimalFormat df = new DecimalFormat("#.#");
     float calidadTotal=0;
-   private float calidadFinally;
+   private float calidadFinally=0;
 
    String numeroDeClusterPorCaja ="";
  String numeroDeDedosXclusterOmano ="";
@@ -2414,9 +2414,20 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                   return;
                }
 
-
-               if (Double.isNaN(calidadFinally)) {
+                if (calidadFinally==0) {
+                    Toast.makeText(ActivityControlCalidad.this, "La calidad no puede ser 0 ", Toast.LENGTH_LONG).show();
                     Log.i("misdatassd","el numero es nam");
+                    return;
+                }
+
+
+
+                if (Double.isNaN(calidadFinally)) {
+
+                   Toast.makeText(ActivityControlCalidad.this, "Genera la calidad total", Toast.LENGTH_LONG).show();
+
+
+                   Log.i("misdatassd","el numero es nam");
                     return;
                 }
 
@@ -2839,7 +2850,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
 
 
-        final int [] arrayNJumsTOmult = {9,10,11,12,13,14,15,16,17,18,19,20,21,
+        final int [] arrayNJumsTOmult = {4,5,6,12,13,14,15,16,17,18,19,20,21,
                 22,23,24,25,26  } ;
 
         EditextSupreme [] arrayEditsFilaArriba = { edif2NdedoXclustxC1	, edif2NdedoXclustxC2	, edif2NdedoXclustxC3	,
@@ -3555,13 +3566,71 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         float defectosTotal= contadorDefectsSelecion +contadorDefectsEMPAQUE;
         Log.i("calidaddd","el defectosTotal es "+defectosTotal);
+        float resultRestDefects=0;
+        float calidadTotALX=0;
 
-        float resultRestDefects=numeroClustersInspecc-defectosTotal;
-        float calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
+
+
+
+        EditextSupreme [] arrayNumeroCLUSTERinspec = {ediNumClusInsp1,ediNumClusInsp2,ediNumClusInsp3,ediNumClusInsp4,ediNumClusInsp5,
+                ediNumClusInsp6,ediNumClusInsp7,ediNumClusInsp8,ediNumClusInsp9,ediNumClusInsp10};
+
+
+          for(EditextSupreme edi: arrayNumeroCLUSTERinspec){
+              if(edi.getText().toString().equals("4") ||
+                      edi.getText().toString().equals("5")
+                      ||edi.getText().toString().equals("6")){
+                  Variables.currentTipoCaja=Variables.CAJA_EN_MANOS;
+                  Log.i("tagHERE","Aqui es caja en manos ");
+
+                  break;
+
+              }
+          }
+
+
+
+          if( Variables.currentTipoCaja==Variables.CAJA_EN_MANOS){
+              float numTotal=numeroClustersInspecc * 2.25f;  //era2.5
+              resultRestDefects=numTotal-defectosTotal;   //
+              float resulDivision=resultRestDefects /numTotal;
+              calidadTotALX=  resulDivision *100;
+          }
+
+
+          else{ //si no es caja en manos es Variables.CAJA_EN_DEDOS
+              Log.i("tagHERE","Aqui es caja en dedos  ");
+
+              resultRestDefects=numeroClustersInspecc-defectosTotal;   //
+              calidadTotALX=  resultRestDefects/ numeroClustersInspecc *100;
+          }
+
+
+
+        /*
+
+        else if(Variables.currentTipoCaja==Variables.CAJA_EN_MANOS){
+            float numTotal=numeroClustersInspecc * 2.25f;  //era2.5
+            resultRestDefects=numTotal-defectosTotal;   //
+            float resulDivision=resultRestDefects /numTotal;
+            calidadTotALX=  resulDivision *100;
+
+
+
+        }
+*/
+
+        /**esta formular esta bien para caja en  CAJA_EN_DEDOS */
+
+
+        /**por aqui detectar el tipo de clustr
+         * si coloca 5, 4,6  la formula es sumar el numero de cluster  y el reusltado lo multiplicamos *2.25
+         * debos por caja
+         * */
 
         Log.i("misdatassd","el defectos totall es "+defectosTotal);
         Log.i("misdatassd","el result rest defectos es  "+resultRestDefects);
-        Log.i("misdatassd","el calidad totalx es   "+calidadTotALX);
+        Log.i("misdatassd","el calidad totalx es         "+calidadTotALX   );
 
 
         DecimalFormat df = new DecimalFormat("#.##");
