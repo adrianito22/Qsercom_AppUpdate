@@ -167,14 +167,10 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
         inigoogleSigni();//iniciamos google account autentificacion
 
+
         String uniqueId =String.valueOf(Utils.generateNumRadom6Digits());
-        Log.i("elnumber","el numero generado es ss "+uniqueId);
 
-
-      //  addExportadorasd();
-      //  testCreateRegisters();
-
-
+        //  Log.i("elnumber","el numero generado es ss "+uniqueId);
 
         Utils.dataFieldsPreferencias=new HashMap<String,String>();
         Utils.listImagesToSaVE=new ArrayList<>();

@@ -2642,7 +2642,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         for (int i = 0; i < arrayNJumsTOmult.length; i++) {
 
-            int productResult =0;
+            float productResult =0; //tendria que ser un valor integer..
 
 
             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
@@ -2654,7 +2654,11 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
             else {
 
-                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                productResult =Float.parseFloat(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+
+                //si esealmacena float..
+
+
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
 

@@ -126,6 +126,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
         txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                initIdsOtherViews();
 
                 pegamosDataCopiada();
 
@@ -1366,7 +1367,7 @@ private TextInputEditText[] devuleArrayTiEditext(){
         }
 
 
-        Utils. miMapCopiar.clear();
+       // Utils. miMapCopiar.clear();
 
 
     }

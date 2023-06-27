@@ -2805,7 +2805,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         for (int i = 0; i < arrayNJumsTOmult.length; i++) {
 
-            int productResult =0;
+            float productResult =0;
 
             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
 
@@ -2817,7 +2817,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             else { //aqui hacemos la multiplicacion..
 
 
-                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                productResult =Float.parseFloat(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
 
@@ -3799,7 +3799,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
        }
 
 
-      Utils. miMapCopiar.clear();
 
 
    }

@@ -89,7 +89,7 @@ import java.util.concurrent.ExecutionException;
 public class ActivityContersEnAcopio extends AppCompatActivity implements View.OnClickListener,
         CallbackUploadNewReport {
     boolean seSubioform=false;
-
+     TextView textView64;
     Spinner spinnerExportadora;
 
      TextInputEditText ediSemana;
@@ -323,6 +323,17 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
 
 
         findViewsIds();
+        textView64.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                copiamosHere();
+
+                return false;
+            }
+        });
+
+
+
 
         getExportadorasAndSetSpinner();
 
@@ -541,6 +552,9 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+
+        textView64=findViewById(R.id.textView64);
+
         spinnerExportadora=findViewById(R.id.spinnerExportadora);
 
         ediSemana=findViewById(R.id.ediSemana);
@@ -3292,6 +3306,23 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
         }
+    }
+    private void copiamosHere(){
+
+        Utils. miMapCopiar.clear();
+        Utils.miMapCopiar.put("semana",ediSemana.getText().toString());
+        Utils.miMapCopiar.put("fecha",ediFechaInicio.getText().toString());
+        Utils.miMapCopiar.put("productor","");
+        Utils.miMapCopiar.put("hacienda","");
+        Utils.miMapCopiar.put("codigo","");
+        Utils.miMapCopiar.put("inscripcionMagap","");
+        Utils.miMapCopiar.put("horaDeTermino",ediHoraTermino.getText().toString());
+        //   Utils.miMapCopiar.put("numeracionContenedor",ediNumContenedor.getText().toString());
+
+        /// Utils.miMapCopiar.put("vapor",edivapo.getText().toString());
+        Toast.makeText(ActivityContersEnAcopio.this, "Copiado", Toast.LENGTH_SHORT).show();
+
+
     }
 
 }

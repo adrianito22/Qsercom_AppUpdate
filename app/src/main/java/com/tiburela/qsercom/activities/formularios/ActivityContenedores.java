@@ -423,6 +423,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
             public boolean onLongClick(View view) {
 
                 Log.i("copiamos", "hemos copiado");
+                copiamosHere();
 
 
 
