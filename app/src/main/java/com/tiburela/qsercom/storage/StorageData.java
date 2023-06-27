@@ -37,6 +37,8 @@ public class StorageData {
     static Bitmap bitmapOriginal;
    static UploadTask uploadTask;
    static StorageReference imagename;
+   static ByteArrayOutputStream stream;
+  static  InputStream inputStream;
 static     ImagenReport currenImageReport;
     static   byte[] data;
     static final StorageReference ImageFolderReferenceImagesAll =  FirebaseStorage.getInstance().getReference().child("imagenes_all_reports");//esta iniiclizarla antes
@@ -237,7 +239,7 @@ public static int counTbucle=0;
 
         if(null != uriImage) {
             try {
-                InputStream inputStream = contextaMiCiela.getContentResolver().openInputStream(uriImage);
+                 inputStream = contextaMiCiela.getContentResolver().openInputStream(uriImage);
                 inputStream.close();
                 existValue = true;
             } catch (Exception e) {
@@ -248,13 +250,19 @@ public static int counTbucle=0;
 
         if(existValue){
 
+            Log.i("debugimagenes", "bitmap original here ");
+
                      bitmapOriginal = MediaStore.Images.Media.getBitmap(contextaMiCiela.getContentResolver(), uriImage);
-                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                      stream = new ByteArrayOutputStream();
                      bitmapOriginal.compress(Bitmap.CompressFormat.WEBP,95,stream);//0=lowe
+
 
                      data = stream.toByteArray();
                      uploadTask = imagename.putBytes(data);
-                     uploadTask.addOnFailureListener(new OnFailureListener() {
+
+            Log.i("debugimagenes", "empezandoupload task");
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
                          @Override
                          public void onFailure(@NonNull Exception exception) {
 

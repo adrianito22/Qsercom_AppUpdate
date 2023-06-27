@@ -574,54 +574,120 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
      });   //call it
      thread.start();
 
-/*
-     new Thread(new Runnable() {
-        @Override
-        public void run() {
 
-            RealtimeDB.updateSetinformEmbarq1(informe1);
-            RealtimeDB.actualizaInformePart2(informe2); //es dedcion
-            RealtimeDB.actualizaInformePart3(informe3); //es dedcion
-            RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //es dedcion
-            RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha); //es dedcion
 
-        }
-    }).start();
-*/
-/*
-    task.addOnCompleteListener(new OnCompleteListener<String>() {
+}
+
+
+public static void treadImagesx(int  tipoObjectoQueSubiremosNow){
+
+        //divismos la lista en 2 y llamaos dos suprocesos o 3 paraver que pasa....
+       //cuando
+       ///enviar 2 apps para ver.....
+    //probar si necesidad de convertir en otro bitmap parce que puede ir mas rapido..
+
+    thread = new Thread(new Runnable() {
         @Override
-        public void onComplete(@NonNull Task<String> task) {
-            //por cada teara completada aumentamos
-            task.addOnSuccessListener(new OnSuccessListener<String>() {
+        public void run() {//esto en BACGROUND
+
+            if(tipoObjectoQueSubiremosNow== Variables.SEVERAL_INFORMS_UPDATE){
+
+                valuePercent[0] =20;
+
+                RealtimeDB.updateSetinformEmbarq1(informe1);
+                RealtimeDB.actualizaInformePart2(informe2);
+                RealtimeDB.actualizaInformePart3(informe3);
+                RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs());
+                RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha);
+
+
+            }
+
+
+            else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){
+                Log.i("updatexxxx","IMAGENES_SET_DE_REPORTE");
+                valuePercent[0] =50;
+
+
+                try {
+
+                    StorageData.initImagenesAllAndArrayListAndContext(listImagesx, context);
+                    StorageData.uploaddImagesAndDataImages(0);
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+
+            else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
+                Log.i("updatexxxx","FINISH_ALL_UPLOAD");
+
+
+                valuePercent[0] =100;
+
+            }
+
+
+//es dedcion
+            handler1.post(new Runnable() {
                 @Override
-                public void onSuccess(String result) {
-                    Log.i("updatexxxx","es succces result es: "+result);
+                public void run() {
 
-                  //  progressBar.setProgress(50);
+                    if(progressBar!=null){
 
-                   // UploadImages(); //vamos a subir imagenes
-                    // Task completed successfully
-                    // ...
+                        if(valuePercent[0]==20) {
+                            progressBar.setProgress(20); //esto en interfas
+                            Log.i("finalizando", "value percent es igual a 100");
+
+                             /*
+                             txtSubTitle.setText("Hurra, se subio");
+                             txtTitle.setText("100% COMPLETADO");
+
+                             btnOkButton.setVisibility(View.VISIBLE);
+                             // imgIcon.setVisibility(View.VISIBLE);
+                             imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                             btnOkButton.setEnabled(true);
+
+                              */
+
+                        }
+                        else if (valuePercent[0]==100) {
+
+                            progressBar.setProgress(100); //esto en interfas
+                            Log.i("updatexxxx", "update todos hurra");
+
+                            txtSubTitle.setText("Hurra, se subio");
+                            txtTitle.setText("100% COMPLETADO");
+
+                            btnOkButton.setVisibility(View.VISIBLE);
+                            // imgIcon.setVisibility(View.VISIBLE);
+                            imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                            btnOkButton.setEnabled(true);
+
+
+
+                        }
+                    }
+
+
                 }
             });
 
+
+
+
+            //cuando termine esto vamos a darle..
+
         }
-    });
-
-     task.addOnFailureListener(new OnFailureListener() {
-         @Override
-         public void onFailure(@NonNull Exception e) {
-             // Task failed with an exception
-             // ...
-         }
-     });
-
-    */
+    });   //call it
+    thread.start();
 
 
 
 }
+
+
 
 
     public  static void UploadControlCalidad(int  tipoObjectoQueSubiremosNow){
@@ -659,6 +725,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                     valuePercent[0] =100;
 
                 }
+
+
+
 
                 else if(tipoObjectoQueSubiremosNow== Variables.ERROR_SUBIDA){
                     Log.i("updatexxxx","FINISH_ALL_UPLOAD");
