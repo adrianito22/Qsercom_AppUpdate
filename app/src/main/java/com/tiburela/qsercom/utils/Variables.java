@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -27,11 +28,21 @@ import java.util.HashMap;
 
 public class Variables {
 
+    ///hilos objetos
+
+
+    public static   boolean ErrorSubirImage=false;
+
+    public static   int contadorImagenesSubidasSumaAll =0;
+    public static   int numImagenesSubirTotal=0;
+
+
+
+
+
+
+
     public static  final int CAJA_EN_DEDOS=500; ///los nums estaran entre : 54,64,68,,74 //formular cal =la suma del total de dedos  -defectos
-
-    //ese resultado divimos por el total..
-
-
     public static  final int CAJA_EN_MANOS=501; //5,4,6,  //LA SUMA DE TODO Y EL RESULTADO SE MULTIPLICA X 2.25 ;
     public static  final int CAJA_default=502;
 
@@ -47,12 +58,14 @@ public class Variables {
     public static  int LIBRIADO_IF_EXIST=105;
     public static  int INFORM_REGISTER=106;
     public static  int FINISH_ALL_UPLOAD=107;
+
     public static  int SEVERAL_INFORMS_UPDATE=108;
     public static  int CONTROL_CALIDAD_OBJECT=109;
     public static  int ERROR_SUBIDA=110;
     public static  String tagAndKeyToDelete="";
 
     public static final int NINGUNO=11000;
+    public static  int FINISH_ONLY_UPLOAD_REPORT =15001;
 
     public static final int ACERCA=1;
     public static final int ATRIBUCIONES=2;

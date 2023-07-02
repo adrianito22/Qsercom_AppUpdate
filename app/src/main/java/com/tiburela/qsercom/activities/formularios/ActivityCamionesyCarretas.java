@@ -43,7 +43,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -77,7 +76,7 @@ import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.SharePrefHelper;
@@ -345,7 +344,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         UNIQUE_ID_iNFORME= UUID.randomUUID().toString();
         Auth.initAuth(this);
 
-        StorageData. initStorageReference();
+        StorageDataAndRdB. initStorageReference();
 
 
         findViewsIds();
@@ -2421,7 +2420,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
                     //informe register
-                    StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
+                    StorageDataAndRdB.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
                     objecCamionesyCarretas.setUniqueIDinforme(currenTidGenrate);
 
@@ -2535,13 +2534,13 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         Log.i("imagheddd","el size de hasmpa es  "+ImagenReport.hashMapImagesData.size());
 
 
-        Log.i("imagheddd","el unique id es "+StorageData.uniqueIDImagesSetAndUInforme);
+        Log.i("imagheddd","el unique id es "+ StorageDataAndRdB.uniqueIDImagesSetAndUInforme);
 
 
-        ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
+        ImagenReport.updateIdPerteence(StorageDataAndRdB.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
 
         ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-     ///   StorageData.uploaddImagesAndDataImages(list,ActivityCamionesyCarretas.this);
+     ///   StorageDataAndRdB.uploaddImagesAndDataImages(list,ActivityCamionesyCarretas.this);
 
 
     }

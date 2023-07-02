@@ -1,14 +1,9 @@
 package com.tiburela.qsercom.adapters;
-import static com.tiburela.qsercom.utils.Variables.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,16 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.StorageReference;
 import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
@@ -42,10 +32,9 @@ import com.tiburela.qsercom.models.ImagenReport;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.ExecutionException;
 
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -432,7 +421,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private void dowloadAndSetImg(ImagenReport imagenReport, ImageView holder,Context context){
 
-        storageRef  = StorageData.rootStorageReference.child("imagenes_all_reports/"+imagenReport.getUniqueIdNamePic());
+        storageRef  = StorageDataAndRdB.rootStorageReference.child("imagenes_all_reports/"+imagenReport.getUniqueIdNamePic());
 
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

@@ -87,7 +87,7 @@ import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Permisionx;
@@ -359,7 +359,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
             UNIQUE_ID_iNFORME = Variables.CurrenReportPart1.getUniqueIDinforme();
 
-            StorageData.uniqueIDImagesSetAndUInforme = Variables.CurrenReportPart1.getUniqueIDinforme();
+            StorageDataAndRdB.uniqueIDImagesSetAndUInforme = Variables.CurrenReportPart1.getUniqueIDinforme();
 
             esFirstCharge = false;
 
@@ -371,7 +371,7 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
 
             RealtimeDB.initDatabasesRootOnly();
-            StorageData.initStorageReference();
+            StorageDataAndRdB.initStorageReference();
 
 
             listViewsClickedUser = new ArrayList<>();
@@ -4058,7 +4058,7 @@ else{
         dowloadSecondPART_Report(Variables.CurrenReportPart1.getUniqueIDinforme(), 1);
 
         //inicializamos STORAGE..
-        StorageData.initStorageReference();
+        StorageDataAndRdB.initStorageReference();
         dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinforme());
 
         dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinforme());

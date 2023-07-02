@@ -87,7 +87,7 @@ import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
 import com.tiburela.qsercom.models.ReportCamionesyCarretas;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -386,7 +386,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         Auth.initAuth(this);
 
-      //  StorageData. initStorageReference();
+      //  StorageDataAndRdB. initStorageReference();
 
 
         findViewsIds();
@@ -2210,13 +2210,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
                 Log.i("sertila","alguno o toos son diferentes images llamaos metodo filtra");
 
-                StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
+                StorageDataAndRdB.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
 
                 ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
                 /*
                 try {
-                  //  StorageData.uploaddImagesAndDataImages(list2,PreviewCalidadCamionesyCarretas.this);
+                  //  StorageDataAndRdB.uploaddImagesAndDataImages(list2,PreviewCalidadCamionesyCarretas.this);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -3702,7 +3702,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
             int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
             String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
             String descripcionImage=miLisAllImages.get(i).getDescripcionImagen();
-            StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
+            StorageReference storageRef = StorageDataAndRdB.rootStorageReference.child("imagenes_all_reports/"+pathImage);
 
 
             try {
@@ -3810,7 +3810,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         addDataENfiledsoTHERviews(Variables.currenReportCamionesyCarretas);
 
 
-        StorageData.initStorageReference();
+        StorageDataAndRdB.initStorageReference();
 
 
         dowloadImagesDataReport(Variables.currenReportCamionesyCarretas.getUniqueIDinforme());

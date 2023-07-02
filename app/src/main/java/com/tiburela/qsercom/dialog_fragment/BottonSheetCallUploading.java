@@ -1,13 +1,14 @@
 package com.tiburela.qsercom.dialog_fragment;
 
 import static com.google.android.gms.tasks.Tasks.whenAll;
-import static com.itextpdf.kernel.pdf.PdfName.Collection;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +26,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.callbacks.ContenedoresCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -42,19 +41,39 @@ import com.tiburela.qsercom.models.RegisterTest;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.SharePrefHelper;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class BottonSheetCallUploading extends BottomSheetDialogFragment {
         public static final String TAG = "ActionBottomDialog";
         private View vista;
+    public static StorageReference rootStorageReference;
+    static Bitmap bitmapOriginal;
+    static UploadTask uploadTask;
+    TrheadUploadImages thread1;
+
+    String textoImagenesPorSubir="";
+
+    static StorageReference imagename;
+    static ByteArrayOutputStream stream;
+    static InputStream inputStream;
+    static     ImagenReport currenImageReport;
+    static final StorageReference ImageFolderReferenceImagesAll =  FirebaseStorage.getInstance().getReference().child("imagenes_all_reports");//esta iniiclizarla antes
+
+    static   byte[] data;
+ //  public  TrheadUploadImages thread2;
+
 
     private static String keyPrefrencesIfUserSaveReportLocale="";
           static  Thread thread;
@@ -165,7 +184,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             btnOkButton=vista.findViewById(R.id.btnOkButton);
             btnOkButton.setEnabled(false);
             Variables.contador=0;
-            StorageData.indiceCurrentOFlistIamges=0;
+            StorageDataAndRdB.indiceCurrentOFlistIamges=0;
 
             btnOkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -201,7 +220,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
                    Utils.contadorTareasCompletadas=0;
 
-                   UpdateReportThread(Variables.SEVERAL_INFORMS_UPDATE);
+                   UpdateReportAndCallThreads(Variables.SEVERAL_INFORMS_UPDATE);
 
                    //aqui llamos el nuevo metodo
                  //  f
@@ -273,7 +292,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
          if(thread!=null && thread.isAlive()){
           Log.i("isalivebbd","is alive aqui");
+
          }
+
          thread = new Thread(new Runnable() {
 
             @Override
@@ -390,8 +411,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
                         try {
 
-                            StorageData.initImagenesAllAndArrayListAndContext(listImagesx,context);
-                            StorageData.uploaddImagesAndDataImages(0);
+                            StorageDataAndRdB.initImagenesAllAndArrayListAndContext(listImagesx,context);
+                            StorageDataAndRdB.uploaddImagesAndDataImages(0);
 
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -469,150 +490,106 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
 
- public  static void UpdateReportThread(int  tipoObjectoQueSubiremosNow){
-
-    // addOnCompleteListener //podemos llmar esto cuando terminemos de subir todas las imagenes, si nos da pronelas ocularlo
-     // cuando los 5 0 6 informes se subiron llamra esta funcion con numero imagenes ... y cuando termine llamar esta funcion con int ginish...
-     //desecnadenar vamos imagenes alli mimso donde desencadena la finalizacion de task que creamos anteriomente..
-     final int[] valuePercent = {0};
-
-    // Task<String> task = Utils.sourceTareas.getTask();
-
-     thread = new Thread(new Runnable() {
-         @Override
-         public void run() {//esto en BACGROUND
-
-                   if(tipoObjectoQueSubiremosNow== Variables.SEVERAL_INFORMS_UPDATE){
-                     valuePercent[0] =20;
-
-                       RealtimeDB.updateSetinformEmbarq1(informe1);
-                       RealtimeDB.actualizaInformePart2(informe2);
-                       RealtimeDB.actualizaInformePart3(informe3);
-                       RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs());
-                       RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha);
 
 
-                       }
+    public void UpdateReportInform(){
+
+            Log.i("IMAGESTASKEdit","FINISH_ONLY_UPLOAD_REPORT llanado");
+            ///mirtad en uno y la mitad en ek resto
+
+            ArrayList<ImagenReport>images1 = new ArrayList<>();
+            ArrayList<ImagenReport>images2 = new ArrayList<>();
+
+            int resto=listImagesx.size() % 2;
+
+            if(resto==0){ //quiere decir que es mitad exacta y no sobra nada
+                for(int indice=0; indice< listImagesx.size(); indice++){  //tine 10 items
+                    if(indice<listImagesx.size()/2){
+                        images1.add(listImagesx.get(indice));
+                    }
+                    else{
+                        images2.add(listImagesx.get(indice));
+                    }
+                }
+            }else{  ///no es mitad exacta
+
+                for(int indice=0; indice< listImagesx.size(); indice++){  //tine 10 items
+                    if(indice<(listImagesx.size()-1)/2){
+                        images1.add(listImagesx.get(indice));
+                    }
+                    else{
+                        images2.add(listImagesx.get(indice));
+                    }
+                }
+            }
 
 
-                  else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){
-                       Log.i("updatexxxx","IMAGENES_SET_DE_REPORTE");
-                       valuePercent[0] =50;
+            /**las imagenes por subir y contador de imagenes subidas reseteamos las subidas*/
+            Variables.numImagenesSubirTotal=listImagesx.size();
+            Variables.contadorImagenesSubidasSumaAll =0;
+            StorageDataAndRdB.initContexta(context);
+
+            Log.i("IMAGESTASKEdit","el list 1 tiene size de  "+images1.size());
+            Log.i("IMAGESTASKEdit","el list 2 tiene size de "+images2.size());
+            Log.i("IMAGESTASKEdit","la cantidad de imagenes a subir es: "+Variables.numImagenesSubirTotal);
+
+             /***si no usaremos estos objetos de forma global*/
+
+           // thread1=new TrheadUploadImages(listImagesx);  //dejemoslo en un solo hilo aqui
+            //thread1.startThreadMismoObject(thread1);
+//
+                  textoImagenesPorSubir= ""+Variables.contadorImagenesSubidasSumaAll+" imagenes subidas de "+Variables.numImagenesSubirTotal;
+                 txtTitle.setText(textoImagenesPorSubir);
+
+         thread1=new TrheadUploadImages(listImagesx,1);
+         thread1.start();
 
 
-                       try {
+    }
 
-                           StorageData.initImagenesAllAndArrayListAndContext(listImagesx, context);
-                           StorageData.uploaddImagesAndDataImages(0);
+ public  static void UpdateReportAndCallThreads(int reportTiPOSubidoAndState){
 
-                       } catch (IOException e) {
-                           throw new RuntimeException(e);
-                       }
+     if(reportTiPOSubidoAndState== Variables.SEVERAL_INFORMS_UPDATE){
+         RealtimeDB.updateSetinformEmbarq1(informe1);
+         RealtimeDB.actualizaInformePart2(informe2);
+         RealtimeDB.actualizaInformePart3(informe3);
+         RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs());
+         RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha);
+     }
 
-                   }
+     else if(reportTiPOSubidoAndState== Variables.IMAGENES_SET_DE_REPORTE){  //ahora rtocan las imagenes
 
-                  else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
-                       Log.i("updatexxxx","FINISH_ALL_UPLOAD");
+         BottonSheetCallUploading BTON= new BottonSheetCallUploading();
+         BTON.UpdateReportInform();
 
-
-                       valuePercent[0] =100;
-
-                   }
-
-
-//es dedcion
-             handler1.post(new Runnable() {
-                 @Override
-                 public void run() {
-
-                     if(progressBar!=null){
-
-                         if(valuePercent[0]==20) {
-                             progressBar.setProgress(20); //esto en interfas
-                             Log.i("finalizando", "value percent es igual a 100");
-
-                             /*
-                             txtSubTitle.setText("Hurra, se subio");
-                             txtTitle.setText("100% COMPLETADO");
-
-                             btnOkButton.setVisibility(View.VISIBLE);
-                             // imgIcon.setVisibility(View.VISIBLE);
-                             imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
-                             btnOkButton.setEnabled(true);
-
-                              */
-
-                         }
-                          else if (valuePercent[0]==100) {
-
-                         progressBar.setProgress(100); //esto en interfas
-                         Log.i("updatexxxx", "update todos hurra");
-
-                             txtSubTitle.setText("Hurra, se subio");
-                             txtTitle.setText("100% COMPLETADO");
-
-                             btnOkButton.setVisibility(View.VISIBLE);
-                             // imgIcon.setVisibility(View.VISIBLE);
-                             imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
-                             btnOkButton.setEnabled(true);
+     }
 
 
 
-                         }
-                     }
-
-
-                 }
-             });
-
-
-
-
-              //cuando termine esto vamos a darle..
-
-         }
-     });   //call it
-     thread.start();
 
 
 
 }
 
 
-public static void treadImagesx(int  tipoObjectoQueSubiremosNow){
+public   void treadImagesx(int  tipoObjectoQueSubiremosNow){
 
         //divismos la lista en 2 y llamaos dos suprocesos o 3 paraver que pasa....
        //cuando
        ///enviar 2 apps para ver.....
     //probar si necesidad de convertir en otro bitmap parce que puede ir mas rapido..
 
+    final int[] valuePercent = {0};
+
     thread = new Thread(new Runnable() {
         @Override
-        public void run() {//esto en BACGROUND
-
-            if(tipoObjectoQueSubiremosNow== Variables.SEVERAL_INFORMS_UPDATE){
-
-                valuePercent[0] =20;
-
-                RealtimeDB.updateSetinformEmbarq1(informe1);
-                RealtimeDB.actualizaInformePart2(informe2);
-                RealtimeDB.actualizaInformePart3(informe3);
-                RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs());
-                RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha);
-
-
-            }
-
-
-            else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){
+        public void run() {
+             if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){
                 Log.i("updatexxxx","IMAGENES_SET_DE_REPORTE");
                 valuePercent[0] =50;
-
-
                 try {
-
-                    StorageData.initImagenesAllAndArrayListAndContext(listImagesx, context);
-                    StorageData.uploaddImagesAndDataImages(0);
+                    StorageDataAndRdB.initImagenesAllAndArrayListAndContext(listImagesx, context);
+                    StorageDataAndRdB.uploaddImagesAndDataImages(0);
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -622,12 +599,9 @@ public static void treadImagesx(int  tipoObjectoQueSubiremosNow){
 
             else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
                 Log.i("updatexxxx","FINISH_ALL_UPLOAD");
-
-
                 valuePercent[0] =100;
 
             }
-
 
 //es dedcion
             handler1.post(new Runnable() {
@@ -636,7 +610,7 @@ public static void treadImagesx(int  tipoObjectoQueSubiremosNow){
 
                     if(progressBar!=null){
 
-                        if(valuePercent[0]==20) {
+                        if(valuePercent[0]==50) {
                             progressBar.setProgress(20); //esto en interfas
                             Log.i("finalizando", "value percent es igual a 100");
 
@@ -800,55 +774,305 @@ public static void treadImagesx(int  tipoObjectoQueSubiremosNow){
     }
 
 
-    private static void UploadImages() {
-
-     //   Task<String> taskxx = Utils.sourceTareaSubirIMAGENES.getTask();
 
 
-        thread = new Thread(new Runnable() {
+    public class TrheadUploadImages extends Thread {   //esta clase contiene un object de la clase storage data
+        public int threadNUm;
+       ArrayList<ImagenReport> arrayListx;
+        public  int indiceCurrentObjectx;
+        public  int contadorImagenesSubidasThisObject;
+        boolean seSubioAlLImagenesSet;
 
-            @Override
-            public void run() {//esto en BACGROUND
+        public TrheadUploadImages(ArrayList <ImagenReport> arrayListx, int threadNUm){
+            this.arrayListx=arrayListx;
+            indiceCurrentObjectx=0;
+            contadorImagenesSubidasThisObject =0;
+            this.threadNUm = threadNUm;
+            seSubioAlLImagenesSet =false;
 
+        }
+
+
+
+
+
+        @Override
+        public void run() {//esto en BACGROUND
+            Log.i("subprocesa", "el rhread num num " + threadNUm);
+
+
+            ImagenReport  currenImageReport;
+
+            float porcentajeXFlotante=((float) Variables.contadorImagenesSubidasSumaAll /  (float)Variables.numImagenesSubirTotal)*100;
+            int porcentajeX=(int)porcentajeXFlotante;
+
+
+             textoImagenesPorSubir=""+Variables.contadorImagenesSubidasSumaAll+" imagenes subidas de "+Variables.numImagenesSubirTotal;
+              txtTitle.setText(textoImagenesPorSubir);
+
+
+            if(Variables.contadorImagenesSubidasSumaAll == thread1.arrayListx.size() ||
+                    thread1. indiceCurrentObjectx>=thread1.arrayListx.size() ||
+                    Variables.contadorImagenesSubidasSumaAll==Variables.numImagenesSubirTotal ){
+                //significa que  terminamos una seccion al menos
+
+                thread1.seSubioAlLImagenesSet =true;
+                Log.i("IMAGESTASKEdit","la lista 1 READY OK BIEN ");
+                porcentajeX=100;
+
+            }
+
+            else{  //aun no hemos terminadp
+
+                currenImageReport = thread1.arrayListx.get(thread1.indiceCurrentObjectx);
                 try {
-
-                    StorageData.initImagenesAllAndArrayListAndContext(listImagesx, context);
-                    StorageData.uploaddImagesAndDataImages(0);
-
+                    uploaddImagesAndDataImages1(currenImageReport);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                // start();
+
 
             }
-        });   //call it
-        thread.start();
 
 
-        //
-/*
-        Task<String> taskxx = Utils.sourceTareaSubirIMAGENES.getTask();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                try {
+            final int[] finalPorcentajeX = {porcentajeX};
 
-                    StorageData.initImagenesAllAndArrayListAndContext(listImagesx,context);
-                    StorageData.uploaddImagesAndDataImages(0);
 
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+            handler1.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    if(progressBar!=null){
+
+                        progressBar.setProgress(finalPorcentajeX[0]); //esto en interfas
+
+                        if(finalPorcentajeX[0] ==0){
+                            txtSubTitle.setText("Espere");
+                            txtSubTitle.setText("Subiendo imagenes...");
+                            progressBar.setProgress(20); //esto en interfas
+
+                        }
+
+
+                        if(finalPorcentajeX[0] ==100  ){
+                            Log.i("finalizando","value percent es igual a 100");
+                            txtSubTitle.setText("Hurra, se subió exitosamente");
+                            txtTitle.setText("100% COMPLETADO");
+                            btnOkButton.setVisibility(View.VISIBLE);
+                            // imgIcon.setVisibility(View.VISIBLE);
+                            imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                            btnOkButton.setEnabled(true);
+
+                        }
+
+                    }
+
+
                 }
+            });
+
+        }
+
+
+        public   void uploaddImagesAndDataImages1( ImagenReport currenImageReport) throws IOException {
+
+            /**SI HAY PROBELASM DE URI PERMISOS ASEGURARSE QUE EL URI CONTENGA UNA PROPIEDAD QUE HACER QUE LE DE PERMISOS DE
+             * LECTURA ALGO AS..ESO EN INTENT AL SELECIONAR IMAGENES*/
+
+            Log.i("IMAGESTASKEdit","vamos a subir para el hilo "+1);
+
+
+
+            Uri uriImage  = Uri.parse(currenImageReport.geturiImage());
+            imagename = ImageFolderReferenceImagesAll.child(currenImageReport.getUniqueIdNamePic());
+
+
+            boolean existValue=false;
+
+            if(null != uriImage) {
+                try {
+                    inputStream = context.getContentResolver().openInputStream(uriImage);
+                    inputStream.close();
+                    existValue = true;
+                } catch (Exception e) {
+                    Log.i("IMAGESTASKEdit","exepcion aqui y exist value es");
+                }
+            }
+
+
+            if(existValue){
+
+                Log.i("IMAGESTASKEdit", "bitmap original here ");
+
+                bitmapOriginal = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uriImage);
+                stream = new ByteArrayOutputStream();
+                bitmapOriginal.compress(Bitmap.CompressFormat.WEBP,95,stream);//0=lowe
+
+
+                data = stream.toByteArray();
+                uploadTask = imagename.putBytes(data);
+
+                Log.i("IMAGESTASKEdit", "empezandoupload task");
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+
+                        Log.i("IMAGESTASKEdit","es falilure");
+
+                        /***BIEN NOTE : EL METODO DE ABAJO DEBERIA LLEVAR UN PAREMTRO QUE INDENTIFCQUE EL OBJETO GLOBAL
+                         * DE BOOTOMSHEETCALLUPLOADING..
+                         * AHORA INVOCAMOS EL METODO DE BOTTOM SHEET OTRA VEZ Y LE PASAMOS EL NUEVO INDICE
+                         * */
+
+                        Variables.contadorImagenesSubidasSumaAll++;
+                        Variables.ErrorSubirImage=true;
+
+                        updateObjectGCurrentIndiceAndContadorUpload1();
+
+
+                        callThreadByNumHilo1();
+
+                        Log.i("imagestorage", "existe una exepecion y es "+exception.getMessage());
+
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                        //  Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Log.i("IMAGESTASKEdit","es succes");
+
+
+                                String iconPathFirebase = uri.toString();
+                                currenImageReport.setUrlStoragePic(iconPathFirebase);
+                                // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
+                                Log.i("superstorage","se subio imagen y el url esd  al informe "+currenImageReport.getUrlStoragePic());
+
+
+                                /**aumnetamos el valor del indice en ek on succes dek siguiente metodo*/
+                                  addNewSetPicsInforme1(currenImageReport);
+
+
+                            }
+
+
+
+
+                        });
+                    }
+                });
+
+            } else {
+                Log.i("IMAGESTASKEdit","se eejcuto el else aqui ");
+                Variables.contadorImagenesSubidasSumaAll++;
+                Log.i("IMAGESTASKEdit","el contador imagenes subidas es "+ Variables.contadorImagenesSubidasSumaAll);
+
+                updateObjectGCurrentIndiceAndContadorUpload1();
+                callThreadByNumHilo1();
+                Log.i("exepciopmx","no existe valores");
+
 
             }
-        }).start();
-*/
 
-/** para firebase mutitread que devulven obejtos cuando todad terminan...https://firebase.blog/posts/2016/10/become-a-firebase-taskmaster-part-4*/
+
+
+        }
+        public  void addNewSetPicsInforme1(ImagenReport objecImageReport ) {
+
+            if(RealtimeDB.mibasedataPathImages==null ) {
+                RealtimeDB.initDatabasesReferenceImagesData();
+            }
+
+
+
+            Map<String, Object> mapValues = objecImageReport.toMap();
+            RealtimeDB. mibasedataPathImages.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    //   int porcentajeX= (Variables.contadorImagenesSubidas/Variables.numImagenesSubirTotal)*100;
+
+                    if (task.isSuccessful()) {
+
+                        Log.i("IMAGESTASKEdit","se subio imagen report "+objecImageReport.getUrlStoragePic());
+                        Variables.contadorImagenesSubidasSumaAll++;
+                        Log.i("IMAGESTASKEdit","el contador imagenes subidas es "+ Variables.contadorImagenesSubidasSumaAll);
+                        Log.i("IMAGESTASKEdit","llamamos tread otravez ");
+
+
+                        updateObjectGCurrentIndiceAndContadorUpload1();
+                        callThreadByNumHilo1();
+
+
+
+                    }else
+                    {
+
+                        Variables. ErrorSubirImage=true;
+                        updateObjectGCurrentIndiceAndContadorUpload1();
+                        callThreadByNumHilo1();
+
+
+                    }
+                }
+            });
+
+
+        }
+
+
+        public  void updateObjectGCurrentIndiceAndContadorUpload1(){
+
+            thread1.contadorImagenesSubidasThisObject = thread1.contadorImagenesSubidasThisObject +1;
+            thread1.indiceCurrentObjectx = thread1.indiceCurrentObjectx +1;
+
+        }
+
+        public   void callThreadByNumHilo1( ){
+            thread1.run();
+            //  thread1.startThreadMismoObject(objectThread);
+
+        }
+
+
     }
 
 
+    private static void uploadFS(final File[] files, final StorageReference certRef, int startIndex, int concurrent) {
+        int cnt = 0;
+        File file;
+        Uri uriFile;
+        StorageReference ref;
+        while (cnt < concurrent) {
+            file = files[startIndex];
+            startIndex++;
+            if (file.exists() && file.length() > 0) { // local cert file exits
+                uriFile = Uri.fromFile(file);
+                final int sIdx = startIndex;
+                ref = certRef.child("cert/" + uriFile.getLastPathSegment());
+                ref.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                        uploadFS(files, certRef, sIdx, 1);
+
+                    }
+                });
+            }
+            cnt++;
+        }
+    }
+
+    public static void uploadCert() {
+
+    }
 
 }
 

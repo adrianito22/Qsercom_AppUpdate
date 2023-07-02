@@ -72,7 +72,6 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.adapters.SimpleItemTouchHelperCallback;
 import com.tiburela.qsercom.auth.Auth;
-import com.tiburela.qsercom.callbacks.CallbackUploadNewReport;
 import com.tiburela.qsercom.callbacks.ContenedoresCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
@@ -87,7 +86,7 @@ import com.tiburela.qsercom.models.RegisterTest;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.ConnectionReceiver;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -460,7 +459,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
 
         Auth.initAuth(this);
 
-        StorageData. initStorageReference();
+        StorageDataAndRdB. initStorageReference();
 
 
         findViewsIds();
@@ -3018,8 +3017,8 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
 
     ArrayList<ImagenReport> upDatalisImagesAndReturnListToUpload()  {
-        //StorageData.uniqueIDImagesSetAndUInforme
-            ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
+        //StorageDataAndRdB.uniqueIDImagesSetAndUInforme
+            ImagenReport.updateIdPerteence(StorageDataAndRdB.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
 
         return Utils.mapToArrayList(ImagenReport.hashMapImagesData);
 
@@ -5086,7 +5085,7 @@ return  producto;
                 if(user == null && ! seSubioform) { //quiere decir que no existe
                     Log.i("imagebrr","elunique id informe es "+currenTidGenrate);
 
-                    StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
+                    StorageDataAndRdB.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
 
                     informe.setUniqueIDinforme(currenTidGenrate);

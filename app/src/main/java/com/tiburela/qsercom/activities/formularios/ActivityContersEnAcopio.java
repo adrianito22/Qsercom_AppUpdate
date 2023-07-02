@@ -66,7 +66,7 @@ import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.SharePrefHelper;
@@ -319,7 +319,7 @@ public class ActivityContersEnAcopio extends AppCompatActivity implements View.O
         Variables.activityCurrent=Variables.FormatDatsContAcopi;
         Auth.initAuth(this);
 
-        StorageData.initStorageReference();
+        StorageDataAndRdB.initStorageReference();
 
 
         findViewsIds();
@@ -1697,7 +1697,7 @@ private void createObjcInformeAndUpload(){
 
 
                     //informe register
-                    StorageData.uniqueIDImagesSetAndUInforme=currenTidGenrate;
+                    StorageDataAndRdB.uniqueIDImagesSetAndUInforme=currenTidGenrate;
 
                     conetnedoresEnAcopioForm.setUniqueIDinforme(currenTidGenrate);
 
@@ -1817,9 +1817,9 @@ private void createObjcInformeAndUpload(){
         }
 
         //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
-        ImagenReport.updateIdPerteence(StorageData.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
+        ImagenReport.updateIdPerteence(StorageDataAndRdB.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
         ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-       // StorageData.uploaddImagesAndDataImages(list,ActivityContersEnAcopio.this);
+       // StorageDataAndRdB.uploaddImagesAndDataImages(list,ActivityContersEnAcopio.this);
 
 
     }

@@ -1,9 +1,7 @@
 package com.tiburela.qsercom.storage;
 
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -12,9 +10,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -32,7 +31,10 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-public class StorageData {
+public class StorageDataAndRdB {
+
+
+
    public static  StorageReference rootStorageReference;
     static Bitmap bitmapOriginal;
    static UploadTask uploadTask;
@@ -61,12 +63,18 @@ public static int counTbucle=0;
           imageListToUploadd =ImageList;
           contextaMiCiela=contexto;
           indiceCurrentOFlistIamges=0;
-         Utils.sourceTareas = new TaskCompletionSource<>();
-        Utils.sourceTareaSubirIMAGENES = new TaskCompletionSource<>();
+        // Utils.sourceTareas = new TaskCompletionSource<>();
+      //  Utils.sourceTareaSubirIMAGENES = new TaskCompletionSource<>();
       //  terminamosUploadAllImages =false;
 
 
       }
+
+    public static void initContexta(Context contexto){
+
+        contextaMiCiela=contexto;
+
+    }
 
 
     public static void initStorageReference()  {
@@ -191,12 +199,230 @@ public static int counTbucle=0;
     }
 
 
+    /**opcion 2 creamos un objeto de */
+
+
+/*
+    public static void uploaddImagesAndDataImages( ImagenReport currenImageReport) throws IOException {
+
+
+
+        Log.i("imagheddd", "el size de ImageList es "+imageListToUploadd.size());
+        Uri uriImage  = Uri.parse(currenImageReport.geturiImage());
+        imagename = ImageFolderReferenceImagesAll.child(currenImageReport.getUniqueIdNamePic());
+
+
+        boolean existValue=false;
+
+        if(null != uriImage) {
+            try {
+                inputStream = contextaMiCiela.getContentResolver().openInputStream(uriImage);
+                inputStream.close();
+                existValue = true;
+            } catch (Exception e) {
+                Log.i("IMAGESTASKEdit","exepcion aqui y exist value es "+existValue);
+            }
+        }
+
+
+        if(existValue){
+
+            Log.i("IMAGESTASKEdit", "bitmap original here ");
+
+            bitmapOriginal = MediaStore.Images.Media.getBitmap(contextaMiCiela.getContentResolver(), uriImage);
+            stream = new ByteArrayOutputStream();
+            bitmapOriginal.compress(Bitmap.CompressFormat.WEBP,95,stream);//0=lowe
+
+
+            data = stream.toByteArray();
+            uploadTask = imagename.putBytes(data);
+
+            Log.i("IMAGESTASKEdit", "empezandoupload task");
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                    Log.i("IMAGESTASKEdit","es falilure");
+
+
+                    Variables.contadorImagenesSubidas++;
+
+
+
+                    Variables.ErrorSubirImage=true;
+                    threadx.indiceCurrentObjectx++;
+
+
+                    threadx.startThreadMismoObject(threadx.indiceCurrentObjectx);
+
+
+
+
+                    Log.i("imagestorage", "existe una exepecion y es "+exception.getMessage());
+
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Log.i("IMAGESTASKEdit","es succes");
+
+
+                            String iconPathFirebase = uri.toString();
+                            currenImageReport.setUrlStoragePic(iconPathFirebase);
+                            Log.i("superstorage","se subio imagen y el url esd  al informe "+currenImageReport.getUrlStoragePic());
+
+
+
+
+                        }
+
+
+
+
+                    });
+                }
+            });
+
+        } else {
+            Log.i("IMAGESTASKEdit","se eejcuto el else aqui ");
+            Variables.contadorImagenesSubidas++;
+            Log.i("IMAGESTASKEdit","el contador imagenes subidas es "+ Variables.contadorImagenesSubidas);
+            threadx.indiceCurrentObjectx++;
+            threadx.startThreadMismoObject(  threadx.indiceCurrentObjectx);
+
+
+            Log.i("exepciopmx","no existe valores");
+
+        }
+
+
+
+
+
+    }
+
+   */
+
+    public  static void uploaddImagesAndDataImages( ImagenReport currenImageReport,int hIloNUm) throws IOException {
+
+        /**SI HAY PROBELASM DE URI PERMISOS ASEGURARSE QUE EL URI CONTENGA UNA PROPIEDAD QUE HACER QUE LE DE PERMISOS DE
+         * LECTURA ALGO AS..ESO EN INTENT AL SELECIONAR IMAGENES*/
+
+        Log.i("imagheddd", "el size de ImageList es "+imageListToUploadd.size());
+        Uri uriImage  = Uri.parse(currenImageReport.geturiImage());
+        imagename = ImageFolderReferenceImagesAll.child(currenImageReport.getUniqueIdNamePic());
+
+
+        boolean existValue=false;
+
+        if(null != uriImage) {
+            try {
+                inputStream = contextaMiCiela.getContentResolver().openInputStream(uriImage);
+                inputStream.close();
+                existValue = true;
+            } catch (Exception e) {
+                Log.i("IMAGESTASKEdit","exepcion aqui y exist value es");
+            }
+        }
+
+
+        if(existValue){
+
+            Log.i("IMAGESTASKEdit", "bitmap original here ");
+
+            bitmapOriginal = MediaStore.Images.Media.getBitmap(contextaMiCiela.getContentResolver(), uriImage);
+            stream = new ByteArrayOutputStream();
+            bitmapOriginal.compress(Bitmap.CompressFormat.WEBP,95,stream);//0=lowe
+
+
+            data = stream.toByteArray();
+            uploadTask = imagename.putBytes(data);
+
+            Log.i("IMAGESTASKEdit", "empezandoupload task");
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                    Log.i("IMAGESTASKEdit","es falilure");
+
+                    /***BIEN NOTE : EL METODO DE ABAJO DEBERIA LLEVAR UN PAREMTRO QUE INDENTIFCQUE EL OBJETO GLOBAL
+                     * DE BOOTOMSHEETCALLUPLOADING..
+                     *
+                     * AHORA INVOCAMOS EL METODO DE BOTTOM SHEET OTRA VEZ Y LE PASAMOS EL NUEVO INDICE
+                     *
+                     * */
+                    Variables.contadorImagenesSubidasSumaAll++;
+                    Variables.ErrorSubirImage=true;
+
+
+                    updateObjectGCurrentIndiceAndContadorUpload(hIloNUm);
+                    //callThreadByNumHilo(hIloNUm);
+
+                    Log.i("imagestorage", "existe una exepecion y es "+exception.getMessage());
+
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    //  Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Log.i("IMAGESTASKEdit","es succes");
+
+
+                            String iconPathFirebase = uri.toString();
+                            currenImageReport.setUrlStoragePic(iconPathFirebase);
+                            // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
+                            Log.i("superstorage","se subio imagen y el url esd  al informe "+currenImageReport.getUrlStoragePic());
+
+
+                            /**aumnetamos el valor del indice en ek on succes dek siguiente metodo*/
+                            addNewSetPicsInforme(currenImageReport,hIloNUm);
+
+
+                        }
+
+
+
+
+                    });
+                }
+            });
+
+        } else {
+            Log.i("IMAGESTASKEdit","se eejcuto el else aqui ");
+            Variables.contadorImagenesSubidasSumaAll++;
+            Log.i("IMAGESTASKEdit","el contador imagenes subidas es "+ Variables.contadorImagenesSubidasSumaAll);
+
+            updateObjectGCurrentIndiceAndContadorUpload(hIloNUm);
+            //callThreadByNumHilo(hIloNUm);
+            Log.i("exepciopmx","no existe valores");
+
+
+        }
+
+
+
+
+
+    }
 
     public static void uploaddImagesAndDataImages(int indice) throws IOException {
+
+
 
         if(indice<imageListToUploadd.size()){ //indice  0 size 0 //el indice es 6  lenth 6
               currenImageReport= imageListToUploadd.get(indice);
 
+          //  Variables.theadImagesImages1.start();
         }
 
 
@@ -215,9 +441,11 @@ public static int counTbucle=0;
               else
 
               {
+                //  BottonSheetCallUploading.
 
-                  Log.i("updatexxxx","se eejcuto erl else llamois metodo con finish value");
-                  BottonSheetCallUploading.UpdateReportThread(Variables.FINISH_ALL_UPLOAD);
+
+                  //Log.i("updatexxxx","se eejcuto erl else llamois metodo con finish value");
+                 // BottonSheetCallUploading.UpdateReportThread(Variables.FINISH_ALL_UPLOAD);
 
               }
 
@@ -296,7 +524,7 @@ public static int counTbucle=0;
                                      Log.i("superstorage","se subio imagen y el url esd  al informe "+currenImageReport.getUrlStoragePic());
 
                                      /**aumnetamos el valor del indice en ek on succes dek siguiente metodo*/
-                                     RealtimeDB.addNewSetPicsInforme(currenImageReport,contextaMiCiela,indiceCurrentOFlistIamges);
+                                  //   RealtimeDB.addNewSetPicsInforme(currenImageReport);
 
 
                                  }
@@ -309,11 +537,9 @@ public static int counTbucle=0;
                      });
 
                  } else {
-
                      Log.i("exepciopmx","no existe valores");
-                     StorageData.indiceCurrentOFlistIamges++;
-                     uploaddImagesAndDataImages(StorageData.indiceCurrentOFlistIamges);
-
+                     StorageDataAndRdB.indiceCurrentOFlistIamges++;
+                     uploaddImagesAndDataImages(StorageDataAndRdB.indiceCurrentOFlistIamges);
 
                  }
 
@@ -340,4 +566,70 @@ public static int counTbucle=0;
         byteBuffer.rewind();
         return byteBuffer.array();
     }
+
+
+    public static void addNewSetPicsInforme( ImagenReport objecImageReport ,int hiloNum) {
+
+        if(RealtimeDB.mibasedataPathImages==null ) {
+            RealtimeDB.initDatabasesReferenceImagesData();
+        }
+
+
+
+        Map<String, Object> mapValues = objecImageReport.toMap();
+        RealtimeDB. mibasedataPathImages.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+             //   int porcentajeX= (Variables.contadorImagenesSubidas/Variables.numImagenesSubirTotal)*100;
+
+                if (task.isSuccessful()) {
+
+                    Log.i("IMAGESTASKEdit","se subio imagen report "+objecImageReport.getUrlStoragePic());
+                    Variables.contadorImagenesSubidasSumaAll++;
+                    Log.i("IMAGESTASKEdit","el contador imagenes subidas es "+ Variables.contadorImagenesSubidasSumaAll);
+                    Log.i("IMAGESTASKEdit","llamamos tread otravez ");
+
+
+                    updateObjectGCurrentIndiceAndContadorUpload(hiloNum);
+                   // callThreadByNumHilo(hiloNum);
+
+
+
+                }else
+                {
+
+                    Variables. ErrorSubirImage=true;
+                    updateObjectGCurrentIndiceAndContadorUpload(hiloNum);
+
+                  //  callThreadByNumHilo(hiloNum);
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+
+    public static void updateObjectGCurrentIndiceAndContadorUpload(int numHilo){
+
+        if(numHilo==1){
+
+
+
+        }else if(numHilo==2){
+
+        }
+
+
+
+
+    }
+
+
+
+
 }

@@ -67,7 +67,7 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
 import com.tiburela.qsercom.utils.HelperImage;
@@ -252,7 +252,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         Variables.activityCurrent=Variables.FormatDatsContAcopiPREVIEW;
       //  Auth.initAuth(this);
 
-        StorageData. initStorageReference();
+        StorageDataAndRdB. initStorageReference();
 
 
         findViewsIds();
@@ -2091,10 +2091,10 @@ private void createObjcInformeAndUpload() throws IOException {
 
             Log.i("imagheddd", "alguno o toos son diferentes images llamaos metodo filtra");
 
-            StorageData.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
+            StorageDataAndRdB.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
             ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
 
-         //   StorageData.uploaddImagesAndDataImages(list2,PreviewsFormDatSContersEnAc.this);
+         //   StorageDataAndRdB.uploaddImagesAndDataImages(list2,PreviewsFormDatSContersEnAc.this);
 
           ///  HashMap<String , ImagenReport>mihasmap= Utils.creaHahmapNoDuplicado();
 
@@ -3244,7 +3244,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 
         //inicializamos STORAGE..
-        StorageData.initStorageReference();
+        StorageDataAndRdB.initStorageReference();
      //   dowloadImagesDataReport(Variables.CurrenReportPart1.getUniqueIDinformePart2());
 
       //  dowLoadProducsPostC(Variables.CurrenReportPart1.getUniqueIDinformePart2());
@@ -3659,7 +3659,7 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             int categoYCurrentImg=miLisAllImages.get(i).getTipoImagenCategory();
             String uniqueId=miLisAllImages.get(i).getUniqueIdNamePic();
             String descripcionImage=miLisAllImages.get(i).getDescripcionImagen();
-            StorageReference storageRef = StorageData.rootStorageReference.child("imagenes_all_reports/"+pathImage);
+            StorageReference storageRef = StorageDataAndRdB.rootStorageReference.child("imagenes_all_reports/"+pathImage);
 
 
             try {

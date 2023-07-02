@@ -2,11 +2,13 @@ package com.tiburela.qsercom.database;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -15,8 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.UploadTask;
 import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
-import com.tiburela.qsercom.activities.formularios.ActivityContenedores;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
 import com.tiburela.qsercom.activities.formularios.ActivityCuadMuestCalibAndRechaz;
@@ -39,7 +41,6 @@ import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.models.UsuarioQsercon;
-import com.tiburela.qsercom.storage.StorageData;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -357,7 +358,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
 
                        // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -394,7 +395,7 @@ public class RealtimeDB {
 
                     if(Utils.contadorTareasCompletadas==5){
 
-                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
 
                         // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -428,7 +429,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
 
                       //  Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -462,7 +463,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
 
                      //   Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -763,56 +764,8 @@ public class RealtimeDB {
     }
 
 
-    public static void addNewSetPicsInforme( ImagenReport objecImageReport, Context context,int indiceNew ) {
-
-        if(mibasedataPathImages==null ) {
-            initDatabasesReferenceImagesData();
-        }
 
 
-        Map<String, Object> mapValues = objecImageReport.toMap();
-        mibasedataPathImages.push().setValue(mapValues).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-
-                    Log.i("superstorage","se subio imagen report "+objecImageReport.getUrlStoragePic());
-                    StorageData.indiceCurrentOFlistIamges++;
-
-                    try {
-                        StorageData.uploaddImagesAndDataImages(StorageData.indiceCurrentOFlistIamges);
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    Log.i("succesxccc","succes aqui y el indice es "+StorageData.indiceCurrentOFlistIamges);
-
-
-                }else  {
-                    StorageData.indiceCurrentOFlistIamges++;
-                    Log.i("superstorage","no se subio imagen report "+objecImageReport.getUrlStoragePic());
-
-
-                    Log.i("succesxccc","no succes aqui y el indice es "+StorageData.indiceCurrentOFlistIamges);
-
-
-                    try {
-                        StorageData.uploaddImagesAndDataImages(StorageData.indiceCurrentOFlistIamges);
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-
-                    Log.i("pertenence","no se subio SEDATA y elerro es "+task.getException());
-
-                }
-            }
-        });
-
-
-    }
 
     public static void updateImagenReport( ImagenReport objecImageReport ) {
 
@@ -1114,7 +1067,7 @@ public class RealtimeDB {
                     Log.i("updatexxxx","es  UpdateProductosPostCosecha y el indice es "+Utils.contadorTareasCompletadas);
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateReportThread(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
                        // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
                     }
@@ -1727,6 +1680,85 @@ public class RealtimeDB {
 
 
     }
+    /*
+    public   void uploaddImagesAndDataImages2SinComprimir(ImagenReport currenImageReport, BottonSheetCallUploading.TrheadUploadImages objectThread) throws IOException {
 
+
+
+
+        Uri uriImage  = Uri.parse(currenImageReport.geturiImage());
+
+
+
+        imagename = ImageFolderReferenceImagesAll.child(currenImageReport.getUniqueIdNamePic());
+
+
+        boolean existValue=false;
+
+        if(null != uriImage) {
+            try {
+                inputStream = context.getContentResolver().openInputStream(uriImage);
+                inputStream.close();
+                existValue = true;
+            } catch (Exception e) {
+                Log.i("IMAGESTASKEdit","exepcion aqui y exist value es");
+            }
+        }
+
+        if(existValue){
+            imagename.putFile(uriImage).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
+            {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
+                {
+                    return imagename.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>()
+            {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task)
+                {
+                    if (task.isSuccessful())
+                    {
+                        Uri downloadUri = task.getResult();
+                        Log.e("TAG", "then: " + downloadUri.toString());
+                        Log.i("imagheddd","es succces vamos ");
+
+
+
+
+                        String iconPathFirebase = downloadUri.toString();
+                        currenImageReport.setUrlStoragePic(iconPathFirebase);
+                        Log.i("superstorage","se subio imagen y el url esd  al informe "+currenImageReport.getUrlStoragePic());
+
+
+                        addNewSetPicsInforme(currenImageReport,objectThread);
+
+
+                    }else{
+                        Variables.contadorImagenesSubidasSumaAll++;
+                        Variables.ErrorSubirImage=true;
+
+                        updateObjectGCurrentIndiceAndContadorUpload(objectThread);
+                        callThreadByNumHilo(objectThread);
+
+                    }
+
+
+
+                }
+            });
+
+
+            Log.i("IMAGESTASKEdit", "empezandoupload task");
+
+
+
+        }
+
+
+
+    }
+*/
 
 }

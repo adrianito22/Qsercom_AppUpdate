@@ -2,13 +2,10 @@ package com.tiburela.qsercom.PdfMaker;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.text.Layout;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -44,7 +41,7 @@ import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.tiburela.qsercom.models.ImagenReport;
-import com.tiburela.qsercom.storage.StorageData;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -1383,7 +1380,7 @@ return  myBitmap;
 
     private void dowloadAndSetImg(String imgPath, ImageView holder, Context context){
 
-         storageRef  = StorageData.rootStorageReference.child("imagenes_all_reports/"+imgPath);
+         storageRef  = StorageDataAndRdB.rootStorageReference.child("imagenes_all_reports/"+imgPath);
 
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
