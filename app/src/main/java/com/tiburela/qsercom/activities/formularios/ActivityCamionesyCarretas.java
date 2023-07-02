@@ -2429,28 +2429,22 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                         objecCamionesyCarretas.setAtachControCalidadInfrms(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString);
                     }
 
-
                     if( RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado !=null){
                         objecCamionesyCarretas.setAtachControCuadroMuestreo(RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado);
-
                     }
 
-
-                    Toast.makeText(ActivityCamionesyCarretas.this, "Espere, estamos subiendo", Toast.LENGTH_SHORT).show();
 
                      //informe actual
-                    RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
-
-                    try {
-                        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    addCalibracionFutaC_enfAndUpload(currenTidGenrate);
-                    addProdcutsPostCosechaAndUpload(currenTidGenrate); //agregamos y subimos los productos postcosecha..
-
+                  //  RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
+                     CalibrFrutCalEnf cali=     addCalibracionFutaC_enfAndUpload(currenTidGenrate);
+                    ProductPostCosecha producto= addProdcutsPostCosechaAndUpload(currenTidGenrate);
+                   ArrayList<ImagenReport>miList=updateAndCreateArrayListImages();
                     RealtimeDB.addNewRegistroInforme(ActivityCamionesyCarretas.this,informRegister);
+
+
+                   Utils. show_AND_UPLOAD_CamionesyCarretas(ActivityCamionesyCarretas.this,ActivityCamionesyCarretas.this,
+                           objecCamionesyCarretas,cali,informRegister,producto,miList,Variables.FormContenedores
+                   ,currentKeySharePrefrences);
 
 
                 }
@@ -2516,18 +2510,12 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-    void uploadImagesInStorageAndInfoPICS() throws IOException {
+     public   ArrayList<ImagenReport> updateAndCreateArrayListImages()  {
         //una lista de Uris
 
 
         Log.i("imagheddd","se llamometodoel size de lista es "+ImagenReport.hashMapImagesData.size());
 
-        if(ImagenReport.hashMapImagesData.size() ==0 ){
-            Log.i("imagheddd","es igual a cero");
-
-            Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         Log.i("imagheddd","es difrente de cero");
 
@@ -2540,8 +2528,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         ImagenReport.updateIdPerteence(StorageDataAndRdB.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
 
         ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
-     ///   StorageDataAndRdB.uploaddImagesAndDataImages(list,ActivityCamionesyCarretas.this);
 
+        return  list;
 
     }
 
@@ -3336,7 +3324,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
 
-    private void  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
+    private   ProductPostCosecha  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
 
         ProductPostCosecha producto=new ProductPostCosecha(uniqueIDinforme);
         //creamos un array de editext
@@ -3431,14 +3419,13 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         }
 
+       return producto;
 
-
-        RealtimeDB.UploadProductosPostCosecha(producto);
 
 
     }
 
-    private void  addCalibracionFutaC_enfAndUpload(String reportPerteence){
+    private CalibrFrutCalEnf  addCalibracionFutaC_enfAndUpload(String reportPerteence){
 
         //recorremos un array de editext y creamos un objeto de tipo CalibrFrutCalEnf..
         //si no tiene data agregamos cero u comillas...
@@ -3532,9 +3519,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         }
 
+return  calibrFrutCalEnf;
 
-
-        RealtimeDB.UploadCalibracionFrutCal(calibrFrutCalEnf);
 
 
     }

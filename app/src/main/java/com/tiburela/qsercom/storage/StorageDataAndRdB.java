@@ -434,7 +434,7 @@ public static int counTbucle=0;
 
               if(Utils.esNuevoReport){
 
-                  BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.FINISH_ALL_UPLOAD);
+                  BottonSheetCallUploading.uploadConteendoresForm(Variables.FINISH_ALL_UPLOAD);
                   Log.i("finalizando","se eejcuto el if ");
               }
 

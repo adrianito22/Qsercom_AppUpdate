@@ -50,6 +50,7 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
+import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.Exportadora;
@@ -57,6 +58,7 @@ import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
 import com.tiburela.qsercom.models.PromedioLibriado;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -1555,6 +1557,29 @@ return true;
 
         alertDialog.setCancelable(false);
        // alertDialog.setc(false);
+        alertDialog.show(fm, "duialoffragment_alert");
+
+
+
+    }
+
+    public static void show_AND_UPLOAD_CamionesyCarretas(Activity activity, Context contexta, ReportCamionesyCarretas camionesyCarretas,
+                                                   CalibrFrutCalEnf calibracEnfunde, InformRegister informRegisterx, ProductPostCosecha productos, ArrayList<ImagenReport>listImages,
+                                                         int ActivityId,String keyPrefrencesx)
+    {
+        FragmentManager fm =((FragmentActivity)activity). getSupportFragmentManager();
+
+
+
+        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,camionesyCarretas,calibracEnfunde  ,informRegisterx,productos,listImages,ActivityId);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("keyPrefrencesReportCurrent", keyPrefrencesx);
+        alertDialog.setArguments(bundle);
+
+
+        alertDialog.setCancelable(false);
+        // alertDialog.setc(false);
         alertDialog.show(fm, "duialoffragment_alert");
 
 

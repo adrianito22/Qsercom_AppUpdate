@@ -37,6 +37,7 @@ public class Variables {
     public static   int numImagenesSubirTotal=0;
 
 
+    public static  final int CALIBRACIONES_CALENDARIO_ENFUNDE=8555174; //5,4,6,  //LA SUMA DE TODO Y EL RESULTADO SE MULTIPLICA X 2.25 ;
 
 
 
@@ -47,6 +48,7 @@ public class Variables {
     public static  final int CAJA_default=502;
 
     public static   int currentTipoCaja=0;
+    public static  int OBJECT_CAMIONESYCARRETAS=111;
 
     public static  int contadorDataUpladed=0;
     public static  int contador=100;
@@ -128,6 +130,8 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
     public static final int   FormContenedores =10066;
     public static final int   FormPreviewContenedores =10060;
     public static final int   FormCantrolCalidad=10072;
+    public static final int   FormCantrolCalidadPreview=1065072;
+
     public static final int   FormPackingList=10073;
     public static final int   FormMuestreoRechaz=10074;
 

@@ -644,7 +644,6 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                     informRegister=ds.getValue(InformRegister.class);
                 }
 
-
                 if(informRegister == null) { //quiere decir que no existe aun este id
 
                     currentIdFormHERE=currenTidGenrate;
@@ -660,9 +659,7 @@ public class ActivityCuadMuestCalibAndRechaz extends AppCompatActivity implement
                    // HashMap<String,ColorCintasSemns>mapita= iterateItemsOfReciclerViewAndAddDataToMap(mireciclerv);
                     RealtimeDB.addNewCuadroMuestreoHasMap(mapita,cuadroMuetreo.getNodoKyDondeEstaHasmap()); //subimos el mapa ,le pasamos el mapa como cparaametro y el key donde estara
                     RealtimeDB.addNewRegistroInforme(ActivityCuadMuestCalibAndRechaz.this,informRegister);
-
                      /**no mejor otra forma para detecra si se subio e todas un contador hasta */
-
                     finish();
 
 

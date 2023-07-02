@@ -491,7 +491,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ly_defectos_preview);
 
-
+        Variables.activityCurrent=Variables.FormCantrolCalidadPreview;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             isAtach = extras.getBoolean("ShowAtach");

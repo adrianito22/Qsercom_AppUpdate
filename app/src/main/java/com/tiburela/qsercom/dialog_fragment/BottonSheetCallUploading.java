@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,13 +30,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tiburela.qsercom.R;
-import com.tiburela.qsercom.callbacks.ContenedoresCallback;
 import com.tiburela.qsercom.database.RealtimeDB;
+import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
-import com.tiburela.qsercom.models.RegisterTest;
+import com.tiburela.qsercom.models.ReportCamionesyCarretas;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
@@ -47,7 +46,6 @@ import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -58,11 +56,14 @@ import java.util.Map;
 public class BottonSheetCallUploading extends BottomSheetDialogFragment {
         public static final String TAG = "ActionBottomDialog";
         private View vista;
+
+        static CalibrFrutCalEnf calendariox;
+
     public static StorageReference rootStorageReference;
     static Bitmap bitmapOriginal;
     static UploadTask uploadTask;
     TrheadUploadImages thread1;
-
+    static ReportCamionesyCarretas camionesyCarretasx;
     String textoImagenesPorSubir="";
 
     static StorageReference imagename;
@@ -72,14 +73,11 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
     static final StorageReference ImageFolderReferenceImagesAll =  FirebaseStorage.getInstance().getReference().child("imagenes_all_reports");//esta iniiclizarla antes
 
     static   byte[] data;
- //  public  TrheadUploadImages thread2;
 
 
     private static String keyPrefrencesIfUserSaveReportLocale="";
           static  Thread thread;
    static  Handler handler1 = new Handler();
-    CoordinatorLayout lineaLyaout;
-    int indicex=0;
     static ProgressBar progressBar;
     static TextView txtTitle;
     static ImageView imgIcon;
@@ -90,18 +88,10 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
     static  ArrayList<ImagenReport>listImagesx;
 
 
-
-
    static int activityIdx;
     static  TextView txtSubTitle;
-    ArrayList<String>allkeys= new ArrayList<>();
-   static Context context;
+    static Context context;
 
-   Activity ContenedoresObject;
-
-    public static ContenedoresCallback callbackContenedores;
-
-    static RegisterTest register1object1x,  register1object2x,  register1object3x;
 
 
 
@@ -122,6 +112,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
    static  HashMap<String, String> hasHmapOtherFieldsEditxsx;
    static  HashMap<String,String>hasMapitemsSelecPosicRechazToUploadx;
 
+
+   /***CONTROL CALIDAD*/
     public static BottonSheetCallUploading newInstance(Context contexta, ControlCalidad controlCalidad, HashMap<String, String> hasHmapOtherFieldsEditxs,
                                                           HashMap<String,String>hasMapitemsSelecPosicRechazToUpload, InformRegister informRegisterx, int ActivityId) {
         context=contexta;
@@ -135,10 +127,10 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
     }
 
 
-
+    /***CONTENEDORES*/
     public static BottonSheetCallUploading newInstance(Context contexta, SetInformEmbarque1 informEmbq1, SetInformEmbarque2 informEmbq2,
-                                                       SetInformDatsHacienda datoshda, InformRegister informRegisterx,
-                                                       ProductPostCosecha productos, ArrayList<ImagenReport>listImages, HashMap<String, Float> miMapLbriadox,int ActivityId) {
+                                                       SetInformDatsHacienda datoshda, InformRegister informRegisterx, ProductPostCosecha productos,
+                                                       ArrayList<ImagenReport>listImages, HashMap<String, Float> miMapLbriadox,int ActivityId) {
         context=contexta;
         informe1=informEmbq1;
         informe2=informEmbq2;
@@ -152,24 +144,28 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
     }
 
-    /***pARA CONTENEDORES*/
-    public static BottonSheetCallUploading newInstance(Context contexta, RegisterTest register1object1, RegisterTest register1object2, RegisterTest register1object3,
-                                                       ArrayList<ImagenReport>listImages,int ActivityId) {
-        context=contexta;
+    /***CAMIONES Y CARRETAS*/
+    public static BottonSheetCallUploading newInstance(Context contexta, ReportCamionesyCarretas camionesyCarretas,
+                                                       CalibrFrutCalEnf calendario,
+                                                       InformRegister informRegisterx, ProductPostCosecha productos,
+                                                       ArrayList<ImagenReport>listImages, int ActivityId) {
 
-        register1object1x=register1object1;
-        register1object2x=register1object2;
-        register1object3x=register1object3;
+        calendariox=calendario;
+        camionesyCarretasx=camionesyCarretas;
+        context=contexta;
+        informRegister=informRegisterx;
+        productosPoscosecha=productos;
         listImagesx=listImages;
         activityIdx=ActivityId;
+        return new BottonSheetCallUploading();
 
-            return new BottonSheetCallUploading();
-
-        }
-
+    }
 
 
-        @Nullable
+
+
+
+    @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
@@ -207,26 +203,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             });
 
 
-               if(Utils.esNuevoReport){
+        decideMethodCallUpdate(activityIdx);
 
-                    if(activityIdx==Variables.FormCantrolCalidad){
-                        UploadControlCalidad(Variables.CONTROL_CALIDAD_OBJECT);
-                    }else {
-                        uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque1);
-                    }
-               }
-               else
-               {
 
-                   Utils.contadorTareasCompletadas=0;
-
-                   UpdateReportAndCallThreads(Variables.SEVERAL_INFORMS_UPDATE);
-
-                   //aqui llamos el nuevo metodo
-                 //  f
-                  // UpdateReportThread();
-
-               }
 
             return  vista;
 
@@ -249,9 +228,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
 
-
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -265,279 +241,135 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
 
-
-
-
-
-
-
-    private void setProgres(ProgressBar bar,int numUploadsTOUpload, int numUploaded){
-             if(numUploadsTOUpload==0){
-                 return;
-             }
-        //cual es el porciento que reperesenta esta cantidad ..
-        int percent=(numUploaded*100)/numUploadsTOUpload;
-        bar.setProgress(percent);
-
-        Log.i("misdatagsdf","el percent es "+percent);
-
-    }
-
-
-
-    public static void uploadInsertClassQuevamosSubir(int tipoObjectoQueSubiremosNow){
+    public static void uploadConteendoresForm(int tipoObjectoQueSubiremosNow){
      /**en llamos a este metodo agreghando el tipo de objeto class que subiremos */
-        final int[] valuePercent = {0};
 
-
-         if(thread!=null && thread.isAlive()){
-          Log.i("isalivebbd","is alive aqui");
-
-         }
-
-         thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {//esto en BACGROUND
-
-                if(activityIdx==Variables.FormContenedores){
-
-                    if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque1){
-                        valuePercent[0] =10;
-
-                         if(Utils.esNuevoReport){
-                             RealtimeDB.addNewDSetinformEmarque1(informe1);
-                         }else{
-                             RealtimeDB.updateSetinformEmbarq1(informe1);
-                         }
-
-                        Log.i("finalizando","FISRT");
-
-                    }
-                    else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque2){
-
-                        valuePercent[0] =20;
-
-                        if(Utils.esNuevoReport){
-
-                            RealtimeDB.addNewInformeEmbarque2(context,informe2); //addNewInformeEmbarque2
-
-                        }else{
-                            RealtimeDB.actualizaInformePart2(informe2); //es dedcion
-                        }
-
-
-                        Log.i("finalizando","SECOND");
-
-                    }
-
-                    else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformDatsHacienda){
-
-
-                        valuePercent[0] =30;
-                        Log.i("finalizando","THIRD");
-
-                        if(Utils.esNuevoReport){
-
-                            RealtimeDB.addNewDSetinformEmarque1(informe3); //por ejempo en este metodo cuando suba el refiter form/..
-
-                        }else{
-                            RealtimeDB.actualizaInformePart3(informe3); //es dedcion
-                        }
-
-
-
-                        //cuando llamemos a register terminamos todo...
-                    }
-
-                    else if(tipoObjectoQueSubiremosNow== Variables.LIBRIADO_IF_EXIST){
-
-
-                        valuePercent[0] =40;
-
-
-
-                        if(Utils.esNuevoReport){
-
-                            RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //por ejempo en este metodo cuando suba el refiter form/..
-
-                        }else{
-                            RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //es dedcion
-                        }
-
-
-
-
-                        Log.i("finalizando","THIRD");
-
-                        //cuando llamemos a register terminamos todo...
-                    }
-
-                    else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
-                        valuePercent[0] =75;
-
-
-
-
-                        if(Utils.esNuevoReport){
-
-                            RealtimeDB.UploadProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
-
-                        }else{
-
-                         //   RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha,productosPoscosecha.keyFirebase); //es dedcion
-
-
-                        }
-
-
-
-
-                    }
-
-                    else if(tipoObjectoQueSubiremosNow== Variables.INFORM_REGISTER){  //PENULTIMO
-                        valuePercent[0] =80;
-                        RealtimeDB.addNewRegistroInforme(context,informRegister);
-
-
-                        //CUANDO SUBAMOS INFORM REGISTER TERMINAMOS...
-                    }
-
-
-                    else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
-                        valuePercent[0] =85;
-
-                        Log.i("finalizando","THOURT");
-
-                        try {
-
-                            StorageDataAndRdB.initImagenesAllAndArrayListAndContext(listImagesx,context);
-                            StorageDataAndRdB.uploaddImagesAndDataImages(0);
-
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-
-
-                    }
-
-                    else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){ // ULTIMO .ESTE LLAMOS DESPUES DE SUBIR TODOS EN INFORM RESGITER
-                        valuePercent[0] =100;
-
-                        Log.i("finalizando","ok hemos terminado 100%");
-
-
-                        if(!keyPrefrencesIfUserSaveReportLocale.equals("")){
-                              SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
-                          }
-                           //AQUI GUARDAMOS UNICAMNTE SI ESTE OBJETO CONTIENE PREFRENCIAS..
-
-                        //CUANDO SUBAMOS INFORM REGISTER TERMINAMOS...
-                    }
-
-                }
-
-
-
-
-
-
-
-
-                handler1.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if(progressBar!=null){
-                            progressBar.setProgress(valuePercent[0]); //esto en interfas
-                            if(valuePercent[0]==85){
-
-                                txtSubTitle.setText("Espere");
-                                txtSubTitle.setText("Subiendo imagenes...");
-
-                            }
-
-                           else if(valuePercent[0]==100 ){
-
-                                Log.i("finalizando","value percent es igual a 100");
-
-                                txtSubTitle.setText("Hurra, se subio");
-                                txtTitle.setText("100% COMPLETADO");
-
-                                btnOkButton.setVisibility(View.VISIBLE);
-                                // imgIcon.setVisibility(View.VISIBLE);
-                                imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
-                                btnOkButton.setEnabled(true);
-
-                            }
-
-                        }
-
-
-
-                    }
-                });
-
+            if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque1){
+                RealtimeDB.addNewDSetinformEmarque1(informe1);
             }
-        });   //call it
-        thread.start();
+            else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque2){
+                RealtimeDB.addNewInformeEmbarque2(context,informe2); //addNewInformeEmbarque2
+                Log.i("finalizando","SECOND");
+            }
+            else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformDatsHacienda){
+                RealtimeDB.addNewDSetinformEmarque1(informe3); //por ejempo en este metodo cuando suba el refiter form/..
+                //cuando llamemos a register terminamos todo...
+            }
+
+            else if(tipoObjectoQueSubiremosNow== Variables.LIBRIADO_IF_EXIST){
+                RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //por ejempo en este metodo cuando suba el refiter form/..
+            }
+
+            else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
+                RealtimeDB.UploadProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
+            }
+
+            else if(tipoObjectoQueSubiremosNow== Variables.INFORM_REGISTER){  //PENULTIMO
+                RealtimeDB.addNewRegistroInforme(context,informRegister);
+            }
+
+
+            else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
+                BottonSheetCallUploading BTON= new BottonSheetCallUploading();
+                BTON.callThreadImagenesUpload();
+
+                if(!keyPrefrencesIfUserSaveReportLocale.equals("")){
+                    SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
+                }
+            }
+
+    }
+
+
+       5
+    /**probar camiones y carretas flujo ,pero antes chekear que este todo bien en codigo y depsues testear
+     * depues seguirira preview camiones y carretas mas o menos simsilar al de subida de camiones y carretas asi es mas facil..
+     * ,, depsues conteendoires en acopio y conteenedores en acopio preview..*/
+
+
+    public static void uploadCamionesYcarretas(int tipoObjectoQueSubiremosNow){
+
+        if(tipoObjectoQueSubiremosNow== Variables.OBJECT_CAMIONESYCARRETAS){
+            RealtimeDB.addNewReportCalidaCamionCarrretas(camionesyCarretasx);
+        }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
+            RealtimeDB.UploadProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
+        }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.CALIBRACIONES_CALENDARIO_ENFUNDE){
+            RealtimeDB.UploadCalibracionFrutCal(calendariox); //por ejempo en este metodo cuando suba el refiter form/..
+        }
 
 
 
+        else if(tipoObjectoQueSubiremosNow== Variables.INFORM_REGISTER){  //PENULTIMO
+            RealtimeDB.addNewRegistroInforme(context,informRegister);
+        }
 
+
+        else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
+            BottonSheetCallUploading BTON= new BottonSheetCallUploading();
+            BTON.callThreadImagenesUpload();
+
+            if(!keyPrefrencesIfUserSaveReportLocale.equals("")){
+                SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
+            }
+        }
+
+    }
+
+
+    public static void uploadConteendoresEnAcopio(int tipoObjectoQueSubiremosNow){
+        /**en llamos a este metodo agreghando el tipo de objeto class que subiremos */
+
+        if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque1){
+            RealtimeDB.addNewDSetinformEmarque1(informe1);
+        }
+        else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque2){
+            RealtimeDB.addNewInformeEmbarque2(context,informe2); //addNewInformeEmbarque2
+            Log.i("finalizando","SECOND");
+        }
+        else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformDatsHacienda){
+            RealtimeDB.addNewDSetinformEmarque1(informe3); //por ejempo en este metodo cuando suba el refiter form/..
+            //cuando llamemos a register terminamos todo...
+        }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.LIBRIADO_IF_EXIST){
+            RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //por ejempo en este metodo cuando suba el refiter form/..
+        }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
+            RealtimeDB.UploadProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
+        }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.INFORM_REGISTER){  //PENULTIMO
+            RealtimeDB.addNewRegistroInforme(context,informRegister);
+        }
+
+
+        else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
+            BottonSheetCallUploading BTON= new BottonSheetCallUploading();
+            BTON.callThreadImagenesUpload();
+
+            if(!keyPrefrencesIfUserSaveReportLocale.equals("")){
+                SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
+            }
+        }
 
     }
 
 
 
-
-
-    public void UpdateReportInform(){
-
-            Log.i("IMAGESTASKEdit","FINISH_ONLY_UPLOAD_REPORT llanado");
-            ///mirtad en uno y la mitad en ek resto
-
-            ArrayList<ImagenReport>images1 = new ArrayList<>();
-            ArrayList<ImagenReport>images2 = new ArrayList<>();
-
-            int resto=listImagesx.size() % 2;
-
-            if(resto==0){ //quiere decir que es mitad exacta y no sobra nada
-                for(int indice=0; indice< listImagesx.size(); indice++){  //tine 10 items
-                    if(indice<listImagesx.size()/2){
-                        images1.add(listImagesx.get(indice));
-                    }
-                    else{
-                        images2.add(listImagesx.get(indice));
-                    }
-                }
-            }else{  ///no es mitad exacta
-
-                for(int indice=0; indice< listImagesx.size(); indice++){  //tine 10 items
-                    if(indice<(listImagesx.size()-1)/2){
-                        images1.add(listImagesx.get(indice));
-                    }
-                    else{
-                        images2.add(listImagesx.get(indice));
-                    }
-                }
-            }
-
+    public void callThreadImagenesUpload(){
 
             /**las imagenes por subir y contador de imagenes subidas reseteamos las subidas*/
             Variables.numImagenesSubirTotal=listImagesx.size();
             Variables.contadorImagenesSubidasSumaAll =0;
             StorageDataAndRdB.initContexta(context);
 
-            Log.i("IMAGESTASKEdit","el list 1 tiene size de  "+images1.size());
-            Log.i("IMAGESTASKEdit","el list 2 tiene size de "+images2.size());
             Log.i("IMAGESTASKEdit","la cantidad de imagenes a subir es: "+Variables.numImagenesSubirTotal);
 
-             /***si no usaremos estos objetos de forma global*/
-
-           // thread1=new TrheadUploadImages(listImagesx);  //dejemoslo en un solo hilo aqui
-            //thread1.startThreadMismoObject(thread1);
-//
                   textoImagenesPorSubir= ""+Variables.contadorImagenesSubidasSumaAll+" imagenes subidas de "+Variables.numImagenesSubirTotal;
                  txtTitle.setText(textoImagenesPorSubir);
 
@@ -547,7 +379,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
     }
 
- public  static void UpdateReportAndCallThreads(int reportTiPOSubidoAndState){
+ public  static void UpdateConteendores(int reportTiPOSubidoAndState){
 
      if(reportTiPOSubidoAndState== Variables.SEVERAL_INFORMS_UPDATE){
          RealtimeDB.updateSetinformEmbarq1(informe1);
@@ -560,104 +392,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
      else if(reportTiPOSubidoAndState== Variables.IMAGENES_SET_DE_REPORTE){  //ahora rtocan las imagenes
 
          BottonSheetCallUploading BTON= new BottonSheetCallUploading();
-         BTON.UpdateReportInform();
+         BTON.callThreadImagenesUpload();
 
      }
-
-
-
-
-
-
-}
-
-
-public   void treadImagesx(int  tipoObjectoQueSubiremosNow){
-
-        //divismos la lista en 2 y llamaos dos suprocesos o 3 paraver que pasa....
-       //cuando
-       ///enviar 2 apps para ver.....
-    //probar si necesidad de convertir en otro bitmap parce que puede ir mas rapido..
-
-    final int[] valuePercent = {0};
-
-    thread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-             if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){
-                Log.i("updatexxxx","IMAGENES_SET_DE_REPORTE");
-                valuePercent[0] =50;
-                try {
-                    StorageDataAndRdB.initImagenesAllAndArrayListAndContext(listImagesx, context);
-                    StorageDataAndRdB.uploaddImagesAndDataImages(0);
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-            }
-
-            else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
-                Log.i("updatexxxx","FINISH_ALL_UPLOAD");
-                valuePercent[0] =100;
-
-            }
-
-//es dedcion
-            handler1.post(new Runnable() {
-                @Override
-                public void run() {
-
-                    if(progressBar!=null){
-
-                        if(valuePercent[0]==50) {
-                            progressBar.setProgress(20); //esto en interfas
-                            Log.i("finalizando", "value percent es igual a 100");
-
-                             /*
-                             txtSubTitle.setText("Hurra, se subio");
-                             txtTitle.setText("100% COMPLETADO");
-
-                             btnOkButton.setVisibility(View.VISIBLE);
-                             // imgIcon.setVisibility(View.VISIBLE);
-                             imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
-                             btnOkButton.setEnabled(true);
-
-                              */
-
-                        }
-                        else if (valuePercent[0]==100) {
-
-                            progressBar.setProgress(100); //esto en interfas
-                            Log.i("updatexxxx", "update todos hurra");
-
-                            txtSubTitle.setText("Hurra, se subio");
-                            txtTitle.setText("100% COMPLETADO");
-
-                            btnOkButton.setVisibility(View.VISIBLE);
-                            // imgIcon.setVisibility(View.VISIBLE);
-                            imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
-                            btnOkButton.setEnabled(true);
-
-
-
-                        }
-                    }
-
-
-                }
-            });
-
-
-
-
-            //cuando termine esto vamos a darle..
-
-        }
-    });   //call it
-    thread.start();
-
-
 
 }
 
@@ -791,8 +528,6 @@ public   void treadImagesx(int  tipoObjectoQueSubiremosNow){
             seSubioAlLImagenesSet =false;
 
         }
-
-
 
 
 
@@ -1045,34 +780,53 @@ public   void treadImagesx(int  tipoObjectoQueSubiremosNow){
     }
 
 
-    private static void uploadFS(final File[] files, final StorageReference certRef, int startIndex, int concurrent) {
-        int cnt = 0;
-        File file;
-        Uri uriFile;
-        StorageReference ref;
-        while (cnt < concurrent) {
-            file = files[startIndex];
-            startIndex++;
-            if (file.exists() && file.length() > 0) { // local cert file exits
-                uriFile = Uri.fromFile(file);
-                final int sIdx = startIndex;
-                ref = certRef.child("cert/" + uriFile.getLastPathSegment());
-                ref.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        uploadFS(files, certRef, sIdx, 1);
+    static void decideMethodCallUpdate(int idActivity){
 
-                    }
-                });
-            }
-            cnt++;
+     //   Utils.contadorTareasCompletadas=0;
+
+        switch(idActivity){
+
+            case Variables.FormCantrolCalidad:
+                UploadControlCalidad(Variables.CONTROL_CALIDAD_OBJECT);
+
+                break;
+            case Variables.FormCantrolCalidadPreview:
+                break;
+
+            case Variables.FormContenedores:
+                uploadConteendoresForm(Variables.OBJECT_SetInformEmbarque1);
+                break;
+
+            case Variables.FormPreviewContenedores:
+                UpdateConteendores(Variables.SEVERAL_INFORMS_UPDATE);
+                break;
+
+
+            case Variables.FormCamionesyCarretasActivity:
+                uploadCamionesYcarretas(Variables.OBJECT_CAMIONESYCARRETAS);
+                break;
+
+
+            case Variables.FormCamionesyCarretasActivityPreview:
+                break;
+
+
+            case Variables.FormatDatsContAcopi:
+                break;
+
+
+            case Variables.FormatDatsContAcopiPREVIEW:
+                break;
+
+
         }
-    }
 
-    public static void uploadCert() {
 
     }
+
+
+
 
 }
 

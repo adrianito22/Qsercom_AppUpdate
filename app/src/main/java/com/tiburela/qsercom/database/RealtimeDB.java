@@ -2,13 +2,11 @@ package com.tiburela.qsercom.database;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.UploadTask;
 import com.tiburela.qsercom.activities.formularios.ActivityCamionesyCarretas;
 import com.tiburela.qsercom.activities.formularios.ActivityContersEnAcopio;
 import com.tiburela.qsercom.activities.formularios.ActivityControlCalidad;
@@ -44,7 +41,6 @@ import com.tiburela.qsercom.models.UsuarioQsercon;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -193,7 +189,7 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.OBJECT_SetInformEmbarque2);
+                    BottonSheetCallUploading.uploadConteendoresForm( Variables.OBJECT_SetInformEmbarque2);
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -227,7 +223,7 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.LIBRIADO_IF_EXIST);
+                    BottonSheetCallUploading.uploadConteendoresForm( Variables.LIBRIADO_IF_EXIST);
 
 
 
@@ -262,6 +258,8 @@ public class RealtimeDB {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+
+                     BottonSheetCallUploading.uploadCamionesYcarretas(Variables.PRODUCTS_POST_COSECHA);
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -317,7 +315,7 @@ public class RealtimeDB {
 
     public static void addNewhasmapPesoBrutoClosters2y3L( HashMap<String, Float> miMapa,String keyOrNodeToUpload) {
         if(miMapa.size()==0){
-            BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.PRODUCTS_POST_COSECHA);
+            BottonSheetCallUploading.uploadConteendoresForm(Variables.PRODUCTS_POST_COSECHA);
 
             return;
         }
@@ -332,7 +330,7 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.PRODUCTS_POST_COSECHA);
+                    BottonSheetCallUploading.uploadConteendoresForm(Variables.PRODUCTS_POST_COSECHA);
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
                 }else  {
@@ -358,7 +356,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
 
                        // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -395,7 +393,7 @@ public class RealtimeDB {
 
                     if(Utils.contadorTareasCompletadas==5){
 
-                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
 
                         // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -429,7 +427,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
 
                       //  Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -463,7 +461,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
 
                      //   Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -608,7 +606,7 @@ public class RealtimeDB {
 
                     //lo borramos...
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.OBJECT_SetInformDatsHacienda);
+                    BottonSheetCallUploading.uploadConteendoresForm( Variables.OBJECT_SetInformDatsHacienda);
 
 
                     try {
@@ -811,14 +809,31 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.INFORM_REGISTER);
+
+
+                    if(Variables.activityCurrent==Variables.FormContenedores){
+
+                        BottonSheetCallUploading.uploadConteendoresForm( Variables.INFORM_REGISTER);
+
+
+                    } else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivity){
+                        BottonSheetCallUploading.uploadCamionesYcarretas( Variables.CALIBRACIONES_CALENDARIO_ENFUNDE);
+
+                    }
+
+
+                    }else{
+
+                    //no se subio
+                }
+
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
-                }else  {
 
 
-                }
+
+
             }
         });
 
@@ -983,6 +998,13 @@ public class RealtimeDB {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                      if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivity){
+
+                          BottonSheetCallUploading.  uploadCamionesYcarretas(Variables.INFORM_REGISTER);
+
+                      }
+
+
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -1067,7 +1089,7 @@ public class RealtimeDB {
                     Log.i("updatexxxx","es  UpdateProductosPostCosecha y el indice es "+Utils.contadorTareasCompletadas);
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateReportAndCallThreads(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
                        // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
                     }
@@ -1347,52 +1369,42 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
 
 
-                    Log.i("misdjad","is sucefull here aqwui ");
+                    switch(Variables.activityCurrent){
+                        case Variables.FormContenedores:
+                            BottonSheetCallUploading.uploadConteendoresForm(Variables.IMAGENES_SET_DE_REPORTE);
+                            break;
 
-                    if(Variables.activityCurrent==Variables.FormContenedores || Variables.activityCurrent==Variables.FormPreviewContenedores ){
-                        BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.IMAGENES_SET_DE_REPORTE);
+
+                        case Variables.FormPreviewContenedores:
+                            break;
+
+                        case Variables.FormCamionesyCarretasActivity:
+                            BottonSheetCallUploading.uploadCamionesYcarretas(Variables.IMAGENES_SET_DE_REPORTE);
+                            break;
+
+
+
+                        case Variables.FormMuestreoRechaz:
+                            if(ActivityCuadMuestCalibAndRechaz.callbackUploadNewReport !=null){
+                                ActivityCuadMuestCalibAndRechaz.callbackUploadNewReport.uploadNewForm();}
+                            break;
+
+
+                        case Variables.FormCantrolCalidad:
+                            Variables.contadorDataUpladed++;
+                            if(Variables.contadorDataUpladed==4){
+                                BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);}
+                            break;
+
+
+                       }
+
 
                     }
 
-                    else if(Variables.activityCurrent==Variables.FormMuestreoRechaz){
-                        Log.i("misdjad","lsalakd ");
-
-
-                        if(ActivityCuadMuestCalibAndRechaz.callbackUploadNewReport !=null){
-                            ActivityCuadMuestCalibAndRechaz.callbackUploadNewReport.uploadNewForm();
-
-                            Log.i("misdjad","se llamo callback ");
-
-                        }
-
-
-
-                    }
-
-                    else if(Variables.activityCurrent==Variables.FormCantrolCalidad){
-                        Variables.contadorDataUpladed++;
-
-                        if(Variables.contadorDataUpladed==4){
-
-                            BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
-
-
-                        }
-
-
-                        // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
-
-                    }
-
-
-
-                }else  {
+                else { //si es un error de subida..
 
                         BottonSheetCallUploading.UploadControlCalidad(Variables.ERROR_SUBIDA);
-
-                  //  Toast.makeText(context, "Ocurrio un Error, revisa tu conexion Internet", Toast.LENGTH_LONG).show();
-
-
                 }
             }
         });
@@ -1592,7 +1604,7 @@ public class RealtimeDB {
 
                     /**vamos a llamar a otro*/
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir(Variables.OBJECT_SetInformEmbarque2);
+                    BottonSheetCallUploading.uploadConteendoresForm(Variables.OBJECT_SetInformEmbarque2);
 
                     Log.i("hurraterminamos","aqui hemos terminado hurra");
 
@@ -1625,7 +1637,7 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
 
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.OBJECT_SetInformDatsHacienda);
+                    BottonSheetCallUploading.uploadConteendoresForm( Variables.OBJECT_SetInformDatsHacienda);
 
                 }else  {
 
@@ -1661,7 +1673,7 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    BottonSheetCallUploading.uploadInsertClassQuevamosSubir( Variables.IMAGENES_SET_DE_REPORTE);
+                    BottonSheetCallUploading.uploadConteendoresForm( Variables.IMAGENES_SET_DE_REPORTE);
 
 
 
