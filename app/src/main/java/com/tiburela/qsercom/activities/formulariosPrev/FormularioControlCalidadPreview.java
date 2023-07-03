@@ -2043,7 +2043,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         for (int i = 0; i < arrayNJumsTOmult.length; i++) {
 
-            int productResult =0;
+            float productResult =0;
 
 
             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
@@ -2056,7 +2056,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             else {
 
 
-                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                productResult =Float.parseFloat(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
 
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
@@ -2580,9 +2580,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
 
-                sumaItemsFilaArriba=sumaItemsFilaArriba + Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+                sumaItemsFilaArriba=sumaItemsFilaArriba + Float.parseFloat(arrayEditsFilaArriba[i].getText().toString());
 
-                sumaItemsFilaAbajo=sumaItemsFilaAbajo + Integer.parseInt(arrayEditsFilaAbajo[i].getText().toString());
+                sumaItemsFilaAbajo=sumaItemsFilaAbajo + Float.parseFloat(arrayEditsFilaAbajo[i].getText().toString());
 
             }
 
@@ -2747,7 +2747,7 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
 
         for (int i = 0; i < arrayNJumsTOmult.length; i++) {
 
-            int productResult =0;
+            float productResult =0;
 
             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
                 arrayEditsFilaAbajo [i].getText().clear();
@@ -2758,10 +2758,10 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
             else {
 
 
-                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                productResult =Float.parseFloat(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
-                totalFila1=totalFila1+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+                totalFila1=totalFila1+Float.parseFloat(arrayEditsFilaArriba[i].getText().toString());
                 totalFial2=totalFial2+productResult;
 
 

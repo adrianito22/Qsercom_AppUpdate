@@ -1754,11 +1754,11 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
     Variables.mimapaDatosProcesMapCurrent= new HashMap<>();
 
 
-    if(! Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
+    if(! Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas,PreviewsFormDatSContersEnAc.this)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
         Log.i("caramba", "aqui es return");
-
         return false;
     }
+
 
 
     int numeroCajas=0;

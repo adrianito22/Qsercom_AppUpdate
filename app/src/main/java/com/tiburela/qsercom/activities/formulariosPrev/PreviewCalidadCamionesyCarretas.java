@@ -20,8 +20,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -56,8 +54,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -68,7 +64,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
-import com.tiburela.qsercom.PdfMaker.PdfMakerCamionesyCarretas;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
@@ -80,7 +75,6 @@ import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
-import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -106,8 +100,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implements View.OnClickListener  {
@@ -1782,7 +1774,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         }
 
 
-        if (!checkQueexistminim()) {
+        if (!checkQueexistminimCalibracionCalendario()) {
             Log.i("test001", "no esta lleno  checkDataCalibFrutaCalEnfn");
 
             return;
@@ -4347,7 +4339,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
         }
 
 
-        if (!checkQueexistminim()) {
+        if (!checkQueexistminimCalibracionCalendario()) {
             Log.i("test001", "no esta lleno  checkDataCalibFrutaCalEnfn");
             return;
         }
@@ -4778,8 +4770,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
     }
 
 
-
-    private boolean checkQueexistminim() {
+    private boolean checkQueexistminimCalibracionCalendario() {
 
         EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
         EditText ediColortSem13 = findViewById(R.id.ediColortSem13);
@@ -4821,74 +4812,6 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
             if (!current.getText().toString().trim().isEmpty()) {
                 String value = current.getText().toString();
                 indice++;
-
-                switch (current.getId()) {
-                    case R.id.ediColortSem14:
-                        break;
-
-                    case R.id.ediColortSem13:
-                        break;
-
-                    case R.id.ediColortSem12:
-                        break;
-
-
-                    case R.id.ediColortSem11:
-                        break;
-
-
-                    case R.id.ediColortSem10:
-
-                        break;
-
-
-                    case R.id.ediColortSem9:
-
-                        break;
-
-
-                    case R.id.ediNumRcim14:
-                        break;
-
-
-                    case R.id.ediNumRcim13:
-
-                        break;
-
-                    case R.id.ediNumRcim12:
-                        break;
-
-
-                    case R.id.ediNumRcim11:
-                        break;
-
-                    case R.id.ediNumRcim10:
-                        break;
-
-                    case R.id.ediNumRac9:
-                        break;
-
-                    ////ediPorc14
-                    case R.id.ediPorc14:
-                        break;
-
-                    case R.id.ediPorc13:
-                        break;
-
-                    case R.id.ediPorc12:
-                        break;
-
-                    case R.id.ediPorc11:
-                        break;
-
-                    case R.id.ediPorc10:
-                        break;
-
-                    case R.id.ediPorc9:
-                        break;
-
-
-                }
 
             }
 

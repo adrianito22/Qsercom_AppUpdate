@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -773,7 +774,7 @@ return
 
 
     public static  boolean checkIFaltaunDatoLlenoAndFocus(TextInputEditText [] arrayNmbresProd, TextInputEditText [] arrayTiposEmpaque,
-                                                       TextInputEditText [] arrayCodigos, TextInputEditText [] arraynCajas){
+                                                       TextInputEditText [] arrayCodigos, TextInputEditText [] arraynCajas,Context context){
 
         //le decimos que falta data
         boolean isReady=true;
@@ -828,7 +829,12 @@ return
 
                Log.i("caramba","el id  error focus es "+ediTEXTVacios.get(0).getId());
                ediTEXTVacios.get(0).requestFocus();
-               ediTEXTVacios.get(0).setError("Este dato es requerido");
+
+
+                ediTEXTVacios.get(0).setError("Este dato es requerido");
+
+                Toast.makeText(context, "Falta un dato en cuadro de proceso", Toast.LENGTH_SHORT).show();
+
                 isReady=false;
                 break;
 

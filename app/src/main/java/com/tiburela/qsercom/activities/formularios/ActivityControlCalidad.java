@@ -522,7 +522,6 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
           }
        });
 
-
        callbackUploadNewReport = this;
 
        Variables.activityCurrent=Variables.FormCantrolCalidad;
@@ -2821,9 +2820,8 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
 
-                sumaItemsFilaArriba=sumaItemsFilaArriba + Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
-
-                sumaItemsFilaAbajo=sumaItemsFilaAbajo + Integer.parseInt(arrayEditsFilaAbajo[i].getText().toString());
+                sumaItemsFilaArriba=sumaItemsFilaArriba + Float.parseFloat(arrayEditsFilaArriba[i].getText().toString());
+                sumaItemsFilaAbajo=sumaItemsFilaAbajo + Float.parseFloat(arrayEditsFilaAbajo[i].getText().toString());
 
             }
 
@@ -2872,7 +2870,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         for (int i = 0; i < arrayNJumsTOmult.length; i++) {
 
-            int productResult =0;
+            float productResult =0;
 
 
             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
@@ -2885,14 +2883,13 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             else {
 
 
-                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                productResult =Float.parseFloat(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
 
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
+                sumaFilasArriba=sumaFilasArriba+Float.parseFloat(arrayEditsFilaArriba[i].getText().toString());
 
-                sumaFilasArriba=sumaFilasArriba+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
-
-                sumaFilasAbajo=sumaFilasAbajo+Integer.parseInt(arrayEditsFilaAbajo[i].getText().toString());
+                sumaFilasAbajo=sumaFilasAbajo+Float.parseFloat(arrayEditsFilaAbajo[i].getText().toString());
 
 
             }
@@ -2992,7 +2989,7 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
 
         for (int i = 0; i < arrayNJumsTOmult.length; i++) {
 
-            int productResult =0;
+            float productResult ;
 
             if(arrayEditsFilaArriba[i].getText().toString().trim().isEmpty() )  { //si esta vacio
 
@@ -3004,11 +3001,11 @@ public class ActivityControlCalidad extends AppCompatActivity implements View.On
             else {
 
 
-                productResult =Integer.parseInt(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
+                productResult =Float.parseFloat(arrayEditsFilaArriba[i].getText().toString()) * arrayNJumsTOmult[i];
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
 
-                totalFila1=totalFila1+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+                totalFila1=totalFila1+Float.parseFloat(arrayEditsFilaArriba[i].getText().toString());
                 totalFial2=totalFial2+productResult;
 
 

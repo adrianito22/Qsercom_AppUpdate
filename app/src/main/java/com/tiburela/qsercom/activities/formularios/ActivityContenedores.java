@@ -5391,7 +5391,7 @@ private void callPrefrencesSaveAndImagesData(){
 
     public void scroollElementoFaltante(View view){
 
-        int y= view.getBottom();
+       // int y= view.getBottom();
 
        // vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
 

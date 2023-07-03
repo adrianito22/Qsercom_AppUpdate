@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -105,6 +106,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     boolean userCreoRegisterForm=false;
     ImageView imgAtachVinculacion;
     Uri urix;
+    ScrollView scrollView2 ;
+
     String horientacionImg4;
 
     boolean seSubioform=false;
@@ -888,7 +891,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
          ediCandadoName2=findViewById(R.id.ediCandadoName2);
          ediCandadoName3=findViewById(R.id.ediCandadoName3);
 
-
+        scrollView2 = findViewById(R.id.scrollView2);
         spinnerExportadora=findViewById(R.id.spinnerExportadora);
           btnSaveLocale=findViewById(R.id.btnSaveLocale);
         imgAtachVinculacion=findViewById(R.id.imgAtachVinculacion);
@@ -2080,7 +2083,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         }
 
 
-
         if(! checkDatosTransportistaIsLleno()){
             Log.i("test001","no esta lleno  checkDatosTransportistaIsLleno");
 
@@ -2140,6 +2142,19 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
         }
+        if(! checkQueexistminimCalibracionCalendario()){
+            Log.i("test001","no esta lleno  checkQueexistminimCalibracionCalendario");
+
+            return;
+        }else{
+
+            Log.i("test001","si  esta lleno  checkQueexistminimCalibracionCalendario");
+
+
+        }
+
+
+
 
 
         if(!Utils.checkifAtach()){
@@ -2204,6 +2219,9 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
         }
+
+
+        getResultDatCalibCalEnfundes();//CLVAE
 
 
         generateUniqueIdInformeAndContinuesIfIdIsUnique(informe);
@@ -3080,8 +3098,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         if(layoutContainerSeccion8.getVisibility()== GONE){
             layoutContainerSeccion8.setVisibility(LinearLayout.VISIBLE);
-
-
         }
 
 
@@ -3089,7 +3105,15 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
             ediFuenteAgua.requestFocus();
             ediFuenteAgua.setError("Selecione una opcion");
 
+            scroollElementoFaltante(ediFuenteAgua);
             return false;
+        }
+
+        else
+
+        {
+
+            ediFuenteAgua.setError(null);
 
         }
 
@@ -3099,44 +3123,73 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         if(ediLavadoRacimos.getText().toString().isEmpty()){ //chekamos que no este vacia
             ediLavadoRacimos.requestFocus();
             ediLavadoRacimos.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediLavadoRacimos);
 
             return false;
 
+        }
+        else{
+            ediLavadoRacimos.setError(null);
         }
 
         if(ediFumigacionClin1.getText().toString().equalsIgnoreCase("ninguna")){ //chekamos que no este vacia
             ediFumigacionClin1.requestFocus();
             ediFumigacionClin1.setError("Selecione una opcion");
+            scroollElementoFaltante(ediFumigacionClin1);
 
             return false;
 
         }
+        else{
+            ediFumigacionClin1.setError(null);
+
+
+        }
+
 
 
 
         if(ediTipoBoquilla.getText().toString().equalsIgnoreCase("ninguna")){ //chekamos que no este vacia
             ediTipoBoquilla.requestFocus();
             ediTipoBoquilla.setError("Selecione una opcion");
+            scroollElementoFaltante(ediTipoBoquilla);
 
             return false;
 
+        }else{
+            ediTipoBoquilla.setError(null);
+
+
         }
+
 
 
         if(ediCajasProcDesp.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediCajasProcDesp.requestFocus();
             ediCajasProcDesp.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediCajasProcDesp);
+
             return false;
 
+        }else{
+            ediCajasProcDesp.setError(null);
+
+
         }
+
 
 
 
         if(ediRacimosCosech.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediRacimosCosech);
 
             return false;
+
+        }  else{
+            ediRacimosCosech.setError(null);
+
 
         }
 
@@ -3153,11 +3206,16 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         if(ediRacimProces.getText().toString().trim().isEmpty()){ //chekamos que no este vacia
             ediRacimProces.requestFocus();
             ediRacimProces.setError("Este espacio es obligatorio");
+            scroollElementoFaltante(ediRacimProces);
 
             return false;
 
         }
+        else{
+            ediRacimProces.setError(null);
 
+
+        }
         ///vamos con los datos de semananas y eso
 
 
@@ -3260,8 +3318,11 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
             ediCondicionBalanza.requestFocus();
             ediCondicionBalanza.setError("Selecione una opcion");
 
+            scroollElementoFaltante(ediCondicionBalanza);
             return false;
 
+        }else{
+            ediCondicionBalanza.setError(null);
 
         }
 
@@ -3269,8 +3330,12 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
             ediTipodeCaja.requestFocus();
             ediTipodeCaja.setError("Selecione una opcion");
+            scroollElementoFaltante(ediTipodeCaja);
 
             return false;
+
+        }else{
+            ediTipodeCaja.setError(null);
 
         }
 
@@ -3279,8 +3344,12 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
             ediTipoPlastico.requestFocus();
             ediTipoPlastico.setError("Selecione una opcion");
+            scroollElementoFaltante(ediTipoPlastico);
 
             return false;
+
+        }else{
+            ediTipoPlastico.setError(null);
 
         }
 
@@ -3289,8 +3358,13 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         if(ediTipoBalanza.getText().toString().equalsIgnoreCase("ninguna")){ //chekamos que no este vacia
             ediTipoBalanza.requestFocus();
             ediTipoBalanza.setError("Selecione una opcion");
+            scroollElementoFaltante(ediTipoBalanza);
 
             return false;
+
+        }
+        else{
+            ediTipoBalanza.setError(null);
 
         }
 
@@ -3525,6 +3599,70 @@ return  calibrFrutCalEnf;
     }
 
 //upload data...
+private boolean checkQueexistminimCalibracionCalendario() {
+
+
+
+
+    EditText ediColortSem14 = findViewById(R.id.ediColortSem14);
+    EditText ediColortSem13 = findViewById(R.id.ediColortSem13);
+
+
+    EditText ediColortSem12 = findViewById(R.id.ediColortSem12);
+    EditText ediColortSem11 = findViewById(R.id.ediColortSem11);
+    EditText ediColortSem10 = findViewById(R.id.ediColortSem10);
+    EditText ediColortSem9 = findViewById(R.id.ediColortSem9);
+
+    EditText ediNumRcim14 = findViewById(R.id.ediNumRcim14);
+    EditText ediNumRcim13 = findViewById(R.id.ediNumRcim13);
+    EditText ediNumRcim12 = findViewById(R.id.ediNumRcim12);
+    EditText ediNumRcim11 = findViewById(R.id.ediNumRcim11);
+    EditText ediNumRcim10 = findViewById(R.id.ediNumRcim10);
+    EditText ediNumRac9 = findViewById(R.id.ediNumRac9);
+
+
+    EditText ediPorc14 = findViewById(R.id.ediPorc14);
+    EditText ediPorc13 = findViewById(R.id.ediPorc13);
+    EditText ediPorc12 = findViewById(R.id.ediPorc12);
+    EditText ediPorc11 = findViewById(R.id.ediPorc11);
+    EditText ediPorc10 = findViewById(R.id.ediPorc10);
+    EditText ediPsgddsorc9 = findViewById(R.id.ediPorc9);
+
+
+    EditText[] array = {ediColortSem14, ediColortSem13, ediColortSem12, ediColortSem11, ediColortSem10, ediColortSem9,
+            ediNumRcim14, ediNumRcim13, ediNumRcim12, ediNumRcim11, ediNumRcim10, ediNumRac9,
+            ediPorc14, ediPorc13, ediPorc12, ediPorc11, ediPorc10, ediPsgddsorc9};
+
+
+    int indice = 0;
+
+
+    for (int i = 0; i < array.length; i++) {
+
+        EditText current = array[i];
+
+        if (!current.getText().toString().trim().isEmpty()) {
+            String value = current.getText().toString();
+            indice++;
+
+        }
+
+    }
+
+    if (indice > 2) {
+        return true;
+
+    } else {
+        ediPsgddsorc9.requestFocus();
+        ediPsgddsorc9.setError("Inserte al menos un valor en este cuadro");
+
+        scroollElementoFaltante(ediPsgddsorc9);
+
+        return false;
+
+    }
+
+}
 
     //descragamos el ultimo
 //Si hay un formulario ... que no se envio aun.....estado subido..
@@ -3953,12 +4091,10 @@ return  calibrFrutCalEnf;
     }
 
 
-
     private boolean getResultDatCalibCalEnfundes(){
 
 
-
-        if(ediRacimosCosech.getText().toString().trim().isEmpty()){
+       if(ediRacimosCosech.getText().toString().trim().isEmpty()){
             ediRacimosCosech.requestFocus();
             ediRacimosCosech.setError("Este valor es necesesario");
 
@@ -4053,11 +4189,21 @@ return  calibrFrutCalEnf;
 
     }
 
-    public void scroollElementoFaltante(View vistFocus){
+    public void scroollElementoFaltante(View view){
 
         // View targetView = findViewById(R.id.DESIRED_VIEW_ID);
-        vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
+       // vistFocus.getParent().requestChildFocus(vistFocus,vistFocus);
 
+        int vTop = view.getTop();
+
+        while (!(view.getParent() instanceof ScrollView)) {
+            view = (View) view.getParent();
+            vTop += view.getTop();
+        }
+
+        final int scrollPosition = vTop;
+
+        new Handler().post(() -> scrollView2.smoothScrollTo(0, scrollPosition));
 
 
     }
@@ -4190,7 +4336,6 @@ return  calibrFrutCalEnf;
         if (userSelecion) { //SELECIONO ATCH
             Log.i("test001", " seleciono 200");
 
-            ScrollView scrollView2 = findViewById(R.id.scrollView2);
 
             scrollView2.post(new Runnable() {
                 public void run() {

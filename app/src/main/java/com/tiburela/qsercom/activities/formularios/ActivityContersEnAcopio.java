@@ -1542,9 +1542,8 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String Pu
 
 
 
-        if(! Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
+        if(! Utils.checkIFaltaunDatoLlenoAndFocus(arrayNmbresProd,arrayTiposEmpaque,arrayCodigos,arraynCajas,ActivityContersEnAcopio.this)){ //si ha llenado un  value de los 3 y el siguiente esta vacio...
              Log.i("samamf","es return aqui");
-
             return false;
          }
 
@@ -1593,11 +1592,20 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece, String Pu
     Log.i("samamf","el size de map es "+mimapaDatosProcesMap.size());
 
     if(mimapaDatosProcesMap.size()==0){
+        scroollElementoFaltante(ediNombProd1);
+        ediNombProd1.setError("Inserte al menos un valor aqui");
 
+        Toast.makeText(ActivityContersEnAcopio.this, "Este cuadro no puede estar vacio", Toast.LENGTH_SHORT).show();
         return false;
 
-    }
 
+
+
+    }else{
+
+        ediNombProd1.setError(null);
+
+    }
 
     return isReady;
 
