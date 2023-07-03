@@ -67,6 +67,7 @@ import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.FieldOpcional;
 import com.tiburela.qsercom.utils.HelperEditAndPreviewmode;
@@ -1975,7 +1976,7 @@ private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String Pus
 
 
 
-private void createObjcInformeAndUpload() throws IOException {
+private void createObjcInformeAndUpload() {
 
 
 
@@ -2015,17 +2016,24 @@ private void createObjcInformeAndUpload() throws IOException {
     informe.setCodigonRevisa(ediCodigoRevisa.getText().toString());
 
 
-    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
-
-    uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+  //  RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
 
-    RealtimeDB.updateInformContenresAcopio(informe,PreviewsFormDatSContersEnAc.this);
+    if(ImagenReport.hashMapImagesData.size() ==0 ){
+        Toast.makeText(this, "No hay imagenes para subir ", Toast.LENGTH_SHORT).show();
+        return;
+    }
+
+       ArrayList<ImagenReport>milistImages=   genertaeimagenList(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+  //  RealtimeDB.updateInformContenresAcopio(informe,PreviewsFormDatSContersEnAc.this);
+  //  RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);
 
 
- ///   Toast.makeText(context, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+    Utils. show_AND_UPLOAD_ConetendoresAcopio(PreviewsFormDatSContersEnAc.this,PreviewsFormDatSContersEnAc.this,
+            informe,new InformRegister(),milistImages,Variables.mimapaDatosProcesMapCurrent,Variables.FormatDatsContAcopi
+            ,"");
 
-   // finish();
 
 }
 
@@ -2076,15 +2084,13 @@ private void createObjcInformeAndUpload() throws IOException {
 
 
 
-    void uploadImagesInStorageAndInfoPICS() throws IOException {
+    ArrayList<ImagenReport> genertaeimagenList()  {
    //una lista de Uris
-
-
-        if(ImagenReport.hashMapImagesData.size() ==0 ){
-
-            Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
-             return;
+        if (Utils.objsIdsDecripcionImgsMOreDescripc.size() > 0) {
+            RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
         }
+
+        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
 
         if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
@@ -2093,31 +2099,16 @@ private void createObjcInformeAndUpload() throws IOException {
 
             StorageDataAndRdB.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
             ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
-
-         //   StorageDataAndRdB.uploaddImagesAndDataImages(list2,PreviewsFormDatSContersEnAc.this);
-
-          ///  HashMap<String , ImagenReport>mihasmap= Utils.creaHahmapNoDuplicado();
-
-
+               return  list2;
         }
 
         else{
             Log.i("elfile","el size de hashMapImagesStart es  "+ Variables.hashMapImagesStart.size()+" y el size de hashMapImagesData es" +ImagenReport.hashMapImagesData.size());
 
-
-            Log.i("elfile","son iguales las imagenes");
-
-        }
-
-        if (Utils.objsIdsDecripcionImgsMOreDescripc.size() > 0) {
-
-            RealtimeDB.initDatabasesReferenceImagesData();
-            RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
+            return new ArrayList<ImagenReport>();
 
         }
 
-
-        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
 
     }
@@ -3726,13 +3717,15 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
 
 */
 
-    public void saveInfo() throws IOException {
+    public void saveInfo()  {
 
         updatePostionImegesSort();
 
 
-        RealtimeDB.UpadateDatosProceso(Variables.mimapaDatosProcesMapCurrent,keyNodeActualizar);
         createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+
+
+
 
 
         for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {

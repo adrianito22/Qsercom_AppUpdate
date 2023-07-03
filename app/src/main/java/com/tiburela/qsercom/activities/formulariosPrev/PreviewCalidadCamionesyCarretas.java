@@ -1902,12 +1902,30 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         informe.setSimpleDataFormat(Variables.currenReportCamionesyCarretas.getSimpleDataFormat());
         informe.setFechaCreacionInf(Variables.currenReportCamionesyCarretas.getFechaCreacionInf());
 
-        RealtimeDB.updateCalidaCamionCarrretas(informe,Variables.currenReportCamionesyCarretas,PreviewCalidadCamionesyCarretas.this);
+
+        /**ACTUALIZAMOS INFORME */
+
+        informe.setKeyFirebase(Variables.currenReportCamionesyCarretas.getKeyFirebase());
+        informe.setNodoQueContieneMapPesoBrutoCloster2y3l(Variables.currenReportCamionesyCarretas.getNodoQueContieneMapPesoBrutoCloster2y3l());
+        informe.setSimpleDataFormat(Variables.currenReportCamionesyCarretas.getSimpleDataFormat());
+
+
+        CalibrFrutCalEnf calibracion=  addCalibracionFutaC_enfAndUpload(Variables.calEnfundeGLOB);
+
+      //  RealtimeDB.UpdateCalibracionFrutCal(calibrFrutCalEnf);
+        //  RealtimeDB.UploadProductosPostCosecha(producto);
+        // CalibrFrutCalEnf cali=     generateCalibracal(currenTidGenrate);
+        //  ProductPostCosecha producto= generateProductPost(currenTidGenrate);
+        // ArrayList<ImagenReport>miList=updateAndCreateArrayListImages();
+
+         ProductPostCosecha producto=  generaProductsPostCosecha(); //agregamos y subimos los productos postcosecha..
 
 
 
-        addCalibracionFutaC_enfAndUpload(Variables.calEnfundeGLOB);
-        addProdcutsPostCosechaAndUpload(); //agregamos y subimos los productos postcosecha..
+        ArrayList<ImagenReport>miList= updateListPropertyAndCreatArrayListImages(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+
+        Utils. update_CamionesyCarretas(PreviewCalidadCamionesyCarretas.this,PreviewCalidadCamionesyCarretas.this,
+                informe,calibracion,producto,miList,Variables.FormContenedores);
 
 
     }
@@ -2164,68 +2182,37 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
 
 
-    void uploadImagesInStorageAndInfoPICS() {
+    ArrayList<ImagenReport> updateListPropertyAndCreatArrayListImages() {
         //una lista de Uris
 
+        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
-        if(ImagenReport.hashMapImagesData.size() ==0 ){
+        if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
-            Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
-            return;
+            Log.i("sertila","tenemosun mapa direebre los filtramos");
+
+            StorageDataAndRdB.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
+
+            ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
+
+            return list2;
+        }else{
+            return new ArrayList<ImagenReport>();
         }
-
-/*
-        AlertDialog.Builder builder = new AlertDialog.Builder(PreviewCalidadCamionesyCarretas.this);
-        builder.setCancelable(false); // if you want user to wait for some process to finish,
-        builder.setView(R.layout.layout_loading_dialog);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-*/
-        Task2 tarea0 =new Task2();
-        tarea0.run();
-
-
-
-
-
-
     }
+
+
     private class Task2 implements Runnable {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
        // AlertDialog  dialog;
 
-         Task2() {
-            // this.dialog=dialog;
-          //   this.dialog.show(); // to show this dialog
-
-         }
 
 
         @Override
         public void run() { //bacground
             //boorara desee aqui
-            if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
-
-                Log.i("sertila","alguno o toos son diferentes images llamaos metodo filtra");
-
-                StorageDataAndRdB.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
-
-                ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
-
-                /*
-                try {
-                  //  StorageDataAndRdB.uploaddImagesAndDataImages(list2,PreviewCalidadCamionesyCarretas.this);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                */
-
-            }
-
-
-            Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
 
 
@@ -2942,7 +2929,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     }
 
 
-    private void  addProdcutsPostCosechaAndUpload(){
+    private ProductPostCosecha generaProductsPostCosecha(){
 
         ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
         //creamos un array de editext
@@ -3037,14 +3024,13 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         }
 
+return  producto;
 
-
-        RealtimeDB.UploadProductosPostCosecha(producto);
 
 
     }
 
-    private void  addCalibracionFutaC_enfAndUpload(  CalibrFrutCalEnf calibrFrutCalEnf){
+    private  CalibrFrutCalEnf  addCalibracionFutaC_enfAndUpload(  CalibrFrutCalEnf calibrFrutCalEnf){
 
         //si no chekeamos el key que contiene ycunado la decsrga
 
@@ -3151,7 +3137,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         //actualizamos solo si ya existe un objeto descargado Variables.calEnfundeGLOB.. si es nulo ,signica que no existe
 
-        RealtimeDB.UpdateCalibracionFrutCal(calibrFrutCalEnf);
+
+
+        return calibrFrutCalEnf;
 
         /*
         if(Variables.calEnfundeGLOB!=null){
@@ -4207,14 +4195,18 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
     public void saveInfo() {
 
         updatePostionImegesSortOnlyNewsImages();
-        RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
+        if(ImagenReport.hashMapImagesData.size() ==0 ){
 
-        uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
+            Toast.makeText(this, "Imagenes no pueden ser 0", Toast.LENGTH_SHORT).show();
 
+            return;
+        }
+
+
+
+        /**eliminamos las imagenes delete */
         for (int i = 0; i < listImagesToDelete.size(); i++) {
-
             geTidAndDelete(listImagesToDelete.get(i));
-
         }
 
 

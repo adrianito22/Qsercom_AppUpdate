@@ -1635,7 +1635,6 @@ private void createObjcInformeAndUpload(){
 
 
     //Agregamos un nuevo informe
-    RealtimeDB.initDatabasesReferenceImagesData(); //inicilizamos la base de datos
 
     //agr5egamos la data finalemente
     //obtenemos el pushkey
@@ -1708,41 +1707,43 @@ private void createObjcInformeAndUpload(){
 
                     Log.i("samamf","el objec conetnedoresEnAcopioForm getDatosProcesoContenAcopio es  "+conetnedoresEnAcopioForm.getDatosProcesoContenAcopioKEYFather());
 
+                    RealtimeDB.initContext(ActivityContersEnAcopio.this);
 
-                     RealtimeDB.initContext(ActivityContersEnAcopio.this);
 
                     Log.i("samamf","vamos a crea datos proceso");
 
 
                     if(creaAcMapDatosProcesoAndCheck(currenTidGenrate,PuskEY)){
 
-                        RealtimeDB.addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);  //subimos
+                       // RealtimeDB.addDatosProceso(mimapaDatosProcesMap,mibasedata,PuskEY);  //subimos
 
-                        try {
-                            uploadImagesInStorageAndInfoPICS(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        if(ImagenReport.hashMapImagesData.size() ==0 ){
+
+                            Toast.makeText(ActivityContersEnAcopio.this, "Tiene que subir imagenes", Toast.LENGTH_SHORT).show();
+                            return;
                         }
 
-                        RealtimeDB.addNewInformContenresAcopio(conetnedoresEnAcopioForm,currenTidGenrate);
 
-                        Log.i("samamf","hemos pasado add new inform");
+                      ArrayList<ImagenReport>miListImagenes=    generateImagesList(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
-                       /// finish();
 
+                        conetnedoresEnAcopioForm.setUniqueIDinforme(currenTidGenrate);
+
+
+                       // RealtimeDB.addNewRegistroInforme(ActivityContersEnAcopio.this,informRegister);
+
+                        Utils. show_AND_UPLOAD_ConetendoresAcopio(ActivityContersEnAcopio.this,ActivityContersEnAcopio.this,
+                                conetnedoresEnAcopioForm,informRegister,miListImagenes,mimapaDatosProcesMap,Variables.FormatDatsContAcopi
+                                ,currentKeySharePrefrences);
                     }
-
 
                     else{
-
                         Log.i("samamf","HAY UN DATO INCOMPLETO HEN DATOS PROCESO");
-
                         Toast.makeText(ActivityContersEnAcopio.this, "Hay un dato incompleto en datos de Proceso", Toast.LENGTH_LONG).show();
-
                     }
 
 
-                    RealtimeDB.addNewRegistroInforme(ActivityContersEnAcopio.this,informRegister);
+
 
                 }else {  //si exite creamos otro value...
 
@@ -1806,21 +1807,17 @@ private void createObjcInformeAndUpload(){
 
 
 
-    void uploadImagesInStorageAndInfoPICS() throws IOException {
+    ArrayList<ImagenReport> generateImagesList()  {
    //una lista de Uris
 
 
-        if(ImagenReport.hashMapImagesData.size() ==0 ){
 
-            Toast.makeText(this, "esta vacia ", Toast.LENGTH_SHORT).show();
-             return;
-        }
 
         //    public static void uploadImage(Context context, ArrayList<ImagenReport> listImagesData) {
         ImagenReport.updateIdPerteence(StorageDataAndRdB.uniqueIDImagesSetAndUInforme,ImagenReport.hashMapImagesData);
         ArrayList<ImagenReport>list=Utils.mapToArrayList(ImagenReport.hashMapImagesData);
        // StorageDataAndRdB.uploaddImagesAndDataImages(list,ActivityContersEnAcopio.this);
-
+        return  list;
 
     }
 

@@ -30,6 +30,7 @@ public class Variables {
 
     ///hilos objetos
 
+    public static  final int DATOS_PROCESOXX=963;
 
     public static   boolean ErrorSubirImage=false;
 

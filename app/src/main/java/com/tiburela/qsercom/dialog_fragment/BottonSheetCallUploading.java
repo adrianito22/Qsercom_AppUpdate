@@ -32,7 +32,9 @@ import com.google.firebase.storage.UploadTask;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
+import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.ProductPostCosecha;
@@ -42,7 +44,6 @@ import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.SharePrefHelper;
-import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
@@ -57,6 +58,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
         public static final String TAG = "ActionBottomDialog";
         private View vista;
 
+        static ContenedoresEnAcopio contenedoresAcx;
+        static HashMap<String, DatosDeProceso>miMaProcesoX;
         static CalibrFrutCalEnf calendariox;
 
     public static StorageReference rootStorageReference;
@@ -144,6 +147,23 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
     }
 
+    /***CONTENEDORES EN ACOPIO*/
+    public static BottonSheetCallUploading newInstance(Context contexta, ContenedoresEnAcopio contenedoresAc,
+                                                       InformRegister informRegisterx,HashMap<String, DatosDeProceso>miMap,
+                                                       ArrayList<ImagenReport>listImages, int ActivityId) {
+
+        contenedoresAcx=contenedoresAc;
+        context=contexta;
+        miMaProcesoX=miMap;
+        informRegister=informRegisterx;
+        listImagesx=listImages;
+        activityIdx=ActivityId;
+        return new BottonSheetCallUploading();
+
+    }
+
+
+
     /***CAMIONES Y CARRETAS*/
     public static BottonSheetCallUploading newInstance(Context contexta, ReportCamionesyCarretas camionesyCarretas,
                                                        CalibrFrutCalEnf calendario,
@@ -154,6 +174,22 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
         camionesyCarretasx=camionesyCarretas;
         context=contexta;
         informRegister=informRegisterx;
+        productosPoscosecha=productos;
+        listImagesx=listImages;
+        activityIdx=ActivityId;
+        return new BottonSheetCallUploading();
+
+    }
+
+
+    /***EDIT CAMIONES Y CARRETAS*/
+    public static BottonSheetCallUploading newInstance(Context contexta, ReportCamionesyCarretas camionesyCarretas,
+                                                       CalibrFrutCalEnf calendario, ProductPostCosecha productos,
+                                                       ArrayList<ImagenReport>listImages, int ActivityId) {
+
+        calendariox=calendario;
+        camionesyCarretasx=camionesyCarretas;
+        context=contexta;
         productosPoscosecha=productos;
         listImagesx=listImages;
         activityIdx=ActivityId;
@@ -281,7 +317,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
     }
 
 
-       5
+
     /**probar camiones y carretas flujo ,pero antes chekear que este todo bien en codigo y depsues testear
      * depues seguirira preview camiones y carretas mas o menos simsilar al de subida de camiones y carretas asi es mas facil..
      * ,, depsues conteendoires en acopio y conteenedores en acopio preview..*/
@@ -302,7 +338,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
         }
 
 
-
         else if(tipoObjectoQueSubiremosNow== Variables.INFORM_REGISTER){  //PENULTIMO
             RealtimeDB.addNewRegistroInforme(context,informRegister);
         }
@@ -315,6 +350,32 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             if(!keyPrefrencesIfUserSaveReportLocale.equals("")){
                 SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
             }
+        }
+
+    }
+
+
+    public static void updateCamionesYcarretas(int tipoObjectoQueSubiremosNow){
+
+         /**ARHORA REVISAMOS EL FLUJO */
+
+        if(tipoObjectoQueSubiremosNow== Variables.OBJECT_CAMIONESYCARRETAS){
+            RealtimeDB.updateCalidaCamionCarrretas(camionesyCarretasx);
+        }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
+            RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
+        }
+
+
+        else if(tipoObjectoQueSubiremosNow== Variables.CALIBRACIONES_CALENDARIO_ENFUNDE){
+            RealtimeDB.UpdateCalibracionFrutCal(calendariox); //por ejempo en este metodo cuando suba el refiter form/..
+        }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
+            BottonSheetCallUploading BTON= new BottonSheetCallUploading();
+            BTON.callThreadImagenesUpload();
+
         }
 
     }
@@ -323,24 +384,13 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
     public static void uploadConteendoresEnAcopio(int tipoObjectoQueSubiremosNow){
         /**en llamos a este metodo agreghando el tipo de objeto class que subiremos */
 
-        if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque1){
-            RealtimeDB.addNewDSetinformEmarque1(informe1);
-        }
-        else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformEmbarque2){
-            RealtimeDB.addNewInformeEmbarque2(context,informe2); //addNewInformeEmbarque2
-            Log.i("finalizando","SECOND");
-        }
-        else if(tipoObjectoQueSubiremosNow== Variables.OBJECT_SetInformDatsHacienda){
-            RealtimeDB.addNewDSetinformEmarque1(informe3); //por ejempo en este metodo cuando suba el refiter form/..
-            //cuando llamemos a register terminamos todo...
-        }
+        if(tipoObjectoQueSubiremosNow== Variables.FormatDatsContAcopi){
+              RealtimeDB.addNewInformContenresAcopio(contenedoresAcx);
 
-        else if(tipoObjectoQueSubiremosNow== Variables.LIBRIADO_IF_EXIST){
-            RealtimeDB.addNewhasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs()); //por ejempo en este metodo cuando suba el refiter form/..
         }
+        else if(tipoObjectoQueSubiremosNow== Variables.DATOS_PROCESOXX){
+            RealtimeDB.addDatosProceso(miMaProcesoX,contenedoresAcx.getDatosProcesoContenAcopioKEYFather());  //subimos
 
-        else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
-            RealtimeDB.UploadProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
         }
 
         else if(tipoObjectoQueSubiremosNow== Variables.INFORM_REGISTER){  //PENULTIMO
@@ -359,6 +409,28 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
     }
 
+
+    public static void updateContenedresEnAcopio(int tipoObjectoQueSubiremosNow){
+        /**en llamos a este metodo agreghando el tipo de objeto class que subiremos */
+
+        if(tipoObjectoQueSubiremosNow== Variables.FormatDatsContAcopiPREVIEW){
+            RealtimeDB.updateInformContenresAcopio(contenedoresAcx);
+        }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.DATOS_PROCESOXX){
+            RealtimeDB.UpadateDatosProceso(miMaProcesoX,contenedoresAcx.getDatosProcesoContenAcopioKEYFather());  //subimos
+             }
+
+        else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
+            BottonSheetCallUploading BTON= new BottonSheetCallUploading();
+            BTON.callThreadImagenesUpload();
+
+            if(!keyPrefrencesIfUserSaveReportLocale.equals("")){
+                SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
+            }
+        }
+
+    }
 
 
     public void callThreadImagenesUpload(){
@@ -809,14 +881,17 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
             case Variables.FormCamionesyCarretasActivityPreview:
+                updateCamionesYcarretas(Variables.OBJECT_CAMIONESYCARRETAS);
                 break;
 
 
             case Variables.FormatDatsContAcopi:
+                uploadConteendoresEnAcopio(Variables.FormatDatsContAcopi);
                 break;
 
 
             case Variables.FormatDatsContAcopiPREVIEW:
+                updateContenedresEnAcopio(Variables.FormatDatsContAcopiPREVIEW);
                 break;
 
 

@@ -87,14 +87,15 @@ public class RealtimeDB {
 
     }
 
-    public static void addNewInformContenresAcopio( ContenedoresEnAcopio informeObjct,String uniqUEid) {
+    public static void addNewInformContenresAcopio( ContenedoresEnAcopio informeObjct) {
+
+
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("contenedoresAcopio");
 
         //agregamos la propiedad keyFirebase a al objeto
         String PuskEY = mibasedata.push().getKey();
 
         informeObjct.setKeyFirebase(PuskEY);
-        informeObjct.setUniqueIDinforme(uniqUEid);
         // Map<String, Object> mapValues = informeObjct.toMap();
 
 
@@ -105,7 +106,7 @@ public class RealtimeDB {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-
+                    BottonSheetCallUploading.uploadConteendoresEnAcopio(Variables.DATOS_PROCESOXX);
 
                     Log.i("COMENMZAR","es succes");
 
@@ -142,7 +143,7 @@ public class RealtimeDB {
 
     }
 
-    public static void updateInformContenresAcopio( ContenedoresEnAcopio informeObjct,Context context) {
+    public static void updateInformContenresAcopio( ContenedoresEnAcopio informeObjct) {
 
         Log.i("elkeyfirebase ","el keyfirebase es "+informeObjct.getKeyFirebase());
 
@@ -156,8 +157,7 @@ public class RealtimeDB {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-
-                        Toast.makeText(context, "Informe Actualizado", Toast.LENGTH_SHORT).show();
+                       BottonSheetCallUploading.updateContenedresEnAcopio(Variables.DATOS_PROCESOXX);
 
                         // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
@@ -275,17 +275,13 @@ public class RealtimeDB {
     }
 
 
-    public static void updateCalidaCamionCarrretas( ReportCamionesyCarretas informeObjct,ReportCamionesyCarretas antiguoInformObject,Context myContext) {
+    public static void updateCalidaCamionCarrretas( ReportCamionesyCarretas informeObjct) {
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("informeCamionesYcarretas");
 
-        informeObjct.setKeyFirebase(antiguoInformObject.getKeyFirebase());
-        informeObjct.setNodoQueContieneMapPesoBrutoCloster2y3l(antiguoInformObject.getNodoQueContieneMapPesoBrutoCloster2y3l());
-        informeObjct.setSimpleDataFormat(antiguoInformObject.getSimpleDataFormat());
 
-
-        if(antiguoInformObject.getKeyFirebase().length()>0){
-            mibasedata.child(antiguoInformObject.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
+        if(informeObjct.getKeyFirebase().length()>0){
+            mibasedata.child(informeObjct.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
 
@@ -293,14 +289,13 @@ public class RealtimeDB {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
 
-                        //un calllback de se actualizo informe...
+                        BottonSheetCallUploading.updateCamionesYcarretas(Variables.PRODUCTS_POST_COSECHA);
 
-                        Log.i("upfste","se actualizo informe ");
-                        Toast.makeText(myContext, "Se actualizó informe", Toast.LENGTH_SHORT).show();
+
 
                     }else  {
 
-                        Toast.makeText(myContext, "Ocurrio un error :(", Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(myContext, "Ocurrio un error :(", Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -631,7 +626,9 @@ public class RealtimeDB {
     }
 
 
-    public static void addDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,DatabaseReference mibasedata,String Pushkey) {
+    public static void addDatosProceso( HashMap <String ,DatosDeProceso > datosProcesoMap,String Pushkey) {
+
+        DatabaseReference mibasedata = RealtimeDB.rootDatabaseReference.child("Informes").child("datosProcesoContenAcopio");
 
         mibasedata.child(Pushkey).setValue(datosProcesoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -639,10 +636,8 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
 
 
-                    Log.i("samamf","task is succes ! ");
-                    //  ((Activity)myContext).finish();
+                   BottonSheetCallUploading. uploadConteendoresEnAcopio( Variables.INFORM_REGISTER);
 
-                    // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
                     Log.i("samamf","task is else no succes ");
@@ -748,6 +743,7 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                     BottonSheetCallUploading.updateContenedresEnAcopio( Variables.IMAGENES_SET_DE_REPORTE);
                     //lo borramos...
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
@@ -1057,6 +1053,12 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
+                    if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview){
+                        BottonSheetCallUploading.updateCamionesYcarretas(Variables.IMAGENES_SET_DE_REPORTE);
+
+                    }
+
+
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
@@ -1084,22 +1086,34 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
                     Log.i("updatexxxx","es  UpdateProductosPostCosecha");
 
-                    Utils.contadorTareasCompletadas++;
+                     if(Variables.activityCurrent==Variables.FormPreviewContenedores){
+                         Utils.contadorTareasCompletadas++;
+                         if(Utils.contadorTareasCompletadas==5){
+                             BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
+                             // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
+                         }
+                     }
 
-                    Log.i("updatexxxx","es  UpdateProductosPostCosecha y el indice es "+Utils.contadorTareasCompletadas);
+                     else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview){
 
-                    if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
-                       // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
-
-                    }
+                         BottonSheetCallUploading.updateCamionesYcarretas(Variables.CALIBRACIONES_CALENDARIO_ENFUNDE);
 
 
-                }else  {
+                     }
+
+
+
+
+
+
+
+
+
+                }
 
                     Log.i("updatexxxx","no es  succes producto poscosecha");
 
-                }
+
             }
         });
 
@@ -1375,13 +1389,14 @@ public class RealtimeDB {
                             break;
 
 
-                        case Variables.FormPreviewContenedores:
-                            break;
 
                         case Variables.FormCamionesyCarretasActivity:
                             BottonSheetCallUploading.uploadCamionesYcarretas(Variables.IMAGENES_SET_DE_REPORTE);
                             break;
 
+                        case Variables.FormatDatsContAcopi:
+                            BottonSheetCallUploading.uploadConteendoresEnAcopio(Variables.IMAGENES_SET_DE_REPORTE);
+                            break;
 
 
                         case Variables.FormMuestreoRechaz:

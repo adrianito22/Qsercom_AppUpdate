@@ -51,7 +51,9 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
+import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
+import com.tiburela.qsercom.models.DatosDeProceso;
 import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -1585,6 +1587,59 @@ return true;
 
 
     }
+
+
+
+
+
+    public static void update_CamionesyCarretas(Activity activity, Context contexta, ReportCamionesyCarretas camionesyCarretas,
+                                                         CalibrFrutCalEnf calibracEnfunde, ProductPostCosecha productos, ArrayList<ImagenReport>listImages,
+                                                         int ActivityId)
+    {
+        FragmentManager fm =((FragmentActivity)activity). getSupportFragmentManager();
+
+
+
+        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,camionesyCarretas,calibracEnfunde  ,productos,listImages,ActivityId);
+
+        Bundle bundle = new Bundle();
+       // bundle.putString("keyPrefrencesReportCurrent", keyPrefrencesx);
+        alertDialog.setArguments(bundle);
+
+
+        alertDialog.setCancelable(false);
+        // alertDialog.setc(false);
+        alertDialog.show(fm, "duialoffragment_alert");
+
+
+
+    }
+
+    public static void show_AND_UPLOAD_ConetendoresAcopio(Activity activity, Context contexta, ContenedoresEnAcopio contenedoresEnAcopio,
+                                                          InformRegister informRegisterx,
+                                                          ArrayList<ImagenReport>listImages,HashMap<String, DatosDeProceso>miMap,
+                                                         int ActivityId,String keyPrefrencesx)
+    {
+        FragmentManager fm =((FragmentActivity)activity). getSupportFragmentManager();
+
+
+
+        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,contenedoresEnAcopio  ,informRegisterx,
+                miMap,listImages,ActivityId);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("keyPrefrencesReportCurrent", keyPrefrencesx);
+        alertDialog.setArguments(bundle);
+
+
+        alertDialog.setCancelable(false);
+        // alertDialog.setc(false);
+        alertDialog.show(fm, "duialoffragment_alert");
+
+
+
+    }
+
 
     public static void show_AND_UPLOADCOntrolcalidad(Activity activity, Context contexta, ControlCalidad controlCalidad,
                                                      InformRegister informRegisterx,

@@ -2434,12 +2434,9 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                     }
 
 
-                     //informe actual
-                  //  RealtimeDB.addNewReportCalidaCamionCarrretas(objecCamionesyCarretas);
-                     CalibrFrutCalEnf cali=     addCalibracionFutaC_enfAndUpload(currenTidGenrate);
-                    ProductPostCosecha producto= addProdcutsPostCosechaAndUpload(currenTidGenrate);
+                     CalibrFrutCalEnf cali=     generateCalibracal(currenTidGenrate);
+                    ProductPostCosecha producto= generateProductPost(currenTidGenrate);
                    ArrayList<ImagenReport>miList=updateAndCreateArrayListImages();
-                    RealtimeDB.addNewRegistroInforme(ActivityCamionesyCarretas.this,informRegister);
 
 
                    Utils. show_AND_UPLOAD_CamionesyCarretas(ActivityCamionesyCarretas.this,ActivityCamionesyCarretas.this,
@@ -3324,7 +3321,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     }
 
 
-    private   ProductPostCosecha  addProdcutsPostCosechaAndUpload(String uniqueIDinforme){
+    private   ProductPostCosecha generateProductPost(String uniqueIDinforme){
 
         ProductPostCosecha producto=new ProductPostCosecha(uniqueIDinforme);
         //creamos un array de editext
@@ -3425,7 +3422,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
     }
 
-    private CalibrFrutCalEnf  addCalibracionFutaC_enfAndUpload(String reportPerteence){
+    private CalibrFrutCalEnf generateCalibracal(String reportPerteence){
 
         //recorremos un array de editext y creamos un objeto de tipo CalibrFrutCalEnf..
         //si no tiene data agregamos cero u comillas...
