@@ -82,7 +82,6 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
     HashMap<String,Cell> mapCellsToTabCurrentTab;
     Rectangle remaining;
     PdfDocument miPFDocumentkernel;
-    int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
     Document midocumentotoAddData;
     LinearLayout layoutGraficos;
@@ -125,8 +124,6 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         setContentView(R.layout.activity_pdf_maker20);
 
 
-
-        ActivityFormularioDondeVino = getIntent().getIntExtra(Variables.KEY_PDF_MAKER,0);
 
         nameOFPDFrEPORTfile=getIntent().getStringExtra(Variables.KEY_PDF_MAKER_PDF_NAME);
         numProductsPostcosecha=getIntent().getIntExtra(Variables.KEY_PDF_MAKER_PDF_NUM_PR_POST,0);

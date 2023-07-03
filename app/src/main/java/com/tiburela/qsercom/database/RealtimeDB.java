@@ -874,10 +874,10 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
 
                     Variables.contadorDataUpladed++;
+
                  if(Variables.contadorDataUpladed==4){
 
                      BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
-
 
                  }
 

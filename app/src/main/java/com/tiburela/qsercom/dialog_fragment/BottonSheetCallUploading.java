@@ -229,6 +229,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             Variables.contador=0;
             StorageDataAndRdB.indiceCurrentOFlistIamges=0;
 
+        Variables.contadorDataUpladed= 0;
+
             btnOkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -610,27 +612,22 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                     valuePercent[0] =20;
 
                     RealtimeDB.UploadControlcalidadInform(controlCalidadX);
-
-                    Log.i("superff","el size de map 1 es "+hasHmapOtherFieldsEditxsx.size()+" y el key donde estar es "+ controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());
-
-                    Log.i("superff","el size de map 1 es "+hasMapitemsSelecPosicRechazToUploadx.size()+" y el key donde estar es "+ controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());
-
                     RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxsx, controlCalidadX.getKeyWhereLocateasHmapFieldsRecha());
                     RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUploadx,controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());
                     RealtimeDB.addNewRegistroInforme(context,informRegister);
-
-                    //le decimos  que subido..
-
-
-
-
                 }
 
                 else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
                     Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
                     SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
+                    valuePercent[0] =100;
+
+                }
 
 
+                else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
+                    Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
+                    SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
                     valuePercent[0] =100;
 
                 }

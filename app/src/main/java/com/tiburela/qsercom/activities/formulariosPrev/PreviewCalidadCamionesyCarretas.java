@@ -64,6 +64,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.Constants.Constants;
+import com.tiburela.qsercom.PdfMaker.PdfMaker2_0;
+import com.tiburela.qsercom.PdfMaker.PdfMakerCamionesyCarretas;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
@@ -75,6 +77,7 @@ import com.tiburela.qsercom.dialog_fragment.BottonSheetDfragmentVclds;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.dialog_fragment.DialogConfirmNoAtach;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
+import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.CuadroMuestreo;
 import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
@@ -951,7 +954,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                    if(!cehckFaltanImagenes()){
                        return; //
                    }
-                    ;
+
 
 
                     checkDataToCreatePdf();
@@ -4380,25 +4383,207 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
         if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.trim().length()==0){
+            scroollElementoFaltante(imgAtachVinculacion);
 
             Log.i("atachxxc","es cero en idsFormsVinucladosControlCalidadString");
-
             Toast.makeText(PreviewCalidadCamionesyCarretas.this, "Agrega al menos un reporte control calidad", Toast.LENGTH_LONG).show();
             return;
 
         }
 
         if (RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().length()==0){
-
             Log.i("atachxxc","es cero en idCudroMuestreoStringVinuclado");
-
+              scroollElementoFaltante(imgAtachVinculacion);
             Toast.makeText(PreviewCalidadCamionesyCarretas.this, "Agrega al menos un reporte cuadro muestreo", Toast.LENGTH_LONG).show();
             return;
         }
 
 
+        /**anyes de llamar reseteamos y chekeamos si es mayor a */
+        Utils.indiceControlCalidad=0;
+        Variables.listIdSvINCULADOS = new ArrayList<>();
+        Variables.listControlCalidadVinculads = new ArrayList<>();
+        Variables.listIdSvINCULADOS = Utils.generateLISTofIdControlCALIDAD(Variables.currenReportCamionesyCarretas.getAtachControCalidadInfrms());
+
+
+        dowloadReportsVinucLdsControlCalidad();
+       // DowloadControlcalidadVinculadosandDecideIRpdfMAKER(Variables.currenReportCamionesyCarretas.getAtachControCalidadInfrms());
+
 
     }
+    private void dowloadReportsVinucLdsControlCalidad() {
+
+        String idControlCalidadDowload=Variables.listIdSvINCULADOS.get(Utils.indiceControlCalidad);
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("uniqueId").equalTo(idControlCalidadDowload);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    ControlCalidad user = ds.getValue(ControlCalidad.class);
+
+                    if (user != null) {
+
+                        Variables.listControlCalidadVinculads.add(user);
+
+                    }   ////hay uno y e indice==1
+                }
+
+                Utils.indiceControlCalidad++;//=1  y size ==1
+
+                if (Utils.indiceControlCalidad >= Variables.listIdSvINCULADOS.size()) {
+
+                    String [] dateCreate=Variables.currenReportCamionesyCarretas.getSimpleDataFormat().split("-");
+
+                    String nameFilePdf=""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.currenReportCamionesyCarretas.getProductor();
+
+                    Log.i("comnadaer", "bien vamos a activity pdf maker");
+
+
+                    int numsPriodcutsPost = cuentaProdcutosposTcosechaAndUpdateGlobaProducPost();
+
+                    Intent intent = new Intent(PreviewCalidadCamionesyCarretas.this, PdfMakerCamionesyCarretas.class);
+                    intent.putExtra(Variables.KEY_PDF_MAKER, Variables.FormPreviewContenedores);
+                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NAME, nameFilePdf);
+                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NUM_PR_POST, numsPriodcutsPost);
+
+                    startActivity(intent);
+
+                }else{
+                    dowloadReportsVinucLdsControlCalidad();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+    private int cuentaProdcutosposTcosechaAndUpdateGlobaProducPost() {
+        EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
+                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
+
+        int contadorpRODUCTS = 0;
+
+        for (EditText editext : editextArray) {
+
+            if (!editext.getText().toString().trim().isEmpty() && editext.getText().toString().length() > 1) {
+                contadorpRODUCTS++;
+            }
+        }
+
+
+        if (ediPPC015.getText().toString().trim().length() > 1) {
+
+            contadorpRODUCTS=contadorpRODUCTS-1;
+        }
+        if (ediPPC015.getText().toString().trim().length() > 0) {
+
+            contadorpRODUCTS=contadorpRODUCTS-1;
+        }
+
+
+
+
+
+
+        //update productos postcosechafsdfsd
+        for (int indice = 0; indice < editextArray.length; indice++) {
+            EditText currentEditext = editextArray[indice];
+            if (!currentEditext.getText().toString().trim().isEmpty()) { //si no esta vacioo
+
+
+                switch (currentEditext.getId()) {
+
+                    case R.id.ediPPC01:
+                        Variables.currenProductPostCosecha.alumbre = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC02:
+                        Variables.currenProductPostCosecha.bc100 = currentEditext.getText().toString();
+                        break;
+
+                    case R.id.ediPPC03:
+                        Variables.currenProductPostCosecha.sb100 = currentEditext.getText().toString();
+                        break;
+
+                    case R.id.ediPPC04:
+                        Variables.currenProductPostCosecha.eclipse = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC05:
+                        Variables.currenProductPostCosecha.acido_citrico = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC06:
+                        Variables.currenProductPostCosecha.biottol = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC07:
+                        Variables.currenProductPostCosecha.bromorux = currentEditext.getText().toString();
+                        break;
+                    case R.id.ediPPC08:
+                        Variables.currenProductPostCosecha.ryzuc = currentEditext.getText().toString();
+                        break;
+
+                    case R.id.ediPPC09:
+                        Variables.currenProductPostCosecha.mertec = currentEditext.getText().toString();
+                        break;
+
+                    case R.id.ediPPC010:
+                        Variables.currenProductPostCosecha.sastifar = currentEditext.getText().toString();
+                        break;
+
+                    case R.id.ediPPC011:
+                        Variables.currenProductPostCosecha.xtrata = currentEditext.getText().toString();
+                        break;
+
+
+                    case R.id.ediPPC012:
+                        Variables.currenProductPostCosecha.nlarge = currentEditext.getText().toString();
+                        break;
+
+
+                    case R.id.ediPPC013:
+                        Variables.currenProductPostCosecha.gib_bex = currentEditext.getText().toString();
+                        break;
+
+
+                    case R.id.ediPPC014:
+                        Variables.currenProductPostCosecha.cloro = currentEditext.getText().toString();
+                        break;
+
+
+                    case R.id.ediPPC015:
+                        Variables.currenProductPostCosecha.otro_especifique = currentEditext.getText().toString();
+                        Variables.currenProductPostCosecha.cantidadOtro = ediPPC016.getText().toString();
+
+                        break;
+
+
+                    case R.id.ediPPC016:
+                        Variables.currenProductPostCosecha.cantidadOtro = currentEditext.getText().toString();
+                        break;
+
+
+                }
+
+
+            }
+
+            //si el editext tiene data lo corregimos usando la propiedad hint
+
+
+        }
+
+
+        return contadorpRODUCTS;
+    }
+
+
+
     private void updateInformeWhitCurrentDataOfViews() {
 
         String atachViucladoControlCalidad = Variables.currenReportCamionesyCarretas.getAtachControCalidadInfrms();
@@ -4707,33 +4892,8 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
     }
-/*
-    private void DowloadControlcalidadVinculadosandDecideIRpdfMAKER(String valueVinculds) {
 
-        // Utils.generateLISTbyStringVinculados
-        ArrayList<String> listIdSvINCULADOS = Utils.generateLISTofIdControlCALIDAD(valueVinculds, "");
 
-        if (listIdSvINCULADOS.size() > 0) {  //si existen vinuclados DESCRAGAMOS los informes viculados usando los ids uniqe id
-
-            //  showReportsAndSelectOrDeleteVinuclados(ActivityContenedoresPrev.this,true);
-            int contadorx = 0;
-
-            for (String value : listIdSvINCULADOS) {
-                contadorx++;
-
-                Log.i("comnadaer", "se ejecuto esto veces, buscamos este " + value);
-
-                dowloadReportsVinucLADSAndGOcREATEpdf(value, contadorx, listIdSvINCULADOS.size());
-
-            }
-        } else {
-
-            Toast.makeText(PreviewCalidadCamionesyCarretas.this, "No Hay reportes vinculados ", Toast.LENGTH_SHORT).show();
-
-        }
-
-    }
-*/
     public void decideaAtachReport(boolean userSelecion) {
 
 
@@ -4840,6 +5000,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
         if (RecyclerViewAdapLinkage.idCudroMuestreoStringVinuclado.trim().isEmpty()) {
+            scroollElementoFaltante(imgAtachVinculacion);
             Toast.makeText(PreviewCalidadCamionesyCarretas.this, "Agrega al menos un reporte Cuadro de muestreo", Toast.LENGTH_LONG).show();
             return false;
 
@@ -4848,6 +5009,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
         if (RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString.trim().isEmpty()) {
             Toast.makeText(PreviewCalidadCamionesyCarretas.this, "Agrega al menos un reporte Control calidad", Toast.LENGTH_LONG).show();
+            scroollElementoFaltante(imgAtachVinculacion);
 
             return false;
 
