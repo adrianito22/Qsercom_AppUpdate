@@ -165,7 +165,6 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     private ImageView imgUpdatecAlfrutaEnfunde;
 
 
-    ArrayList<String> listImagesToDelete = new ArrayList<>();
 
 
     Button btnGuardarCambiosmARKrREVISADO;
@@ -2311,7 +2310,7 @@ else{
                     Log.i("mispiggi", "el size antes de eliminar es " + ImagenReport.hashMapImagesData.size());
                     Log.i("mispiggi", "OK HAY UN CLICK EN LA CATEGORIA  "+Variables.typeoFdeleteImg);
 
-                    listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
+                    Variables.  listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
                     ImagenReport.hashMapImagesData.remove(v.getTag().toString());
                    // Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
@@ -4637,12 +4636,6 @@ else{
 
 
         //  createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
-        for (int i = 0; i < listImagesToDelete.size(); i++) {
-
-            geTidAndDelete(listImagesToDelete.get(i));
-
-        }
 
         //aliminamos cambios
 

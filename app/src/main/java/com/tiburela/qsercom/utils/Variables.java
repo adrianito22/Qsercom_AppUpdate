@@ -27,8 +27,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Variables {
+    public static  ArrayList<String>listImagesToDelete=new ArrayList<>();
 
     ///hilos objetos
+    public static  final int ELIMNAR_IMAGENES=96389;
 
     public static  final int DATOS_PROCESOXX=963;
 
@@ -222,7 +224,6 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
    public static  HashMap<String, ImagenReport> hashMapImagesStart=new HashMap<>();
 
 
-    public static ArrayList<String> listImagesToDelete; //alamcenar los unicques id para elimnarlos
 
 
     public static final int  CALIFICADOR_CAMPO= 1700 ;

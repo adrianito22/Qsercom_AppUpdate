@@ -118,7 +118,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     String horientacionImg4;
 
     boolean esprimervezEntra=true;
-    ArrayList<String> listImagesToDelete = new ArrayList<>();
 
     MiTarea tare;
     EditText ediCandadoName1;
@@ -1920,12 +1919,10 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
          ProductPostCosecha producto=  generaProductsPostCosecha(); //agregamos y subimos los productos postcosecha..
 
-
-
         ArrayList<ImagenReport>miList= updateListPropertyAndCreatArrayListImages(); //subimos laS IMAGENES EN STORAGE Y LA  data de las imagenes EN R_TDBASE
 
-        Utils. update_CamionesyCarretas(PreviewCalidadCamionesyCarretas.this,PreviewCalidadCamionesyCarretas.this,
-                informe,calibracion,producto,miList,Variables.FormContenedores);
+        Utils.update_CamionesyCarretas(PreviewCalidadCamionesyCarretas.this,PreviewCalidadCamionesyCarretas.this,
+                informe,calibracion,producto,miList,Variables.FormCamionesyCarretasActivityPreview);
 
 
     }
@@ -2153,7 +2150,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 // esed659357-2a32-4614-b4eb-9733ef5570f9.jpg
                 try {
 
-                    listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
+                    Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
                      ImagenReport.hashMapImagesData.remove(v.getTag().toString());
 
                     Log.i("ADPATERXX","el size despues de eliminar hasmpa size es "+ ImagenReport.hashMapImagesData.size());
@@ -2185,7 +2182,7 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     ArrayList<ImagenReport> updateListPropertyAndCreatArrayListImages() {
         //una lista de Uris
 
-        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
+     //   Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
         if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
 
@@ -2199,39 +2196,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         }else{
             return new ArrayList<ImagenReport>();
         }
-    }
-
-
-    private class Task2 implements Runnable {
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-       // AlertDialog  dialog;
-
-
-
-        @Override
-        public void run() { //bacground
-            //boorara desee aqui
-
-
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() { //ui .,hilo principal
-
-                  //  Toast.makeText(PreviewCalidadCamionesyCarretas.this, "task2", Toast.LENGTH_SHORT).show();
-                    Log.i("sertila","hermos terminado.,.");
-                  //  dialog.dismiss();
-
-
-                }
-            });
-        }
-
-
-
-
     }
 
 
@@ -4204,62 +4168,9 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
 
-        /**eliminamos las imagenes delete */
-        for (int i = 0; i < listImagesToDelete.size(); i++) {
-            geTidAndDelete(listImagesToDelete.get(i));
-        }
 
 
         createObjcInformeAndUpdate(); //CREAMOS LOS IN
-
-    }
-    private void geTidAndDelete(String idUniqueToDelete) { //busca el que tenga esa propieda y obtiene el id node child
-
-        Log.i("imagheddd", "se lamo to delete");
-
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
-
-        DatabaseReference usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
-        //  Query query = usersdRef.orderByChild("uniqueIdNamePic").equalTo(Variables.currentCuponObjectGlob.getUniqueIdCupòn());
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
-                try {
-
-                    DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
-                    String key = nodeShot.getKey();
-
-                    usersdRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-
-                                Log.i("eliminamos","aqui se elimino esto");
-
-                                //Toast.makeText(OfertsAdminActivity.this, "Se elimino correctamente", Toast.LENGTH_SHORT).show();
-                            }
-
-
-                        }
-                    });
-
-                } catch (Exception e) {
-                    Log.i("eliminamos","aqui hay una expecion y es "+e.getMessage());
-
-                    e.printStackTrace();
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
 

@@ -1650,153 +1650,6 @@ return true;
     }
 
 
-    private void geTidAndDelete( String idUniqueToDelete){ //busca el que tenga esa propieda y obtiene el id node child
-
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
-
-        DatabaseReference usersdRef= RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
-        //  Query query = usersdRef.orderByChild("uniqueIdNamePic").equalTo(Variables.currentCuponObjectGlob.getUniqueIdCupòn());
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String key=null;
-
-                try {
-                    DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
-                     key = nodeShot.getKey();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
-
-
-                if(key!=null){
-                    usersdRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                //Toast.makeText(OfertsAdminActivity.this, "Se elimino correctamente", Toast.LENGTH_SHORT).show();
-
-                            }
-
-
-
-                        }
-                    });
-
-
-                }
-
-
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-
-
-/*
-    private boolean checkDatosProcesoIsLleno(){
-
-        if(ediCondicionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediCondicionBalanza.requestFocus();
-            ediCondicionBalanza.setError("Este espacio es obligatorio");
-            scroollElementoFaltante(ediCondicionBalanza);
-
-            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-        if(ediTipodeCaja.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediTipodeCaja.requestFocus();
-            ediTipodeCaja.setError("Este espacio es obligatorio");
-            scroollElementoFaltante(ediTipodeCaja);
-
-            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-
-
-
-        if(ediTipoPlastico.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediTipoPlastico.requestFocus();
-            ediTipoPlastico.setError("Este espacio es obligatorio");
-            scroollElementoFaltante(ediTipoPlastico);
-
-            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-
-
-        if(ediTipoBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediTipoBalanza.requestFocus();
-            ediTipoBalanza.setError("Este espacio es obligatorio");
-            scroollElementoFaltante(ediTipoBalanza);
-
-            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-
-        if(switchBalanzaRep.isChecked()  && editipbalanzaRepeso.getText().toString().trim().isEmpty() ){
-
-            editipbalanzaRepeso.requestFocus();
-            editipbalanzaRepeso.setError("Selecione el tipo de balanza");
-            scroollElementoFaltante(editipbalanzaRepeso);
-
-            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
-            return false;
-        }else{
-            editipbalanzaRepeso.setText("");
-
-        }
-
-
-/*
-        if(editipbalanzaRepeso.getText().toString().isEmpty()){ //chekamos que no este vacia
-           // editipbalanzaRepeso.requestFocus();
-            //editipbalanzaRepeso.setError("Este espacio es obligatorio");
-            //scroollElementoFaltante(editipbalanzaRepeso);
-
-            //layoutContainerSeccion7.setVisibility(LinearLayout.VISIBLE);
-           // return false;
-
-        }
-
-
-        if(ediUbicacionBalanza.getText().toString().isEmpty()){ //chekamos que no este vacia
-            ediUbicacionBalanza.requestFocus();
-            ediUbicacionBalanza.setError("Este espacio es obligatorio");
-            scroollElementoFaltante(ediUbicacionBalanza);
-
-            layoutContainerDatsProceso.setVisibility(LinearLayout.VISIBLE);
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-*/
-
-
 
 private boolean creaAcMapDatosProcesoAndCheck(String informePertenece,String PuskEY){
  boolean isReady=true;
@@ -2031,7 +1884,7 @@ private void createObjcInformeAndUpload() {
 
 
     Utils. show_AND_UPLOAD_ConetendoresAcopio(PreviewsFormDatSContersEnAc.this,PreviewsFormDatSContersEnAc.this,
-            informe,new InformRegister(),milistImages,Variables.mimapaDatosProcesMapCurrent,Variables.FormatDatsContAcopi
+            informe,new InformRegister(),milistImages,Variables.mimapaDatosProcesMapCurrent,Variables.FormatDatsContAcopiPREVIEW
             ,"");
 
 
@@ -3725,14 +3578,6 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
         createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
 
 
-
-
-
-        for(int i=0; i<Variables.listImagesToDelete.size() ; i++) {
-
-            geTidAndDelete(Variables.listImagesToDelete.get(i));
-
-    }
 
 
     }

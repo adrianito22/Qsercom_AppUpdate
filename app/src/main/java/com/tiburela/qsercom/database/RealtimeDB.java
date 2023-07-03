@@ -75,7 +75,11 @@ public class RealtimeDB {
 
     public static  void initDatabasesRootOnly(){
 
-        rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
+        if(rootDatabaseReference==null){
+            rootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //anterior
+
+        }
+
 
         // mibasedataPathImages = rootDatabaseReference.child("Informes").child("ImagesData");
 
@@ -276,28 +280,41 @@ public class RealtimeDB {
 
 
     public static void updateCalidaCamionCarrretas( ReportCamionesyCarretas informeObjct) {
+          RealtimeDB.initDatabasesRootOnly();
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("informeCamionesYcarretas");
 
+        Log.i("samisas","update el get key firebase es "+informeObjct.getKeyFirebase());
 
         if(informeObjct.getKeyFirebase().length()>0){
-            mibasedata.child(informeObjct.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
+            Log.i("samisas","se ejecuto el if aqui");
+
+            mibasedata.child(informeObjct.getKeyFirebase()).setValue(informeObjct).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        Log.i("samisas","es succces hurra");
 
                         BottonSheetCallUploading.updateCamionesYcarretas(Variables.PRODUCTS_POST_COSECHA);
 
 
+                    }
+                    else  {
 
-                    }else  {
-
+                        Log.i("samisas","se produjo un aexepcion y es "+task.getException());
                      //   Toast.makeText(myContext, "Ocurrio un error :(", Toast.LENGTH_SHORT).show();
 
                     }
+
+                    if (task.isCanceled()){
+
+                        Log.i("samisas","task es caneleed");
+
+                    }
+
                 }
             });
 
@@ -309,14 +326,15 @@ public class RealtimeDB {
 
 
     public static void addNewhasmapPesoBrutoClosters2y3L( HashMap<String, Float> miMapa,String keyOrNodeToUpload) {
+
+
+       /*
         if(miMapa.size()==0){
             BottonSheetCallUploading.uploadConteendoresForm(Variables.PRODUCTS_POST_COSECHA);
 
             return;
         }
-
-
-
+*/
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("MapsPesoBrutoCloster2y3l");
 
@@ -325,7 +343,16 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    BottonSheetCallUploading.uploadConteendoresForm(Variables.PRODUCTS_POST_COSECHA);
+                    if(Variables.activityCurrent==Variables.FormContenedores){
+                        BottonSheetCallUploading.uploadConteendoresForm(Variables.PRODUCTS_POST_COSECHA);
+
+                    }else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivity){
+
+                    //    BottonSheetCallUploading.uploadCamionesYcarretas(Variables.PRODUCTS_POST_COSECHA);
+
+                    }
+
+
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
                 }else  {
@@ -351,7 +378,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
 
                        // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -388,7 +415,7 @@ public class RealtimeDB {
 
                     if(Utils.contadorTareasCompletadas==5){
 
-                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
 
                         // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -422,7 +449,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
 
                       //  Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -456,7 +483,7 @@ public class RealtimeDB {
                     Utils.contadorTareasCompletadas++;
 
                     if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
 
                      //   Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
@@ -808,7 +835,6 @@ public class RealtimeDB {
 
 
                     if(Variables.activityCurrent==Variables.FormContenedores){
-
                         BottonSheetCallUploading.uploadConteendoresForm( Variables.INFORM_REGISTER);
 
 
@@ -1054,7 +1080,7 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
 
                     if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview){
-                        BottonSheetCallUploading.updateCamionesYcarretas(Variables.IMAGENES_SET_DE_REPORTE);
+                        BottonSheetCallUploading.updateCamionesYcarretas(Variables.ELIMNAR_IMAGENES);
 
                     }
 
@@ -1089,7 +1115,7 @@ public class RealtimeDB {
                      if(Variables.activityCurrent==Variables.FormPreviewContenedores){
                          Utils.contadorTareasCompletadas++;
                          if(Utils.contadorTareasCompletadas==5){
-                             BottonSheetCallUploading.UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
+                             BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
                              // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
                          }
                      }

@@ -1522,8 +1522,6 @@ return true;
         }
 
 
-
-
     }
 
     public static boolean containsName(final List<ImagenReport> list, final String name){

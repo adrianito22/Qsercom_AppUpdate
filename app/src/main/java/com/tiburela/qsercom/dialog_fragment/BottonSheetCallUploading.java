@@ -26,6 +26,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -44,6 +49,7 @@ import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.SharePrefHelper;
+import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
@@ -55,9 +61,14 @@ import java.util.Map;
 
 
 public class BottonSheetCallUploading extends BottomSheetDialogFragment {
+
+    static Query query;
+    static DatabaseReference usersdRef;
+
+
         public static final String TAG = "ActionBottomDialog";
         private View vista;
-
+        static ArrayList<String>idDeleteIMgesList;
         static ContenedoresEnAcopio contenedoresAcx;
         static HashMap<String, DatosDeProceso>miMaProcesoX;
         static CalibrFrutCalEnf calendariox;
@@ -359,27 +370,130 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
          /**ARHORA REVISAMOS EL FLUJO */
 
+          Log.i("samisas","update camiones y c");
+
         if(tipoObjectoQueSubiremosNow== Variables.OBJECT_CAMIONESYCARRETAS){
+            Log.i("samisas","update camiones y c  1");
+
             RealtimeDB.updateCalidaCamionCarrretas(camionesyCarretasx);
         }
 
         else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
+            Log.i("samisas","update camiones y c  2");
+
             RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha); //por ejempo en este metodo cuando suba el refiter form/..
+
+
         }
 
 
         else if(tipoObjectoQueSubiremosNow== Variables.CALIBRACIONES_CALENDARIO_ENFUNDE){
+            Log.i("samisas","update camiones y c  3");
+
             RealtimeDB.UpdateCalibracionFrutCal(calendariox); //por ejempo en este metodo cuando suba el refiter form/..
         }
 
+        else if(tipoObjectoQueSubiremosNow== Variables.ELIMNAR_IMAGENES){ //update info images
+            /*ESTO PARA ELIMNAR LA SIMAGENES Id**/
+            geTidAndDelete(0);
+        }
+
         else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
+            Log.i("samisas","update camiones y c  4");
             BottonSheetCallUploading BTON= new BottonSheetCallUploading();
             BTON.callThreadImagenesUpload();
 
         }
 
+        //aqui actualizamos
+
+
+
+
     }
 
+    private static void  geTidAndDelete(int indiceIterador) { //busca el que tenga esa propieda y obtiene el id node child
+
+         int[] idIterador = {indiceIterador};
+
+        if(indiceIterador>=Variables.listImagesToDelete.size()){
+
+            if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview){
+
+                updateCamionesYcarretas(Variables.IMAGENES_SET_DE_REPORTE);
+
+
+            }else if(Variables.activityCurrent==Variables.FormPreviewContenedores){
+
+                UpdateConteendores(Variables.IMAGENES_SET_DE_REPORTE);
+
+
+            }
+
+
+            else if(Variables.activityCurrent==Variables.FormatDatsContAcopiPREVIEW){
+                updateContenedresEnAcopio(Variables.IMAGENES_SET_DE_REPORTE);
+
+
+            }
+            //hemos terminado;;;
+
+        }
+        else {
+            String idUniqueToDelete=  Variables.listImagesToDelete.get(indiceIterador);
+             query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("uniqueIdNamePic").equalTo(idUniqueToDelete);
+             usersdRef = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData");
+            //  Query query = usersdRef.orderByChild("uniqueIdNamePic").equalTo(Variables.currentCuponObjectGlob.getUniqueIdCupòn());
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    //   private void editaValue(String keyAtoUpdate,String titulo, String descripcion, String direccion, String ubicacionCordenaGoogleMap, String picNameofStorage, double cuponValor, String categoria,boolean switchActivate, boolean switchDestacado){
+                    try {
+
+                        DataSnapshot nodeShot = dataSnapshot.getChildren().iterator().next();
+                        String key = nodeShot.getKey();
+
+                        usersdRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                  //  indiceIterador++;
+                                    idIterador[0]++;
+
+                                    geTidAndDelete(idIterador[0]);
+                                    Log.i("eliminamos","aqui se elimino esto");
+
+                                    //Toast.makeText(OfertsAdminActivity.this, "Se elimino correctamente", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+                        });
+
+                    } catch (Exception e) {
+                        Log.i("eliminamos","aqui hay una expecion y es "+e.getMessage());
+
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+        }
+
+
+
+
+    }
 
     public static void uploadConteendoresEnAcopio(int tipoObjectoQueSubiremosNow){
         /**en llamos a este metodo agreghando el tipo de objeto class que subiremos */
@@ -421,6 +535,11 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             RealtimeDB.UpadateDatosProceso(miMaProcesoX,contenedoresAcx.getDatosProcesoContenAcopioKEYFather());  //subimos
              }
 
+
+        else if(tipoObjectoQueSubiremosNow== Variables.ELIMNAR_IMAGENES){
+                geTidAndDelete(0);
+        }
+
         else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
             BottonSheetCallUploading BTON= new BottonSheetCallUploading();
             BTON.callThreadImagenesUpload();
@@ -460,6 +579,13 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
          RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs());
          RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha);
      }
+
+     else if(reportTiPOSubidoAndState== Variables.ELIMNAR_IMAGENES){
+
+         geTidAndDelete(0);
+
+     }
+
 
      else if(reportTiPOSubidoAndState== Variables.IMAGENES_SET_DE_REPORTE){  //ahora rtocan las imagenes
 
@@ -856,6 +982,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
     static void decideMethodCallUpdate(int idActivity){
 
      //   Utils.contadorTareasCompletadas=0;
+
+        Log.i("idcurrent","el id current es "+idActivity);
 
         switch(idActivity){
 
