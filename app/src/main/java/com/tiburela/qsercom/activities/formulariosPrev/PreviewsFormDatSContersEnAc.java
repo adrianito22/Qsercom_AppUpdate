@@ -1943,7 +1943,7 @@ private void createObjcInformeAndUpload() {
             RealtimeDB.actualizaDescripcionIms(Utils.objsIdsDecripcionImgsMOreDescripc);
         }
 
-        Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
+        //Utils.updateImageReportObjec(); //asi actualizamos la propiedad sortPositionImage,
 
 
         if(  !Variables.hashMapImagesStart.keySet().equals(ImagenReport.hashMapImagesData.keySet())){ //si no son iguales
@@ -1951,8 +1951,7 @@ private void createObjcInformeAndUpload() {
             Log.i("imagheddd", "alguno o toos son diferentes images llamaos metodo filtra");
 
             StorageDataAndRdB.counTbucle = 0; //resetemoa esta variable que sera indice en la reflexion
-            ArrayList<ImagenReport> list2 = Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
-               return  list2;
+            return Utils.mapToArrayList(Utils.creaHahmapNoDuplicado());
         }
 
         else{

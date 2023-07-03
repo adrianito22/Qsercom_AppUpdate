@@ -4267,10 +4267,8 @@ else{
 
 
                 if (productxGlobal != null) {
-
                     Variables.currenProductPostCosecha = productxGlobal;
                     setProductosPostcosecha(productxGlobal);
-
                 }
 
 
@@ -4291,9 +4289,6 @@ else{
 
 
     void setProductosPostcosecha(ProductPostCosecha objProducto) {
-
-        TextInputEditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
-                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
 
         ediPPC01.setText(objProducto.alumbre);
         ediPPC02.setText(objProducto.bc100);

@@ -2896,6 +2896,9 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
     private ProductPostCosecha generaProductsPostCosecha(){
 
         ProductPostCosecha producto=new ProductPostCosecha(UNIQUE_ID_iNFORME);
+        Log.i("prodyuccd","el unique id es "+UNIQUE_ID_iNFORME);
+       producto.keyFirebase= Variables.currenProductPostCosecha.keyFirebase;
+        //generaProductsPostCosecha
         //creamos un array de editext
 
         EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,
@@ -2958,7 +2961,6 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
                         case R.id.ediPPC013:
                             producto.gib_bex=currentEditext.getText().toString();
                             break;
-
 
 
                         case R.id.ediPPC014:
@@ -3286,19 +3288,16 @@ return  producto;
 
     void dowLoadProducsPostC(String idAlquePERTENECE){
 
+        Log.i("postcosecha","id al que peretence es "+idAlquePERTENECE);
+
         // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").
-                child("listProductosPostCosecha").
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listProductosPostCosecha").
                 orderByChild("idpertenece").equalTo(idAlquePERTENECE);
 
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Map<String, Object> map = null;
-                //  Map<String, String> map = dataSnapshot.getValue(Map.class);
-                //  Log.i("sliexsa","el size de map es "+map.size());
-
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     productxGlobal=ds.getValue(ProductPostCosecha.class);
@@ -3306,9 +3305,9 @@ return  producto;
 
 
                 if (productxGlobal != null) {
-
-
                     Variables.currenProductPostCosecha = productxGlobal;
+                    Log.i("postcosecha","tenemos un producto postcosecha");
+
                     setProductosPostcosecha(productxGlobal);
 
 
@@ -4621,9 +4620,11 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
     private void updaTeProductsPostCosecha() {
 
+
+
         productxGlobal = new ProductPostCosecha(UNIQUE_ID_iNFORME);
         //creamos un array de editext
-        productxGlobal.keyFirebase = productxGlobal.keyFirebase;
+      ///  productxGlobal.keyFirebase = productxGlobal.keyFirebase;
 
         EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
                 ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
@@ -4631,9 +4632,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
         for (int indice = 0; indice < editextArray.length; indice++) {
             EditText currentEditext = editextArray[indice];
-            if (!currentEditext.getText().toString().isEmpty()) { //si no esta vacioo
-                if (!currentEditext.getText().toString().trim().isEmpty())  //si no es un espacio vacio
-                {
+            if (!currentEditext.getText().toString().trim().isEmpty()) { //si no esta vacioo
 
                     switch (currentEditext.getId()) {
 
@@ -4704,7 +4703,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
                     }
 
-                }
+
 
 
             }
@@ -4743,65 +4742,6 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
     }
 */
-    private void dowloadReportsVinucLADSAndGOcREATEpdf(String reportidToSearch, int contador, int sizeListIterate) {
-
-        Variables.listControlCalidadVinculads = new ArrayList<>();
-
-        Log.i("salero", "bsucando este reporte con este id  " + reportidToSearch);
-
-
-        RealtimeDB.initDatabasesRootOnly();
-
-        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("listControCalidad").orderByChild("uniqueId").equalTo(reportidToSearch);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    ControlCalidad user = ds.getValue(ControlCalidad.class);
-
-                    if (user != null) {
-
-                        Variables.listControlCalidadVinculads.add(user);
-
-                    }
-                }
-
-                if (sizeListIterate == contador) {
-
-
-                    //String nameFilePdf = Variables.currenReportCamionesyCarretas.getNumcionContenedor()+" "+Variables.currenReportCamionesyCarretas.getProductor();
-
-                  String [] dateCreate=Variables.currenReportCamionesyCarretas.getSimpleDataFormat().split("-");
-
-                    String nameFilePdf=""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.currenReportCamionesyCarretas.getProductor();
-
-
-                    Log.i("comnadaer", "bien vamos a activity pdf maker");
-
-
-                    int numsPriodcutsPost = cuentaProdcutosposTcosechaAndUpdateGlobaProducPost();
-
-                    Intent intent = new Intent(PreviewCalidadCamionesyCarretas.this, PdfMakerCamionesyCarretas.class);
-                    intent.putExtra(Variables.KEY_PDF_MAKER, Variables.FormPreviewContenedores);
-                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NAME, nameFilePdf);
-                    intent.putExtra(Variables.KEY_PDF_MAKER_PDF_NUM_PR_POST, numsPriodcutsPost);
-
-
-                    startActivity(intent);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-    }
     public void decideaAtachReport(boolean userSelecion) {
 
 
@@ -4837,108 +4777,6 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
     }
 
-    private int cuentaProdcutosposTcosechaAndUpdateGlobaProducPost() {
-        EditText[] editextArray = {ediPPC01, ediPPC02, ediPPC03, ediPPC04, ediPPC05, ediPPC06, ediPPC07,
-                ediPPC08, ediPPC09, ediPPC010, ediPPC011, ediPPC012, ediPPC013, ediPPC014, ediPPC015, ediPPC016};
-
-        int contadorpRODUCTS = 0;
-
-        for (EditText editext : editextArray) {
-
-            if (!editext.getText().toString().trim().isEmpty() && editext.getText().toString().length() > 1) {
-
-                contadorpRODUCTS++;
-            }
-
-
-        }
-
-        //update productos postcosechafsdfsd
-        for (int indice = 0; indice < editextArray.length; indice++) {
-            EditText currentEditext = editextArray[indice];
-            if (!currentEditext.getText().toString().trim().isEmpty()) { //si no esta vacioo
-
-
-                switch (currentEditext.getId()) {
-
-                    case R.id.ediPPC01:
-                        Variables.currenProductPostCosecha.alumbre = currentEditext.getText().toString();
-                        break;
-                    case R.id.ediPPC02:
-                        Variables.currenProductPostCosecha.bc100 = currentEditext.getText().toString();
-                        break;
-
-                    case R.id.ediPPC03:
-                        Variables.currenProductPostCosecha.sb100 = currentEditext.getText().toString();
-                        break;
-
-                    case R.id.ediPPC04:
-                        Variables.currenProductPostCosecha.eclipse = currentEditext.getText().toString();
-                        break;
-                    case R.id.ediPPC05:
-                        Variables.currenProductPostCosecha.acido_citrico = currentEditext.getText().toString();
-                        break;
-                    case R.id.ediPPC06:
-                        Variables.currenProductPostCosecha.biottol = currentEditext.getText().toString();
-                        break;
-                    case R.id.ediPPC07:
-                        Variables.currenProductPostCosecha.bromorux = currentEditext.getText().toString();
-                        break;
-                    case R.id.ediPPC08:
-                        Variables.currenProductPostCosecha.ryzuc = currentEditext.getText().toString();
-                        break;
-
-                    case R.id.ediPPC09:
-                        Variables.currenProductPostCosecha.mertec = currentEditext.getText().toString();
-                        break;
-
-                    case R.id.ediPPC010:
-                        Variables.currenProductPostCosecha.sastifar = currentEditext.getText().toString();
-                        break;
-
-                    case R.id.ediPPC011:
-                        Variables.currenProductPostCosecha.xtrata = currentEditext.getText().toString();
-                        break;
-
-
-                    case R.id.ediPPC012:
-                        Variables.currenProductPostCosecha.nlarge = currentEditext.getText().toString();
-                        break;
-
-
-                    case R.id.ediPPC013:
-                        Variables.currenProductPostCosecha.gib_bex = currentEditext.getText().toString();
-                        break;
-
-
-                    case R.id.ediPPC014:
-                        Variables.currenProductPostCosecha.cloro = currentEditext.getText().toString();
-                        break;
-
-
-                    case R.id.ediPPC015:
-                        Variables.currenProductPostCosecha.otro_especifique = currentEditext.getText().toString();
-                        break;
-
-
-                    case R.id.ediPPC016:
-                        Variables.currenProductPostCosecha.cantidadOtro = currentEditext.getText().toString();
-                        break;
-
-
-                }
-
-
-            }
-
-            //si el editext tiene data lo corregimos usando la propiedad hint
-
-
-        }
-
-
-        return contadorpRODUCTS;
-    }
 
 
     private boolean checkQueexistminim() {

@@ -3324,6 +3324,8 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
     private   ProductPostCosecha generateProductPost(String uniqueIDinforme){
 
         ProductPostCosecha producto=new ProductPostCosecha(uniqueIDinforme);
+
+
         //creamos un array de editext
 
         EditText [] editextArray = {ediPPC01,ediPPC02,ediPPC03,ediPPC04,ediPPC05,ediPPC06,ediPPC07,

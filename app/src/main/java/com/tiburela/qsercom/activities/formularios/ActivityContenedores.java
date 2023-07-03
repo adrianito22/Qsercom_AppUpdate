@@ -4302,6 +4302,7 @@ private ProductPostCosecha generateProductPoscosecha(String uniqueIDinforme){
                             producto.mertec=currentEditext.getText().toString();
                             break;
 
+
                         case R.id.ediPPC010:
                             producto.sastifar=currentEditext.getText().toString();
                             break;
