@@ -2609,7 +2609,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
                 //ya se subio anteriomente
                 Toast.makeText(     ActivityContenedores.this, "Ya subiste este formulario", Toast.LENGTH_SHORT).show();
                 Log.i("elformasd","se subio form anteriomenmte ");
-                btnSave.setEnabled(false);
+              //  btnSave.setEnabled(false);
                 return;
             }
 
@@ -5115,8 +5115,11 @@ return  producto;
 
                        /**LLAMOS UPLOAD TO DATABASE*/
 
-                        uploadInformeToDatabase(informe,informe2,informe3,user, products, listImagesToUpload );
 
+                       Log.i("uploadxx","es uplad informe to database");
+
+                        uploadInformeToDatabase(informe,informe2,informe3,user, products, listImagesToUpload );
+                    seSubioform=true;
                     //aqui subimos..
 
                 }else {  //si exite creamos otro value...
@@ -5274,43 +5277,45 @@ return  producto;
 
 
 
-public void decideaAtachReport(boolean userSelecion){
+public void decideaAtachReport(){
 
 
+    scrollView2 =findViewById(R.id.scrollView2);
+    scrollView2.post(new Runnable() {
+        public void run() {
+            scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
+        }
+    });
 
-
+}
+/*
       if(userSelecion){ //SELECIONO ATCH
             Log.i("test001"," seleciono 200");
 
-             scrollView2 =findViewById(R.id.scrollView2);
 
-            scrollView2.post(new Runnable() {
-                public void run() {
-                    scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
-                }
-            });
 
-        }
 
 
 /*
         else { //USUARIO SELECION OMITR TODS
             //AQUI VAMOS A SUBIR DATA..
+          Log.i("test001"," seleciono 400");
 
           //gaurdamops  aqui
-          createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
+          btnSave =findViewById(R.id.btnCheck);
 
-          Log.i("test001"," seleciono 300");
-
-
-        }
+          scrollView2.post(new Runnable() {
+              public void run() {
+                  scrollView2.scrollTo(0, btnSave.getBottom());
+              }
+          });
 
 */
 
 
 
 
-}
+
 
 
 private void callPrefrencesSaveAndImagesData(){

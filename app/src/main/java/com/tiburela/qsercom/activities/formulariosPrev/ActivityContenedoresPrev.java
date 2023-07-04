@@ -114,11 +114,9 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
 
    /**COPIAS DE FORMS*/
 
-    SetInformEmbarque1 copiaSetInformEmbarque1;
+   ScrollView scrollView2;
 
-    SetInformEmbarque2 copiaSetInformEmbarque2;
-
-    //SetInformEmbarque3 copiaSetInformEmbarque3;
+    Button btnCheck;
 
 
 
@@ -333,22 +331,20 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     protected void onStart() {
         super.onStart();
 
-        Log.i("lifeclicel", "se llamo metoo onstart ");
+        Log.i("usrdecideatach", "se llamo metoo onstart ");
+
+
 
         Variables.VienedePreview = true;
 
-        //  Auth.initAuth(ActivityContenedoresPrev.this);
-        // Auth.signInAnonymously(ActivityContenedoresPrev.this);
+             if(progress!=null ){
+                 if(progress.isShowing()){
+                     progress.dismiss();
+                 }
+             }
 
-        try {
-            progress.dismiss();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        if (esFirstCharge) {
+             if (esFirstCharge)
+             {
             findViewsIds();
 
             hideViewsIfUserISCampo();
@@ -608,7 +604,8 @@ public class ActivityContenedoresPrev extends AppCompatActivity implements View.
     }
 
     private void findViewsIds() { //configuraremos algos views al iniciar
-
+        btnCheck = findViewById(R.id.btnCheck);
+        scrollView2=findViewById(R.id.scrollView2);
          ediNombreRevisa=findViewById(R.id.ediNombreRevisa);
          ediCodigoRevisa=findViewById(R.id.ediCodigoRevisa);
 
@@ -1596,8 +1593,6 @@ else{
 
     private void eventCheckdata() {// verificamos que halla llenado toda la info necesaria..
 
-        Button btnCheck;
-        btnCheck = findViewById(R.id.btnCheck);
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -5156,7 +5151,9 @@ else{
                     CuadroMuestreo informe = ds.getValue(CuadroMuestreo.class);
                     Log.i("holerd", "aqui se encontro un cuadro muestreo......");
 
-                    if (informe != null) {
+                    if (informe != null  &&  Variables.CurrenReportPart3!= null)  {
+
+
 
                         Variables.CurrenReportPart3.setEdiRacimosRecha(String.valueOf(informe.getTotalRechazadosAll()));
 
@@ -5198,37 +5195,17 @@ else{
 
     }
 
-    public void decideaAtachReport(boolean userSelecion) {
+    public void decideaAtachReport() {
+
+      //  scrollView2 = findViewById(R.id.scrollView2);
+        scrollView2.post(new Runnable() {
+            public void run() {
+                scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
+            }
+        });
 
 
-        if (userSelecion) { //SELECIONO ATCH
-            Log.i("test001", " seleciono 200");
 
-            ScrollView scrollView2 = findViewById(R.id.scrollView2);
-
-            scrollView2.post(new Runnable() {
-                public void run() {
-                    scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
-                }
-            });
-
-        }
-
-
-/*
-        else { //USUARIO SELECION OMITR TODS
-            //AQUI VAMOS A SUBIR DATA..
-
-            //gaurdamops  aqui
-            createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
-            Log.i("test001"," seleciono 300");
-
-
-        }
-
-
-*/
 
 
     }
@@ -6099,7 +6076,7 @@ else{
         updateCaledarioEnfunde(informe3);
 
         Utils.show_AND_UPLOADContenedores(ActivityContenedoresPrev.this,ActivityContenedoresPrev.this,
-                informe,informe2,informe3,inform,productos,listImagesToUpload,miMapLbriado,Variables.FormContenedores,UNIQUE_ID_iNFORME);
+                informe,informe2,informe3,inform,productos,listImagesToUpload,miMapLbriado,Variables.FormPreviewContenedores,UNIQUE_ID_iNFORME);
 
     }
 

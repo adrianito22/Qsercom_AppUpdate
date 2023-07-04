@@ -4330,36 +4330,15 @@ private boolean checkQueexistminimCalibracionCalendario() {
 
     }
 
-    public void decideaAtachReport(boolean userSelecion) {
+    public void decideaAtachReport() {
+        scrollView2.post(new Runnable() {
+            public void run() {
+                scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
+            }
+        });
 
 
-        if (userSelecion) { //SELECIONO ATCH
-            Log.i("test001", " seleciono 200");
 
-
-            scrollView2.post(new Runnable() {
-                public void run() {
-                    scrollView2.scrollTo(0, imgAtachVinculacion.getBottom());
-                }
-            });
-
-        }
-
-
-/*
-        else { //USUARIO SELECION OMITR TODS
-            //AQUI VAMOS A SUBIR DATA..
-
-            //gaurdamops  aqui
-            createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
-            Log.i("test001"," seleciono 300");
-
-
-        }
-
-
-*/
 
 
     }

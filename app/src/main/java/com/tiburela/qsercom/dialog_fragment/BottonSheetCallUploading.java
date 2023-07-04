@@ -578,7 +578,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
      else if(reportTiPOSubidoAndState== Variables.UPDATEINform_2){
          RealtimeDB.actualizaInformePart2(informe2);
-
      }
 
      else if(reportTiPOSubidoAndState== Variables.UPDATEINform_3){

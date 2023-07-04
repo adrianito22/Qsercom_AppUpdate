@@ -2062,9 +2062,9 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
                 arrayEditsFilaAbajo [i].setText(String.valueOf(productResult));
 
 
-                sumaFilasArriba=sumaFilasArriba+Integer.parseInt(arrayEditsFilaArriba[i].getText().toString());
+                sumaFilasArriba=sumaFilasArriba+Float.parseFloat(arrayEditsFilaArriba[i].getText().toString());
 
-                sumaFilasAbajo=sumaFilasAbajo+Integer.parseInt(arrayEditsFilaAbajo[i].getText().toString());
+                sumaFilasAbajo=sumaFilasAbajo+Float.parseFloat(arrayEditsFilaAbajo[i].getText().toString());
 
 
             }

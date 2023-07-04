@@ -4894,13 +4894,12 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
     }
 
 
-    public void decideaAtachReport(boolean userSelecion) {
+    public void decideaAtachReport() {
 
+        ScrollView scrollView2 = findViewById(R.id.scrollView2);
 
-        if (userSelecion) { //SELECIONO ATCH
             Log.i("test001", " seleciono 200");
 
-            ScrollView scrollView2 = findViewById(R.id.scrollView2);
 
             scrollView2.post(new Runnable() {
                 public void run() {
@@ -4908,23 +4907,9 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
                 }
             });
 
-        }
 
 
-/*
-        else { //USUARIO SELECION OMITR TODS
-            //AQUI VAMOS A SUBIR DATA..
 
-            //gaurdamops  aqui
-            createObjcInformeAndUpload(); //CREAMOS LOS INFORMES Y LOS SUBIMOS...
-
-            Log.i("test001"," seleciono 300");
-
-
-        }
-
-
-*/
 
 
     }

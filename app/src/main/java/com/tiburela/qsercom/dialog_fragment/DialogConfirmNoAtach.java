@@ -21,11 +21,9 @@ import com.tiburela.qsercom.activities.formulariosPrev.ActivityContenedoresPrev;
 import com.tiburela.qsercom.activities.formulariosPrev.PreviewCalidadCamionesyCarretas;
 import com.tiburela.qsercom.utils.Utils;
 
-public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements View.OnClickListener {
+public class DialogConfirmNoAtach extends BottomSheetDialogFragment  {
         public static final String TAG = "ActionBottomDialog";
-
          boolean userDecicidoVinucularSomeReport =false;
-
        static int formullarioSelect=0;
         private View vista;
         Button atachAhora;
@@ -33,7 +31,7 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
 
         TextView txtiText;
 
-    Context context;
+  //  Context context;
 
         public static DialogConfirmNoAtach newInstance(int tipoFormulario) {
             formullarioSelect=tipoFormulario;
@@ -49,11 +47,31 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
             atachDespues =vista.findViewById(R.id.atachDespues);
             txtiText=vista.findViewById(R.id.txtiText);
 
-            context = getActivity();
+         //   context = getActivity();
 
 
-            atachAhora.setOnClickListener(this);
-            atachDespues.setOnClickListener(this);
+            atachAhora.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        Log.i("clicker","atach ahora ");
+
+                        userDecicidoVinucularSomeReport =true;
+                        callmethodOfActivity(formullarioSelect);
+                        dismiss();
+                }
+            });
+            atachDespues.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                        Log.i("clicker","atach despues ");
+                      //  callmethodOfActivity(formullarioSelect);
+                        userDecicidoVinucularSomeReport =false;
+                        Utils.userDecidioNoVincularAhora=true;
+                        dismiss();
+
+                }
+            });
             Log.i("ontatch","se ejecuto onViewCreated");
             Log.i("ontatch","se ejecuto onCreateView");
 
@@ -75,57 +93,9 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
             }
 
 
-
-            //  view.findViewById(R.id.textView4).setOnClickListener(this);
         }
 
 
-        @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-
-        }
-
-        @Override
-        public void onDetach() {
-            super.onDetach();
-
-
-        }
-
-
-
-
-        @Override public void onClick(View view) {
-          // Button tvSelected = (Button) view;
-
-            if(view.getId()==R.id.atachAhora){ //
-                userDecicidoVinucularSomeReport =true;
-                callmethodOfActivity(formullarioSelect);
-
-            }
-
-            if(view.getId()==R.id.atachDespues){
-                userDecicidoVinucularSomeReport =false;
-                Utils.userDecidioNoVincularAhora=true;
-
-            }
-
-
-
-            dismiss();
-        }
-
-
-
-        public interface ItemClickListener {
-            void onItemClick(boolean esNEW);
-        }
-
-
-    public interface CallBtoActityContenedor2 {
-        void uploadConfirm(boolean esNEW);
-    }
 
 
     @Override
@@ -144,32 +114,21 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
 
             if(userDecicidoVinucularSomeReport){
 
-                ((ActivityContenedores)getActivity()).decideaAtachReport(true);//  ///
-
-            }else{
-
-                ((ActivityContenedores)getActivity()).decideaAtachReport(false);//  ///
+                ((ActivityContenedores)getActivity()).decideaAtachReport();//  ///
 
             }
 
+
         }
-
-
 
           else  if(tipoFormulario== Constants.PREV_CONTENEDORES){
 
             if(userDecicidoVinucularSomeReport){
+                     Log.i("usrdecideatach","true decidio");
 
-                ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(true);//  ///
-
-            }else{
-
-                ((ActivityContenedoresPrev)getActivity()).decideaAtachReport(false);//  ///
+                ((ActivityContenedoresPrev)getActivity()).decideaAtachReport();//  ///
 
             }
-
-
-
 
 
         }
@@ -179,18 +138,9 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
 
             if(userDecicidoVinucularSomeReport){
 
-                ((PreviewCalidadCamionesyCarretas)getActivity()).decideaAtachReport(true);//  ///
-
-            }else{
-
-                ((PreviewCalidadCamionesyCarretas)getActivity()).decideaAtachReport(false);//  ///
+                ((PreviewCalidadCamionesyCarretas)getActivity()).decideaAtachReport();//  ///
 
             }
-
-
-
-
-
         }
 
 
@@ -198,28 +148,10 @@ public class DialogConfirmNoAtach extends BottomSheetDialogFragment implements V
 
             if(userDecicidoVinucularSomeReport){
 
-                ((ActivityCamionesyCarretas)getActivity()).decideaAtachReport(true);//  ///
-
-            }else{
-
-                ((ActivityCamionesyCarretas)getActivity()).decideaAtachReport(false);//  ///
-
+                ((ActivityCamionesyCarretas)getActivity()).decideaAtachReport();//  ///
             }
 
-
-
-
-
         }
-
-
-
-
-             //m,aselse if por aqui
-
-
-          dismiss();
-
 
     }
 
