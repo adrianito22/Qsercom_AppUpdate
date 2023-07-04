@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ColorCintasSemns;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
@@ -28,6 +27,11 @@ import java.util.HashMap;
 
 public class Variables {
     public static  ArrayList<String>listImagesToDelete=new ArrayList<>();
+    public static  final int UPDATEINform_2=1001;
+    public static  final int UPDATEINform_3=1002;
+    public static  final int HASMPA_CONTROL_CALIDAD =1003;
+    public static  final int DEFECT_SELECIONADO_MAP =1004;
+
 
     ///hilos objetos
     public static  final int ELIMNAR_IMAGENES=96389;
@@ -53,7 +57,6 @@ public class Variables {
     public static   int currentTipoCaja=0;
     public static  int OBJECT_CAMIONESYCARRETAS=111;
 
-    public static  int contadorDataUpladed=0;
     public static  int contador=100;
     public static  int OBJECT_SetInformEmbarque1=100;
     public static  int OBJECT_SetInformEmbarque2=101;

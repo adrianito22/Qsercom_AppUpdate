@@ -297,7 +297,6 @@ public class RealtimeDB {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Log.i("samisas","es succces hurra");
-
                         BottonSheetCallUploading.updateCamionesYcarretas(Variables.PRODUCTS_POST_COSECHA);
 
 
@@ -374,15 +373,9 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.i("updatexxxx","es succes UpdateHasmapPesoBrutoClosters2y3L");
+                    BottonSheetCallUploading.UpdateConteendores(Variables.PRODUCTS_POST_COSECHA);
 
-                    Utils.contadorTareasCompletadas++;
 
-                    if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
-
-                       // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
-
-                    }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
                 }else  {
 
@@ -411,15 +404,12 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
                     Log.i("updatexxxx","es succes updateSetinformEmbarq1");
 
-                    Utils.contadorTareasCompletadas++;
 
-                    if(Utils.contadorTareasCompletadas==5){
-
-                        BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
+                        BottonSheetCallUploading.UpdateConteendores(Variables.UPDATEINform_2);
 
                         // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
 
-                    }
+
 
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
@@ -445,15 +435,8 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.i("updatexxxx","es  actualizaInformePart2");
+                    BottonSheetCallUploading.UpdateConteendores(Variables.UPDATEINform_3);
 
-                    Utils.contadorTareasCompletadas++;
-
-                    if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
-
-                      //  Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
-
-                    }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
@@ -478,16 +461,9 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.i("updatexxxx","es  actualizaInformePart3");
+                  //  Utils.contadorTareasCompletadas++;
+                    BottonSheetCallUploading.UpdateConteendores(Variables.LIBRIADO_IF_EXIST);
 
-
-                    Utils.contadorTareasCompletadas++;
-
-                    if(Utils.contadorTareasCompletadas==5){
-                        BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
-
-                     //   Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
-
-                    }
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
@@ -873,14 +849,7 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
-                    Variables.contadorDataUpladed++;
-
-                 if(Variables.contadorDataUpladed==4){
-
-                     BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
-
-                 }
-
+                    BottonSheetCallUploading.UploadControlCalidad(Variables.HASMPA_CONTROL_CALIDAD);
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
@@ -903,7 +872,7 @@ public class RealtimeDB {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-
+                    BottonSheetCallUploading.updatControlCalidad(Variables.HASMPA_CONTROL_CALIDAD);
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
@@ -932,13 +901,7 @@ public class RealtimeDB {
             public void onComplete(@NonNull Task<Void> task) {
 
                 if(task.isSuccessful()){
-
-                    Variables.contadorDataUpladed++;
-
-                    if(Variables.contadorDataUpladed==4){
-                        BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
-
-                    }
+                    BottonSheetCallUploading.UploadControlCalidad(Variables.DEFECT_SELECIONADO_MAP);
 
                 }else{
                     BottonSheetCallUploading.UploadControlCalidad(Variables.ERROR_SUBIDA);
@@ -957,13 +920,22 @@ public class RealtimeDB {
     public static void updateHashMapControlCalidad(HashMap <String ,String > hasmapControlCalid,String dondeActualizarThishasmap) {
 
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("ControCalidHasmap");
-        // String nododDondeEstaraEsteHasmap = mibasedata2.push().getKey();
-        // objPacking.setKeyOrNodeContaineHashMap(nododDondeEstaraEsteHasmap);//editamos el valor del nodo donde estara el hasmap
+        mibasedata2.child(dondeActualizarThishasmap).setValue(hasmapControlCalid).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    BottonSheetCallUploading.updatControlCalidad(Variables.DEFECT_SELECIONADO_MAP);
 
-        mibasedata2.child(dondeActualizarThishasmap).setValue(hasmapControlCalid);  //subimos el packing list mapa
+                } else{
+                    BottonSheetCallUploading.updatControlCalidad(Variables.ERROR_SUBIDA);
 
-        //   mibasedata2.child(nododDondeEstaraEsteHasmap).setValue(packinListMap);  //subimos el packing list
 
+                }
+
+
+
+            }
+        }) ;
 
     }
 
@@ -976,13 +948,8 @@ public class RealtimeDB {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                       if(task.isSuccessful()){
-                          Variables.contadorDataUpladed++;
+                              BottonSheetCallUploading.UploadControlCalidad(Variables.INFORM_REGISTER);
 
-                          if(Variables.contadorDataUpladed==4){
-
-                              BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
-
-                          }
 
                       }else{
                           BottonSheetCallUploading.UploadControlCalidad(Variables.ERROR_SUBIDA);
@@ -1000,8 +967,19 @@ public class RealtimeDB {
 
         DatabaseReference mibasedata2 = rootDatabaseReference.child("Informes").child("DefectoSelecionadosHashmap");
 
-        mibasedata2.child(dondeRemplzar).setValue(hasmapDefectsSelec);  //subimos el packing list mapa
+        mibasedata2.child(dondeRemplzar).setValue(hasmapDefectsSelec).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
 
+                if(task.isSuccessful()){
+                    BottonSheetCallUploading.updatControlCalidad(Variables.FINISH_ALL_UPLOAD);
+
+                }
+                else
+                BottonSheetCallUploading.updatControlCalidad(Variables.ERROR_SUBIDA);
+
+            }
+        });
 
     }
 
@@ -1113,15 +1091,10 @@ public class RealtimeDB {
                     Log.i("updatexxxx","es  UpdateProductosPostCosecha");
 
                      if(Variables.activityCurrent==Variables.FormPreviewContenedores){
-                         Utils.contadorTareasCompletadas++;
-                         if(Utils.contadorTareasCompletadas==5){
                              BottonSheetCallUploading.UpdateConteendores(Variables.ELIMNAR_IMAGENES);
-                             // Utils.sourceTareas.setResult(Utils.TAREACOMPETADA);
-                         }
                      }
 
                      else if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivityPreview){
-
                          BottonSheetCallUploading.updateCamionesYcarretas(Variables.CALIBRACIONES_CALENDARIO_ENFUNDE);
 
 
@@ -1432,9 +1405,7 @@ public class RealtimeDB {
 
 
                         case Variables.FormCantrolCalidad:
-                            Variables.contadorDataUpladed++;
-                            if(Variables.contadorDataUpladed==4){
-                                BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);}
+                            BottonSheetCallUploading.UploadControlCalidad(Variables.FINISH_ALL_UPLOAD);
                             break;
 
 

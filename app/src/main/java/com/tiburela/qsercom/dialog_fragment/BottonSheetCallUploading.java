@@ -49,7 +49,6 @@ import com.tiburela.qsercom.models.SetInformEmbarque1;
 import com.tiburela.qsercom.models.SetInformEmbarque2;
 import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.SharePrefHelper;
-import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
 import java.io.ByteArrayOutputStream;
@@ -229,7 +228,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             Variables.contador=0;
             StorageDataAndRdB.indiceCurrentOFlistIamges=0;
 
-        Variables.contadorDataUpladed= 0;
 
             btnOkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -376,9 +374,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
         if(tipoObjectoQueSubiremosNow== Variables.OBJECT_CAMIONESYCARRETAS){
             Log.i("samisas","update camiones y c  1");
-
             RealtimeDB.updateCalidaCamionCarrretas(camionesyCarretasx);
         }
+
 
         else if(tipoObjectoQueSubiremosNow== Variables.PRODUCTS_POST_COSECHA){
             Log.i("samisas","update camiones y c  2");
@@ -575,21 +573,32 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
  public  static void UpdateConteendores(int reportTiPOSubidoAndState){
 
      if(reportTiPOSubidoAndState== Variables.SEVERAL_INFORMS_UPDATE){
-         RealtimeDB.updateSetinformEmbarq1(informe1);
+         RealtimeDB.updateSetinformEmbarq1(informe1);}
+
+
+     else if(reportTiPOSubidoAndState== Variables.UPDATEINform_2){
          RealtimeDB.actualizaInformePart2(informe2);
+
+     }
+
+     else if(reportTiPOSubidoAndState== Variables.UPDATEINform_3){
          RealtimeDB.actualizaInformePart3(informe3);
+
+     }
+     else if(reportTiPOSubidoAndState== Variables.LIBRIADO_IF_EXIST){
          RealtimeDB.UpdateHasmapPesoBrutoClosters2y3L(miMapLbriado,informe1.getKeyOrNodeLibriadoSiEs());
+
+
+     }
+     else if(reportTiPOSubidoAndState== Variables.PRODUCTS_POST_COSECHA){
          RealtimeDB.UpdateProductosPostCosecha(productosPoscosecha);
-     }
 
+     }
      else if(reportTiPOSubidoAndState== Variables.ELIMNAR_IMAGENES){
-
          geTidAndDelete(0);
-
      }
 
-
-     else if(reportTiPOSubidoAndState== Variables.IMAGENES_SET_DE_REPORTE){  //ahora rtocan las imagenes
+     else if(reportTiPOSubidoAndState== Variables.IMAGENES_SET_DE_REPORTE){
 
          BottonSheetCallUploading BTON= new BottonSheetCallUploading();
          BTON.callThreadImagenesUpload();
@@ -599,8 +608,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 }
 
 
-
-
     public  static void UploadControlCalidad(int  tipoObjectoQueSubiremosNow){
         final int[] valuePercent = {0};
 
@@ -608,43 +615,56 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             @Override
             public void run() {//esto en BACGROUND
 
-                if(tipoObjectoQueSubiremosNow== Variables.CONTROL_CALIDAD_OBJECT){
+                if(tipoObjectoQueSubiremosNow== Variables.CONTROL_CALIDAD_OBJECT) {
+                    RealtimeDB.UploadControlcalidadInform(controlCalidadX);
                     valuePercent[0] =20;
 
-                    RealtimeDB.UploadControlcalidadInform(controlCalidadX);
+
+                }
+
+
+                else if(tipoObjectoQueSubiremosNow== Variables.HASMPA_CONTROL_CALIDAD){
                     RealtimeDB.addNewHashMapControlCalidad(hasHmapOtherFieldsEditxsx, controlCalidadX.getKeyWhereLocateasHmapFieldsRecha());
+                    valuePercent[0] =30;
+
+                }
+
+
+                else if(tipoObjectoQueSubiremosNow== Variables.DEFECT_SELECIONADO_MAP){
                     RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUploadx,controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());
+                    valuePercent[0] =40;
+
+                    Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
+                   // RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUploadx, controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());4
+                }
+
+                else if(tipoObjectoQueSubiremosNow== Variables.INFORM_REGISTER){
+                  //  RealtimeDB.uploadHasmapDefectSelec(hasMapitemsSelecPosicRechazToUploadx,controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());
                     RealtimeDB.addNewRegistroInforme(context,informRegister);
+                    valuePercent[0] =50;
+
+                    Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
+                    // RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUploadx, controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());4
                 }
+
+
 
                 else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
                     Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
-                    SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
-                    valuePercent[0] =100;
-
-                }
-
-
-                else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
+                  //  SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
                     Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
                     SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
                     valuePercent[0] =100;
-
                 }
-
-
 
 
                 else if(tipoObjectoQueSubiremosNow== Variables.ERROR_SUBIDA){
+
+                    valuePercent[0]=1000;
                     Log.i("updatexxxx","FINISH_ALL_UPLOAD");
-
-
-                    valuePercent[0] =100;
 
                 }
 
-
-//es dedcion
                 handler1.post(new Runnable() {
                     @Override
                     public void run() {
@@ -657,21 +677,17 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                              }
 
 
-                             else if(tipoObjectoQueSubiremosNow==Variables.ERROR_SUBIDA){
+                             else if(tipoObjectoQueSubiremosNow==Variables.ERROR_SUBIDA || valuePercent[0]==1000){
                                 progressBar.setProgress(0); //esto en interfas
                                 Log.i("updatexxxx", ":( error ");
 
                                 txtSubTitle.setText("Se produjo un error :(");
                                 txtTitle.setText("0% COMPLETADO ");
-
                                 btnOkButton.setVisibility(View.VISIBLE);
                                 // imgIcon.setVisibility(View.VISIBLE);
                                 imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
                                 btnOkButton.setEnabled(true);
                             }
-
-
-
 
 
                             else if (valuePercent[0]==100) {
@@ -705,6 +721,103 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
     }
 
+    public  static void updatControlCalidad(int  tipoObjectoQueSubiremosNow){
+        final int[] valuePercent = {0};
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {//esto en BACGROUND
+
+                if(tipoObjectoQueSubiremosNow== Variables.CONTROL_CALIDAD_OBJECT) {
+                    valuePercent[0]=20;
+
+                    RealtimeDB.UpdateControlcalidadInform(controlCalidadX, controlCalidadX.getKeyDondeEstarThisInform());
+                }
+
+
+                else if(tipoObjectoQueSubiremosNow== Variables.HASMPA_CONTROL_CALIDAD){
+                    valuePercent[0]=30;
+
+                    Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
+                    RealtimeDB.updateHashMapControlCalidad(hasHmapOtherFieldsEditxsx, controlCalidadX.getKeyWhereLocateasHmapFieldsRecha());
+                }
+
+
+                else if(tipoObjectoQueSubiremosNow== Variables.DEFECT_SELECIONADO_MAP){
+                    valuePercent[0]=40;
+
+                    Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
+                        RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUploadx, controlCalidadX.getKeyDondeEstaraHasmapDefecSelec());}
+
+
+
+                else if(tipoObjectoQueSubiremosNow== Variables.FINISH_ALL_UPLOAD){
+                    Log.i("elformasd","FINISH_ALL_UPLOAD  Y EL KEY ES "+keyPrefrencesIfUserSaveReportLocale);
+                   // SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(true,keyPrefrencesIfUserSaveReportLocale);
+                    valuePercent[0]=100;
+
+                }
+
+
+                else if(tipoObjectoQueSubiremosNow== Variables.ERROR_SUBIDA){
+
+                    valuePercent[0]=1000;
+                    Log.i("updatexxxx","FINISH_ALL_UPLOAD");
+
+                }
+
+
+//es dedcion
+                handler1.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if(progressBar!=null){
+
+
+                             if(tipoObjectoQueSubiremosNow==Variables.ERROR_SUBIDA || valuePercent[0]==1000){
+                                progressBar.setProgress(0); //esto en interfas
+                                Log.i("updatexxxx", ":( error ");
+
+                                txtSubTitle.setText("Se produjo un error :(");
+                                txtTitle.setText("0% COMPLETADO ");
+                                btnOkButton.setVisibility(View.VISIBLE);
+                                // imgIcon.setVisibility(View.VISIBLE);
+                                imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                                btnOkButton.setEnabled(true);
+                            }
+
+
+                            else if (valuePercent[0]==100) {
+
+                                progressBar.setProgress(100); //esto en interfas
+                                Log.i("updatexxxx", "update todos hurra");
+
+                                txtSubTitle.setText("Hurra, se subio");
+                                txtTitle.setText("100% COMPLETADO");
+
+                                btnOkButton.setVisibility(View.VISIBLE);
+                                // imgIcon.setVisibility(View.VISIBLE);
+                                imgIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                                btnOkButton.setEnabled(true);
+
+
+
+                            }
+                        }
+
+
+                    }
+                });
+
+                //cuando termine esto vamos a darle..
+
+            }
+        });   //call it
+        thread.start();
+
+
+    }
 
 
 
@@ -989,6 +1102,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
                 break;
             case Variables.FormCantrolCalidadPreview:
+                updatControlCalidad(Variables.CONTROL_CALIDAD_OBJECT);
+
                 break;
 
             case Variables.FormContenedores:

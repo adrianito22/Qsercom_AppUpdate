@@ -44,6 +44,7 @@ import com.tiburela.qsercom.dialog_fragment.DialogConfirmChanges;
 import com.tiburela.qsercom.models.ControlCalidad;
 import com.tiburela.qsercom.models.DefectsAndNumber;
 import com.tiburela.qsercom.models.Exportadora;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.SetInformDatsHacienda;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
@@ -3487,23 +3488,30 @@ public class FormularioControlCalidadPreview extends AppCompatActivity implement
         obecjControlCalidad.setNumClusterPorCaja(numClusterPorCaja);
         obecjControlCalidad.setNumCalibracionEntreApical(numCalibracionEntreApical);
         obecjControlCalidad.setNumGradoCalibrePromedio(numGradoCalibrePromedio);
+        obecjControlCalidad.setKeyDondeEstarThisInform(Variables.currenControlCalReport.getKeyDondeEstarThisInform());
 
 
 
-        RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
+      //  RealtimeDB.UpdateControlcalidadInform(obecjControlCalidad, Variables.currenControlCalReport.getKeyDondeEstarThisInform());
 
         hasHmapFieldsOtherViews.put("idDeControlCalidad", Variables.currenControlCalReport.getUniqueId());
         Log.i("keydjd","idDeControlCalidad es "  +Variables.currenControlCalReport.getUniqueId());
 
-        RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
+       // RealtimeDB.updateHashMapControlCalidad(hasHmapFieldsOtherViews, Variables.currenControlCalReport.getKeyWhereLocateasHmapFieldsRecha());
 
         hasMapitemsSelecPosicRechazToUpload.put("idDeControlCalidad", Variables.currenControlCalReport.getUniqueId());
-        RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload, Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
+       // RealtimeDB.updateHasmapDefectSelec(hasMapitemsSelecPosicRechazToUpload, Variables.currenControlCalReport.getKeyDondeEstaraHasmapDefecSelec());
 
 
-        Toast.makeText(this, "Guardado", Toast.LENGTH_SHORT).show();
 
-        finish();
+        Utils.show_AND_UPLOADCOntrolcalidad(FormularioControlCalidadPreview.this,
+                FormularioControlCalidadPreview.this,obecjControlCalidad,new InformRegister(),hasHmapFieldsOtherViews,
+                hasMapitemsSelecPosicRechazToUpload,Variables.FormCantrolCalidadPreview,"");
+
+
+        ///vamoa s update control calidad
+
+
 
     }
 
