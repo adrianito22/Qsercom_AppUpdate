@@ -14,13 +14,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
 import com.tiburela.qsercom.models.ImagenReport;
+import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.Utils;
 import com.tiburela.qsercom.utils.Variables;
 
@@ -33,9 +39,10 @@ import java.util.HashMap;
 import java.util.Map;
 public class StorageDataAndRdB {
 
-
-
-   public static  StorageReference rootStorageReference;
+    static StorageReference desertRefDeleteImags;
+   static ArrayList<InformRegister>listReport= new ArrayList<>();
+static  StorageReference storageRef;
+    public static  StorageReference rootStorageReference;
     static Bitmap bitmapOriginal;
    static UploadTask uploadTask;
    static StorageReference imagename;
@@ -630,6 +637,157 @@ public static int counTbucle=0;
     }
 
 
+public static void deleteImages(long desde, long hasta){
+    initStorageReference(); ///esto llmaos un avez
 
+
+    RealtimeDB.initDatabasesRootOnly();
+
+        Query query = RealtimeDB.rootDatabaseReference.child("Registros").child("InformesRegistros").
+                orderByChild("dateUploadByinspCampoIformeMillisecond").startAt(desde).endAt(hasta);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                listReport= new ArrayList<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    InformRegister informRegister=ds.getValue(InformRegister.class);
+
+                    //agregamos solo los que no esten en esta lista..
+                    if(informRegister!=null){  //creamos un objet
+                        listReport.add(informRegister);
+
+                    }
+
+
+                }
+
+                Log.i("eliminamos","el size de lista es "+listReport.size());
+
+                deleteHere(listReport);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa","el error es "+error.getMessage());
+
+            }
+        });
+
+
+
+    }
+
+    // Create a storage reference from our app
+ //   StorageReference storageRef = storage.getReference();
+
+
+
+
+
+
+
+
+static void deleteHere(ArrayList<InformRegister>listReport) {
+
+        //aqui tenemos reportees de esta fechaa..
+
+     //ahora buscamos   este id
+    for(InformRegister imagen:listReport){
+
+        dowloadImagesDataReport(imagen.getInformUniqueIdPertenece());
+
+    }
+
+        //desrcargamos imagen reporte set
+
+    // Create a reference to the file to delete
+
+
+
+}
+
+
+   static void dowloadImagesDataReport(String reportUNIQUEidtoSEARCH) { //DESCRAGAMOS EL SEGUNDO
+
+        Log.i("eliminamos", "elreport unique id es  " + reportUNIQUEidtoSEARCH);
+
+        RealtimeDB.initDatabasesReferenceImagesData(); //borrar
+
+        // DatabaseReference midatabase=rootDatabaseReference.child("Informes").child("listInformes");
+        Query query = RealtimeDB.rootDatabaseReference.child("Informes").child("ImagesData").orderByChild("idReportePerteence").equalTo(reportUNIQUEidtoSEARCH);
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // ArrayList<ImagenReport>listImagenData=new ArrayList<>();
+                Variables.listImagenDataGlobalCurrentReport = new ArrayList<>();
+
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ImagenReport imagenReport = ds.getValue(ImagenReport.class);
+                    Log.i("eliminamos", "vamos aliminar esta imagen con el nombre "+imagenReport.getUniqueIdNamePic());
+
+                    deleteimgsss(imagenReport);
+
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.i("sliexsa", "el error es " + error.getMessage());
+
+            }
+        });
+
+
+    }
+    private static void deleteimgsss(ImagenReport imagenReport){
+        Log.i("eliminamos","se llamo delte images ");
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+       // imagename = ImageFolderReferenceImagesAll.child(currenImageReport.getUniqueIdNamePic());
+         storageRef = storage.getReferenceFromUrl("gs://fir-qsercom.appspot.com");
+         imagename = storageRef.child("imagenes_all_reports/"+imagenReport.getUniqueIdNamePic());
+
+
+//        storageRef  = StorageDataAndRdB.rootStorageReference.child("imagenes_all_reports/"+imagenReport.getUniqueIdNamePic());
+      //  imagename = ImageFolderReferenceImagesAll.child(nameImagenCompleto); //desert.jpg"  //asi booramoStorageReference ref = FirebaseStorage (gs://your-id.appspot.com/images/cross.png).ref().child ();
+      //  imagename = rootStorageReference.child("/imagenes_all_reports/"+imagenReport.getUniqueIdNamePic()); //desert.jpg"  //asi booramos
+
+//        StorageReference storageRef = storage.getReference();
+
+// Create a reference to the file to delete
+    //    StorageReference desertRef = storageRef.child("images/desert.jpg");
+
+// Delete the file
+        imagename.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.i("eliminamos","eliminado imagen");
+
+                // File deleted successfully
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.i("eliminamos","es expecion "+exception);
+
+                // Uh-oh, an error occurred!
+            }
+        });
+
+    }
 
 }

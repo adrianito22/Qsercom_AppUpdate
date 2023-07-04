@@ -74,6 +74,7 @@ import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.UsuarioQsercon;
+import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
@@ -156,6 +157,12 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         SharePref.init(ActivityMenu.this);
+
+
+
+         /***METODO PARA ELMINARIMAGENES NO PARECE FUNCIONAR, PROBAR ESPERANDO UN POCO ,ELMINANDO PRIMEROUN LEMENTO Y VER QUE PASA//*/
+      //  StorageDataAndRdB.deleteImages(Long.parseLong("1665378000000"),Long.parseLong("1682917200000"));
+
 
 
         //  Variables.actividad =ActivityMenu;
