@@ -1663,34 +1663,71 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
 
         }
 
-        /*
-        else{
-
-            Log.i("ADPATERXX","agregamos adpater");
-
-            adapter=new RecyclerViewAdapter(filterListImagesData,this);
-            // at last set adapter to recycler view.
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
-
-            eventoBtnclicklistenerDelete(adapter);
-
-            Log.i("adpatertt","el adpater es nulo");
-
-
-            Log.i("adpatertt","el adpater es nulo");
-            ItemTouchHelper.Callback callback =
-                    new SimpleItemTouchHelperCallback(adapter);
-            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-            touchHelper.attachToRecyclerView(recyclerView);
-
-
-        }
-        */
 
 
 
     }
+
+
+    private void showImagesPicShotOrSelectUpdateViewGirar(int posicionGirar){
+
+        //si es eliminar comprobar aqui
+        currentTypeImage=Variables.typeoFdeleteImgORgire;
+
+
+
+        Log.i("latypeimage","el currenttupe imagen es xxc "+currentTypeImage);
+        ArrayList<ImagenReport> filterListImagesData; //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
+        RecyclerView recyclerView=null;
+        RecyclerViewAdapter adapter;
+        RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
+
+        switch(currentTypeImage){
+
+            case Variables.FOTO_PROCESO_FRUTA_FINCA:
+                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+
+
+
+            case Variables.FOTO_CIERRE_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+
+
+            case Variables.FOTO_DOCUMENTACION:
+                recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+        }
+
+        if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+
+            //obtenemos la lista de estae adpatdor
+            filterListImagesData=aadpaterRecuperadoOFrView.listImagenData;
+
+            ImagenReport imagenReportupdate=Utils.updateImagenGiro(filterListImagesData.get(posicionGirar));
+
+            //le pasaos la imagen actualizada....
+            filterListImagesData.set(posicionGirar, imagenReportupdate);
+            aadpaterRecuperadoOFrView.notifyItemChanged(posicionGirar);
+
+
+        }
+
+
+
+
+    }
+
 
 
     private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
@@ -2138,32 +2175,33 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
 
-                Log.i("CLICKKATER","el TAG en activity  ES "+v.getTag().toString());
-               // Variables.typeoFdeleteImg = ImagenReport.hashMapImagesData.get(v.getTag().toString()).getTipoImagenCategory();
 
-// esed659357-2a32-4614-b4eb-9733ef5570f9.jpg
-                try {
+                if(v.getId()==R.id.imvClose){
+                    try {
 
-                    Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
-                     ImagenReport.hashMapImagesData.remove(v.getTag().toString());
+                        Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
+                        ImagenReport.hashMapImagesData.remove(v.getTag().toString());
 
-                    Log.i("ADPATERXX","el size despues de eliminar hasmpa size es "+ ImagenReport.hashMapImagesData.size());
+                        Log.i("ADPATERXX","el size despues de eliminar hasmpa size es "+ ImagenReport.hashMapImagesData.size());
 
-                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
-                    showImagesPicShotOrSelectUpdateView(true,position);
+                        Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
+                        showImagesPicShotOrSelectUpdateView(true,position);
 
-                    Log.i("ADPATERXX","el size despues de eliminar hasmpa size 2   es "+ ImagenReport.hashMapImagesData.size());
+                        Log.i("ADPATERXX","el size despues de eliminar hasmpa size 2   es "+ ImagenReport.hashMapImagesData.size());
 
+
+                    }
+
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                } else{
+
+                    showImagesPicShotOrSelectUpdateViewGirar(position);
 
                 }
-
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-                //   Log.i("dtaas","switch a" + "ctivate is "+Variables.currentCuponObjectGlob.isEsActivateCupon());
-                //  Log.i("dtaas","switch destacado  is "+Variables.currentCuponObjectGlob.isEsDestacadoCupon());
 
 
             }

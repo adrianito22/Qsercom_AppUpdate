@@ -1371,6 +1371,72 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicio
 
 
 }
+  void   showImagesPicShotOrSelectUpdateViewGirar(int position){
+
+      currentTypeImage=Variables.typeoFdeleteImgORgire;
+
+      ArrayList<ImagenReport> filterListImagesData; //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
+
+      RecyclerView recyclerView=null;
+      RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
+
+
+
+      switch(currentTypeImage){
+
+          case Variables.FOTO_LLEGADA_CONTENEDOR:
+              recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+              aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+              break;
+
+          case Variables.FOTO_SELLO_LLEGADA:
+              recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+              aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+              break;
+
+          case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
+              recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+              aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+              break;
+
+          case Variables.FOTO_PALLETS:
+              recyclerView= findViewById(R.id.recyclerFotoPallets);
+              aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+              break;
+
+          case Variables.FOTO_CIERRE_CONTENEDOR:
+              recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+              aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+              break;
+
+          case Variables.FOTO_DOCUMENTACION:
+              recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+              aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+              break;
+      }
+
+      if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+          //obtenemos la lista de estae adpatdor
+          filterListImagesData=aadpaterRecuperadoOFrView.listImagenData;
+
+          ImagenReport imagenReportupdate=Utils.updateImagenGiro(filterListImagesData.get(position));
+
+          //le pasaos la imagen actualizada....
+          filterListImagesData.set(position, imagenReportupdate);
+          aadpaterRecuperadoOFrView.notifyItemChanged(position);
+
+
+      }
+
+
+  }
 
 
 private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
@@ -1894,37 +1960,28 @@ private void createObjcInformeAndUpload() {
 
             @Override
             public void onItemClick(int position, View v) {  //este para eminar
-                //  Variables.currentCuponObjectGlob =listGiftCards.get(position);
 
-                Log.i("elfile","elsize de mapa es "+ImagenReport.hashMapImagesData.size());
+                     if(v.getId()==R.id.imvClose){
 
-               ///elimnar el hasmap
-               //vamos a ver el tipo del objeto removivo
-                if( ImagenReport.hashMapImagesData.containsKey(v.getTag().toString())){
+                         if( ImagenReport.hashMapImagesData.containsKey(v.getTag().toString())){
 
-                    Variables.typeoFdeleteImgORgire =  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+                             Variables.typeoFdeleteImgORgire =  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+                             Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
+                             ImagenReport.hashMapImagesData.remove(v.getTag().toString());
+                             Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewsFormDatSContersEnAc.this);
 
-                    Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
-                    Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
+                             showImagesPicShotOrSelectUpdateView(true,position);
 
-
-                    ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                    Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewsFormDatSContersEnAc.this);
+                         }
 
 
-                    Log.i("camisax","el size despues de eliminar es "+ ImagenReport.hashMapImagesData.size());
+                     }else{
 
-                    showImagesPicShotOrSelectUpdateView(true,position);
+                         showImagesPicShotOrSelectUpdateViewGirar(position);
 
-
-
-
-                }
+                     }
 
 
-
-                //   Log.i("dtaas","switch a" + "ctivate is "+Variables.currentCuponObjectGlob.isEsActivateCupon());
-                //  Log.i("dtaas","switch destacado  is "+Variables.currentCuponObjectGlob.isEsDestacadoCupon());
 
 
             }
