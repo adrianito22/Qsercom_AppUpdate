@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -88,7 +89,7 @@ import java.util.Map;
 public class PdfMakerContenresAcopio extends AppCompatActivity {
     int ActivityFormularioDondeVino;
       File file;
-
+          String  nameDoc="";
 
 
 
@@ -212,7 +213,11 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
                         //String date=Variable
                         //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
                         // createPdfContenrAcopio2("holaas");
-                        createPdfContenrAcopio2(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor()); ;
+                        CreaPdfHilo tare= new CreaPdfHilo(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor());
+                        tare.execute();
+
+
+                       // createPdfContenrAcopio2(); ;
 
 
                     }else{
@@ -235,7 +240,15 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
                             //String date=Variable
                             //  String name=+""+  Variables.CurrenReportContensEnACp.getNumContenedor();
                             // createPdfContenrAcopio2("holaas");
-                            createPdfContenrAcopio2(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor()); ;
+
+
+
+                            CreaPdfHilo tare= new CreaPdfHilo(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor());
+                            tare.execute();
+
+
+
+                           // createPdfContenrAcopio2(""+dateCreate[0]+"_"+dateCreate[1]+" "+Variables.CurrenReportContensEnACp.getNumContenedor()); ;
 
 
                         }else{
@@ -256,12 +269,6 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
 
 
 
-                }
-
-                catch (FileNotFoundException e) {
-
-                    e.printStackTrace();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -272,342 +279,382 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
         });
 
 
-         if(ActivityFormularioDondeVino  == Variables.FormatDatsContAcopiPREVIEW){  //completar estos
-
-
-
-
-            Log.i("debbdf","es el segundo if");
-
-        }
-
-
-
 
 
 
     }
 
 
+    class CreaPdfHilo extends AsyncTask<Void, Integer, Void> {
 
 
+        String nameDoc;
 
-  private  void UpdateProgressAndText(String texto,int progressPercent) {
+        public CreaPdfHilo(String nameDoc ){
+           this.nameDoc=nameDoc;
 
-      progressBar2.setProgress(progressPercent);
-      txtTareaAqui.setText(texto);
+        }
 
-  }
 
+        @Override
+        protected Void doInBackground(Void... voids) {
 
-    public void createPdfContenrAcopio2(String nameDoc) throws Exception {
+                resetListGlobales();
 
 
+                File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                file = new File(directory, nameDoc+".pdf");
+                uriThiSfile=Uri.fromFile(file);
+                HelperContenedoresAcopio.initFontx();
 
 
-        resetListGlobales();
+            PdfWriter writer ; //le pasmaos el file
+            try {
+                writer = new PdfWriter(file);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
 
 
+            PdfDocument miPFDocumentkernel= new PdfDocument(writer);
+                PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
 
-        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-         file = new File(directory, nameDoc+".pdf");
-        uriThiSfile=Uri.fromFile(file);
-        HelperContenedoresAcopio.initFontx();
 
 
-        PdfWriter writer = new PdfWriter(file); //le pasmaos el file
+                HelperPdf pdfHelper= new HelperPdf();
 
+                Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
+                midocumentotoAddData.setMargins(0, 0, 0, 0);
 
+                Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+                imglogqSercom.scaleToFit(595f, 200f); //ESTA EN 400 DESPUES 3300
+                imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
+                midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
-        PdfDocument miPFDocumentkernel= new PdfDocument(writer);
-        PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
-        PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
 
-     //   miPFDocumentkernel.addNewPage(pageSize);///
+                /**CONFIGURAMOS OTRA VEZ EL MARGEN*/
+                midocumentotoAddData.setMargins(190, 0, 105, 0);//MIRAR MRAGENES ESTAB EN 105
 
 
-        HelperPdf pdfHelper= new HelperPdf();
+                Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
+                imageHeader.setFixedPosition(0, 650); // si no usamos este
+                imageHeader.setMarginTop(0f); // de prueba
 
-        Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
-        midocumentotoAddData.setMargins(0, 0, 0, 0);
 
-        Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        imglogqSercom.scaleToFit(595f, 200f); //ESTA EN 400 DESPUES 3300
-        imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+                /**el background y logo
+                 */
 
 
-        /**CONFIGURAMOS OTRA VEZ EL MARGEN*/
-        midocumentotoAddData.setMargins(190, 0, 105, 0);//MIRAR MRAGENES ESTAB EN 105
+                Image imagBack=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.logo_qsercon_baclgg),1);
+                imagBack.setFixedPosition(100, 200); //probando posotion //estabe en 250
+                imagBack.setMarginTop(0f); // de prueba
 
 
-        Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-        imageHeader.setFixedPosition(0, 650); // si no usamos este
-        imageHeader.setMarginTop(0f); // de prueba
+                ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData,imagBack);
 
+                miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
 
-        /**el background y logo
-         */
 
+                float sizeTableANCHO= pageSize.getWidth()-60f;
 
-        Image imagBack=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.logo_qsercon_baclgg),1);
-        imagBack.setFixedPosition(100, 200); //probando posotion //estabe en 250
-        imagBack.setMarginTop(0f); // de prueba
 
 
-        ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData,imagBack);
+                Image imglogqSercomfooterBacground=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.footer_pdf),1);
+                imglogqSercomfooterBacground.setFixedPosition(0, 0); // si no usamos este
+                BackgroundEventHandler handler2 = new BackgroundEventHandler(imglogqSercomfooterBacground);
+                miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler2);
 
-        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
+                publishProgress(10);
 
-        Rectangle remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
 
-        float y = remaining.getTop();
-        float sizeTableANCHO= pageSize.getWidth()-60f;
 
+                /**TABLE 1 */
 
+                Cell cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS CONTENEDORES DE ACOPIO SEMANA "+Variables.CurrenReportContensEnACp.getSemanaNum()+"   - "+Variables.CurrenReportContensEnACp.getUniqueIDinforme()).setPadding(0.2f).
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
 
+                cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingLeft(30f); //estaba en 20
+                cellGlobal.setPaddingRight(30f);
+                midocumentotoAddData.add(cellGlobal);
 
-        float position = midocumentotoAddData.getRenderer().getCurrentArea().getBBox().getTop();
 
+                /**creamos la primera tabla*/
+                ArrayList<NameAndValue>listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_CONTENEDORES_DE_ACOPIO);
+                Table tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_CONTENEDORES_DE_ACOPIO);
+                HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+                // tableGlobal.setMarginTop(0f);
+                // tableGlobal.setPaddingTop(0f);
+                midocumentotoAddData.add(tableGlobal);
 
-        Image imglogqSercomfooterBacground=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.footer_pdf),1);
-        imglogqSercomfooterBacground.setFixedPosition(0, 0); // si no usamos este
-        BackgroundEventHandler handler2 = new BackgroundEventHandler(imglogqSercomfooterBacground);
-        miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler2);
 
 
+                //
+                /**TABLE 2 */
 
+                cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS DE CONTENEDOR").
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
 
-        /**TABLE 1 */
+                cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingLeft(30f); //estaba en 20
+                cellGlobal.setPaddingRight(30f);
+                midocumentotoAddData.add(cellGlobal);
 
-        Cell cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS CONTENEDORES DE ACOPIO SEMANA "+Variables.CurrenReportContensEnACp.getSemanaNum()+"   - "+Variables.CurrenReportContensEnACp.getUniqueIDinforme()).setPadding(0.2f).
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
 
-        cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingLeft(30f); //estaba en 20
-        cellGlobal.setPaddingRight(30f);
-        midocumentotoAddData.add(cellGlobal);
+                /**creamos la 2 tabla*/
+                listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_DEL_CONTENEDOR);
+                tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_DEL_CONTENEDOR);
+                HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+                midocumentotoAddData.add(tableGlobal);
 
+            publishProgress(15);
 
-      /**creamos la primera tabla*/
-        ArrayList<NameAndValue>listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_CONTENEDORES_DE_ACOPIO);
-        Table tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_CONTENEDORES_DE_ACOPIO);
-        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
-       // tableGlobal.setMarginTop(0f);
-       // tableGlobal.setPaddingTop(0f);
-        midocumentotoAddData.add(tableGlobal);
 
+                /**TABLE 3 */
 
+                cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("SELLOS LLEGADA").
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
 
-        //
-        /**TABLE 2 */
+                cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingLeft(30f); //estaba en 20
+                cellGlobal.setPaddingRight(30f);
+                midocumentotoAddData.add(cellGlobal);
 
-         cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS DE CONTENEDOR").
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
 
-        cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingLeft(30f); //estaba en 20
-        cellGlobal.setPaddingRight(30f);
-        midocumentotoAddData.add(cellGlobal);
+                /**creamos la 3 tabla*/
+                listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_SELLOS_LLEGADA);
+                tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_SELLOS_LLEGADA);
+                HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+                midocumentotoAddData.add(tableGlobal);
 
 
-        /**creamos la 2 tabla*/
-        listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_DEL_CONTENEDOR);
-         tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_DEL_CONTENEDOR);
-        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
-        midocumentotoAddData.add(tableGlobal);
 
 
+                /**TABLE 4 */
 
-        /**TABLE 3 */
+                cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("SELLOS INSTALADOS").
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
 
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("SELLOS LLEGADA").
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+                cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingLeft(30f); //estaba en 20
+                cellGlobal.setPaddingRight(30f);
+                midocumentotoAddData.add(cellGlobal);
 
-        cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingLeft(30f); //estaba en 20
-        cellGlobal.setPaddingRight(30f);
-        midocumentotoAddData.add(cellGlobal);
 
 
-        /**creamos la 3 tabla*/
-        listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_SELLOS_LLEGADA);
-        tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_SELLOS_LLEGADA);
-        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
-        midocumentotoAddData.add(tableGlobal);
+                //table termografo
+                tableGlobal=HelperContenedoresAcopio.generateTermografoTable();
+                HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+                midocumentotoAddData.add(tableGlobal);
 
 
+                listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_SELLOS_INSTALADOS);
+                tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_SELLOS_INSTALADOS);
+                HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+                midocumentotoAddData.add(tableGlobal);
 
 
-        /**TABLE 4 */
 
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("SELLOS INSTALADOS").
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+                /**TABLE 5 */
 
-        cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingLeft(30f); //estaba en 20
-        cellGlobal.setPaddingRight(30f);
-        midocumentotoAddData.add(cellGlobal);
+                cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS TRANSPORTISTA").
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
 
+                // cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingLeft(30f); //estaba en 20
+                cellGlobal.setPaddingRight(30f);
+                midocumentotoAddData.add(cellGlobal);
 
+            publishProgress(20);
 
-        //table termografo
-        tableGlobal=HelperContenedoresAcopio.generateTermografoTable();
-        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
-        midocumentotoAddData.add(tableGlobal);
+                /**creamos la 5 tabla*/
+                listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_TRANSPORTISTA);
+                tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_TRANSPORTISTA);
+                HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+                midocumentotoAddData.add(tableGlobal);
 
 
-        listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_SELLOS_INSTALADOS);
-        tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_SELLOS_INSTALADOS);
-        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
-        midocumentotoAddData.add(tableGlobal);
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE)); //nuvea pagina
 
 
 
-        /**TABLE 5 */
 
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS TRANSPORTISTA").
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+                cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS DE PROCESO").
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
 
-       // cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingLeft(30f); //estaba en 20
-        cellGlobal.setPaddingRight(30f);
-        midocumentotoAddData.add(cellGlobal);
+                // cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
+                cellGlobal.setPaddingTop(15f); //para no dejar margen abajo
+                cellGlobal.setPaddingLeft(30f); //estaba en 20
+                cellGlobal.setPaddingRight(30f);
+                cellGlobal.setPaddingBottom(0f);
+                midocumentotoAddData.add(cellGlobal);
 
+                Log.i("mispaps","el size de map xxc es "+Variables.mimapaDatosProcesMapCurrent.size());
+                /**creamos la 6 tabla*/
+                tableGlobal=HelperContenedoresAcopio.generaTableDatosProceso(Variables.mimapaDatosProcesMapCurrent);
+                HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
+                midocumentotoAddData.add(tableGlobal);
 
-        /**creamos la 5 tabla*/
-        listNameAndValue=HelperContenedoresAcopio.generateParValorList(HelperContenedoresAcopio.TABLE_DATOS_TRANSPORTISTA);
-        tableGlobal=HelperContenedoresAcopio.generaTableByID(listNameAndValue,HelperContenedoresAcopio.TABLE_DATOS_TRANSPORTISTA);
-        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
-        midocumentotoAddData.add(tableGlobal);
 
+                tableGlobal= new Table(2);
+                cellGlobal= new Cell().setPaddingLeft(10f).setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO: "+Variables.CurrenReportContensEnACp.getInspectorAcopio()).
+                        setTextAlignment(TextAlignment.LEFT).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
+                tableGlobal.addCell(cellGlobal);
 
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE)); //nuvea pagina
 
+                cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("CEDULA: "+Variables.CurrenReportContensEnACp.getCedulaIdenti()).
+                        setTextAlignment(TextAlignment.LEFT).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
 
 
+                tableGlobal.setBackgroundColor(new DeviceRgb(255, 242, 204));
+                tableGlobal.addCell(cellGlobal);
 
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("DATOS DE PROCESO").
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(156, 194, 229)));
+                cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
+                // cellGlobal.setPaddingLeft(30f); //estaba en 20
+                // cellGlobal.setPaddingRight(30f);
+                HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
 
-        // cellGlobal.setPaddingBottom(0f); //para no dejar margen abajo
-        cellGlobal.setPaddingTop(15f); //para no dejar margen abajo
-        cellGlobal.setPaddingLeft(30f); //estaba en 20
-        cellGlobal.setPaddingRight(30f);
-        cellGlobal.setPaddingBottom(0f);
-        midocumentotoAddData.add(cellGlobal);
+                midocumentotoAddData.add(tableGlobal);
 
-        Log.i("mispaps","el size de map xxc es "+Variables.mimapaDatosProcesMapCurrent.size());
-        /**creamos la 6 tabla*/
-        tableGlobal=HelperContenedoresAcopio.generaTableDatosProceso(Variables.mimapaDatosProcesMapCurrent);
-        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
-        midocumentotoAddData.add(tableGlobal);
 
 
 
+                /***ANEXOS TOCA POR AQUI.. VAMOS HABER...**/
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE)); //nuvea pagina
 
-        tableGlobal= new Table(2);
-        cellGlobal= new Cell().setPaddingLeft(10f).setBorder(Border.NO_BORDER).add(new Paragraph("NOMBRE INSPECTOR DE ACOPIO: "+Variables.CurrenReportContensEnACp.getInspectorAcopio()).
-                setTextAlignment(TextAlignment.LEFT).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
-        tableGlobal.addCell(cellGlobal);
+                Paragraph mipargrap =  new Paragraph("ANEXO FOTOS DE APERTURA, INSPECCIÓN Y CONSOLIDACIÓN DE CONTENEDOR.").
+                        setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setPaddingTop(15f);
 
+                midocumentotoAddData.add(mipargrap);
 
-        cellGlobal= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("CEDULA: "+Variables.CurrenReportContensEnACp.getCedulaIdenti()).
-                setTextAlignment(TextAlignment.LEFT).setFontSize(8.6f).setBold().setBackgroundColor(new DeviceRgb(255, 242, 204)));
+                 publishProgress(25);
 
+                //aqui aregmaos
 
-        tableGlobal.setBackgroundColor(new DeviceRgb(255, 242, 204));
-        tableGlobal.addCell(cellGlobal);
+                HelperImage.indiceValues=0;
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR," ",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            Log.i("foticoss","terminamos foto llegada");
 
-        cellGlobal.setPaddingTop(0f); //para no dejar margen abajo
-       // cellGlobal.setPaddingLeft(30f); //estaba en 20
-       // cellGlobal.setPaddingRight(30f);
-        HelperContenedoresAcopio.configTableMaringAndWidth(tableGlobal,sizeTableANCHO);
 
-        midocumentotoAddData.add(tableGlobal);
 
 
+                /**FOTO_SELLOS LLEGADA...*/
+                HelperImage.indiceValues=0;
 
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-        /***ANEXOS TOCA POR AQUI.. VAMOS HABER...**/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE)); //nuvea pagina
+            Log.i("foticoss","terminamos sellos llegada");
 
-        Paragraph mipargrap =  new Paragraph("ANEXO FOTOS DE APERTURA, INSPECCIÓN Y CONSOLIDACIÓN DE CONTENEDOR.").
-                setTextAlignment(TextAlignment.CENTER).setFontSize(8.6f).setBold().setPaddingTop(15f);
+                HelperImage.indiceValues=0;
 
-        midocumentotoAddData.add(mipargrap);
 
+            publishProgress(30);
 
-        //aqui aregmaos
 
-        HelperImage.indiceValues=0;
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR," ",midocumentotoAddData,pageSize,contexto);
-        Log.i("foticoss","terminamos foto llegada");
+            /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            Log.i("foticoss","terminamos puerta bauiertya contenedor");
 
 
 
+                /**FOTO_PALLETS ...*/
+                HelperImage.indiceValues=0;
+            publishProgress(70);
 
-        /**FOTO_SELLOS LLEGADA...*/
-        HelperImage.indiceValues=0;
+                // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
+            Log.i("foticoss","terminamos foto pallets");
 
-        Log.i("foticoss","terminamos sellos llegada");
+                HelperImage.indiceValues=0;
 
-        HelperImage.indiceValues=0;
+                //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            publishProgress(80);
 
-        /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
-        Log.i("foticoss","terminamos puerta bauiertya contenedor");
 
+            Log.i("foticoss","terminamos foto cierre contenedor");
 
+                HelperImage.indiceValues=0;
 
-        /**FOTO_PALLETS ...*/
-        HelperImage.indiceValues=0;
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"* DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-        // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
+            publishProgress(100);
 
-        Log.i("foticoss","terminamos foto pallets");
+            Log.i("foticoss","terminamos documentacion");
 
-        HelperImage.indiceValues=0;
+                Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.CurrenReportContensEnACp.getNombreRevisa(),Variables.CurrenReportContensEnACp.getCodigonRevisa());
+                midocumentotoAddData.add(paragraph);
 
-        //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
+                midocumentotoAddData.close();
 
-        Log.i("foticoss","terminamos foto cierre contenedor");
 
-        HelperImage.indiceValues=0;
 
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"* DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
 
+            return null;
+        }
+        @Override
+        protected void onPreExecute() {
+            txtTareaAqui.setText("Empezando");
 
-        Log.i("foticoss","terminamos documentacion");
+            super.onPreExecute();
 
-        Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.CurrenReportContensEnACp.getNombreRevisa(),Variables.CurrenReportContensEnACp.getCodigonRevisa());
-        midocumentotoAddData.add(paragraph);
+        }
 
+        @Override
+        protected void onPostExecute(Void unused) {
+            btnIrAARCHIVOpdf.setEnabled(true);
+            FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
+            fabUploadDrive.setVisibility(View.VISIBLE);
+            txtTareaAqui.setText("Informe listo");
 
-        /**PRXIMOS PASOS AVERGIAR COMO SE COMPORRTA ESTE CODIGO IMAGENES
-         * PASARLE EL TIPO DE OBJETO AL QUE CREA PARA VALOR Y LA DEMAS DATA...
-         * BTN PARA GENERAR PDF EN ESE REPORTE PREVIEW....
-         * BTN GUARDAR LOCALE Y GENERAR PDF ,INTENTAR GENMERAR EL PDF Y VER QUE PASA.....
-         * */
 
+            super.onPostExecute(unused);
 
-        midocumentotoAddData.close();
 
-        btnIrAARCHIVOpdf.setEnabled(true);
-        FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
-        fabUploadDrive.setVisibility(View.VISIBLE);
+        }
 
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            progressBar2.setProgress(values[0],true);
 
+             if(values[0]==20){
+                 txtTareaAqui.setText("Agregando Imagenes. Espere");
 
+             }
+
+
+        }
     }
 
 
