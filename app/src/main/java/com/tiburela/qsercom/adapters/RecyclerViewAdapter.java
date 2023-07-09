@@ -78,6 +78,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
        // holder.imvClose.setTag(R.id.keyID,imagenReport.getUniqueIdNamePic());
         holder.imvClose.setTag(R.id.category,imagenReport.getTipoImagenCategory());
+
+
+        holder.imgGiraImagen.setTag(imagenReport.getUniqueIdNamePic());
+        holder.imgGiraImagen.setTag(R.id.category,imagenReport.getTipoImagenCategory());
+
+
+
         Log.i("mispiggi","el size de la  lists  hashMapImagesData HERE SARECICLER  es  es "+ ImagenReport.hashMapImagesData.size());
 
 
@@ -178,16 +185,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
               Glide.with(mcontext)
                       .load(uri)
                       .sizeMultiplier(0.3f)
-
-
                       .skipMemoryCache(true)
+
                      // .override(300,200).dontAnimate()
-
-
-
-
                      // .diskCacheStrategy(DiskCacheStrategy.NONE)
                       .into(holder.imageview);
+
+
+              if( imagenReport.getGiroGradosImagen()!=0){ //rotamos la imagen solo si es difrente de 360grados
+                  holder.imageview.setRotation(imagenReport.getGiroGradosImagen());
+                  Log.i("giranda","ok vamos a girar");
+              }
 
             //  holder.imvClose.setTag(imagenReport.getUniqueIdNamePic());
               Log.i("ladtastor","existe "+imagenReport.getUniqueIdNamePic());
@@ -211,6 +219,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                   if(ImagenReport.hashMapImagesData.containsKey(imagenReport.getUniqueIdNamePic())) {
+                      Log.i("giranda","ok dowload set ahora ");
 
                       dowloadAndSetImg(imagenReport, holder.imageview,mcontext);
 
@@ -363,12 +372,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private ImageView imageview;
         public ImageView imvClose;
 
+         public ImageView imgGiraImagen;
+
+
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             textImputEditext = itemView.findViewById(R.id.textImputEditext);
             imageview = itemView.findViewById(R.id.idIVcourseIV);
             imvClose= itemView.findViewById(R.id.imvClose);
+            imgGiraImagen= itemView.findViewById(R.id.imgGiraImagen);
 
+
+            imgGiraImagen.findViewById(R.id.imgGiraImagen).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //
+
+                    if(!Variables.isClickable){
+                        return;
+                    }
+
+
+
+                    String tag =v.getTag(R.id.category).toString();
+                    Variables.typeoFdeleteImgORgire =Integer.parseInt(tag);
+
+                   clickListener.onItemClick(getAdapterPosition(), v);
+
+
+
+
+                }
+            });
 
 
             imvClose.findViewById(R.id.imvClose).setOnClickListener(new View.OnClickListener() {
@@ -377,17 +413,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     Log.i("ADPATERXX","EL POSICION to delete en adpater es ES : "+getAdapterPosition());
 
-
                     if(!Variables.isClickable){
                         return;
                     }
 
-                       Variables.tagAndKeyToDelete=v.getTag().toString();
-
-                    Log.i("ADPATERXX","EL tag to delete key in recicler es es"+Variables.tagAndKeyToDelete);
+                      // Variables.tagAndKeyToDelete=v.getTag().toString();
 
                     String tag =v.getTag(R.id.category).toString();
-                    Variables.typeoFdeleteImg=Integer.parseInt(tag);
+                    Variables.typeoFdeleteImgORgire =Integer.parseInt(tag);
                     clickListener.onItemClick(getAdapterPosition(), v);
 
                 }
@@ -433,11 +466,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                      Glide.with(mcontext)
                              .load(uri)
                              // .fitCenter()
+                            // .transform(new MyTransformation(mContext, 90))
+
                              .sizeMultiplier(0.3f)
                              .skipMemoryCache(true)
                              //  .override(300,200).dontAnimate()
                              // .diskCacheStrategy(DiskCacheStrategy.NONE)
                              .into(holder);
+
+                                   /**vamosa rotar la imagen dependiendo....*/
+
+                     Log.i("giranda","get gir imagen es"+imagenReport.getGiroGradosImagen());
+
+
+                     if(imagenReport.getGiroGradosImagen()!=0){ //rotamos la imagen solo si es difrente de 360grados
+                                   holder.setRotation(imagenReport.getGiroGradosImagen());
+
+                                   Log.i("giranda","ok vamos a girar");
+
+                               }
+
+
+
                  } catch (Exception e) {
                      Log.i("fsd","");
                  }
@@ -448,21 +498,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
-                Log.i("ladtastor","es un fallo y es "+exception.getMessage());
 
-                try{
+                Log.i("giranda","es un fallo y es "+exception.getMessage());
 
-                 //   Glide.with(ActivitySeeReports.context)
-                            //.load(R.drawable.acea2)
-                           // .fitCenter()
-                           // .into(holder.imgViewLogoGIFTc);
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
+                    if(ImagenReport.hashMapImagesData.containsKey(imagenReport.getUniqueIdNamePic())){
+                        ImagenReport.hashMapImagesData.remove(imagenReport.getUniqueIdNamePic());
+                    }
 
             }
         });

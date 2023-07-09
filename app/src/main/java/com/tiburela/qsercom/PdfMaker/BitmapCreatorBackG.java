@@ -26,7 +26,9 @@ public class BitmapCreatorBackG  implements Runnable{
     private ImagenReport imgReport;
 
 
+    InputStream inputStream;
 
+    FutureTarget<Bitmap> futureBitmap;
 
 
     void iniValuesParams(Context contexto,String urlImageOrUri,ImagenReport imgReport){
@@ -43,18 +45,12 @@ public class BitmapCreatorBackG  implements Runnable{
     @Override
     public void run() {
 
-     //   Log.i("vamert","la url storage o uri  pick es "+urlImage);
-
-       // boolean exists = Files.exists(Paths.get(imgReport.geturiImage()));
-
-
-
         boolean existUriFile = false;
         Log.i("vamert","url de esta imagen es  es"+urlImage);
 
         if(null != imgReport.geturiImage()) {
             try {
-                InputStream inputStream = contexto.getContentResolver().openInputStream( Uri.parse(imgReport.geturiImage()));
+                 inputStream = contexto.getContentResolver().openInputStream( Uri.parse(imgReport.geturiImage()));
                 inputStream.close();
                 existUriFile = true;
             } catch (Exception e) {
@@ -83,7 +79,7 @@ public class BitmapCreatorBackG  implements Runnable{
 
             Log.i("vamert","no existe uri y la url es "+urlImage);
 
-            FutureTarget<Bitmap> futureBitmap = Glide.with(contexto)
+             futureBitmap = Glide.with(contexto)
                     .asBitmap()
                     .onlyRetrieveFromCache(false).
                     load(urlImage)
@@ -103,12 +99,10 @@ public class BitmapCreatorBackG  implements Runnable{
 
                 }
 
-            } catch (ExecutionException e) {
+            } catch (ExecutionException | InterruptedException e) {
 
 
 
-                e.printStackTrace();
-            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             // return myBitmap;

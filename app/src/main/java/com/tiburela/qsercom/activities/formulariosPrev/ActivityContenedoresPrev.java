@@ -1491,7 +1491,7 @@ else{
 
             Log.i("mispiggi", "si es ly_defparte3.xml imgVERGA Y EL SIZE ES  " + ImagenReport.hashMapImagesData.size());
 
-            currentTypeImage = Variables.typeoFdeleteImg;
+            currentTypeImage = Variables.typeoFdeleteImgORgire;
         }
 
 
@@ -1583,6 +1583,83 @@ else{
 
 
             Log.i("adpatertt","es difrentede nulo");
+
+        }
+
+
+
+    }
+
+
+    private void showImagesPicShotOrSelectUpdateViewGirar( int posicionionGirar) {
+
+            currentTypeImage = Variables.typeoFdeleteImgORgire;
+
+        ArrayList<ImagenReport> filterListImagesData; //LISTA FILTRADA QUE REPRESENTARA EL RECICLERVIEW
+        RecyclerView recyclerView ;
+        RecyclerViewAdapter aadpaterRecuperadoOFrView=null; //aqui almacenaremo
+
+        switch(currentTypeImage){
+            case Variables.FOTO_PROCESO_FRUTA_FINCA:
+                recyclerView= findViewById(R.id.recyclerFotoProcesoFrEnFinca);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+
+            case Variables.FOTO_LLEGADA_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotollegadaContenedor);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+
+            case Variables.FOTO_SELLO_LLEGADA:
+                recyclerView= findViewById(R.id.recyclerFotoSellosLlegada);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+
+            case Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoPuertaAbrContedor);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+
+            case Variables.FOTO_PALLETS:
+                recyclerView= findViewById(R.id.recyclerFotoPallets);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+
+            case Variables.FOTO_CIERRE_CONTENEDOR:
+                recyclerView= findViewById(R.id.recyclerFotoCierreCtendr);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+
+            case Variables.FOTO_DOCUMENTACION:
+                recyclerView= findViewById(R.id.recyclerFotoDocumentacion);
+                aadpaterRecuperadoOFrView= (RecyclerViewAdapter) recyclerView.getAdapter();
+
+                break;
+        }
+
+
+
+
+
+        if(aadpaterRecuperadoOFrView!=null){ //el adpater no es nulo esta presente en algun reciclerview
+
+
+            //obtenemos la lista de estae adpatdor
+            filterListImagesData=aadpaterRecuperadoOFrView.listImagenData;
+
+            ImagenReport imagenReportupdate=Utils.updateImagenGiro(filterListImagesData.get(posicionionGirar));
+
+            //le pasaos la imagen actualizada....
+            filterListImagesData.set(posicionionGirar, imagenReportupdate);
+            aadpaterRecuperadoOFrView.notifyItemChanged(posicionionGirar);
+
+
 
         }
 
@@ -2299,25 +2376,40 @@ else{
             @Override
             public void onItemClick(int position, View v) {
 
+                if(v.getId()==R.id.imvClose){
 
-                try {
-                    Variables.typeoFdeleteImg = Objects.requireNonNull(ImagenReport.hashMapImagesData.get(v.getTag().toString())).getTipoImagenCategory();
-                    Log.i("mispiggi", "el size antes de eliminar es " + ImagenReport.hashMapImagesData.size());
-                    Log.i("mispiggi", "OK HAY UN CLICK EN LA CATEGORIA  "+Variables.typeoFdeleteImg);
+                    Log.i("giranda","vamos a eliminar");
 
-                    Variables.  listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
 
-                    ImagenReport.hashMapImagesData.remove(v.getTag().toString());
-                   // Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData, PreviewCalidadCamionesyCarretas.this);
 
-                    showImagesPicShotOrSelectUpdateView(true,position);
+                    try {
+                        Variables.typeoFdeleteImgORgire = Objects.requireNonNull(ImagenReport.hashMapImagesData.get(v.getTag().toString())).getTipoImagenCategory();
+                        Log.i("mispiggi", "el size antes de eliminar es " + ImagenReport.hashMapImagesData.size());
+                        Log.i("mispiggi", "OK HAY UN CLICK EN LA CATEGORIA  "+Variables.typeoFdeleteImgORgire);
 
-                }
 
-                catch (Exception e) {
-                    e.printStackTrace();
+                        Variables.  listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla
+                        ImagenReport.hashMapImagesData.remove(v.getTag().toString());
 
-                    Log.i("mispiggi", "error al eliminar" + e.getMessage());
+                        showImagesPicShotOrSelectUpdateView(true,position);
+
+
+
+                    }
+
+                    catch (Exception e) {
+                        e.printStackTrace();
+
+                        Log.i("giranda", "error al eliminar" + e.getMessage());
+
+                    }
+
+                }else{  ///aqui giramos la imagen..
+                    Log.i("giranda","vamos a girar hombe");
+
+                    showImagesPicShotOrSelectUpdateViewGirar(position);
+
+
 
                 }
 
@@ -5835,6 +5927,8 @@ else{
 
     private void getExportadorasAndSetSpinner(){
         //tenemos exportadoras de prefrencias//
+
+          SharePref.init(ActivityContenedoresPrev.this);
 
         hasmpaExportadoras = SharePref.getMapExpotadoras(SharePref.KEY_EXPORTADORAS);
         ArrayList<String>nombresExportadoras= new ArrayList<>();

@@ -47,13 +47,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tiburela.qsercom.PdfMaker.PdfMakerContenresAcopio;
@@ -1262,7 +1259,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicio
         //si es eliminar comprobar aqui
     if(isDeleteImg){
 
-        currentTypeImage=Variables.typeoFdeleteImg;
+        currentTypeImage=Variables.typeoFdeleteImgORgire;
 
         Log.i("isdeletyin","is deleting ");
 
@@ -1905,7 +1902,7 @@ private void createObjcInformeAndUpload() {
                //vamos a ver el tipo del objeto removivo
                 if( ImagenReport.hashMapImagesData.containsKey(v.getTag().toString())){
 
-                    Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+                    Variables.typeoFdeleteImgORgire =  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
 
                     Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
                     Variables.listImagesToDelete.add(v.getTag().toString());//agregamos ea imagen para borrarla

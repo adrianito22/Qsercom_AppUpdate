@@ -45,6 +45,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tiburela.qsercom.Customviews.EditextSupreme;
+import com.tiburela.qsercom.PdfMaker.HelperPdf;
 import com.tiburela.qsercom.R;
 import com.tiburela.qsercom.SharePref.SharePref;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
@@ -1690,6 +1691,51 @@ return true;
 
 
     }
+
+
+
+
+    public static ImagenReport updateImagenGiro(ImagenReport imagenReportOld){
+
+        int giroGradosCurrent=imagenReportOld.getGiroGradosImagen();
+
+        Log.i("giranda","la horientacion de esta imagen era"+imagenReportOld.getHorientacionImage());
+
+        if(imagenReportOld.getGiroGradosImagen()>=360){
+            giroGradosCurrent=0;
+
+        }
+
+        giroGradosCurrent=giroGradosCurrent+90;
+
+
+         imagenReportOld.setGiroGradosImagen(giroGradosCurrent);
+          if(imagenReportOld.getHorientacionImage().equals("vertical")){
+              imagenReportOld.setHorientacionImage("horizontal");
+          }else{
+
+              imagenReportOld.setHorientacionImage("vertical");
+
+          }
+
+          //ahora actualizamos el hasmap globa;
+
+        if(ImagenReport.hashMapImagesData.containsKey(imagenReportOld.getUniqueIdNamePic())){
+            ImagenReport.hashMapImagesData.put(imagenReportOld.getUniqueIdNamePic(), imagenReportOld);
+        }
+
+
+
+        Log.i("giranda","los grados ahora  de imagen son "+giroGradosCurrent);
+        Log.i("giranda","la horientacion ahora  es  "+imagenReportOld.getHorientacionImage());
+
+
+
+        return imagenReportOld;
+
+    }
+
+
 
 
 }

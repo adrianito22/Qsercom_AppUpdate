@@ -1686,7 +1686,11 @@ Log.i("puslado","el value es "+idReport);
         {
             public void run()
             {
-                  startActivity(i);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(i);
+
+
                   finish();
 
                // progress.dismiss();

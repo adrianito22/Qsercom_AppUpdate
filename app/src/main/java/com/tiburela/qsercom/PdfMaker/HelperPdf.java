@@ -1339,7 +1339,6 @@ if(contadorProductsPostCosecha>10){
         miTable.addCell(celltipodEcAJA.add(new Paragraph("TIPO DE CAJA").setFontSize(7.3f).setFont(font).setBold())) ;
         miTable.addCell(cell22Xu.add(new Paragraph("22xU").setFontSize(6.5f).setFont(font))) ;
 
-
         cell22XuX.setBackgroundColor(rgbColor) ; //MNARCAR LA X CON BACVGROUND VERDE
         cellDisplayX.setBackgroundColor(rgbColor);
         cell13kgX.setBackgroundColor(rgbColor);
@@ -1399,26 +1398,24 @@ if(contadorProductsPostCosecha>10){
 
         else{
 
-            miTable.addCell(cell208.add(new Paragraph("208").setFontSize(7.3f).setFont(font))) ;
-
+            miTable.addCell(cell208.add(new Paragraph(object2.getTipoCaja()).setFontSize(7.3f).setFont(font))) ;
+            cell208X.add(new Paragraph(" X ").setFontSize(6.5f));
+/*
             if(object2.getTipoCaja().equalsIgnoreCase("208")) {
-                cell208X.add(new Paragraph(" X ").setFontSize(6.5f));
 
             }else{
                 cell208X.add(new Paragraph("  ").setWidth(10));
 
 
             }
+
+ */
         }
 
 
         miTable.setBorderBottom(Border.NO_BORDER);
 
         miTable.addCell(cell208X) ;
-
-
-
-
 
 
 
@@ -3649,8 +3646,8 @@ if(contadorProductsPostCosecha>10){
                 , R.id.edif2LrgD29, R.id.edif2LrgD30};
 
 
-        int resultLine1;
-        int resultLine2;
+        float resultLine1;
+        float resultLine2;
 
         double resultLine1Double = 0;
         double resultLine2Double = 0;
@@ -3763,14 +3760,14 @@ if(contadorProductsPostCosecha>10){
             //itremoas
             String keyCurrent1 = String.valueOf(keyaRRAYnumClustXcajaLine1[i]);
             if (hashMapControlCald.containsKey(keyCurrent1)) {
-                resultLine1 = resultLine1 + Integer.parseInt(hashMapControlCald.get(keyCurrent1));
+                resultLine1 = resultLine1 + Float.parseFloat(hashMapControlCald.get(keyCurrent1));
             }
 
 
 
             String keyCurrent2 = String.valueOf(keyaRRAYnumClustXcajaLine2[i]);
             if (hashMapControlCald.containsKey(keyCurrent2)) {
-                resultLine2 = resultLine2 + Integer.parseInt(hashMapControlCald.get(keyCurrent2));
+                resultLine2 = resultLine2 + Float.parseFloat(hashMapControlCald.get(keyCurrent2));
 
             }
 
@@ -3781,7 +3778,8 @@ if(contadorProductsPostCosecha>10){
 
 
         if(resultLine1>0 || resultLine2>0){
-            NUMERO_DE_CLUSTERS_POR_CAJA = resultLine2 / resultLine1;
+             float resultadoLine=resultLine1/resultLine2;
+            NUMERO_DE_CLUSTERS_POR_CAJA = Math. round(resultadoLine) ;
 
         }
 

@@ -2454,7 +2454,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicio
 
           if(isDeleteImg){
 
-        currentTypeImage=Variables.typeoFdeleteImg;
+        currentTypeImage=Variables.typeoFdeleteImgORgire;
     }
 
     ArrayList<ImagenReport>filterListImagesData= new ArrayList<>();
@@ -2996,7 +2996,7 @@ private void uploadInformeToDatabase( SetInformEmbarque1 informe,SetInformEmbarq
 
                 try {
 
-                    Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+                    Variables.typeoFdeleteImgORgire =  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
                     ImagenReport.hashMapImagesData.remove(v.getTag().toString());
                     Utils.saveMapImagesDataPreferences(ImagenReport.hashMapImagesData,ActivityContenedores.this);
 

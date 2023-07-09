@@ -1901,7 +1901,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         //si es eliminar comprobar aqui
         if(isDeleteImg){
 
-            currentTypeImage=Variables.typeoFdeleteImg;
+            currentTypeImage=Variables.typeoFdeleteImgORgire;
         }
 
 
@@ -2501,7 +2501,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
                /// Log.i("midaclick","el click es here, posicion es "+position);
 
-                Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+                Variables.typeoFdeleteImgORgire =  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
 
                 Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
 

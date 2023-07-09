@@ -70,7 +70,6 @@ public class Variables {
     public static  int SEVERAL_INFORMS_UPDATE=108;
     public static  int CONTROL_CALIDAD_OBJECT=109;
     public static  int ERROR_SUBIDA=110;
-    public static  String tagAndKeyToDelete="";
 
     public static final int NINGUNO=11000;
     public static  int FINISH_ONLY_UPLOAD_REPORT =15001;
@@ -167,7 +166,7 @@ public static  ArrayList<PromedioLibriado>listPromedioLibriado= new ArrayList<>(
 
 
 
-    public static int typeoFdeleteImg=0;
+    public static int typeoFdeleteImgORgire =0;
     public static final  int   MINIMO_FOTOS_ALL_CATEGORY=1;
 
 

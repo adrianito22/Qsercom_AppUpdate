@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -78,8 +79,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PdfMaker2_0 extends AppCompatActivity {
+    PageSize pageSize;
+    float sizeTable;
+    PdfDocument miPFDocumentkernel;
 
-
+    Cell   cell1;
+    Rectangle remaining;
+    Document midocumentotoAddData;
     int ActivityFormularioDondeVino;
     ArrayList< HashMap <String, String>>ListWhitHashMapsControlCalidad=new ArrayList<>() ;
 
@@ -218,7 +224,9 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
                         Toast.makeText(PdfMaker2_0.this, "Iniciando Descarga", Toast.LENGTH_SHORT).show();
 
-                        createPDFContenedores() ;
+                      //  createPDFContenedoresParte2() ;
+                        CreaPdfHilo tare= new CreaPdfHilo();
+                        tare.execute();
 
 
                     }
@@ -242,7 +250,11 @@ public class PdfMaker2_0 extends AppCompatActivity {
                             Log.i("debugenado","mostramos dialogo ");
 
 
-                            createPDFContenedores() ;
+                          //  createPDFContenedoresParte2() ;
+
+                            CreaPdfHilo tare= new CreaPdfHilo();
+                            tare.execute();
+
 
 
                         }else{
@@ -258,12 +270,6 @@ public class PdfMaker2_0 extends AppCompatActivity {
                     }
 
 
-
-                }
-
-                catch (FileNotFoundException e) {
-
-                    e.printStackTrace();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -304,30 +310,470 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
   }
 
+    class CreaPdfHilo extends AsyncTask<Void, Integer, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            publishProgress(1);
+            try {
+                createPDFContenedoresParte1();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            publishProgress(30);
+
+            return null;
+
+
+
+        }
+        @Override
+        protected void onPreExecute() {
+            txtTareaAqui.setText("Empezando");
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            try {
+
+                createPDFContenedoresParte2HiloPrincipal();
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            TareaImagenesAddPart3 hilo= new TareaImagenesAddPart3();
+            hilo.execute();
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            progressBar2.setProgress(values[0],true);
+
+        }
+    }
+
+    class TareaImagenesAddPart3 extends AsyncTask<Void, Integer, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+                /**descripcion de defectos de fruta*/
+
+                //agregamos el hedaer
+                /**add header imagen*/
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                float araycolumzz[]= {1,1,1,1,1,1};
+                Table  table1=  new Table(araycolumzz);
+
+                table1=HelperPdf.descripciondEFECXTOSFRUTA(table1);
+                HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+                table1.setMarginTop(8f);
+                midocumentotoAddData.add(table1);
+
+                float ancho=pageSize.getWidth();   //MAS O MENOS EL DE LA ULTIMA TABLA
+                float alto=pageSize.getHeight();
+
+
+                Log.i("miodatr","el ancho del doc es "+ancho);
+                Log.i("miodatr","el alto  del doc es "+alto);
+
+                //   miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
+
+
+
+                /**libriado**/
+
+
+                if(Utils.hashMappromedioLibriado.size()>0){ //si hay libriado
+                    boolean isPrimeraTablaLibriado=true;
+                    midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                    midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
+                            setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f).setBold());
+
+                    Log.i("miodatr","se eejcuto el pdd");
+
+
+                    Rectangle remainingZZ ;
+
+                    String [] keyandanme;
+
+
+                    for (Map.Entry<String,ArrayList<PromedioLibriado>> entry : Utils.hashMappromedioLibriado.entrySet()) {
+                        String key = entry.getKey();
+                        ArrayList<PromedioLibriado> arrayList = entry.getValue();
+
+                        keyandanme = key.split("-");
+
+
+                        /**obtenemos tabla by array list item*/
+                        table1 = HelperPdf.devulveTablaToLibriado(arrayList, keyandanme[0]);
+                        HelperPdf.configTableMaringAndWidth(table1, sizeTable - 200);
+
+
+                        if (isPrimeraTablaLibriado) {
+
+                            table1.setMarginTop(10f);
+                            table1.setMarginBottom(10f);
+                            midocumentotoAddData.add(table1);
+                            isPrimeraTablaLibriado = false;
+
+                        } else { /**aqui havemos el calculo...*/
+
+                            Log.i("simpredert", "esta table tiene de size" +arrayList.size());
+
+
+                            /***tenemos un valor contsante que es el heihgt del title y el promedio abajo serian unos 70*/
+                            float estimacionPosicionOcuparaTable=posicionyTablasLibriado-(arrayList.size()*22)-90;
+
+                            Log.i("simpredert", "la posicion estmada seria " + estimacionPosicionOcuparaTable);
+
+
+
+                            if(estimacionPosicionOcuparaTable<210){
+                                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                            }
+
+
+
+                            table1.setMarginTop(10f);
+                            table1.setMarginBottom(10f);
+
+                            midocumentotoAddData.add(table1);
+
+
+                        }
+
+                        remainingZZ = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+                        posicionyTablasLibriado = remainingZZ.getTop();
+
+
+
+                        Log.i("simpredert", "la posicionyTablasLibriado table real DESPUES DE ADD es  " + posicionyTablasLibriado);
+
+
+                    }
+                    Log.i("miodataxx","es mayor a cero");
+
+
+                }
+
+
+
+                /**Agregamos anexos*/
+
+
+                HelperAdImgs.initpdfDocument(miPFDocumentkernel);
+
+
+                HelperImage.indiceValues=0;
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+            publishProgress(40);
+
+
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+            /**FOTO_LLEGADA_CONTENEDOR...*/
+                HelperImage.indiceValues=0;
+                midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            publishProgress(50);
+
+            HelperImage.indiceValues=0;
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+            HelperImage.indiceValues=0;
+
+                /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
+                // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            publishProgress(60);
+
+
+            /**FOTO_PALLETS ...*/
+                HelperImage.indiceValues=0;
+
+                // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            publishProgress(70);
+
+            //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                HelperImage.indiceValues=0;
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+            publishProgress(80);
+
+
+            midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                HelperImage.indiceValues=0;
+            try {
+                HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+            /**aqui colcamos por quien revisado y eso 33jjjjj1` e*/
+
+            publishProgress(90);
+
+
+                Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.CurrenReportPart1.getNombreRevisa(),Variables.CurrenReportPart1.getCodigonRevisa());
+                midocumentotoAddData.add(paragraph);
 
 
 
 
-    public void createPDFContenedores() throws Exception
 
+            publishProgress(100);
+
+
+          //  Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
+
+                midocumentotoAddData.close();
+                // UpdateProgressAndText("Terminado",100);
+
+
+
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+            //aqui se termino todo
+
+            btnIrAARCHIVOpdf.setEnabled(true);
+            FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
+            fabUploadDrive.setVisibility(View.VISIBLE);
+
+
+        }
+
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            progressBar2.setProgress(values[0],true);
+
+        }
+
+
+
+    }
+
+     void createPDFContenedoresParte2HiloPrincipal() throws Exception
 
     {
 
 
 
-        //prueba now
+        midocumentotoAddData.add(new Paragraph("Gráfico 1.- Demostración de calidad total y daños- estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
-       int sizedd= Variables.listPromedioLibriado.size();
+         /**Agregamos pie  Grafico*/
+         PieChart pieChart;
+         pieChart=findViewById(R.id.pieChart_view);
+
+        DeviceRgb rgbColor= new DeviceRgb(220,220,220);
+
+        Table table1 ;
+        Cell cell1;
+
+         table1=new Table(1);
+         cell1= new Cell().setBackgroundColor(rgbColor).setBorder(Border.NO_BORDER);
+         cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(16f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
+        table1.addCell(cell1);
+
+        Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
+        Image imagen= HelperPdf.createImagebYbitmap(bitmap);
+
+
+        imagen.setWidth(120);
+        imagen.setHeight(120);
+        imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        //imagen.scaleToFit(1000,100); //estaba en 100
+
+
+        cell1= new Cell().setBorder(Border.NO_BORDER).setBackgroundColor(rgbColor).setHorizontalAlignment(HorizontalAlignment.CENTER);
+        cell1.add(imagen);
+        table1.addCell(cell1);
+
+
+        table1.setWidth(pageSize.getWidth()-200f);
+        // table1.setMarginLeft(70f);
+        table1.setMarginTop(1f);
+        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+        midocumentotoAddData.add(table1);
+
+
+        /**Texto como verfiicadora tenemos...*/
+
+        midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente.").
+                setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
+/*
+        midocumentotoAddData.add(new Paragraph(Variables.CurrenReportPart1.getClienteReporte()).
+                setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
+*/
+
+        midocumentotoAddData.add(new Paragraph("Atentamente,").
+                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
+
+          /**NOMBRE DE LOS INSPECTORES*/
+         table1=  HelperPdf.generaTableInspectores(Variables.CurrenReportPart3,pageSize.getWidth());
+         midocumentotoAddData.add(table1);
+
+         /**BAR CHART Sporcentaje de frutas*/
+        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+
+        BarChart barChartView;
+        barChartView=findViewById(R.id.barChartView);
+
+
+                int contadorAllGraficos=2;
+
+                int contadorImageChar=1;
+
+        for(int indice = 0; indice<Variables.listControlCalidadVinculads.size(); indice++){  //2 tablas...  4 en total
+
+            ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(indice);
+
+              //agregamos el texto en cel centro
+             Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getMarcaCaja())
+                     .setPaddingLeft(60f).setBold();
+            mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+
+          //  midocumentotoAddData.add(new Paragraph("textaqui").setFontSize(5f));
+
+
+            remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+            float y2 = remaining.getTop();
+
+            Log.i("posicuon","el posicon  es "+y2);
+
+
+            if(contadorImageChar%2==0){  //es multiplo de 2
+                 mipara.setMarginTop(25f);
+
+                 if(contadorImageChar<Variables.listControlCalidadVinculads.size()){
+                     //cremoas nueva pagina siempre yPosicion cuando existan mas valores
+                     midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                 }
+
+
+             }
+             else{
+
+                 mipara.setMarginTop(2f);
+
+             }
+
+
+            midocumentotoAddData.add(mipara);
+
+             Log.i("currenControCaldsRep","el nun clsuters inspeccionados es "+currenControCaldRep.getNumeroClustersInspeccioandos());
+            bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice,currenControCaldRep.getNumeroClustersInspeccioandos());
+
+
+            imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
+            imagen.setHeight(185f); //SI NO QUITAMOS 5
+
+            //////////////////
+
+            imagen.setWidth(pageSize.getWidth()-145);
+            //imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+            table1= new Table(1);
+
+            cell1 = new Cell().setBorder(new SolidBorder(rgbColor, 1)).setBorderBottom(Border.NO_BORDER).add(new Paragraph("PORCENTAJE POR DEFECTO EN SELECCIÓN Y EMPAQUE").setMarginTop(10f).setTextAlignment(TextAlignment.CENTER));;
+            table1.addCell(cell1);
+
+
+            cell1 = new Cell().setBorderTop(Border.NO_BORDER);
+            cell1.setBorder(new SolidBorder(rgbColor, 1));
+
+
+
+            cell1.add(imagen);
+            table1.addCell(cell1);
+            HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+
+            midocumentotoAddData.add(table1);
+            //setPaddingLeft(70f)
+            contadorAllGraficos++;
+            contadorImageChar++;
+        }
+
+
+
+        /*hasta aqui view hilo principal**/
+
+
+
+    }
+
+
+
+
+
+    void createPDFContenedoresParte1() throws FileNotFoundException {
+        int sizedd= Variables.listPromedioLibriado.size();
 
         Log.i("superman","el size de libriado es  "+sizedd);
 
 
-       HelperPdf. hasmapOfListwhitNamesFefectsCurrentControlCalidadFOmr= new HashMap<>();//reseteamos este
-       HelperPdf.listNumsCustomDefects= new ArrayList<>();
+        HelperPdf. hasmapOfListwhitNamesFefectsCurrentControlCalidadFOmr= new HashMap<>();//reseteamos este
+        HelperPdf.listNumsCustomDefects= new ArrayList<>();
         HelperPdf.TableCalidProdc=new ArrayList<>();
 
         File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-         file = new File(directory, nameOFPDFrEPORTfile+".pdf");
+        file = new File(directory, nameOFPDFrEPORTfile+".pdf");
 
         uriThiSfile=Uri.fromFile(file);
 
@@ -341,41 +787,41 @@ public class PdfMaker2_0 extends AppCompatActivity {
         PdfWriter writer = new PdfWriter(file); //le pasmaos el file
 
 
-        PdfDocument miPFDocumentkernel= new PdfDocument(writer);
+         miPFDocumentkernel= new PdfDocument(writer);
 
-        PageSize pageSize= PageSize.A4;  //si no le quitamos el rotate...
+         pageSize= PageSize.A4;  //si no le quitamos el rotate...
 
         PdfPage pagePdf= miPFDocumentkernel.addNewPage(pageSize);///
 
 
         HelperPdf pdfHelper= new HelperPdf();
 
-        Document midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
+         midocumentotoAddData= new Document(miPFDocumentkernel,pageSize); // le gagregamos data a este...
         midocumentotoAddData.setMargins(0, 0, 0, 0);
 
         Image imglogqSercom=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
         imglogqSercom.scaleToFit(595f, 200f); //ESTA EN 400 DESPUES 3300
         imglogqSercom.setHorizontalAlignment(HorizontalAlignment.CENTER);
-          midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
+        midocumentotoAddData.add(imglogqSercom).setTopMargin(0f);
 
 
-          /**CONFIGURAMOS OTRA VEZ EL MARGEN*/
+        /**CONFIGURAMOS OTRA VEZ EL MARGEN*/
         midocumentotoAddData.setMargins(190, 0, 105, 0);
 
 
         Image imageHeader=pdfHelper.createInfoImgtoPDF(getDrawable(R.drawable.headerpdf),1);
-         imageHeader.setFixedPosition(0, 650); // si no usamos este
-         imageHeader.setMarginTop(0f); // de prueba
+        imageHeader.setFixedPosition(0, 650); // si no usamos este
+        imageHeader.setMarginTop(0f); // de prueba
         ImageEventHandlerHeader handler = new ImageEventHandlerHeader(imageHeader,midocumentotoAddData);
 
         miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
 
 
 
-        Rectangle remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
+         remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
 
         float y = remaining.getTop();
-        float sizeTable= pageSize.getWidth()-120f;
+         sizeTable= pageSize.getWidth()-120f;
 
         Log.i("miodatr","el size de table es"+sizeTable);
 
@@ -398,7 +844,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         Table tableTitle=  new Table(1);
 
         /**TABLE TITULO EXPORTADORA SOLICTADA yPosicion procesada*/
-        Cell cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
+         cell1= new Cell()  .setBorder(Border.NO_BORDER).add(new Paragraph("REPORTE CALIDAD CONTENEDORES").setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
         Cell cell2= new Cell().setBorder(Border.NO_BORDER) .add(new Paragraph("EXPORTADORA SOLICITANTE "+Variables.CurrenReportPart1.getExportadoraSolicitante().toUpperCase()+" MARCA "+" "+Variables.CurrenReportPart1.getMarrca().toUpperCase())
                 .setTextAlignment(TextAlignment.CENTER).setFontSize(7.5f).setBold());
         Cell cell3= new Cell().setBorder(Border.NO_BORDER)
@@ -417,7 +863,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         Log.i("mitables","el size de colum 2  es "+sizeTable/1.5f);
 
         /**EMPEZAMOS CON LAS TABLAS*/
-      //  float sizeColumns[]= {sizeTable/2,sizeTable/1.5f};
+        //  float sizeColumns[]= {sizeTable/2,sizeTable/1.5f};
         float sizeColumns[]= {190,285};
 
         Table table1=  new Table(sizeColumns);
@@ -477,8 +923,8 @@ public class PdfMaker2_0 extends AppCompatActivity {
         cell0.setBackgroundColor(HelperPdf.rgbColorAzulClaro); //editamos el color
         table1.addCell(cell0);
 
-         HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-         midocumentotoAddData.add(table1);
+        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
+        midocumentotoAddData.add(table1);
 
 
         /**devulve productos postcosecha table inf0 = 2 */
@@ -494,7 +940,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
             table1=HelperPdf.generateTablePRODUCTSPOSTO(Variables.currenProductPostCosecha);
 
         }else{
-                 //si no usamo0s el de camiones y carretas
+            //si no usamo0s el de camiones y carretas
 
             table1=HelperPdf.generateTablePRODUCTSPOSTOMas4pRODUCTS(Variables.currenProductPostCosecha);
 
@@ -747,53 +1193,53 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-          /**agregamos tables de control calidad*/
+        /**agregamos tables de control calidad*/
 
-            midocumentotoAddData.add(new Paragraph("1.- EVALUACIÓN Y CONDICIÓN DE FRUTA.").
-                    setFontSize(7.3f).
-                    setMarginTop(1f).
-                    setBold().
-                    setPaddingBottom(1f).setMarginLeft(60f));
+        midocumentotoAddData.add(new Paragraph("1.- EVALUACIÓN Y CONDICIÓN DE FRUTA.").
+                setFontSize(7.3f).
+                setMarginTop(1f).
+                setBold().
+                setPaddingBottom(1f).setMarginLeft(60f));
 
-           int contadorTablas=1;
+        int contadorTablas=1;
 
-         for(int i = 0; i<Variables.listControlCalidadVinculads.size(); i++ ){
+        for(int i = 0; i<Variables.listControlCalidadVinculads.size(); i++ ){
 
-             ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(i);
+            ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(i);
 
-             HashMap<String,String>currentMap=Utils.devulveHasmapControClidadData(ListWhitHashMapsControlCalidad,
-                     currenControCaldRep.getUniqueId());
+            HashMap<String,String>currentMap=Utils.devulveHasmapControClidadData(ListWhitHashMapsControlCalidad,
+                    currenControCaldRep.getUniqueId());
 
-             HashMap<String,String>currentMapDefectsCheked= Utils.devulveHasmapRechzadoscheckdByKey(ListWhitHashMapsRechzadosChekeed,
-                     currenControCaldRep.getUniqueId());
+            HashMap<String,String>currentMapDefectsCheked= Utils.devulveHasmapRechzadoscheckdByKey(ListWhitHashMapsRechzadosChekeed,
+                    currenControCaldRep.getUniqueId());
 
-             table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this,contadorTablas);
+            table1=  HelperPdf.createTableEvaluacionYcondcionFruta(currenControCaldRep,currentMap,currentMapDefectsCheked,PdfMaker2_0.this,contadorTablas);
 
 
-                 if( contadorTablas % 2==0){  //yPosicion si existen mas tablas yPosicion es un numero
-                     table1.setMarginTop(40f);
+            if( contadorTablas % 2==0){  //yPosicion si existen mas tablas yPosicion es un numero
+                table1.setMarginTop(40f);
 
-                     if(contadorTablas<ListWhitHashMapsControlCalidad.size()){ //signifca que quedan mas tablas
+                if(contadorTablas<ListWhitHashMapsControlCalidad.size()){ //signifca que quedan mas tablas
 
-                         Log.i("comprobacionx","el contadorTablas  es "+contadorTablas);
+                    Log.i("comprobacionx","el contadorTablas  es "+contadorTablas);
 
-                         midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                    midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-                     }
-                 }
+                }
+            }
 
-                 else{ //si es la primera tabla de la pagina
+            else{ //si es la primera tabla de la pagina
 
-                     table1.setMarginTop(10f);
-                 }
+                table1.setMarginTop(10f);
+            }
 
-                 table1.setWidth(pageSize.getWidth()/2);
-                 table1.setMarginLeft(60f);
-                 midocumentotoAddData.add(table1);
+            table1.setWidth(pageSize.getWidth()/2);
+            table1.setMarginLeft(60f);
+            midocumentotoAddData.add(table1);
 
-                 contadorTablas++;
+            contadorTablas++;
 
-         }
+        }
 
 
 
@@ -819,7 +1265,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
         midocumentotoAddData.add(new Paragraph("Tabla1.-  Descripción de porcentaje de calidad de productores y tipos de empaque").setFontSize(9f).setMarginTop(5f).setPaddingLeft(60f).setBold());
 
 
-           /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
+        /***TABLA PORCENTAJE DE CALIDAD DE PRODUCTORES*/
         table1 =HelperPdf. createTablePorceCalidProductres();
 
 
@@ -833,318 +1279,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
 
 
 
-        midocumentotoAddData.add(new Paragraph("Gráfico 1.- Demostración de calidad total y daños- estropeos en fruta.").setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
 
-         /**Agregamos pie  Grafico*/
-         PieChart pieChart;
-         pieChart=findViewById(R.id.pieChart_view);
-
-        DeviceRgb rgbColor= new DeviceRgb(220,220,220);
-
-         table1=new Table(1);
-         cell1= new Cell().setBackgroundColor(rgbColor).setBorder(Border.NO_BORDER);
-         cell1.add(new Paragraph("CALIDAD FRUTA").setFontSize(16f).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(10f));
-        table1.addCell(cell1);
-
-        Bitmap bitmap=  HelperPdf.createPieCharImgbITMAP(pieChart,PdfMaker2_0.this);
-        Image imagen= HelperPdf.createImagebYbitmap(bitmap);
-
-
-        imagen.setWidth(120);
-        imagen.setHeight(120);
-        imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        //imagen.scaleToFit(1000,100); //estaba en 100
-
-
-        cell1= new Cell().setBorder(Border.NO_BORDER).setBackgroundColor(rgbColor).setHorizontalAlignment(HorizontalAlignment.CENTER);
-        cell1.add(imagen);
-        table1.addCell(cell1);
-
-
-        table1.setWidth(pageSize.getWidth()-200f);
-        // table1.setMarginLeft(70f);
-        table1.setMarginTop(1f);
-        table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
-        midocumentotoAddData.add(table1);
-
-
-        /**Texto como verfiicadora tenemos...*/
-
-        midocumentotoAddData.add(new Paragraph("Como verificadora tenemos la obligación de corregir estos daños en  la fruta para garantizar la calidad en la exportación del banano  buscando siempre el bienestar de nuestro cliente.").
-                setFontSize(7.5f).setMarginTop(9f).setPaddingLeft(60f).setPaddingRight(65f));
-/*
-        midocumentotoAddData.add(new Paragraph(Variables.CurrenReportPart1.getClienteReporte()).
-                setFontSize(8.5f).setMarginTop(1f).setPaddingLeft(60f).setBold());
-*/
-
-        midocumentotoAddData.add(new Paragraph("Atentamente,").
-                setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f));
-
-          /**NOMBRE DE LOS INSPECTORES*/
-         table1=  HelperPdf.generaTableInspectores(Variables.CurrenReportPart3,pageSize.getWidth());
-         midocumentotoAddData.add(table1);
-
-         /**BAR CHART Sporcentaje de frutas*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-
-        BarChart barChartView;
-        barChartView=findViewById(R.id.barChartView);
-
-
-                int contadorAllGraficos=2;
-
-                int contadorImageChar=1;
-
-        for(int indice = 0; indice<Variables.listControlCalidadVinculads.size(); indice++){  //2 tablas...  4 en total
-
-            ControlCalidad currenControCaldRep= Variables.listControlCalidadVinculads.get(indice);
-
-              //agregamos el texto en cel centro
-             Paragraph mipara= new Paragraph("GRÁFICO "+contadorAllGraficos +".-DEMOSTRACIÓN DE DEFECTOS EMPAQUE "+currenControCaldRep.getMarcaCaja())
-                     .setPaddingLeft(60f).setBold();
-            mipara.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
-
-          //  midocumentotoAddData.add(new Paragraph("textaqui").setFontSize(5f));
-
-
-            remaining = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
-            float y2 = remaining.getTop();
-
-            Log.i("posicuon","el posicon  es "+y2);
-
-
-            if(contadorImageChar%2==0){  //es multiplo de 2
-                 mipara.setMarginTop(25f);
-
-                 if(contadorImageChar<Variables.listControlCalidadVinculads.size()){
-                     //cremoas nueva pagina siempre yPosicion cuando existan mas valores
-                     midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                 }
-
-
-             }
-             else{
-
-                 mipara.setMarginTop(2f);
-
-             }
-
-
-            midocumentotoAddData.add(mipara);
-
-             Log.i("currenControCaldsRep","el nun clsuters inspeccionados es "+currenControCaldRep.getNumeroClustersInspeccioandos());
-            bitmap=  HelperPdf.createBarChart(barChartView,PdfMaker2_0.this,indice,currenControCaldRep.getNumeroClustersInspeccioandos());
-
-
-            imagen= HelperPdf.createImagebYbitmap(bitmap);// .setPaddingLeft(70f).setPaddingRight(70f);
-            imagen.setHeight(185f); //SI NO QUITAMOS 5
-
-            //////////////////
-
-            imagen.setWidth(pageSize.getWidth()-145);
-            //imagen.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
-            table1= new Table(1);
-
-            cell1 = new Cell().setBorder(new SolidBorder(rgbColor, 1)).setBorderBottom(Border.NO_BORDER).add(new Paragraph("PORCENTAJE POR DEFECTO EN SELECCIÓN Y EMPAQUE").setMarginTop(10f).setTextAlignment(TextAlignment.CENTER));;
-            table1.addCell(cell1);
-
-
-            cell1 = new Cell().setBorderTop(Border.NO_BORDER);
-            cell1.setBorder(new SolidBorder(rgbColor, 1));
-
-
-
-            cell1.add(imagen);
-            table1.addCell(cell1);
-            HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-
-            midocumentotoAddData.add(table1);
-            //setPaddingLeft(70f)
-            contadorAllGraficos++;
-            contadorImageChar++;
-        }
-
-
-
-
-        /**descripcion de defectos de fruta*/
-
-        //agregamos el hedaer
-        /**add header imagen*/
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-        float araycolumzz[]= {1,1,1,1,1,1};
-        table1=  new Table(araycolumzz);
-
-        table1=HelperPdf.descripciondEFECXTOSFRUTA(table1);
-        HelperPdf.configTableMaringAndWidth(table1,sizeTable);
-        table1.setMarginTop(8f);
-        midocumentotoAddData.add(table1);
-
-        float ancho=pageSize.getWidth();   //MAS O MENOS EL DE LA ULTIMA TABLA
-        float alto=pageSize.getHeight();
-
-
-        Log.i("miodatr","el ancho del doc es "+ancho);
-        Log.i("miodatr","el alto  del doc es "+alto);
-
-     //   miPFDocumentkernel.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
-
-
-
-        /**libriado**/
-
-
-        if(Utils.hashMappromedioLibriado.size()>0){ //si hay libriado
-             boolean isPrimeraTablaLibriado=true;
-            midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-            midocumentotoAddData.add(new Paragraph("2.PESO PROMEDIO CLÚSTER,").
-                    setFontSize(7.5f).setMarginTop(10f).setPaddingLeft(60f).setBold());
-
-            Log.i("miodatr","se eejcuto el pdd");
-
-
-            Rectangle remainingZZ ;
-
-            String [] keyandanme;
-
-
-            for (Map.Entry<String,ArrayList<PromedioLibriado>> entry : Utils.hashMappromedioLibriado.entrySet()) {
-                String key = entry.getKey();
-                ArrayList<PromedioLibriado> arrayList = entry.getValue();
-
-                keyandanme = key.split("-");
-
-
-                /**obtenemos tabla by array list item*/
-                table1 = HelperPdf.devulveTablaToLibriado(arrayList, keyandanme[0]);
-                HelperPdf.configTableMaringAndWidth(table1, sizeTable - 200);
-
-
-                if (isPrimeraTablaLibriado) {
-
-                    table1.setMarginTop(10f);
-                    table1.setMarginBottom(10f);
-                    midocumentotoAddData.add(table1);
-                    isPrimeraTablaLibriado = false;
-
-                } else { /**aqui havemos el calculo...*/
-
-                    Log.i("simpredert", "esta table tiene de size" +arrayList.size());
-
-
-                    /***tenemos un valor contsante que es el heihgt del title y el promedio abajo serian unos 70*/
-                    float estimacionPosicionOcuparaTable=posicionyTablasLibriado-(arrayList.size()*22)-90;
-
-                    Log.i("simpredert", "la posicion estmada seria " + estimacionPosicionOcuparaTable);
-
-
-
-                    if(estimacionPosicionOcuparaTable<210){
-                        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-                    }
-
-
-
-                     table1.setMarginTop(10f);
-                    table1.setMarginBottom(10f);
-
-                    midocumentotoAddData.add(table1);
-
-
-                }
-
-                remainingZZ = midocumentotoAddData.getRenderer().getCurrentArea().getBBox();
-                posicionyTablasLibriado = remainingZZ.getTop();
-
-
-
-                Log.i("simpredert", "la posicionyTablasLibriado table real DESPUES DE ADD es  " + posicionyTablasLibriado);
-
-
-            }
-            Log.i("miodataxx","es mayor a cero");
-
-
-        }
-
-
-
-        /**Agregamos anexos*/
-
-
-        HelperAdImgs.initpdfDocument(miPFDocumentkernel);
-
-
-        HelperImage.indiceValues=0;
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PROCESO_FRUTA_FINCA,"PROCESO DE FRUTA EN FINCA",midocumentotoAddData,pageSize,contexto);
-
-
-
-        /**FOTO_LLEGADA_CONTENEDOR...*/
-        HelperImage.indiceValues=0;
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_LLEGADA_CONTENEDOR,"*  APERTURA, INSPECCIÓN Y CIERRE DE  CONTENEDOR",midocumentotoAddData,pageSize,contexto);
-
-
-        HelperImage.indiceValues=0;
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_SELLO_LLEGADA,"",midocumentotoAddData,pageSize,contexto);
-
-
-        HelperImage.indiceValues=0;
-
-        /**FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR...*/
-       // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR," ",midocumentotoAddData,pageSize,contexto);
-
-
-
-
-        /**FOTO_PALLETS ...*/
-        HelperImage.indiceValues=0;
-
-        // midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_PALLETS,"",midocumentotoAddData,pageSize,contexto);
-
-
-
-     //   midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperImage.indiceValues=0;
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"",midocumentotoAddData,pageSize,contexto);
-
-
-        midocumentotoAddData.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-        HelperImage.indiceValues=0;
-        HelperAdImgs.createPages_addImgs(Variables.FOTO_DOCUMENTACION,"*  DOCUMENTACIÓN",midocumentotoAddData,pageSize,contexto);
-
-
-
-        /**aqui colcamos por quien revisado y eso 33jjjjj1` e*/
-
-
-
-        Paragraph paragraph =HelperPdf.generateTexRevisadoPorFormatAndPosition(Variables.CurrenReportPart1.getNombreRevisa(),Variables.CurrenReportPart1.getCodigonRevisa());
-        midocumentotoAddData.add(paragraph);
-
-
-        btnIrAARCHIVOpdf.setEnabled(true);
-
-
-        FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
-        fabUploadDrive.setVisibility(View.VISIBLE);
-
-        Toast.makeText(PdfMaker2_0.this, "Se GUARDÓ  el Pdf", Toast.LENGTH_SHORT).show();
-
-        midocumentotoAddData.close();
-       // UpdateProgressAndText("Terminado",100);
 
 
 

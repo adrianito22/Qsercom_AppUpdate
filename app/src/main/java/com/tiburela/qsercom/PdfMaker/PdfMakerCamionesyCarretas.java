@@ -1201,7 +1201,6 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
     public void createPDFCamionesyCarretas1() throws Exception {
 
 
-
         int sizedd= Variables.listPromedioLibriado.size();
 
         Log.i("superman","el size de libriado es  "+sizedd);
@@ -1243,10 +1242,6 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         file  = new File(directory, nameOFPDFrEPORTfile+".pdf");
 
-
-
-
-
         uriThiSfile=Uri.fromFile(file);
 
         //chekear si existe si es asi sobrescribirlo
@@ -1254,24 +1249,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
         HelperPdf.initFontx();
 
 
-
-        if(android.os.Build.VERSION.SDK_INT >Build.VERSION_CODES.R){
-
-            //  file.createNewFile();
-
-            // File  audioFile = new File(file.getAbsolutePath());
-            //  String filePath = direPath + "/recording";
-            // OutputStream estrema =new FileOutputStream(audioFile);
-
-
-        }else{
-
-
-        }
-
-
         OutputStream estrema =new FileOutputStream(file);
-
 
 
         PdfWriter writer = new PdfWriter(file); //le pasmaos el file
@@ -2009,7 +1987,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
 
 
-                //
+
             try {
                 HelperAdImgs.createPages_addImgs(Variables.FOTO_CIERRE_CONTENEDOR,"*  APERTURA, INSPECCIÒN Y CIERRE DE CAMIONES",midocumentotoAddData,pageSize,contexto);
             } catch (Exception e) {
@@ -2692,6 +2670,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
+
             publishProgress(valueUpdate);
 
             try {

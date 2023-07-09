@@ -1123,7 +1123,7 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicio
         //si es eliminar comprobar aqui
     if(isDeleteImg){
 
-        currentTypeImage=Variables.typeoFdeleteImg;
+        currentTypeImage=Variables.typeoFdeleteImgORgire;
 
         Log.i("isdeletyin","is deleting ");
 
@@ -1791,7 +1791,7 @@ private void createObjcInformeAndUpload(){
 
                ///elimnar el hasmap
                //vamos a ver el tipo del objeto removivo
-               Variables.typeoFdeleteImg=  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
+               Variables.typeoFdeleteImgORgire =  ImagenReport.hashMapImagesData.get(v.getTag()).getTipoImagenCategory();
 
                 Log.i("camisax","el size antes de eliminar es "+ ImagenReport.hashMapImagesData.size());
 

@@ -28,8 +28,6 @@ public class AdapterAllReports extends RecyclerView.Adapter<AdapterAllReports.Re
     private static ClickListener clickListener;
 
 
-
-
     private ArrayList<InformRegister> listReports;
     private Context mcontext;
 

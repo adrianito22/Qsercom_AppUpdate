@@ -24,6 +24,17 @@ public class ImagenReport {
     private int tipoImagenCategory;
     private String idReportePerteence;
 
+    public int getGiroGradosImagen() {
+        return giroGradosImagen;
+    }
+
+    public void setGiroGradosImagen(int giroGradosImagen) {
+        this.giroGradosImagen = giroGradosImagen;
+    }
+
+    private int giroGradosImagen;
+
+
     public int getSortPositionImage() {
         return sortPositionImage;
     }
@@ -138,6 +149,8 @@ public class ImagenReport {
         urlStoragePic="";
         imagenPathNow="";
         sortPositionImage=Utils.NOPOSITION_DEFINIDA; //cuando no tenemos posicion..
+
+        giroGradosImagen=0;
     }
 
 
@@ -159,6 +172,7 @@ public ImagenReport(){
         result.put("estaENPdf", estaENPdf);
         result.put("urlStoragePic", urlStoragePic);
         result.put("sortPositionImage", sortPositionImage);
+        result.put("giroGradosImagen", giroGradosImagen);
 
         return result;
 
