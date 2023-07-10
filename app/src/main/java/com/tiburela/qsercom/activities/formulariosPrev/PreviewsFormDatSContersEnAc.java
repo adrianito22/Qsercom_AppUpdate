@@ -606,6 +606,8 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
         Toast.makeText(PreviewsFormDatSContersEnAc.this, "Falta Imagen", Toast.LENGTH_SHORT).show();
 
+         Log.i("faltanaxx","faltan imagenes");
+
     }
 
     boolean cehckFaltanImagenes() {
@@ -616,6 +618,9 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
             TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoLLegadaContenedor);
             ediFotoProcesoEnFruta.requestFocus();
             scroollElementoFaltante(ediFotoProcesoEnFruta);
+
+            Log.i("faltanaxx","faltan imagenes FOTO_LLEGADA_CONTENEDOR");
+
             showToast();
 
             return false;
@@ -632,6 +637,9 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
             TextView ediFotoProcesoEnFruta=findViewById(R.id.ediFotoSellosLLegada);
             ediFotoProcesoEnFruta.requestFocus();
             scroollElementoFaltante(ediFotoProcesoEnFruta);
+
+            Log.i("faltanaxx","faltan imagenes FOTO_SELLO_LLEGADA");
+
             showToast();
 
             return false;
@@ -649,6 +657,9 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
             TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotoPuertacontenedor);
             ediFotoProcesoEnFruta.requestFocus();
             scroollElementoFaltante(ediFotoProcesoEnFruta);
+
+            Log.i("faltanaxx","faltan imagenes FOTO_PUERTA_ABIERTA_DEL_CONTENENEDOR");
+
             showToast();
 
             return false;
@@ -663,6 +674,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_PALLETS)){
+            Log.i("faltanaxx","faltan imagenes FOTO_PALLETS");
 
             TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosPallets);
             ediFotoProcesoEnFruta.requestFocus();
@@ -685,6 +697,7 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
 
 
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_CIERRE_CONTENEDOR)){
+            Log.i("faltanaxx","faltan imagenes FOTO_CIERRE_CONTENEDOR");
 
             TextView ediFotoProcesoEnFruta=findViewById(R.id.txtCierreContenedor);
             ediFotoProcesoEnFruta.requestFocus();
@@ -705,6 +718,8 @@ public class PreviewsFormDatSContersEnAc extends AppCompatActivity implements Vi
         if( ! existminiumImage(Variables.MINIMO_FOTOS_ALL_CATEGORY,Variables.FOTO_DOCUMENTACION)){
             TextView ediFotoProcesoEnFruta=findViewById(R.id.txtFotosDocumentacion);
             ediFotoProcesoEnFruta.requestFocus();
+            Log.i("faltanaxx","faltan imagenes FOTO_DOCUMENTACION");
+
             scroollElementoFaltante(ediFotoProcesoEnFruta);
             showToast();
 
@@ -1641,6 +1656,9 @@ boolean checkDataFieldsToUploadAndGeneratePdf(boolean isGeneratePdf){ //
 
     if(! creaAcMapDatosProcesoAndCheck(Variables.CurrenReportContensEnACp.getDatosProcesoContenAcopioKEYFather(),keyNodeActualizar)){
         Log.i("caramba","no esta en orden cc ");
+
+        Log.i("faltanaxx","faltan cudro proceso");
+
         Toast.makeText(PreviewsFormDatSContersEnAc.this, "Falta cuadro Proceso ", Toast.LENGTH_LONG).show();
 
         return false;

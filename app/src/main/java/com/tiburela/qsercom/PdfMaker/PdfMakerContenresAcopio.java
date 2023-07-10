@@ -624,7 +624,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
         }
         @Override
         protected void onPreExecute() {
-            txtTareaAqui.setText("Empezando");
+            txtTareaAqui.setText("Empezando..");
 
             super.onPreExecute();
 
@@ -633,7 +633,7 @@ public class PdfMakerContenresAcopio extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void unused) {
             btnIrAARCHIVOpdf.setEnabled(true);
-            FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
+             FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive2);
             fabUploadDrive.setVisibility(View.VISIBLE);
             txtTareaAqui.setText("Informe listo");
 
