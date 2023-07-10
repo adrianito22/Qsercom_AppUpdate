@@ -5249,6 +5249,11 @@ else{
 
                         Variables.CurrenReportPart3.setEdiRacimosRecha(String.valueOf(informe.getTotalRechazadosAll()));
 
+
+                          if(ediRacimosRecha==null){
+                              ediRacimosRecha=findViewById(R.id.ediRacimosRecha);
+                          }
+
                         ediRacimosRecha.setText(String.valueOf(informe.getTotalRechazadosAll()));
                         btnGENERARpdf.setEnabled(true);
 

@@ -5094,7 +5094,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
                     CuadroMuestreo informe = ds.getValue(CuadroMuestreo.class);
                     Log.i("holerd", "aqui se encontro un cuadro muestreo......");
 
-                    if (informe != null) {
+                    if (informe != null && Variables.currenReportCamionesyCarretas!=null) {
 
                         Variables.currenReportCamionesyCarretas.setRacimosRechazados(informe.getTotalRechazadosAll());
 
