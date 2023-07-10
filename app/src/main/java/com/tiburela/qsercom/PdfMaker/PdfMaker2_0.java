@@ -590,6 +590,7 @@ public class PdfMaker2_0 extends AppCompatActivity {
             btnIrAARCHIVOpdf.setEnabled(true);
             FloatingActionButton fabUploadDrive=findViewById(R.id.fabUploadDrive);
             fabUploadDrive.setVisibility(View.VISIBLE);
+            txtTareaAqui.setText("Completado");
 
 
         }

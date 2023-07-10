@@ -41,6 +41,9 @@ public class Variables {
     public static   boolean ErrorSubirImage=false;
 
     public static   int contadorImagenesSubidasSumaAll =0;
+
+    public static   int contadorImagenesFall =0;
+
     public static   int numImagenesSubirTotal=0;
 
 

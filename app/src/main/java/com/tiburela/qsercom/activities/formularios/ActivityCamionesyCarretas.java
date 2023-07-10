@@ -2454,6 +2454,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
                      CalibrFrutCalEnf cali=     generateCalibracal(currenTidGenrate);
                     ProductPostCosecha producto= generateProductPost(currenTidGenrate);
+
                    ArrayList<ImagenReport>miList=updateAndCreateArrayListImages();
 
 

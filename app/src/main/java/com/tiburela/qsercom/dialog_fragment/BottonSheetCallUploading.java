@@ -63,7 +63,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
     static Query query;
     static DatabaseReference usersdRef;
-
+   static TextView txtImagenesfAIL;
 
         public static final String TAG = "ActionBottomDialog";
         private View vista;
@@ -224,6 +224,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             txtSubTitle =vista.findViewById(R.id.txtSubheader);
             imgIcon=vista.findViewById(R.id.imgIcon);
             btnOkButton=vista.findViewById(R.id.btnOkButton);
+           txtImagenesfAIL=vista.findViewById(R.id.txtImagenesfAIL);
+
             btnOkButton.setEnabled(false);
             Variables.contador=0;
             StorageDataAndRdB.indiceCurrentOFlistIamges=0;
@@ -557,7 +559,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             /**las imagenes por subir y contador de imagenes subidas reseteamos las subidas*/
             Variables.numImagenesSubirTotal=listImagesx.size();
             Variables.contadorImagenesSubidasSumaAll =0;
-            StorageDataAndRdB.initContexta(context);
+            Variables.contadorImagenesFall =0;
+
+        StorageDataAndRdB.initContexta(context);
 
             Log.i("IMAGESTASKEdit","la cantidad de imagenes a subir es: "+Variables.numImagenesSubirTotal);
 
@@ -870,7 +874,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                 try {
                     uploaddImagesAndDataImages1(currenImageReport);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    Log.i("ege","excpecion es "+e.getMessage());
+                   // throw new RuntimeException(e);
                 }
                 // start();
 
@@ -886,9 +891,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                 @Override
                 public void run() {
 
-                    if(progressBar!=null){
-
                         progressBar.setProgress(finalPorcentajeX[0]); //esto en interfas
+
+                        txtImagenesfAIL.setText("Error imagenes subidas: "+Variables.contadorImagenesFall);
 
                         if(finalPorcentajeX[0] ==0){
                             txtSubTitle.setText("Espere");
@@ -909,7 +914,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
                         }
 
-                    }
+
 
 
                 }
@@ -922,10 +927,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
             /**SI HAY PROBELASM DE URI PERMISOS ASEGURARSE QUE EL URI CONTENGA UNA PROPIEDAD QUE HACER QUE LE DE PERMISOS DE
              * LECTURA ALGO AS..ESO EN INTENT AL SELECIONAR IMAGENES*/
-
             Log.i("IMAGESTASKEdit","vamos a subir para el hilo "+1);
-
-
 
             Uri uriImage  = Uri.parse(currenImageReport.geturiImage());
             imagename = ImageFolderReferenceImagesAll.child(currenImageReport.getUniqueIdNamePic());
@@ -970,7 +972,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                          * */
 
                         Variables.contadorImagenesSubidasSumaAll++;
-                        Variables.ErrorSubirImage=true;
+                        Variables.contadorImagenesFall++;
 
                         updateObjectGCurrentIndiceAndContadorUpload1();
 
@@ -1016,6 +1018,8 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                 Variables.contadorImagenesSubidasSumaAll++;
                 Log.i("IMAGESTASKEdit","el contador imagenes subidas es "+ Variables.contadorImagenesSubidasSumaAll);
 
+                Variables.contadorImagenesFall++;
+
                 updateObjectGCurrentIndiceAndContadorUpload1();
                 callThreadByNumHilo1();
                 Log.i("exepciopmx","no existe valores");
@@ -1056,6 +1060,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
                     }else
                     {
+                        Variables.contadorImagenesFall++;
 
                         Variables. ErrorSubirImage=true;
                         updateObjectGCurrentIndiceAndContadorUpload1();

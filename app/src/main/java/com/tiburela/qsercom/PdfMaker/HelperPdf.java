@@ -1234,6 +1234,8 @@ if(contadorProductsPostCosecha>10){
 
 
     public static Table createTable2(Table miTable, DeviceRgb rgbColor,SetInformEmbarque2 object2) {
+        boolean seMarcox=false;
+
         Cell cellTipPlastic= new Cell().setPaddingLeft(10f);
         Cell cellPolitubo= new Cell().setPaddingLeft(10f);
         Cell cellPolituboX= new Cell().setPaddingLeft(10f); //x
@@ -1258,8 +1260,8 @@ if(contadorProductsPostCosecha>10){
         Cell cell13kg= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
         Cell cell13kgX= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
 
-        Cell cell208= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
-        Cell cell208X= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
+        Cell cellGlobalName= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
+        Cell cellGLobalX= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER);
 
 
 
@@ -1342,10 +1344,13 @@ if(contadorProductsPostCosecha>10){
         cell22XuX.setBackgroundColor(rgbColor) ; //MNARCAR LA X CON BACVGROUND VERDE
         cellDisplayX.setBackgroundColor(rgbColor);
         cell13kgX.setBackgroundColor(rgbColor);
-        cell208X.setBackgroundColor(rgbColor);
+        cellGLobalX.setBackgroundColor(rgbColor);
 
 
         if(object2.getTipoCaja().equalsIgnoreCase("22xu")) {
+            seMarcox=true;
+
+
             cell22XuX.add(new Paragraph(" X ").setFontSize(7.3f));
         }else{
             cell22XuX.add(new Paragraph("  ").setWidth(10));
@@ -1360,6 +1365,8 @@ if(contadorProductsPostCosecha>10){
 
 
         if(object2.getTipoCaja().equalsIgnoreCase("Display")) {
+            seMarcox=true;
+
             cellDisplayX.add(new Paragraph(" X ").setFontSize(6.5f));
 
 
@@ -1376,6 +1383,8 @@ if(contadorProductsPostCosecha>10){
         miTable.addCell(cell13kg.add(new Paragraph("13KG").setFontSize(7.3f).setFont(font))) ;
 
         if(object2.getTipoCaja().equalsIgnoreCase("13KG")) {
+            seMarcox=true;
+
             cell13kgX.add(new Paragraph(" X ").setFontSize(6.5f));
 
         }else{
@@ -1389,33 +1398,31 @@ if(contadorProductsPostCosecha>10){
 
         //aqui agregamos 3 opciones incluida la
 
-        if(object2.getTipoCaja().equalsIgnoreCase("9,5kg")){
-            miTable.addCell(cell13kg.add(new Paragraph("9,5KG").setFontSize(7.3f).setFont(font))) ;
-            cell13kgX.add(new Paragraph(" X ").setFontSize(6.5f));
 
 
-        }
 
-        else{
-
-            miTable.addCell(cell208.add(new Paragraph(object2.getTipoCaja()).setFontSize(7.3f).setFont(font))) ;
-            cell208X.add(new Paragraph(" X ").setFontSize(6.5f));
-/*
-            if(object2.getTipoCaja().equalsIgnoreCase("208")) {
+         /**en e**/
+      //  miTable.addCell(cellGlobalName.add(new Paragraph("9,5KG").setFontSize(7.3f).setFont(font))) ;
+            if(seMarcox){
+                miTable.addCell(cellGlobalName.add(new Paragraph("9,5kg").setFontSize(7.3f).setFont(font))) ;
+                cellGLobalX.add(new Paragraph("  ").setFontSize(6.5f));
+                miTable.addCell(cellGLobalX) ;
 
             }else{
-                cell208X.add(new Paragraph("  ").setWidth(10));
+
+                miTable.addCell(cellGlobalName.add(new Paragraph(object2.getTipoCaja()).setFontSize(7.3f).setFont(font))) ;
+                //cellGLobalX.add(new Paragraph(" X ").setFontSize(6.5f));
+                miTable.addCell(cellGLobalX.add(new Paragraph(" X ").setFontSize(7.3f).setFont(font))) ;
 
 
             }
 
- */
-        }
+
+
 
 
         miTable.setBorderBottom(Border.NO_BORDER);
 
-        miTable.addCell(cell208X) ;
 
 
 
@@ -1427,7 +1434,7 @@ if(contadorProductsPostCosecha>10){
         /*    Paragraph paragraph1 = new Paragraph(list.get(i).getNameFields()).setFontSize(8.5f).setPaddingLeft(10f).setFont(font).
                         .setPaddingTop(0f).setPaddingBottom(0f);
                 cell1= new Cell().setPadding(0.1f).add(paragraph1);*/
-
+          boolean seMarcox=false;
 
         Cell cellTipPlastic= new Cell().setPaddingLeft(10f).setBackgroundColor(rgbColor).setPadding(0.1f);
         Cell cellPolitubo= new Cell().setPaddingLeft(10f).setBackgroundColor(rgbColor).setPadding(0.1f);
@@ -1453,8 +1460,8 @@ if(contadorProductsPostCosecha>10){
         Cell cell13kg= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setBackgroundColor(rgbColor).setPadding(0.1f);
         Cell cell13kgX= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setPadding(0.1f);
 
-        Cell cell208= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setBackgroundColor(rgbColor).setPadding(0.1f);
-        Cell cell208X= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setPadding(0.1f);
+        Cell cellGlobalName= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setBackgroundColor(rgbColor).setPadding(0.1f);
+       // Cell cellGlobalName= new Cell().setPaddingLeft(10f).setBorderBottom(Border.NO_BORDER).setPadding(0.1f);
 
         //FALTA AGREGAR A LAS TABLAS
         miTable.addCell(cellTipPlastic.add(new Paragraph("TIPO DE PLÁSTICO").setPaddingLeft(10f).setPaddingTop(0f).setPaddingBottom(0f).setFontSize(8.5f).setFont(font)).setBold()) ;
@@ -1536,6 +1543,8 @@ if(contadorProductsPostCosecha>10){
 
 
         if(object2.getTipoDeCaja().equalsIgnoreCase("22xu")) {
+
+            seMarcox=true;
             cell22XuX.add(new Paragraph(" X ").setFontSize(7.6f));
         }else{
             cell22XuX.add(new Paragraph("  ").setWidth(10));
@@ -1551,6 +1560,7 @@ if(contadorProductsPostCosecha>10){
 
         if(object2.getTipoDeCaja().equalsIgnoreCase("Display")) {
             cellDisplayX.add(new Paragraph(" X ").setFontSize(7.6f));
+            seMarcox=true;
 
 
         }else{
@@ -1566,6 +1576,7 @@ if(contadorProductsPostCosecha>10){
         miTable.addCell(cell13kg.add(new Paragraph("13KG").setPaddingLeft(10f).setPaddingTop(0f).setPaddingBottom(0f).setFontSize(8.5f).setFont(font))) ;
 
         if(object2.getTipoDeCaja().equalsIgnoreCase("13KG")) {
+            seMarcox=true;
             cell13kgX.add(new Paragraph(" X ").setFontSize(7.6f));
 
         }else{
@@ -1579,31 +1590,25 @@ if(contadorProductsPostCosecha>10){
 
         //aqui agregamos 3 opciones incluida la
 
-        if(object2.getTipoDeCaja().equalsIgnoreCase("9,5kg")){
-            miTable.addCell(cell13kg.add(new Paragraph("9,5KG").setPaddingLeft(10f).setPaddingTop(0f).setPaddingBottom(0f).setFontSize(8.5f).setFont(font))) ;
-            cell13kgX.add(new Paragraph(" X ").setFontSize(7.6f));
 
 
-        }
+        if(seMarcox){
+            miTable.addCell(cellGlobalName.add(new Paragraph("9,5kg").setFontSize(7.3f).setFont(font))) ;
+            cell13kgX.add(new Paragraph("  ").setFontSize(6.5f));
+            miTable.addCell(cell13kgX) ;
 
-        else{
+        }else{
 
-            miTable.addCell(cell208.add(new Paragraph("208").setPaddingLeft(10f).setPaddingTop(0f).setPaddingBottom(0f).setFontSize(8.5f).setFont(font))) ;
-
-            if(object2.getTipoDeCaja().equalsIgnoreCase("208")) {
-                cell208X.add(new Paragraph(" X ").setFontSize(7.6f));
-
-            }else{
-                cell208X.add(new Paragraph("  ").setWidth(10));
+            miTable.addCell(cellGlobalName.add(new Paragraph(object2.getTipoDeCaja()).setFontSize(7.3f).setFont(font))) ;
+            miTable.addCell(cell13kgX.add(new Paragraph(" X ").setFontSize(7.3f).setFont(font))) ;
 
 
-            }
         }
 
 
         miTable.setBorderBottom(Border.NO_BORDER);
 
-        miTable.addCell(cell208X) ;
+      //  miTable.addCell(cellGlobalName) ;
 
 
 
@@ -4383,8 +4388,8 @@ if(contadorProductsPostCosecha>10){
                 , R.id.edif2LrgD29, R.id.edif2LrgD30};
 
 
-        int resultLine1;
-        int resultLine2;
+        float resultLine1;
+        float resultLine2;
 
         double resultLine1Double = 0;
         double resultLine2Double = 0;
@@ -4437,35 +4442,6 @@ if(contadorProductsPostCosecha>10){
         Log.i("ELWEIGTH", "EL GRADO_CALIBRE_PROMEDIO  PROMEDIO ES " + GRADO_CALIBRE_PROMEDIO);
 
 
-        resultLine1 = 0;
-        resultLine2 = 0;
-
-
-        /*
-        for (int i = 0; i < keyaRRAYnumnUMdedosFil1.length; i++) {
-            //keyDatsPesoarray
-            //itremoas
-            String keyCurrent1 = String.valueOf(keyaRRAYnumnUMdedosFil1[i]);
-            if (hashMapControlCald.containsKey(keyCurrent1)) {
-
-                Log.i("derddssd"," el value es "+hashMapControlCald.get(keyCurrent1));
-
-                resultLine1 = resultLine1 + Integer.parseInt(hashMapControlCald.get(keyCurrent1));
-            }
-
-            String keyCurrent2 = String.valueOf(keyaRRAYnumnUMdedosFil2[i]);
-            if (hashMapControlCald.containsKey(keyCurrent2)) {
-
-                resultLine2 = resultLine2 + Integer.parseInt(hashMapControlCald.get(keyCurrent2));
-
-            }
-
-        }
-        /*
-
-
-        /**gheneramos numero de NUMERO_DE_DEDOS*/
-
 
         if(!objecControlCald.getNumeroDedosXclusterOmano().equals("")){
 
@@ -4497,14 +4473,14 @@ if(contadorProductsPostCosecha>10){
             //itremoas
             String keyCurrent1 = String.valueOf(keyaRRAYnumClustXcajaLine1[i]);
             if (hashMapControlCald.containsKey(keyCurrent1)) {
-                resultLine1 = resultLine1 + Integer.parseInt(hashMapControlCald.get(keyCurrent1));
+                resultLine1 = resultLine1 + Float.parseFloat(hashMapControlCald.get(keyCurrent1));
             }
 
 
 
             String keyCurrent2 = String.valueOf(keyaRRAYnumClustXcajaLine2[i]);
             if (hashMapControlCald.containsKey(keyCurrent2)) {
-                resultLine2 = resultLine2 + Integer.parseInt(hashMapControlCald.get(keyCurrent2));
+                resultLine2 = resultLine2 +  Float.parseFloat(hashMapControlCald.get(keyCurrent2));
 
             }
 
@@ -4515,7 +4491,10 @@ if(contadorProductsPostCosecha>10){
 
 
         if(resultLine1>0 || resultLine2>0){
-            NUMERO_DE_CLUSTERS_POR_CAJA = resultLine2 / resultLine1;
+
+              float resulthere=resultLine2/resultLine1;
+            NUMERO_DE_CLUSTERS_POR_CAJA = Math.round(resulthere);
+
 
         }
 

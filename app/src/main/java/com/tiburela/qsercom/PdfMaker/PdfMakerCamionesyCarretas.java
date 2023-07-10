@@ -654,7 +654,7 @@ public class PdfMakerCamionesyCarretas extends AppCompatActivity {
 
         /**DATOS DE PROCESO parte 1 */
 
-        float sizeColumns7[]= {190,2,2,2,2,2,2,2,2};
+        float[] sizeColumns7 = {190,2,2,2,2,2,2,2,2};
         table1=  new Table(sizeColumns7);
 
 
