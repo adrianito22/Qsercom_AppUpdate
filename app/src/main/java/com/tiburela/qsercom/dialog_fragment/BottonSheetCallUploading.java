@@ -999,21 +999,16 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                                 // value.setIdReportePerteence(uniqueIDImagesSetAndUInforme);
                                 Log.i("superstorage","se subio imagen y el url esd  al informe "+currenImageReport.getUrlStoragePic());
 
-
                                 /**aumnetamos el valor del indice en ek on succes dek siguiente metodo*/
                                   addNewSetPicsInforme1(currenImageReport);
 
-
                             }
-
-
-
-
                         });
                     }
                 });
 
             } else {
+
                 Log.i("IMAGESTASKEdit","se eejcuto el else aqui ");
                 Variables.contadorImagenesSubidasSumaAll++;
                 Log.i("IMAGESTASKEdit","el contador imagenes subidas es "+ Variables.contadorImagenesSubidasSumaAll);
@@ -1023,7 +1018,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                 updateObjectGCurrentIndiceAndContadorUpload1();
                 callThreadByNumHilo1();
                 Log.i("exepciopmx","no existe valores");
-
 
             }
 

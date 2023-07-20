@@ -668,6 +668,7 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
     }
 
     private void findViewsIds( ) { //configuraremos algos views al iniciar
+        btnSave =findViewById(R.id.btnCheck);
 
         spinnerExportadora=findViewById(R.id.spinnerExportadora);
 
@@ -1354,106 +1355,6 @@ public class ActivityContenedores extends AppCompatActivity implements View.OnCl
                    return listIdSvINCULADOS;
     }
 
-/*
-private void setDataInRecyclerOfBottomSheet(RecyclerView reciclerView, ArrayList<CheckedAndAtatch>lista,boolean esReportsVinculadosMod) {
-    Log.i("samerr", "se llamo setDataInRecyclerOfBottomSheet y esl zie es  " + lista.size());
-
-    //Button  btnSaveCambiosxxx=bottomSheetDialog.findViewById(R.id.btnSaveCambiosxxx);
-
-    if (esReportsVinculadosMod && lista.size() == 0) {
-        txtAdviseer.setText("No hay Reportes Vinculados");
-
-    }
-
-    if (lista.size() == 0) {
-
-        txtAdviseer.setVisibility(TextView.VISIBLE);
-        txtAdviseer.setText("No hay Reportes en este periodo, selecione otro");
-
-        txtAdviserDesvicunlar.setVisibility(TextView.GONE);
-        //  btnSaveCambiosxxx.setVisibility(TextView.GONE);
-
-        Log.i("samerr", "se ejeduto el if ");
-
-    }
-
-    else
-
-    {
-
-
-        Log.i("samerr", "se ejeduto el else ");
-        txtAdviserDesvicunlar.setVisibility(TextView.VISIBLE);
-        // btnSaveCambiosxxx.setVisibility(TextView.VISIBLE);
-
-        txtAdviseer.setVisibility(TextView.GONE);
-    }
-
-    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityContenedores.this);
-    RecyclerViewAdapLinkage adapter = new RecyclerViewAdapLinkage(ActivityContenedores.this, lista, generateLISTbyStringVinculados(RecyclerViewAdapLinkage.idsFormsVinucladosControlCalidadString));
-    //  this.adapter.setPlayPauseClickListener(this);
-    reciclerView.setLayoutManager(layoutManager);
-    reciclerView.setAdapter(adapter);
-
-
-    adapter.setOnItemClickListener(new RecyclerViewAdapLinkage.ClickListener() {
-        @Override
-        public void onItemClick(int position, View v) {
-
-
-
-
-
-            if( v.getTag(R.id.tagImgCategory).toString().equals("Cuadro Muestreo")){
-
-
-                // String tipoInforme = (String) holder.checkBx.getTag(R.id.tipoInforme);
-
-
-                ///    Variables.currentcuadroMuestreo=listCuadrosMuestreos.get(position)
-
-                Variables.currentcuadroMuestreo=mapCudroMuestreo.get(String. valueOf(v.getTag(R.id.tagImgUniqueIdItem)));
-
-
-                Log.i("dbuhehjr","el id selecte  es "+v.getTag(R.id.tagImgUniqueIdItem));
-
-                showPRogressAndStartActivity(new Intent(ActivityContenedores.this, CuadMuestreoCalibAndRechazPrev.class));
-
-
-            }else{
-
-                Log.i("dbuhehjr","el id selecte es "+v.getTag(R.id.tagImgUniqueIdItem));
-
-
-
-                //  Variables.currenControlCalReport= listFormsControlCalidad.get(position);
-
-                Variables.currenControlCalReport=mapControlCalidad.get(String.valueOf(v.getTag(R.id.tagImgUniqueIdItem)));
-
-
-                showPRogressAndStartActivity(new Intent(ActivityContenedores.this, FormularioControlCalidadPreview.class));
-
-
-            }
-
-
-
-
-
-
-
-            // Variables.currenControlCalReport= listFormsControlCalidad.get(position);
-
-     // startActivity(new Intent(ActivityContenedores.this, FormularioControlCalidadPreview.class));
-
-
-           bottomSheetDialog.dismiss();
-
-        }
-    });
-
-}
-*/
 
     private void showPRogressAndStartActivity(Intent i) {
         progress =new ProgressDialog(ActivityContenedores.this);
@@ -2599,9 +2500,6 @@ private void showImagesPicShotOrSelectUpdateView(boolean isDeleteImg,int posicio
 private void eventCheckdata(){// verificamos que halla llenado toda la info necesaria..
 
 
-    btnSave =findViewById(R.id.btnCheck);
-
-
     btnSave.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -2612,7 +2510,6 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
               //  btnSave.setEnabled(false);
                 return;
             }
-
 
 
             //  btnCheck.setEnabled(false);

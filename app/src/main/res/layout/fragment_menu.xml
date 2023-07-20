@@ -100,7 +100,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="15dp"
-            android:text="Qsercon App (2.0)"
+            android:text="Qsercon App (v 10.0)"
             android:textSize="16sp" />
 
         <LinearLayout
