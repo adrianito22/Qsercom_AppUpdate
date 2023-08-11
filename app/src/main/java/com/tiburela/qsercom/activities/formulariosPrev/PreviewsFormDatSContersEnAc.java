@@ -3790,6 +3790,9 @@ private TextInputEditText[] creaArryOfTextInputEditText() {
             showImagesPicShotOrSelectUpdateView(false,Variables.NINGUNO);
 
         }
+
+
+
     }
 
 }

@@ -395,10 +395,14 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             RealtimeDB.UpdateCalibracionFrutCal(calendariox); //por ejempo en este metodo cuando suba el refiter form/..
         }
 
+
+
         else if(tipoObjectoQueSubiremosNow== Variables.ELIMNAR_IMAGENES){ //update info images
             /*ESTO PARA ELIMNAR LA SIMAGENES Id**/
             geTidAndDelete(0);
         }
+
+
 
         else if(tipoObjectoQueSubiremosNow== Variables.IMAGENES_SET_DE_REPORTE){ //ANTEPNULTIMO
             Log.i("samisas","update camiones y c  4");
@@ -868,6 +872,7 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
             }
 
+
             else{  //aun no hemos terminadp
 
                 currenImageReport = thread1.arrayListx.get(thread1.indiceCurrentObjectx);
@@ -877,8 +882,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                     Log.i("ege","excpecion es "+e.getMessage());
                    // throw new RuntimeException(e);
                 }
-                // start();
-
 
             }
 
@@ -971,13 +974,13 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
                          * AHORA INVOCAMOS EL METODO DE BOTTOM SHEET OTRA VEZ Y LE PASAMOS EL NUEVO INDICE
                          * */
 
+
                         Variables.contadorImagenesSubidasSumaAll++;
                         Variables.contadorImagenesFall++;
-
                         updateObjectGCurrentIndiceAndContadorUpload1();
 
+                        thread1.run();
 
-                        callThreadByNumHilo1();
 
                         Log.i("imagestorage", "existe una exepecion y es "+exception.getMessage());
 
@@ -1009,14 +1012,15 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
             } else {
 
-                Log.i("IMAGESTASKEdit","se eejcuto el else aqui ");
                 Variables.contadorImagenesSubidasSumaAll++;
                 Log.i("IMAGESTASKEdit","el contador imagenes subidas es "+ Variables.contadorImagenesSubidasSumaAll);
 
                 Variables.contadorImagenesFall++;
 
                 updateObjectGCurrentIndiceAndContadorUpload1();
-                callThreadByNumHilo1();
+
+                thread1.run();
+
                 Log.i("exepciopmx","no existe valores");
 
             }
@@ -1048,7 +1052,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
 
                         updateObjectGCurrentIndiceAndContadorUpload1();
-                        callThreadByNumHilo1();
+
+                        thread1.run();
+
 
 
 
@@ -1058,7 +1064,9 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
                         Variables. ErrorSubirImage=true;
                         updateObjectGCurrentIndiceAndContadorUpload1();
-                        callThreadByNumHilo1();
+
+                        thread1.run();
+
 
 
                     }
@@ -1076,11 +1084,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
 
         }
 
-        public   void callThreadByNumHilo1( ){
-            thread1.run();
-            //  thread1.startThreadMismoObject(objectThread);
-
-        }
 
 
     }
@@ -1126,7 +1129,6 @@ public class BottonSheetCallUploading extends BottomSheetDialogFragment {
             case Variables.FormatDatsContAcopi:
                 uploadConteendoresEnAcopio(Variables.FormatDatsContAcopi);
                 break;
-
 
             case Variables.FormatDatsContAcopiPREVIEW:
                 updateContenedresEnAcopio(Variables.FormatDatsContAcopiPREVIEW);
