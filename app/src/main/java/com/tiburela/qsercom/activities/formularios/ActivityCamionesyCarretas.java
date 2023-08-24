@@ -320,6 +320,9 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         setContentView(R.layout.report_calidad_camio_carret);
 
          TextView txtTitle=findViewById(R.id.txtTitle);
+
+
+
         txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -380,6 +383,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
             //The key argument here must match that used in the other activity
         }
 
+      //  SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(false, currentKeySharePrefrences); //este borarr debug nomas
 
     }
 

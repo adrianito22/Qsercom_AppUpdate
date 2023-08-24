@@ -15,27 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "672391309758-7o96su5cekaec12m6eb07nmadkioe157.apps.googleusercontent.com",
+          "client_id": "672391309758-fhg7nco7rdumofcuasaofdobauq64hva.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tiburela.qsercom",
-            "certificate_hash": "d30dddec7b74fd4538e7c4e96996e50765d59c69"
+            "certificate_hash": "2bc5476b33c11e87ac10e834550b816f73223dcd"
           }
         },
         {
-          "client_id": "672391309758-vbogn7vjrqcdjebdkg3gkibosfqn9ajf.apps.googleusercontent.com",
+          "client_id": "672391309758-q8a225eou3fj4j6nlud8eu25ktnn6mro.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tiburela.qsercom",
             "certificate_hash": "085d4cbea929f456a4107837fddc610f711ce8f7"
-          }
-        },
-        {
-          "client_id": "672391309758-vp06qmhh94v5030v7fu421tpn32792j9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tiburela.qsercom",
-            "certificate_hash": "eb843bbb8bb776aa3aa53fd60c765fa12cac497c"
           }
         },
         {

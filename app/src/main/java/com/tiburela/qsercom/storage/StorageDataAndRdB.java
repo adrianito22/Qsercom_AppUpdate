@@ -24,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.database.RealtimeDB;
-import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading2;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.utils.Utils;
@@ -441,18 +441,18 @@ public static int counTbucle=0;
 
               if(Utils.esNuevoReport){
 
-                  BottonSheetCallUploading.uploadConteendoresForm(Variables.FINISH_ALL_UPLOAD);
+                  BottonSheetCallUploading2.uploadConteendoresForm(Variables.FINISH_ALL_UPLOAD);
                   Log.i("finalizando","se eejcuto el if ");
               }
 
               else
 
               {
-                //  BottonSheetCallUploading.
+                //  BottonSheetCallUploading2.
 
 
                   //Log.i("updatexxxx","se eejcuto erl else llamois metodo con finish value");
-                 // BottonSheetCallUploading.UpdateReportThread(Variables.FINISH_ALL_UPLOAD);
+                 // BottonSheetCallUploading2.UpdateReportThread(Variables.FINISH_ALL_UPLOAD);
 
               }
 

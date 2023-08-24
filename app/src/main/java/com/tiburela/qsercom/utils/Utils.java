@@ -52,6 +52,7 @@ import com.tiburela.qsercom.adapters.RecyclerViewAdapLinkage;
 import com.tiburela.qsercom.adapters.RecyclerViewAdapter;
 import com.tiburela.qsercom.database.RealtimeDB;
 import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading;
+import com.tiburela.qsercom.dialog_fragment.BottonSheetCallUploading2;
 import com.tiburela.qsercom.models.CalibrFrutCalEnf;
 import com.tiburela.qsercom.models.ContenedoresEnAcopio;
 import com.tiburela.qsercom.models.ControlCalidad;
@@ -1555,7 +1556,7 @@ return true;
                                                    HashMap<String, Float> miMapLbriadox, int ActivityId,String keyPrefrencesx)
     {
         FragmentManager fm =((FragmentActivity)activity). getSupportFragmentManager();
-        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,informEmbq1,informEmbq2,datoshda,informRegisterx,productos,listImages,miMapLbriadox,ActivityId);
+        BottonSheetCallUploading2 alertDialog =  BottonSheetCallUploading2.newInstance(contexta,informEmbq1,informEmbq2,datoshda,informRegisterx,productos,listImages,miMapLbriadox,ActivityId);
 
         Bundle bundle = new Bundle();
         bundle.putString("keyPrefrencesReportCurrent", keyPrefrencesx);
@@ -1578,7 +1579,7 @@ return true;
 
 
 
-        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,camionesyCarretas,calibracEnfunde  ,informRegisterx,productos,listImages,ActivityId);
+        BottonSheetCallUploading2 alertDialog =  BottonSheetCallUploading2.newInstance(contexta,camionesyCarretas,calibracEnfunde  ,informRegisterx,productos,listImages,ActivityId);
 
         Bundle bundle = new Bundle();
         bundle.putString("keyPrefrencesReportCurrent", keyPrefrencesx);
@@ -1605,7 +1606,7 @@ return true;
 
 
 
-        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,camionesyCarretas,calibracEnfunde  ,productos,listImages,ActivityId);
+        BottonSheetCallUploading2 alertDialog =  BottonSheetCallUploading2.newInstance(contexta,camionesyCarretas,calibracEnfunde  ,productos,listImages,ActivityId);
 
         Bundle bundle = new Bundle();
        // bundle.putString("keyPrefrencesReportCurrent", keyPrefrencesx);
@@ -1629,7 +1630,7 @@ return true;
 
 
 
-        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,contenedoresEnAcopio  ,informRegisterx,
+        BottonSheetCallUploading2 alertDialog =  BottonSheetCallUploading2.newInstance(contexta,contenedoresEnAcopio  ,informRegisterx,
                 miMap,listImages,ActivityId);
 
         Bundle bundle = new Bundle();
@@ -1654,7 +1655,7 @@ return true;
 
         FragmentManager fm =((FragmentActivity)activity). getSupportFragmentManager();
 
-        BottonSheetCallUploading alertDialog =  BottonSheetCallUploading.newInstance(contexta,controlCalidad,
+        BottonSheetCallUploading2 alertDialog =  BottonSheetCallUploading2.newInstance(contexta,controlCalidad,
                 hasHmapOtherFieldsEditxs,hasMapitemsSelecPosicRechazToUpload,informRegisterx,ActivityIdx);
 
         Bundle bundle = new Bundle();

@@ -1018,18 +1018,12 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-
                 Log.i("defugero", "firebaseAuthWithGoogle:" + account.getId());
                 Log.i("defugero", "firebaseAuthWithGoogle:" + account.getDisplayName());
-
-
                 firebaseAuthWithGoogle(account.getIdToken());
                 Log.i("defugero","se jecuito el try");
-
             } catch (ApiException e) {
-
                 Log.i("defugero","se produjo un error ");
                 Log.i("defugero","se produjo un error es "+e);
                 // Google Sign In failed, update UI appropriately
@@ -1055,10 +1049,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                             Variables.  userGoogle = mAuth.getCurrentUser();
 
-
                             chelkeasIEXTSEuser(Variables.userGoogle.getEmail());
                              nombreYapllidoUser=Variables.userGoogle.getDisplayName();
-
 
                              userIniciosSesion=true;
 
