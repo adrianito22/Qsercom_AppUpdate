@@ -985,9 +985,13 @@ public class RealtimeDB {
     }
 
 
-
-
     public static void UploadCalibracionFrutCal( CalibrFrutCalEnf calibrFrutCalEnf) {
+        Log.i("misadtacurl","la data de este objeto es  es "+calibrFrutCalEnf.toString());
+        Log.i("misadtacurl","el id de este  objeto es "+calibrFrutCalEnf.getIdPertenece());
+
+       /**le marcamo que no subimos informe en prefrences...
+        * den camiones y carretas usra metodo en oncreate,*/
+
 
         DatabaseReference mibasedata = rootDatabaseReference.child("Informes").child("listCalibracionFtutsCal");
         // Map<String, Object> mapValues = informeObjct.toMap();
@@ -1001,16 +1005,16 @@ public class RealtimeDB {
                 if (task.isSuccessful()) {
                       if(Variables.activityCurrent==Variables.FormCamionesyCarretasActivity){
 
-                          BottonSheetCallUploading2.  uploadCamionesYcarretas(Variables.INFORM_REGISTER);
+                          Log.i("misadtacurl","ok es succes");
+
+                          BottonSheetCallUploading2.uploadCamionesYcarretas(Variables.INFORM_REGISTER);
 
                       }
-
-
-
 
                     // Toast.makeText(context, "Se subio", Toast.LENGTH_SHORT).show();
 
                 }else  {
+                    Log.i("misadtacurl","ok no es es succes");
 
 
                 }

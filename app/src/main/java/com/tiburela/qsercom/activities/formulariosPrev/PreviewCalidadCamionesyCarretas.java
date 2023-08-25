@@ -365,8 +365,8 @@ public class PreviewCalidadCamionesyCarretas extends AppCompatActivity implement
         if (extras != null) {
 
             hayUnformularioIcompleto = extras.getBoolean("ActivitymenuKey");
-
             //The key argument here must match that used in the other activity
+
         }
 
 
@@ -4143,6 +4143,9 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
 
     void dowloadCalibracionCalendario(String idAlquePERTENECE){
+
+        Log.i("somewrlals","la propiedad es "+idAlquePERTENECE);
+
         Query query = RealtimeDB.rootDatabaseReference.child("Informes").
                 child("listCalibracionFtutsCal").
                 orderByChild("idPertenece").equalTo(idAlquePERTENECE);
@@ -4165,7 +4168,7 @@ private void setCalibrCalEndInViews(CalibrFrutCalEnf currentObject){
 
                 if(Variables.calEnfundeGLOB!=null){
 
-                    Log.i("somewrlals","es difrente de nulo");
+                    Log.i("somewrlals","es difrente de nulo calcalem");
 
                     setCalibrCalEndInViews(Variables.calEnfundeGLOB);
 

@@ -383,6 +383,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
             //The key argument here must match that used in the other activity
         }
 
+         ///borramos depsues here..
       //  SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(false, currentKeySharePrefrences); //este borarr debug nomas
 
     }
@@ -2462,7 +2463,11 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
                    ArrayList<ImagenReport>miList=updateAndCreateArrayListImages();
 
 
-                   Utils. show_AND_UPLOAD_CamionesyCarretas(ActivityCamionesyCarretas.this,ActivityCamionesyCarretas.this,
+                    Log.i("misadtacurl","el id de este objeto calcalen es "+cali.getIdPertenece());
+               Log.i("misadtacurl","la data de este objeto es  es "+cali.toString());
+
+
+                    Utils. show_AND_UPLOAD_CamionesyCarretas(ActivityCamionesyCarretas.this,ActivityCamionesyCarretas.this,
                            objecCamionesyCarretas,cali,informRegister,producto,miList,Variables.FormCamionesyCarretasActivity
                    ,currentKeySharePrefrences);
 
@@ -3507,6 +3512,7 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         //recorremos un array de editext y creamos un objeto de tipo CalibrFrutCalEnf..
         //si no tiene data agregamos cero u comillas...
+
 
         CalibrFrutCalEnf calibrFrutCalEnf=new CalibrFrutCalEnf(reportPerteence);
         //creamos un array de editext
