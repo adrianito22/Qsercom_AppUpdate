@@ -384,7 +384,9 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         }
 
          ///borramos depsues here..
-      //  SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(false, currentKeySharePrefrences); //este borarr debug nomas
+        SharePrefHelper.UpdateRegisterLOCALEMarcaSubido(false, currentKeySharePrefrences); //este borarr debug
+
+
 
     }
 
@@ -483,7 +485,6 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
         catch (Exception e) {
 
             Log.i("preferido","la expecion es "+e.getMessage());
-            e.printStackTrace();
 
 
         }
@@ -502,14 +503,15 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
         ImagenReport.hashMapImagesData  =  SharePref.getMapImagesData(currentKeySharePrefrences);
 
-        Log.i("dineroa","se eejcto este value   ");
-
+        Log.i("superirt","el size de hasmap images es "+ImagenReport.hashMapImagesData.size());
 
         ArrayList<ImagenReport> listImagesToSaVE = new ArrayList<>(ImagenReport.hashMapImagesData .values());
 
         //if el formulario no es nulo
 
         if(listImagesToSaVE!=null && listImagesToSaVE.size()>0 ) {
+
+            Log.i("superirt","es nulo y mayor a 0");
 
             createlistsForReciclerviewsImages(listImagesToSaVE);
 
@@ -2039,11 +2041,24 @@ public class ActivityCamionesyCarretas extends AppCompatActivity implements View
 
 
 
-
-
                 // generatePDFandImport();
 
+                try{
+
+                    callPrefrencesSaveAndImagesData();
+
+
+                } catch (Exception e) {
+
+                    Log.i("elformasd","data xc "+e.getMessage());
+
+                }
+
+
+
                 checkDataFields();
+
+
 
 
 
@@ -3893,9 +3908,6 @@ private boolean checkQueexistminimCalibracionCalendario() {
     }
 
     void createlistsForReciclerviewsImages(ArrayList<ImagenReport>listImagenReports){
-
-        //  addInfotomap(listImagenReports);
-
 
         ArrayList<ImagenReport>lisFiltrada;
 

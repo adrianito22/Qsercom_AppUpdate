@@ -1,9 +1,8 @@
 plugins {
 
-    id 'com.google.gms.google-services'
     id 'com.android.application'
-
     id 'com.google.firebase.crashlytics' version "2.9.5" apply true
+    id 'com.google.gms.google-services'
 
 }
 

@@ -1255,6 +1255,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
             }
 
 
+            callPrefrencesSaveAndImagesData();
 
 
             btnCheck.setEnabled(false);

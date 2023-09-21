@@ -74,7 +74,6 @@ import com.tiburela.qsercom.models.Exportadora;
 import com.tiburela.qsercom.models.ImagenReport;
 import com.tiburela.qsercom.models.InformRegister;
 import com.tiburela.qsercom.models.UsuarioQsercon;
-import com.tiburela.qsercom.storage.StorageDataAndRdB;
 import com.tiburela.qsercom.utils.HelperImage;
 import com.tiburela.qsercom.utils.PerecentHelp;
 import com.tiburela.qsercom.utils.Utils;
@@ -104,7 +103,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
     ImageView imGProfile;
 
     TextView txtHeader;
-    TextView txtSubHeader;
+    TextView txtSubHeaderIiciarSesion;
 
     LinearLayout ly_contenedores;
     LinearLayout ly_conte_en_acopio;
@@ -932,7 +931,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
         }
 
         txtHeader=findViewById(R.id.txtHeader);
-        txtSubHeader=findViewById(R.id.txtSubHeader);
+        txtSubHeaderIiciarSesion =findViewById(R.id.txtSubHeader);
 
 
         if(Variables.userGoogle!=null)
@@ -952,7 +951,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
             txtHeader.setText(Variables.userGoogle.getDisplayName());
 
-            txtSubHeader.setOnClickListener(null);
+            txtSubHeaderIiciarSesion.setOnClickListener(null);
 
 
         }else
@@ -960,7 +959,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
         if(userIniciosSesion){ ///mostramos el nombre y el cargo que tiene
-           txtSubHeader.setOnClickListener(null);
+           txtSubHeaderIiciarSesion.setOnClickListener(null);
 
 
 
@@ -969,17 +968,19 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
             txtHeader.setText("!No has iniciado Sesion !");
 
-            txtSubHeader=findViewById(R.id.txtSubHeader);
-            txtSubHeader.setText("Inicia sesion Aqui");
+            txtSubHeaderIiciarSesion =findViewById(R.id.txtSubHeader);
+            txtSubHeaderIiciarSesion.setText("Inicia sesion Aqui");
 
             ///LE CAMBISMO DE COLOR A UN
 
 
-            txtSubHeader.setOnClickListener(new View.OnClickListener() {
+            txtSubHeaderIiciarSesion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
         signInGoogle();
+
+
                 }
             });
 
@@ -1056,8 +1057,8 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
                              estableceHeaderTextAndListerner();
 
-                             txtSubHeader=findViewById(R.id.txtSubHeader);
-                             txtSubHeader.setText("Pendiente");
+                             txtSubHeaderIiciarSesion =findViewById(R.id.txtSubHeader);
+                             txtSubHeaderIiciarSesion.setText("Pendiente");
 
 
                             descragCurrentUsuario(Variables.userGoogle.getEmail());
@@ -1420,17 +1421,17 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
                 if(user!=null){
 
                    Variables.usuarioQserconGlobal=user;
-                    txtSubHeader=findViewById(R.id.txtSubHeader);
+                    txtSubHeaderIiciarSesion =findViewById(R.id.txtSubHeader);
                     if(user.getTiposUSUARI()==Utils.INSPECTOR_OFICINA){
 
-                        txtSubHeader.setText("Inspector de oficina");
+                        txtSubHeaderIiciarSesion.setText("Inspector de oficina");
 
                     }else if(user.getTiposUSUARI()==Utils.INSPECTOR_CAMPO){
-                                               txtSubHeader.setText("Inspector de Campo");
+                                               txtSubHeaderIiciarSesion.setText("Inspector de Campo");
 
                     }else{
 
-                        txtSubHeader.setText("Cargo No definido");
+                        txtSubHeaderIiciarSesion.setText("Cargo No definido");
 
                     }
 
@@ -1534,12 +1535,12 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
     private void setdataSigOut(){
-        txtSubHeader=findViewById(R.id.txtSubHeader);
+        txtSubHeaderIiciarSesion =findViewById(R.id.txtSubHeader);
         txtHeader=findViewById(R.id.txtHeader);
 
 
         txtHeader.setText("! NO HAS INICIADO SESIÓN !");
-        txtSubHeader.setText("INICIA SESIÓN AQUÍ");
+        txtSubHeaderIiciarSesion.setText("INICIA SESIÓN AQUÍ");
         imGProfile.setImageResource(R.drawable.ic_baseline_face_24);
 
 
@@ -1547,7 +1548,7 @@ public class ActivityMenu extends AppCompatActivity implements CallbackDialogCon
 
 
 
-        txtSubHeader.setOnClickListener(new View.OnClickListener() {
+        txtSubHeaderIiciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

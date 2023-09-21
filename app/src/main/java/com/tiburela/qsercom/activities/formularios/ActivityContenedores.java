@@ -2503,6 +2503,7 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
     btnSave.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
             if(!currentKeySharePrefrences.equals("") && Utils.checkIfReportSeSubio(currentKeySharePrefrences)){
                 //ya se subio anteriomente
                 Toast.makeText(     ActivityContenedores.this, "Ya subiste este formulario", Toast.LENGTH_SHORT).show();
@@ -2510,6 +2511,16 @@ private void eventCheckdata(){// verificamos que halla llenado toda la info nece
               //  btnSave.setEnabled(false);
                 return;
             }
+
+
+            try {
+                callPrefrencesSaveAndImagesData();
+
+            } catch (Exception e) {
+                Log.i("elformasd","se sjhj "+e.getMessage());
+
+            }
+
 
 
             //  btnCheck.setEnabled(false);
@@ -4977,7 +4988,6 @@ return  producto;
                 for (DataSnapshot ds : snapshot.getChildren()) {
                       user=ds.getValue(InformRegister.class);
                 }
-
 
                 if(user == null && ! seSubioform) { //quiere decir que no existe
                     Log.i("imagebrr","elunique id informe es "+currenTidGenrate);

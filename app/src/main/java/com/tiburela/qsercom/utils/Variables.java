@@ -61,9 +61,9 @@ public class Variables {
     public static  int OBJECT_CAMIONESYCARRETAS=111;
 
     public static  int contador=100;
-    public static  int OBJECT_SetInformEmbarque1=100;
-    public static  int OBJECT_SetInformEmbarque2=101;
-    public static  int OBJECT_SetInformDatsHacienda=102;
+    public static final  int OBJECT_SetInformEmbarque1=100;
+    public static final int OBJECT_SetInformEmbarque2=101;
+    public static final int OBJECT_SetInformDatsHacienda=102;
     public static  int IMAGENES_SET_DE_REPORTE =103;
     public static  int PRODUCTS_POST_COSECHA=104;
     public static  int LIBRIADO_IF_EXIST=105;

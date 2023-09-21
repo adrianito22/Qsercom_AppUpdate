@@ -97,6 +97,8 @@ public class BottonSheetCallUploading2 extends BottomSheetDialogFragment {
     TrheadUploadImages thread1;
     private View vista;
 
+
+    ///
     public static BottonSheetCallUploading2 newInstance(Context context2, ControlCalidad controlCalidad, HashMap<String, String> hashMap, HashMap<String, String> hashMap2, InformRegister informRegister2, int i) {
         context = context2;
         controlCalidadX = controlCalidad;
@@ -107,6 +109,7 @@ public class BottonSheetCallUploading2 extends BottomSheetDialogFragment {
         return new BottonSheetCallUploading2();
     }
 
+    /**Contenedores*/
     public static BottonSheetCallUploading2 newInstance(Context context2, SetInformEmbarque1 setInformEmbarque1, SetInformEmbarque2 setInformEmbarque2, SetInformDatsHacienda setInformDatsHacienda, InformRegister informRegister2, ProductPostCosecha productPostCosecha, ArrayList<ImagenReport> arrayList, HashMap<String, Float> hashMap, int i) {
         context = context2;
         informe1 = setInformEmbarque1;
@@ -177,7 +180,11 @@ public class BottonSheetCallUploading2 extends BottomSheetDialogFragment {
                 }
             }
         });
+
+
         decideMethodCallUpdate(activityIdx);
+
+
         return this.vista;
     }
 
@@ -197,10 +204,14 @@ public class BottonSheetCallUploading2 extends BottomSheetDialogFragment {
 
     public static void uploadConteendoresForm(int i) {
         if (i == Variables.OBJECT_SetInformEmbarque1) {
+
             RealtimeDB.addNewDSetinformEmarque1(informe1);
+
         } else if (i == Variables.OBJECT_SetInformEmbarque2) {
+
             RealtimeDB.addNewInformeEmbarque2(context, informe2);
             Log.i("finalizando", "SECOND");
+
         } else if (i == Variables.OBJECT_SetInformDatsHacienda) {
             RealtimeDB.addNewDSetinformEmarque1(informe3);
         } else if (i == Variables.LIBRIADO_IF_EXIST) {
@@ -686,6 +697,9 @@ public class BottonSheetCallUploading2 extends BottomSheetDialogFragment {
     static void decideMethodCallUpdate(int i) {
         Log.i("idcurrent", "el id current es " + i);
         if (i == 10060) {
+            /**Usar clases enum**/
+
+
             UpdateConteendores(Variables.SEVERAL_INFORMS_UPDATE);
         } else if (i == 1065072) {
             updatControlCalidad(Variables.CONTROL_CALIDAD_OBJECT);

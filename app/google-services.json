@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "672391309758-d7dijhvuq7hrndcefjlc9ancta5c5sg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tiburela.qsercom",
+            "certificate_hash": "e04c8cfafccb57b8bc514c3ac6922f556eb4b3c7"
+          }
+        },
+        {
           "client_id": "672391309758-fhg7nco7rdumofcuasaofdobauq64hva.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
